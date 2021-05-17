@@ -108,7 +108,7 @@ XYnew = table(loc,X,Y);
 XYnew.N = nan(height(XYnew),1);
 XYnew(isnan(X),:) = [];
 XY = [XY;XYnew];
-[~,order] = sort(XY.loc);
+[~,order] = sort(XY.N,'descend');
 XY = XY(order,:);
 
 
@@ -148,3 +148,4 @@ text(repmat(34.3,3,1),32+(0.1:0.1:0.3),{'1','10','100'})
 
 %%
 writetable(XY,'~/alarms/data/alarmXY.csv','Delimiter',',','WriteVariableNames',true)
+writetable(rockets,'~/alarms/data/rename.csv','Delimiter',',','WriteVariableNames',true)
