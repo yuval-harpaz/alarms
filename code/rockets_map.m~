@@ -108,7 +108,7 @@ XYnew = table(loc,X,Y);
 XYnew.N = nan(height(XYnew),1);
 XYnew(isnan(X),:) = [];
 XY = [XY;XYnew];
-[~,order] = sort(XY.loc);
+[~,order] = sort(XY.N,'descend');
 XY = XY(order,:);
 
 
