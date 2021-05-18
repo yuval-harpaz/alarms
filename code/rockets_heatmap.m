@@ -41,7 +41,7 @@ if height(alarm) > 0
         end
     end
 end
-title(['Alarms in Israel ',datestr(tLast,'dd/mm HH:MM')])
+title({['Alarms in Israel ',datestr(tLast,'dd/mm HH:MM')],' '})
 set(gcf,'Color','w')
 
 [~,txti] = ismember({'ירושלים','אשדוד','אשקלון','תל אביב','נתניה','באר שבע','דימונה','נתיבות'},XY.loc);
@@ -55,9 +55,15 @@ for ii = 1:3
 %     hleg(ii) = plot(34.4,32+ii/10,'k.','MarkerSize',sz(ii)/3+1);
     hleg(ii) = plot(34.2,32+ii/10,'k.','MarkerSize',sqrt(sz(ii)/pi)/2*10);
 end
-text(repmat(34.3,3,1),32+(0.1:0.1:0.3),{'1','10','100'})
+text(34.2,32.4,'Total')
 % colorbar
 % colormap(col)
 % caxis([1 24])
 %%
 writetable(XY,'~/alarms/data/alarmXY.csv','Delimiter',',','WriteVariableNames',true)
+if nargout == 0
+    colorbar;
+    colormap(flipud(jet(24)));
+    caxis([1 24])
+    title({'Alarms in Israel',['color = hours from ',datestr(tLast,'dd/mm HH:MM')]})
+end

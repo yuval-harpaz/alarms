@@ -2,15 +2,24 @@ time = datetime(2021,5,9)+20/24;
 time = time:1/24:datetime('now');
 fig = figure('units','normalized','position',[0.3 0.1 0.3 0.8]);
 for ii = 1:length(time)
-    fig = rockets_heatmap(time(ii),fig);
     num = '0000';
     num(end-length(str(ii))+1:end) = str(ii);
-    saveas(fig,['~/alarms/data/tmp_',num,'.png'])
-    pause(0.1)
-    clf
+    fn = ['~/alarms/data/tmp_',num,'.jpg'];
+    if ~exist(fn,'file')
+        fig = rockets_heatmap(time(ii),fig);
+        
+        saveas(fig,fn)
+        pause(0.1)
+        clf
+    end
     IEprog(ii)
 end
 fig = rockets_heatmap(time(ii),fig);
 colorbar
 colormap(flipud(jet(24)))
 caxis([1 24])
+cd ~/alarms/data/
+% !ffmpeg -r 5 -i tmp_%04d.jpg -c:v libx264 -vf fps=25 alarms.mp4
+!ffmpeg -r 5 -i tmp_%04d.jpg -vf alarms.avi
+% !ffmpeg -i tmp_%04d.jpg -framerate 9 -loop 0 alarm.gif
+!ffmpeg -r 5 -loop 0 -i tmp_%04d.jpg output.gif
