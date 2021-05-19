@@ -1,12 +1,18 @@
-fid = fopen('~/alarms/data/new_alarms.txt','r');
-txt = fread(fid);
-fclose(fid);
-txt = native2unicode(txt');
-c = regexp(txt,'\n','split');
-c(cellfun(@isempty,c)) = [];
-t = join([c(1:3:end)',c(2:3:end)'],' ');
-time = datetime(t,'InputFormat','dd.MM.yyyy HH:mm');
-loc = c(3:3:end)';
+txt = urlread('https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he');
+json = jsondecode(txt);
+tt = struct2table(json);
+time = datetime(strrep(tt.datetime,'T',' '),'InputFormat','yyyy-MM-dd HH:mm:ss');
+loc = tt.data;
+% 
+% fid = fopen('~/alarms/data/new_alarms.txt','r');
+% txt = fread(fid);
+% fclose(fid);
+% txt = native2unicode(txt');
+% c = regexp(txt,'\n','split');
+% c(cellfun(@isempty,c)) = [];
+% t = join([c(1:3:end)',c(2:3:end)'],' ');
+% time = datetime(t,'InputFormat','dd.MM.yyyy HH:mm');
+% loc = c(3:3:end)';
 
 prev = readtable('~/alarms/data/alarm.csv');
 new = table(time,loc);

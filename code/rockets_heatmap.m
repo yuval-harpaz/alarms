@@ -56,14 +56,21 @@ for ii = 1:3
     hleg(ii) = plot(34.2,32+ii/10,'k.','MarkerSize',sqrt(sz(ii)/pi)/2*10);
 end
 text(34.2,32.4,'Total')
+text(repmat(34.25,3,1),32+(0.1:0.1:0.3),{'1','10','100'})
 % colorbar
 % colormap(col)
 % caxis([1 24])
 %%
 writetable(XY,'~/alarms/data/alarmXY.csv','Delimiter',',','WriteVariableNames',true)
 if nargout == 0
-    colorbar;
+    xt = cellstr(str([1:24]'));
+    xt(end) = {'24+'};
+    hcb = colorbar('Xtick',1.5:24/25:24,'XtickLabel',xt);
     colormap(flipud(jet(24)));
     caxis([1 24])
-    title({'Alarms in Israel',['color = hours from ',datestr(tLast,'dd/mm HH:MM')]})
+%     title({'Alarms in Israel',['color = hours from ',datestr(tLast,'dd/mm HH:MM')]})
+    text(35.75,31,['hours from ',datestr(tLast,'dd/mm HH:MM')],'Rotation',90)
+    set( hcb, 'YDir', 'reverse' );
+    text(35.7,32.55,'alarm age(h)')
 end
+disp(XY(1:10,[1,4]))
