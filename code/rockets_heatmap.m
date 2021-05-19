@@ -4,7 +4,7 @@ XY = readtable('~/alarms/data/alarmXY.csv');
 alarm = readtable('~/alarms/data/rename.csv');
 if nargin == 0
     tLast = max(alarm.time);
-    fig = figure('units','normalized','position',[0.3 0.1 0.3 0.8]);
+    fig = figure('units','normalized','position',[0.3 0 0.3 1]);
 else
     alarm(alarm.time > tLast,:) = [];
 end
@@ -22,16 +22,18 @@ cc(cc > 24) = 24;
 cc(cc == 0) = 1;
 %% 
 
-
+isr = importdata('isr.txt');
 colorset;
-h = borders('Israel');
+% h = borders('Israel');
+n = 6467;
+plot(isr(1:n,1),isr(1:n,2),'k')
 hold on;
 h(2) = borders('Palestine');
 h(2).Color = [0.2 0.6 0.2];
 axis equal
 axis off
 box off
-ylim([29.5 32.5])
+ylim([29.5 33.5])
 xlim([34 35.75])
 if height(alarm) > 0
     for ii = 1:height(XY)
@@ -71,6 +73,6 @@ if nargout == 0
 %     title({'Alarms in Israel',['color = hours from ',datestr(tLast,'dd/mm HH:MM')]})
     text(35.75,31,['hours from ',datestr(tLast,'dd/mm HH:MM')],'Rotation',90)
     set( hcb, 'YDir', 'reverse' );
-    text(35.7,32.55,'alarm age(h)')
+    text(35.7,33.55,'alarm age(h)')
 end
 disp(XY(1:10,[1,4]))
