@@ -20,7 +20,9 @@ colormap(flipud(jet(24)))
 caxis([1 24])
 cd ~/alarms/data/
 % !ffmpeg -r 5 -i tmp_%04d.jpg -c:v libx264 -vf fps=25 alarms.mp4
-!ffmpeg -r 5 -i tmp_%04d.jpg -vf alarms.avi
+% !ffmpeg -i tmp_%04d.jpg -vf fps=25 alarms.avi
+% !ffmpeg -r 5 -i tmp_%04d.jpg -vf fps=25 alarms5.avi
+!ffmpeg -i tmp_%04d.jpg -vf fps=25 alarms.mp4
 % !ffmpeg -i tmp_%04d.jpg -framerate 9 -loop 0 alarm.gif
-!ffmpeg -r 5 -loop 0 -i tmp_%04d.jpg alarms5.gif
-!ffmpeg -loop 0 -i tmp_%04d.jpg alarms.gif
+!ffmpeg -r 5 -i tmp_%04d.jpg -loop 0 alarms5.gif
+!ffmpeg -i tmp_%04d.jpg -loop_output 0 alarms.gif
