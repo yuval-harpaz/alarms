@@ -7,8 +7,8 @@ for ii = 1:length(time)
     fn = ['~/alarms/data/tmp_',num,'.jpg'];
     if ~exist(fn,'file')
         fig = rockets_heatmap(time(ii),fig);
-        
-        saveas(fig,fn)
+        eval(['export_fig ',fn,' -nocrop -r 300']);
+%         saveas(fig,fn)
         pause(0.1)
         clf
     end
@@ -22,4 +22,5 @@ cd ~/alarms/data/
 % !ffmpeg -r 5 -i tmp_%04d.jpg -c:v libx264 -vf fps=25 alarms.mp4
 !ffmpeg -r 5 -i tmp_%04d.jpg -vf alarms.avi
 % !ffmpeg -i tmp_%04d.jpg -framerate 9 -loop 0 alarm.gif
-!ffmpeg -r 5 -loop 0 -i tmp_%04d.jpg output.gif
+!ffmpeg -r 5 -loop 0 -i tmp_%04d.jpg alarms5.gif
+!ffmpeg -loop 0 -i tmp_%04d.jpg alarms.gif

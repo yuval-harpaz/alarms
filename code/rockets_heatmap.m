@@ -21,8 +21,9 @@ end
 cc(cc > 24) = 24;
 cc(cc == 0) = 1;
 %% 
-
-isr = importdata('isr.txt');
+%sqrt(XY.N(ii)/pi)/2*10+3
+pix2area = @(x) sqrt(x/pi)/2*10+7
+isr = importdata('~/alarms/data/isr.txt');
 colorset;
 % h = borders('Israel');
 n = 6467;
@@ -35,27 +36,30 @@ axis off
 box off
 ylim([29.5 33.5])
 xlim([34 35.75])
+[cco,order] = sort(cc,'descend');
 if height(alarm) > 0
-    for ii = 1:height(XY)
+    for jj = 1:height(XY)
+        ii = order(jj);
         XY.N(ii,1) = length(unique(alarm.time(ismember(alarm.loc,XY.loc{ii}))));
         if XY.N(ii) > 0
-            plot(XY.X(ii),XY.Y(ii),'.','MarkerSize',sqrt(XY.N(ii)/pi)/2*10,'Color',col(cc(ii),:));
+            plot(XY.X(ii),XY.Y(ii),'.','MarkerSize',pix2area(XY.N(ii)),'Color',col(cc(ii),:));
         end
     end
 end
 title({['Alarms in Israel ',datestr(tLast,'dd/mm HH:MM')],' '})
 set(gcf,'Color','w')
 
-[~,txti] = ismember({'ירושלים','אשדוד','אשקלון','תל אביב','נתניה','באר שבע','דימונה','נתיבות'},XY.loc);
-city = {'Jerusalem','Ashdod','Ashkelon','Tel Aviv','Netanya','Beer Sheva','Dimona','Netivot'};
+[~,txti] = ismember({'ירושלים','אשדוד','אשקלון','תל אביב','נתניה','באר שבע','דימונה','נתיבות','עכו','משגב עם'},XY.loc);
+city = {'Jerusalem','Ashdod','Ashkelon','Tel Aviv','Netanya','Beer Sheva','Dimona','Netivot','Acre','Q. Shemona'};
 txtx = XY.X(txti);
 txty = XY.Y(txti);
-text(txtx-0.3,txty,city,'Color','k')
+txty(end) = txty(end)-0.03;
+text(txtx-0.33,txty,city,'Color','k')
 
 sz = [1 10 100];
 for ii = 1:3
 %     hleg(ii) = plot(34.4,32+ii/10,'k.','MarkerSize',sz(ii)/3+1);
-    hleg(ii) = plot(34.2,32+ii/10,'k.','MarkerSize',sqrt(sz(ii)/pi)/2*10);
+    hleg(ii) = plot(34.2,32+ii/10,'k.','MarkerSize',pix2area(sz(ii)));
 end
 text(34.2,32.4,'Total')
 text(repmat(34.25,3,1),32+(0.1:0.1:0.3),{'1','10','100'})
