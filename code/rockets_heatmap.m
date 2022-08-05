@@ -22,12 +22,12 @@ cc(cc > 24) = 24;
 cc(cc == 0) = 1;
 %% 
 %sqrt(XY.N(ii)/pi)/2*10+3
-pix2area = @(x) sqrt(x/pi)/2*10+7
+pix2area = @(x) sqrt(x/pi)/2*10+7;
 isr = importdata('~/alarms/data/isr.txt');
 colorset;
 % h = borders('Israel');
 n = 6467;
-plot(isr(1:n,1),isr(1:n,2),'k')
+plot(isr(1:n,1),isr(1:n,2),'Color',[0.5 0.5 0.5])
 hold on;
 h(2) = borders('Palestine');
 h(2).Color = [0.2 0.6 0.2];
@@ -54,7 +54,7 @@ city = {'Jerusalem','Ashdod','Ashkelon','Tel Aviv','Netanya','Beer Sheva','Dimon
 txtx = XY.X(txti);
 txty = XY.Y(txti);
 txty(end) = txty(end)-0.03;
-text(txtx-0.33,txty,city,'Color','k')
+text(txtx-0.33,txty,city,'Color',[0.5 0.5 0.5])
 
 sz = [1 10 100];
 for ii = 1:3

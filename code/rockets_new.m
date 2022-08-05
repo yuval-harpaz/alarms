@@ -1,4 +1,5 @@
-txt = urlread('https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he');
+% txt = urlread('https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he');
+txt = urlread('https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&mode=3');
 json = jsondecode(txt);
 tt = struct2table(json);
 time = datetime(strrep(tt.datetime,'T',' '),'InputFormat','yyyy-MM-dd HH:mm:ss');

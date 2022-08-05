@@ -97,19 +97,21 @@ for ii = 1:length(loc)
     IEprog(ii)
 end
 
-missing = loc(find(isnan(X)),:);
-missing = unique(missing);
-disp(missing)
-
-
-
-
-XYnew = table(loc,X,Y);
-XYnew.N = nan(height(XYnew),1);
-XYnew(isnan(X),:) = [];
-XY = [XY;XYnew];
-[~,order] = sort(XY.N,'descend');
-XY = XY(order,:);
+if length(loc) > 0
+    missing = loc(find(isnan(X)),:);
+    missing = unique(missing);
+    disp(missing)
+    
+    
+    
+    
+    XYnew = table(loc,X,Y);
+    XYnew.N = nan(height(XYnew),1);
+    XYnew(isnan(X),:) = [];
+    XY = [XY;XYnew];
+    [~,order] = sort(XY.N,'descend');
+    XY = XY(order,:);
+end
 
 
 %% 
