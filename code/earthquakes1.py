@@ -10,16 +10,16 @@ if os.path.isdir(local):
     os.chdir(local)
 df = pd.read_csv('data/rslt_8320.csv')
 dt = pd.to_datetime(df['DateTime']).to_numpy()
-mag = np.max(np.asarray([df['Md'],df['Mb'],df['Mw']]), axis=0)
+mag = np.max(np.asarray([df['Md'], df['Mb'], df['Mw']]), axis=0)
 now = np.datetime64('now', 'ns')
 dif = now-dt
 dif = dif.astype('timedelta64[D]')
 lin = dif.copy().astype(int)
-four = np.zeros((len(lin),4))
+four = np.zeros((len(lin), 4))
 four[:, 2] = 1
 four[:, 3] = 0.2
 ccc = [365, 30, 7, 1]
-co = [[0, 1, 0.5, 1], [0.5, 1, 0.5, 1], [1, 0, 0, 1], [0, 0, 0, 1]]
+co = [[0, 1, 0.5, 1], [1, 0.75, 0.5, 1], [1, 0, 0, 1], [0, 0, 0, 1]]
 for ii, cc in enumerate(ccc):
     for ll in range(4):
         four[lin <= ccc[ii], ll] = co[ii][ll]
