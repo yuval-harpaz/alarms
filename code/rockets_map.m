@@ -68,7 +68,14 @@ rockets.loc(ismember(rockets.loc,'גן שורק')) = {'נטעים'};
 rockets.loc(ismember(rockets.loc,'הודיה')) = {'הודייה'};
 rockets.loc(ismember(rockets.loc,'זנוח')) = {'בית שמש'};
 rockets.loc(ismember(rockets.loc,'כרמית')) = {'לקיה'};
-
+rockets.loc(ismember(rockets.loc,'מעון צופיה')) = {'בן זכאי'};
+rockets.loc(ismember(rockets.loc,'באר גנים')) = {'ניר ישראל'};
+rockets.loc(ismember(rockets.loc,'באר גנים')) = {'ניר ישראל'};
+rockets.loc(ismember(rockets.loc,'זמרת, שובה')) = {'זמרת'};
+rockets.loc(ismember(rockets.loc,'כפר מימון ותושיה')) = {'כפר מימון'};
+rockets.loc(ismember(rockets.loc,'כרם ביבנה')) = {'קבוצת יבנה'};
+rockets.loc(ismember(rockets.loc,'מקווה ישראל')) = {'חולון'};
+rockets.loc(ismember(rockets.loc,'מתחם בני דרום')) = {'בני דרום'};
 rockets.loc = strrep(rockets.loc,'תעשיון ','');
 XY = readtable('~/alarms/data/alarmXY.csv');
 
@@ -109,10 +116,9 @@ if length(loc) > 0
     XYnew.N = nan(height(XYnew),1);
     XYnew(isnan(X),:) = [];
     XY = [XY;XYnew];
-    [~,order] = sort(XY.N,'descend');
-    XY = XY(order,:);
 end
-
+[~,order] = sort(XY.N,'descend');
+XY = XY(order,:);
 
 %% 
 figure;
@@ -149,5 +155,6 @@ end
 text(repmat(34.3,3,1),32+(0.1:0.1:0.3),{'1','10','100'})
 
 %%
+
 writetable(XY,'~/alarms/data/alarmXY.csv','Delimiter',',','WriteVariableNames',true)
 writetable(rockets,'~/alarms/data/rename.csv','Delimiter',',','WriteVariableNames',true)

@@ -5,6 +5,9 @@ alarm = readtable('~/alarms/data/rename.csv');
 if nargin == 0
     tLast = max(alarm.time);
     fig = figure('units','normalized','position',[0.3 0 0.3 1]);
+elseif isempty(tLast)
+    tLast = datetime('now');
+    fig = figure('units','normalized','position',[0.3 0 0.3 1]);
 else
     alarm(alarm.time > tLast,:) = [];
 end
@@ -49,8 +52,8 @@ end
 title({['Alarms in Israel ',datestr(tLast,'dd/mm HH:MM')],' '})
 set(gcf,'Color','w')
 
-[~,txti] = ismember({'ירושלים','אשדוד','אשקלון','תל אביב','נתניה','באר שבע','דימונה','נתיבות','עכו','משגב עם'},XY.loc);
-city = {'Jerusalem','Ashdod','Ashkelon','Tel Aviv','Netanya','Beer Sheva','Dimona','Netivot','Acre','Q. Shemona'};
+[~,txti] = ismember({'ירושלים','אשדוד','אשקלון','תל אביב','נתניה','באר שבע','דימונה','נתיבות','עכו','משגב עם','מודיעין-מכבים-רעות'},XY.loc);
+city = {'Jerusalem','Ashdod','Ashkelon','Tel Aviv','Netanya','Beer Sheva','Dimona','Netivot','Acre','Q. Shemona','Modiin'};
 txtx = XY.X(txti);
 txty = XY.Y(txti);
 txty(end) = txty(end)-0.03;
