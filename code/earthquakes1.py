@@ -10,7 +10,7 @@ update = pd.read_csv('https://eq.gsi.gov.il/en/earthquake/files/last30_event.csv
 local = '/home/innereye/alarms/'
 if os.path.isdir(local):
     os.chdir(local)
-df = pd.read_csv('data/rslt_8320.csv')
+df = pd.read_csv('data/earthquakes.csv')
 df = df.merge(update, how='outer')
 
 # id = np.asarray(update['epiid'])
@@ -53,3 +53,4 @@ for ii in range(len(df)):
                         fill_opacity=four[ii, 3]
                         ).add_to(map)
 map.save("docs/earthquakes_by_time.html")
+df.to_csv('data/earthquakes.csv', index=False)
