@@ -9,7 +9,7 @@ permissions: write-all
   # contents: read
 
 jobs:
-  vacc-fig:
+  quake-fig:
     runs-on: ubuntu-latest
 
     steps:
