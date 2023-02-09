@@ -5,10 +5,22 @@ import pandas as pd
 import numpy as np
 import os
 
+update = pd.read_csv('https://eq.gsi.gov.il/en/earthquake/files/last30_event.csv')
+
 local = '/home/innereye/alarms/'
 if os.path.isdir(local):
     os.chdir(local)
 df = pd.read_csv('data/rslt_8320.csv')
+df = df.merge(update, how='outer')
+
+# id = np.asarray(update['epiid'])
+# id = [x[1:-1] for x in id]
+# c = 0
+# for ii in range(len(df)):
+#     if df['epiid'][ii][1:-1] in id:
+#         c+=1
+# print(c)
+
 dt = pd.to_datetime(df['DateTime']).to_numpy()
 mag = np.max(np.asarray([df['Md'], df['Mb'], df['Mw']]), axis=0)
 now = np.datetime64('now', 'ns')
