@@ -13,7 +13,9 @@ if os.path.isdir(local):
 df = pd.read_csv('data/earthquakes.csv')
 df = df.merge(update, how='outer')
 dt = pd.to_datetime(df['DateTime']).to_numpy()
-mag = np.max(np.asarray([df['Md'], df['Mb'], df['Mw']]), axis=0)
+mag3 = np.asarray([df['Md'], df['Mb'], df['Mw']]).T
+mag = np.max(mag3, axis=1)
+mag[mag3[:, 2] > 0] = mag3[mag3[:, 2] > 0, 2]
 now = np.datetime64('now', 'ns')
 dif = now-dt
 dif = dif.astype('timedelta64[D]')
@@ -30,7 +32,7 @@ for ii, cc in enumerate(ccc):
         group_index[lin <= ccc[ii]] = 3-ii
 
 title_html = '''
-             <h3 align="center" style="font-size:16px"><b>Earthquakes measured in Israel since 2000</b></h3>
+             <h3 align="center" style="font-size:16px"><b>Earthquakes measured in Israel since 2000, data from <a href="https://eq.gsi.gov.il/heb/earthquake/lastEarthquakes.php" target="_blank">THE GEOLOGICAL SURVEY OF ISRAEL</a></b></h3>
              '''
 
 lgd_txt = '<span style="color: {col};">{txt}</span>'
@@ -43,7 +45,10 @@ grp = []
 for ic, gn in enumerate(gnames):
     grp.append(folium.FeatureGroup(name=lgd_txt.format(txt=gn, col=chex[4-ic])))
 center = [df['Lat'].mean(), df['Long'].mean()]
-map = folium.Map(location=center, zoom_start=7.5)
+map = folium.Map(location=center, zoom_start=7.5, tiles='openstreetmap')
+tiles = ['cartodbpositron', 'stamenterrain']
+for tile in tiles:
+    folium.TileLayer(tile).add_to(map)
 map.get_root().html.add_child(folium.Element(title_html))
 for ii in range(len(df)):
     # sz = df['Md'][ii]
@@ -63,4 +68,4 @@ for ig in range(5):
     grp[ig].add_to(map)
 folium.map.LayerControl('topleft', collapsed=False).add_to(map)
 map.save("docs/tmp.html")
-# df.to_csv('data/tmp.csv', index=False)
+# df.to_csv('data/earthquakes.csv', index=False)
