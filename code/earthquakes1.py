@@ -15,7 +15,14 @@ df = df.merge(update, how='outer')
 dt = pd.to_datetime(df['DateTime']).to_numpy()
 mag3 = np.asarray([df['Md'], df['Mb'], df['Mw']]).T
 mag = np.max(mag3, axis=1)
+imax = np.argmax(mag3, axis=1)
 mag[mag3[:, 2] > 0] = mag3[mag3[:, 2] > 0, 2]
+M = []  # take Mw when possible
+for ii in range(len(dt)):
+    if mag3[ii, 2] == 0:
+        M.append(df.columns[2+imax[ii]])
+    else:
+        M.append('Mw')
 now = np.datetime64('now', 'ns')
 dif = now-dt
 dif = dif.astype('timedelta64[D]')
@@ -55,8 +62,15 @@ for ii in range(len(df)):
     lat = df['Lat'][ii]
     lon = df['Long'][ii]
     # dt = df['DateTime'][ii]
-    c = colors.to_hex(four[ii,:3])
+    c = colors.to_hex(four[ii, :3])
+    deapth = ''
+    d = df['Depth(Km)'][ii]
+    if d > 0:
+        deapth = ', deapth: '+str(d)+'Km'
+    tip = df['DateTime'][ii][:-4].replace('T', ' ')
+    tip = tip+'<br> '+M[ii]+': '+str(mag[ii])+deapth
     folium.CircleMarker(location=[lat, lon],
+                        tooltip=tip,
                         radius=mag[ii]**2/2,
                         fill=True,
                         fill_color=c,
