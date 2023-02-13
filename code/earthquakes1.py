@@ -63,10 +63,10 @@ for ii in range(len(df)):
     lon = df['Long'][ii]
     # dt = df['DateTime'][ii]
     c = colors.to_hex(four[ii, :3])
-    deapth = ''
+    depth = ''
     d = df['Depth(Km)'][ii]
     if d > 0:
-        deapth = ', deapth: '+str(d)+'Km'
+        depth = ', depth: '+str(d)+'Km'
     tip = df['DateTime'][ii][:-4].replace('T', ' ')
     tip = tip+'<br> '+M[ii]+': '+str(mag[ii])+deapth
     folium.CircleMarker(location=[lat, lon],
