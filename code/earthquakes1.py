@@ -68,7 +68,7 @@ for ii in range(len(df)):
     if d > 0:
         depth = ', depth: '+str(d)+'Km'
     tip = df['DateTime'][ii][:-4].replace('T', ' ')
-    tip = tip+'<br> '+M[ii]+': '+str(mag[ii])+deapth
+    tip = tip+'<br> '+M[ii]+': '+str(mag[ii])+depth
     folium.CircleMarker(location=[lat, lon],
                         tooltip=tip,
                         radius=mag[ii]**2/2,
