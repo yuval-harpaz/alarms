@@ -25,18 +25,19 @@ for ii in range(len(dt)):
         M.append('Mw')
 now = np.datetime64('now', 'ns')
 dif = now-dt
-dif = dif.astype('timedelta64[D]')
-lin = dif.copy().astype(int)
-group_index = np.ones(len(lin), int)*4
-four = np.zeros((len(lin), 4))
+dif_sec = dif.astype('timedelta64[s]').astype(float)
+dif_days = dif_sec/60**2/24
+# lin = dif.copy().astype(int)
+group_index = np.ones(len(dif_days), int)*4
+four = np.zeros((len(dif_days), 4))
 four[:, 2] = 1
 four[:, 3] = 0.2
 ccc = [365, 30, 7, 1]
 co = [[0, 1, 0.5, 1], [1, 0.75, 0.5, 1], [1, 0, 0, 1], [0, 0, 0, 1]]
 for ii, cc in enumerate(ccc):
     for ll in range(4):
-        four[lin <= ccc[ii], ll] = co[ii][ll]
-        group_index[lin <= ccc[ii]] = 3-ii
+        four[dif_days <= ccc[ii], ll] = co[ii][ll]
+        group_index[dif_days <= ccc[ii]] = 3-ii
 
 title_html = '''
              <h3 align="center" style="font-size:16px"><b>Earthquakes measured in Israel since 2000, data from <a href="https://eq.gsi.gov.il/heb/earthquake/lastEarthquakes.php" target="_blank">THE GEOLOGICAL SURVEY OF ISRAEL</a></b></h3>
