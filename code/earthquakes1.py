@@ -80,7 +80,7 @@ for ii in range(len(df)):
                         fill_opacity=four[ii, 3]
                         ).add_to(grp[group_index[ii]])
 for ig in range(5):
-    grp[ig].add_to(map)
+    grp[4-ig].add_to(map)
 folium.map.LayerControl('topleft', collapsed=False).add_to(map)
 map.save("docs/earthquakes_by_time.html")
 df.to_csv('data/earthquakes.csv', index=False)
