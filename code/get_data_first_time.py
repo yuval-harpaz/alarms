@@ -7,30 +7,57 @@ import os
 from datetime import datetime
 
 now_date = datetime.now().strftime("%d.%m.%Y")
-# Get data
-alerts_url = f'https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&fromDate=01.01.2014&toDate={now_date}&mode=0'
-alerts_json = requests.get(alerts_url).json()
-# Break multi-region alerts into separate records
-df = pd.DataFrame.from_records(alerts_json)
-df['data'] = df['data'].str.split(',')
-df = df.explode('data')
-# Remove sub-regions such as א, ב, ג, ד
-df = df[df['data'].str.len() > 2]
-# Change Hatzor to detailed name as the google geocoder fail to detect the correct city
-df['data'] = df['data'].replace('חצור', 'חצור אשדוד')
+start = True
+halfs = [[[1,1],[30,6]],[[1,7], [31,12]]]
+mont = [0,1,2,3,4,5,6,7,8,9,10,11,12,1]
+for year in range(2019, 2024):
+    for month in range(1,13):
+        alerts_url = f'https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&fromDate=02.{str(month)}.{str(year)}&toDate=02.{str(mont[month+1])}.{str(year)}&mode=0'
+        alerts_json = requests.get(alerts_url).json()
+        # Break multi-region alerts into separate records
+        df = pd.DataFrame.from_records(alerts_json)
+        if len(df) > 0:
+            df['data'] = df['data'].str.split(',')
+            df = df.explode('data')
+            # Remove sub-regions such as א, ב, ג, ד
+            df = df[df['data'].str.len() > 2]
+            # Change Hatzor to detailed name as the google geocoder fail to detect the correct city
+            df['data'] = df['data'].replace('חצור', 'חצור אשדוד')
+            if start:
+                df['data'] = df['data'].str.replace(r'\s+\d+$', '')
+                prev = df.copy()
+                start = False
+            else:
+                prev = prev.merge(df, how='outer')
+            print(str(year)+' '+str(month)+' '+str(len(df)))
 
-# Show rocket sirens only
-df = df[df['category_desc'] == 'ירי רקטות וטילים']
-# oref = pd.read_json('https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&fromDate=01.01.2020&toDate=26.02.2023&mode=0')
-# loc = np.unique(oref['data'])
-# location = []
-# for l in loc:
-#     if ',' in l:
-#         add = l.split(', ')
-#     else:
-#         add = [l]
-#     location.extend(add)
-# location = np.sort(location)
+# prevv = prev.copy()
+year = 2021
+month = 5
+start = True
+ds = []
+for day in range(1, 32):
+    alerts_url = f'https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&fromDate={day}.05.2021&toDate={day}.05.2021&mode=0'
+    alerts_json = requests.get(alerts_url).json()
+    df = pd.DataFrame.from_records(alerts_json)
+    if len(df) > 0:
+        df['data'] = df['data'].str.split(',')
+        df = df.explode('data')
+        df = df[df['data'].str.len() > 2]
+        df['data'] = df['data'].replace('חצור', 'חצור אשדוד')
+        if start:
+            prevv = df
+            start = False
+        else:
+            prevv = prevv.merge(df, how='outer')
+        print(str(day) + ' ' + str(len(df)))
+        ds.append(len(df))
+prev = prev.merge(prevv, how='outer')
+prev.sort_values('rid', inplace=True)
+prev.to_csv('/home/innereye/alarms/data/alarms_from_2019.csv', index=False, sep=',')
+## after deleting old format rows manually
+prev = pd.read_csv('/home/innereye/alarms/data/alarms_from_2019.csv')
+
 with open('/home/innereye/alarms/oath.txt') as f:
     oath = f.readlines()[0][:-1]
 def get_coordinates(city_name):
@@ -40,30 +67,43 @@ def get_coordinates(city_name):
     lat = geocoding_result['results'][0]['geometry']['location']['lat']
     long = geocoding_result['results'][0]['geometry']['location']['lng']
     return(lat, long)
-failed = ['מגן','שובה','אזור תעשייה צמח','זוהר']
+
+coo.sort_values('loc', inplace=True)
+coo = pd.read_csv('/home/innereye/alarms/data/coord.csv')
+
+
+# failed = ['מגן','שובה','אזור תעשייה צמח','זוהר']
+
 city_to_coords = {}
-for city in df['data'].unique():
-    try:
-        city_to_coords[city] = get_coordinates(city)
-        print(city, '\t -', city_to_coords[city], end='\r')
-    except Exception as e:
-        city_to_coords[city] = (None, None)
-        print(city, '\t', '- failed finding coordinates')
+for city in prev['data'].unique():
+    if city not in coo['loc'].values:
+        try:
+            city_to_coords[city] = get_coordinates(city)
+            print(city, '\t -', city_to_coords[city], end='\r')
+        except Exception as e:
+            city_to_coords[city] = (None, None)
+            print(city, '\t', '- failed finding coordinates')
 # lat, long = get_coordinates('רחובות')
 # coo = pd.DataFrame(city_to_coords, columns=['loc','coord'])
-coo = pd.DataFrame(df['data'].unique(),columns=['loc'])
-coo['lat'] = 0
-coo['long'] = 0
-for icity, city in enumerate(coo['loc']):
+for new in list(city_to_coords.keys()):
+    if new in coo['loc'].values:
+        print(new+' '+'exists')
+coo1 = pd.DataFrame(list(city_to_coords.keys()), columns=['loc'])
+coo1['lat'] = 0.0
+coo1['long'] = 0.0
+for icity, city in enumerate(coo1['loc']):
     try:
-        coo['lat'][icity] = city_to_coords[city][0]
-        coo['long'][icity] = city_to_coords[city][1]
+        coo1['lat'][icity] = city_to_coords[city][0]
+        coo1['long'][icity] = city_to_coords[city][1]
     except:
         print('failed '+city)
-coo.to_csv('/home/innereye/alarms/data/coord.csv',index=False, sep=',')
+
+coo = coo.merge(coo1, how='outer')
+coo.sort_values('loc', inplace=True)
+coo.to_csv('/home/innereye/alarms/data/coord.csv', index=False, sep=',')
 
 
-alerts_url = f'https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&fromDate=01.01.2014&toDate={now_date}&mode=0'
+# alerts_url = f'https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&fromDate=01.01.2014&toDate={now_date}&mode=0'
 # googlemaps = pd.read_json('https://maps.googleapis.com/maps/api/geocode/json?address='+location[0]+'&key='+oath+'&language=iw')
 # getakeythere = 'https://www.npmjs.com/package/googleapis'
 # oref_python = 'https://github.com/SgtTepper/RedAlert/blob/main/OrefAlerts.ipynb'
