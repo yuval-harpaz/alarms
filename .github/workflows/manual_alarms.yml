@@ -1,6 +1,6 @@
 # download data and make figures as html using python
 
-name: manual
+name: manual-alarms
 
 on:
   workflow_dispatch:
