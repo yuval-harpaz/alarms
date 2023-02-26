@@ -14,13 +14,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python 3.10
+    - name: test get coordinates
 #      uses: actions/setup-python@v3
 #      with:
 #        python-version: "3.10"
 #    - name: Install dependencies
       run: |
          wget -O test.txt "https://maps.googleapis.com/maps/api/geocode/json?address=רחובות&key=${{ secrets.GOOMAP }}&language=iw"
+         wc -c test.txt
 #        pip install -r requirements.txt
 #    - name: run script
 #      run: |
