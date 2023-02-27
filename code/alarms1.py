@@ -9,74 +9,124 @@ from datetime import datetime
 import plotly.express as px
 
 local = '/home/innereye/alarms/'
+islocal = False
 if os.path.isdir(local):
     os.chdir(local)
+    islocal = True
     with open('/home/innereye/alarms/oath.txt') as f:
         oath = f.readlines()[0][:-1]
-# else:
-#     sys.  ${{ secrets.GOOMAP }}
 
 now_date = datetime.now().strftime("%d.%m.%Y")
 
 alerts_url = f'https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&fromDate={now_date}&toDate={now_date}&mode=0'
 alerts_json = requests.get(alerts_url).json()
-# Break multi-region alerts into separate records
 df = pd.DataFrame.from_records(alerts_json)
+prev = pd.read_csv('data/alarms_from_2019.csv')
 if len(df) > 0:
+    news = True
     df['data'] = df['data'].str.split(',')
     df = df.explode('data')
     df = df[df['data'].str.len() > 2]
     df['data'] = df['data'].replace('חצור', 'חצור אשדוד')
-    prev = pd.read_csv('data/alarms_from_2019.csv')
+
     if df['rid'].max() > prev['rid'].max():
         prev = prev.merge(df, how='outer')
         prev.sort_values('rid', inplace=True)
-        prev.to_csv('data/alarms_from_2019.csv', index=False, sep=',')
+        # prev.to_csv('data/alarms_from_2019.csv', index=False, sep=',')
 else:
     print('no news')
-
-prev = prev[prev['category'] == 1]
-yyyy = np.array([int(date[6:10]) for date in prev['date']])
-mm = np.array([int(date[3:5]) for date in prev['date']])
-n = []
-mmyy = []
-group = np.arange(len(prev))
-for year in range(2019, 2024):
-    for month in range(1,13):
-        idx = (yyyy == year) & (mm == month)
-        n.append(len(np.unique(prev['rid'][idx])))
-        group[idx] = len(n)
-        mmyy.append(str(month)+'.'+str(year))
-        # if month > 1:
-        #     mmyy.append(str(month))
-        # else:
-        #     mmyy.append(str(year))
+    news = False
+if islocal or news:
+    prev = prev[prev['category'] == 1]
+    yyyy = np.array([int(date[6:10]) for date in prev['date']])
+    mm = np.array([int(date[3:5]) for date in prev['date']])
+    n = []
+    mmyy = []
+    for year in range(2019, 2024):
+        for month in range(1,13):
+            idx = (yyyy == year) & (mm == month)
+            n.append(len(np.unique(prev['rid'][idx])))
+            mmyy.append(str(month)+'.'+str(year))
 
 
+    fig = px.bar(x=mmyy, y=n, log_y=True)
+    # fig = px.bar(prev, y=n, x='date',log_y=True)
+    html = fig.to_html()
+    file = open('docs/rockets_timeline.html', 'w')
+    a = file.write(html)
+    file.close()
+    ##
+    # Make map
+    title_html = '''
+                 <h3 align="center" style="font-size:16px"><b>Rocket alarms in Israel since July 2019, data from <a href="https://www.oref.org.il" target="_blank">THE NATIONAL EMERGENCY PORTAL</a></b></h3>
+                 '''
+    gnames = ['2019', '2020', '2021', '2022', '2023']
+    co = [[0.25, 0.25, 1.0],[0.25, 1, 0.25], [0.75, 0.75, 0.25], [0.75, 0.5, 0.5], [0.75, 0.25, 0.25]]
+    chex = []
+    for c in co:
+        chex.append(colors.to_hex(c))
+    lgd_txt = '<span style="color: {col};">{txt}</span>'
+    grp = []
+    for ic, gn in enumerate(gnames):
+        grp.append(folium.FeatureGroup(name=lgd_txt.format(txt=gn, col=chex[ic])))
 
-fig = px.bar(x=mmyy, y=n, log_y=True)
-# fig = px.bar(prev, y=n, x='date',log_y=True)
-html = fig.to_html()
-file = open('docs/rockets_timeline.html', 'w')
-a = file.write(html)
-file.close()
+    coo = pd.read_csv('data/coord.csv')
+    center = [coo['lat'].mean(), coo['long'].mean()]
+    ##
+    map = folium.Map(location=center, zoom_start=7.5, tiles='openstreetmap')
+    tiles = ['cartodbpositron', 'stamenterrain']
+    for tile in tiles:
+        folium.TileLayer(tile).add_to(map)
+    map.get_root().html.add_child(folium.Element(title_html))
 
-layout = go.Layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
-fig = go.Figure(layout=layout)
-fig.add_trace(go.bar(x=np.arange(len(n)), y=n))
-                         mode='rockets',
-                         line_color=color[ii],
-                         name=label[ii]))
+    for year in range(2019, 2024):
+        idx = (yyyy == year)
+        loc = np.asarray(prev['data'][idx])
+        locu = np.unique(loc)
+        size = np.zeros(len(locu), int)
+        for iloc in range(len(locu)):
+            size[iloc] = np.sum(loc == locu[iloc])
+            lat = float(coo['lat'][coo['loc'] == locu[iloc]])
+            long = float(coo['long'][coo['loc'] == locu[iloc]])
+            tip = locu[iloc]+'('+str(year) + '):  ' + str(size[iloc])  # + str(mag[ii]) + depth  + '<br> '
+            folium.CircleMarker(location=[lat, long],
+                                tooltip=tip,
+                                radius=float(np.max([size[iloc]**0.5*2, 1])),
+                                fill=True,
+                                fill_color=chex[year-2019],
+                                color=chex[year-2019],
+                                opacity=0.5,
+                                fill_opacity=0.5
+                                ).add_to(grp[year-2019])
 
-    fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='lightgray')
-    fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='lightgray')
-    fig.update_layout(title_text="Weekly cases by age, Israel", font_size=15)
-    if checklist == 'log':
-        fig.update_yaxes(type="log", range=(1.2, 4.3))
-    else:
-        fig.update_yaxes(type="linear", range=(0, 20000))
-    # fig.show()
-    return fig
+
+    for ig in range(5):
+        grp[ig].add_to(map)
+    folium.map.LayerControl('topleft', collapsed=False).add_to(map)
+    map.save("docs/alarms_by_year.html")
+
+##
+
+# df.to_csv('data/earthquakes.csv', index=False)
+
+
+# for ii in range(len(df)):
+#     # sz = df['Md'][ii]
+#     lat = df['Lat'][ii]
+#     lon = df['Long'][ii]
+#     # dt = df['DateTime'][ii]
+#     c = colors.to_hex(four[ii, :3])
+#     depth = ''
+#     d = df['Depth(Km)'][ii]
+#     if d > 0:
+#         depth = ', depth: '+str(d)+'Km'
+#     tip = df['DateTime'][ii][:-4].replace('T', ' ')
+#     tip = tip+'<br> '+M[ii]+': '+str(mag[ii])+depth
+
+
+
+
+
 #             print(str(year)+' '+str(month)+' '+str(len(df)))
 #
 # # prevv = prev.copy()
