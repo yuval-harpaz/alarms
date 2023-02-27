@@ -28,6 +28,7 @@ news = False
 if len(alerts_.text) < 10:
     print('no news')
 else:  # some data from the last two days
+    raise Exception('XXXX'+alerts_.text+'YYYY')
     alerts_json = alerts_.json()
     df = pd.DataFrame.from_records(alerts_json)
     df['data'] = df['data'].str.split(',')
