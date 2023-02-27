@@ -25,7 +25,7 @@ alerts_url = f'https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=h
 print(alerts_url)
 alerts_ = requests.get(alerts_url)
 news = False
-if alerts_.text == '[]':
+if len(alerts_.text) < 10:
     print('no news')
 else:  # some data from the last two days
     alerts_json = alerts_.json()
