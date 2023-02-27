@@ -21,7 +21,7 @@ yesterday = datetime.now() - timedelta(days=1)
 yesterday = yesterday.strftime("%d.%m.%Y")
 
 print(now_date)
-alerts_url = f'https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&fromDate={yesterday}&toDate={now_date}&mode=0'
+alerts_url = f'https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&fromDate={yesterday}&toDate={now_date}&mode=3'
 print(alerts_url)
 alerts_ = requests.get(alerts_url)
 news = False
