@@ -4,7 +4,7 @@ import folium
 import pandas as pd
 import numpy as np
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 # import plotly.graph_objects as go
 import plotly.express as px
 
@@ -15,27 +15,33 @@ if os.path.isdir(local):
     islocal = True
     with open('/home/innereye/alarms/oath.txt') as f:
         oath = f.readlines()[0][:-1]
-
-now_date = datetime.now().strftime("%d.%m.%Y")
-
-alerts_url = f'https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&fromDate={now_date}&toDate={now_date}&mode=0'
-alerts_json = requests.get(alerts_url).json()
-df = pd.DataFrame.from_records(alerts_json)
 prev = pd.read_csv('data/alarms_from_2019.csv')
-if len(df) > 0:
-    news = True
+now_date = datetime.now().strftime("%d.%m.%Y")
+yesterday = datetime.now() - timedelta(days=1)
+yesterday = yesterday.strftime("%d.%m.%Y")
+
+print(now_date)
+alerts_url = f'https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&fromDate={yesterday}&toDate={now_date}&mode=0'
+print(alerts_url)
+alerts_ = requests.get(alerts_url)
+news = False
+if alerts_.text == '[]':
+    print('no news')
+else:  # some data from the last two days
+    alerts_json = alerts_.json()
+    df = pd.DataFrame.from_records(alerts_json)
     df['data'] = df['data'].str.split(',')
     df = df.explode('data')
     df = df[df['data'].str.len() > 2]
     df['data'] = df['data'].replace('חצור', 'חצור אשדוד')
-
     if df['rid'].max() > prev['rid'].max():
         prev = prev.merge(df, how='outer')
         prev.sort_values('rid', inplace=True)
+        news = True
+    else:
+        print('no news')
         # prev.to_csv('data/alarms_from_2019.csv', index=False, sep=',')
-else:
-    print('no news')
-    news = False
+
 if islocal or news:
     prev = prev[prev['category'] == 1]
     yyyy = np.array([int(date[6:10]) for date in prev['date']])
