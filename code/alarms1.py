@@ -25,10 +25,11 @@ alerts_url = f'https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=h
 print(alerts_url)
 alerts_ = requests.get(alerts_url)
 news = False
-if len(alerts_.text) < 10:
+if len(alerts_.text) == '[]':
     print('no news')
+elif 'Access Denied' in alerts_.text:
+    raise Exception('Access denied on this server')
 else:  # some data from the last two days
-    raise Exception('XXXX'+alerts_.text+'YYYY')
     alerts_json = alerts_.json()
     df = pd.DataFrame.from_records(alerts_json)
     df['data'] = df['data'].str.split(',')
