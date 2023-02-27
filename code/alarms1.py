@@ -5,38 +5,78 @@ import pandas as pd
 import numpy as np
 import os
 from datetime import datetime
+# import plotly.graph_objects as go
+import plotly.express as px
 
 local = '/home/innereye/alarms/'
 if os.path.isdir(local):
     os.chdir(local)
     with open('/home/innereye/alarms/oath.txt') as f:
         oath = f.readlines()[0][:-1]
-else:
-    sys.  ${{ secrets.GOOMAP }}
+# else:
+#     sys.  ${{ secrets.GOOMAP }}
 
-# now_date = datetime.now().strftime("%d.%m.%Y")
-# start = True
-# halfs = [[[1,1],[30,6]],[[1,7], [31,12]]]
-# mont = [0,1,2,3,4,5,6,7,8,9,10,11,12,1]
-# for year in range(2019, 2024):
-#     for month in range(1,13):
-#         alerts_url = f'https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&fromDate=02.{str(month)}.{str(year)}&toDate=02.{str(mont[month+1])}.{str(year)}&mode=0'
-#         alerts_json = requests.get(alerts_url).json()
-#         # Break multi-region alerts into separate records
-#         df = pd.DataFrame.from_records(alerts_json)
-#         if len(df) > 0:
-#             df['data'] = df['data'].str.split(',')
-#             df = df.explode('data')
-#             # Remove sub-regions such as א, ב, ג, ד
-#             df = df[df['data'].str.len() > 2]
-#             # Change Hatzor to detailed name as the google geocoder fail to detect the correct city
-#             df['data'] = df['data'].replace('חצור', 'חצור אשדוד')
-#             if start:
-#                 df['data'] = df['data'].str.replace(r'\s+\d+$', '')
-#                 prev = df.copy()
-#                 start = False
-#             else:
-#                 prev = prev.merge(df, how='outer')
+now_date = datetime.now().strftime("%d.%m.%Y")
+
+alerts_url = f'https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&fromDate={now_date}&toDate={now_date}&mode=0'
+alerts_json = requests.get(alerts_url).json()
+# Break multi-region alerts into separate records
+df = pd.DataFrame.from_records(alerts_json)
+if len(df) > 0:
+    df['data'] = df['data'].str.split(',')
+    df = df.explode('data')
+    df = df[df['data'].str.len() > 2]
+    df['data'] = df['data'].replace('חצור', 'חצור אשדוד')
+    prev = pd.read_csv('data/alarms_from_2019.csv')
+    if df['rid'].max() > prev['rid'].max():
+        prev = prev.merge(df, how='outer')
+        prev.sort_values('rid', inplace=True)
+        prev.to_csv('data/alarms_from_2019.csv', index=False, sep=',')
+else:
+    print('no news')
+
+prev = prev[prev['category'] == 1]
+yyyy = np.array([int(date[6:10]) for date in prev['date']])
+mm = np.array([int(date[3:5]) for date in prev['date']])
+n = []
+mmyy = []
+group = np.arange(len(prev))
+for year in range(2019, 2024):
+    for month in range(1,13):
+        idx = (yyyy == year) & (mm == month)
+        n.append(len(np.unique(prev['rid'][idx])))
+        group[idx] = len(n)
+        mmyy.append(str(month)+'.'+str(year))
+        # if month > 1:
+        #     mmyy.append(str(month))
+        # else:
+        #     mmyy.append(str(year))
+
+
+
+fig = px.bar(x=mmyy, y=n, log_y=True)
+# fig = px.bar(prev, y=n, x='date',log_y=True)
+html = fig.to_html()
+file = open('docs/rockets_timeline.html', 'w')
+a = file.write(html)
+file.close()
+
+layout = go.Layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+fig = go.Figure(layout=layout)
+fig.add_trace(go.bar(x=np.arange(len(n)), y=n))
+                         mode='rockets',
+                         line_color=color[ii],
+                         name=label[ii]))
+
+    fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='lightgray')
+    fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='lightgray')
+    fig.update_layout(title_text="Weekly cases by age, Israel", font_size=15)
+    if checklist == 'log':
+        fig.update_yaxes(type="log", range=(1.2, 4.3))
+    else:
+        fig.update_yaxes(type="linear", range=(0, 20000))
+    # fig.show()
+    return fig
 #             print(str(year)+' '+str(month)+' '+str(len(df)))
 #
 # # prevv = prev.copy()
