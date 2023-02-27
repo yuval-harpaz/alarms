@@ -8,7 +8,7 @@ on:
 permissions: write-all
   # contents: read
 jobs:
-  quake-fig:
+  rocket-fig:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
