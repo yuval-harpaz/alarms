@@ -15,19 +15,24 @@ if os.path.isdir(local):
     islocal = True
     with open('/home/innereye/alarms/oath.txt') as f:
         oath = f.readlines()[0][:-1]
+    sys.path.append("/home/innereye/pikudHaoref-api/tzevaadom/")
+    import tzevaadom
+history_hebrew = tzevaadom.alerts_history(language="he", get_from="month")
+
+tzeva = requests.get('https://api.tzevaadom.co.il/alerts-history').json()
+
 prev = pd.read_csv('data/alarms_from_2019.csv')
 now_date = datetime.now().strftime("%d.%m.%Y")
 yesterday = datetime.now() - timedelta(days=1)
 yesterday = yesterday.strftime("%d.%m.%Y")
 
 print(now_date)
-# alerts_url = f'https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&fromDate=01.01.2014&toDate=27.02.2023&mode=0'
-alerts_url = f'https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&fromDate={yesterday}&toDate={now_date}&mode=0'
+alerts_url = f'https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&fromDate={yesterday}&toDate={now_date}&mode=3'
 print(alerts_url)
 alerts_ = requests.get(alerts_url)
 news = False
 if len(alerts_.text) == '[]':
-    print('empty')
+    print('no news')
 elif 'Access Denied' in alerts_.text:
     raise Exception('Access denied on this server')
 else:  # some data from the last two days
@@ -113,6 +118,7 @@ if islocal or news:
         grp[ig].add_to(map)
     folium.map.LayerControl('topleft', collapsed=False).add_to(map)
     map.save("docs/alarms_by_year.html")
+
 
 ##
 
