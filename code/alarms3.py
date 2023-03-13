@@ -49,7 +49,7 @@ else:
     news = False
 
 if islocal or news:
-    prev = prev[prev['category'] == 0]
+    prev = prev[prev['threat'] == 0]
     yyyy = np.array([int(date[:4]) for date in prev['time']])
     mm = np.array([int(date[5:7]) for date in prev['time']])
     n = []
@@ -93,7 +93,7 @@ if islocal or news:
 
     for year in range(2019, 2024):
         idx = (yyyy == year)
-        loc = np.asarray(prev['data'][idx])
+        loc = np.asarray(prev['cities'][idx])
         locu = np.unique(loc)
         size = np.zeros(len(locu), int)
         for iloc in range(len(locu)):
