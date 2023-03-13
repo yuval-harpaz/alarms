@@ -41,9 +41,10 @@ else:  # some data from the last two days
         prev = prev.merge(df, how='outer')
         prev.sort_values('rid', inplace=True)
         news = True
+        prev.to_csv('data/alarms_from_2019.csv', index=False, sep=',')
     else:
         print('no news')
-        # prev.to_csv('data/alarms_from_2019.csv', index=False, sep=',')
+        #
 
 if islocal or news:
     prev = prev[prev['category'] == 1]

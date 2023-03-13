@@ -13,15 +13,31 @@ islocal = False
 if os.path.isdir(local):
     os.chdir(local)
     islocal = True
-    with open('/home/innereye/alarms/oath.txt') as f:
-        oath = f.readlines()[0][:-1]
-    sys.path.append("/home/innereye/pikudHaoref-api/tzevaadom/")
-    import tzevaadom
-history_hebrew = tzevaadom.alerts_history(language="he", get_from="month")
-
-tzeva = requests.get('https://api.tzevaadom.co.il/alerts-history').json()
-
+    # with open('/home/innereye/alarms/oath.txt') as f:
+    #     oath = f.readlines()[0][:-1]
+    # sys.path.append("/home/innereye/pikudHaoref-api/tzevaadom/")
+    # import tzevaadom
+# history_hebrew = tzevaadom.alerts_history(language="he", get_from="month")
 prev = pd.read_csv('data/alarms_from_2019.csv')
+tzeva = requests.get('https://api.tzevaadom.co.il/alerts-history').json()
+df = pd.DataFrame(tzeva)
+df = df.explode('alerts')
+df1 = pd.DataFrame(list(df['alerts']))
+dt = [pd.to_datetime(ds, utc=True, unit='s').astimezone(tz='Israel') for ds in df1['time']]
+id = np.asarray(df['id'])
+intz = []
+for ii in range(len(prev)):
+    if prev['rid'][ii]-15055 in id:
+        intz.append(ii)
+
+dt = pd.to_datetime(tzeva[0]['alerts'][0]['time'], utc=True, unit='s').astimezone(tz='Israel')
+dtpmax = pd.to_datetime(prev['alertDate'])
+x = 2
+if prev['rid'][9991-x]-15055 == tzeva[0+x]['id']:
+    print('ID match')
+raise Exception('got to match tzeva ID to prev and complete missing')
+
+
 now_date = datetime.now().strftime("%d.%m.%Y")
 yesterday = datetime.now() - timedelta(days=1)
 yesterday = yesterday.strftime("%d.%m.%Y")
