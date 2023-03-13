@@ -21,7 +21,7 @@ jobs:
         pip install -r requirements_rockets.txt
     - name: run script
       run: |
-        python code/alarms1.py
+        python code/alarms3.py
     - name: commit files
       run: |
         git config --global user.name "actions"
