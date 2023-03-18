@@ -50,8 +50,8 @@ else:
 
 if islocal or news:
     prev = prev[prev['threat'] == 0]
-    yyyy = np.array([int(date[:4]) for date in prev['time']])
-    mm = np.array([int(date[5:7]) for date in prev['time']])
+    yyyy = np.array([int(str(date)[:4]) for date in prev['time']])
+    mm = np.array([int(str(date)[5:7]) for date in prev['time']])
     n = []
     mmyy = []
     for year in range(2019, 2024):
