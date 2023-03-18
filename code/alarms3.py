@@ -70,7 +70,8 @@ if islocal or news:
     ##
     # Make map
     title_html = '''
-                 <h3 align="center" style="font-size:16px"><b>Rocket alarms in Israel since July 2019, data from <a href="https://www.oref.org.il" target="_blank">THE NATIONAL EMERGENCY PORTAL</a></b></h3>
+                 <h3 align="center" style="font-size:16px"><b>Rocket alarms in Israel since July 2019, data from <a href="https://www.oref.org.il" target="_blank">THE NATIONAL EMERGENCY PORTAL</a>
+                 via <a href="https://www.tzevaadom.co.il/" target="_blank">צבע אדום</a></b></h3>
                  '''
     gnames = ['2019', '2020', '2021', '2022', '2023']
     co = [[0.25, 0.25, 1.0],[0.25, 1, 0.25], [0.75, 0.75, 0.25], [0.75, 0.5, 0.5], [0.75, 0.25, 0.25]]
