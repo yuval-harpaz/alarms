@@ -132,10 +132,10 @@ if islocal or news:
                                     tooltip=tip,
                                     radius=float(np.max([size[iloc]**0.5*2, 1])),
                                     fill=True,
-                                    fill_color=chex[year-2019],
-                                    color=chex[year-2019],
-                                    opacity=0.5,
-                                    fill_opacity=0.5
+                                    fill_color=chex[5+last],
+                                    color=chex[5+last],
+                                    opacity=1,
+                                    fill_opacity=1
                                     ).add_to(grp[5+last])
 
 
