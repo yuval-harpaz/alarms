@@ -27,6 +27,10 @@ new = np.where(dt > last_alarm)[0]
 if len(new) > 0:
     for n in new[::-1]:
         citiesc = df1['cities'][n]
+        x = []
+        for cit in citiesc:
+            x.extend(cit.split(', '))
+        citiesc = np.unique(x)
         idc = id[n]
         dtc = dt[n].replace(tzinfo=None)
         threatc = df1['threat'][n]
@@ -78,7 +82,7 @@ if islocal or news:
                  via <a href="https://www.tzevaadom.co.il/" target="_blank">צבע אדום</a></b></h3>
                  '''
     gnames = ['2019', '2020', '2021', '2022', '2023', '7 days', '24 h']
-    co = [[0.25, 0.25, 1.0], [0.25, 0.9, 0.8], [0.25, 1, 0.25], [0.75, 0.75, 0.25], [0.75, 0.5, 0.5],
+    co = [[0.25, 0.25, 1.0], [0.25, 0.9, 0.8], [0.25, 1, 0.25], [0.75, 0.75, 0.25], [0.82, 0.5, 0.35],
           [1.0, 0.25, 0.25], [0, 0, 0]]
     chex = []
     for c in co:
@@ -103,19 +107,23 @@ if islocal or news:
         locu = np.unique(loc)
         size = np.zeros(len(locu), int)
         for iloc in range(len(locu)):
-            size[iloc] = np.sum(loc == locu[iloc])
-            lat = float(coo['lat'][coo['loc'] == locu[iloc]])
-            long = float(coo['long'][coo['loc'] == locu[iloc]])
-            tip = locu[iloc]+'('+str(year) + '):  ' + str(size[iloc])  # + str(mag[ii]) + depth  + '<br> '
-            folium.CircleMarker(location=[lat, long],
-                                tooltip=tip,
-                                radius=float(np.max([size[iloc]**0.5*2, 1])),
-                                fill=True,
-                                fill_color=chex[year-2019],
-                                color=chex[year-2019],
-                                opacity=0.5,
-                                fill_opacity=0.5
-                                ).add_to(grp[year-2019])
+            row_coo = coo['loc'] == locu[iloc]
+            if np.sum(row_coo) == 1:
+                size[iloc] = np.sum(loc == locu[iloc])
+                lat = float(coo['lat'][row_coo])
+                long = float(coo['long'][coo['loc'] == locu[iloc]])
+                tip = locu[iloc]+'('+str(year) + '):  ' + str(size[iloc])  # + str(mag[ii]) + depth  + '<br> '
+                folium.CircleMarker(location=[lat, long],
+                                    tooltip=tip,
+                                    radius=float(np.max([size[iloc]**0.5*2, 1])),
+                                    fill=True,
+                                    fill_color=chex[year-2019],
+                                    color=chex[year-2019],
+                                    opacity=0.5,
+                                    fill_opacity=0.5
+                                    ).add_to(grp[year-2019])
+            else:
+                print('cannot find coord for '+locu[iloc])
     pasts = [np.where(past_7d)[0], np.where(past_24h)[0]]
     for last in [0, 1]:
         idx = pasts[last]
@@ -143,4 +151,4 @@ if islocal or news:
         grp[ig].add_to(map)
     folium.map.LayerControl('topleft', collapsed=False).add_to(map)
     map.save("docs/alarms_by_year.html")
-
+print('done')
