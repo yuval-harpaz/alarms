@@ -6,7 +6,7 @@ import numpy as np
 import os
 from datetime import datetime, timedelta
 import plotly.express as px
-
+import sys
 
 local = '/home/innereye/alarms/'
 islocal = False
@@ -47,6 +47,11 @@ if len(new) > 0:
     news = True
 else:
     news = False
+
+if islocal:
+    sys.path.append(local+'code')
+    from alarms_coord import update_coord
+    update_coord()
 
 if islocal or news:
     prev = prev[prev['threat'] == 0]
