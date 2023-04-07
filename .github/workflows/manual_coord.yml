@@ -17,6 +17,7 @@ jobs:
       with:
         python-version: "3.10"
     - name: run wget
+      run: |
         wget -O test.txt "https://maps.googleapis.com/maps/api/geocode/json?address=רחובות&key=${{ secrets.GOOMAP }}&language=iw"
         wc -c test.txt
 #      run: |
