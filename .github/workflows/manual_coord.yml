@@ -21,12 +21,12 @@ jobs:
     - name: run wget
       run: |
         wget -O test.txt "https://maps.googleapis.com/maps/api/geocode/json?address=רחובות&key=${{ secrets.GOOMAP }}&language=iw"
-        wc -c test.txt
-#      run: |
-#        pip install -r requirements_rockets.txt
-#    - name: run script
-#      run: |
-#        python code/google_check.py
+        pip install -r requirements_rockets.txt
+    - name: run script
+      env:
+          OAuth: ${{ secrets.GOOMAP }}
+      run: |
+        python code/google_check.py
     - name: commit files
       run: |
         git config --global user.name "actions"
