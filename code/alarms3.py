@@ -50,8 +50,8 @@ else:
 
 if islocal:
     sys.path.append(local+'code')
-    from alarms_coord import update_coord
-    update_coord()
+from alarms_coord import update_coord
+update_coord()
 
 if islocal or news:
     prev = prev[prev['threat'] == 0]
