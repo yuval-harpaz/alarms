@@ -12,8 +12,8 @@ if os.path.isdir(local):
         oath = f.readlines()[0][:-1]
 else:
     oath = os.environ['OAuth']
-get_coordinates(city_name)
-
+# get_coordinates(city_name)
+    
 def get_coordinates(city_name):
     city_name = city_name + ', ישראל'
     geocoder_url = f'https://maps.googleapis.com/maps/api/geocode/json?address={city_name}&key={oath}&language=iw'
