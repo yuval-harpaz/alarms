@@ -7,9 +7,11 @@ on:
 
 permissions: write-all
   # contents: read
+  
 jobs:
   rocket-fig:
     runs-on: ubuntu-latest
+    environment: rockets
     steps:
     - uses: actions/checkout@v3
     - name: test get coordinates
