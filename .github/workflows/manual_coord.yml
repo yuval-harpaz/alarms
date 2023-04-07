@@ -1,6 +1,6 @@
 # download data and make figures as html using python
 
-name: manual-alarms
+name: manual-google
 
 on:
   workflow_dispatch:
@@ -16,22 +16,22 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: "3.10"
-    - name: Install dependencies
-      run: |
-        pip install -r requirements_rockets.txt
-    - name: run script
-      run: |
-        python code/alarms3.py
-    - name: commit files
-      run: |
-        git config --global user.name "actions"
-        git config --global user.email "actions@github"
-        git add -A
-        git commit -m "manual update"
-    - name: push files
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-#
-#         wget -O test.txt "https://maps.googleapis.com/maps/api/geocode/json?address=רחובות&key=${{ secrets.GOOMAP }}&language=iw"
-#         wc -c test.txt
+    - name: run wget
+        wget -O test.txt "https://maps.googleapis.com/maps/api/geocode/json?address=רחובות&key=${{ secrets.GOOMAP }}&language=iw"
+        wc -c test.txt
+#      run: |
+#        pip install -r requirements_rockets.txt
+#    - name: run script
+#      run: |
+#        python code/google_check.py
+#    - name: commit files
+#      run: |
+#        git config --global user.name "actions"
+#        git config --global user.email "actions@github"
+#        git add -A
+#        git commit -m "manual update"
+#    - name: push files
+#      uses: ad-m/github-push-action@master
+#      with:
+#        github_token: ${{ secrets.GITHUB_TOKEN }}
+
