@@ -1,0 +1,59 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "רחובות",
+               "short_name" : "רחובות",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "רחובות",
+               "short_name" : "רחובות",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "מחוז המרכז",
+               "short_name" : "מחוז המרכז",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "ישראל",
+               "short_name" : "IL",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "רחובות, ישראל",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 31.920817,
+                  "lng" : 34.8507189
+               },
+               "southwest" : {
+                  "lat" : 31.86597709999999,
+                  "lng" : 34.7619791
+               }
+            },
+            "location" : {
+               "lat" : 31.892773,
+               "lng" : 34.811272
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 31.920817,
+                  "lng" : 34.8507189
+               },
+               "southwest" : {
+                  "lat" : 31.86597709999999,
+                  "lng" : 34.7619791
+               }
+            }
+         },
+         "place_id" : "ChIJj-W_kgW3AhURV_lYF8v4re4",
+         "types" : [ "locality", "political" ]
+      }
+   ],
+   "status" : "OK"
+}
