@@ -32,9 +32,8 @@ jobs:
         git add -A
         git commit -m "manual update"
     - name: pull files
+      run: |
         git pull
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
     - name: push files
       uses: ad-m/github-push-action@master
       with:
