@@ -24,7 +24,7 @@ def update_coord():
             lat = geocoding_result['results'][0]['geometry']['location']['lat']
             long = geocoding_result['results'][0]['geometry']['location']['lng']
         return lat, long
-    
+
     coo = pd.read_csv('data/coord.csv')
     prev = pd.read_csv('data/alarms.csv')
     missing = []
