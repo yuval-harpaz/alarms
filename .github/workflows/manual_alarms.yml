@@ -10,6 +10,7 @@ permissions: write-all
 jobs:
   rocket-fig:
     runs-on: ubuntu-latest
+    environment: rockets
     steps:
     - uses: actions/checkout@v3
     - name: test get coordinates
@@ -20,6 +21,8 @@ jobs:
       run: |
         pip install -r requirements_rockets.txt
     - name: run script
+      env:
+          OAuth: ${{ secrets.GOOMAP }}
       run: |
         python code/alarms3.py
     - name: commit files
