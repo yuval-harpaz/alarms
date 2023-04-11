@@ -1,6 +1,6 @@
 # download data and make figures as html using python
 
-name: Python application
+name: earthquake map daily
 
 on:
   schedule:
