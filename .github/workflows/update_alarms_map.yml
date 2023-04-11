@@ -32,7 +32,8 @@ jobs:
         git config --global user.name "actions"
         git config --global user.email "actions@github"
         git add -A
-        git commit -m "manual update"
+        git commit -m "daily update"
+        git pull
     - name: push files
       uses: ad-m/github-push-action@master
       with:
