@@ -25,14 +25,25 @@ jobs:
     - name: run script
       run: |
         python code/earthquakes1.py
-    - name: commit files
+    - name: check news
+      env:
+        NEWS: ${{ false }}
       run: |
         git config --global user.name "actions"
         git config --global user.email "actions@github"
+        if [ -n "$(git status --porcelain)" ]; then
+          NEWS = ${{ true }}
+        else
+          echo "no changes"
+        fi
+    - name: commit files
+      run: |
         git add -A
         git commit -m "earthquake daily update"
         git pull
+      if: env.NEWS
     - name: push files
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
+      if: env.NEWS
