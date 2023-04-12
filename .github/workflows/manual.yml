@@ -39,7 +39,7 @@ jobs:
       run: |
         git add -A
         git commit -m "manual update"
-        if: env.NEWS
+      if: env.NEWS
     - name: push files
       uses: ad-m/github-push-action@master
       with:
