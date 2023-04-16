@@ -38,14 +38,14 @@ jobs:
     - name: debug
       run: |
         echo "no news"
-      if: env.NEWS == true
+      if: env.NEWS == false
     - name: commit files
       run: |
         git add -A
         git commit -m "manual update"
-      if: env.NEWS == true
+      if: env.NEWS == 'true'
     - name: push files
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-      if: env.NEWS == true
+      if: env.NEWS == 'true'
