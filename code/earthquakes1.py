@@ -4,7 +4,8 @@ import folium
 import pandas as pd
 import numpy as np
 import os
-
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
 update = pd.read_csv('https://eq.gsi.gov.il/en/earthquake/files/last30_event.csv')
 
 local = '/home/innereye/alarms/'
