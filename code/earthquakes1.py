@@ -25,7 +25,10 @@ for ii in range(len(dt)):
     else:
         M.append('Mw')
 now = np.datetime64('now', 'ns')
-nowstr = str(now)[:16].replace('T', ' ')
+nowisr = pd.to_datetime(now, utc=True, unit='s').astimezone(tz='Israel')
+# dtc = dt[n].replace(tzinfo=None)
+# dt = np.asarray([pd.to_datetime(ds, utc=True, unit='s').astimezone(tz='Israel') for ds in df1['time']])
+nowstr = str(nowisr)[:16].replace('T', ' ')
 dif = now-dt
 dif_sec = dif.astype('timedelta64[s]').astype(float)
 dif_days = dif_sec/60**2/24
