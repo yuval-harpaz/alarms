@@ -25,23 +25,29 @@ jobs:
       run: |
         python code/earthquakes1.py
     - name: check news
-      env:
-        NEWS: ${{ false }}
+      #env:
+      #  NEWS: ${{ false }}
       run: |
         git config --global user.name "actions"
         git config --global user.email "actions@github"
         if [ -n "$(git status --porcelain)" ]; then
-          NEWS=${{ true }}
+          echo "changes"
+          echo "IS_VALID=true" >> $GITHUB_ENV
         else
           echo "no changes"
+          echo "IS_VALID=false" >> $GITHUB_ENV
         fi
+    - name: debug
+      run: |
+        echo "no news"
+      if: ${{ env.IS_VALID == 'false' }}
     - name: commit files
       run: |
         git add -A
         git commit -m "manual update"
-      if: env.NEWS
+      if: ${{ env.IS_VALID == 'true' }}
     - name: push files
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-      if: env.NEWS
+      if: ${{ env.IS_VALID == 'true' }}
