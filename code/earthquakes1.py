@@ -25,6 +25,7 @@ for ii in range(len(dt)):
     else:
         M.append('Mw')
 now = np.datetime64('now', 'ns')
+nowstr = str(now)[:16].replace('T', ' ')
 dif = now-dt
 dif_sec = dif.astype('timedelta64[s]').astype(float)
 dif_days = dif_sec/60**2/24
@@ -40,8 +41,8 @@ for ii, cc in enumerate(ccc):
         four[dif_days <= ccc[ii], ll] = co[ii][ll]
         group_index[dif_days <= ccc[ii]] = 3-ii
 
-title_html = '''
-             <h3 align="center" style="font-size:16px"><b>Earthquakes measured in Israel since 2000, data from <a href="https://eq.gsi.gov.il/heb/earthquake/lastEarthquakes.php" target="_blank">THE GEOLOGICAL SURVEY OF ISRAEL</a></b></h3>
+title_html = f'''
+             <h3 align="center" style="font-size:16px"><b>Earthquakes measured in Israel since 2000, data from <a href="https://eq.gsi.gov.il/heb/earthquake/lastEarthquakes.php" target="_blank">THE GEOLOGICAL SURVEY OF ISRAEL</a>. last checked: {nowstr}</b></h3>
              '''
 
 lgd_txt = '<span style="color: {col};">{txt}</span>'
