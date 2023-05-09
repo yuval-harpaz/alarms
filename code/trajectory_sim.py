@@ -1,3 +1,4 @@
+# https://scipython.com/book2/chapter-8-scipy/examples/a-projectile-with-air-resistance/
 import numpy as np
 from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
