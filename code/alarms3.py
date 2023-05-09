@@ -59,6 +59,9 @@ prev = prev.reset_index(drop=True)
 yyyy = np.array([int(str(date)[:4]) for date in prev['time']])
 mm = np.array([int(str(date)[5:7]) for date in prev['time']])
 now = np.datetime64('now', 'ns')
+now = np.datetime64('now', 'ns')
+nowisr = pd.to_datetime(now, utc=True, unit='s').astimezone(tz='Israel')
+nowstr = str(nowisr)[:16].replace('T', ' ')
 dt = pd.to_datetime(prev['time']).to_numpy()
 dif = now - dt
 dif_sec = dif.astype('timedelta64[s]').astype(float)
@@ -82,9 +85,9 @@ a = file.write(html)
 file.close()
 ##
 # Make map
-title_html = '''
+title_html = f'''
              <h3 align="center" style="font-size:16px"><b>Rocket alarms in Israel since July 2019, data from <a href="https://www.oref.org.il" target="_blank">THE NATIONAL EMERGENCY PORTAL</a>
-             via <a href="https://www.tzevaadom.co.il/" target="_blank">צבע אדום</a></b></h3>
+             via <a href="https://www.tzevaadom.co.il/" target="_blank">צבע אדום</a>. last checked: {nowstr}</b></h3>
              '''
 gnames = ['2019', '2020', '2021', '2022', '2023', '7 days', '24 h']
 co = [[0.25, 0.25, 1.0], [0.25, 0.9, 0.8], [0.25, 1, 0.25], [0.75, 0.75, 0.25], [0.82, 0.5, 0.35],
