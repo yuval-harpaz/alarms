@@ -17,7 +17,13 @@ if os.path.isdir(local):
 prev = pd.read_csv('data/alarms.csv')
 last_alarm = pd.to_datetime(prev['time'][len(prev)-1])
 last_alarm = last_alarm.tz_localize('Israel')
-tzeva = requests.get('https://api.tzevaadom.co.il/alerts-history').json()
+tzeva = requests.get('https://api.tzevaadom.co.il/alerts-history')
+print(tzeva.text[:100])
+if tzeva.text[:5] == '[{"id':
+    tzeva = tzeva.json()
+else:
+    raise Exception(tzeva.text)
+
 df = pd.DataFrame(tzeva)
 df = df.explode('alerts')
 df1 = pd.DataFrame(list(df['alerts']))
