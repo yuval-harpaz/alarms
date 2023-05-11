@@ -8,6 +8,14 @@ from datetime import datetime, timedelta
 import plotly.express as px
 import sys
 
+
+# from bs4 import BeautifulSoup
+# from selenium import webdriver
+# dr = webdriver.Chrome()
+# # dr.get("https://www.mobile.de/?lang=en")
+# dr.get("https://api.tzevaadom.co.il/alerts-history")
+
+
 local = '/home/innereye/alarms/'
 islocal = False
 if os.path.isdir(local):
@@ -22,7 +30,12 @@ print(tzeva.text[:100])
 if tzeva.text[:5] == '[{"id':
     tzeva = tzeva.json()
 else:
-    raise Exception(tzeva.text)
+    if ' 522:' in tzeva.text:
+        message = tzeva.text[tzeva.text.index(' 522:'):]
+        message = message[:message.index('<')]
+    else:
+        message = tzeva.text
+    raise Exception(message)
 
 df = pd.DataFrame(tzeva)
 df = df.explode('alerts')
