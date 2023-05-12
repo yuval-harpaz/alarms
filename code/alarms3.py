@@ -7,7 +7,7 @@ import os
 from datetime import datetime, timedelta
 import plotly.express as px
 import sys
-
+from alarms_coord import update_coord
 
 # from bs4 import BeautifulSoup
 # from selenium import webdriver
@@ -69,7 +69,7 @@ else:
 
 if islocal:
     sys.path.append(local+'code')
-from alarms_coord import update_coord
+
 update_coord()
 
 

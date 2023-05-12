@@ -14,7 +14,7 @@ def update_coord():
         oauth = os.environ['OAuth']
 
     def get_coordinates(city_name):
-        city_name = city_name + ', ישראל'
+        # city_name = city_name + ', ישראל'
         geocoder_url = f'https://maps.googleapis.com/maps/api/geocode/json?address={city_name}&key={oauth}&language=iw'
         geocoding_result = requests.get(geocoder_url).json()
         if geocoding_result['results'] == []:
@@ -31,6 +31,8 @@ def update_coord():
     for cit in np.unique(prev['cities']):
         if cit not in coo['loc'].values:
             missing.append(cit)
+
+    # missing.extend(list(coo['loc'][bad]))
     # lat_long = [[], []]
     if len(missing) > 0:
         for miss in missing:
@@ -38,5 +40,14 @@ def update_coord():
             coo.loc[len(coo)+1] = [miss, lat, long]
         coo.sort_values('loc', inplace=True)
         coo.to_csv('data/coord.csv', sep=',', index=False)
-
+    bad = np.where((coo['lat'] == 31.046051) & (coo['long'] == 34.851612))[0]
+    if len(bad) > 0:
+        print(f'fixing {len(bad)} locations')
+        for bd in bad:
+            lat, long = get_coordinates(coo['loc'][bd])
+            coo.loc[bd] = [coo['loc'][bd], lat, long]
+        coo.sort_values('loc', inplace=True)
+        coo.to_csv('data/coord.csv', sep=',', index=False)
+    print('BAD COORDINATES:')
+    print(list(coo['loc'][coo['lat'] == 0]))
 
