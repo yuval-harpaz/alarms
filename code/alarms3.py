@@ -62,7 +62,12 @@ if len(new) > 0:
             desc = ''
         for cit in citiesc:
             prev.loc[len(prev.index)] = [dtc, cit, threatc, idc, desc]
+    with_duplicates = len(prev)
+    prev = prev.drop_duplicates(keep='first')
+    if len(prev) <  with_duplicates:
+        print(f'{with_duplicates-len(prev)} duplicates')
     prev.to_csv('data/alarms.csv', index=False, sep=',')
+
     news = True
 else:
     news = False
