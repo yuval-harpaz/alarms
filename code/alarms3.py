@@ -66,6 +66,7 @@ if len(new) > 0:
     prev = prev.drop_duplicates(keep='first')
     if len(prev) <  with_duplicates:
         print(f'{with_duplicates-len(prev)} duplicates')
+    prev = prev.sort_values('time', ignore_index=True)
     prev.to_csv('data/alarms.csv', index=False, sep=',')
 
     news = True
@@ -87,7 +88,7 @@ now = np.datetime64('now', 'ns')
 nowisr = pd.to_datetime(now, utc=True, unit='s').astimezone(tz='Israel')
 nowstr = str(nowisr)[:16].replace('T', ' ')
 dt = pd.to_datetime(prev['time']).to_numpy()
-dif = now - dt
+dif = np.datetime64(nowstr) - dt
 dif_sec = dif.astype('timedelta64[s]').astype(float)
 dif_days = dif_sec / 60 ** 2 / 24
 past_24h = dif_days <= 1
