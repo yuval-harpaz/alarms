@@ -26,7 +26,7 @@ prev = pd.read_csv('data/alarms.csv')
 last_alarm = pd.to_datetime(prev['time'][len(prev)-1])
 last_alarm = last_alarm.tz_localize('Israel')
 tzeva = requests.get('https://api.tzevaadom.co.il/alerts-history')
-print(tzeva.text[:100])
+# print(tzeva.text[:100])
 if tzeva.text[:5] == '[{"id':
     tzeva = tzeva.json()
 else:
@@ -61,10 +61,10 @@ if len(new) > 0:
         else:
             desc = ''
         for cit in citiesc:
-            prev.loc[len(prev.index)] = [dtc, cit, threatc, idc, desc]
+            prev.loc[len(prev.index)] = [str(dtc), cit, threatc, idc, desc]
     with_duplicates = len(prev)
-    prev = prev.drop_duplicates(keep='first')
-    if len(prev) <  with_duplicates:
+    prev = prev.drop_duplicates(keep='first', ignore_index=True)
+    if len(prev) < with_duplicates:
         print(f'{with_duplicates-len(prev)} duplicates')
     prev = prev.sort_values('time', ignore_index=True)
     prev.to_csv('data/alarms.csv', index=False, sep=',')
