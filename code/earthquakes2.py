@@ -20,10 +20,10 @@ M = np.zeros(len(mag4), str)
 mags = ['Md','Mb', 'Mw', 'Mag']
 mag4[np.isnan(mag4)] = 0
 for ii in range(len(dt)):
-    if mag[ii, 3] > 0:  # prefer Mag, although it is the same as Mw
+    if mag4[ii, 3] > 0:  # prefer Mag, although it is the same as Mw
         mag[ii] = mag4[ii, 3]
         M[ii] = mags[3]
-    elif mag[ii, 2] > 0:  # Mw as second option
+    elif mag4[ii, 2] > 0:  # Mw as second option
         mag[ii] = mag4[ii, 2]
         M[ii] = mags[2]
     else:
