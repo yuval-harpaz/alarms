@@ -87,7 +87,7 @@ for ii in range(len(df)):
     # dt = df['DateTime'][ii]
     c = colors.to_hex(four[ii, :3])
     depth = ''
-    d = df['Depth(Km)'][ii]
+    d = np.round(df['Depth(Km)'][ii], 1)
     if d > 0:
         depth = ', depth: '+str(d)+'Km'
     tip = df['DateTime'][ii][:-4].replace('T', ' ')
