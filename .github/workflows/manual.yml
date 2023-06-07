@@ -23,7 +23,7 @@ jobs:
         pip install -r requirements.txt
     - name: run script
       run: |
-        python code/earthquakes1.py
+        python code/earthquakes2.py
     - name: check news
       #env:
       #  NEWS: ${{ false }}
