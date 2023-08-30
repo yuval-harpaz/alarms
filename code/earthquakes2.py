@@ -13,8 +13,8 @@ if os.path.isdir(local):
     os.chdir(local)
 df = pd.read_csv('data/earthquakes.csv')
 df = df.merge(update, how='outer')
-df = df.sort_values('DateTime')
-dt = pd.to_datetime(df['DateTime']).to_numpy()
+df = df.sort_values('DateTime(UTC)')
+dt = pd.to_datetime(df['DateTime(UTC)']).to_numpy()
 mag4 = np.asarray([df['Md'], df['Mb'], df['Mw'], df['Mag']]).T
 mag = np.zeros(len(mag4))
 M = np.zeros(len(mag4), str)
@@ -91,7 +91,7 @@ for ii in range(len(df)):
     d = np.round(df['Depth(Km)'][ii], 1)
     if d > 0:
         depth = ', depth: '+str(d)+'Km'
-    tip = df['DateTime'][ii][:-4].replace('T', ' ')
+    tip = df['DateTime(UTC)'][ii][:-4].replace('T', ' ')
     tip = tip+'<br> '+M[ii]+': '+str(mag[ii])+depth
     folium.CircleMarker(location=[lat, lon],
                         tooltip=tip,
