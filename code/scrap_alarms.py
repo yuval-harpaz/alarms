@@ -16,3 +16,5 @@ for iloc in range(len(loc)):
 df_count = pd.DataFrame(loc, columns=['loc'])
 df_count['count'] = count
 df_count = df_count.sort_values('count')
+n = len(df_count)
+for ii in range(n):
