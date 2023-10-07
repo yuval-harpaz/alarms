@@ -5,5 +5,8 @@ while true; do
     git pull --no-edit
     git push
     python code/scrap_alarms.py
+    current_time=$(date +"%Y-%m-%d %H:%M:%S")
+    echo "Current Time: $current_time"
+    echo "going to sleep"
     sleep 600
 done
