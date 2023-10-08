@@ -78,8 +78,8 @@ df['gender'] = gender
 df['age'] = age
 df['from'] = loc
 df['story'] = story
-df.to_excel('/home/innereye/alarms/data/deaths.xlsx', index=False)
-df.to_csv('/home/innereye/alarms/data/deaths.csv', index=False)
+# df.to_excel('/home/innereye/alarms/data/deaths.xlsx', index=False)
+df.to_csv('data/deaths.csv', index=False)
 # age0 = txt.index('gazaattack-place-age')
 
 
