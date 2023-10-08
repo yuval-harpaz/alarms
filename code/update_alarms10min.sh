@@ -1,6 +1,7 @@
 #!/bin/bash
 while true; do
     python code/alarms3.py
+    python code/alarms_week.py
     git commit -a -m "10min update"
     git pull --no-edit
     git push
