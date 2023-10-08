@@ -18,8 +18,10 @@ import sys
 
 
 local = '/home/innereye/alarms/'
-islocal = True
-os.chdir(local)
+islocal = False
+if os.path.isdir(local):
+    os.chdir(local)
+    islocal = True
 prev = pd.read_csv('data/alarms.csv')
 last_alarm = pd.to_datetime(prev['time'][len(prev)-1])
 last_alarm = last_alarm.tz_localize('Israel')
