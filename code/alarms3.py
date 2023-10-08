@@ -58,6 +58,8 @@ if len(new) > 0:
             desc = 'ירי רקטות וטילים'
         elif threatc == 2:
             desc = 'חדירת מחבלים'
+        elif threatc == 5:
+            desc = 'חדירת כלי טיס עוין'
         else:
             desc = ''
         for cit in citiesc:
