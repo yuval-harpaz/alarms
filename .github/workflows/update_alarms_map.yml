@@ -4,7 +4,7 @@ name: alarms daily
 
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '10-59/20 * * * *'
 
 permissions: write-all
   # contents: read
