@@ -9,6 +9,9 @@ if os.path.isdir(local):
     os.chdir(local)
     islocal = True
 
+replace = [['כדורגלן עבר',''],
+           ['מבטחים','ממבטחים']]
+
 r = requests.get('https://ynet-projects.webflow.io/news/attackingaza?01ccf7e0_page=100000000')
 bad = len(r.text)
 dfs = []
@@ -21,9 +24,11 @@ while more:
     if len(r.text) == bad or page > 100:
         more = False
     else:
-        r.encoding = r.apparent_encoding
+        r.encoding = r.apparent_encoding,
         txt = r.text
         txt = unescape(txt)
+        for rep in replace:
+            txt = txt.replace(rep[0], rep[1])
         segment = txt.split('r-field="name" class="gazaattack-name"')
         ##
         gender = []
@@ -32,6 +37,8 @@ while more:
         story = []
         name = []
         for seg in segment[1:]:
+            if 'דוידוב' in seg:
+                print('booha')
             name.append(seg[1:seg.index('<')])
             idx = seg.index('gazaattack-place-age')
             segan = seg[idx + len('gazaattack-place-age') + 1:]
@@ -73,7 +80,10 @@ while more:
                         else:
                             break
                     age.append(a)
-                    loc.append(ag[ichar:].replace(',', '').strip())
+                    if ichar == len(ag)-1:
+                        loc.append('')
+                    else:
+                        loc.append(ag[ichar:].replace(',', '').strip())
                     if len(loc[-1]) > 0 and loc[-1][0] == 'מ':
                         loc[-1] = loc[-1][1:]
                 else:
