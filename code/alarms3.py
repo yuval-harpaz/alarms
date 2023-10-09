@@ -177,8 +177,8 @@ for last in [0, 1]:
                                 fill=True,
                                 fill_color=chex[5+last],
                                 color=chex[5+last],
-                                opacity=1,
-                                fill_opacity=1
+                                opacity=0,
+                                fill_opacity=0.5
                                 ).add_to(grp[5+last])
 
 

@@ -92,7 +92,7 @@ for idate in range(7):
                                 fill=True,
                                 fill_color=chex[idate],
                                 color=chex[idate],
-                                opacity=0.5,
+                                opacity=0,
                                 fill_opacity=0.5
                                 ).add_to(grp[idate])
         else:
