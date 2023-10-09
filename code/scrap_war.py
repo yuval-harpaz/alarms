@@ -8,6 +8,9 @@ islocal = False
 if os.path.isdir(local):
     os.chdir(local)
     islocal = True
+
+r = requests.get('https://ynet-projects.webflow.io/news/attackingaza?01ccf7e0_page=100000000')
+bad = len(r.text)
 dfs = []
 page = 0
 more = True
@@ -15,12 +18,12 @@ while more:
     page += 1
     # r = requests.get('https://ynet-projects.webflow.io/news/attackingaza')
     r = requests.get(f'https://ynet-projects.webflow.io/news/attackingaza?01ccf7e0_page={page}')
-    r.encoding = r.apparent_encoding
-    txt = r.text
-    txt = unescape(txt)
-    if len(txt) < 11000:
+    if len(r.text) == bad or page > 100:
         more = False
     else:
+        r.encoding = r.apparent_encoding
+        txt = r.text
+        txt = unescape(txt)
         segment = txt.split('r-field="name" class="gazaattack-name"')
         ##
         gender = []
