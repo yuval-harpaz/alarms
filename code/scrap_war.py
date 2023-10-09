@@ -1,6 +1,13 @@
 import requests
 import pandas as pd
 from html import unescape
+import os
+
+local = '/home/innereye/alarms/'
+islocal = False
+if os.path.isdir(local):
+    os.chdir(local)
+    islocal = True
 r = requests.get('https://ynet-projects.webflow.io/news/attackingaza')
 r.encoding = r.apparent_encoding
 txt = r.text
