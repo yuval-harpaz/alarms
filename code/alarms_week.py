@@ -1,5 +1,3 @@
-import os
-import requests
 from matplotlib import colors
 import folium
 import pandas as pd
@@ -7,14 +5,6 @@ import numpy as np
 import os
 from datetime import datetime, timedelta
 import plotly.express as px
-import sys
-
-
-# from bs4 import BeautifulSoup
-# from selenium import webdriver
-# dr = webdriver.Chrome()
-# # dr.get("https://www.mobile.de/?lang=en")
-# dr.get("https://api.tzevaadom.co.il/alerts-history")
 
 
 local = '/home/innereye/alarms/'
@@ -25,78 +15,13 @@ if os.path.isdir(local):
 prev = pd.read_csv('data/alarms.csv')
 last_alarm = pd.to_datetime(prev['time'][len(prev)-1])
 last_alarm = last_alarm.tz_localize('Israel')
-# tzeva = requests.get('https://api.tzevaadom.co.il/alerts-history')
-# # print(tzeva.text[:100])
-# if tzeva.text[:5] == '[{"id':
-#     tzeva = tzeva.json()
-# else:
-#     if ' 522:' in tzeva.text:
-#         message = tzeva.text[tzeva.text.index(' 522:'):]
-#         message = message[:message.index('<')]
-#     else:
-#         message = tzeva.text
-#     raise Exception(message)
-#
-# df = pd.DataFrame(tzeva)
-# df = df.explode('alerts')
-# df1 = pd.DataFrame(list(df['alerts']))
-# dt = np.asarray([pd.to_datetime(ds, utc=True, unit='s').astimezone(tz='Israel') for ds in df1['time']])
-# id = np.asarray(df['id'])
-# new = np.where(dt > last_alarm)[0]
-# if len(new) > 0:
-#     for n in new[::-1]:
-#         citiesc = df1['cities'][n]
-#         x = []
-#         for cit in citiesc:
-#             x.extend(cit.split(', '))
-#         citiesc = np.unique(x)
-#         idc = id[n]
-#         dtc = dt[n].replace(tzinfo=None)
-#         threatc = df1['threat'][n]
-#         # if df['description'][n] is None:
-#         if threatc == 0:
-#             desc = 'ירי רקטות וטילים'
-#         elif threatc == 2:
-#             desc = 'חדירת מחבלים'
-#         elif threatc == 5:
-#             desc = 'חדירת כלי טיס עוין'
-#         else:
-#             desc = ''
-#         for cit in citiesc:
-#             prev.loc[len(prev.index)] = [str(dtc), cit, threatc, idc, desc]
-#     with_duplicates = len(prev)
-#     prev = prev.drop_duplicates(keep='first', ignore_index=True)
-#     if len(prev) < with_duplicates:
-#         print(f'{with_duplicates-len(prev)} duplicates')
-#     prev = prev.sort_values('time', ignore_index=True)
-#     prev.to_csv('data/alarms.csv', index=False, sep=',')
-#
-#     news = True
-# else:
-#     news = False
-#
-# if islocal:
-#     sys.path.append(local+'code')
-# from alarms_coord import update_coord
-# update_coord()
-
-
 prev = prev[prev['threat'] == 0]
 prev = prev.reset_index(drop=True)
-# yyyy = np.array([int(str(date)[:4]) for date in prev['time']])
-# mm = np.array([int(str(date)[5:7]) for date in prev['time']])
 date = np.array([d[:10] for d in prev['time']])
 last7dates = np.unique(date)[-7:]
 now = np.datetime64('now', 'ns')
 nowisr = pd.to_datetime(now, utc=True, unit='s').astimezone(tz='Israel')
 nowstr = str(nowisr)[:16].replace('T', ' ')
-# dt = pd.to_datetime(prev['time']).to_numpy()
-# dif = np.datetime64(nowstr) - dt
-# dif_sec = dif.astype('timedelta64[s]').astype(float)
-# dif_days = dif_sec / 60 ** 2 / 24
-# past_24h = dif_days <= 1
-# past_7d = dif_days <= 7
-
 current_date = datetime.now()
 date_list = []
 for _ in range(7):

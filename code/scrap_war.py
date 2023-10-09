@@ -1,13 +1,5 @@
-import os
 import requests
-from matplotlib import colors
-import folium
 import pandas as pd
-import numpy as np
-import os
-from datetime import datetime, timedelta
-import plotly.express as px
-import sys
 from html import unescape
 r = requests.get('https://ynet-projects.webflow.io/news/attackingaza')
 r.encoding = r.apparent_encoding
