@@ -66,9 +66,12 @@ coo = pd.read_csv('data/coord.csv')
 center = [coo['lat'].mean(), coo['long'].mean()]
 ##
 map = folium.Map(location=center, zoom_start=7.5, tiles='openstreetmap')
-tiles = ['cartodbpositron', 'stamenterrain']
-for tile in tiles:
-    folium.TileLayer(tile).add_to(map)
+# tiles = ['cartodbpositron', 'stamenterrain']
+folium.TileLayer('cartodbpositron').add_to(map)
+folium.TileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png',
+                 attr='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors').add_to(map)
+# for tile in tiles:
+#     folium.TileLayer(tile).add_to(map)
 map.get_root().html.add_child(folium.Element(title_html))
 
 for idate in range(7):
