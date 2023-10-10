@@ -115,11 +115,11 @@ try:
     merged = pd.concat(dfs)
     merged.to_excel('data/deaths.xlsx', index=False)
     merged.to_csv('data/deaths.csv', index=False)
-    success = False
+    success = True
 except Exception as e:
     print('scraping ynet failed')
     print(e)
-    success = True
+    success = False
 # age0 = txt.index('gazaattack-place-age')
 if success:
     try:

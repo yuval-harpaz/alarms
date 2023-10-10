@@ -11,6 +11,8 @@ if os.path.isdir(local):
     islocal = True
     sys.path.append(local + 'code')
 from alarms_coord import update_coord
+
+
 def map_deaths():
     df = pd.read_csv('data/deaths.csv')
     coo = pd.read_csv('data/coord.csv')
@@ -77,6 +79,12 @@ def map_deaths():
 
     # folium.map.LayerControl('topleft', collapsed=False).add_to(map)
     map.save("docs/war_deaths23.html")
+    # with open('docs/war_deaths23.html', 'r') as fid:
+    #     html = fid.read()
+    # # reploc = html.index('https://tile.openstreetmap.de/{z}/{x}/{y}.png')
+    # html.replace('https://tile.openstreetmap.de/{z}/{x}/{y}.png', 'openstreetmap.de')
+    # with open('docs/war_deaths23.html', 'w') as fid:
+    #     fid.write(html)
     print('done')
 
 

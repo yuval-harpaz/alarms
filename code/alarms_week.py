@@ -1,3 +1,4 @@
+import re
 from matplotlib import colors
 import folium
 import pandas as pd
@@ -104,5 +105,13 @@ for idate in range(7):
 for ig in range(len(gnames)):
     grp[ig].add_to(map)
 folium.map.LayerControl('topleft', collapsed=False).add_to(map)
-map.save("docs/alarms_7_days.html")
+html_name = "docs/alarms_7_days.html"
+map.save(html_name)
+with open(html_name, 'r') as fid:
+    html = fid.read()
+osmde = 'https://tile.openstreetmap.de/{z}/{x}/{y}.png'  # 'openstreetmap.de'
+idx = [m.start() for m in re.finditer(osmde, html)]
+html = html[:idx[1]] + html[idx[1]:].replace(osmde, 'openstreetmap.de')
+with open(html_name, 'w') as fid:
+    fid.write(html)
 print('done')

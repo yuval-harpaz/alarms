@@ -188,5 +188,13 @@ for last in [0, 1]:
 for ig in range(len(gnames)):
     grp[ig].add_to(map)
 folium.map.LayerControl('topleft', collapsed=False).add_to(map)
-map.save("docs/alarms_by_year.html")
+"docs/alarms_by_year.html"
+html_name = map.save(html_name)
+with open(html_name, 'r') as fid:
+    html = fid.read()
+osmde = 'https://tile.openstreetmap.de/{z}/{x}/{y}.png'  # 'openstreetmap.de'
+idx = [m.start() for m in re.finditer(osmde, html)]
+html = html[:idx[1]] + html[idx[1]:].replace(osmde, 'openstreetmap.de')
+with open(html_name, 'w') as fid:
+    fid.write(html)
 print('done')
