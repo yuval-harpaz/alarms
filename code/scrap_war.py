@@ -43,7 +43,7 @@ while more:
                 loc.append('')
                 gender.append('')
                 age.append(0)
-                story.append('מ"כ בגדוד 50'
+                story.append('מ"כ בגדוד 50')
                 print('booha')
             else:
                 idx = seg.index('gazaattack-place-age')
