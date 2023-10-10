@@ -9,8 +9,9 @@ if os.path.isdir(local):
     os.chdir(local)
     islocal = True
 
-replace = [['כדורגלן עבר',''],
-           ['מבטחים','ממבטחים']]
+replace = [['כדורגלן עבר', ''],
+           ['ממבטחים', 'מבטחים'],
+           ['מבטחים', 'ממבטחים']]
 
 r = requests.get('https://ynet-projects.webflow.io/news/attackingaza?01ccf7e0_page=100000000')
 bad = len(r.text)
@@ -37,63 +38,66 @@ while more:
         story = []
         name = []
         for seg in segment[1:]:
-            if 'דוידוב' in seg:
-                print('booha')
             name.append(seg[1:seg.index('<')])
-            idx = seg.index('gazaattack-place-age')
-            segan = seg[idx + len('gazaattack-place-age') + 1:]
-            segan = segan[:segan.index('<')]
-            if '>בת' in segan:
-                gender.append('F')
-                gindex = segan.index('>בת')+1
-            elif '>בן' in segan:
-                gender.append('M')
-                gindex = segan.index('>בן')+1
-            else:
+            if 'טל לוי' in seg:
+                loc.append('')
                 gender.append('')
-                gindex = None
-            if gindex is None:
-                print('no age for ' + name[-1])
                 age.append(0)
-
-                segan_split = segan.split(' ')
-                im = []
-                for ii in range(len(segan_split)):
-                    if segan_split[ii].replace('>', '')[0] == 'מ':
-                        im.append(ii)
-                if len(im) == 0:
-                    lc = segan.replace('>', '')
-                    lc = lc.replace('w-dyn-bind-empty"', '')
-                    loc.append(lc)
-                else:
-                    lc = ' '.join(segan_split[im[-1]:]).replace('>', '')
-                    lc = lc.replace('-dyn-bind-empty">', '')
-                    loc.append(lc)
-                # loc.append('')
-
+                story.append('מ"כ בגדוד 50'
+                print('booha')
             else:
-                ag = segan[gindex+3:]
-                if ag[0].isnumeric():
-                    for ichar in range(1, len(ag)):
-                        if ag[ichar].isnumeric():
-                            a = int(ag[:ichar+1])
-                        else:
-                            break
-                    age.append(a)
-                    if ichar == len(ag)-1:
-                        loc.append('')
-                    else:
-                        loc.append(ag[ichar:].replace(',', '').strip())
-                    if len(loc[-1]) > 0 and loc[-1][0] == 'מ':
-                        loc[-1] = loc[-1][1:]
+                idx = seg.index('gazaattack-place-age')
+                segan = seg[idx + len('gazaattack-place-age') + 1:]
+                segan = segan[:segan.index('<')]
+                if '>בת' in segan:
+                    gender.append('F')
+                    gindex = segan.index('>בת')+1
+                elif '>בן' in segan:
+                    gender.append('M')
+                    gindex = segan.index('>בן')+1
                 else:
-                    # raise Exception('no age here?')
-                    # age.append(0)
-                    loc.append('?')
-            seg = seg[seg.index('gazaattack-name-story'):]
-            story.append(seg[len('gazaattack-name-story')+2:seg.index('<')].replace('-dyn-bind-empty">', ''))
+                    gender.append('')
+                    gindex = None
+                if gindex is None:
+                    print('no age for ' + name[-1])
+                    age.append(0)
 
+                    segan_split = segan.split(' ')
+                    im = []
+                    for ii in range(len(segan_split)):
+                        if segan_split[ii].replace('>', '')[0] == 'מ':
+                            im.append(ii)
+                    if len(im) == 0:
+                        lc = segan.replace('>', '')
+                        lc = lc.replace('w-dyn-bind-empty"', '')
+                        loc.append(lc)
+                    else:
+                        lc = ' '.join(segan_split[im[-1]:]).replace('>', '')
+                        lc = lc.replace('-dyn-bind-empty">', '')
+                        loc.append(lc)
+                    # loc.append('')
 
+                else:
+                    ag = segan[gindex+3:]
+                    if ag[0].isnumeric():
+                        for ichar in range(1, len(ag)):
+                            if ag[ichar].isnumeric():
+                                a = int(ag[:ichar+1])
+                            else:
+                                break
+                        age.append(a)
+                        if ichar == len(ag)-1:
+                            loc.append('')
+                        else:
+                            loc.append(ag[ichar:].replace(',', '').strip())
+                        if len(loc[-1]) > 0 and loc[-1][0] == 'מ':
+                            loc[-1] = loc[-1][1:]
+                    else:
+                        # raise Exception('no age here?')
+                        # age.append(0)
+                        loc.append('?')
+                seg = seg[seg.index('gazaattack-name-story'):]
+                story.append(seg[len('gazaattack-name-story')+2:seg.index('<')].replace('-dyn-bind-empty">', ''))
         df = pd.DataFrame(name, columns=['name'])
         df['gender'] = gender
         df['age'] = age
