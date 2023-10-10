@@ -4,10 +4,10 @@ import folium
 import pandas as pd
 import numpy as np
 import os
-from datetime import datetime, timedelta
+# from datetime import datetime, timedelta
 import plotly.express as px
 import sys
-
+import re
 
 # from bs4 import BeautifulSoup
 # from selenium import webdriver
@@ -188,8 +188,8 @@ for last in [0, 1]:
 for ig in range(len(gnames)):
     grp[ig].add_to(map)
 folium.map.LayerControl('topleft', collapsed=False).add_to(map)
-"docs/alarms_by_year.html"
-html_name = map.save(html_name)
+html_name = "docs/alarms_by_year.html"
+map.save(html_name)
 with open(html_name, 'r') as fid:
     html = fid.read()
 osmde = 'https://tile.openstreetmap.de/{z}/{x}/{y}.png'  # 'openstreetmap.de'
