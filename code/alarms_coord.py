@@ -4,7 +4,7 @@ import numpy as np
 import os
 
 
-def update_coord():
+def update_coord(latest=None, coord_file='data/coord.csv'):
     local = '/home/innereye/alarms/'
     if os.path.isdir(local):
         os.chdir(local)
@@ -25,10 +25,12 @@ def update_coord():
             long = geocoding_result['results'][0]['geometry']['location']['lng']
         return lat, long
 
-    coo = pd.read_csv('data/coord.csv')
-    prev = pd.read_csv('data/alarms.csv')
+    coo = pd.read_csv(coord_file)
+    if latest is None:
+        latest = pd.read_csv('data/alarms.csv')
+        latest = list(latest['cities'])
     missing = []
-    for cit in np.unique(prev['cities']):
+    for cit in np.unique(latest):
         if cit not in coo['loc'].values:
             missing.append(cit)
 
@@ -39,7 +41,7 @@ def update_coord():
             lat, long = get_coordinates(miss)
             coo.loc[len(coo)+1] = [miss, lat, long]
         coo.sort_values('loc', inplace=True)
-        coo.to_csv('data/coord.csv', sep=',', index=False)
+        coo.to_csv(coord_file, sep=',', index=False)
     bad = np.where((coo['lat'] == 31.046051) & (coo['long'] == 34.851612))[0]
     if len(bad) > 0:
         print(f'fixing {len(bad)} locations')
@@ -47,7 +49,7 @@ def update_coord():
             lat, long = get_coordinates(coo['loc'][bd])
             coo.loc[bd] = [coo['loc'][bd], lat, long]
         coo.sort_values('loc', inplace=True)
-        coo.to_csv('data/coord.csv', sep=',', index=False)
+        coo.to_csv(coord_file, sep=',', index=False)
     print('BAD COORDINATES:')
     print(list(coo['loc'][coo['lat'] == 0]))
 

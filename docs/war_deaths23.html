@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_3dba8bf7e3f93f77f7be0f90fe096726 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+                 <h3 align="center" style="font-size:16px"><b>War deaths in Israel since 7-Oct-23, by residence. data from <a href="https://ynet-projects.webflow.io/news/attackingaza" target="_blank">ynet</a>
+                 . last checked: 2023-10-10 16:25</b></h3>
+                 
+    
+            <div class="folium-map" id="map_3dba8bf7e3f93f77f7be0f90fe096726" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_3dba8bf7e3f93f77f7be0f90fe096726 = L.map(
+                "map_3dba8bf7e3f93f77f7be0f90fe096726",
+                {
+                    center: [31.918703366912528, 34.874753283053515],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 7.5,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_8a130b9eff64316d36959196d5e71812 = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            var tile_layer_6d80677e5c28fb9e67a4ccd8adc44138 = L.tileLayer(
+                "https://tile.openstreetmap.de/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            var circle_marker_de5ee4c8024dc8ef2cb8bad89d9a492d = L.circleMarker(
+                [32.2700426, 34.8809634],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_de5ee4c8024dc8ef2cb8bad89d9a492d.bindTooltip(
+                `<div>
+                     אבן יהודה  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_0c6f81d4c0b17959fd8916e0547916e2 = L.circleMarker(
+                [31.238436, 34.431893],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_0c6f81d4c0b17959fd8916e0547916e2.bindTooltip(
+                `<div>
+                     אוהד  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_ee0cabe3308a65ede1484626a8b0f2bb = L.circleMarker(
+                [31.311337, 34.622824],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 5.196152422706632, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_ee0cabe3308a65ede1484626a8b0f2bb.bindTooltip(
+                `<div>
+                     אופקים  3
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_f473292864ee3e55993a4680742af90a = L.circleMarker(
+                [32.173869, 35.308029],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_f473292864ee3e55993a4680742af90a.bindTooltip(
+                `<div>
+                     איתמר  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_3c0c4f58253306bfdfd56174c1b3fb00 = L.circleMarker(
+                [31.2722558618528, 35.0251955342075],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 7.348469228349534, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_3c0c4f58253306bfdfd56174c1b3fb00.bindTooltip(
+                `<div>
+                     אלבאת הפזורה הבדואית  6
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_a63180e5592b8eb1b76e0d9c3914df3c = L.circleMarker(
+                [32.407659, 34.925028],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_a63180e5592b8eb1b76e0d9c3914df3c.bindTooltip(
+                `<div>
+                     אליכין  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_30401f99dc0e6a4eb1782ca14d8484a9 = L.circleMarker(
+                [31.653589, 35.149934],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_30401f99dc0e6a4eb1782ca14d8484a9.bindTooltip(
+                `<div>
+                     אפרת  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_f4b0e11536263fa936508e8380c067a2 = L.circleMarker(
+                [32.104637, 35.174514],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_f4b0e11536263fa936508e8380c067a2.bindTooltip(
+                `<div>
+                     אריאל  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_5dc2ad7f9bfc0d3f9b08f3ddd98082b6 = L.circleMarker(
+                [31.804381, 34.655314],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 9.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_5dc2ad7f9bfc0d3f9b08f3ddd98082b6.bindTooltip(
+                `<div>
+                     אשדוד  9
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_060b227b426c40171677bba095565b95 = L.circleMarker(
+                [31.6687885, 34.5742523],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 5.196152422706632, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_060b227b426c40171677bba095565b95.bindTooltip(
+                `<div>
+                     אשקלון  3
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_8d251c5957885dcabf4ebd995a1b8aad = L.circleMarker(
+                [31.2521018, 34.7867691],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 5.196152422706632, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_8d251c5957885dcabf4ebd995a1b8aad.bindTooltip(
+                `<div>
+                     באר שבע  3
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_44a658a83cb8e0ea37f0c01072ea7446 = L.circleMarker(
+                [31.7949517, 34.7293463],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_44a658a83cb8e0ea37f0c01072ea7446.bindTooltip(
+                `<div>
+                     ביצרון  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_a05bbf910a08edc6bb44d0359793ec61 = L.circleMarker(
+                [32.516357, 35.430499],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_a05bbf910a08edc6bb44d0359793ec61.bindTooltip(
+                `<div>
+                     בית אלפא  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_d677106faed9819284bdf6e61259ee2b = L.circleMarker(
+                [32.497103, 35.497336],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_d677106faed9819284bdf6e61259ee2b.bindTooltip(
+                `<div>
+                     בית שאן  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_4f1cc2061396474c89cae08d188288d6 = L.circleMarker(
+                [31.959019, 34.927831],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_4f1cc2061396474c89cae08d188288d6.bindTooltip(
+                `<div>
+                     בן שמן  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_44703a20facd96c3e3597bc4dfce3789 = L.circleMarker(
+                [31.729683, 35.073414],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_44703a20facd96c3e3597bc4dfce3789.bindTooltip(
+                `<div>
+                     בר גיורא  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_06fb6fae1230b28fe18d75f29c839cb2 = L.circleMarker(
+                [32.476096, 35.031044],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_06fb6fae1230b28fe18d75f29c839cb2.bindTooltip(
+                `<div>
+                     ברקאי  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_995d676d8e74517da32437281bffcd4c = L.circleMarker(
+                [32.333714, 35.013729],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_995d676d8e74517da32437281bffcd4c.bindTooltip(
+                `<div>
+                     בת חפר  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_6e9c40e1c479e58cebffe40e369e3449 = L.circleMarker(
+                [32.0151439, 34.752885],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_6e9c40e1c479e58cebffe40e369e3449.bindTooltip(
+                `<div>
+                     בת ים  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_78871a13bf2de47b33aeef8b9d0f5968 = L.circleMarker(
+                [32.35763, 34.875845],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_78871a13bf2de47b33aeef8b9d0f5968.bindTooltip(
+                `<div>
+                     גבעת שפירא  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_59318ed29cec39e77297d8ce5555ac01 = L.circleMarker(
+                [32.075318, 34.8086113],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_59318ed29cec39e77297d8ce5555ac01.bindTooltip(
+                `<div>
+                     גבעתיים  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_683235a44b7218afae15592d57baf73b = L.circleMarker(
+                [31.888318, 34.79906],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_683235a44b7218afae15592d57baf73b.bindTooltip(
+                `<div>
+                     גיבתון  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_072de394f415477ccabbc61a3c8751fe = L.circleMarker(
+                [31.804056, 34.69987],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 4.242640687119286, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_072de394f415477ccabbc61a3c8751fe.bindTooltip(
+                `<div>
+                     גן הדרום  2
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_08affb70663c319bb47afb4442ecbe8c = L.circleMarker(
+                [32.018204, 34.825877],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_08affb70663c319bb47afb4442ecbe8c.bindTooltip(
+                `<div>
+                     גנות  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_df4e0a130a5164541404f838cc3d17c6 = L.circleMarker(
+                [31.788573, 34.791392],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_df4e0a130a5164541404f838cc3d17c6.bindTooltip(
+                `<div>
+                     גני טל  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_89bca473d495c434d200ebb9337501c9 = L.circleMarker(
+                [32.646729, 35.350085],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_89bca473d495c434d200ebb9337501c9.bindTooltip(
+                `<div>
+                     דברת  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_267d7f985b8ce86ffca79477e9b909ba = L.circleMarker(
+                [31.069419, 35.033363],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 4.242640687119286, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_267d7f985b8ce86ffca79477e9b909ba.bindTooltip(
+                `<div>
+                     דימונה  2
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_238703d1366dfb7207508dae46a665c9 = L.circleMarker(
+                [32.149961, 34.8838788],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_238703d1366dfb7207508dae46a665c9.bindTooltip(
+                `<div>
+                     הוד השרון  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_35c11752b239d8004eadeb7706d2b868 = L.circleMarker(
+                [30.7140861, 34.8757476],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_35c11752b239d8004eadeb7706d2b868.bindTooltip(
+                `<div>
+                     הפזורה הבדואית בנגב  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_405deca614e934fdebec57ca5d474f86 = L.circleMarker(
+                [32.573905, 34.951977],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_405deca614e934fdebec57ca5d474f86.bindTooltip(
+                `<div>
+                     זכרון יעקב  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_4a8778269a4c32a9cdcbf04caf6dd2ba = L.circleMarker(
+                [32.38907, 34.924252],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_4a8778269a4c32a9cdcbf04caf6dd2ba.bindTooltip(
+                `<div>
+                     חוגלה  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_11cb9b87e894bf7d4cdf57c7b3231790 = L.circleMarker(
+                [32.145289, 35.104794],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_11cb9b87e894bf7d4cdf57c7b3231790.bindTooltip(
+                `<div>
+                     חוות יאיר  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_18b544387f33cff14addb2183466ce52 = L.circleMarker(
+                [31.230563, 34.32734],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 9.486832980505138, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_18b544387f33cff14addb2183466ce52.bindTooltip(
+                `<div>
+                     חולית  10
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_06fb035ca84243c694803ad1a704236b = L.circleMarker(
+                [32.7940463, 34.989571],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 5.196152422706632, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_06fb035ca84243c694803ad1a704236b.bindTooltip(
+                `<div>
+                     חיפה  3
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_288aa2bb28fbe311785fadeaff4ec8de = L.circleMarker(
+                [31.939475, 35.133131],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_288aa2bb28fbe311785fadeaff4ec8de.bindTooltip(
+                `<div>
+                     טלמון  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_8b344ea2227692b869e186dd9847c21b = L.circleMarker(
+                [32.981568, 35.241169],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_8b344ea2227692b869e186dd9847c21b.bindTooltip(
+                `<div>
+                     יאנוח-ג'ת  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_93af810eb1e8e69b054552225d7f45c3 = L.circleMarker(
+                [31.189458, 34.318952],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_93af810eb1e8e69b054552225d7f45c3.bindTooltip(
+                `<div>
+                     יבול  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_d565bdf51ebefcec240c68d074ce7b95 = L.circleMarker(
+                [31.8753534, 34.7350096],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_d565bdf51ebefcec240c68d074ce7b95.bindTooltip(
+                `<div>
+                     יבנה  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_b46eb30d74867f127c38a50211a78516 = L.circleMarker(
+                [32.0315718, 34.8925712],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_b46eb30d74867f127c38a50211a78516.bindTooltip(
+                `<div>
+                     יהוד מונוסון  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_d0b5b5fc63e6eff6199f4704c459fae9 = L.circleMarker(
+                [32.660225, 35.104606],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_d0b5b5fc63e6eff6199f4704c459fae9.bindTooltip(
+                `<div>
+                     יקנעם עילית  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_3d6bd6cf04c4bf91caeeb8941afade11 = L.circleMarker(
+                [31.768319, 35.21371],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 9.9498743710662, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_3d6bd6cf04c4bf91caeeb8941afade11.bindTooltip(
+                `<div>
+                     ירושלים  11
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_ba508bd297dd7b935ef6d6b4911b344f = L.circleMarker(
+                [31.247595, 34.403091],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 5.196152422706632, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_ba508bd297dd7b935ef6d6b4911b344f.bindTooltip(
+                `<div>
+                     ישע  3
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_063185c839f0eca447a5993e72f67b40 = L.circleMarker(
+                [32.220922, 34.992405],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 4.242640687119286, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_063185c839f0eca447a5993e72f67b40.bindTooltip(
+                `<div>
+                     כוכב יאיר  2
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_36250baf2a5b19e4cb54468207d75aaf = L.circleMarker(
+                [31.374545, 34.398992],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 8.485281374238571, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_36250baf2a5b19e4cb54468207d75aaf.bindTooltip(
+                `<div>
+                     כיסופים  8
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_3e51d129ad33f0f6690aa8c0835be5f5 = L.circleMarker(
+                [31.249246, 35.083681],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_3e51d129ad33f0f6690aa8c0835be5f5.bindTooltip(
+                `<div>
+                     כסייפה  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_93ba8a2bcae8848824ad110d590dcfa4 = L.circleMarker(
+                [31.831039, 34.722577],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_93ba8a2bcae8848824ad110d590dcfa4.bindTooltip(
+                `<div>
+                     כפר אביב  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_e733467be5b244e4faafef4932e97c7c = L.circleMarker(
+                [31.732077, 34.835079],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 4.242640687119286, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_e733467be5b244e4faafef4932e97c7c.bindTooltip(
+                `<div>
+                     כפר מנחם  2
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_ae74b366b47ace6138b140a9744bbc84 = L.circleMarker(
+                [32.178195, 34.90761],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 4.242640687119286, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_ae74b366b47ace6138b140a9744bbc84.bindTooltip(
+                `<div>
+                     כפר סבא  2
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_9b28190da47da2f72a5509d9d5f79c89 = L.circleMarker(
+                [31.675669, 34.612311],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_9b28190da47da2f72a5509d9d5f79c89.bindTooltip(
+                `<div>
+                     כפר סילבר  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_858e10b53281255ea45b58958fd3b5f8 = L.circleMarker(
+                [31.483416, 34.532291],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_858e10b53281255ea45b58958fd3b5f8.bindTooltip(
+                `<div>
+                     כפר עזה  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_85670b4a4c3bfe5774cfd5fb6b07ca54 = L.circleMarker(
+                [31.228281, 34.284559],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 4.242640687119286, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_85670b4a4c3bfe5774cfd5fb6b07ca54.bindTooltip(
+                `<div>
+                     כרם שלום  2
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_091777a5ef7d58b6f608c9cf9ce81c7e = L.circleMarker(
+                [31.951014, 34.888075],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 4.242640687119286, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_091777a5ef7d58b6f608c9cf9ce81c7e.bindTooltip(
+                `<div>
+                     לוד  2
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_f73c8f70f94afaef2ca7466714d66d75 = L.circleMarker(
+                [31.298108, 34.427059],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_f73c8f70f94afaef2ca7466714d66d75.bindTooltip(
+                `<div>
+                     מגן  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_1cd59f3fac2327c757725669ec7a9ba4 = L.circleMarker(
+                [31.890267, 35.010397],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 5.196152422706632, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_1cd59f3fac2327c757725669ec7a9ba4.bindTooltip(
+                `<div>
+                     מודיעין  3
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_e1b9ce03a267c990a67910c82a68f687 = L.circleMarker(
+                [31.890267, 35.010397],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_e1b9ce03a267c990a67910c82a68f687.bindTooltip(
+                `<div>
+                     מודיעין מכבים רעות  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_91f399338db19483104904db48df3fc6 = L.circleMarker(
+                [32.826132, 35.231997],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_91f399338db19483104904db48df3fc6.bindTooltip(
+                `<div>
+                     מורשת  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_c6f66ca131decfc1847892a17dc3e087 = L.circleMarker(
+                [31.327011, 34.943213],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_c6f66ca131decfc1847892a17dc3e087.bindTooltip(
+                `<div>
+                     מיתר  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_c1c53afa17daa51f44a5844ad078edfa = L.circleMarker(
+                [31.242423, 34.407488],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 6.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_c1c53afa17daa51f44a5844ad078edfa.bindTooltip(
+                `<div>
+                     ממבטחים  4
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_947f0322a2af3a3a1544f5ca08748ebc = L.circleMarker(
+                [31.572407, 34.539322],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_947f0322a2af3a3a1544f5ca08748ebc.bindTooltip(
+                `<div>
+                     מנתיב העשרה  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_45b9cb23dd07660991cebe891078dc31 = L.circleMarker(
+                [31.815688, 35.395409],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_45b9cb23dd07660991cebe891078dc31.bindTooltip(
+                `<div>
+                     מצפה יריחו  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_795374ac8a29122902757ee6f7630c56 = L.circleMarker(
+                [30.610203, 34.801898],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_795374ac8a29122902757ee6f7630c56.bindTooltip(
+                `<div>
+                     מצפה רמון  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_26998a260ae3fedcd0c442c5d0f0d610 = L.circleMarker(
+                [33.027399, 35.18433],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_26998a260ae3fedcd0c442c5d0f0d610.bindTooltip(
+                `<div>
+                     נווה זיו  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_a341245f9cb3d7d40307757d9b853101 = L.circleMarker(
+                [31.737518, 34.630804],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_a341245f9cb3d7d40307757d9b853101.bindTooltip(
+                `<div>
+                     ניצן  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_bc75d8bdf104a64f0724738f1d70d802 = L.circleMarker(
+                [31.23604, 34.356702],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 5.196152422706632, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_bc75d8bdf104a64f0724738f1d70d802.bindTooltip(
+                `<div>
+                     ניר יצחק  3
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_e9d3fb20c0fc1cd72e7e00a9c43b96c7 = L.circleMarker(
+                [31.309697, 34.402075],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_e9d3fb20c0fc1cd72e7e00a9c43b96c7.bindTooltip(
+                `<div>
+                     ניר עוז  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_cd9742f2efd310ed85327163c93dc9d2 = L.circleMarker(
+                [32.146206, 34.984822],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_cd9742f2efd310ed85327163c93dc9d2.bindTooltip(
+                `<div>
+                     נירית  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_cda78788918efa321f87a4bc7dca1b1e = L.circleMarker(
+                [31.932111, 34.801327],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_cda78788918efa321f87a4bc7dca1b1e.bindTooltip(
+                `<div>
+                     נס ציונה  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_fbd45b33789923a299ab600ac3fc01fd = L.circleMarker(
+                [31.572407, 34.539322],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 12.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_fbd45b33789923a299ab600ac3fc01fd.bindTooltip(
+                `<div>
+                     נתיב העשרה  16
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_37353291112fb747f776cda676536170 = L.circleMarker(
+                [32.321458, 34.853196],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 5.196152422706632, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_37353291112fb747f776cda676536170.bindTooltip(
+                `<div>
+                     נתניה  3
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_66389bdfe74186f5e90a3a0346d2bb53 = L.circleMarker(
+                [31.238309, 34.341987],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 5.196152422706632, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_66389bdfe74186f5e90a3a0346d2bb53.bindTooltip(
+                `<div>
+                     סופה  3
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_5786ed01b30acd7a7c68091d296f4283 = L.circleMarker(
+                [30.806291, 35.299946],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_5786ed01b30acd7a7c68091d296f4283.bindTooltip(
+                `<div>
+                     עידן  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_f49084b5c1d91ea75a10038abcfc4e65 = L.circleMarker(
+                [31.280895, 34.443446],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_f49084b5c1d91ea75a10038abcfc4e65.bindTooltip(
+                `<div>
+                     עין הבשור  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_3305fc51df9ae90263b416247b78746f = L.circleMarker(
+                [32.902581, 35.09304],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_3305fc51df9ae90263b416247b78746f.bindTooltip(
+                `<div>
+                     עין המפרץ  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_cbd50fc759d1b1179cf4bf9bd01b2dae = L.circleMarker(
+                [32.933052, 35.082678],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_cbd50fc759d1b1179cf4bf9bd01b2dae.bindTooltip(
+                `<div>
+                     עכו  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_4edea7c0ff8bba39736603e572320314 = L.circleMarker(
+                [31.453049, 34.514711],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_4edea7c0ff8bba39736603e572320314.bindTooltip(
+                `<div>
+                     עלומים  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_c44a3eb6b9c3e330d8394966c9b7844c = L.circleMarker(
+                [32.977664, 35.161807],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_c44a3eb6b9c3e330d8394966c9b7844c.bindTooltip(
+                `<div>
+                     עמקה  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_b1659e34ef32a4bb75d9b14f592a3269 = L.circleMarker(
+                [32.610493, 35.287922],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 4.242640687119286, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_b1659e34ef32a4bb75d9b14f592a3269.bindTooltip(
+                `<div>
+                     עפולה  2
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_5f3e4b1b31c746825f034b9a3e015e4b = L.circleMarker(
+                [31.732798, 34.77624],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_5f3e4b1b31c746825f034b9a3e015e4b.bindTooltip(
+                `<div>
+                     ערוגות  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_829f3bfa2e235f5b6fbd7338102b97ab = L.circleMarker(
+                [32.496323, 35.097292],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 4.242640687119286, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_829f3bfa2e235f5b6fbd7338102b97ab.bindTooltip(
+                `<div>
+                     ערערה  2
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_02bdad66689e16325e13e3e02ed93c87 = L.circleMarker(
+                [31.160927, 35.019757],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_02bdad66689e16325e13e3e02ed93c87.bindTooltip(
+                `<div>
+                     ערערה בנגב  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_46194938c404e0d3c58df0a196a53b1c = L.circleMarker(
+                [31.824913, 34.747459],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_46194938c404e0d3c58df0a196a53b1c.bindTooltip(
+                `<div>
+                     עשרת  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_2e07091953619e5873f68c68914badc5 = L.circleMarker(
+                [31.3259948, 34.563565],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_2e07091953619e5873f68c68914badc5.bindTooltip(
+                `<div>
+                     פטיש  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_17a76658be85b6a546ab713833c3f2e7 = L.circleMarker(
+                [32.4728028, 34.9742001],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_17a76658be85b6a546ab713833c3f2e7.bindTooltip(
+                `<div>
+                     פרדס חנה  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_a70d47c5912776a1ad258a9c055af35e = L.circleMarker(
+                [32.4728028, 34.9742001],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_a70d47c5912776a1ad258a9c055af35e.bindTooltip(
+                `<div>
+                     פרדס חנה כרכור  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_4abf4578e031361b56aac4b238df3d87 = L.circleMarker(
+                [32.084041, 34.887762],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 6.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_4abf4578e031361b56aac4b238df3d87.bindTooltip(
+                `<div>
+                     פתח תקווה  4
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_ed68e8fdbcd1a5861e9233e169164027 = L.circleMarker(
+                [31.719374, 35.096958],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_ed68e8fdbcd1a5861e9233e169164027.bindTooltip(
+                `<div>
+                     צור הדסה  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_8e0fb0a3a1864192274c9fe9f81a3ce5 = L.circleMarker(
+                [32.964648, 35.495997],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_8e0fb0a3a1864192274c9fe9f81a3ce5.bindTooltip(
+                `<div>
+                     צפת  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_687fb66fe695b15c8212af74d199bf92 = L.circleMarker(
+                [32.21239, 35.157388],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_687fb66fe695b15c8212af74d199bf92.bindTooltip(
+                `<div>
+                     קדומים  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_b173cfc12e56ac23437d61cc4b4180a5 = L.circleMarker(
+                [32.277644, 34.919297],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_b173cfc12e56ac23437d61cc4b4180a5.bindTooltip(
+                `<div>
+                     קדימה צורן  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_c40b0978f9e68ab8d8552894b7a4f6e5 = L.circleMarker(
+                [32.990998, 35.689865],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_c40b0978f9e68ab8d8552894b7a4f6e5.bindTooltip(
+                `<div>
+                     קצרין  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_a93d4149a630a533dd4cd8efc6e4a5f6 = L.circleMarker(
+                [32.054863, 34.858858],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_a93d4149a630a533dd4cd8efc6e4a5f6.bindTooltip(
+                `<div>
+                     קריית אונו  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_208b286266f5f31fc2eefd2c123439ce = L.circleMarker(
+                [31.529326, 35.115625],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_208b286266f5f31fc2eefd2c123439ce.bindTooltip(
+                `<div>
+                     קריית ארבע  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_04fca21d3025487c0e419774e0b01a70 = L.circleMarker(
+                [32.809144, 35.119773],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_04fca21d3025487c0e419774e0b01a70.bindTooltip(
+                `<div>
+                     קריית אתא  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_6323b7b179a09e6d37205c694a8468b7 = L.circleMarker(
+                [32.832154, 35.088407],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 4.242640687119286, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_6323b7b179a09e6d37205c694a8468b7.bindTooltip(
+                `<div>
+                     קריית ביאליק  2
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_f74ca0316e2e7fa0295b7bbd6956a05a = L.circleMarker(
+                [31.611148, 34.768459],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_f74ca0316e2e7fa0295b7bbd6956a05a.bindTooltip(
+                `<div>
+                     קריית גת  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_423358617fdad710a90900c6b550c5ed = L.circleMarker(
+                [32.095838, 34.952177],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 4.242640687119286, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_423358617fdad710a90900c6b550c5ed.bindTooltip(
+                `<div>
+                     ראש העין  2
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_4073b8d6b8553059cd3c6ae1d48c3297 = L.circleMarker(
+                [31.773966, 34.814807],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_4073b8d6b8553059cd3c6ae1d48c3297.bindTooltip(
+                `<div>
+                     רבדים  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_3d67fe055db039538d64f7bb266a11e6 = L.circleMarker(
+                [31.394548, 34.753934],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 5.196152422706632, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_3d67fe055db039538d64f7bb266a11e6.bindTooltip(
+                `<div>
+                     רהט  3
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_282083bbcc8471f607f84af7b24f0624 = L.circleMarker(
+                [31.8943652, 34.8115292],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 4.242640687119286, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_282083bbcc8471f607f84af7b24f0624.bindTooltip(
+                `<div>
+                     רחובות  2
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_f4bfd2dae908097b76f13687cb16d56d = L.circleMarker(
+                [32.749265, 35.099581],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_f4bfd2dae908097b76f13687cb16d56d.bindTooltip(
+                `<div>
+                     רכסים  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_68b617e676e68ada8c33fc77d160a504 = L.circleMarker(
+                [32.068424, 34.824785],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 4.242640687119286, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_68b617e676e68ada8c33fc77d160a504.bindTooltip(
+                `<div>
+                     רמת גן  2
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_ed8c4b81e9c04349649f0b800b7b4712 = L.circleMarker(
+                [32.137793, 34.840278],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 4.242640687119286, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_ed8c4b81e9c04349649f0b800b7b4712.bindTooltip(
+                `<div>
+                     רמת השרון  2
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_6c195c1dcbd9e3f552ac87561fa3e8e4 = L.circleMarker(
+                [32.184781, 34.871326],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_6c195c1dcbd9e3f552ac87561fa3e8e4.bindTooltip(
+                `<div>
+                     רעננה  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_4c8634c900a38c97ffaaff59581ac665 = L.circleMarker(
+                [32.982079, 35.083005],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_4c8634c900a38c97ffaaff59581ac665.bindTooltip(
+                `<div>
+                     שבי ציון  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_15b0d9f22933ce3f31483d2490fd6f63 = L.circleMarker(
+                [31.230035, 34.418363],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_15b0d9f22933ce3f31483d2490fd6f63.bindTooltip(
+                `<div>
+                     שדה ניצן  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_86a4701f7075bb307dfa65773f0334b6 = L.circleMarker(
+                [31.522694, 34.595581],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 9.486832980505138, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_86a4701f7075bb307dfa65773f0334b6.bindTooltip(
+                `<div>
+                     שדרות  10
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_5118c4d271aae78b445af751da763461 = L.circleMarker(
+                [31.9957581, 34.9488403],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_5118c4d271aae78b445af751da763461.bindTooltip(
+                `<div>
+                     שהם  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_00288f86a7a55c1b24ece98b5eeaa544 = L.circleMarker(
+                [31.432154, 34.884095],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_00288f86a7a55c1b24ece98b5eeaa544.bindTooltip(
+                `<div>
+                     שומריה  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_a09b6d82edfe73157ba091b6c898896c = L.circleMarker(
+                [31.1673893, 34.3033322],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 4.242640687119286, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_a09b6d82edfe73157ba091b6c898896c.bindTooltip(
+                `<div>
+                     שלומית  2
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_199885c0011621518061bc9ff01c3647 = L.circleMarker(
+                [32.732527, 35.246518],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_199885c0011621518061bc9ff01c3647.bindTooltip(
+                `<div>
+                     שמשית  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_76e10e6881f1c74de9c3a17a6fee0115 = L.circleMarker(
+                [31.5077257, 34.6303372],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_76e10e6881f1c74de9c3a17a6fee0115.bindTooltip(
+                `<div>
+                     שער הנגב  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_14b3c31d7ad64eed9641b07e21a34746 = L.circleMarker(
+                [32.216586, 34.822409],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_14b3c31d7ad64eed9641b07e21a34746.bindTooltip(
+                `<div>
+                     שפיים  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_e5f51a46dcbc73fb8e6a30b2a4c9fd10 = L.circleMarker(
+                [31.678567, 34.93509],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_e5f51a46dcbc73fb8e6a30b2a4c9fd10.bindTooltip(
+                `<div>
+                     שריגים  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_b4cfc76678a777bcb17981b46477d2b1 = L.circleMarker(
+                [32.0852999, 34.7817676],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 4.242640687119286, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_b4cfc76678a777bcb17981b46477d2b1.bindTooltip(
+                `<div>
+                     תל אביב  2
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_7f8a7115ae0b5b98b540b5e89a7bf788 = L.circleMarker(
+                [31.247569, 34.861193],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_7f8a7115ae0b5b98b540b5e89a7bf788.bindTooltip(
+                `<div>
+                     תל שבע  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_fdee53dd9cd4c6a9ef3350b60009dd2a = L.circleMarker(
+                [31.199958, 34.363751],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3.0, "stroke": true, "weight": 3}
+            ).addTo(map_3dba8bf7e3f93f77f7be0f90fe096726);
+        
+    
+            circle_marker_fdee53dd9cd4c6a9ef3350b60009dd2a.bindTooltip(
+                `<div>
+                     תלמי יוסף  1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+</script>
+</html>
