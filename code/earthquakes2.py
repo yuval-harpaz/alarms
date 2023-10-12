@@ -7,7 +7,11 @@ import os
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 update = pd.read_csv('https://eq.gsi.gov.il/en/earthquake/files/last30_event.csv')
-
+columns = np.array(update.columns)
+idate = np.where(columns == 'DateTime')[0]
+if len(idate) == 1:
+    columns[idate[0]] = 'DateTime(UTC)'
+update.columns = columns
 local = '/home/innereye/alarms/'
 if os.path.isdir(local):
     os.chdir(local)
