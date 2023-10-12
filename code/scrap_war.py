@@ -21,7 +21,10 @@ replace = [['כדורגלן עבר', ''],
            ['ממבטחים', 'מבטחים'],
            ['מבטחים', 'ממבטחים']]
 
+cols = {'name': 'name', 'gender':'gender', 'age': 'age', 'from': 'loc', 'story': 'story'}
+data = pd.read_csv('data/deaths.csv', keep_default_na=False)
 try:
+# if True:
     r = requests.get('https://ynet-projects.webflow.io/news/attackingaza?01ccf7e0_page=100000000')
     bad = len(r.text)
     # marker seperates between people
@@ -46,48 +49,45 @@ try:
             idx_marker = [m.end() for m in re.finditer(marker, txt)]
             # segment = txt.split('r-field="name" class="gazaattack-name"')
             ##
-            gender = ['']*len(idx_marker)
-            age = np.zeros(len(idx_marker), int)
-            loc = ['']*len(idx_marker)
-            story = ['']*len(idx_marker)
-            name = ['']*len(idx_marker)
-            # seg_count = -1
+
+            seg_count = -1
             for iseg in range(len(idx_marker)):  # segment[1:]:
+                gender = ''
+                age = 0
+                loc = ''
+                story = ''
+                # name = ''
                 # age.append(0)
                 seg = txt[idx_marker[iseg]+len('<div fs-cmsfilter-field="name" class="gazaattack-name">'):]
                 if iseg < len(idx_marker)-2:
                     seg = seg[:(idx_marker[iseg+1]-idx_marker[iseg])]
-                name[iseg] = seg[:seg.index('<')]
+                name = seg[:seg.index('<')]
                 if 'טל לוי' in seg[:8]:
-                    # loc[iseg] = '')
-                    # gender[iseg] = '')
-                    # age.append(0)
-                    story[iseg] = 'מ"כ בגדוד 50'
-                    # print('booha')
+                    story = 'מ"כ בגדוד 50'
                 else:
                     segs = seg.split('<div fs-cmsfilter-field="age" class="gazaattack-place-age">')
                     for s in segs:
                         a = s.replace('</div>', '')
                         if a.isnumeric():
-                            age[iseg] = int(a)
+                            age = int(a)
                             break
                     segs = seg.split('<div fs-cmsfilter-field="age" class="gazaattack-place-age">')
                     for s in segs:
                         if '<div class="redlinegazaattack"></div>' in s:
-                            l = s[:s.index('<')]
-                            if l.replace(' ', '').isalpha() and not l == name[iseg]:
-                                loc[iseg] = l
+                            ll = s[:s.index('<')]
+                            if ll.replace(' ', '').isalpha() and not ll == name:
+                                loc = ll
                                 break
-                if age[iseg] == '':
+                if age == 0:
                     if gpa in seg:
                         idx = seg.index(gpa)
                         segan = seg[idx + len(gpa) + 1:]
                         segan = segan[:segan.index('<')]
                         if '>בת' in segan:
-                            gender[iseg] = 'F'
+                            gender = 'F'
                             gindex = segan.index('>בת')+1
                         elif '>בן' in segan:
-                            gender[iseg] = 'M'
+                            gender = 'M'
                             gindex = segan.index('>בן')+1
                         else:
                             # gender[iseg] = '')
@@ -103,44 +103,50 @@ try:
                             if len(im) == 0:
                                 lc = segan.replace('>', '')
                                 lc = lc.replace('w-dyn-bind-empty"', '')
-                                loc[iseg] = lc
+                                loc = lc
                             else:
                                 lc = ' '.join(segan_split[im[-1]:]).replace('>', '')
                                 lc = lc.replace('-dyn-bind-empty">', '')
-                                loc[iseg] = lc
+                                loc = lc
                         else:
                             ag = segan[gindex+3:]
-                            if ag[0].isnumeric():
+                            if len(ag) > 0 and ag[0].isnumeric():
                                 for ichar in range(1, len(ag)):
                                     if ag[ichar].isnumeric():
                                         a = int(ag[:ichar+1])
                                     else:
                                         break
-                                age[iseg] = a
+                                age = a
                                 if ichar != len(ag)-1:
                                     # loc[iseg] = '')
                                 # else:
-                                    loc[iseg] = ag[ichar:].replace(',', '').strip()
-                                if len(loc[-1]) > 0 and loc[-1][0] == 'מ':
-                                    loc[iseg] = loc[-1][1:]
+                                    loc = ag[ichar:].replace(',', '').strip()
+                                if len(loc) > 0 and loc[0] == 'מ':
+                                    loc = loc[1:]
                             else:
                                 # raise Exception('no age here?')
                                 # age.append(0)
-                                loc[iseg] = '?'
-                    if gns in seg:
-                        seg = seg[seg.index(gns):]
-                        story[iseg] = seg[len(gns)+2:seg.index('<')].replace('-dyn-bind-empty">', '')
-                    # else:
-                        # story[iseg] = '')
-            df = pd.DataFrame(name, columns=['name'])
-            df['gender'] = gender
-            df['age'] = age
-            df['from'] = loc
-            df['story'] = story
-            dfs.append(df)
-    merged = pd.concat(dfs)
-    merged.to_excel('data/deaths.xlsx', index=False)
-    merged.to_csv('data/deaths.csv', index=False)
+                                loc = '?'
+                if gns in seg:
+                    seg = seg[seg.index(gns):]
+                    story = seg[len(gns)+2:seg.index('<')].replace('-dyn-bind-empty">', '')
+                row = np.where(data['name'] == name)[0]
+                if len(row) == 0:
+                    data.loc[len(data)] = [name, gender, age, loc, story]
+                else:
+                    row = row[0]
+                    if len(data['name'].values[row]) == 0 and len(name) > 0:
+                        data.at[row, 'name'] = name
+                    if data['age'].values[row] == 0 and age > 0:
+                        data.at[row, 'age'] = age
+                    if len(data['from'].values[row]) == 0 and len(loc) > 0:
+                        data.at[row, 'from'] = loc
+                    if len(data['gender'].values[row]) == 0 and len(gender) > 0:
+                        data.at[row, 'gender'] = gender
+                    if len(data['story'].values[row]) == 0 and len(story) > 0:
+                        data.at[row, 'story'] = story
+    data.to_excel('data/deaths.xlsx', index=False)
+    data.to_csv('data/deaths.csv', index=False)
     success = True
 except Exception as e:
     print('scraping ynet failed')
@@ -157,3 +163,16 @@ if success:
         print('death map creation failed')
         print(e)
 print('done')
+
+
+##
+
+# else:
+# story[iseg] = '')
+# df = pd.DataFrame(name, columns=['name'])
+# df['gender'] = gender
+# df['age'] = age
+# df['from'] = loc
+# df['story'] = story
+# dfs.append(df)
+# merged = pd.concat(dfs)
