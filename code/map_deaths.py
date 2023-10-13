@@ -29,7 +29,8 @@ def map_deaths():
     map = folium.Map(location=center, zoom_start=7.5)#, tiles='openstreetmap')
     # folium.TileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png',
     #                  attr='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors').add_to(map)
-    folium.TileLayer('openstreetmap').add_to(map)
+    # folium.TileLayer('openstreetmap').add_to(map)
+    folium.TileLayer('cartodbpositron').add_to(map)
     now = np.datetime64('now', 'ns')
     nowisr = pd.to_datetime(now, utc=True, unit='s').astimezone(tz='Israel')
     nowstr = str(nowisr)[:16].replace('T', ' ')
