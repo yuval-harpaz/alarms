@@ -52,8 +52,8 @@ title_html = f'''
              <h3 align="center" style="font-size:16px"><b>Rocket alarms in Israel for the last 7 days, data from <a href="https://www.oref.org.il" target="_blank">THE NATIONAL EMERGENCY PORTAL</a>
              via <a href="https://www.tzevaadom.co.il/" target="_blank">צבע אדום</a>. last checked: {nowstr}</b></h3>
              '''
-gnames = date_list
-co = [[0.25, 0.25, 1.0], [0.25, 0.9, 0.8], [0.25, 1, 0.25], [0.75, 0.75, 0.25], [0.82, 0.5, 0.35],
+gnames = ['total'] + date_list
+co = [[0.2, 0.2, 0.2], [0.25, 0.25, 1.0], [0.25, 0.9, 0.8], [0.25, 1, 0.25], [0.75, 0.75, 0.25], [0.82, 0.5, 0.35],
       [1.0, 0.25, 0.25], [0, 0, 0]]
 chex = []
 for c in co:
@@ -75,11 +75,13 @@ folium.TileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png',
 #     folium.TileLayer(tile).add_to(map)
 map.get_root().html.add_child(folium.Element(title_html))
 
-for idate in range(7):
+for igroup in range(8):
     # idx = (yyyy == year)
-    dt = date_list[idate]
-    idx = date == date_list[idate]
-    print(sum(idx))
+    dt = gnames[igroup]
+    if igroup == 0:
+        idx = date >= gnames[1]
+    else:
+        idx = date == dt
     loc = np.asarray(prev['cities'][idx])
     locu = np.unique(loc)
     size = np.zeros(len(locu), int)
@@ -94,11 +96,11 @@ for idate in range(7):
                                 tooltip=tip,
                                 radius=float(np.max([size[iloc]**0.5*2, 1])),
                                 fill=True,
-                                fill_color=chex[idate],
-                                color=chex[idate],
+                                fill_color=chex[igroup],
+                                color=chex[igroup],
                                 opacity=0,
                                 fill_opacity=0.5
-                                ).add_to(grp[idate])
+                                ).add_to(grp[igroup])
         else:
             print('cannot find coord for '+locu[iloc])
 
