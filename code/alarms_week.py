@@ -53,7 +53,7 @@ title_html = f'''
              via <a href="https://www.tzevaadom.co.il/" target="_blank">צבע אדום</a>. last checked: {nowstr}</b></h3>
              '''
 gnames = ['total'] + date_list
-co = [[0.2, 0.2, 0.2], [0.25, 0.25, 1.0], [0.25, 0.9, 0.8], [0.25, 1, 0.25], [0.75, 0.75, 0.25], [0.82, 0.5, 0.35],
+co = [[0.7, 0.5, 0.5], [0.25, 0.25, 1.0], [0.25, 0.9, 0.8], [0.25, 1, 0.25], [0.75, 0.75, 0.25], [0.82, 0.5, 0.35],
       [1.0, 0.25, 0.25], [0, 0, 0]]
 chex = []
 for c in co:
@@ -66,9 +66,9 @@ for ic, gn in enumerate(gnames):
 coo = pd.read_csv('data/coord.csv')
 center = [coo['lat'].mean(), coo['long'].mean()]
 ##
-map = folium.Map(location=center, zoom_start=7.5, tiles='openstreetmap')
-# tiles = ['cartodbpositron', 'stamenterrain']
+map = folium.Map(location=center, zoom_start=7.5)
 folium.TileLayer('cartodbpositron').add_to(map)
+folium.TileLayer('openstreetmap').add_to(map)
 folium.TileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png',
                  attr='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors').add_to(map)
 # for tile in tiles:
@@ -79,7 +79,7 @@ for igroup in range(8):
     # idx = (yyyy == year)
     dt = gnames[igroup]
     if igroup == 0:
-        idx = date >= gnames[1]
+        idx = date >= '2023-10-07'
     else:
         idx = date == dt
     loc = np.asarray(prev['cities'][idx])
