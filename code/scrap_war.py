@@ -20,7 +20,7 @@ from map_deaths import map_deaths
 replace = [['כדורגלן עבר', ''],
            ['ממבטחים', 'מבטחים'],
            ['מבטחים', 'ממבטחים']]
-
+name_errors = 0
 cols = {'name': 'name', 'gender':'gender', 'age': 'age', 'from': 'loc', 'story': 'story'}
 data = pd.read_csv('data/deaths.csv', keep_default_na=False)
 try:
@@ -78,7 +78,34 @@ try:
                             if ll.replace(' ', '').isalpha() and not ll == name:
                                 loc = ll
                                 break
-                if age == 0:
+                if " class=" in name:
+                    name_errors += 1
+                    print(f'name errors: {name_errors}')
+                    bug = True
+                    if 'עינבר' in seg and 'נרצחה במסיבה ברעים' in seg:
+                        name = 'עינבר שם טוב'
+                        gender = 'F'
+                        story = 'נרצחה במסיבה ברעים'
+                    elif 'באר שבע' in seg and 'נהרג בקיבוץ עלומים' in seg:
+                        name = 'ישי סלוטקי'
+                        gender = 'M'
+                        story = 'נהרג בקיבוץ עלומים'
+                    elif '1%D7%9E%D7%95%D7%A8-%D7%9B%D7%94%D7%9F%20' in seg:
+                        name = 'מור כהן'
+                        gender = 'M'
+                        age = 24
+                        loc = 'אזור'
+                    elif '%D7%A2%D7%99%D7%9C%D7%99%20%D7%91%D7%A8%D7%A2%D7%9D' in seg:
+                        name = 'עילי ברעם'
+                        age = 27
+                        gender = 'M'
+                    elif '%D7%A1%D7%99%D7%95%D7%9F%20%D7%90%D7%9C%D7%A7%D7%91%D7%A5' in seg:
+                        name = 'סיון אלקבץ'
+                    else:
+                        name = ''
+                else:
+                    bug = False
+                if age == 0 and not bug:
                     if gpa in seg:
                         idx = seg.index(gpa)
                         segan = seg[idx + len(gpa) + 1:]
@@ -127,24 +154,25 @@ try:
                                 # raise Exception('no age here?')
                                 # age.append(0)
                                 loc = '?'
-                if gns in seg:
+                if gns in seg and not bug:
                     seg = seg[seg.index(gns):]
                     story = seg[len(gns)+2:seg.index('<')].replace('-dyn-bind-empty">', '')
                 row = np.where(data['name'] == name)[0]
-                if len(row) == 0:
-                    data.loc[len(data)] = [name, gender, age, loc, story]
-                else:
-                    row = row[0]
-                    if len(data['name'].values[row]) == 0 and len(name) > 0:
-                        data.at[row, 'name'] = name
-                    if data['age'].values[row] == 0 and age > 0:
-                        data.at[row, 'age'] = age
-                    if len(data['from'].values[row]) == 0 and len(loc) > 0:
-                        data.at[row, 'from'] = loc
-                    if len(data['gender'].values[row]) == 0 and len(gender) > 0:
-                        data.at[row, 'gender'] = gender
-                    if len(data['story'].values[row]) == 0 and len(story) > 0:
-                        data.at[row, 'story'] = story
+                if len(name) > 0:
+                    if len(row) == 0:
+                        data.loc[len(data)] = [name, gender, age, loc, story]
+                    else:
+                        row = row[0]
+                        if len(data['name'].values[row]) == 0 and len(name) > 0:
+                            data.at[row, 'name'] = name
+                        if data['age'].values[row] == 0 and age > 0:
+                            data.at[row, 'age'] = age
+                        if len(data['from'].values[row]) == 0 and len(loc) > 0:
+                            data.at[row, 'from'] = loc
+                        if len(data['gender'].values[row]) == 0 and len(gender) > 0:
+                            data.at[row, 'gender'] = gender
+                        if len(data['story'].values[row]) == 0 and len(story) > 0:
+                            data.at[row, 'story'] = story
     data.to_excel('data/deaths.xlsx', index=False)
     data.to_csv('data/deaths.csv', index=False)
     success = True

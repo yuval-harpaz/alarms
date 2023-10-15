@@ -12,7 +12,7 @@ if os.path.isdir(local):
     sys.path.append(local + 'code')
 from alarms_coord import update_coord
 
-min_deaths = {'בארי': 112, 'ניר עוז': 35, 'יכיני':4, 'נתיב העשרה':21, 'כפר עזה':70, 'עלומים':20, 'כיסופים':15,
+min_deaths = {'בארי': 112, 'ניר עוז': 35, 'יכיני':4, 'נתיב העשרה':21, 'כפר עזה':52, 'עלומים':20, 'כיסופים':15,
               'רעים':5, 'נירים':5}  # from: https://www.ynet.co.il/news/article/yokra13627562
 def map_deaths():
     df = pd.read_csv('data/deaths.csv')
