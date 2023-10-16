@@ -4,3 +4,4 @@ tmp*
 oath.txt
 *.pyc
 .idea
+*.orig
