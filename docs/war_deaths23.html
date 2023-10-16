@@ -25,7 +25,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_ef67da3aa0f03cd3c06d275ff8bc161f {
+                #map_af75b9ed519722fca54be9b26181b354 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -40,19 +40,19 @@
     
     
                  <h3 align="center" style="font-size:16px"><b>War deaths in Israel since 7-Oct-23, by residence. data from <a href="https://ynet-projects.webflow.io/news/attackingaza" target="_blank">ynet</a>
-                 . last checked: 2023-10-16 20:33</b></h3>
+                 . last checked: 2023-10-16 21:17</b></h3>
                  
     
-            <div class="folium-map" id="map_ef67da3aa0f03cd3c06d275ff8bc161f" ></div>
+            <div class="folium-map" id="map_af75b9ed519722fca54be9b26181b354" ></div>
         
 </body>
 <script>
     
     
-            var map_ef67da3aa0f03cd3c06d275ff8bc161f = L.map(
-                "map_ef67da3aa0f03cd3c06d275ff8bc161f",
+            var map_af75b9ed519722fca54be9b26181b354 = L.map(
+                "map_af75b9ed519722fca54be9b26181b354",
                 {
-                    center: [30.490010160097558, 33.13410554747414],
+                    center: [31.477910445600582, 34.21758815628573],
                     crs: L.CRS.EPSG3857,
                     zoom: 7.5,
                     zoomControl: true,
@@ -64,25 +64,39 @@
 
         
     
-            var tile_layer_a17770cf6106c1d1c03d74e93be16b62 = L.tileLayer(
+            var tile_layer_070d153b4cb03b5f3fb88438a648ef8b = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            var tile_layer_5a64b02ad82c646d9c4927c64858d50c = L.tileLayer(
+            var tile_layer_9e517030536237f37eed6336c50ed961 = L.tileLayer(
                 "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
                 {"attribution": "\u0026copy; \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca target=\"_blank\" href=\"http://cartodb.com/attributions\"\u003eCartoDB\u003c/a\u003e, CartoDB \u003ca target=\"_blank\" href =\"http://cartodb.com/attributions\"\u003eattributions\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            var circle_67961753ec781a978d10ceb987f0c538 = L.circle(
+            var circle_cf2dcd2c9927d3b631f7cfe22b035c05 = L.circle(
                 [0.0, 0.0],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_67961753ec781a978d10ceb987f0c538.bindTooltip(
+            circle_cf2dcd2c9927d3b631f7cfe22b035c05.bindTooltip(
+                `<div>
+                        1
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_2ff7524120ca3051216f72675c7c29e4 = L.circle(
+                [0.0, 0.0],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
+        
+    
+            circle_2ff7524120ca3051216f72675c7c29e4.bindTooltip(
                 `<div>
                      ?  1
                  </div>`,
@@ -90,13 +104,13 @@
             );
         
     
-            var circle_cc34ab83d3cbf8f2edbf6c0c4d17ea9d = L.circle(
+            var circle_156bc520a29d7feb810dbf93098b4ac7 = L.circle(
                 [31.806293, 35.109193],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_cc34ab83d3cbf8f2edbf6c0c4d17ea9d.bindTooltip(
+            circle_156bc520a29d7feb810dbf93098b4ac7.bindTooltip(
                 `<div>
                      אבו גוש  1
                  </div>`,
@@ -104,13 +118,13 @@
             );
         
     
-            var circle_8efca27b10cefeb4511b03df17d20113 = L.circle(
+            var circle_160ef5a593dbcf5bdbc145ee4f2ad61c = L.circle(
                 [32.2700426, 34.8809634],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_8efca27b10cefeb4511b03df17d20113.bindTooltip(
+            circle_160ef5a593dbcf5bdbc145ee4f2ad61c.bindTooltip(
                 `<div>
                      אבן יהודה  2
                  </div>`,
@@ -118,13 +132,13 @@
             );
         
     
-            var circle_f8a4a8a0367c0424d9c3bec56456928a = L.circle(
+            var circle_146eb9c5e6377422040bb8ecdc3c1ce1 = L.circle(
                 [31.659715, 34.99444],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_f8a4a8a0367c0424d9c3bec56456928a.bindTooltip(
+            circle_146eb9c5e6377422040bb8ecdc3c1ce1.bindTooltip(
                 `<div>
                      אדרת  1
                  </div>`,
@@ -132,13 +146,13 @@
             );
         
     
-            var circle_0279c39d55011dcfabe4fa83ffd35272 = L.circle(
+            var circle_c8cb1665cdd8f37cf56849027da69065 = L.circle(
                 [31.238436, 34.431893],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_0279c39d55011dcfabe4fa83ffd35272.bindTooltip(
+            circle_c8cb1665cdd8f37cf56849027da69065.bindTooltip(
                 `<div>
                      אוהד  1
                  </div>`,
@@ -146,13 +160,13 @@
             );
         
     
-            var circle_eed42cc5d8ab66de790514b4d28f3ece = L.circle(
+            var circle_f40ff3d5bb4698e1c8157d0486d92795 = L.circle(
                 [31.311337, 34.622824],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1465.8075357087598, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_eed42cc5d8ab66de790514b4d28f3ece.bindTooltip(
+            circle_f40ff3d5bb4698e1c8157d0486d92795.bindTooltip(
                 `<div>
                      אופקים  12
                  </div>`,
@@ -160,13 +174,13 @@
             );
         
     
-            var circle_03520aabb36345fd617b5565963deb9f = L.circle(
+            var circle_42faad01681aec8f2ede3c342d18e99b = L.circle(
                 [32.509965, 34.920394],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_03520aabb36345fd617b5565963deb9f.bindTooltip(
+            circle_42faad01681aec8f2ede3c342d18e99b.bindTooltip(
                 `<div>
                      אור עקיבא  1
                  </div>`,
@@ -174,13 +188,13 @@
             );
         
     
-            var circle_fe8b4552a3e39f0d6ab32e6f82ef6fa0 = L.circle(
+            var circle_f355106289ed0d9f8df8cc9e61994167 = L.circle(
                 [31.752109, 35.150165],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_fe8b4552a3e39f0d6ab32e6f82ef6fa0.bindTooltip(
+            circle_f355106289ed0d9f8df8cc9e61994167.bindTooltip(
                 `<div>
                      אורה  1
                  </div>`,
@@ -188,13 +202,13 @@
             );
         
     
-            var circle_156bcb276af8c0a350f1fa2e3ceceafb = L.circle(
+            var circle_12d208a652ace1e3e7e11dbf26fa4030 = L.circle(
                 [32.0245041, 34.8058575],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_156bcb276af8c0a350f1fa2e3ceceafb.bindTooltip(
+            circle_12d208a652ace1e3e7e11dbf26fa4030.bindTooltip(
                 `<div>
                      אזור  2
                  </div>`,
@@ -202,13 +216,13 @@
             );
         
     
-            var circle_cb9093d70ec98439dfd57541c13a0222 = L.circle(
+            var circle_c0acf5c2e14849754d178b5280929d00 = L.circle(
                 [32.643101, 35.338893],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_cb9093d70ec98439dfd57541c13a0222.bindTooltip(
+            circle_c0acf5c2e14849754d178b5280929d00.bindTooltip(
                 `<div>
                      אחוזת ברק  1
                  </div>`,
@@ -216,13 +230,13 @@
             );
         
     
-            var circle_6cd98399bc595d5a8c0e48b4c5e7a6d4 = L.circle(
+            var circle_6779a196c01553d6a8cba1195f0683e3 = L.circle(
                 [32.173869, 35.308029],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_6cd98399bc595d5a8c0e48b4c5e7a6d4.bindTooltip(
+            circle_6779a196c01553d6a8cba1195f0683e3.bindTooltip(
                 `<div>
                      איתמר  1
                  </div>`,
@@ -230,13 +244,13 @@
             );
         
     
-            var circle_df18d92edd8f2f1178629e52d56ea722 = L.circle(
+            var circle_3b8f63fd81a3ae025ac4f6135bd45ab1 = L.circle(
                 [31.2722558618528, 35.0251955342075],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1036.4824484140065, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_df18d92edd8f2f1178629e52d56ea722.bindTooltip(
+            circle_3b8f63fd81a3ae025ac4f6135bd45ab1.bindTooltip(
                 `<div>
                      אלבאת הפזורה הבדואית  6
                  </div>`,
@@ -244,13 +258,13 @@
             );
         
     
-            var circle_e56c760167e8fe7a8446a5b3823a960c = L.circle(
+            var circle_fa64a1e58670e4a552c54c81421faf8c = L.circle(
                 [31.654871, 35.125256],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_e56c760167e8fe7a8446a5b3823a960c.bindTooltip(
+            circle_fa64a1e58670e4a552c54c81421faf8c.bindTooltip(
                 `<div>
                      אלון שבות  2
                  </div>`,
@@ -258,13 +272,13 @@
             );
         
     
-            var circle_aac736c0db80bf4f8c4ff794c0a38f3f = L.circle(
+            var circle_c3f79322d969cc91914b3e9bef9aec20 = L.circle(
                 [32.407659, 34.925028],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_aac736c0db80bf4f8c4ff794c0a38f3f.bindTooltip(
+            circle_c3f79322d969cc91914b3e9bef9aec20.bindTooltip(
                 `<div>
                      אליכין  2
                  </div>`,
@@ -272,13 +286,13 @@
             );
         
     
-            var circle_f0bc5d8bdef173156c8e6e79d877b433 = L.circle(
+            var circle_eb7b0597a92329b9cfc3d383b5cf90c2 = L.circle(
                 [32.170631, 35.014858],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_f0bc5d8bdef173156c8e6e79d877b433.bindTooltip(
+            circle_eb7b0597a92329b9cfc3d383b5cf90c2.bindTooltip(
                 `<div>
                      אלפי מנשה  1
                  </div>`,
@@ -286,13 +300,13 @@
             );
         
     
-            var circle_9172f19d1ee6f99a871c45ba9d76abe7 = L.circle(
+            var circle_5958c37a47ac405b16e162d1d3cfa3b2 = L.circle(
                 [31.653589, 35.149934],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_9172f19d1ee6f99a871c45ba9d76abe7.bindTooltip(
+            circle_5958c37a47ac405b16e162d1d3cfa3b2.bindTooltip(
                 `<div>
                      אפרת  1
                  </div>`,
@@ -300,13 +314,13 @@
             );
         
     
-            var circle_6ea2d178589f114603dc6e3263b7f3f0 = L.circle(
+            var circle_278ea0c9b6c58c5659847e46c40083f5 = L.circle(
                 [32.104637, 35.174514],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_6ea2d178589f114603dc6e3263b7f3f0.bindTooltip(
+            circle_278ea0c9b6c58c5659847e46c40083f5.bindTooltip(
                 `<div>
                      אריאל  2
                  </div>`,
@@ -314,13 +328,13 @@
             );
         
     
-            var circle_e5886818905fc80d235276d8809d547b = L.circle(
+            var circle_feba69b7550f9dd1a15aedee739c8260 = L.circle(
                 [31.804381, 34.655314],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1465.8075357087598, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_e5886818905fc80d235276d8809d547b.bindTooltip(
+            circle_feba69b7550f9dd1a15aedee739c8260.bindTooltip(
                 `<div>
                      אשדוד  12
                  </div>`,
@@ -328,13 +342,13 @@
             );
         
     
-            var circle_d467dae535a1a52dd81bd9d2f2dbbbe1 = L.circle(
+            var circle_1cad4bddcc157fdc4cff9a30cd824d7d = L.circle(
                 [31.6687885, 34.5742523],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1338.0930871145783, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_d467dae535a1a52dd81bd9d2f2dbbbe1.bindTooltip(
+            circle_1cad4bddcc157fdc4cff9a30cd824d7d.bindTooltip(
                 `<div>
                      אשקלון  10
                  </div>`,
@@ -342,13 +356,13 @@
             );
         
     
-            var circle_abadfa4360fb77f27099614d218f296e = L.circle(
+            var circle_f9669bc75b52136cc117b8e21171319a = L.circle(
                 [31.2521018, 34.7867691],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1338.0930871145783, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_abadfa4360fb77f27099614d218f296e.bindTooltip(
+            circle_f9669bc75b52136cc117b8e21171319a.bindTooltip(
                 `<div>
                      באר שבע  10
                  </div>`,
@@ -356,13 +370,13 @@
             );
         
     
-            var circle_82d7a3adf012cdd15019b15ea46ca479 = L.circle(
+            var circle_82c39426f769257d790db5e6df76bc34 = L.circle(
                 [31.424513, 34.492567],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 4478.115991081385, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_82d7a3adf012cdd15019b15ea46ca479.bindTooltip(
+            circle_82c39426f769257d790db5e6df76bc34.bindTooltip(
                 `<div>
                      בארי  112
                  </div>`,
@@ -370,13 +384,13 @@
             );
         
     
-            var circle_45559397a3ed3fe090f890f548200d67 = L.circle(
+            var circle_37a99949d25a0336b00d9556967d8c50 = L.circle(
                 [31.7949517, 34.7293463],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_45559397a3ed3fe090f890f548200d67.bindTooltip(
+            circle_37a99949d25a0336b00d9556967d8c50.bindTooltip(
                 `<div>
                      ביצרון  1
                  </div>`,
@@ -384,13 +398,13 @@
             );
         
     
-            var circle_e24219406ded3c1264552e361c704872 = L.circle(
+            var circle_e9db6281f40197a15bf1ba71686cc3b2 = L.circle(
                 [32.516357, 35.430499],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_e24219406ded3c1264552e361c704872.bindTooltip(
+            circle_e9db6281f40197a15bf1ba71686cc3b2.bindTooltip(
                 `<div>
                      בית אלפא  1
                  </div>`,
@@ -398,13 +412,13 @@
             );
         
     
-            var circle_2fb41c07413939f865e2872f0fcfd5bd = L.circle(
+            var circle_57dd1bfbf809ef3f79288d3b45bc8dd9 = L.circle(
                 [32.040059, 35.049472],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 732.9037678543799, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_2fb41c07413939f865e2872f0fcfd5bd.bindTooltip(
+            circle_57dd1bfbf809ef3f79288d3b45bc8dd9.bindTooltip(
                 `<div>
                      בית אריה  3
                  </div>`,
@@ -412,13 +426,13 @@
             );
         
     
-            var circle_c04c923f926b36585fbb8427f84d3274 = L.circle(
+            var circle_a67f1c50066f8ff5d253d29c9409bcab = L.circle(
                 [32.33558, 34.8895],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_c04c923f926b36585fbb8427f84d3274.bindTooltip(
+            circle_a67f1c50066f8ff5d253d29c9409bcab.bindTooltip(
                 `<div>
                      בית יצחק  1
                  </div>`,
@@ -426,13 +440,13 @@
             );
         
     
-            var circle_a4b6c545038cfee31dd87b57bda13dfa = L.circle(
+            var circle_46604ae3fd81c7b0109424cee47bbeef = L.circle(
                 [32.497103, 35.497336],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_a4b6c545038cfee31dd87b57bda13dfa.bindTooltip(
+            circle_46604ae3fd81c7b0109424cee47bbeef.bindTooltip(
                 `<div>
                      בית שאן  2
                  </div>`,
@@ -440,13 +454,13 @@
             );
         
     
-            var circle_72fc6798e6afacd4642e289b70f07f32 = L.circle(
+            var circle_0dfbb5025d295678e097d018ace1fff3 = L.circle(
                 [31.747041, 34.988099],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_72fc6798e6afacd4642e289b70f07f32.bindTooltip(
+            circle_0dfbb5025d295678e097d018ace1fff3.bindTooltip(
                 `<div>
                      בית שמש  1
                  </div>`,
@@ -454,13 +468,13 @@
             );
         
     
-            var circle_4daf75f65dcc270d0fbe62e1456b9e58 = L.circle(
+            var circle_3cbc85a6ad1cc06b0cae740d7f182f47 = L.circle(
                 [31.959019, 34.927831],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_4daf75f65dcc270d0fbe62e1456b9e58.bindTooltip(
+            circle_3cbc85a6ad1cc06b0cae740d7f182f47.bindTooltip(
                 `<div>
                      בן שמן  1
                  </div>`,
@@ -468,27 +482,13 @@
             );
         
     
-            var circle_ca6980a6a3c4b383d53b0f0ad8dccf8c = L.circle(
-                [0.0, 0.0],
-                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
-        
-    
-            circle_ca6980a6a3c4b383d53b0f0ad8dccf8c.bindTooltip(
-                `<div>
-                     בקרית איסוף יבשתי  1
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var circle_f1a1c5133754216f14c01020a885df65 = L.circle(
+            var circle_f2cd6ba9680f72504811e405fc6d7ed3 = L.circle(
                 [31.729683, 35.073414],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_f1a1c5133754216f14c01020a885df65.bindTooltip(
+            circle_f2cd6ba9680f72504811e405fc6d7ed3.bindTooltip(
                 `<div>
                      בר גיורא  1
                  </div>`,
@@ -496,13 +496,13 @@
             );
         
     
-            var circle_4cc6b90ef0bf822857c4c44079dabf0b = L.circle(
+            var circle_55e1545129197b297bab293215d30b19 = L.circle(
                 [32.476096, 35.031044],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_4cc6b90ef0bf822857c4c44079dabf0b.bindTooltip(
+            circle_55e1545129197b297bab293215d30b19.bindTooltip(
                 `<div>
                      ברקאי  1
                  </div>`,
@@ -510,13 +510,13 @@
             );
         
     
-            var circle_d2e65631b4da93144135bfa506c2e4fd = L.circle(
+            var circle_15b0e63f7654e9e72e14a4b34faddbf0 = L.circle(
                 [32.018344, 34.943179],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_d2e65631b4da93144135bfa506c2e4fd.bindTooltip(
+            circle_15b0e63f7654e9e72e14a4b34faddbf0.bindTooltip(
                 `<div>
                      ברקת  1
                  </div>`,
@@ -524,13 +524,13 @@
             );
         
     
-            var circle_6f2da86eb58a3bde20c4530ad950bad0 = L.circle(
+            var circle_72bfffe1b612d6e220e122ec8ce8ee3a = L.circle(
                 [32.333714, 35.013729],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_6f2da86eb58a3bde20c4530ad950bad0.bindTooltip(
+            circle_72bfffe1b612d6e220e122ec8ce8ee3a.bindTooltip(
                 `<div>
                      בת חפר  1
                  </div>`,
@@ -538,13 +538,13 @@
             );
         
     
-            var circle_dbf0116853b036ea7b41134a694b4880 = L.circle(
+            var circle_797d884025f41a9ea3845dd5beb948ac = L.circle(
                 [32.0151439, 34.752885],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_dbf0116853b036ea7b41134a694b4880.bindTooltip(
+            circle_797d884025f41a9ea3845dd5beb948ac.bindTooltip(
                 `<div>
                      בת ים  2
                  </div>`,
@@ -552,13 +552,13 @@
             );
         
     
-            var circle_d74178d73fe9d17d04d93ba607471f3d = L.circle(
+            var circle_6c035a2914f752f996b1bc9514cb65fc = L.circle(
                 [31.506273, 34.598949],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_d74178d73fe9d17d04d93ba607471f3d.bindTooltip(
+            circle_6c035a2914f752f996b1bc9514cb65fc.bindTooltip(
                 `<div>
                      גבים  1
                  </div>`,
@@ -566,13 +566,13 @@
             );
         
     
-            var circle_5dde81425f19ffab0dfdd9e9200e0cb9 = L.circle(
+            var circle_2834a6039ee93be4d669a3ce4c071b4d = L.circle(
                 [32.722007, 35.244822],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_5dde81425f19ffab0dfdd9e9200e0cb9.bindTooltip(
+            circle_2834a6039ee93be4d669a3ce4c071b4d.bindTooltip(
                 `<div>
                      גבעת אלה  1
                  </div>`,
@@ -580,13 +580,13 @@
             );
         
     
-            var circle_55c3d1a6aed92f2f6608c2655b0f1fb0 = L.circle(
+            var circle_185cf68d67fe535ddf405cfa5b227dd1 = L.circle(
                 [31.86661, 34.802254],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_55c3d1a6aed92f2f6608c2655b0f1fb0.bindTooltip(
+            circle_185cf68d67fe535ddf405cfa5b227dd1.bindTooltip(
                 `<div>
                      גבעת ברנר  1
                  </div>`,
@@ -594,13 +594,13 @@
             );
         
     
-            var circle_28550540cab78e4aeae30eb65e4c9074 = L.circle(
+            var circle_4c93bb369c5039a3347ef564881bb5fe = L.circle(
                 [32.077299, 34.849206],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_28550540cab78e4aeae30eb65e4c9074.bindTooltip(
+            circle_4c93bb369c5039a3347ef564881bb5fe.bindTooltip(
                 `<div>
                      גבעת שמואל  1
                  </div>`,
@@ -608,13 +608,13 @@
             );
         
     
-            var circle_cff9c82e436762ec4bf4c017492b56c7 = L.circle(
+            var circle_c3d5e0654d6b118df4bd24ae6962761e = L.circle(
                 [32.35763, 34.875845],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_cff9c82e436762ec4bf4c017492b56c7.bindTooltip(
+            circle_c3d5e0654d6b118df4bd24ae6962761e.bindTooltip(
                 `<div>
                      גבעת שפירא  1
                  </div>`,
@@ -622,13 +622,13 @@
             );
         
     
-            var circle_76e77de2eb5a952912162514fd73014b = L.circle(
+            var circle_ecd0f59241e850e26fe95223fea2a2ce = L.circle(
                 [32.075318, 34.8086113],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 846.2843753216345, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_76e77de2eb5a952912162514fd73014b.bindTooltip(
+            circle_ecd0f59241e850e26fe95223fea2a2ce.bindTooltip(
                 `<div>
                      גבעתיים  4
                  </div>`,
@@ -636,13 +636,13 @@
             );
         
     
-            var circle_51a19cd1c0daceed538602464eaa242e = L.circle(
+            var circle_4e3fbe169d4f191256bdcc986ccdcbdf = L.circle(
                 [31.8123014, 34.7770192],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 846.2843753216345, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_51a19cd1c0daceed538602464eaa242e.bindTooltip(
+            circle_4e3fbe169d4f191256bdcc986ccdcbdf.bindTooltip(
                 `<div>
                      גדרה  4
                  </div>`,
@@ -650,13 +650,13 @@
             );
         
     
-            var circle_c0b3b90d605f57e11fc38ba444fb7ba6 = L.circle(
+            var circle_77f22a4f87a6d5828b83da6d5e3b715d = L.circle(
                 [31.628467, 34.602678],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_c0b3b90d605f57e11fc38ba444fb7ba6.bindTooltip(
+            circle_77f22a4f87a6d5828b83da6d5e3b715d.bindTooltip(
                 `<div>
                      גיאה  1
                  </div>`,
@@ -664,13 +664,13 @@
             );
         
     
-            var circle_489bcea8555c7984f813cefda714ac33 = L.circle(
+            var circle_7940261956d336b08ff7f69b226cc419 = L.circle(
                 [31.888318, 34.79906],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_489bcea8555c7984f813cefda714ac33.bindTooltip(
+            circle_7940261956d336b08ff7f69b226cc419.bindTooltip(
                 `<div>
                      גיבתון  1
                  </div>`,
@@ -678,13 +678,13 @@
             );
         
     
-            var circle_87fbc8d2c212bcf5a1268cb2687479a8 = L.circle(
+            var circle_aeb7c40c7dc5d82c6d7ffa2c90db4f12 = L.circle(
                 [31.326321, 34.648934],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 732.9037678543799, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_87fbc8d2c212bcf5a1268cb2687479a8.bindTooltip(
+            circle_aeb7c40c7dc5d82c6d7ffa2c90db4f12.bindTooltip(
                 `<div>
                      גילת  3
                  </div>`,
@@ -692,13 +692,13 @@
             );
         
     
-            var circle_319ee18105e3d77376400b144bdf420b = L.circle(
+            var circle_a7f7cf9c5dcbe1736579d8274fe96f52 = L.circle(
                 [31.804056, 34.69987],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_319ee18105e3d77376400b144bdf420b.bindTooltip(
+            circle_a7f7cf9c5dcbe1736579d8274fe96f52.bindTooltip(
                 `<div>
                      גן הדרום  2
                  </div>`,
@@ -706,13 +706,13 @@
             );
         
     
-            var circle_7976f6957acc4e57719266839fe4fb7a = L.circle(
+            var circle_cacae8564bd7ef3c4343521511d5f0b8 = L.circle(
                 [32.195761, 34.906957],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_7976f6957acc4e57719266839fe4fb7a.bindTooltip(
+            circle_cacae8564bd7ef3c4343521511d5f0b8.bindTooltip(
                 `<div>
                      גן חיים  1
                  </div>`,
@@ -720,13 +720,13 @@
             );
         
     
-            var circle_bacbd0a8faa45d62b5ac7eb9c41122b5 = L.circle(
+            var circle_39fd2ab3b01462c3c77405ef5327a776 = L.circle(
                 [31.783056, 34.703101],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_bacbd0a8faa45d62b5ac7eb9c41122b5.bindTooltip(
+            circle_39fd2ab3b01462c3c77405ef5327a776.bindTooltip(
                 `<div>
                      גן יבנה  1
                  </div>`,
@@ -734,13 +734,13 @@
             );
         
     
-            var circle_6a64a21a421afd9a5202ae7058470e4b = L.circle(
+            var circle_f764699a5da2f2df724e848b67e9ef2d = L.circle(
                 [32.018204, 34.825877],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_6a64a21a421afd9a5202ae7058470e4b.bindTooltip(
+            circle_f764699a5da2f2df724e848b67e9ef2d.bindTooltip(
                 `<div>
                      גנות  1
                  </div>`,
@@ -748,13 +748,13 @@
             );
         
     
-            var circle_19c2bb7dbc35f913eeb41d4f80f32b02 = L.circle(
+            var circle_0f21b86ad407ac3fa5438cda86152140 = L.circle(
                 [31.788573, 34.791392],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_19c2bb7dbc35f913eeb41d4f80f32b02.bindTooltip(
+            circle_0f21b86ad407ac3fa5438cda86152140.bindTooltip(
                 `<div>
                      גני טל  1
                  </div>`,
@@ -762,13 +762,13 @@
             );
         
     
-            var circle_1394c64c9427a0d50929a621e61904be = L.circle(
+            var circle_76e91375ab0585df1ed2b600d71b21ff = L.circle(
                 [31.859924, 34.840827],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_1394c64c9427a0d50929a621e61904be.bindTooltip(
+            circle_76e91375ab0585df1ed2b600d71b21ff.bindTooltip(
                 `<div>
                      גני יוחנן  1
                  </div>`,
@@ -776,13 +776,13 @@
             );
         
     
-            var circle_dfd5230f889ed630a3c631aa6a19d56f = L.circle(
+            var circle_85cad95aa8717bb7e57710fa0210c342 = L.circle(
                 [33.040532, 35.110563],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_dfd5230f889ed630a3c631aa6a19d56f.bindTooltip(
+            circle_85cad95aa8717bb7e57710fa0210c342.bindTooltip(
                 `<div>
                      גשר הזיו  1
                  </div>`,
@@ -790,13 +790,13 @@
             );
         
     
-            var circle_9db6f99d2c99c9019dcfd14b29d94f9b = L.circle(
+            var circle_9dc8a4bbb6cb4d135e462c35ad8a0f40 = L.circle(
                 [32.646729, 35.350085],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_9db6f99d2c99c9019dcfd14b29d94f9b.bindTooltip(
+            circle_9dc8a4bbb6cb4d135e462c35ad8a0f40.bindTooltip(
                 `<div>
                      דברת  1
                  </div>`,
@@ -804,13 +804,13 @@
             );
         
     
-            var circle_517e2fd683306e4bdb6fc73906f1b4f9 = L.circle(
+            var circle_6099a7f5d03255023a081fb11e61655c = L.circle(
                 [31.069419, 35.033363],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 946.1746957575601, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_517e2fd683306e4bdb6fc73906f1b4f9.bindTooltip(
+            circle_6099a7f5d03255023a081fb11e61655c.bindTooltip(
                 `<div>
                      דימונה  5
                  </div>`,
@@ -818,13 +818,13 @@
             );
         
     
-            var circle_774bee2fe32fe98dff939e792021543a = L.circle(
+            var circle_9d4853f00c124ffa7e34c4ceb813e2e9 = L.circle(
                 [32.149961, 34.8838788],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1036.4824484140065, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_774bee2fe32fe98dff939e792021543a.bindTooltip(
+            circle_9d4853f00c124ffa7e34c4ceb813e2e9.bindTooltip(
                 `<div>
                      הוד השרון  6
                  </div>`,
@@ -832,13 +832,13 @@
             );
         
     
-            var circle_3bc68ce9a7c08734c790fca4a6a2ccde = L.circle(
+            var circle_9dd8ca9ce0f5a4443a2326417d15901b = L.circle(
                 [32.757927, 35.295225],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_3bc68ce9a7c08734c790fca4a6a2ccde.bindTooltip(
+            circle_9dd8ca9ce0f5a4443a2326417d15901b.bindTooltip(
                 `<div>
                      הושעיה  1
                  </div>`,
@@ -846,13 +846,13 @@
             );
         
     
-            var circle_71708ff34ff27ca30b80742282163714 = L.circle(
+            var circle_b3c55dfa0f1d3de9fe2e335a8aad282a = L.circle(
                 [30.7140861, 34.8757476],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_71708ff34ff27ca30b80742282163714.bindTooltip(
+            circle_b3c55dfa0f1d3de9fe2e335a8aad282a.bindTooltip(
                 `<div>
                      הפזורה הבדואית בנגב  1
                  </div>`,
@@ -860,13 +860,13 @@
             );
         
     
-            var circle_c03e9a999b4d73dc42fa141eec8312af = L.circle(
+            var circle_2db0661242b3a2336ff6407e02f1383f = L.circle(
                 [31.975178, 34.891732],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_c03e9a999b4d73dc42fa141eec8312af.bindTooltip(
+            circle_2db0661242b3a2336ff6407e02f1383f.bindTooltip(
                 `<div>
                      זיתן  1
                  </div>`,
@@ -874,13 +874,13 @@
             );
         
     
-            var circle_a1ccaacf42c11c765f1391a4fc6e7136 = L.circle(
+            var circle_0c36a35c678c7079ee1e3bf1fdbf7670 = L.circle(
                 [32.573905, 34.951977],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_a1ccaacf42c11c765f1391a4fc6e7136.bindTooltip(
+            circle_0c36a35c678c7079ee1e3bf1fdbf7670.bindTooltip(
                 `<div>
                      זכרון יעקב  1
                  </div>`,
@@ -888,13 +888,13 @@
             );
         
     
-            var circle_d078e9a86a39402f35f3dd300eae40a3 = L.circle(
+            var circle_7837133e3ca1d061683d00d852f9cca2 = L.circle(
                 [31.969429, 34.932156],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_d078e9a86a39402f35f3dd300eae40a3.bindTooltip(
+            circle_7837133e3ca1d061683d00d852f9cca2.bindTooltip(
                 `<div>
                      חדיד  1
                  </div>`,
@@ -902,13 +902,13 @@
             );
         
     
-            var circle_e0bc26d2875cbb6ec466f690d4679852 = L.circle(
+            var circle_5a1246180acfb52e5817eb7fc032b128 = L.circle(
                 [32.4340458, 34.9196518],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 846.2843753216345, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_e0bc26d2875cbb6ec466f690d4679852.bindTooltip(
+            circle_5a1246180acfb52e5817eb7fc032b128.bindTooltip(
                 `<div>
                      חדרה  4
                  </div>`,
@@ -916,13 +916,13 @@
             );
         
     
-            var circle_5159f9d6ab21de97429b3253eb20c9c3 = L.circle(
+            var circle_bfd4c98c1245134c6c7666ea48d53b58 = L.circle(
                 [32.38907, 34.924252],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_5159f9d6ab21de97429b3253eb20c9c3.bindTooltip(
+            circle_bfd4c98c1245134c6c7666ea48d53b58.bindTooltip(
                 `<div>
                      חוגלה  1
                  </div>`,
@@ -930,13 +930,13 @@
             );
         
     
-            var circle_65ea5ef71fcdac48ef2df8e9734e1e83 = L.circle(
+            var circle_aaf353b6c60baaf9ccc30eedad0160d9 = L.circle(
                 [32.145289, 35.104794],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_65ea5ef71fcdac48ef2df8e9734e1e83.bindTooltip(
+            circle_aaf353b6c60baaf9ccc30eedad0160d9.bindTooltip(
                 `<div>
                      חוות יאיר  1
                  </div>`,
@@ -944,13 +944,13 @@
             );
         
     
-            var circle_b90e21ae956c847703de54ca6bcccc79 = L.circle(
+            var circle_ea441b0407cf793e7d80b89fb044aa2a = L.circle(
                 [32.015833, 34.787384],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1269.4265629824517, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_b90e21ae956c847703de54ca6bcccc79.bindTooltip(
+            circle_ea441b0407cf793e7d80b89fb044aa2a.bindTooltip(
                 `<div>
                      חולון  9
                  </div>`,
@@ -958,27 +958,27 @@
             );
         
     
-            var circle_3a5c21f2cab721dd51ccd22569226eee = L.circle(
+            var circle_62f7946370f9633be026cf36b624c147 = L.circle(
                 [31.230563, 34.32734],
-                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1525.6608544230821, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1583.253092116782, "stroke": true, "weight": 3}
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_3a5c21f2cab721dd51ccd22569226eee.bindTooltip(
+            circle_62f7946370f9633be026cf36b624c147.bindTooltip(
                 `<div>
-                     חולית  13
+                     חולית  14
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var circle_f03803043c56f061a0c5bb02c8948f3a = L.circle(
+            var circle_b71fdea919333f2bf9694025db9eaa44 = L.circle(
                 [31.300399, 34.935688],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_f03803043c56f061a0c5bb02c8948f3a.bindTooltip(
+            circle_b71fdea919333f2bf9694025db9eaa44.bindTooltip(
                 `<div>
                      חורה  1
                  </div>`,
@@ -986,13 +986,13 @@
             );
         
     
-            var circle_22d49ba325d85535893ff1bad55e838f = L.circle(
+            var circle_61d06c2cb8e9b3516bdfc764c72769ff = L.circle(
                 [33.016688, 35.347106],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_22d49ba325d85535893ff1bad55e838f.bindTooltip(
+            circle_61d06c2cb8e9b3516bdfc764c72769ff.bindTooltip(
                 `<div>
                      חורפיש  1
                  </div>`,
@@ -1000,13 +1000,13 @@
             );
         
     
-            var circle_fd4e33ddb1856fae51074186c10e6ad6 = L.circle(
+            var circle_ea03e83562a1c985dcf74e032a426162 = L.circle(
                 [32.7940463, 34.989571],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1338.0930871145783, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_fd4e33ddb1856fae51074186c10e6ad6.bindTooltip(
+            circle_ea03e83562a1c985dcf74e032a426162.bindTooltip(
                 `<div>
                      חיפה  10
                  </div>`,
@@ -1014,13 +1014,13 @@
             );
         
     
-            var circle_7dc336ed1a413ce9205f37a9d64f2925 = L.circle(
+            var circle_1b6cac8ff406547a85891171491cf149 = L.circle(
                 [32.423726, 35.118993],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_7dc336ed1a413ce9205f37a9d64f2925.bindTooltip(
+            circle_1b6cac8ff406547a85891171491cf149.bindTooltip(
                 `<div>
                      חרמש  1
                  </div>`,
@@ -1028,13 +1028,13 @@
             );
         
     
-            var circle_83bcfa0d482ba47ecccb8e0c79534a01 = L.circle(
+            var circle_fb15fcfd298b616340dc508fa5e1b9b7 = L.circle(
                 [32.795859, 35.530973],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_83bcfa0d482ba47ecccb8e0c79534a01.bindTooltip(
+            circle_fb15fcfd298b616340dc508fa5e1b9b7.bindTooltip(
                 `<div>
                      טבריה  1
                  </div>`,
@@ -1042,13 +1042,13 @@
             );
         
     
-            var circle_cb68f5fb2689ae87980e27b908dfd3c8 = L.circle(
+            var circle_48c4ed03d5fe73863d55686a6c1bbffa = L.circle(
                 [31.939475, 35.133131],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 732.9037678543799, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_cb68f5fb2689ae87980e27b908dfd3c8.bindTooltip(
+            circle_48c4ed03d5fe73863d55686a6c1bbffa.bindTooltip(
                 `<div>
                      טלמון  3
                  </div>`,
@@ -1056,13 +1056,13 @@
             );
         
     
-            var circle_7ecd2862a3bc20ffa970e0a1cbc099c2 = L.circle(
-                [0.0, 0.0],
+            var circle_8abc0bd9dda04daa0890e11039973751 = L.circle(
+                [31.3754551959095, 34.9569169172802],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_7ecd2862a3bc20ffa970e0a1cbc099c2.bindTooltip(
+            circle_8abc0bd9dda04daa0890e11039973751.bindTooltip(
                 `<div>
                      טנא  1
                  </div>`,
@@ -1070,13 +1070,13 @@
             );
         
     
-            var circle_74b6a828ec7c56487a87baf0db2cc0ea = L.circle(
+            var circle_77c7232b8605f581884914dc892a9188 = L.circle(
                 [32.981568, 35.241169],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_74b6a828ec7c56487a87baf0db2cc0ea.bindTooltip(
+            circle_77c7232b8605f581884914dc892a9188.bindTooltip(
                 `<div>
                      יאנוח-ג'ת  1
                  </div>`,
@@ -1084,13 +1084,13 @@
             );
         
     
-            var circle_c095b6986d72b125b8767af57a75617e = L.circle(
+            var circle_a383f58e43731f5ffd16501921a35ba0 = L.circle(
                 [31.189458, 34.318952],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_c095b6986d72b125b8767af57a75617e.bindTooltip(
+            circle_a383f58e43731f5ffd16501921a35ba0.bindTooltip(
                 `<div>
                      יבול  1
                  </div>`,
@@ -1098,13 +1098,13 @@
             );
         
     
-            var circle_6fcd1514098e67e08d308f425e4f81f6 = L.circle(
+            var circle_b698eb3c7f6022c1e087d1921895e192 = L.circle(
                 [31.8753534, 34.7350096],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_6fcd1514098e67e08d308f425e4f81f6.bindTooltip(
+            circle_b698eb3c7f6022c1e087d1921895e192.bindTooltip(
                 `<div>
                      יבנה  1
                  </div>`,
@@ -1112,13 +1112,13 @@
             );
         
     
-            var circle_fbc66f2549018dd76ca0b760f0f4fb8e = L.circle(
+            var circle_06a65c56012fcd32e4f60b201f6c23dd = L.circle(
                 [32.0315718, 34.8925712],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_fbc66f2549018dd76ca0b760f0f4fb8e.bindTooltip(
+            circle_06a65c56012fcd32e4f60b201f6c23dd.bindTooltip(
                 `<div>
                      יהוד מונוסון  2
                  </div>`,
@@ -1126,13 +1126,13 @@
             );
         
     
-            var circle_8345e034b88119edb50022f008a64683 = L.circle(
+            var circle_4548702ace7a46270a0e3285ead85e4f = L.circle(
                 [32.660225, 35.104606],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_8345e034b88119edb50022f008a64683.bindTooltip(
+            circle_4548702ace7a46270a0e3285ead85e4f.bindTooltip(
                 `<div>
                      יקנעם  1
                  </div>`,
@@ -1140,13 +1140,13 @@
             );
         
     
-            var circle_03d9fd07d5f47226f21f84c2e9cd18df = L.circle(
+            var circle_adf9376e9a99f771abae9bd50ae60db7 = L.circle(
                 [32.660225, 35.104606],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 846.2843753216345, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_03d9fd07d5f47226f21f84c2e9cd18df.bindTooltip(
+            circle_adf9376e9a99f771abae9bd50ae60db7.bindTooltip(
                 `<div>
                      יקנעם עילית  4
                  </div>`,
@@ -1154,13 +1154,13 @@
             );
         
     
-            var circle_e499f3bd68499dd8bb93bd66fa43709d = L.circle(
+            var circle_97da50d1755543139705f8d319660f10 = L.circle(
                 [31.768319, 35.21371],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1984.7127856504603, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_e499f3bd68499dd8bb93bd66fa43709d.bindTooltip(
+            circle_97da50d1755543139705f8d319660f10.bindTooltip(
                 `<div>
                      ירושלים  22
                  </div>`,
@@ -1168,13 +1168,13 @@
             );
         
     
-            var circle_4ef2a300020ba1a0f381e846e16735f0 = L.circle(
+            var circle_ae5b4b6959b056d4bf5b0280bb63b1c8 = L.circle(
                 [31.247595, 34.403091],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 846.2843753216345, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_4ef2a300020ba1a0f381e846e16735f0.bindTooltip(
+            circle_ae5b4b6959b056d4bf5b0280bb63b1c8.bindTooltip(
                 `<div>
                      ישע  4
                  </div>`,
@@ -1182,13 +1182,13 @@
             );
         
     
-            var circle_26543fdce2c02678817b73522624e4b3 = L.circle(
+            var circle_59c83bffd63675a394d818594ecbdb0e = L.circle(
                 [32.220922, 34.992405],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_26543fdce2c02678817b73522624e4b3.bindTooltip(
+            circle_59c83bffd63675a394d818594ecbdb0e.bindTooltip(
                 `<div>
                      כוכב יאיר  2
                  </div>`,
@@ -1196,13 +1196,13 @@
             );
         
     
-            var circle_ce1b430ac5880ddc209e777a011ea38d = L.circle(
+            var circle_4dcf52b2b1027510344e946486bd0a6c = L.circle(
                 [31.374545, 34.398992],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1638.8226458881188, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_ce1b430ac5880ddc209e777a011ea38d.bindTooltip(
+            circle_4dcf52b2b1027510344e946486bd0a6c.bindTooltip(
                 `<div>
                      כיסופים  15
                  </div>`,
@@ -1210,13 +1210,13 @@
             );
         
     
-            var circle_fb592d16f1e59d632e91de68b988948d = L.circle(
+            var circle_15fa11270ab83c785f35312b81d24592 = L.circle(
                 [30.910327, 34.430725],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_fb592d16f1e59d632e91de68b988948d.bindTooltip(
+            circle_15fa11270ab83c785f35312b81d24592.bindTooltip(
                 `<div>
                      כמהין  1
                  </div>`,
@@ -1224,13 +1224,13 @@
             );
         
     
-            var circle_4a4084d0b70cb2f4c29a13a10a7c76d9 = L.circle(
+            var circle_4eb95b5d268175a85c8c59a2e29adb92 = L.circle(
                 [32.909119, 35.360916],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_4a4084d0b70cb2f4c29a13a10a7c76d9.bindTooltip(
+            circle_4eb95b5d268175a85c8c59a2e29adb92.bindTooltip(
                 `<div>
                      כמון  1
                  </div>`,
@@ -1238,13 +1238,13 @@
             );
         
     
-            var circle_a2335a940b288a77e9aefa4e5a1277a2 = L.circle(
+            var circle_50778bf5a05bd3f6b61ff239066076d2 = L.circle(
                 [31.249246, 35.083681],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_a2335a940b288a77e9aefa4e5a1277a2.bindTooltip(
+            circle_50778bf5a05bd3f6b61ff239066076d2.bindTooltip(
                 `<div>
                      כסייפה  1
                  </div>`,
@@ -1252,13 +1252,13 @@
             );
         
     
-            var circle_ceec620b9cb051a8789e44bcbe8e5e3b = L.circle(
+            var circle_bd50f02bdcb3301ae58eeb096f27a0a2 = L.circle(
                 [31.831039, 34.722577],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_ceec620b9cb051a8789e44bcbe8e5e3b.bindTooltip(
+            circle_bd50f02bdcb3301ae58eeb096f27a0a2.bindTooltip(
                 `<div>
                      כפר אביב  1
                  </div>`,
@@ -1266,13 +1266,13 @@
             );
         
     
-            var circle_ae47b6f3c2f02a6bfcdec014f458ed6b = L.circle(
+            var circle_a99428dad57bc7784f80982a344ddc7d = L.circle(
                 [32.646048, 35.193078],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_ae47b6f3c2f02a6bfcdec014f458ed6b.bindTooltip(
+            circle_a99428dad57bc7784f80982a344ddc7d.bindTooltip(
                 `<div>
                      כפר ברוך  1
                  </div>`,
@@ -1280,13 +1280,13 @@
             );
         
     
-            var circle_cccbc7496cee5bffb38a4c45fde5a4f5 = L.circle(
+            var circle_ccf7cd9e5a0e52ce4041fa873dafd190 = L.circle(
                 [32.317719, 34.933615],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_cccbc7496cee5bffb38a4c45fde5a4f5.bindTooltip(
+            circle_ccf7cd9e5a0e52ce4041fa873dafd190.bindTooltip(
                 `<div>
                      כפר יונה  1
                  </div>`,
@@ -1294,13 +1294,13 @@
             );
         
     
-            var circle_37948a234b93e0a140b63ab335904ab9 = L.circle(
+            var circle_aff3f1d0e2dfb59a094855f6524382b0 = L.circle(
                 [31.732077, 34.835079],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_37948a234b93e0a140b63ab335904ab9.bindTooltip(
+            circle_aff3f1d0e2dfb59a094855f6524382b0.bindTooltip(
                 `<div>
                      כפר מנחם  2
                  </div>`,
@@ -1308,13 +1308,13 @@
             );
         
     
-            var circle_2704efa856ce1b69e5149540192f59b4 = L.circle(
+            var circle_1d4a4962c2a0f8b6c0a7524df4a72da2 = L.circle(
                 [32.178195, 34.90761],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1036.4824484140065, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_2704efa856ce1b69e5149540192f59b4.bindTooltip(
+            circle_1d4a4962c2a0f8b6c0a7524df4a72da2.bindTooltip(
                 `<div>
                      כפר סבא  6
                  </div>`,
@@ -1322,13 +1322,13 @@
             );
         
     
-            var circle_45f28879e2c9e71eede46fc7893a6ab2 = L.circle(
+            var circle_29206cf950196fc10345f7616e799aaa = L.circle(
                 [31.675669, 34.612311],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_45f28879e2c9e71eede46fc7893a6ab2.bindTooltip(
+            circle_29206cf950196fc10345f7616e799aaa.bindTooltip(
                 `<div>
                      כפר סילבר  1
                  </div>`,
@@ -1336,13 +1336,13 @@
             );
         
     
-            var circle_181fbf9f3a64694d6c585f714129a75b = L.circle(
+            var circle_04c905fa945943138f7c1e5295022e7e = L.circle(
                 [31.483416, 34.532291],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 3051.3217088461643, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_181fbf9f3a64694d6c585f714129a75b.bindTooltip(
+            circle_04c905fa945943138f7c1e5295022e7e.bindTooltip(
                 `<div>
                      כפר עזה  52
                  </div>`,
@@ -1350,13 +1350,13 @@
             );
         
     
-            var circle_f13cfa1b6ac0a2324a2c20a61d22502c = L.circle(
+            var circle_4a70d2f42246eac03b1284e1ff62e131 = L.circle(
                 [31.888259, 34.934819],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_f13cfa1b6ac0a2324a2c20a61d22502c.bindTooltip(
+            circle_4a70d2f42246eac03b1284e1ff62e131.bindTooltip(
                 `<div>
                      כפר שמואל  1
                  </div>`,
@@ -1364,13 +1364,13 @@
             );
         
     
-            var circle_dff11d47ce45b0245705fe36df47db93 = L.circle(
+            var circle_efb58e5bc551cfacc018e7710954980a = L.circle(
                 [32.687346, 35.419972],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_dff11d47ce45b0245705fe36df47db93.bindTooltip(
+            circle_efb58e5bc551cfacc018e7710954980a.bindTooltip(
                 `<div>
                      כפר תבור  1
                  </div>`,
@@ -1378,13 +1378,13 @@
             );
         
     
-            var circle_3acc2122da6dc21b40f3d499f21c2234 = L.circle(
+            var circle_a83823c04b85102b657783e1c391cb8c = L.circle(
                 [31.228281, 34.284559],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_3acc2122da6dc21b40f3d499f21c2234.bindTooltip(
+            circle_a83823c04b85102b657783e1c391cb8c.bindTooltip(
                 `<div>
                      כרם שלום  2
                  </div>`,
@@ -1392,13 +1392,13 @@
             );
         
     
-            var circle_cfc2f15fe265133f01358b25a16aa1e5 = L.circle(
+            var circle_97de061fb87dc711cda71fffd10a19d1 = L.circle(
                 [32.914671, 35.292417],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1119.5289977703462, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_cfc2f15fe265133f01358b25a16aa1e5.bindTooltip(
+            circle_97de061fb87dc711cda71fffd10a19d1.bindTooltip(
                 `<div>
                      כרמיאל  7
                  </div>`,
@@ -1406,13 +1406,13 @@
             );
         
     
-            var circle_d7b718e9717f46dbb0243446448eb7ce = L.circle(
+            var circle_24917309ec7969187bbd8155d6596f9a = L.circle(
                 [31.951014, 34.888075],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 732.9037678543799, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_d7b718e9717f46dbb0243446448eb7ce.bindTooltip(
+            circle_24917309ec7969187bbd8155d6596f9a.bindTooltip(
                 `<div>
                      לוד  3
                  </div>`,
@@ -1420,13 +1420,13 @@
             );
         
     
-            var circle_7de35a8da08c9f2f0eb4bed2a8284528 = L.circle(
-                [0.0, 0.0],
+            var circle_6d36027c189591d3a0da4c9c46c430cc = L.circle(
+                [31.9175632202783, 35.0319769718444],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_7de35a8da08c9f2f0eb4bed2a8284528.bindTooltip(
+            circle_6d36027c189591d3a0da4c9c46c430cc.bindTooltip(
                 `<div>
                      לפיד  1
                  </div>`,
@@ -1434,13 +1434,13 @@
             );
         
     
-            var circle_dda3da776841450ed64d0be3d71440f6 = L.circle(
+            var circle_94ae91be499b9b1c8be02678f50edcd9 = L.circle(
                 [31.44945, 34.654994],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_dda3da776841450ed64d0be3d71440f6.bindTooltip(
+            circle_94ae91be499b9b1c8be02678f50edcd9.bindTooltip(
                 `<div>
                      מבועים  1
                  </div>`,
@@ -1448,13 +1448,13 @@
             );
         
     
-            var circle_f5b35c4b7dff4dc1e85ac7df63b32e74 = L.circle(
-                [0.0, 0.0],
+            var circle_66ee49e6232f3253759739abf778cb03 = L.circle(
+                [31.242459558076, 34.4077228099313],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 846.2843753216345, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_f5b35c4b7dff4dc1e85ac7df63b32e74.bindTooltip(
+            circle_66ee49e6232f3253759739abf778cb03.bindTooltip(
                 `<div>
                      מבטחים  4
                  </div>`,
@@ -1462,13 +1462,13 @@
             );
         
     
-            var circle_66328e3f5cdb2e0442e42d30c6224de4 = L.circle(
+            var circle_f54deed63401acba3fb173e4f6184fb0 = L.circle(
                 [31.298108, 34.427059],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_66328e3f5cdb2e0442e42d30c6224de4.bindTooltip(
+            circle_f54deed63401acba3fb173e4f6184fb0.bindTooltip(
                 `<div>
                      מגן  2
                  </div>`,
@@ -1476,13 +1476,13 @@
             );
         
     
-            var circle_5c44d4b8ef61e2a9578f52c265cbbc53 = L.circle(
+            var circle_ab1d7583b129da041a9565091f997239 = L.circle(
                 [31.890267, 35.010397],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 732.9037678543799, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_5c44d4b8ef61e2a9578f52c265cbbc53.bindTooltip(
+            circle_ab1d7583b129da041a9565091f997239.bindTooltip(
                 `<div>
                      מודיעין  3
                  </div>`,
@@ -1490,13 +1490,13 @@
             );
         
     
-            var circle_041445469cec9e8e577d5b3f07a8f169 = L.circle(
+            var circle_68dbba48516b6c26deac7aaa6863e3de = L.circle(
                 [31.890267, 35.010397],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_041445469cec9e8e577d5b3f07a8f169.bindTooltip(
+            circle_68dbba48516b6c26deac7aaa6863e3de.bindTooltip(
                 `<div>
                      מודיעין  מכבים רעות  1
                  </div>`,
@@ -1504,13 +1504,13 @@
             );
         
     
-            var circle_4c1d160ab06cd37d7947b24752dd931a = L.circle(
+            var circle_2539cf035bb0450726faef71e742b95b = L.circle(
                 [31.890267, 35.010397],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 732.9037678543799, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_4c1d160ab06cd37d7947b24752dd931a.bindTooltip(
+            circle_2539cf035bb0450726faef71e742b95b.bindTooltip(
                 `<div>
                      מודיעין מכבים רעות  3
                  </div>`,
@@ -1518,13 +1518,13 @@
             );
         
     
-            var circle_289b49cae868fbe0d3eacf5b9651d4e4 = L.circle(
+            var circle_a6625da29df49af460192576cf480953 = L.circle(
                 [31.793591, 35.157],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_289b49cae868fbe0d3eacf5b9651d4e4.bindTooltip(
+            circle_a6625da29df49af460192576cf480953.bindTooltip(
                 `<div>
                      מוצא עילית  1
                  </div>`,
@@ -1532,13 +1532,13 @@
             );
         
     
-            var circle_0ce3d1b10993da1768ba45f74e1123e3 = L.circle(
+            var circle_9e630279e08b70d90f85f17a8859b2ee = L.circle(
                 [32.826132, 35.231997],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_0ce3d1b10993da1768ba45f74e1123e3.bindTooltip(
+            circle_9e630279e08b70d90f85f17a8859b2ee.bindTooltip(
                 `<div>
                      מורשת  1
                  </div>`,
@@ -1546,13 +1546,13 @@
             );
         
     
-            var circle_6979cd3d4de6f5bef160dba0e993e9a6 = L.circle(
+            var circle_428e26c241d62b3f580e799c524b78bd = L.circle(
                 [31.853167, 34.842421],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_6979cd3d4de6f5bef160dba0e993e9a6.bindTooltip(
+            circle_428e26c241d62b3f580e799c524b78bd.bindTooltip(
                 `<div>
                      מזכרת בתיה  2
                  </div>`,
@@ -1560,13 +1560,13 @@
             );
         
     
-            var circle_a6aeee53281c2ecc43a148e869bb43cc = L.circle(
+            var circle_f18069a4a8c839f70878827954c0bf69 = L.circle(
                 [31.327011, 34.943213],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_a6aeee53281c2ecc43a148e869bb43cc.bindTooltip(
+            circle_f18069a4a8c839f70878827954c0bf69.bindTooltip(
                 `<div>
                      מיתר  1
                  </div>`,
@@ -1574,27 +1574,13 @@
             );
         
     
-            var circle_a50a053969a1edd171b585590d1c2ab2 = L.circle(
-                [31.572407, 34.539322],
-                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
-        
-    
-            circle_a50a053969a1edd171b585590d1c2ab2.bindTooltip(
-                `<div>
-                     מנתיב העשרה  1
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var circle_43ad0d9b3345cd5e815780d46a5cbba4 = L.circle(
+            var circle_aa7c68dd28ffc01b601f29c557b2b678 = L.circle(
                 [31.777369, 35.297955],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 846.2843753216345, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_43ad0d9b3345cd5e815780d46a5cbba4.bindTooltip(
+            circle_aa7c68dd28ffc01b601f29c557b2b678.bindTooltip(
                 `<div>
                      מעלה אדומים  4
                  </div>`,
@@ -1602,13 +1588,13 @@
             );
         
     
-            var circle_dbf477f038f996f24de2953000e9691f = L.circle(
+            var circle_8a1e6a619ec2b67c8098f43e11c49679 = L.circle(
                 [31.815688, 35.395409],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_dbf477f038f996f24de2953000e9691f.bindTooltip(
+            circle_8a1e6a619ec2b67c8098f43e11c49679.bindTooltip(
                 `<div>
                      מצפה יריחו  1
                  </div>`,
@@ -1616,13 +1602,13 @@
             );
         
     
-            var circle_bbed012cd4fd1a31e9d91620c746e30c = L.circle(
+            var circle_8a0bc5a568b2111399a143f178a1b9f3 = L.circle(
                 [30.610203, 34.801898],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_bbed012cd4fd1a31e9d91620c746e30c.bindTooltip(
+            circle_8a0bc5a568b2111399a143f178a1b9f3.bindTooltip(
                 `<div>
                      מצפה רמון  1
                  </div>`,
@@ -1630,13 +1616,13 @@
             );
         
     
-            var circle_ec4e512e24168176e3b62010ebeb3e94 = L.circle(
+            var circle_23cf0a5d2d4f3e50b0753720bf2619cd = L.circle(
                 [33.132583, 35.777071],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_ec4e512e24168176e3b62010ebeb3e94.bindTooltip(
+            circle_23cf0a5d2d4f3e50b0753720bf2619cd.bindTooltip(
                 `<div>
                      מרום גולן  1
                  </div>`,
@@ -1644,13 +1630,13 @@
             );
         
     
-            var circle_50c39e5f0dea66d0d041ff5aa7e9617f = L.circle(
+            var circle_8b57fe1dfed81946e03234a4992dd7ba = L.circle(
                 [31.70261, 34.689968],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_50c39e5f0dea66d0d041ff5aa7e9617f.bindTooltip(
+            circle_8b57fe1dfed81946e03234a4992dd7ba.bindTooltip(
                 `<div>
                      משואות יצחק  1
                  </div>`,
@@ -1658,13 +1644,13 @@
             );
         
     
-            var circle_1ebb41098ddde843505bacf77dffabf3 = L.circle(
+            var circle_1614619981f2663fe8f7b06509b55171 = L.circle(
                 [32.589025, 35.554544],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_1ebb41098ddde843505bacf77dffabf3.bindTooltip(
+            circle_1614619981f2663fe8f7b06509b55171.bindTooltip(
                 `<div>
                      נווה אור  1
                  </div>`,
@@ -1672,13 +1658,13 @@
             );
         
     
-            var circle_56e9a351a09630757e09d97527920804 = L.circle(
+            var circle_bc82cf6abaa8a7fb6dbdac0423d739aa = L.circle(
                 [33.027399, 35.18433],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_56e9a351a09630757e09d97527920804.bindTooltip(
+            circle_bc82cf6abaa8a7fb6dbdac0423d739aa.bindTooltip(
                 `<div>
                      נווה זיו  1
                  </div>`,
@@ -1686,13 +1672,13 @@
             );
         
     
-            var circle_bc11017b117d9d287bbcf39bdea5df03 = L.circle(
+            var circle_a39725a4e1a696c773a5cadbe66be364 = L.circle(
                 [31.47268, 34.497675],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_bc11017b117d9d287bbcf39bdea5df03.bindTooltip(
+            circle_a39725a4e1a696c773a5cadbe66be364.bindTooltip(
                 `<div>
                      נחל עוז  2
                  </div>`,
@@ -1700,13 +1686,13 @@
             );
         
     
-            var circle_6adaa7b4e71245a6a1f33d33d510cd02 = L.circle(
+            var circle_cc4ffe41225441e6e4dccc0ac885b7e1 = L.circle(
                 [31.737518, 34.630804],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_6adaa7b4e71245a6a1f33d33d510cd02.bindTooltip(
+            circle_cc4ffe41225441e6e4dccc0ac885b7e1.bindTooltip(
                 `<div>
                      ניצן  1
                  </div>`,
@@ -1714,13 +1700,13 @@
             );
         
     
-            var circle_025d036ff5188eb76434461018158e87 = L.circle(
+            var circle_bf19b725404211badf8ccc79dd6ea5ad = L.circle(
                 [31.23604, 34.356702],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 946.1746957575601, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_025d036ff5188eb76434461018158e87.bindTooltip(
+            circle_bf19b725404211badf8ccc79dd6ea5ad.bindTooltip(
                 `<div>
                      ניר יצחק  5
                  </div>`,
@@ -1728,13 +1714,13 @@
             );
         
     
-            var circle_7fa054b47654fc9d55008937ae1b03d5 = L.circle(
+            var circle_2d27b432e1a49dc93634b78d880e024b = L.circle(
                 [31.309697, 34.402075],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 2503.3429417967045, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_7fa054b47654fc9d55008937ae1b03d5.bindTooltip(
+            circle_2d27b432e1a49dc93634b78d880e024b.bindTooltip(
                 `<div>
                      ניר עוז  35
                  </div>`,
@@ -1742,13 +1728,13 @@
             );
         
     
-            var circle_65f1e1b09bae2f89c32840f477cda28a = L.circle(
+            var circle_88b344e7837c70bde9476359319b494c = L.circle(
                 [32.146206, 34.984822],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_65f1e1b09bae2f89c32840f477cda28a.bindTooltip(
+            circle_88b344e7837c70bde9476359319b494c.bindTooltip(
                 `<div>
                      נירית  1
                  </div>`,
@@ -1756,13 +1742,13 @@
             );
         
     
-            var circle_c58565628d3bc982bdc77f1abbd28a1d = L.circle(
+            var circle_dd97be8d60aea0510720c2e91ef44196 = L.circle(
                 [31.932111, 34.801327],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_c58565628d3bc982bdc77f1abbd28a1d.bindTooltip(
+            circle_dd97be8d60aea0510720c2e91ef44196.bindTooltip(
                 `<div>
                      נס ציונה  2
                  </div>`,
@@ -1770,13 +1756,13 @@
             );
         
     
-            var circle_6e9bb79a9c0515b0d234c5ff4870a418 = L.circle(
+            var circle_e1592409cb9a2593c096fad4d7fcea96 = L.circle(
                 [31.883208, 34.859237],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_6e9bb79a9c0515b0d234c5ff4870a418.bindTooltip(
+            circle_e1592409cb9a2593c096fad4d7fcea96.bindTooltip(
                 `<div>
                      נען  1
                  </div>`,
@@ -1784,13 +1770,13 @@
             );
         
     
-            var circle_87e7e8fa22e0d9d63346602f86383ece = L.circle(
+            var circle_23693b67a671510569060d625f1a2b84 = L.circle(
                 [32.7649, 35.049191],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_87e7e8fa22e0d9d63346602f86383ece.bindTooltip(
+            circle_23693b67a671510569060d625f1a2b84.bindTooltip(
                 `<div>
                      נשר  1
                  </div>`,
@@ -1798,13 +1784,13 @@
             );
         
     
-            var circle_a1a477d98f3ec12f3a4d2701322b292c = L.circle(
+            var circle_22e16364849195a2ddcda1f6cef1136c = L.circle(
                 [31.572407, 34.539322],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1939.081104684904, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_a1a477d98f3ec12f3a4d2701322b292c.bindTooltip(
+            circle_22e16364849195a2ddcda1f6cef1136c.bindTooltip(
                 `<div>
                      נתיב העשרה  21
                  </div>`,
@@ -1812,13 +1798,13 @@
             );
         
     
-            var circle_1228e5619307235e49580248ee5b3d00 = L.circle(
+            var circle_d71dbfb0e6aaa824a0962d20b1aa9541 = L.circle(
                 [32.321458, 34.853196],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1119.5289977703462, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_1228e5619307235e49580248ee5b3d00.bindTooltip(
+            circle_d71dbfb0e6aaa824a0962d20b1aa9541.bindTooltip(
                 `<div>
                      נתניה  7
                  </div>`,
@@ -1826,13 +1812,13 @@
             );
         
     
-            var circle_6d7ca91553a67d604faad1dc28b2470e = L.circle(
+            var circle_7c00d4745f34cf57ced48a04d08695c1 = L.circle(
                 [31.238309, 34.341987],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 732.9037678543799, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_6d7ca91553a67d604faad1dc28b2470e.bindTooltip(
+            circle_7c00d4745f34cf57ced48a04d08695c1.bindTooltip(
                 `<div>
                      סופה  3
                  </div>`,
@@ -1840,13 +1826,13 @@
             );
         
     
-            var circle_61448137cd521a1a6383240022bd8153 = L.circle(
+            var circle_5637df1429471113b308bd7a3695b2e4 = L.circle(
                 [-14.235004, -51.92528],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_61448137cd521a1a6383240022bd8153.bindTooltip(
+            circle_5637df1429471113b308bd7a3695b2e4.bindTooltip(
                 `<div>
                      עולה חדשה מברזיל  1
                  </div>`,
@@ -1854,13 +1840,13 @@
             );
         
     
-            var circle_b9d9b55b0f91466e091dc5897f56d825 = L.circle(
+            var circle_44b7f4e743198694a355c9113495c275 = L.circle(
                 [31.890495, 34.911872],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_b9d9b55b0f91466e091dc5897f56d825.bindTooltip(
+            circle_44b7f4e743198694a355c9113495c275.bindTooltip(
                 `<div>
                      עזריה  1
                  </div>`,
@@ -1868,13 +1854,13 @@
             );
         
     
-            var circle_640f261238c8fd90682758c22d3e9f44 = L.circle(
+            var circle_f66efaeadcecdb4601b2313cf609444d = L.circle(
                 [30.806291, 35.299946],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_640f261238c8fd90682758c22d3e9f44.bindTooltip(
+            circle_f66efaeadcecdb4601b2313cf609444d.bindTooltip(
                 `<div>
                      עידן  2
                  </div>`,
@@ -1882,13 +1868,13 @@
             );
         
     
-            var circle_393aa964ec9eeac631ce0a69e8342264 = L.circle(
+            var circle_6257abe3bad975587d4e3b765527478a = L.circle(
                 [31.280895, 34.443446],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_393aa964ec9eeac631ce0a69e8342264.bindTooltip(
+            circle_6257abe3bad975587d4e3b765527478a.bindTooltip(
                 `<div>
                      עין הבשור  1
                  </div>`,
@@ -1896,13 +1882,13 @@
             );
         
     
-            var circle_60dd358347147c060578acbc7d14bd52 = L.circle(
+            var circle_90ba676279add68f77b6a1476c922a5b = L.circle(
                 [32.902581, 35.09304],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_60dd358347147c060578acbc7d14bd52.bindTooltip(
+            circle_90ba676279add68f77b6a1476c922a5b.bindTooltip(
                 `<div>
                      עין המפרץ  1
                  </div>`,
@@ -1910,13 +1896,13 @@
             );
         
     
-            var circle_32769c55044945928a0ffaaea2b89353 = L.circle(
+            var circle_ced72d7247287910077642316cdf91b7 = L.circle(
                 [31.351722, 34.403471],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_32769c55044945928a0ffaaea2b89353.bindTooltip(
+            circle_ced72d7247287910077642316cdf91b7.bindTooltip(
                 `<div>
                      עין השלושה  1
                  </div>`,
@@ -1924,13 +1910,13 @@
             );
         
     
-            var circle_27d323f39e36d14a633c994d0cbf4273 = L.circle(
+            var circle_41bf2b7ccc78f773bec63ff130c859df = L.circle(
                 [32.461917, 35.00673],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_27d323f39e36d14a633c994d0cbf4273.bindTooltip(
+            circle_41bf2b7ccc78f773bec63ff130c859df.bindTooltip(
                 `<div>
                      עין שמר  1
                  </div>`,
@@ -1938,13 +1924,13 @@
             );
         
     
-            var circle_0b805152bb47a063a4c0f6d82d974397 = L.circle(
+            var circle_02031d22d4eae67626470e42fc6efe3c = L.circle(
                 [32.933052, 35.082678],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 732.9037678543799, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_0b805152bb47a063a4c0f6d82d974397.bindTooltip(
+            circle_02031d22d4eae67626470e42fc6efe3c.bindTooltip(
                 `<div>
                      עכו  3
                  </div>`,
@@ -1952,13 +1938,13 @@
             );
         
     
-            var circle_b974f270096ae7b1577e90b5dc1d8e2f = L.circle(
+            var circle_f2fe8cdaa1fe308cf8b9741063e09dde = L.circle(
                 [31.453049, 34.514711],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1892.3493915151203, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_b974f270096ae7b1577e90b5dc1d8e2f.bindTooltip(
+            circle_f2fe8cdaa1fe308cf8b9741063e09dde.bindTooltip(
                 `<div>
                      עלומים  20
                  </div>`,
@@ -1966,13 +1952,13 @@
             );
         
     
-            var circle_b2fdbfb8e8bd8250637cd4346bd46233 = L.circle(
+            var circle_d95306ae4fa770e37e3b921e51e9987c = L.circle(
                 [32.071177, 35.266859],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_b2fdbfb8e8bd8250637cd4346bd46233.bindTooltip(
+            circle_d95306ae4fa770e37e3b921e51e9987c.bindTooltip(
                 `<div>
                      עלי  1
                  </div>`,
@@ -1980,13 +1966,13 @@
             );
         
     
-            var circle_049c286316a994c1608428417a8109b7 = L.circle(
+            var circle_af84700fed28ff6b7eee1c93b7162e73 = L.circle(
                 [31.832068, 35.296764],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_049c286316a994c1608428417a8109b7.bindTooltip(
+            circle_af84700fed28ff6b7eee1c93b7162e73.bindTooltip(
                 `<div>
                      עלמון  1
                  </div>`,
@@ -1994,13 +1980,13 @@
             );
         
     
-            var circle_fe617600a5f68efc5d9a4c1b7bf98b3e = L.circle(
+            var circle_67ffb00452ee395cc93df9379144f5b0 = L.circle(
                 [32.977664, 35.161807],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_fe617600a5f68efc5d9a4c1b7bf98b3e.bindTooltip(
+            circle_67ffb00452ee395cc93df9379144f5b0.bindTooltip(
                 `<div>
                      עמקה  1
                  </div>`,
@@ -2008,13 +1994,13 @@
             );
         
     
-            var circle_24d06a0466d642673b959ab3c0fba1c0 = L.circle(
+            var circle_19147cee973e4ce6b1ee045a4b1eb14e = L.circle(
                 [31.832068, 35.296764],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_24d06a0466d642673b959ab3c0fba1c0.bindTooltip(
+            circle_19147cee973e4ce6b1ee045a4b1eb14e.bindTooltip(
                 `<div>
                      ענתות  1
                  </div>`,
@@ -2022,13 +2008,13 @@
             );
         
     
-            var circle_c3dcc3aa1ece520a59710d3e0f735d5b = L.circle(
+            var circle_4d5163e5555c59ad5042ec8b9f54b6bf = L.circle(
                 [32.610493, 35.287922],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 846.2843753216345, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_c3dcc3aa1ece520a59710d3e0f735d5b.bindTooltip(
+            circle_4d5163e5555c59ad5042ec8b9f54b6bf.bindTooltip(
                 `<div>
                      עפולה  4
                  </div>`,
@@ -2036,13 +2022,13 @@
             );
         
     
-            var circle_f9803d57095206dcf47b939ffbf0604d = L.circle(
+            var circle_c678c5416a1c40789d0bdddec2162966 = L.circle(
                 [31.732798, 34.77624],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_f9803d57095206dcf47b939ffbf0604d.bindTooltip(
+            circle_c678c5416a1c40789d0bdddec2162966.bindTooltip(
                 `<div>
                      ערוגות  2
                  </div>`,
@@ -2050,13 +2036,13 @@
             );
         
     
-            var circle_15187304d625938db563dc9da7f366f3 = L.circle(
+            var circle_25261c73394129b5bad76685444501a2 = L.circle(
                 [32.496323, 35.097292],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 732.9037678543799, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_15187304d625938db563dc9da7f366f3.bindTooltip(
+            circle_25261c73394129b5bad76685444501a2.bindTooltip(
                 `<div>
                      ערערה  3
                  </div>`,
@@ -2064,13 +2050,13 @@
             );
         
     
-            var circle_086f6c9059b13df5c2e3f936fa545a20 = L.circle(
+            var circle_704e8a92c4f14cf15107d383373024b1 = L.circle(
                 [31.160927, 35.019757],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_086f6c9059b13df5c2e3f936fa545a20.bindTooltip(
+            circle_704e8a92c4f14cf15107d383373024b1.bindTooltip(
                 `<div>
                      ערערה בנגב  1
                  </div>`,
@@ -2078,13 +2064,13 @@
             );
         
     
-            var circle_a4fdb09cc7984304e4be742dabd526aa = L.circle(
+            var circle_a468ec414429958d8c6f4cd93ecedd26 = L.circle(
                 [31.824913, 34.747459],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_a4fdb09cc7984304e4be742dabd526aa.bindTooltip(
+            circle_a468ec414429958d8c6f4cd93ecedd26.bindTooltip(
                 `<div>
                      עשרת  1
                  </div>`,
@@ -2092,13 +2078,13 @@
             );
         
     
-            var circle_e59070e86169140d3eb53c0e2b281d0e = L.circle(
+            var circle_a70fa95d005e9ea334db963d000465e4 = L.circle(
                 [31.438812, 35.028163],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 732.9037678543799, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_e59070e86169140d3eb53c0e2b281d0e.bindTooltip(
+            circle_a70fa95d005e9ea334db963d000465e4.bindTooltip(
                 `<div>
                      עתניאל  3
                  </div>`,
@@ -2106,13 +2092,13 @@
             );
         
     
-            var circle_d0f4b64075100ce661305d3291b2e8ec = L.circle(
+            var circle_b6ff2e8e039bd57c78cee99e7b77ed46 = L.circle(
                 [31.326275, 34.612069],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_d0f4b64075100ce661305d3291b2e8ec.bindTooltip(
+            circle_b6ff2e8e039bd57c78cee99e7b77ed46.bindTooltip(
                 `<div>
                      פדויים  2
                  </div>`,
@@ -2120,13 +2106,13 @@
             );
         
     
-            var circle_8e2dca00b9fbd70c5aa6cba9c29376f7 = L.circle(
+            var circle_73a76bf6aed4392ff4646782a88ca113 = L.circle(
                 [31.3259948, 34.563565],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_8e2dca00b9fbd70c5aa6cba9c29376f7.bindTooltip(
+            circle_73a76bf6aed4392ff4646782a88ca113.bindTooltip(
                 `<div>
                      פטיש  1
                  </div>`,
@@ -2134,13 +2120,13 @@
             );
         
     
-            var circle_bc18538e47dfc0225a65857fd34d1153 = L.circle(
+            var circle_0aca0b0cdd5b58ecb226e9df25fb7a55 = L.circle(
                 [31.932705, 34.706874],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_bc18538e47dfc0225a65857fd34d1153.bindTooltip(
+            circle_0aca0b0cdd5b58ecb226e9df25fb7a55.bindTooltip(
                 `<div>
                      פלמחים  1
                  </div>`,
@@ -2148,13 +2134,13 @@
             );
         
     
-            var circle_18eb6962f4a5f2349c435b4b71c777a2 = L.circle(
+            var circle_ce5eb274e5416a107a1633d03f24ea30 = L.circle(
                 [32.4728028, 34.9742001],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_18eb6962f4a5f2349c435b4b71c777a2.bindTooltip(
+            circle_ce5eb274e5416a107a1633d03f24ea30.bindTooltip(
                 `<div>
                      פרדס חנה  2
                  </div>`,
@@ -2162,13 +2148,13 @@
             );
         
     
-            var circle_b701c685e5b65d06ed1e3d3edcec2724 = L.circle(
+            var circle_42471833bdd87a945cbcb7f64401e06a = L.circle(
                 [32.4728028, 34.9742001],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_b701c685e5b65d06ed1e3d3edcec2724.bindTooltip(
+            circle_42471833bdd87a945cbcb7f64401e06a.bindTooltip(
                 `<div>
                      פרדס חנה כרכור  1
                  </div>`,
@@ -2176,13 +2162,13 @@
             );
         
     
-            var circle_c4cbc657374480b35554a142257e6df4 = L.circle(
+            var circle_466a11e1a93324cd8c28dd97ed2cd306 = L.circle(
                 [32.305011, 34.911731],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_c4cbc657374480b35554a142257e6df4.bindTooltip(
+            circle_466a11e1a93324cd8c28dd97ed2cd306.bindTooltip(
                 `<div>
                      פרדסיה  1
                  </div>`,
@@ -2190,13 +2176,13 @@
             );
         
     
-            var circle_923f1daedcfe8cd4d04982e152ff6617 = L.circle(
+            var circle_289085e63f27744922290429eb68d5bc = L.circle(
                 [32.084041, 34.887762],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1196.826841204298, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_923f1daedcfe8cd4d04982e152ff6617.bindTooltip(
+            circle_289085e63f27744922290429eb68d5bc.bindTooltip(
                 `<div>
                      פתח תקווה  8
                  </div>`,
@@ -2204,13 +2190,13 @@
             );
         
     
-            var circle_0582f409e7cf9848036ef3b840332612 = L.circle(
+            var circle_0d852c4152e8f9cc756d140b01fb3afa = L.circle(
                 [30.559394, 35.181474],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_0582f409e7cf9848036ef3b840332612.bindTooltip(
+            circle_0d852c4152e8f9cc756d140b01fb3afa.bindTooltip(
                 `<div>
                      צופר  1
                  </div>`,
@@ -2218,13 +2204,13 @@
             );
         
     
-            var circle_2ea6e322509bcc562f7c7b4405d9cbc9 = L.circle(
+            var circle_63c196344bd4205e7b6801efa8d16f58 = L.circle(
                 [31.719374, 35.096958],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_2ea6e322509bcc562f7c7b4405d9cbc9.bindTooltip(
+            circle_63c196344bd4205e7b6801efa8d16f58.bindTooltip(
                 `<div>
                      צור הדסה  1
                  </div>`,
@@ -2232,13 +2218,13 @@
             );
         
     
-            var circle_fc5227b0cdadc2912e8cf098d6855d0d = L.circle(
+            var circle_ec54cbb5865d8896e3ea831a7e95e0f2 = L.circle(
                 [32.298911, 34.913117],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_fc5227b0cdadc2912e8cf098d6855d0d.bindTooltip(
+            circle_ec54cbb5865d8896e3ea831a7e95e0f2.bindTooltip(
                 `<div>
                      צור משה  1
                  </div>`,
@@ -2246,13 +2232,13 @@
             );
         
     
-            var circle_95b707503bd67c3297940deb1aa7352c = L.circle(
-                [0.0, 0.0],
+            var circle_66141bf9b10b98b2c24401d9868e2f40 = L.circle(
+                [32.7498101865936, 35.2766599077972],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_95b707503bd67c3297940deb1aa7352c.bindTooltip(
+            circle_66141bf9b10b98b2c24401d9868e2f40.bindTooltip(
                 `<div>
                      ציפורי  1
                  </div>`,
@@ -2260,13 +2246,13 @@
             );
         
     
-            var circle_1ae641accb4b070e5d691a91ceded9a0 = L.circle(
+            var circle_782ce367969c3af02ad2ea9c702561da = L.circle(
                 [32.964648, 35.495997],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_1ae641accb4b070e5d691a91ceded9a0.bindTooltip(
+            circle_782ce367969c3af02ad2ea9c702561da.bindTooltip(
                 `<div>
                      צפת  1
                  </div>`,
@@ -2274,13 +2260,13 @@
             );
         
     
-            var circle_4f778267d1df2e6c410f8c495050f0cb = L.circle(
+            var circle_bafeb354f4bf9632af4ad0495752c0c9 = L.circle(
                 [31.762653, 34.966931],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_4f778267d1df2e6c410f8c495050f0cb.bindTooltip(
+            circle_bafeb354f4bf9632af4ad0495752c0c9.bindTooltip(
                 `<div>
                      צרעה  1
                  </div>`,
@@ -2288,13 +2274,13 @@
             );
         
     
-            var circle_a473a4fc568b2a96081aab5a28a5ca21 = L.circle(
+            var circle_7147664a51bb293e4bffbd890edfddd9 = L.circle(
                 [31.813987, 34.719103],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_a473a4fc568b2a96081aab5a28a5ca21.bindTooltip(
+            circle_7147664a51bb293e4bffbd890edfddd9.bindTooltip(
                 `<div>
                      קבוצת יבנה  1
                  </div>`,
@@ -2302,13 +2288,13 @@
             );
         
     
-            var circle_41a961fb17c49bb13ce559d0c485ee33 = L.circle(
+            var circle_ec012c42f361c9fa5b9ff988a09954f8 = L.circle(
                 [32.21239, 35.157388],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 732.9037678543799, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_41a961fb17c49bb13ce559d0c485ee33.bindTooltip(
+            circle_ec012c42f361c9fa5b9ff988a09954f8.bindTooltip(
                 `<div>
                      קדומים  3
                  </div>`,
@@ -2316,13 +2302,13 @@
             );
         
     
-            var circle_ec04f7b345272e959ebf2ed2c09b4574 = L.circle(
+            var circle_a181ed794ad68c676dad62a7d23ffccb = L.circle(
                 [32.277644, 34.919297],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_ec04f7b345272e959ebf2ed2c09b4574.bindTooltip(
+            circle_a181ed794ad68c676dad62a7d23ffccb.bindTooltip(
                 `<div>
                      קדימה צורן  2
                  </div>`,
@@ -2330,13 +2316,13 @@
             );
         
     
-            var circle_0cf9bfe7a1a6b911fe74372d0b5c23fe = L.circle(
+            var circle_d72eefd388c95e53b9c9217e2ba55147 = L.circle(
                 [29.833968, 35.022204],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_0cf9bfe7a1a6b911fe74372d0b5c23fe.bindTooltip(
+            circle_d72eefd388c95e53b9c9217e2ba55147.bindTooltip(
                 `<div>
                      קיבוץ סמר  1
                  </div>`,
@@ -2344,13 +2330,13 @@
             );
         
     
-            var circle_0afaba588708824e19e0a234b17348c1 = L.circle(
+            var circle_a69b5e5f895fefcb41412582a5195329 = L.circle(
                 [32.990998, 35.689865],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 732.9037678543799, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_0afaba588708824e19e0a234b17348c1.bindTooltip(
+            circle_a69b5e5f895fefcb41412582a5195329.bindTooltip(
                 `<div>
                      קצרין  3
                  </div>`,
@@ -2358,13 +2344,13 @@
             );
         
     
-            var circle_aea087c93d59e24b9fca00eac64128e6 = L.circle(
+            var circle_f6912f0faf2177e27453e2003a40a5f1 = L.circle(
                 [32.054863, 34.858858],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_aea087c93d59e24b9fca00eac64128e6.bindTooltip(
+            circle_f6912f0faf2177e27453e2003a40a5f1.bindTooltip(
                 `<div>
                      קריית אונו  1
                  </div>`,
@@ -2372,13 +2358,13 @@
             );
         
     
-            var circle_4c0610d1ec620bd5aa114d9c71ef7053 = L.circle(
+            var circle_3ceeff304004c4f0821aa265a2c54a89 = L.circle(
                 [31.529326, 35.115625],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 732.9037678543799, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_4c0610d1ec620bd5aa114d9c71ef7053.bindTooltip(
+            circle_3ceeff304004c4f0821aa265a2c54a89.bindTooltip(
                 `<div>
                      קריית ארבע  3
                  </div>`,
@@ -2386,13 +2372,13 @@
             );
         
     
-            var circle_0f948ac11b8740d1e2a42ce76727e1b6 = L.circle(
+            var circle_a41b84107ee6e077e7b227d4c190e801 = L.circle(
                 [32.809144, 35.119773],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_0f948ac11b8740d1e2a42ce76727e1b6.bindTooltip(
+            circle_a41b84107ee6e077e7b227d4c190e801.bindTooltip(
                 `<div>
                      קריית אתא  2
                  </div>`,
@@ -2400,13 +2386,13 @@
             );
         
     
-            var circle_f32757af96f28b32281b9d8705267f89 = L.circle(
+            var circle_659a91e9618f5e6ef44294aae6518cf9 = L.circle(
                 [32.832154, 35.088407],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_f32757af96f28b32281b9d8705267f89.bindTooltip(
+            circle_659a91e9618f5e6ef44294aae6518cf9.bindTooltip(
                 `<div>
                      קריית ביאליק  2
                  </div>`,
@@ -2414,13 +2400,13 @@
             );
         
     
-            var circle_0e5d3fef85b0cd197eefa5ad65b90933 = L.circle(
+            var circle_fb8f8d4abc4be1166727b61b6f952a2b = L.circle(
                 [31.611148, 34.768459],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_0e5d3fef85b0cd197eefa5ad65b90933.bindTooltip(
+            circle_fb8f8d4abc4be1166727b61b6f952a2b.bindTooltip(
                 `<div>
                      קריית גת  1
                  </div>`,
@@ -2428,13 +2414,13 @@
             );
         
     
-            var circle_250a2c143d73e895540564da36667612 = L.circle(
+            var circle_04337860cd9ef7c115a6f23c8703298a = L.circle(
                 [32.849276, 35.068929],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 846.2843753216345, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_250a2c143d73e895540564da36667612.bindTooltip(
+            circle_04337860cd9ef7c115a6f23c8703298a.bindTooltip(
                 `<div>
                      קריית ים  4
                  </div>`,
@@ -2442,13 +2428,13 @@
             );
         
     
-            var circle_d68883db7573992f8ebe7948951ed443 = L.circle(
+            var circle_7f36d0920b051843b3971129458ccfab = L.circle(
                 [32.838202, 35.079523],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_d68883db7573992f8ebe7948951ed443.bindTooltip(
+            circle_7f36d0920b051843b3971129458ccfab.bindTooltip(
                 `<div>
                      קריית מוצקין  1
                  </div>`,
@@ -2456,13 +2442,13 @@
             );
         
     
-            var circle_965bc99406ef65e42b46bf1443b7e24f = L.circle(
+            var circle_9c6a5128b56daab90366072aebb401d2 = L.circle(
                 [31.730202, 34.746996],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_965bc99406ef65e42b46bf1443b7e24f.bindTooltip(
+            circle_9c6a5128b56daab90366072aebb401d2.bindTooltip(
                 `<div>
                      קריית מלאכי  2
                  </div>`,
@@ -2470,13 +2456,13 @@
             );
         
     
-            var circle_96abcaba1724ea6178b77ff2a31cca76 = L.circle(
+            var circle_c8241f76c5696257bdfdb9bdf41037b4 = L.circle(
                 [32.117299, 35.112115],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_96abcaba1724ea6178b77ff2a31cca76.bindTooltip(
+            circle_c8241f76c5696257bdfdb9bdf41037b4.bindTooltip(
                 `<div>
                      קריית נטפים  1
                  </div>`,
@@ -2484,13 +2470,13 @@
             );
         
     
-            var circle_bb719e1bc0caf0ab009e2e34667038f3 = L.circle(
+            var circle_0c83d0142ac89c25c09af8d89dfe8060 = L.circle(
                 [31.862547, 34.8219576],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_bb719e1bc0caf0ab009e2e34667038f3.bindTooltip(
+            circle_0c83d0142ac89c25c09af8d89dfe8060.bindTooltip(
                 `<div>
                      קריית עקרון  1
                  </div>`,
@@ -2498,13 +2484,13 @@
             );
         
     
-            var circle_6af3fc90275d2f790a2c69bd9e1a5338 = L.circle(
+            var circle_4892a4226544d5fb5c4d66307ad79e97 = L.circle(
                 [33.207933, 35.570246],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_6af3fc90275d2f790a2c69bd9e1a5338.bindTooltip(
+            circle_4892a4226544d5fb5c4d66307ad79e97.bindTooltip(
                 `<div>
                      קריית שמונה  1
                  </div>`,
@@ -2512,13 +2498,13 @@
             );
         
     
-            var circle_55af40529ee03c226b74a8109b2dd5ab = L.circle(
+            var circle_89266ba8710745f1b0206cdd462d4d7a = L.circle(
                 [32.809144, 35.119773],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_55af40529ee03c226b74a8109b2dd5ab.bindTooltip(
+            circle_89266ba8710745f1b0206cdd462d4d7a.bindTooltip(
                 `<div>
                      קרית אתא  1
                  </div>`,
@@ -2526,13 +2512,13 @@
             );
         
     
-            var circle_67f2f59a6831ec1fdf9926d6f7a4ce6a = L.circle(
+            var circle_cbd619c42ccb8ed81c77488215777ef8 = L.circle(
                 [32.171553, 35.097462],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_67f2f59a6831ec1fdf9926d6f7a4ce6a.bindTooltip(
+            circle_cbd619c42ccb8ed81c77488215777ef8.bindTooltip(
                 `<div>
                      קרני שומרון  2
                  </div>`,
@@ -2540,13 +2526,13 @@
             );
         
     
-            var circle_05ffabeedf300a2145962c723d599a69 = L.circle(
+            var circle_b89ed9a7819107962d1a309f7aaeb8ee = L.circle(
                 [32.095838, 34.952177],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 946.1746957575601, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_05ffabeedf300a2145962c723d599a69.bindTooltip(
+            circle_b89ed9a7819107962d1a309f7aaeb8ee.bindTooltip(
                 `<div>
                      ראש העין  5
                  </div>`,
@@ -2554,13 +2540,13 @@
             );
         
     
-            var circle_868994e6611acd675a7d69c663125eed = L.circle(
+            var circle_e295610ff3a550aba03d2cc83bc45f8e = L.circle(
                 [31.667791, 35.125288],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_868994e6611acd675a7d69c663125eed.bindTooltip(
+            circle_e295610ff3a550aba03d2cc83bc45f8e.bindTooltip(
                 `<div>
                      ראש צורים  1
                  </div>`,
@@ -2568,13 +2554,13 @@
             );
         
     
-            var circle_bcc0b6b13f43b8a6086a1d366985ba01 = L.circle(
+            var circle_99bb426ea52d80487a610071e297ee6b = L.circle(
                 [31.9590813, 34.8020886],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 732.9037678543799, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_bcc0b6b13f43b8a6086a1d366985ba01.bindTooltip(
+            circle_99bb426ea52d80487a610071e297ee6b.bindTooltip(
                 `<div>
                      ראשון לציון  3
                  </div>`,
@@ -2582,13 +2568,13 @@
             );
         
     
-            var circle_ce4ff39a99bca7912ffdea5d043ee4dc = L.circle(
+            var circle_d98123bf78edda1e220febb7f4a21b1e = L.circle(
                 [31.9590813, 34.8020886],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_ce4ff39a99bca7912ffdea5d043ee4dc.bindTooltip(
+            circle_d98123bf78edda1e220febb7f4a21b1e.bindTooltip(
                 `<div>
                      ראשל"צ  1
                  </div>`,
@@ -2596,13 +2582,13 @@
             );
         
     
-            var circle_9b0373e15046dc35aa6c72fbe84ff30e = L.circle(
+            var circle_274f0ed2371eb61a33f670edcaf053d4 = L.circle(
                 [31.773966, 34.814807],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_9b0373e15046dc35aa6c72fbe84ff30e.bindTooltip(
+            circle_274f0ed2371eb61a33f670edcaf053d4.bindTooltip(
                 `<div>
                      רבדים  2
                  </div>`,
@@ -2610,13 +2596,13 @@
             );
         
     
-            var circle_de40d65344c9b9e6194cc01d33b0bab7 = L.circle(
+            var circle_f645434a4003e06b153089a3ad3ca0dc = L.circle(
                 [31.394548, 34.753934],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 946.1746957575601, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_de40d65344c9b9e6194cc01d33b0bab7.bindTooltip(
+            circle_f645434a4003e06b153089a3ad3ca0dc.bindTooltip(
                 `<div>
                      רהט  5
                  </div>`,
@@ -2624,13 +2610,13 @@
             );
         
     
-            var circle_82b34bbb40f3eab1cbbbe1130d2aaabb = L.circle(
+            var circle_fc32a4723327ac1daf79cec00f4c842b = L.circle(
                 [31.8943652, 34.8115292],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1269.4265629824517, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_82b34bbb40f3eab1cbbbe1130d2aaabb.bindTooltip(
+            circle_fc32a4723327ac1daf79cec00f4c842b.bindTooltip(
                 `<div>
                      רחובות  9
                  </div>`,
@@ -2638,13 +2624,13 @@
             );
         
     
-            var circle_1653511c79a496bcd86c97cd6c087d6f = L.circle(
+            var circle_391e093e49ed5073155d44d4ac79acb6 = L.circle(
                 [32.044365, 34.928477],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_1653511c79a496bcd86c97cd6c087d6f.bindTooltip(
+            circle_391e093e49ed5073155d44d4ac79acb6.bindTooltip(
                 `<div>
                      רינתיה  1
                  </div>`,
@@ -2652,13 +2638,13 @@
             );
         
     
-            var circle_1e5049a23381501b667654e68a67828f = L.circle(
+            var circle_e443354d413a73698c3e2258d5499c30 = L.circle(
                 [32.749265, 35.099581],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_1e5049a23381501b667654e68a67828f.bindTooltip(
+            circle_e443354d413a73698c3e2258d5499c30.bindTooltip(
                 `<div>
                      רכסים  1
                  </div>`,
@@ -2666,13 +2652,13 @@
             );
         
     
-            var circle_9d0da8661ba1b9eb95c527b3af3b6a53 = L.circle(
+            var circle_4911dd842e460f607caed0a0aa7579c9 = L.circle(
                 [32.068424, 34.824785],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1119.5289977703462, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_9d0da8661ba1b9eb95c527b3af3b6a53.bindTooltip(
+            circle_4911dd842e460f607caed0a0aa7579c9.bindTooltip(
                 `<div>
                      רמת גן  7
                  </div>`,
@@ -2680,13 +2666,13 @@
             );
         
     
-            var circle_0fefb07414f0b42c230117fceaaac792 = L.circle(
+            var circle_9b2842b07ef0ecb004d99b5a05bcd4e7 = L.circle(
                 [32.137793, 34.840278],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_0fefb07414f0b42c230117fceaaac792.bindTooltip(
+            circle_9b2842b07ef0ecb004d99b5a05bcd4e7.bindTooltip(
                 `<div>
                      רמת השרון  2
                  </div>`,
@@ -2694,13 +2680,13 @@
             );
         
     
-            var circle_b0001e1e7b9a93a8d4cee44f7e6bd75d = L.circle(
+            var circle_400dacdfd1fe6d03758083f57915c61f = L.circle(
                 [31.386159, 34.458823],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 946.1746957575601, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_b0001e1e7b9a93a8d4cee44f7e6bd75d.bindTooltip(
+            circle_400dacdfd1fe6d03758083f57915c61f.bindTooltip(
                 `<div>
                      רעים  5
                  </div>`,
@@ -2708,13 +2694,13 @@
             );
         
     
-            var circle_c87244efbc00fca6667c0418f771470d = L.circle(
+            var circle_c2b14676601b7b0c17d9f80b3147ca8d = L.circle(
                 [32.184781, 34.871326],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 846.2843753216345, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_c87244efbc00fca6667c0418f771470d.bindTooltip(
+            circle_c2b14676601b7b0c17d9f80b3147ca8d.bindTooltip(
                 `<div>
                      רעננה  4
                  </div>`,
@@ -2722,13 +2708,13 @@
             );
         
     
-            var circle_6bc777b63970382cbed732b9f0cfb218 = L.circle(
+            var circle_6e25b7828cecb593af90d7a30197ae45 = L.circle(
                 [32.982079, 35.083005],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_6bc777b63970382cbed732b9f0cfb218.bindTooltip(
+            circle_6e25b7828cecb593af90d7a30197ae45.bindTooltip(
                 `<div>
                      שבי ציון  1
                  </div>`,
@@ -2736,13 +2722,13 @@
             );
         
     
-            var circle_36cc84d3091361bc5b9973dbce78e562 = L.circle(
+            var circle_cd52c5668d78ca07ea88c77a51f1669c = L.circle(
                 [31.198361, 34.839665],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_36cc84d3091361bc5b9973dbce78e562.bindTooltip(
+            circle_cd52c5668d78ca07ea88c77a51f1669c.bindTooltip(
                 `<div>
                      שגב שלום  1
                  </div>`,
@@ -2750,13 +2736,13 @@
             );
         
     
-            var circle_9fcd01a86d287151b708ec22a055f172 = L.circle(
+            var circle_b2f3534c1ae675658c60c600e6b2b5ea = L.circle(
                 [32.75051, 35.422429],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_9fcd01a86d287151b708ec22a055f172.bindTooltip(
+            circle_b2f3534c1ae675658c60c600e6b2b5ea.bindTooltip(
                 `<div>
                      שדה אילן  1
                  </div>`,
@@ -2764,13 +2750,13 @@
             );
         
     
-            var circle_6a2cf6d7c4e2ad37dca1491f03913520 = L.circle(
+            var circle_4fc61a6772cdfc19db46d65a0cb6154f = L.circle(
                 [32.525068, 35.480855],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_6a2cf6d7c4e2ad37dca1491f03913520.bindTooltip(
+            circle_4fc61a6772cdfc19db46d65a0cb6154f.bindTooltip(
                 `<div>
                      שדה נחום  1
                  </div>`,
@@ -2778,13 +2764,13 @@
             );
         
     
-            var circle_9d89ab989418d495f71056e506010f1a = L.circle(
+            var circle_0a796d09c47b1bbac29e2b1185200440 = L.circle(
                 [33.188234, 35.62307],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_9d89ab989418d495f71056e506010f1a.bindTooltip(
+            circle_0a796d09c47b1bbac29e2b1185200440.bindTooltip(
                 `<div>
                      שדה נחמיה  1
                  </div>`,
@@ -2792,13 +2778,13 @@
             );
         
     
-            var circle_cea6376e43cc6ab2cd1e1578bc57898e = L.circle(
+            var circle_d65d3c60af3dcaaeff356a044403c680 = L.circle(
                 [31.230035, 34.418363],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_cea6376e43cc6ab2cd1e1578bc57898e.bindTooltip(
+            circle_d65d3c60af3dcaaeff356a044403c680.bindTooltip(
                 `<div>
                      שדה ניצן  2
                  </div>`,
@@ -2806,13 +2792,13 @@
             );
         
     
-            var circle_333bc34e730011d3425db57a84a09cbe = L.circle(
+            var circle_7e2d47d169b5153c2e83ff4ead263ff6 = L.circle(
                 [31.522694, 34.595581],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1583.253092116782, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_333bc34e730011d3425db57a84a09cbe.bindTooltip(
+            circle_7e2d47d169b5153c2e83ff4ead263ff6.bindTooltip(
                 `<div>
                      שדרות  14
                  </div>`,
@@ -2820,13 +2806,13 @@
             );
         
     
-            var circle_7cee83e10116e8f74bcf3e5d76e6deeb = L.circle(
+            var circle_e73853172026bdbf4b722ce4d9168570 = L.circle(
                 [31.9957581, 34.9488403],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_7cee83e10116e8f74bcf3e5d76e6deeb.bindTooltip(
+            circle_e73853172026bdbf4b722ce4d9168570.bindTooltip(
                 `<div>
                      שהם  2
                  </div>`,
@@ -2834,13 +2820,13 @@
             );
         
     
-            var circle_57a9e48ec2902ac0d2508780714f1fab = L.circle(
+            var circle_bfd174df9cc46862816f030d9e46b587 = L.circle(
                 [31.9957581, 34.9488403],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_57a9e48ec2902ac0d2508780714f1fab.bindTooltip(
+            circle_bfd174df9cc46862816f030d9e46b587.bindTooltip(
                 `<div>
                      שוהם  1
                  </div>`,
@@ -2848,13 +2834,13 @@
             );
         
     
-            var circle_543ff342fc4b1338b5558ac7488ec0b0 = L.circle(
+            var circle_01f7faba7c931cf34db0b469d32bdb7b = L.circle(
                 [31.432154, 34.884095],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_543ff342fc4b1338b5558ac7488ec0b0.bindTooltip(
+            circle_01f7faba7c931cf34db0b469d32bdb7b.bindTooltip(
                 `<div>
                      שומריה  1
                  </div>`,
@@ -2862,13 +2848,13 @@
             );
         
     
-            var circle_7232105d554be0835b4c36560c53d6a4 = L.circle(
+            var circle_51e5364511e1c73485ef0e313ffa36ef = L.circle(
                 [31.1673893, 34.3033322],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 846.2843753216345, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_7232105d554be0835b4c36560c53d6a4.bindTooltip(
+            circle_51e5364511e1c73485ef0e313ffa36ef.bindTooltip(
                 `<div>
                      שלומית  4
                  </div>`,
@@ -2876,13 +2862,13 @@
             );
         
     
-            var circle_ee20d7957dbff63e6e7c1d794f0b4302 = L.circle(
+            var circle_9e450febda376a917e8d8a8152eaaad3 = L.circle(
                 [32.732527, 35.246518],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_ee20d7957dbff63e6e7c1d794f0b4302.bindTooltip(
+            circle_9e450febda376a917e8d8a8152eaaad3.bindTooltip(
                 `<div>
                      שמשית  1
                  </div>`,
@@ -2890,13 +2876,13 @@
             );
         
     
-            var circle_a0b084cf81e0b97045f966045500b40e = L.circle(
+            var circle_3ba6dca15c6abcd114363b6007d88483 = L.circle(
                 [31.5077257, 34.6303372],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_a0b084cf81e0b97045f966045500b40e.bindTooltip(
+            circle_3ba6dca15c6abcd114363b6007d88483.bindTooltip(
                 `<div>
                      שער הנגב  1
                  </div>`,
@@ -2904,13 +2890,13 @@
             );
         
     
-            var circle_dacedad8932d638efacc3027eff4e483 = L.circle(
+            var circle_6a067d01a7ab9d6e5af6e9851bd953bb = L.circle(
                 [32.216586, 34.822409],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_dacedad8932d638efacc3027eff4e483.bindTooltip(
+            circle_6a067d01a7ab9d6e5af6e9851bd953bb.bindTooltip(
                 `<div>
                      שפיים  1
                  </div>`,
@@ -2918,13 +2904,13 @@
             );
         
     
-            var circle_a4e0c5619d7de9fa498c75ae6cf2929e = L.circle(
-                [32.80576500000001, 35.169971],
+            var circle_8cd2cf86fb1fb19b788cddfcf7ebe1df = L.circle(
+                [32.805765, 35.169971],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_a4e0c5619d7de9fa498c75ae6cf2929e.bindTooltip(
+            circle_8cd2cf86fb1fb19b788cddfcf7ebe1df.bindTooltip(
                 `<div>
                      שפרעם  1
                  </div>`,
@@ -2932,13 +2918,13 @@
             );
         
     
-            var circle_cc95080b865635c9302cfbd92bd06560 = L.circle(
+            var circle_ad00314197bd99891fac8ad814d4754b = L.circle(
                 [31.678567, 34.93509],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_cc95080b865635c9302cfbd92bd06560.bindTooltip(
+            circle_ad00314197bd99891fac8ad814d4754b.bindTooltip(
                 `<div>
                      שריגים  2
                  </div>`,
@@ -2946,13 +2932,13 @@
             );
         
     
-            var circle_4e16de718cb107ab2859b995ab6fe9f4 = L.circle(
+            var circle_421ac3fc349baaffa8f237c2d7cd5ec5 = L.circle(
                 [32.0852999, 34.7817676],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1119.5289977703462, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_4e16de718cb107ab2859b995ab6fe9f4.bindTooltip(
+            circle_421ac3fc349baaffa8f237c2d7cd5ec5.bindTooltip(
                 `<div>
                      תל אביב  7
                  </div>`,
@@ -2960,13 +2946,13 @@
             );
         
     
-            var circle_4961fbaccd76a12c7c472ee5ed4600e1 = L.circle(
+            var circle_e20008dd22dcf27165734d8cee20a518 = L.circle(
                 [32.256608, 34.91846],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 598.413420602149, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_4961fbaccd76a12c7c472ee5ed4600e1.bindTooltip(
+            circle_e20008dd22dcf27165734d8cee20a518.bindTooltip(
                 `<div>
                      תל מונד  2
                  </div>`,
@@ -2974,13 +2960,13 @@
             );
         
     
-            var circle_654e84ad7683b0b13602e81b6a7c4b90 = L.circle(
+            var circle_c182826b266088a669a0c2fba7eee8ed = L.circle(
                 [31.247569, 34.861193],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_654e84ad7683b0b13602e81b6a7c4b90.bindTooltip(
+            circle_c182826b266088a669a0c2fba7eee8ed.bindTooltip(
                 `<div>
                      תל שבע  1
                  </div>`,
@@ -2988,13 +2974,13 @@
             );
         
     
-            var circle_b6bf252b7c1a66ea6a88ae2549de65b9 = L.circle(
+            var circle_aa54d4cb45fd016cbaec5f1172a8e4cb = L.circle(
                 [31.199958, 34.363751],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 423.1421876608172, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_b6bf252b7c1a66ea6a88ae2549de65b9.bindTooltip(
+            circle_aa54d4cb45fd016cbaec5f1172a8e4cb.bindTooltip(
                 `<div>
                      תלמי יוסף  1
                  </div>`,
@@ -3002,13 +2988,13 @@
             );
         
     
-            var circle_724c0daf4b0e190bcd1aaeccd74870fa = L.circle(
+            var circle_101506383cbe7080d94ac3308006659b = L.circle(
                 [31.482205, 34.598634],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 846.2843753216345, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_724c0daf4b0e190bcd1aaeccd74870fa.bindTooltip(
+            circle_101506383cbe7080d94ac3308006659b.bindTooltip(
                 `<div>
                      יכיני  4
                  </div>`,
@@ -3016,13 +3002,13 @@
             );
         
     
-            var circle_c9ac62548254f6b1c1846d47eefee0b3 = L.circle(
+            var circle_9decd3ea9a9b26c3a8f4231a5ad33193 = L.circle(
                 [31.33573, 34.394087],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 946.1746957575601, "stroke": true, "weight": 3}
-            ).addTo(map_ef67da3aa0f03cd3c06d275ff8bc161f);
+            ).addTo(map_af75b9ed519722fca54be9b26181b354);
         
     
-            circle_c9ac62548254f6b1c1846d47eefee0b3.bindTooltip(
+            circle_9decd3ea9a9b26c3a8f4231a5ad33193.bindTooltip(
                 `<div>
                      נירים  5
                  </div>`,
