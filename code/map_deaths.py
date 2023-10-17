@@ -71,6 +71,15 @@ def map_deaths():
             #                     ).add_to(map)
         else:
             print('cannot find coord for '+locu[iloc])
+    folium.Circle(location=[31.4025912, 34.4724382],
+                  tooltip='המסיבה ברעים, 260',
+                  radius=float((260/np.pi)**0.5 * 750),
+                  fill=True,
+                  fill_color='#555555',
+                  color='#555555',
+                  opacity=0,
+                  fill_opacity=0.5
+                  ).add_to(map)
     map.save("docs/war_deaths23.html")
     print('done')
 
