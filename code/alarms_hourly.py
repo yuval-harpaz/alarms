@@ -16,10 +16,13 @@ if os.path.isdir(local):
 dfwar = pd.read_csv('data/alarms.csv')
 dfwar = dfwar[dfwar['time'] >= '2023-10-07 00:00:00']
 dfwar = dfwar[dfwar['threat'] == 0]
+dfwar = dfwar[dfwar['origin'] == 'Gaza']
 dfwar['HM'] = [x[11:16] for x in dfwar['time'].values]
 dfwar = dfwar.reset_index(drop=True)
 date = np.array([x[:10] for x in dfwar['time']])
-dateu = np.unique(date)
+##
+dateu = np.unique(date)[-15:]
+yy = np.zeros((24, 14))
 for idate in range(len(dateu)):
     df = dfwar[date == dateu[idate]]
     xs = pd.to_datetime(df['HM'], format='%H:%M')
@@ -30,6 +33,12 @@ for idate in range(len(dateu)):
     xu = np.arange(0, 24) / 24
     xu = xu * 2 * np.pi
     y = [np.sum(xs == x) for x in xu]
+    if idate == 14:
+        y = np.mean(yy, 1)
+        tit = 'Avg'
+    else:
+        yy[:, idate] = y
+        tit = dateu[idate][8:10] + '/' + dateu[idate][5:7]
     # id = df['id'].to_numpy()
     # y = [len(np.unique(id[xs == x])) for x in xu]
     # fig = plt.figure(figsize=(7,7))
@@ -44,6 +53,7 @@ for idate in range(len(dateu)):
     #Bars to the wall
     # plt.ylim(0,2)
     # plt.legend(bbox_to_anchor=(1, 0), fancybox=True, shadow=True)
-    plt.title(dateu[idate])
+    plt.title(tit, ha='left', x=-0.15, y=0.83, color='b')
+    # plt.text(0, 0.9, dateu[idate][5:])
     plt.show()
 

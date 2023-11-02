@@ -38,20 +38,20 @@ else:
         message = tzeva.text
     raise Exception(message)
 
-def guess_origin():
-    toguess = pd.isnull(prev['origin']).values
-    row_lat = np.array([coo['lat'][coo['loc'] == x].values[0] for x in prev['cities'].values])
-    row_long = np.array([coo['long'][coo['loc'] == x].values[0] for x in prev['cities'].values])
-    syria = toguess & (row_long > 35.63)
+def guess_origin(df_toguess):
+    toguess = pd.isnull(df_toguess['origin']).values
+    row_lat = np.array([coo['lat'][coo['loc'] == x].values[0] for x in df_toguess['cities'].values])
+    row_long = np.array([coo['long'][coo['loc'] == x].values[0] for x in df_toguess['cities'].values])
+    syria = toguess & (row_long > 35.63) & (row_lat < 33.1)
     lebanon = toguess & (row_lat > 32.69)
     yemen = toguess & (row_lat < 30)
-    origin = prev['origin'].values
+    origin = df_toguess['origin'].values
     origin[toguess] = 'Gaza'
     origin[lebanon] = 'Lebanon'
     origin[syria] = 'Syria'
     origin[yemen] = 'Yemen'
-    prev['origin'] = origin
-    return prev
+    df_toguess['origin'] = origin
+    return df_toguess
 
 df = pd.DataFrame(tzeva)
 df = df.explode('alerts')
