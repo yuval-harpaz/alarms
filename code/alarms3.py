@@ -85,7 +85,7 @@ if len(new) > 0:
     if len(prev) < with_duplicates:
         print(f'{with_duplicates-len(prev)} duplicates')
     prev = prev.sort_values('time', ignore_index=True)
-    prev = guess_origin()
+    prev = guess_origin(prev)
     prev.to_csv('data/alarms.csv', index=False, sep=',')
 
     news = True
