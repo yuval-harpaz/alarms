@@ -27,6 +27,7 @@ jobs:
           OAuth: ${{ secrets.GOOMAP }}
       run: |
         python code/alarms3.py
+        python code/alarms_map_origin.py
     - name: run rocket 7 days script
       env:
           OAuth: ${{ secrets.GOOMAP }}
