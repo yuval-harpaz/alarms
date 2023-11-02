@@ -39,7 +39,7 @@ else:
     raise Exception(message)
 
 def guess_origin():
-    toguess = np.isnan(prev['origin'].values)
+    toguess = pd.isnull(prev['origin']).values
     row_lat = np.array([coo['lat'][coo['loc'] == x].values[0] for x in prev['cities'].values])
     row_long = np.array([coo['long'][coo['loc'] == x].values[0] for x in prev['cities'].values])
     syria = toguess & (row_long > 35.63)
@@ -79,13 +79,13 @@ if len(new) > 0:
         else:
             desc = ''
         for cit in citiesc:
-            prev.loc[len(prev.index)] = [str(dtc), cit, threatc, idc, desc]
+            prev.loc[len(prev.index)] = [str(dtc), cit, threatc, idc, desc, '']
     with_duplicates = len(prev)
     prev = prev.drop_duplicates(keep='first', ignore_index=True)
     if len(prev) < with_duplicates:
         print(f'{with_duplicates-len(prev)} duplicates')
     prev = prev.sort_values('time', ignore_index=True)
-    prev = guess_origin(prev)
+    prev = guess_origin()
     prev.to_csv('data/alarms.csv', index=False, sep=',')
 
     news = True
