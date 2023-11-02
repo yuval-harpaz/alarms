@@ -17,8 +17,8 @@ if os.path.isdir(local):
     os.chdir(local)
     islocal = True
 
-prev = pd.read_csv('data/casualties_by_severity.csv')
-if str(last_update)[:19] > prev['time'].values[-1]:
+df = pd.read_csv('data/casualties_by_severity.csv')
+if str(last_update)[:19] > df['time'].values[-1]:
     r = requests.get(url='https://datadashboard.health.gov.il/api/war-casualties/totalCasualtiesByStatus')
     data = r.json()
     by_severity = {}
