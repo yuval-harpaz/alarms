@@ -13,12 +13,13 @@ islocal = False
 if os.path.isdir(local):
     os.chdir(local)
     islocal = True
-prev = pd.read_csv('data/alarms.csv')
-last_alarm = pd.to_datetime(prev['time'][len(prev)-1])
+dfwar = pd.read_csv('data/alarms.csv')
+last_alarm = pd.to_datetime(dfwar['time'][len(dfwar)-1])
 last_alarm = last_alarm.tz_localize('Israel')
-prev = prev[prev['threat'] == 0]
-prev = prev.reset_index(drop=True)
-# date = np.array([d[:10] for d in prev['time']])
+dfwar = dfwar[dfwar['threat'] == 0]
+dfwar = dfwar[dfwar['time'] >= '2023-10-07 00:00:00']
+dfwar = dfwar.reset_index(drop=True)
+# date = np.array([d[:10] for d in dfwar['time']])
 # last7dates = np.unique(date)[-7:]
 now = np.datetime64('now', 'ns')
 nowisr = pd.to_datetime(now, utc=True, unit='s').astimezone(tz='Israel')
@@ -32,17 +33,17 @@ nowstr = str(nowisr)[:16].replace('T', ' ')
 # # Reverse the list to have the dates in descending order
 # date_list.reverse()
 # Prin
-origin = np.array([str(x) for x in prev['origin']])
+origin = np.array([str(x) for x in dfwar['origin']])
 origu = np.unique(origin)
 # nid = []
 # n = []
 # for iorig in range(len(origu)):
 #     idx = origin == origu[iorig]
-#     nid.append(len(np.unique(prev['id'][idx])))
+#     nid.append(len(np.unique(dfwar['id'][idx])))
 #     n.append(np.sum(idx))
 #
 # fig = px.bar(x=date_list, y=n, log_y=True)
-# # fig = px.bar(prev, y=n, x='date',log_y=True)
+# # fig = px.bar(dfwar, y=n, x='date',log_y=True)
 # html = fig.to_html()
 # file = open('docs/alarms_last_7_days.html', 'w')
 # a = file.write(html)
@@ -80,7 +81,7 @@ for igroup in range(len(origu)):
     # idx = (yyyy == year)
     dt = gnames[igroup]
     idx = origin == origu[igroup]
-    loc = np.asarray(prev['cities'][idx])
+    loc = np.asarray(dfwar['cities'][idx])
     locu = np.unique(loc)
     size = np.zeros(len(locu), int)
     for iloc in range(len(locu)):
