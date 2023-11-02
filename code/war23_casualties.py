@@ -1,12 +1,8 @@
 import requests
-from matplotlib import colors
-import folium
 import pandas as pd
-import numpy as np
+# import numpy as np
 import os
-import plotly.express as px
-import sys
-import re
+
 
 
 dt = pd.read_json('https://datadashboard.health.gov.il/api/war-casualties/lastUpdate')
@@ -40,5 +36,7 @@ if str(last_update)[:19] > prev['time'].values[-1]:
     new_row.append(total)
     df.loc[len(df)] = new_row
     df.to_csv('data/casualties_by_severity.csv', index=False)
+    daily = pd.read_json('https://datadashboard.health.gov.il/api/war-casualties/dailyCasualties')
+    daily.to_csv('data/daily_casualties.csv', index=False)
 else:
     print('no new casualties update')
