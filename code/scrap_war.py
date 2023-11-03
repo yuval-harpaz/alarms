@@ -157,6 +157,12 @@ try:
                 if gns in seg and not bug:
                     seg = seg[seg.index(gns):]
                     story = seg[len(gns)+2:seg.index('<')].replace('-dyn-bind-empty">', '')
+                if len(gender) == 0 and len(story) > 0:
+                    if 'נרצחה' in story or 'תצפיתנית' in story or 'נהרגה' in story:
+                        gender = 'F'
+                    elif 'נרצח ' in story or 'לוחם ' in story or 'נהרג ' in story:
+                        gender = 'M'
+
                 row = np.where(data['name'] == name)[0]
                 if len(name) > 0:
                     if len(row) == 0:
@@ -195,12 +201,4 @@ print('done')
 
 ##
 
-# else:
-# story[iseg] = '')
-# df = pd.DataFrame(name, columns=['name'])
-# df['gender'] = gender
-# df['age'] = age
-# df['from'] = loc
-# df['story'] = story
-# dfs.append(df)
-# merged = pd.concat(dfs)
+
