@@ -158,7 +158,7 @@ try:
                     seg = seg[seg.index(gns):]
                     story = seg[len(gns)+2:seg.index('<')].replace('-dyn-bind-empty">', '')
                 if len(gender) == 0 and len(story) > 0:
-                    if 'נרצחה' in story or 'תצפיתנית' in story or 'נהרגה' in storyor 'נפלה' in story:
+                    if 'נרצחה' in story or 'תצפיתנית' in story or 'נהרגה' in story or 'נפלה' in story:
                         gender = 'F'
                     elif 'נרצח ' in story or 'לוחם ' in story or 'נהרג ' in story or 'נפל ' in story:
                         gender = 'M'
