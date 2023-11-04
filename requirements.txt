@@ -1,5 +1,8 @@
-folium
-pandas
-numpy
-matplotlib
-plotly
+folium~=0.14.0
+pandas~=2.0.0
+numpy~=1.24.2
+matplotlib~=3.7.1
+plotly~=5.14.1
+scipy~=1.10.1
+requests~=2.28.1
+geopy~=2.4.0
