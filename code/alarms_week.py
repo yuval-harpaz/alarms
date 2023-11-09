@@ -114,9 +114,9 @@ html_name = "docs/alarms_7_days.html"
 map.save(html_name)
 with open(html_name, 'r') as fid:
     html = fid.read()
-osmde = 'https://tile.openstreetmap.de/{z}/{x}/{y}.png'  # 'openstreetmap.de'
-idx = [m.start() for m in re.finditer(osmde, html)]
-html = html[:idx[1]] + html[idx[1]:].replace(osmde, 'openstreetmap.de')
+# osmde = 'https://tile.openstreetmap.de/{z}/{x}/{y}.png'  # 'openstreetmap.de'
+# idx = [m.start() for m in re.finditer(osmde, html)]
+# html = html[:idx[1]] + html[idx[1]:].replace(osmde, 'openstreetmap.de')
 with open(html_name, 'w') as fid:
     fid.write(html)
 print('done')
