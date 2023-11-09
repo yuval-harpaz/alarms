@@ -9,19 +9,12 @@ from datetime import datetime
 
 os.chdir('/home/innereye/alarms/data/')
 dfwar = pd.read_csv('alarms.csv')
-
 # last_alarm = pd.to_datetime(dfwar['time'][len(dfwar)-1])
 # last_alarm = last_alarm.tz_localize('Israel')
 dfwar = dfwar[dfwar['threat'] == 0]
 dfwar = dfwar[dfwar['time'] >= '2023-10-07 00:00:00']
-gaza = dfwar[dfwar['origin'] == 'Gaza']
-gaza = dfwar.reset_index(drop=True)
-lebanon = dfwar[dfwar['origin'] == 'Lebanon']
-lebanon = dfwar.reset_index(drop=True)
-
-
-
-
+dfwar = dfwar[dfwar['origin']  == 'Gaza']
+dfwar = dfwar.reset_index(drop=True)
 loc = np.unique(dfwar['cities'])
 n = np.zeros(len(loc), int)
 for ii in range(len(loc)):

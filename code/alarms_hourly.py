@@ -57,3 +57,37 @@ for idate in range(len(dateu)):
     # plt.text(0, 0.9, dateu[idate][5:])
     plt.show()
 
+##
+plt.figure()
+ax = plt.subplot(121, projection='polar')
+ax.bar(xu[:12]*2+(2 * np.pi /12 / 2), y[12:], width=2*np.pi/12, alpha=0.3, color='blue', label='PM')
+ax.bar(xu[:12]*2+(2 * np.pi /12 / 2), y[:12], width=2*np.pi/12, alpha=0.7, color='red', label='AM')
+ax.set_theta_direction(-1)
+ax.set_theta_offset(np.pi/2)
+ax.set_xticks(np.linspace(0, 2*np.pi, 12, endpoint=False))
+ticks = ['12', '1', '2', '3', '4', '5', '6', '7','8','9','10','11']
+ax.set_xticklabels(ticks, fontsize=7)
+plt.legend(loc=[-0.15, 0.83], reverse=True)
+plt.title('hour')
+plt.show()
+
+#
+dfm = dfwar[(dfwar['time'] > dateu[0]) & (dfwar['time'] < dateu[-1])]
+minute = [int(x[14:16]) for x in dfm['time']]
+xum = np.arange(0, 60) / 60
+xum = xum * 2 * np.pi
+ym = [np.sum(minute == x) for x in np.arange(60).astype(int)]
+ym = np.array(ym)/14
+# plt.figure()
+ax = plt.subplot(122, projection='polar')
+ax.bar(xum+(2 * np.pi /60 / 2), ym, width=2*np.pi/60, alpha=0.3, color='red', label='minute')
+# ax.bar(xu[:12]*2+(2 * np.pi /12 / 2), y[:12], width=2*np.pi/12, alpha=0.7, color='red', label='AM')
+ax.set_theta_direction(-1)
+ax.set_theta_offset(np.pi/2)
+ax.set_xticks(np.linspace(0, 2*np.pi, 60, endpoint=False))
+ticks = np.arange(60)
+ax.set_xticklabels(ticks, fontsize=7)
+# plt.legend(loc=[-0.15, 0.83], reverse=True)
+plt.title('minute')
+plt.show()
+
