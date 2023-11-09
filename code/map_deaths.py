@@ -73,7 +73,7 @@ def map_deaths():
         else:
             print('cannot find coord for '+locu[iloc])
     folium.Circle(location=[31.4025912, 34.4724382],
-                  tooltip='המסיבה ברעים, 260',
+                  tooltip='המסיבה ברעים, 357',
                   radius=float((260/np.pi)**0.5 * 750),
                   fill=True,
                   fill_color='#555555',
