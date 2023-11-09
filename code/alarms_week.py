@@ -53,7 +53,7 @@ title_html = f'''
              via <a href="https://www.tzevaadom.co.il/" target="_blank">צבע אדום</a>. last checked: {nowstr}</b></h3>
              '''
 gnames = ['total'] + date_list
-co = [[0.7, 0.5, 0.5], [0.25, 0.25, 1.0], [0.25, 0.9, 0.8], [0.25, 1, 0.25], [0.75, 0.75, 0.25], [0.82, 0.5, 0.35],
+co = [[1/1.5, 196/255/1.5, 1/1.5], [0.25, 0.25, 1.0], [0.25, 0.9, 0.8], [0.25, 1, 0.25], [0.75, 0.75, 0.25], [0.82, 0.5, 0.35],
       [1.0, 0.25, 0.25], [0, 0, 0]]
 chex = []
 for c in co:
@@ -66,11 +66,11 @@ for ic, gn in enumerate(gnames):
 coo = pd.read_csv('data/coord.csv')
 center = [coo['lat'].mean(), coo['long'].mean()]
 ##
-map = folium.Map(location=center, zoom_start=7.5)
-folium.TileLayer('cartodbpositron').add_to(map)
-folium.TileLayer('openstreetmap').add_to(map)
+map = folium.Map(location=center, zoom_start=7.5, tiles='cartodbpositron')
+# folium.TileLayer('cartodbpositron').add_to(map)
 folium.TileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png',
                  attr='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors').add_to(map)
+folium.TileLayer('openstreetmap').add_to(map)
 # for tile in tiles:
 #     folium.TileLayer(tile).add_to(map)
 map.get_root().html.add_child(folium.Element(title_html))
@@ -92,6 +92,9 @@ for igroup in range(8):
             lat = float(coo['lat'][row_coo])
             long = float(coo['long'][coo['loc'] == locu[iloc]])
             tip = locu[iloc]+'('+dt + '):  ' + str(size[iloc])  # + str(mag[ii]) + depth  + '<br> '
+            alpha = 0.5
+            if igroup == 0:
+                alpha = 0.25
             folium.CircleMarker(location=[lat, long],
                                 tooltip=tip,
                                 radius=float(np.max([size[iloc]**0.5*2, 1])),
@@ -99,7 +102,7 @@ for igroup in range(8):
                                 fill_color=chex[igroup],
                                 color=chex[igroup],
                                 opacity=0,
-                                fill_opacity=0.5
+                                fill_opacity=alpha
                                 ).add_to(grp[igroup])
         else:
             print('cannot find coord for '+locu[iloc])
