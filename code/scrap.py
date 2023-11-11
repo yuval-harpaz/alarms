@@ -69,9 +69,18 @@ ax = plt.gca()
 ax.yaxis.grid()
 plt.title('civilians   ' + 'אזרחים'[::-1])
 plt.xticks(select, select, rotation=30)
+for ii in range(len(select)):
+    n = int(civil[year == select[ii]][0])
+    plt.text(select[ii], n + 10, str(n), ha='center')
 plt.subplot(2, 1, 2)
 plt.bar(year, armed)
 plt.xticks(select, select, rotation=30)
 ax = plt.gca()
 ax.yaxis.grid()
 plt.title('armed forces  ' + 'כוחות הביטחון'[::-1])
+for ii in range(len(select)):
+    n = armed[year == select[ii]][0]
+    plt.text(select[ii], n + 10, str(n), ha='center')
+## pie
+mako['g'] == 'אזרח'
+
