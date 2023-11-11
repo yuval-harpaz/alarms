@@ -42,3 +42,36 @@ plt.xticks([])
 plt.title('rocket alarms from 2023-10-7 until ' + dfwar['time'][len(dfwar)-1])
 
 
+## יזכור
+# https://www.izkor.gov.il/search/predefined/%D7%9B%D7%9C%20%D7%97%D7%9C%D7%9C%D7%99%20%D7%9E%D7%A2%D7%A8%D7%9B%D7%95%D7%AA%20%D7%99%D7%A9%D7%A8%D7%90%D7%9C/0/25/d
+# https://www.izkor.gov.il/searchforMemoryCandle/extended-search?death_date=2016&death_date_to=2016
+# https://fs.knesset.gov.il/globaldocs/MMM/9107116b-1c0e-e711-80cc-00155d0206a2/2_9107116b-1c0e-e711-80cc-00155d0206a2_11_8715.pdf
+# https://raw.githubusercontent.com/50stuck/Izkor-Git/763fe7f303e9d948d0b096033ed0e763742f4aea/HalalDataFull_April15.csv
+# year = requests.get('https://www.izkor.gov.il/searchforMemoryCandle/extended-search?death_date=2016&death_date_to=2016')
+mako = pd.read_excel('/home/innereye/Documents/mako.xlsx')
+df = pd.read_csv('data/deaths_by_year.csv')
+
+df = df[44:]
+year = df['year'].values
+armed = df['armed_forces'].values
+civil = df['civilians'].values
+war = mako['g'].to_numpy()
+war = np.array([x for x in war if type(x) == str])
+war_armed = np.sum((war == 'חייל') | (war == 'שוטר') | (war == 'צה"ל') | (war == 'שב"כ'))
+civil[-1] += len(war)-war_armed
+armed[-1] += war_armed
+select = [1948, 1956, 1967, 1973, 1982, 2002, 2023]
+##
+plt.figure()
+plt.subplot(2,1,1)
+plt.bar(year, civil)
+ax = plt.gca()
+ax.yaxis.grid()
+plt.title('civilians   ' + 'אזרחים'[::-1])
+plt.xticks(select, select, rotation=30)
+plt.subplot(2, 1, 2)
+plt.bar(year, armed)
+plt.xticks(select, select, rotation=30)
+ax = plt.gca()
+ax.yaxis.grid()
+plt.title('armed forces  ' + 'כוחות הביטחון'[::-1])

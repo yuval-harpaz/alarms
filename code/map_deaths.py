@@ -87,3 +87,12 @@ def map_deaths():
 
 if __name__ == '__main__':
     map_deaths()
+
+if False:
+    # רםצ https://www.mako.co.il/news-israel/2023_q2/Article-3abcb0281ca0b81026.htm
+    n12 = requests.get('https://makoironcdn.cdn-il.com/website%2Fdata.json')
+    n12 = n12.json
+    n12 = requests.get('https://makoironcdn.cdn-il.com/website%2Fdata.json')
+    n12 = n12.json()
+    df = pd.DataFrame(n12['rows'])
+    df.to_excel('mako.xlsx')
