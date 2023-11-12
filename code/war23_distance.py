@@ -38,8 +38,9 @@ try:
         df[(str(edges[irange])+'-'+str(edges[irange+1])).replace('-300', '+')] = hist[irange, :]
 
     ##
-    fig = go.Figure()
-    colors = ["#ad001d", "#e9231a", "#fa792f", "#fdc24b", "#ffffa3"]
+    layout = go.Layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+    fig = go.Figure(layout=layout)
+    colors = ["#000000", "#ad001d", "#ff2800", "#ff7900", "#fcd12a"][::-1]
     for column in range(5):
         name = df.columns[column+1]
         fig.add_trace(go.Scatter(x=dateu, y=df[name],
@@ -53,7 +54,7 @@ try:
     for column in range(5):
         name = df.columns[column+1]
         y = df[name].values.copy()
-        for ii in range(4, len(y)-4):
+        for ii in range(4, len(y)-3):
             y[ii] = np.mean(y[ii-3:ii+4])
         y[0:4] = np.nan
         y[-3:] = np.nan
@@ -69,6 +70,14 @@ try:
         title="Rockets alarms by time and distance from Gaza",
         xaxis_title="Time",
         yaxis_title="N alarm events")
+    fig.update_xaxes(showline=False, linewidth=1, linecolor='lightgray', gridcolor='black')
+    fig.update_yaxes(showgrid=True, gridwidth=1, zerolinecolor='lightgray', gridcolor='lightgray', side='left',
+                     type='log')  # type='log'  range=(0, 3)
+    # fig.update_yaxes(showline=True, linewidth=2, linecolor='black', gridcolor='black')
+    for leg in range(5, 10):
+        fig['data'][leg]['showlegend'] = False
+    # fig['data'][0]['showlegend'] = False
+    # fig.update_layout(showlegend=False)
     html = fig.to_html()
     with open('docs/alarms_by_date_and_distance.html', 'w') as f:
         f.write(html)
