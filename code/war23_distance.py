@@ -9,36 +9,14 @@ try:
         os.chdir(local)
         islocal = True
     dfwar = pd.read_csv('data/alarms.csv')
-    # last_alarm = pd.to_datetime(dfwar['time'][len(dfwar)-1])
-    # last_alarm = last_alarm.tz_localize('Israel')
     dfwar = dfwar[dfwar['threat'] == 0]
     dfwar = dfwar[dfwar['time'] >= '2023-10-07 00:00:00']
     dfwar = dfwar[dfwar['origin']  == 'Gaza']
     dfwar = dfwar.reset_index(drop=True)
     date = np.array([d[:10] for d in dfwar['time']])
     dateu = np.unique(date)
-    # now = np.datetime64('now', 'ns')
-    # nowisr = pd.to_datetime(now, utc=True, unit='s').astimezone(tz='Israel')
-    # nowstr = str(nowisr)[:16].replace('T', ' ')
-    # current_date = datetime.now()
-    # date_list = []
-    # for idate in range(len(dateu)):
-    #     date_list.append(current_date.strftime('%Y-%m-%d'))
-    #     current_date -= timedelta(days=1)
     coo = pd.read_csv('data/coord.csv')
-    # Reverse the list to have the dates in descending order
-    # date_list.reverse()
-    # Prin
-    # Gaza = [31.50033, 34.47331]
-    Gaza = np.array([34.490547, 31.596096, 34.5249, 31.5715, 34.559166, 31.546944, 34.558609, 31.533054,
-                     34.539993, 31.514721, 34.513329, 31.498608, 34.478607, 31.471107, 34.4337, 31.4329,
-                     34.388885, 31.394722, 34.364166, 31.360832, 34.373604, 31.314442, 34.334160, 31.259720,
-                     34.267578, 31.216541])
-    Gaza = Gaza.reshape(int(len(Gaza)/2), 2)[:, [1, 0]]
-
     coo = pd.read_csv('data/coord_km_gaza.csv')
-    # near = np.zeros(len(dateu))
-    # far = np.zeros(len(dateu))
     edges = [0, 7, 15, 30, 50, 300]
     hist = np.zeros((len(edges)-1, len(dateu)))
     for day in range(len(dateu)):
@@ -52,34 +30,40 @@ try:
             d = []
             for irow, row in enumerate(rows):
                 d.append(coo['km_from_Gaza'][coo['loc'] == dfwar['cities'].values[row]].values[0])
-                # long[irow] = coo['long'][coo['loc'] == dfwar['cities'].values[row]].values[0]
-            # for g in Gaza:
-            #     d.append(geodesic([np.median(lat), np.median(long)], g).km)
-            # dist[iid] = np.min(d)
             dist[iid] = np.mean(d)
         hist[:, day] = np.histogram(dist, edges)[0]
-        # near[day] = np.sum(dist <= 20)
-        # far[day] = np.sum(dist > 20)
     ##
     df = pd.DataFrame(dateu, columns=['date'])
     for irange in range(len(edges) - 1):
         df[(str(edges[irange])+'-'+str(edges[irange+1])).replace('-300', '+')] = hist[irange, :]
 
     ##
-
-
     fig = go.Figure()
     colors = ["#ad001d", "#e9231a", "#fa792f", "#fdc24b", "#ffffa3"]
-    for col in range(5):
-        name = df.columns[col+1]
+    for column in range(5):
+        name = df.columns[column+1]
         fig.add_trace(go.Scatter(x=dateu, y=df[name],
                       name=name,
-                      mode='lines+markers',
-                      line=dict(color=colors[col]),
+                      mode='markers',
+                      line=dict(color=colors[column]),
                       marker=dict(
                           size=5,
-                          color=colors[col],  # set color equal to a variable
-                          colorscale='Viridis'
+                          color=colors[column],  # set color equal to a variable
+                      )))
+    for column in range(5):
+        name = df.columns[column+1]
+        y = df[name].values.copy()
+        for ii in range(4, len(y)-4):
+            y[ii] = np.mean(y[ii-3:ii+4])
+        y[0:4] = np.nan
+        y[-3:] = np.nan
+        fig.add_trace(go.Scatter(x=dateu, y=y,
+                      name=name,
+                      mode='lines',
+                      line=dict(color=colors[column]),
+                      marker=dict(
+                          size=5,
+                          color=colors[column],  # set color equal to a variable
                       )))
     fig.update_layout(
         title="Rockets alarms by time and distance from Gaza",
@@ -90,6 +74,17 @@ try:
         f.write(html)
 except:
     print('distance plotly chart failed')
+
+##  Old code
+# long[irow] = coo['long'][coo['loc'] == dfwar['cities'].values[row]].values[0]
+# for g in Gaza:
+#     d.append(geodesic([np.median(lat), np.median(long)], g).km)
+# dist[iid] = np.min(d)
+# Gaza = np.array([34.490547, 31.596096, 34.5249, 31.5715, 34.559166, 31.546944, 34.558609, 31.533054,
+#                  34.539993, 31.514721, 34.513329, 31.498608, 34.478607, 31.471107, 34.4337, 31.4329,
+#                  34.388885, 31.394722, 34.364166, 31.360832, 34.373604, 31.314442, 34.334160, 31.259720,
+#                  34.267578, 31.216541])
+# Gaza = Gaza.reshape(int(len(Gaza)/2), 2)[:, [1, 0]]
 #
 # c = 0
 # for col in range(5):
@@ -178,3 +173,12 @@ except:
 #                       ).add_to(map)
 #     map.save("/home/innereye/Documents/gaza.html")
 #     print('done')
+
+# now = np.datetime64('now', 'ns')
+# nowisr = pd.to_datetime(now, utc=True, unit='s').astimezone(tz='Israel')
+# nowstr = str(nowisr)[:16].replace('T', ' ')
+# current_date = datetime.now()
+# date_list = []
+# for idate in range(len(dateu)):
+#     date_list.append(current_date.strftime('%Y-%m-%d'))
+#     current_date -= timedelta(days=1)
