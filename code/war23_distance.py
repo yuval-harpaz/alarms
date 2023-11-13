@@ -11,6 +11,9 @@ try:
     dfwar = pd.read_csv('data/alarms.csv')
     dfwar = dfwar[dfwar['threat'] == 0]
     dfwar = dfwar[dfwar['time'] >= '2023-10-07 00:00:00']
+    dfleb = dfwar[dfwar['origin']  == 'Lebanon']
+    dateleb = np.array([d[:10] for d in dfleb['time']])
+    datelebu = np.unique(dateleb)
     dfwar = dfwar[dfwar['origin']  == 'Gaza']
     dfwar = dfwar.reset_index(drop=True)
     date = np.array([d[:10] for d in dfwar['time']])
@@ -36,51 +39,68 @@ try:
     df = pd.DataFrame(dateu, columns=['date'])
     for irange in range(len(edges) - 1):
         df[(str(edges[irange])+'-'+str(edges[irange+1])).replace('-300', '+')] = hist[irange, :]
-
     ##
-    layout = go.Layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
-    fig = go.Figure(layout=layout)
-    colors = ["#000000", "#ad001d", "#ff2800", "#ff7900", "#fcd12a"][::-1]
-    for column in range(5):
-        name = df.columns[column+1]
-        fig.add_trace(go.Scatter(x=dateu, y=df[name],
-                      name=name,
-                      mode='markers',
-                      line=dict(color=colors[column]),
-                      marker=dict(
-                          size=5,
-                          color=colors[column],  # set color equal to a variable
-                      )))
-    for column in range(5):
-        name = df.columns[column+1]
-        y = df[name].values.copy()
-        for ii in range(4, len(y)-3):
-            y[ii] = np.mean(y[ii-3:ii+4])
-        y[0:4] = np.nan
-        y[-3:] = np.nan
-        fig.add_trace(go.Scatter(x=dateu, y=y,
-                      name=name,
-                      mode='lines',
-                      line=dict(color=colors[column]),
-                      marker=dict(
-                          size=5,
-                          color=colors[column],  # set color equal to a variable
-                      )))
-    fig.update_layout(
-        title="Rockets alarms by time and distance from Gaza",
-        xaxis_title="Time",
-        yaxis_title="N alarm events")
-    fig.update_xaxes(showline=False, linewidth=1, linecolor='lightgray', gridcolor='black')
-    fig.update_yaxes(showgrid=True, gridwidth=1, zerolinecolor='lightgray', gridcolor='lightgray', side='left',
-                     type='log')  # type='log'  range=(0, 3)
-    # fig.update_yaxes(showline=True, linewidth=2, linecolor='black', gridcolor='black')
-    for leg in range(5, 10):
-        fig['data'][leg]['showlegend'] = False
-    # fig['data'][0]['showlegend'] = False
-    # fig.update_layout(showlegend=False)
-    html = fig.to_html()
-    with open('docs/alarms_by_date_and_distance.html', 'w') as f:
-        f.write(html)
+    now = np.datetime64('now', 'ns')
+    now = np.datetime64('now', 'ns')
+    nowisr = pd.to_datetime(now, utc=True, unit='s').astimezone(tz='Israel')
+    nowstr = str(nowisr)[:16].replace('T', ' ')
+    title_html = f'''
+                 <h3 align="center" style="font-size:16px"><b>Rocket alarms in Israel by date and range since 7-Oct-2023</h3></b>
+                 '''
+    tail_html = f'''
+                By <a href="https://twitter.com/yuvharpaz" target="_blank">@yuvharpaz</a>. Data from <a href="https://www.oref.org.il" target="_blank">THE NATIONAL EMERGENCY PORTAL</a>
+                 via <a href="https://www.tzevaadom.co.il/" target="_blank">צבע אדום</a>. last checked: {nowstr}</b>
+                 '''
+    ##
+    for ytype in ['linear', 'log']:
+        layout = go.Layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+        fig = go.Figure(layout=layout)
+        colors = ["#000000", "#ad001d", "#ff2800", "#ff7900", "#fcd12a"][::-1]
+
+        for column in range(5):
+            name = df.columns[column+1]
+            fig.add_trace(go.Scatter(x=dateu, y=df[name],
+                          name=name,
+                          mode='markers',
+                          line=dict(color=colors[column]),
+                          marker=dict(
+                              size=5,
+                              color=colors[column],  # set color equal to a variable
+                          )))
+        for column in range(5):
+            name = df.columns[column+1]
+            y = df[name].values.copy()
+            for ii in range(4, len(y)-3):
+                y[ii] = np.mean(y[ii-3:ii+4])
+            y[0:4] = np.nan
+            y[-3:] = np.nan
+            fig.add_trace(go.Scatter(x=dateu, y=y,
+                          name=name,
+                          mode='lines',
+                          line=dict(color=colors[column]),
+                          marker=dict(
+                              size=5,
+                              color=colors[column],  # set color equal to a variable
+                          )))
+        fig.update_layout(
+            title="Rockets alarms by time and distance from Gaza",
+            xaxis_title="Time",
+            yaxis_title="N alarm events")
+        fig.update_xaxes(showline=False, linewidth=1, linecolor='lightgray', gridcolor='black')
+        fig.update_yaxes(showgrid=True, gridwidth=1, zerolinecolor='lightgray', gridcolor='lightgray', side='left',
+                         type=ytype)  # type='log'  range=(0, 3)
+        # fig.update_yaxes(showline=True, linewidth=2, linecolor='black', gridcolor='black')
+        for leg in range(5, 10):
+            fig['data'][leg]['showlegend'] = False
+        # fig['data'][0]['showlegend'] = False
+        # fig.update_layout(showlegend=False)
+        html = fig.to_html()
+        html = title_html + html + tail_html
+        # html += 'by .  <a href=https://datadashboard.health.gov.il/api/corona/hospitalizationStatus>source</a>'
+        opfn = f'docs/alarms_by_date_and_distance_{ytype}.html'
+        opfn = opfn.replace('_linear','')
+        with open(opfn, 'w') as f:
+            f.write(html)
 except:
     print('distance plotly chart failed')
 
