@@ -3,6 +3,7 @@ import os
 import numpy as np
 import sys
 import folium
+import requests
 
 local = '/home/innereye/alarms/'
 islocal = False
@@ -82,17 +83,17 @@ def map_deaths():
                   fill_opacity=0.5
                   ).add_to(map)
     map.save("docs/war_deaths23.html")
-    print('done')
-
-
-if __name__ == '__main__':
-    map_deaths()
-
-if False:
+    print('done, one more thing')
     # רםצ https://www.mako.co.il/news-israel/2023_q2/Article-3abcb0281ca0b81026.htm
     n12 = requests.get('https://makoironcdn.cdn-il.com/website%2Fdata.json')
     n12 = n12.json
     n12 = requests.get('https://makoironcdn.cdn-il.com/website%2Fdata.json')
     n12 = n12.json()
     df = pd.DataFrame(n12['rows'])
-    df.to_excel('mako.xlsx')
+    df.to_excel('data/mako.xlsx')
+
+
+
+if __name__ == '__main__':
+    map_deaths()
+
