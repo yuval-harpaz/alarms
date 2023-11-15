@@ -16,6 +16,8 @@ from alarms_coord import update_coord
 min_deaths = {'בארי': 85, 'ניר עוז': 35, 'יכיני':4, 'נתיב העשרה': 21, 'כפר עזה': 72, 'עלומים': 20, 'כיסופים': 16,
               'רעים': 5, 'נירים': 5, 'אופקים':30, 'נחל עוז': 35, 'חולית': 13, 'ניר יצחק': 3, 'עין השלושה': 3,
               'מגן': 1, 'סופה': 3, 'כרם שלום': 2, 'שלומית': 2}  # from: https://www.ynet.co.il/news/article/yokra13627562
+
+
 def map_deaths():
     df = pd.read_csv('data/deaths.csv')
     # coo = pd.read_csv('data/coord.csv')
@@ -89,8 +91,53 @@ def map_deaths():
     n12 = n12.json
     n12 = requests.get('https://makoironcdn.cdn-il.com/website%2Fdata.json')
     n12 = n12.json()
-    df = pd.DataFrame(n12['rows'])
-    df.to_excel('data/mako.xlsx')
+    dfn12 = pd.DataFrame(n12['rows'])
+    dfn12.to_excel('data/mako.xlsx')
+    ##  complete ynet with mako
+    # df.reset_index(drop=True, inplace=True)
+    already = np.zeros(len(dfn12))
+    for rown12 in range(len(dfn12)):
+        match = []
+        for rowynet in range(len(df)):
+            if (dfn12['b'][rown12] in df['name'][rowynet]) and (dfn12['c'][rown12] in df['name'][rowynet]):
+                match.append(rowynet)
+        if len(match) > 1:
+            print(dfn12['b']+' '+dfn12['c']+' has more than one match '+str(match))
+        elif len(match) == 0:
+            print(dfn12['b']+' '+dfn12['c']+' has no match')
+        else:
+            match = match[0]
+            if already[rown12]:
+                print(f'ynet {match} conflicts with ynet {already[rown12]}')
+            else:
+                already[rown12] = match
+                if pd.isnull(df['first'][match]):
+                    df.at[match, 'first'] = dfn12['b'][rown12]
+                    midlast = dfn12['c'][rown12].split(' ')
+                    df.at[match, 'last'] = midlast[-1]
+                    if len(midlast) == 2:
+                        df.at[match, 'middle'] = midlast[0]
+                    elif len(midlast) > 2:
+                        df.at[match, 'middle'] = ' '.join(midlast[:-1])
+                    df.at[match, 'mako_story'] = dfn12['l'][rown12]
+                    df.at[match, 'status'] = dfn12['g'][rown12]
+                    df.at[match, 'rank'] = dfn12['a'][rown12]
+                    if pd.isnull(df['gender'][match]):
+                        df.at[match, 'gender'] = dfn12['e'][rown12].replace('גבר', 'M').replace('אישה', 'F')
+                    if df['age'][match] == 0 and len(dfn12['d'][rown12]) > 0:
+                        df.at[match, 'age'] = int(dfn12['d'][rown12])
+    df.to_csv('data/deaths.csv', index=False)
+    df.to_excel('data/deaths.xlsx', index=False)
+
+
+
+
+
+
+
+
+
+
 
 
 
