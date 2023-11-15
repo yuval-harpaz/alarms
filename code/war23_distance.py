@@ -107,6 +107,9 @@ try:
         opfn = opfn.replace('_linear', '')
         with open(opfn, 'w') as f:
             f.write(html)
+        if ytype == 'linear':
+            opfn = opfn.replace('docs', 'data').replace('.html', '.csv')
+            df.to_csv(opfn, index=False)
 except:
     print('distance plotly chart failed')
 
