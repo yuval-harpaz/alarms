@@ -129,6 +129,8 @@ def map_deaths():
     df.to_csv('data/deaths.csv', index=False)
     df.to_excel('data/deaths.xlsx', index=False)
 
+# https://ynet-pic1.yit.co.il/picserver5/wcm_upload_files/2023/11/12/S1sFis07p/ynetlist1211.xlsx
+
 
 
 
