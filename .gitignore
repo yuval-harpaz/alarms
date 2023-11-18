@@ -5,3 +5,4 @@ oath.txt
 *.pyc
 .idea
 *.orig
+data/deaths_manual.xlsx
