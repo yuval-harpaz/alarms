@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 
 with open('מלחמה בישראל_ שמות החטופים שפורסמו - חדשות - הארץ.html') as f:
@@ -116,6 +118,33 @@ plt.subplot(1,2,2)
 plt.pie(xx, labels=labels1, colors=colors, startangle=startangle)
 plt.title('deaths ('+str(np.sum(xx))+')')
 
+
+ages = np.array([float(x.replace('9 חודשים', '999')) for x in df['age'].values if type(x) == str])
+ages[ages == 999] = 0
+edges = np.arange(0, 101,5)-0.5
+tick = edges+0.5
+
+agesd = dfd['age'][dfd['status'] == 'אזרח'].values.astype(float)
+agesd = agesd[agesd > 0]
+
+plt.figure()
+plt.subplot(1, 2, 1)
+plt.bar(edges[:-1] + 2.5, np.histogram(ages, edges)[0], 4)
+plt.xticks(edges, tick.astype(int))
+plt.title('kidnapped age distribution')
+ax = plt.gca()
+ax.yaxis.grid('on')
+plt.ylabel('count')
+plt.xlabel('age')
+plt.subplot(1, 2, 2)
+plt.bar(edges[:-1] + 2.5, np.histogram(agesd, edges)[0], 4)
+plt.xticks(edges, tick.astype(int))
+plt.title('civilian deaths age distribution')
+ax = plt.gca()
+ax.yaxis.grid('on')
+plt.ylabel('count')
+plt.xlabel('age')
+plt.yticks(range(0, 160, 10))
 # with open('239.html') as f:
 #     txt = f.read()
 # lines = txt.split('.')

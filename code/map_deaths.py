@@ -102,9 +102,11 @@ def map_deaths():
             if (dfn12['b'][rown12] in df['name'][rowynet]) and (dfn12['c'][rown12] in df['name'][rowynet]):
                 match.append(rowynet)
         if len(match) > 1:
-            print(dfn12['b']+' '+dfn12['c']+' has more than one match '+str(match))
+            pass
+            # print(dfn12['b']+' '+dfn12['c']+' has more than one match '+str(match))
         elif len(match) == 0:
-            print(dfn12['b']+' '+dfn12['c']+' has no match')
+            pass
+            # print(dfn12['b']+' '+dfn12['c']+' has no match')
         else:
             match = match[0]
             if already[rown12]:

@@ -166,7 +166,7 @@ try:
                 row = np.where(data['name'] == name)[0]
                 if len(name) > 0:
                     if len(row) == 0:
-                        data.loc[len(data)] = [name, gender, age, loc, story]
+                        data.loc[len(data)] = [name, gender, age, loc, story]+['']*8
                     else:
                         row = row[0]
                         if len(data['name'].values[row]) == 0 and len(name) > 0:
@@ -179,7 +179,7 @@ try:
                             data.at[row, 'gender'] = gender
                         if len(data['story'].values[row]) == 0 and len(story) > 0:
                             data.at[row, 'story'] = story
-    data.to_excel('data/deaths.xlsx', index=False)
+    # data.to_excel('data/deaths.xlsx', index=False)
     data.to_csv('data/deaths.csv', index=False)
     success = True
 except Exception as e:
