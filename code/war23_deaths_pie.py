@@ -37,3 +37,7 @@ for il in range(len(labels)):
     labels[il] = str(x[il]) + ' :' + labels[il]
 plt.pie(x, labels=labels, colors=colors)
 
+state = ['civilian', 'fire-fighter', 'police', 'reserves', 'soldier', 'officer', 'Shin-Bet', 'foreign']
+for il in range(len(labels)):
+    labels[il] = state[il]+': '+str(x[il])
+plt.pie(x, labels=labels, colors=colors)
