@@ -1,16 +1,18 @@
 import matplotlib.pyplot as plt
-import requests
 import pandas as pd
-from html import unescape
-import os
-import sys
-import re
 import numpy as np
-
 from selenium import webdriver
+# import requests
+# from html import unescape
+# import os
+# import sys
+# import re
+
 browser = webdriver.Chrome()
+##
 data = []
-for page in range(41):
+for page in range(1, 1000):
+    prev = len(data)
     url = 'https://www.idf.il/%D7%A0%D7%95%D7%A4%D7%9C%D7%99%D7%9D/%D7%97%D7%9C%D7%9C%D7%99-%D7%94%D7%9E%D7%9C%D7%97%D7%9E%D7%94/?page='+str(page)
     browser.get(url)
     html = browser.page_source
@@ -28,12 +30,41 @@ for page in range(41):
         rank = rank[:rank.index('<')]
         name = seg.split('\n')[2].strip()
         unit = seg.split('\n')[6].strip()
-        data.append([date, name, rank, unit])
-    print(len(data))
-df = pd.DataFrame(data, columns=['death_date', 'name', 'rank', 'unit'])
+        urlp = 'https://www.idf.il/נופלים/חללי-המלחמה/'+'-'.join(name.split(' '))
+        for rep in ["'"]:
+            urlp = urlp.replace(rep, '-')
+        for rep in ["(", ")"]:
+            urlp = urlp.replace(rep, '')
+        browser.get(urlp)
+        htmlp = browser.page_source
+        if 'בנופ' not in htmlp:
+            fro = ''
+            age = 0
+            story = ''
+            gender = ''
+            if 'נפטר' in htmlp:
+                fro = htmlp.split(',')[3][2:]
+                ifro = htmlp.index(fro)
+                story = htmlp[ifro + len(fro) + 2:]
+                story = story[:story.index('\n')]
+            else:
+                print('failed for ' + urlp.split('/')[-1])
+        else:
+            fro = htmlp.split(',')[3][2:]
+            ifro = htmlp.index(fro)
+            ifell = htmlp.index('בנופל')
+            age = int(htmlp[ifell-3:ifell-1])
+            story = htmlp[ifro+len(fro)+2:ifell-8]
+            gender = htmlp[ifell-6:ifell-4].replace('בן','M').replace('בת', 'F')
+        data.append([date, name, rank, unit, gender, age, fro, story])
+    if len(data) == prev:
+        break
+    else:
+        print(len(data))
+df = pd.DataFrame(data, columns=['death_date', 'name', 'rank', 'unit', 'gender', 'age', 'from','story'])
 df = df.sort_values('death_date', ignore_index=True)
 df.to_csv('data/war23_idf_deaths.csv', index=False)
-
+##
 df['time'] = pd.to_datetime(df['death_date'])
 dateu = np.unique(df['time'].values)
 count = []
