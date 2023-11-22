@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 from selenium import webdriver
+from datetime import datetime
 # import requests
 # from html import unescape
 # import os
@@ -65,18 +66,37 @@ df = pd.DataFrame(data, columns=['death_date', 'name', 'rank', 'unit', 'gender',
 df = df.sort_values('death_date', ignore_index=True)
 df.to_csv('data/war23_idf_deaths.csv', index=False)
 ##
-df['time'] = pd.to_datetime(df['death_date'])
-dateu = np.unique(df['time'].values)
-count = []
-for idate in range(len(dateu)):
-    count.append(np.sum(df['time'].values == dateu[idate]))
+df = pd.read_csv('data/war23_idf_deaths.csv')
 
+dates = pd.date_range(start='2023-10-07', end=datetime.today().strftime('%Y-%m-%d'), freq='D')
+df['time'] = pd.to_datetime(df['death_date'])
+# dateu = np.unique(df['time'].values)
+count = []
+for idate in range(len(dates)):
+    count.append([np.sum((df['time'].values == dates[idate]) & (df['gender'] == 'M')),
+                  np.sum((df['time'].values == dates[idate]) & (df['gender'] == 'F'))])
+count = np.array(count)
+
+##
+lim = [300, 30]
 plt.figure()
-plt.bar(dateu, count)
-ax = plt.gca()
-ax.yaxis.grid()
-plt.xticks(dateu rotation=30)
-plt.title('מספר הנופלים לפי תאריך'[::-1])
+for sp in [1, 2]:
+    plt.subplot(2,1,sp)
+    plt.bar(dates, np.sum(count, 1), color='r', label='Female')
+    plt.ylim(0, lim[sp-1])
+    plt.bar(dates, count[:,0], color='b', label='Male')
+    # ax = plt.gca()
+    # ax.yaxis.grid()
+    plt.grid()
+    # plt.xticks(rotation=30)
+    if sp == 1:
+        plt.text(dates[1], 256, f'{38}/{278}')
+        plt.title('מספר הנופלים לפי תאריך ומגדר'[::-1])
+        plt.legend()
+    else:
+        plt.text(dates[5], 2, f'{1}/{1}')
+        plt.text(dates[7], 3, f'{1}/{2}')
+
 
 ##
 # try:
