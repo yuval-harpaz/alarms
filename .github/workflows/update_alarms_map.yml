@@ -34,11 +34,6 @@ jobs:
           OAuth: ${{ secrets.GOOMAP }}
       run: |
         python code/alarms_week.py
-    - name: run deaths script
-      env:
-          OAuth: ${{ secrets.GOOMAP }}
-      run: |
-        python code/scrap_war.py
     - name: check news
       run: |
         git config --global user.name "actions"
