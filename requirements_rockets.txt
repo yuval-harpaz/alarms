@@ -5,3 +5,4 @@ matplotlib
 plotly
 openpyxl
 requests==2.28.1
+selenium
