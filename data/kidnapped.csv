@@ -183,7 +183,7 @@ name,first,last,gender,age,from,story,circum,condition,status,date_status_change
 אדריאן אביבה סיגל,אדריאן,סיגל,F,62,כפר עזה,נחטפה מביתה,home/work,,אזרח,
 קלרה מרמן,קלרה,מרמן,F,63,ניר יצחק,נחטפה מביתה,home/work,,אזרח,
 קית שמואל סיגל,קית,סיגל,M,64,כפר עזה,נחטף מביתו,home/work,,אזרח,
-יהודית וייס,יהודית,וייס,F,65,,,home/work,,אזרח,
+יהודית וייס,יהודית,וייס,F,65,,,home/work,נרצחה,אזרח,
 שושן הרן,שושן,הרן,F,67,בארי,נחטפה מביתה,home/work,,אזרח,
 דרור קפלון,דרור,קפלון,M,68,בארי,נחטף מביתו,home/work,,אזרח,
 איציק אלגרט,איציק,אלגרט,M,69,ניר עוז,נחטף מביתו,home/work,,אזרח,
@@ -226,3 +226,8 @@ name,first,last,gender,age,from,story,circum,condition,status,date_status_change
 מונגקול פצ’ובן,מונגקול,פצ’ובן,M,,תאילנד,,home/work,,זר,
 נוטאווארי מונקן,נוטאווארי,מונקן,F,,תאילנד,,home/work,שוחררה,זר,2023-11-24
 שקד דהן,שקד,דהן,M,,,,home/work,,,
+פאטאנאיוט טונסוקרי Pattanayuth Tonsokri,טונסוקרי,פאטאנאיוט,M,,תאילנד,,,שוחרר,זר,2023-11-24
+Natthaporn Onkaew,,,,,תאילנד,,,,,
+Komkrit Chombua,,,,,תאילנד,,,,,
+"Kiattisak ""Top"" Patee",,,,,תאילנד,,,,,
+Pongtorn,,,,,תאילנד,,,,,
