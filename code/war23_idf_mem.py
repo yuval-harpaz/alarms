@@ -87,7 +87,7 @@ with Display() as disp:
     browser.close()
     # return data, tot
 ##
-print('got this far')
+print(f'new IDF deaths: {len(data)}')
 # if local:
 #     data, tot = get_deaths()
 # else:
