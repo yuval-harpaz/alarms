@@ -9,6 +9,9 @@ permissions: write-all
 jobs:
   rocket-fig:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8]
     environment: rockets
     steps:
     - uses: actions/checkout@v2
