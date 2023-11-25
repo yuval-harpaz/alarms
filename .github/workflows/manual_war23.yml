@@ -1,39 +1,59 @@
-# update 2023 war data 
-name: manual-war23
+# manual war update
+name: manual war updates
 on:
   workflow_dispatch:
+  #schedule:
+  #  - cron: '10-59/20 * * * *'
+
 permissions: write-all
+  # contents: read
+
 jobs:
-  rocket-fig:
+  alarms-fig:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [3.8]
+    environment: rockets
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v1
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: "3.10"
     - name: Install dependencies
       run: |
         pip install -r requirements_rockets.txt
-    - name: run script
+    - name: run idf deaths
       run: |
         python code/war23_idf_mem.py
-    - name: commit files
+    - name: run rocket alarms script
+      env:
+          OAuth: ${{ secrets.GOOMAP }}
+      run: |
+        python code/alarms3.py
+        python code/alarms_map_origin.py
+        python code/war23_distance.py
+    - name: run rocket 7 days script
+      env:
+          OAuth: ${{ secrets.GOOMAP }}
+      run: |
+        python code/alarms_week.py
+    - name: check news
       run: |
         git config --global user.name "actions"
         git config --global user.email "actions@github"
-        git add -A
-        git commit -m "manual update"
-    - name: pull files
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "IS_NEW=true" >> $GITHUB_ENV
+        else
+          echo "no changes"
+          echo "IS_NEW=false" >> $GITHUB_ENV
+        fi
+    - name: commit files
       run: |
+        git add -A
+        git commit -m "daily update"
         git pull
+      if: ${{ env.IS_NEW == 'true' }}
     - name: push files
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-#
-#         wget -O test.txt "https://maps.googleapis.com/maps/api/geocode/json?address=רחובות&key=${{ secrets.GOOMAP }}&language=iw"
-#         wc -c test.txt
+      if: ${{ env.IS_NEW == 'true' }}
