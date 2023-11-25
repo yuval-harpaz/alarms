@@ -1,10 +1,7 @@
 # update 2023 war data 
-
 name: manual-war23
-
 on:
   workflow_dispatch:
-
 permissions: write-all
 jobs:
   rocket-fig:
@@ -12,7 +9,6 @@ jobs:
     strategy:
       matrix:
         python-version: [3.8]
-    environment: rockets
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
@@ -21,13 +17,9 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        # sudo apt-get install xvfb
         pip install -r requirements_rockets.txt
     - name: run script
-      env:
-          OAuth: ${{ secrets.GOOMAP }}
       run: |
-        #  python code/alarms3.py
         python code/war23_idf_mem.py
     - name: commit files
       run: |
