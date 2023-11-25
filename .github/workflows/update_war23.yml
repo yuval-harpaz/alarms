@@ -1,4 +1,4 @@
-name: manual war updates
+name: war updates
 on:
   schedule:
     - cron: '10-59/20 * * * *'
