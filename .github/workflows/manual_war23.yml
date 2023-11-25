@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     environment: rockets
     steps:
-    - uses: actions/checkout@v3
-    - name: test get coordinates
-      uses: actions/setup-python@v3
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
       with:
-        python-version: "3.10"
+        python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
         # sudo apt-get install xvfb
