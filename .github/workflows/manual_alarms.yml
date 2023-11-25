@@ -25,7 +25,7 @@ jobs:
           OAuth: ${{ secrets.GOOMAP }}
       run: |
         #  python code/alarms3.py
-        python war23_idf_mem.py
+        python code/war23_idf_mem.py
     - name: commit files
       run: |
         git config --global user.name "actions"

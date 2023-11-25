@@ -11,7 +11,7 @@ if os.path.isdir(local):
     local = True
 
 dfprev = pd.read_csv('data/war23_idf_deaths.csv')
-browser = webdriver.Chrome()
+browser = webdriver.Firefox()
 ##
 already = 0
 data = []
