@@ -18,7 +18,7 @@ jobs:
         python-version: "3.10"
     - name: Install dependencies
       run: |
-        sudo apt-get install xvfb
+        # sudo apt-get install xvfb
         pip install -r requirements_rockets.txt
     - name: run script
       env:
