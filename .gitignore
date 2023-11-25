@@ -6,3 +6,4 @@ oath.txt
 .idea
 *.orig
 data/deaths_manual.xlsx
+geckodriver*

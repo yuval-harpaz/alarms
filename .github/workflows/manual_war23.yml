@@ -1,0 +1,44 @@
+# update 2023 war data 
+
+name: manual-war23
+
+on:
+  workflow_dispatch:
+
+permissions: write-all
+jobs:
+  rocket-fig:
+    runs-on: ubuntu-latest
+    environment: rockets
+    steps:
+    - uses: actions/checkout@v3
+    - name: test get coordinates
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+    - name: Install dependencies
+      run: |
+        sudo apt-get install xvfb
+        pip install -r requirements_rockets.txt
+    - name: run script
+      env:
+          OAuth: ${{ secrets.GOOMAP }}
+      run: |
+        #  python code/alarms3.py
+        python code/war23_idf_mem.py
+    - name: commit files
+      run: |
+        git config --global user.name "actions"
+        git config --global user.email "actions@github"
+        git add -A
+        git commit -m "manual update"
+    - name: pull files
+      run: |
+        git pull
+    - name: push files
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+#
+#         wget -O test.txt "https://maps.googleapis.com/maps/api/geocode/json?address=רחובות&key=${{ secrets.GOOMAP }}&language=iw"
+#         wc -c test.txt
