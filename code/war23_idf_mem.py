@@ -12,8 +12,8 @@ if os.path.isdir(local):
     local = True
 dfprev = pd.read_csv('data/war23_idf_deaths.csv')
 ##
-def get_deaths():
-
+# def get_deaths():
+with Display() as disp:
     browser = webdriver.Chrome()
     already = 0
     data = []
@@ -84,13 +84,15 @@ def get_deaths():
             goon = False
         else:
             print(len(data))
-    return data, tot
+    browser.close()
+    # return data, tot
 ##
-if local:
-    data, tot = get_deaths()
-else:
-    with Display() as disp:
-        data, tot = get_deaths()
+print('got this far')
+# if local:
+#     data, tot = get_deaths()
+# else:
+#     with Display() as disp:
+#         data, tot = get_deaths()
 ##
 if len(data) > 0:
     df = pd.DataFrame(data, columns=['death_date', 'name', 'rank', 'unit', 'gender', 'age', 'from','story'])
