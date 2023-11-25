@@ -20,7 +20,7 @@ jobs:
         pip install -r requirements_rockets.txt
     - name: run script
       run: |
-        python code/war23_idf_mem.py
+        python code/scrap.py
     - name: commit files
       run: |
         git config --global user.name "actions"
