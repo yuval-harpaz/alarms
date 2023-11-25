@@ -1,5 +1,5 @@
 # manual war update
-name: war updates
+name: manual war updates
 on:
   workflow_dispatch:
   #schedule:
