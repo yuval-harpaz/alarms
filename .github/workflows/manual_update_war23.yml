@@ -1,8 +1,9 @@
 # manual war update
 name: war updates
 on:
-  schedule:
-    - cron: '10-59/20 * * * *'
+  workflow_dispatch:
+  #schedule:
+  #  - cron: '10-59/20 * * * *'
 
 permissions: write-all
   # contents: read
