@@ -1,14 +1,13 @@
 name: selenium-demo
-
 on:
   workflow_dispatch:
+permissions: write-all
 jobs:
-  build:
+  rocket-fig:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: [3.8]
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
@@ -17,8 +16,20 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
         pip install -r requirements_rockets.txt
-    - name: Run file
+    - name: run script
       run: |
-        python code/scrap.py
+        python code/war23_idf_mem.py
+    - name: commit files
+      run: |
+        git config --global user.name "actions"
+        git config --global user.email "actions@github"
+        git add -A
+        git commit -m "manual update"
+    - name: pull files
+      run: |
+        git pull
+    - name: push files
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
