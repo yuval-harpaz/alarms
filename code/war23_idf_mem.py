@@ -14,7 +14,7 @@ dfprev = pd.read_csv('data/war23_idf_deaths.csv')
 ##
 def get_deaths():
 
-    browser = webdriver.Firefox()
+    browser = webdriver.Chrome()
     already = 0
     data = []
     goon = True
