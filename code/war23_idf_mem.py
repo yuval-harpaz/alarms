@@ -127,6 +127,7 @@ if local:
         # ax = plt.gca()
         # ax.yaxis.grid()
         plt.grid()
+        plt.xticks(dates[1::7])
         # plt.xticks(rotation=30)
         if sp == 1:
             plt.text(dates[1], 256, f'{38}/{278}')
