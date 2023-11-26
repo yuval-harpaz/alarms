@@ -41,16 +41,16 @@ name,first,last,gender,age,from,circum,condition,status,release_date,story,sourc
 בילאל אלזיאדנה,בילאל,אלזיאדנה,M,18,רהט,home/work,,אזרח,,"עבד בקיבוץ חולית, נחטף בעת עבודתו עם אביו ואחיו",
 מיקה אנגל,מיקה,אנגל,F,18,ניר עוז,home/work,,אזרח,,נחטפה מביתה בניר עוז עם משפחתה,
 איתי רגב,איתי,רגב,M,18,הרצליה,party,,אזרח,,היה במסיבה ברעים,
-עידן אלכסנדר,עידן,אלכסנדר,M,19,,home/work,,אזרח,,נחטף על פי ההערכות באזור יישובי עוטף עזה,
+עידן אלכסנדר,עידן,אלכסנדר,M,19,,army,,חייל,,"חייל בודד מארצות הברית, נחטף על פי ההערכות באזור יישובי עוטף עזה",
 קרינה ארייב,קרינה,ארייב,F,19,ירושלים,army,,חייל,,תצפיתנית בנחל עוז,
 ניק בייזר,ניק,בייזר,M,19,באר שבע,army,,חייל,,"נחטף מבסיס צה""ל",
 אגם ברגר,אגם,ברגר,F,19,חולון,army,,חייל,,תצפיתנית בנחל עוז,
 רום ברסלבסקי,רום,ברסלבסקי,M,19,ירושלים,party,,אזרח,,היה במסיבה ברעים,
 דניאלה גלבוע,דניאלה,גלבוע,F,19,פתח תקוה,home/work,,אזרח,,נחטפה מנחל עוז,
-איתי חן,איתי,חן,M,19,נתניה,home/work,,אזרח,,,
-נמרוד כהן,נמרוד,כהן,M,19,רחובות,home/work,,,,,
+איתי חן,איתי,חן,M,19,נתניה,home/work,,חייל,,,
+נמרוד כהן,נמרוד,כהן,M,19,רחובות,army,,חייל,,,
 נעמה לוי,נעמה,לוי,F,19,רעננה,army,,חייל,,תצפיתנית בנחל עוז,
-תמיר נמרודי,תמיר,נמרודי,M,19,נירית,home/work,,אזרח,,"""בתיעוד האחרון הפורמלי רואים שהבן שלי חי"", מספרת אמו של תמיר, ""אך בהמשך יצאו סרטונים של חמאס עם תיאור ספציפי שלו, לפיהם הוא נהרג בהפצצות 'חיל האוויר הציוני'"".",
+תמיר נמרודי,תמיר,נמרודי,M,19,נירית,home/work,,חייל,,"""בתיעוד האחרון הפורמלי רואים שהבן שלי חי"", מספרת אמו של תמיר, ""אך בהמשך יצאו סרטונים של חמאס עם תיאור ספציפי שלו, לפיהם הוא נהרג בהפצצות 'חיל האוויר הציוני'"".",
 רון שרמן,רון,שרמן,M,19,להבים,army,,חייל,,"נחטף מבסיס מת""ק עזה",
 נועה מרציאנו,נועה,מרציאנו,F,19,מודיעין,army,נרצחה,חייל,,"תצפיתנית, גופתה חולצה מאיזור ביה""ח שיפאא",
 שי לוינסון,שי,לוינסון,M,19,גבעת אבני,home/work,,,,,
@@ -68,7 +68,7 @@ name,first,last,gender,age,from,circum,condition,status,release_date,story,sourc
 חמזה אלזיאדנה,חמזה,אלזיאדנה,M,22,רהט,home/work,,אזרח,,"עבד בקיבוץ חולית, נחטף בעת עבודתו עם אביו ואחיו",
 עומר ונקרט,עומר,ונקרט,M,22,גדרה,party,,אזרח,,היה במסיבה ברעים,
 קלמנס פליקס מטנגה,קלמנס,פליקס מטנגה,M,22,טנזניה,home/work,נרצח,זר,,"סטודנט זר, נחטף מקיבוץ נחל עוז",
-עומר נאוטרה,עומר,נאוטרה,M,22,אפיקים,home/work,,אזרח,,נחטף סמוך לניר עוז,
+עומר נאוטרה,עומר,נאוטרה,M,22,אפיקים,home/work,,חייל,,נחטף סמוך לניר עוז,
 יוסף חיים אוחנה,יוסף,אוחנה,M,23,,party,,אזרח,,היה במסיבה ברעים,
 ביפין ג׳ושי,ביפין,ג׳ושי,M,23,נפאל,home/work,,זר,,"סטודנט לחקלאות, נחטף מקיבוץ עלומים",
 רומי לשם גונן,רומי,גונן,F,23,כפר ורדים,party,,אזרח,,נחטפה מהמסיבה ברעים,
@@ -217,9 +217,9 @@ name,first,last,gender,age,from,circum,condition,status,release_date,story,sourc
 אריה זלמנוביץ,אריה,זלמנוביץ,M,86,ניר עוז,home/work,,אזרח,,נחטף מביתו,
 ג'ימי גליינור פאצ’קו,פאצ’קו,גליינור,M,,הפיליפינים,home/work,שוחרר,זר,2023-11-24,"היה העובד הסיעודי של אמיתי בן צבי, שנרצח",
 מונגקול פצ’ובן Mongkhol Phajuabboon,מונגקול,פצ’ובן,M,,תאילנד,home/work,שוחרר,זר,2023-11-24,,https://www.nationthailand.com/world/middle-east-africa/40033196
-נטאווארי מונקן Natthawaree Moonkan,נטאווארי,מונקן,F,,תאילנד,home/work,שוחררה,זר,2023-11-24,,https://www.nationthailand.com/world/middle-east-africa/40033196
+נטאווארי מונקן Natthawaree Moonkan,נטאווארי,מונקן,F,35,תאילנד,home/work,שוחררה,זר,2023-11-24,,https://www.nationthailand.com/world/middle-east-africa/40033196
 סנטי בונפרום Santi Boonphrom,בונפרום,סנטי,M,,תאילנד,home/work,שוחרר,זר,2023-11-24,,https://www.nationthailand.com/world/middle-east-africa/40033196
-וויתסהון פומיי Withoon Phumee,פומיי,וויתסהון,M,,תאילנד,home/work,שוחרר,זר,2023-11-24,,https://www.nationthailand.com/world/middle-east-africa/40033196
+וויטון פומי Withoon Phumee,פומי,וויטון,M,33,תאילנד,home/work,שוחרר,זר,2023-11-24,,https://www.nationthailand.com/world/middle-east-africa/40033196
 באנצ'ה קונגמאני Bancha Kongmanee,קונגמאני,באנצ'ה,M,,תאילנד,home/work,שוחרר,זר,2023-11-24,,https://www.nationthailand.com/world/middle-east-africa/40033196
 בודיי סינגהון Buddee Saengboon,סינגהון,בודיי,M,,תאילנד,home/work,שוחרר,זר,2023-11-24,,https://www.nationthailand.com/world/middle-east-africa/40033196
 הותאי ת'ונגסרי Uthai Thunsri,ת'ונגסרי,הותאי,M,,תאילנד,home/work,שוחרר,זר,2023-11-24,,https://www.nationthailand.com/world/middle-east-africa/40033196
@@ -233,9 +233,9 @@ name,first,last,gender,age,from,circum,condition,status,release_date,story,sourc
 פונגסק טאנה,פונגסק,טאנה,M,,תאילנד,home/work,,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 שקד דהן,שקד,דהן,M,,,home/work,,,,,
 פאטאנאיוט טונסוקרי Pattanayuth Tonsokri,טונסוקרי,פאטאנאיוט,M,,תאילנד,home/work,?,זר,,,https://x.com/dana_olmert/status/1728111528090710509?s=20
-Natthaporn Onkaew,,,M,,תאילנד,home/work,שוחרר,זר,2023-11-25,,https://www.bbc.com/news/world-middle-east-67053011
-Komkrit Chombua,,,M,,תאילנד,home/work,שוחרר,זר,2023-11-25,,https://www.bbc.com/news/world-middle-east-67053011
+נטאפורן אונגאו Natthaporn Onkaew,אונגאו,נטאפורן,M,26,תאילנד,home/work,שוחרר,זר,2023-11-25,,https://www.bbc.com/news/world-middle-east-67053011
+קומגריט צ'ומבואה Komkrit Chombua,,,M,,תאילנד,home/work,שוחרר,זר,2023-11-25,,https://www.bbc.com/news/world-middle-east-67053011
 "Kiattisak ""Top"" Patee",,,,,תאילנד,home/work,,זר,,,https://www.bbc.com/news/world-middle-east-67053011
 Pongtorn,,,M,,תאילנד,home/work,,זר,,,https://www.bbc.com/news/world-middle-east-67053011
-Anucha Angkaew,,,M,,תאילנד,home/work,שוחרר,זר,2023-11-25,,
-Manee Jirachart,,,M,,תאילנד,home/work,שוחרר,זר,2023-11-25,,
+אנוצ'ה אנגאו Anucha Angkaew,אנגאו,אנוצ'ה,M,28,תאילנד,home/work,שוחרר,זר,2023-11-25,,https://www.haaretz.co.il/news/2023-11-23/ty-article-magazine/0000018b-4196-d242-abef-53b654760000
+מאני ג'ירצ'אט Manee Jirachart,ג'ירצ'אט,מאני,M,,תאילנד,home/work,שוחרר,זר,2023-11-25,,https://www.haaretz.co.il/news/2023-11-23/ty-article-magazine/0000018b-4196-d242-abef-53b654760000
