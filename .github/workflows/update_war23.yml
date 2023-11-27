@@ -19,21 +19,22 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements_rockets.txt
-    - name: run idf deaths
-      run: |
-        python code/war23_idf_mem.py
     - name: run rocket alarms script
       env:
           OAuth: ${{ secrets.GOOMAP }}
       run: |
         python code/alarms3.py
-        python code/alarms_map_origin.py
-        python code/war23_distance.py
-    - name: run rocket 7 days script
+    - name: run war scripts
       env:
           OAuth: ${{ secrets.GOOMAP }}
       run: |
+        python code/alarms_map_origin.py
+        python code/war23_distance.py
         python code/alarms_week.py
+        python code/war23_ynetlist.py
+    - name: run idf deaths
+      run: |
+        python code/war23_idf_mem.py
     - name: check news
       run: |
         git config --global user.name "actions"
