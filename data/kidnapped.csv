@@ -53,7 +53,7 @@ name,first,last,gender,age,from,circum,condition,status,release_date,story,sourc
 תמיר נמרודי,תמיר,נמרודי,M,19,נירית,home/work,,חייל,,"""בתיעוד האחרון הפורמלי רואים שהבן שלי חי"", מספרת אמו של תמיר, ""אך בהמשך יצאו סרטונים של חמאס עם תיאור ספציפי שלו, לפיהם הוא נהרג בהפצצות 'חיל האוויר הציוני'"".",
 רון שרמן,רון,שרמן,M,19,להבים,army,,חייל,,"נחטף מבסיס מת""ק עזה",
 נועה מרציאנו,נועה,מרציאנו,F,19,מודיעין,army,נרצחה,חייל,,"תצפיתנית, גופתה חולצה מאיזור ביה""ח שיפאא",
-שי לוינסון,שי,לוינסון,M,19,גבעת אבני,home/work,,,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
+שי לוינסון,שי,לוינסון,M,19,גבעת אבני,home/work,,חייל,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 תומר אחימס,תומר,אחימס,M,20,להבים,home/work,,אזרח,,,
 מיה רגב,מיה,רגב,F,21,הרצליה,party,שוחררה,אזרח,2023-11-25,היתה במסיבה ברעים,
 אלמוג מאיר ג'אן,אלמוג,ג'אן,M,21,אור יהודה,party,,אזרח,,היה במסיבה ברעים,
@@ -231,7 +231,7 @@ name,first,last,gender,age,from,circum,condition,status,release_date,story,sourc
 עמירם קופר,עמירם,קופר,M,,ניר עוז,home/work,,אזרח,,"נחטף מביתו בניר עוז עם אשתו נורית, ששוחררה",
 בנצ'ה דוצ'רויאווץ,בנצ'ה,דוצ'רויאווץ,M,,תאילנד,home/work,,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 פונגסק טאנה,פונגסק,טאנה,M,,תאילנד,home/work,,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
-שקד דהן,שקד,דהן,M,,,home/work,,,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
+שקד דהן,שקד,דהן,M,,,home/work,,חייל,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 פאטאנאיוט טונסוקרי Pattanayuth Tonsokri,טונסוקרי,פאטאנאיוט,M,,תאילנד,home/work,,זר,,,https://x.com/dana_olmert/status/1728111528090710509?s=20
 נטאפורן אונגאו Natthaporn Onkaew,אונגאו,נטאפורן,M,26,תאילנד,home/work,שוחרר,זר,2023-11-25,,https://www.bbc.com/news/world-middle-east-67053011
 קומגריט צ'ומבואה Komkrit Chombua,,,M,,תאילנד,home/work,שוחרר,זר,2023-11-25,,https://www.bbc.com/news/world-middle-east-67053011
