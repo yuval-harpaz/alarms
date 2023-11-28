@@ -23,7 +23,7 @@ name,first,last,gender,age,from,circum,condition,status,release_date,story,sourc
 איתן יהלומי,איתן,יהלומי,M,12,ניר עוז,home/work,שוחרר,אזרח,2023-11-27,נחטף מביתו,
 יגיל יעקב,יגיל,יעקב,M,12,ניר עוז,home/work,שוחרר,אזרח,2023-11-27,נחטף מהבית עם אחיו אור. גם אביהם יאיר וחברתו מירב נחטפו,
 עלמה אור,עלמה,אור,F,13,בארי,home/work,שוחרר,אזרח,2023-11-25,,
-הילה רותם שושני,הילה,שושני,F,13,בארי,home/work,שוחרר,אזרח,2023-11-25,נחטפה מביתה עם אמה,
+הילה רותם שושני,הילה,רותם שושני,F,13,בארי,home/work,שוחרר,אזרח,2023-11-25,נחטפה מביתה עם אמה,
 גלי טרשצ'נסקי,גלי,טרשצ'נסקי,F,13,בארי,home/work,חטוף,אזרח,,"קפצה מחלון הממ""ד ונחטפה",
 דפנה אליקים,דפנה,אליקים,F,14,נחל עוז,home/work,שוחרר,אזרח,2023-11-26,נחטפה מביתה,
 סהר קלדרון דן,סהר,קלדרון דן,F,16,ניר עוז,home/work,שוחרר,אזרח,2023-11-27,נחטפה מביתה,
@@ -231,7 +231,7 @@ name,first,last,gender,age,from,circum,condition,status,release_date,story,sourc
 עמירם קופר,עמירם,קופר,M,,ניר עוז,home/work,חטוף,אזרח,,"נחטף מביתו בניר עוז עם אשתו נורית, ששוחררה",
 בנצ'ה דוצ'רויאווץ,בנצ'ה,דוצ'רויאווץ,M,,תאילנד,home/work,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 פונגסק טאנה,פונגסק,טאנה,M,,תאילנד,home/work,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
-שקד דהן,שקד,דהן,M,,,home/work,חטוף,חייל,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
+שקד דהן,שקד,דהן,M,19,עפולה,home/work,נפל,חייל,,"סמל, לוחם בגדוד 77, נהרג ב 7 לאוק וגופתו נחטפה",https://www.ynet.co.il/blogs/gazawar53mor#h1dxbtxsa
 פאטאנאיוט טונסוקרי Pattanayuth Tonsokri,טונסוקרי,פאטאנאיוט,M,,תאילנד,home/work,חטוף,זר,,,https://x.com/dana_olmert/status/1728111528090710509?s=20
 נטאפורן אונגאו Natthaporn Onkaew,אונגאו,נטאפורן,M,26,תאילנד,home/work,שוחרר,זר,2023-11-25,,https://www.bbc.com/news/world-middle-east-67053011
 קומגריט צ'ומבואה Komkrit Chombua,,,M,,תאילנד,home/work,שוחרר,זר,2023-11-25,,https://www.bbc.com/news/world-middle-east-67053011
@@ -242,3 +242,5 @@ Pongtorn,,,M,,תאילנד,home/work,חטוף,זר,,,https://www.bbc.com/news/wo
 וויצ׳אן טמסונג Wichian Temthong,טמסונג,וויצ׳אן,M,,תאילנד,home/work,שוחרר,זר,2023-11-26,עבד כפר עזה,https://www.haaretz.co.il/news/2023-11-23/ty-article-magazine/0000018b-4196-d242-abef-53b654760000
 סורין קסונגונג Surin Kesungnog,קסונגונג,סורין,M,,תאילנד,home/work,שוחרר,זר,2023-11-26,,https://www.haaretz.co.il/news/2023-11-23/ty-article-magazine/0000018b-4196-d242-abef-53b654760000
 פאנסוואן פינאקאלו Phonsawan Pinakalo,פינאקאלו,פאנסוואן,M,,תאילנד,home/work,שוחרר,זר,2023-11-26,עבד בקיבוץ עלומים,https://www.haaretz.co.il/news/2023-11-23/ty-article-magazine/0000018b-4196-d242-abef-53b654760000
+תומר יעקב אחימס,אחימס,תומר יעקב,M,20,להבים,army,נפל,חייל,,"סמ""ר, קשר מפקד חטיבה, נהרג ב 7 לאוק וגופתו נחטפה",https://www.ynet.co.il/blogs/gazawar53mor#h1dxbtxsa
+קיריל ברודסקי,ברודסקי,קיריל,M,19,רמת גן,army,נפל,חייל,,"סמל, חפ""ק מפקד חטיבה, נהרג ב 7 לאוק וגופתו נחטפה",https://www.ynet.co.il/blogs/gazawar53mor#h1dxbtxsa
