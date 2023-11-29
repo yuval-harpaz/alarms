@@ -7,7 +7,7 @@
 | אזעקות [alarms.csv](https://github.com/yuval-harpaz/alarms/blob/master/data/alarms.csv)                                                           | Alarms in Israel from Jul-2019, mainly for rockets      | [פיקוד העורף](https://www.oref.org.il/) via [צופר-צבע אדום](https://www.tzevaadom.co.il/)                                        |
 | רעידות אדמה [earthquakes.csv](https://github.com/yuval-harpaz/alarms/blob/master/data/earthquakes.csv)                                            | Earthquakes measured in Israel                          | [המכון הגיאולוגי](https://eq.gsi.gov.il/heb/earthquake/lastEarthquakes.php)                                                      |
 #### חפיפה בין הרשימות
-מכיוון שחלק מהחטופים נרצחו או נפלו בקרב 
+מכיוון שחלק מהחטופים נרצחו או נפלו בקרב , תהיה חפיפה בין רשימת החטופים לרשימת ההרוגים (ynetlist) ולרשימת חללי צה"ל. חפיפה נוספת קיימת בין רשימת ההרוגים, הכוללת אזרחים שוטרים וחיילים, לרשימת חללי צה"ל הכוללת חיילים וחברי כיתות כוננות  
 #### ynetlist.csv
 The table by ynet was generated using community contributions and may have inaccuracies.
 * ynet עושה את מיטב המאמצים לעדכן את רשימת הנרצחים והנופלים, בהיעדר מרשם מוסדר אחר המוכר לנו
