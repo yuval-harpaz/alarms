@@ -1,0 +1,18 @@
+## Data in this repository
+| Table                                                                                                                                             | Description                                             | source                                                                                                                           |
+|---------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| החטופים בחרבות ברזל [kidnapped.csv](https://github.com/yuval-harpaz/alarms/blob/master/data/kidnapped.csv)                                        | People and bodies kidnapped to Gaza strip on 7-Oct-2023 | Various sources including [הארץ](https://www.haaretz.co.il/news/2023-11-23/ty-article-magazine/0000018b-4196-d242-abef-53b654760000), [N12](https://kidnappedfromisrael.n12.co.il/?makoopenchrometabs=1) 
+| ההרוגים בחרבות ברזל                                                                                                              [ynetlist.csv](https://github.com/yuval-harpaz/alarms/blob/master/data/ynetlist.csv) | Deaths of civilians and soldiers during the war in 2023 | [ynet](https://www.ynet.co.il/news/category/51693) see disclaimer below
+| חללי צה"ל במלחמת חרבות ברזל [war23_idf_deaths.csv](https://github.com/yuval-harpaz/alarms/blob/master/data/war23_idf_deaths.csv)                  | IDF deaths in 2023 war                                  | [idf.il](https://www.idf.il/%D7%A0%D7%95%D7%A4%D7%9C%D7%99%D7%9D/%D7%97%D7%9C%D7%9C%D7%99-%D7%94%D7%9E%D7%9C%D7%97%D7%9E%D7%94/) |
+| אזעקות [alarms.csv](https://github.com/yuval-harpaz/alarms/blob/master/data/alarms.csv)                                                           | Alarms in Israel from Jul-2019, mainly for rockets      | [פיקוד העורף](https://www.oref.org.il/) via [צופר-צבע אדום](https://www.tzevaadom.co.il/)                                        |
+| רעידות אדמה [earthquakes.csv](https://github.com/yuval-harpaz/alarms/blob/master/data/earthquakes.csv)                                            | Earthquakes measured in Israel                          | [המכון הגיאולוגי](https://eq.gsi.gov.il/heb/earthquake/lastEarthquakes.php)                                                      |
+#### חפיפה בין הרשימות
+מכיוון שחלק מהחטופים נרצחו או נפלו בקרב 
+#### ynetlist.csv
+The table by ynet was generated using community contributions and may have inaccuracies.
+* ynet עושה את מיטב המאמצים לעדכן את רשימת הנרצחים והנופלים, בהיעדר מרשם מוסדר אחר המוכר לנו
+* המידע מתעדכן על בסיס יומי ופרסומו נכון לשעתו ושעת עדכונו.
+*  שלא במכוון, איסוף המידע מגולשים, בני משפחה, חברים או פרסומים שונים עלול לייצר אי דיוקים.
+* בכל שאלה ועדכון, הנכם מוזמנים לפנות אלינו דרך הדואר האדום.
+* ידע ניתן לייצוא/הורדה. קובץ הרשימות שייוצא/יורד הינו נכון אך ורק למועד היצוא/ההורדה.
+*  כל העושה שימוש במידע השלם, עושה כן על דעתו, אחריותו תוך מתן הבהרה שנלקח מאתר ynet
