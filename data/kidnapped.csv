@@ -184,7 +184,7 @@ name,first,last,gender,age,from,circum,condition,status,release_date,story,sourc
 גבריאלה ליימברג,גבריאלה,ליימברג,F,59,ירושלים,home/work,שוחרר,אזרח,2023-11-28,נחטפה מקיבוץ ניר יצחק,
 מישל ניסנבאום,מישל,ניסנבאום,M,59,שדרות,home/work,חטוף,אזרח,,יצא לאסוף את נכדתו מבסיס רעים,
 יהודית רענן,יהודית,רענן,F,59,אילינוי ארה״ב,home/work,שוחרר,זר,2023-10-20,נחטפה עם בתה כשהתארחו בקיבוץ נחל עוז,
-נורלין אגוג'ו,נורלין,אגוג'ו,F,60,הפיליפינים,home/work,שוחרר,זר,2023-11-28,נחטפה מקיבוץ נירים,
+נורלין אגוג'ו,נורלין,אגוג'ו,F,60,יהוד-מונוסון,home/work,שוחרר,אזרח,2023-11-28,"נחטפה מקיבוץ נירים, ממוצא פיליפיני",
 פרננדו מרמן,פרננדו,מרמן,M,60,כפר סבא,home/work,חטוף,אזרח,,"התארח אצל אחותו קלרה, שנחטפה ניר יצחק",
 ויטלי לוגביצ'נקו,ויטלי,לוגביצ'נקו,M,61,,home/work,חטוף,אזרח,,"אדם שהיה עם ויטלי נרצח, אך אותו לא הצליחו לאתר עד לרגע זה. יש איכון של הרכב, אך הוא לא נמצא שם. על פי ההערכות הוא נחטף לרצועת עזה.",
 ליאור רודאיף,ליאור,רודאיף,M,61,ניר יצחק,home/work,חטוף,מאבטח,,נחטף בזמן לחימה כחבר בכיתת כוננות,
@@ -244,3 +244,7 @@ name,first,last,gender,age,from,circum,condition,status,release_date,story,sourc
 קומגריט צ'ומבואה Komkrit Chombua,,,M,,תאילנד,home/work,שוחרר,זר,2023-11-25,,https://www.bbc.com/news/world-middle-east-67053011
 "Kiattisak ""Top"" Patee",,,,,תאילנד,home/work,חטוף,זר,,,https://www.bbc.com/news/world-middle-east-67053011
 Pongtorn,,,M,,תאילנד,home/work,חטוף,זר,,,https://www.bbc.com/news/world-middle-east-67053011
+Kong Saelo,קונג,סאלו,M,,תאילנד,home/work,שוחרר,זר,2023-11-29,,https://www.nationthailand.com/world/middle-east-africa/40033360
+Phaiboon Ratnin,רטנין,פטבון,M,,תאילנד,home/work,שוחרר,זר,2023-11-29,,https://www.nationthailand.com/world/middle-east-africa/40033360
+Jakkaphan Sikhena,ג’קאפאן,סיקנה,M,,תאילנד,home/work,שוחרר,זר,2023-11-29,,https://www.nationthailand.com/world/middle-east-africa/40033360
+Chalermchai Sangkaew,צ’אלרמצ’אי,סאנגקאאו,M,,תאילנד,home/work,שוחרר,זר,2023-11-29,,https://www.nationthailand.com/world/middle-east-africa/40033360
