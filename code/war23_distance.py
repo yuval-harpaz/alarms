@@ -21,6 +21,15 @@ try:
     date = np.array([d[:10] for d in dfwar['time']])
     dateu = np.unique(daterange)
     dateu = np.array([str(x)[:10] for x in dateu])
+    datex = list(dateu[1::7])
+    events = {'2023-10-27': 'ground assault', '2023-11-03': "Nasrallah's speach", '2023-11-24': 'ceasefire'}
+    date_event = list(events.keys())
+    datex += date_event
+    datex = np.unique(datex)
+    ticks = list(datex)
+    for ii in range(len(date_event)):
+        d = date_event[ii]
+        ticks[int(np.where(datex == d)[0])] = events[d]
     coo = pd.read_csv('data/coord.csv')
     coo = pd.read_csv('data/coord_km_gaza.csv')
     edges = [0, 7, 15, 30, 50, 300]
@@ -96,6 +105,10 @@ try:
             xaxis_title="Time",
             yaxis_title="N alarm events")
         fig.update_xaxes(showline=False, linewidth=1, linecolor='lightgray', gridcolor='black')
+        fig.update_xaxes(tickangle=45,
+                         tickmode='array',
+                         tickvals=datex,
+                         ticktext=ticks)
         fig.update_yaxes(showgrid=True, gridwidth=1, zerolinecolor='lightgray', gridcolor='lightgray', side='left',
                          type=ytype)  # type='log'  range=(0, 3)
         # fig.update_yaxes(showline=True, linewidth=2, linecolor='black', gridcolor='black')
