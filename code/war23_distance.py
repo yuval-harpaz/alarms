@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import os
+from datetime import datetime
 import plotly.graph_objects as go
 try:
     local = '/home/innereye/alarms/'
@@ -16,8 +17,10 @@ try:
     dateleb = np.array([d[:10] for d in dfleb['time']])
     dfwar = dfwar[dfwar['origin']  == 'Gaza']
     dfwar = dfwar.reset_index(drop=True)
+    daterange = pd.date_range(start='2023-10-07', end=datetime.today().strftime('%Y-%m-%d'), freq='D')
     date = np.array([d[:10] for d in dfwar['time']])
-    dateu = np.unique(date)
+    dateu = np.unique(daterange)
+    dateu = np.array([str(x)[:10] for x in dateu])
     coo = pd.read_csv('data/coord.csv')
     coo = pd.read_csv('data/coord_km_gaza.csv')
     edges = [0, 7, 15, 30, 50, 300]
