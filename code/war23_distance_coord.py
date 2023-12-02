@@ -26,6 +26,6 @@ for ii in range(len(coo)):
     for g in Gaza:
         d.append(geodesic([np.median(lat), np.median(long)], g).km)
     coo.at[ii, 'km_from_Gaza'] = np.min(d)
-    print('done')
+print('done')
 coo['km_from_Gaza'] = np.round(coo['km_from_Gaza'], 3)
 coo.to_csv('data/coord_km_gaza.csv', index=False)

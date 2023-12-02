@@ -29,6 +29,7 @@ jobs:
           OAuth: ${{ secrets.GOOMAP }}
       run: |
         python code/alarms_map_origin.py
+        python code/war23_distance_coord.py
         python code/war23_distance.py
         python code/alarms_week.py
         python code/war23_ynetlist.py

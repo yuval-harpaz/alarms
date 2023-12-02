@@ -30,7 +30,7 @@ try:
     for ii in range(len(date_event)):
         d = date_event[ii]
         ticks[int(np.where(datex == d)[0])] = events[d]
-    coo = pd.read_csv('data/coord.csv')
+    # coo = pd.read_csv('data/coord.csv')
     coo = pd.read_csv('data/coord_km_gaza.csv')
     edges = [0, 7, 15, 30, 50, 300]
     n_lines = len(edges)
