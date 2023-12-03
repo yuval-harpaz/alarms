@@ -115,7 +115,7 @@ try:
         df = pd.read_csv('data/war23_idf_deaths.csv')
 
         dates = pd.date_range(start='2023-10-07', end=datetime.today().strftime('%Y-%m-%d'), freq='D')
-        df['time'] = pd.to_datetime(df['death_date'])
+        df['death_date'] = pd.to_datetime(df['death_date'])
         # dateu = np.unique(df['time'].values)
         count = []
         for idate in range(len(dates)):
