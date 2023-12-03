@@ -12,7 +12,7 @@ if os.path.isdir(local):
 
 haa = pd.read_csv('data/deaths_haaretz.csv')
 ynet = pd.read_csv('data/ynetlist.csv')
-idf = pd.read_csv('data/war23_idf_deaths.csv')
+idf = pd.read_csv('data/deaths_idf.csv')
 ##
 found_idf = np.zeros((len(idf), 3), int)
 found_idf[:, 1:] = -1
@@ -34,9 +34,15 @@ for table in [ynet, haa]:
         name = idf['name'][ii]
         for jj in range(len(val)):
             agefit = age[jj] == str(idf['age'][ii])
-            if name in val[jj] and agefit:
-                found_idf[ii, tbl] = jj
-                break
+            if name in val[jj]:
+                if agefit:
+                    found_idf[ii, tbl] = jj
+                else:
+                    print(f'{name} ages: {age[jj]} {idf["age"][ii]}')
+                    if type(fro[jj]) == str and Levenshtein.distance(fro[jj], idf['from'][ii]) < 2:
+                        found_idf[ii, tbl] = jj
+                    else:
+                        print(f'{name} locs: {fro[jj]} {idf["from"][ii]}')
             else:
                 fit = 0
                 for part in name.split(' '):
@@ -51,11 +57,12 @@ for table in [ynet, haa]:
                             dist.append(Levenshtein.distance(nm,vl))
                     if min(dist) < 2:
                         found_idf[ii, tbl] = jj
+found_idf[np.where(idf['name'].str.contains('עלים'))[0], 2] = np.where(haa['name'].str.contains('עלים'))[0][0]
+found_idf[np.where(idf['name'].str.contains('יהונתן אהרן שטיינברג'))[0], 2] = np.where(haa['name'].str.contains('יהונתן אהרן שטיינברג'))[0][0]
+ormizrahi = np.where(idf['name'].str.contains('אור מזרחי'))
+found_idf[
 print(np.sum(found_idf == -1, 0))
-if type(fro[jj]) == str:
-    frofit = Levenshtein.distance(fro[jj], idf['from'][ii]) < 2
-else:
-    frofit = False
+
 ##
 log = 'idf not in haaretz: '+', '.join(idf['name'][found_idf[:,2] == -1].values)+'\n'
 log = log + 'idf not in ynet: '+', '.join(idf['name'][found_idf[:,1] == -1].values)+'\n'
