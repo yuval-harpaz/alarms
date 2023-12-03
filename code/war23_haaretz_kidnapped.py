@@ -46,6 +46,11 @@ try:
     df = pd.DataFrame(data, columns=['name', 'age', 'from', 'status', 'condition', 'story'])
     df['story'] = df['story'].str.replace('<br>', '\n')
     df['story'] = df['story'].str.strip()
+    status_replace = [['c', 'אזרח'], ['s', 'חייל'], ['-', '']]
+    stat = df['status'].values
+    for istat in range(len(status_replace)):
+        stat[stat == status_replace[istat][0]] = status_replace[istat][1]
+    df['status'] = stat
     df.to_csv('data/kidnapped_haaretz.csv', index=False)
 
     ##
