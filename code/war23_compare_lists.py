@@ -22,18 +22,21 @@ for table in [ynet, haa]:
     tbl += 1
     if tbl == 1:
         age = table['גיל'].values
+        fro = table['מקום מגורים'].values
         val = []
         for jj in range(len(table)):
             val.append(table['שם פרטי'][jj]+' '+table['שם משפחה'][jj])
     else:
         val = table['name'].str.replace('׳', "'").values
         age = table['age'].values
+        fro = table['from'].values
     for ii in range(len(idf)):
         name = idf['name'][ii]
         for jj in range(len(val)):
             agefit = age[jj] == str(idf['age'][ii])
-            if name in val[jj]:
+            if name in val[jj] and agefit:
                 found_idf[ii, tbl] = jj
+                break
             else:
                 fit = 0
                 for part in name.split(' '):
@@ -49,7 +52,18 @@ for table in [ynet, haa]:
                     if min(dist) < 2:
                         found_idf[ii, tbl] = jj
 print(np.sum(found_idf == -1, 0))
-
+if type(fro[jj]) == str:
+    frofit = Levenshtein.distance(fro[jj], idf['from'][ii]) < 2
+else:
+    frofit = False
+##
+log = 'idf not in haaretz: '+', '.join(idf['name'][found_idf[:,2] == -1].values)+'\n'
+log = log + 'idf not in ynet: '+', '.join(idf['name'][found_idf[:,1] == -1].values)+'\n'
+err = [x for x in range(len(haa)) if x not in found_idf[:,2]]
+err = np.array(err)[haa['status'].values[err] == 'חייל']
+log = log + 'haaretz not in idf:' + ', '.join(haa['name'][err]) + '\n'
+print(log)
+##
 
 
 ##

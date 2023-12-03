@@ -7,10 +7,12 @@ import os
 from pyvirtualdisplay import Display
 local = '/home/innereye/alarms/'
 # islocal = False
+
 if os.path.isdir(local):
     os.chdir(local)
     local = True
-dfprev = pd.read_csv('data/war23_idf_deaths.csv')
+csv = 'data/deaths_idf.csv'
+dfprev = pd.read_csv(csv)
 ##
 # def get_deaths():
 try:
@@ -107,7 +109,7 @@ try:
         df = df.sort_values('death_date', ignore_index=True)
         # df.drop_duplicates('name', inplace=True, ignore_index=True)
         if len(df) == tot:
-            df.to_csv('data/war23_idf_deaths.csv', index=False)
+            df.to_csv(csv, index=False)
         else:
             print(f'total should be {tot}, instead {len(df)}')
     ##
@@ -119,8 +121,8 @@ try:
         # dateu = np.unique(df['time'].values)
         count = []
         for idate in range(len(dates)):
-            count.append([np.sum((df['time'].values == dates[idate]) & (df['gender'] == 'M')),
-                          np.sum((df['time'].values == dates[idate]) & (df['gender'] == 'F'))])
+            count.append([np.sum((df['death_date'].values == dates[idate]) & (df['gender'] == 'M')),
+                          np.sum((df['death_date'].values == dates[idate]) & (df['gender'] == 'F'))])
         count = np.array(count)
 
         ##
