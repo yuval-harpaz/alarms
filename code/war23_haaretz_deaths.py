@@ -41,9 +41,7 @@ try:
         stat[stat == status_replace[istat][0]] = status_replace[istat][1]
     df['status'] = stat
     df.to_csv('data/deaths_haaretz.csv', index=False)
-    ##
-    # except Exception as e:
-    #     print('read ynet failed')
-    #     print(e)
-except:
-    print('war23_haaretz_deaths: failed.')
+except Exception as e:
+    print('war23_haaretz_deaths.py failed')
+    a = os.system('echo "war23_haaretz_deaths.py failed" >> code/errors.log')
+    b = os.system(f'echo "{e}" >> code/errors.log')

@@ -32,7 +32,11 @@ jobs:
         python -W ignore code/war23_distance_coord.py
         python -W ignore code/war23_distance.py
         python -W ignore code/alarms_week.py
+    - name: run war media
+      run: |
         python -W ignore code/war23_ynetlist.py
+        python -W ignore code/war23_haaretz_deaths.py
+        python -W ignore code/war23_haaretz_kidnapped.py
     - name: run idf deaths
       run: |
         python -W ignore code/war23_idf_mem.py
