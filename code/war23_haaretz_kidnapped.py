@@ -3,7 +3,6 @@ read the table from ynet https://www.ynet.co.il/news/category/51693
 NOTE - info is from the media, not formal and not validated, use with care
 '''
 import pandas as pd
-# from selenium import webdriver
 import requests
 import os
 

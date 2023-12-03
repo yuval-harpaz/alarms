@@ -126,8 +126,10 @@ try:
         if ytype == 'linear':
             opfn = opfn.replace('docs', 'data').replace('.html', '.csv')
             df.to_csv(opfn, index=False)
-except:
-    print('distance plotly chart failed')
+except Exception as e:
+    print('war23_distance.py failed')
+    a = os.system('echo "war23_distance.py failed" >> code/errors.log')
+    b = os.system(f'echo "{e}" >> code/errors.log')
 
 ##  Old code
 # long[irow] = coo['long'][coo['loc'] == dfwar['cities'].values[row]].values[0]

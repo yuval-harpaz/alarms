@@ -24,5 +24,6 @@ try:
     df.to_csv('data/ynetlist.csv', index=False)
     # browser.close()
 except Exception as e:
-    print('read ynet failed')
-    print(e)
+    print('war23_ynetlist.py failed')
+    a = os.system('echo "war23_ynetlist.py failed" >> code/errors.log')
+    b = os.system(f'echo "{e}" >> code/errors.log')
