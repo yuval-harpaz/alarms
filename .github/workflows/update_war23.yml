@@ -39,7 +39,7 @@ jobs:
         python -W ignore code/war23_haaretz_kidnapped.py
     - name: run idf deaths
       run: |
-        python -W ignore code/war23_idf_mem.py
+        python -W ignore code/war23_idf_mem_all.py
     - name: check news
       run: |
         git config --global user.name "actions"
