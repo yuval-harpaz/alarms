@@ -1,23 +1,30 @@
-import matplotlib.pyplot as plt
 import pandas as pd
-import numpy as np
 from selenium import webdriver
-from datetime import datetime
 import os
 from pyvirtualdisplay import Display
 import time
+import numpy as np
+
 local = '/home/innereye/alarms/'
-# islocal = False
+
 
 if os.path.isdir(local):
     os.chdir(local)
     local = True
-csv = 'data/tmp_deaths_idf.csv'
+csv = 'data/deaths_idf.csv'
+only_new = True
+if only_new:
+    prev = pd.read_csv('data/deaths_idf.csv')
+    id = []
+    for x in range(len(prev)):
+        id.append('|'.join([prev['name'][x], str(prev['age'][x]), str(prev['from'][x])]))
+    id = np.array(id)
+
 # dfprev = pd.read_csv(csv)
 ##
 # def get_deaths():
 # try:
-if True:
+try:
     with Display() as disp:
         try:
             browser = webdriver.Chrome()
@@ -64,7 +71,6 @@ if True:
                     #     print('already ' + name)
                     #     if already == 2:
                     #         goon = False
-                if goon:
                     unit = seg.split('\n')[6].strip()
                     urlp = 'https://www.idf.il' + personal
                     # urlp = 'https://www.idf.il/נופלים/חללי-המלחמה/'+'-'.join(name.split(' '))
@@ -96,11 +102,15 @@ if True:
                     if 'מדרגת' in htmlp:
                         raised = htmlp[htmlp.index('מדרגת')-7:]
                         raised = ' '+raised.split('<br><br>')[0].replace('>', '')
+                        if len(raised) > 500:
+                            raised = raised[:raised.index('<b')]
                     else:
                         raised = ''
 
                     if '<br><br>' in htmlp:
                         htmlp = htmlp[:htmlp.index('<br><br>')]
+                    if len(htmlp) > 500:
+                        print('insane')
                     if 'בנופ' in htmlp:
                         fro = htmlp.split(',')[1][2:]
                         ifro = htmlp.index(fro)
@@ -122,70 +132,28 @@ if True:
                             msg = 'failed for ' + urlp.split('/')[-2]
                             print(msg)
                             os.system(f'echo "war23_idf_mem.py: {msg}" >> code/errors.log')
-                    data.append([date, name, rank, unit, gender, age, fro, story])
-                if already and goon:
-                    data = data[:-1]
+                    if only_new and '|'.join([name, str(age), fro]) in id:
+                        goon = False
+                    else:
+                        data.append([date, name, rank, unit, gender, age, fro, story])
             if len(data) == prev:  # new page with no names
                 goon = False
             else:
                 print(len(data))
         browser.close()
-        # return data, tot
-    ##
     print(f'new IDF deaths: {len(data)}')
-    # if local:
-    #     data, tot = get_deaths()
-    # else:
-    #     with Display() as disp:
-    #         data, tot = get_deaths()
     ##
     if len(data) > 0:
         df = pd.DataFrame(data, columns=['death_date', 'name', 'rank', 'unit', 'gender', 'age', 'from','story'])
-        # df = pd.concat([dfprev, df], ignore_index=True)
-        # df = df.sort(['death_date', 'name'], ascending=[False, True])
+        df = df.iloc[::-1]
+        df = pd.concat([prev, df])
         df.to_csv(csv, index=False)
-        # df = df.sort_values('death_date', ignore_index=True)
-        # df.drop_duplicates('name', inplace=True, ignore_index=True)
         if len(df) == tot:
             pass
-            # df.to_csv(csv, index=False)
         else:
             print(f'total should be {tot}, instead {len(df)}')
-    ##
-    if local:
-        df = pd.read_csv('data/war23_idf_deaths.csv')
-
-        dates = pd.date_range(start='2023-10-07', end=datetime.today().strftime('%Y-%m-%d'), freq='D')
-        df['death_date'] = pd.to_datetime(df['death_date'])
-        # dateu = np.unique(df['time'].values)
-        count = []
-        for idate in range(len(dates)):
-            count.append([np.sum((df['death_date'].values == dates[idate]) & (df['gender'] == 'M')),
-                          np.sum((df['death_date'].values == dates[idate]) & (df['gender'] == 'F'))])
-        count = np.array(count)
-
-        ##
-        lim = [300, 30]
-        plt.figure()
-        for sp in [1, 2]:
-            plt.subplot(2,1,sp)
-            plt.bar(dates, np.sum(count, 1), color='r', label='Female')
-            plt.ylim(0, lim[sp-1])
-            plt.bar(dates, count[:,0], color='b', label='Male')
-            # ax = plt.gca()
-            # ax.yaxis.grid()
-            plt.grid()
-            plt.xticks(dates[1::7])
-            # plt.xticks(rotation=30)
-            if sp == 1:
-                plt.text(dates[1], 256, f'{38}/{278}')
-                plt.title('מספר הנופלים לפי תאריך ומגדר'[::-1])
-                plt.legend()
-            else:
-                plt.text(dates[5], 2, f'{1}/{1}')
-                plt.text(dates[7], 3, f'{1}/{2}')
-        plt.show()
-# except Exception as e:
-#     print('war23_idf_mem.py failed')
-#     a = os.system('echo "war23_idf_mem.py failed" >> code/errors.log')
-#     b = os.system(f'echo "{e}" >> code/errors.log')
+except Exception as e:
+    print('war23_idf_mem.py failed')
+    a = os.system('echo "war23_idf_mem.py failed" >> code/errors.log')
+    b = os.system(f'echo "{e}" >> code/errors.log')
+    
