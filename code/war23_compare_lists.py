@@ -60,7 +60,6 @@ for table in [ynet, haa]:
 found_idf[np.where(idf['name'].str.contains('עלים'))[0], 2] = np.where(haa['name'].str.contains('עלים'))[0][0]
 found_idf[np.where(idf['name'].str.contains('יהונתן אהרן שטיינברג'))[0], 2] = np.where(haa['name'].str.contains('יהונתן אהרן שטיינברג'))[0][0]
 ormizrahi = np.where(idf['name'].str.contains('אור מזרחי'))
-found_idf[
 print(np.sum(found_idf == -1, 0))
 
 ##
@@ -70,10 +69,38 @@ err = [x for x in range(len(haa)) if x not in found_idf[:,2]]
 err = np.array(err)[haa['status'].values[err] == 'חייל']
 log = log + 'haaretz not in idf:' + ', '.join(haa['name'][err]) + '\n'
 print(log)
-##
-
 
 ##
+df = idf.copy()
+for ii in range(len(idf)):
+    if found_idf[ii, 2] > -1:
+        df.at[ii, 'haaretz'] = haa['story'][found_idf[ii, 2]]
+    else:
+        df.at[ii, 'haaretz'] = ''
+    if found_idf[ii, 1] > -1:
+        df.at[ii, 'ynet'] = ynet['מידע על המוות'][found_idf[ii, 1]]
+        df.at[ii, 'first'] = ynet['שם פרטי'][found_idf[ii, 1]]
+        df.at[ii, 'last'] = ynet['שם משפחה'][found_idf[ii, 1]]
+    else:
+        df.at[ii, 'ynet'] = ''
+        df.at[ii, 'first'] = idf['name'][ii].split(' ')[0]
+        df.at[ii, 'last'] = ' '.join(idf['name'][ii].split(' ')[1:])
+df['status'] = 'חייל'
+##
+ihaa = [x for x in range(len(haa)) if x not in found_idf[:,2]]
+ihaa = np.sort(ihaa)
+for ii in ihaa:
+    story = haa['story'][ii]
+    if len(story) < 40 and story[-1].ismumeric():
+        try:
+            dd = '2023-' + story.split('.')[-1]+'-'+story.split('.')[-2][-2:].replace('-','').strip().zfill(2)
+        except:
+            dd = ''
+    else:
+        dd = ''
+    newrow = [dd, haa['name'][ii], haa['age'][ii], haa['from'][ii],
+
+    ##
 # except Exception as e:
 # print('war23_haaretz_kidnapped.py failed')
 # a = os.system('echo "war23_haaretz_kidnapped.py failed" >> code/errors.log')
