@@ -13,3 +13,5 @@ war23_idf_mem.py: דניאל קסבצ׳וק+, not in htmlp
 war23_idf_mem.py: failed for דניאל-קסבצ-וק
 war23_idf_mem.py: איתמר עיש+, not in htmlp
 war23_idf_mem.py: failed for איתמר-עיש
+war23_idf_mem.py failed
+[Errno 2] No such file or directory: 'data/war23_idf_deaths.csv'
