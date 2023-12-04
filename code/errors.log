@@ -4,33 +4,12 @@ war23_idf_mem.py failed
 'time'
 war23_idf_mem.py failed
 [Errno 2] No such file or directory: 'data/war23_idf_deaths.csv'
-war23_idf_mem.py failed
-[Errno 2] No such file or directory: 'data/war23_idf_deaths.csv'
-war23_idf_mem.py failed
-[Errno 2] No such file or directory: 'data/war23_idf_deaths.csv'
-war23_idf_mem.py failed
-[Errno 2] No such file or directory: 'data/war23_idf_deaths.csv'
-war23_idf_mem.py failed
-[Errno 2] No such file or directory: 'data/war23_idf_deaths.csv'
-war23_idf_mem.py failed
-[Errno 2] No such file or directory: 'data/war23_idf_deaths.csv'
-war23_idf_mem.py failed
-[Errno 2] No such file or directory: 'data/war23_idf_deaths.csv'
-war23_idf_mem.py failed
-[Errno 2] No such file or directory: 'data/war23_idf_deaths.csv'
-war23_idf_mem.py failed
-[Errno 2] No such file or directory: 'data/war23_idf_deaths.csv'
-war23_idf_mem.py failed
-[Errno 2] No such file or directory: 'data/war23_idf_deaths.csv'
-war23_idf_mem.py failed
-[Errno 2] No such file or directory: 'data/war23_idf_deaths.csv'
-war23_idf_mem.py failed
-[Errno 2] No such file or directory: 'data/war23_idf_deaths.csv'
-war23_idf_mem.py failed
-[Errno 2] No such file or directory: 'data/war23_idf_deaths.csv'
-war23_idf_mem.py failed
-[Errno 2] No such file or directory: 'data/war23_idf_deaths.csv'
-war23_idf_mem.py failed
-[Errno 2] No such file or directory: 'data/war23_idf_deaths.csv'
-war23_idf_mem.py failed
-[Errno 2] No such file or directory: 'data/war23_idf_deaths.csv'
+war23_idf_mem.py: ארנון משה אברהם בנבניסטי וספי+, not in htmlp
+war23_idf_mem.py: אמתי צבי גרנות+, not in htmlp
+war23_idf_mem.py: failed for אסף-חממי
+war23_idf_mem.py: מתן אברג'יל+, not in htmlp
+war23_idf_mem.py: failed for מתן-אברג-יל
+war23_idf_mem.py: דניאל קסבצ׳וק+, not in htmlp
+war23_idf_mem.py: failed for דניאל-קסבצ-וק
+war23_idf_mem.py: איתמר עיש+, not in htmlp
+war23_idf_mem.py: failed for איתמר-עיש
