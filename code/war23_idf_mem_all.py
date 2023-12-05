@@ -16,8 +16,8 @@ only_new = True
 if only_new:
     dfprev = pd.read_csv('data/deaths_idf.csv')
     id = []
-    for x in range(len(prev)):
-        id.append('|'.join([prev['name'][x], str(prev['age'][x]), str(prev['from'][x])]))
+    for x in range(len(dfprev)):
+        id.append('|'.join([dfprev['name'][x], str(dfprev['age'][x]), str(dfprev['from'][x])]))
     id = np.array(id)
 
 # dfprev = pd.read_csv(csv)
