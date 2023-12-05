@@ -43,3 +43,9 @@ war23_idf_mem.py: תובל יעקב צנעני+, not in htmlp
 war23_idf_mem.py: failed for תובל-יעקב-צנעני
 war23_idf_mem.py failed
 cannot concatenate object of type '<class 'int'>'; only Series and DataFrame objs are valid
+war23_idf_mem.py: איתן פיש+, not in htmlp
+war23_idf_mem.py: failed for איתן-פיש
+war23_idf_mem.py: תובל יעקב צנעני+, not in htmlp
+war23_idf_mem.py: failed for תובל-יעקב-צנעני
+war23_idf_mem.py failed
+cannot concatenate object of type '<class 'int'>'; only Series and DataFrame objs are valid
