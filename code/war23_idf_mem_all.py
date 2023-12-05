@@ -14,7 +14,7 @@ if os.path.isdir(local):
 csv = 'data/deaths_idf.csv'
 only_new = True
 if only_new:
-    prev = pd.read_csv('data/deaths_idf.csv')
+    dfprev = pd.read_csv('data/deaths_idf.csv')
     id = []
     for x in range(len(prev)):
         id.append('|'.join([prev['name'][x], str(prev['age'][x]), str(prev['from'][x])]))
@@ -93,6 +93,8 @@ try:
                             htmlp = htmlp.replace(name+' מ',name+','+' מ')
                         elif name+"'," in htmlp:
                             htmlp = htmlp[htmlp.index(name+"',"):]
+                        elif name+' ז"ל'+',' in htmlp:
+                            htmlp = htmlp[htmlp.index(name+' ז"ל'+','):]
                         else:
                             print(name+' not found with ","')
                             os.system(f'echo "war23_idf_mem.py: {name}+, not in htmlp" >> code/errors.log')
@@ -146,7 +148,7 @@ try:
     if len(data) > 0:
         df = pd.DataFrame(data, columns=['death_date', 'name', 'rank', 'unit', 'gender', 'age', 'from','story'])
         df = df.iloc[::-1]
-        df = pd.concat([prev, df])
+        df = pd.concat([dfprev, df])
         df.to_csv(csv, index=False)
         if len(df) == tot:
             pass
@@ -156,4 +158,3 @@ except Exception as e:
     print('war23_idf_mem.py failed')
     a = os.system('echo "war23_idf_mem.py failed" >> code/errors.log')
     b = os.system(f'echo "{e}" >> code/errors.log')
-    
