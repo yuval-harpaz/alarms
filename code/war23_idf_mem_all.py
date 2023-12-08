@@ -95,6 +95,8 @@ try:
                             htmlp = htmlp[htmlp.index(name+"',"):]
                         elif name+' ז"ל'+',' in htmlp:
                             htmlp = htmlp[htmlp.index(name+' ז"ל'+','):]
+                        elif name[:-1]+',' in htmlp:
+                            htmlp = htmlp[htmlp.index(name[:-1] + ','):]
                         else:
                             print(name+' not found with ","')
                             os.system(f'echo "war23_idf_mem.py: {name}+, not in htmlp" >> code/errors.log')
