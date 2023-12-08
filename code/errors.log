@@ -81,3 +81,5 @@ war23_idf_mem.py failed
 cannot concatenate object of type '<class 'int'>'; only Series and DataFrame objs are valid
 war23_idf_mem.py: איל מאיר ברקוביץ'+, not in htmlp
 war23_idf_mem.py: failed for איל-מאיר-ברקוביץ
+war23_idf_mem.py: איל מאיר ברקוביץ'+, not in htmlp
+war23_idf_mem.py: failed for איל-מאיר-ברקוביץ
