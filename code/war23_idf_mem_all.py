@@ -17,7 +17,7 @@ if only_new:
     dfprev = pd.read_csv('data/deaths_idf.csv')
     id = []
     for x in range(len(dfprev)):
-        id.append('|'.join([dfprev['name'][x], str(dfprev['age'][x]), str(dfprev['from'][x])]))
+        id.append('|'.join([dfprev['name'][x], str(dfprev['age'][x]), str(dfprev['from'][x]).replace('nan','')]))
     id = np.array(id)
 
 # dfprev = pd.read_csv(csv)
@@ -136,7 +136,7 @@ try:
                             msg = 'failed for ' + urlp.split('/')[-2]
                             print(msg)
                             os.system(f'echo "war23_idf_mem.py: {msg}" >> code/errors.log')
-                    if only_new and '|'.join([name, str(age), fro]) in id:
+                    if only_new and '|'.join([name, str(age), str(fro)]) in id:
                         goon = False
                     else:
                         data.append([date, name, rank, unit, gender, age, fro, story])
