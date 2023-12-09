@@ -51,7 +51,7 @@ try:
             for iseg in range(1, len(segs)):
                 if goon:
                     seg = segs[iseg]
-                    personal = seg[seg.index('href=')+5:seg.index('aria-')]
+                    personal = seg[seg.index('href=')+5:]  # no more seg.index('aria-')
                     personal = personal[personal.index('"')+1:]
                     personal = personal[:personal.index('"')]
                     seg = seg[seg.index('solder-name'):]
