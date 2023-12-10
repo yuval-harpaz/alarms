@@ -136,7 +136,7 @@ try:
                             msg = 'failed for ' + urlp.split('/')[-2]
                             print(msg)
                             os.system(f'echo "war23_idf_mem.py: {msg}" >> code/errors.log')
-                    if only_new and '|'.join([name, str(age), str(fro)]) in id:
+                    if only_new and ('|'.join([name, str(age), str(fro)]) in id or name in id[-1]):
                         goon = False
                     else:
                         data.append([date, name, rank, unit, gender, age, fro, story])
