@@ -99,7 +99,7 @@ try:
                             htmlp = htmlp[htmlp.index(name[:-1] + ','):]
                         else:
                             print(name+' not found with ","')
-                            os.system(f'echo "war23_idf_mem.py: {name}+, not in htmlp" >> code/errors.log')
+                            os.system(f'echo "war23_idf_mem_all.py: {name}+, not in htmlp" >> code/errors.log')
                             htmlp = htmlp[:htmlp.index('בנופל')]
                             htmlp = name+htmlp.split(name)[-1]
 
@@ -135,7 +135,7 @@ try:
                         else:
                             msg = 'failed for ' + urlp.split('/')[-2]
                             print(msg)
-                            os.system(f'echo "war23_idf_mem.py: {msg}" >> code/errors.log')
+                            os.system(f'echo "war23_idf_mem_all.py: {msg}" >> code/errors.log')
                     if only_new and ('|'.join([name, str(age), str(fro)]) in id or name in id[-1]):
                         goon = False
                     else:
@@ -157,6 +157,6 @@ try:
         else:
             print(f'total should be {tot}, instead {len(df)}')
 except Exception as e:
-    print('war23_idf_mem.py failed')
-    a = os.system('echo "war23_idf_mem.py failed" >> code/errors.log')
+    print('war23_idf_mem_all.py failed')
+    a = os.system('echo "war23_idf_mem_all.py failed" >> code/errors.log')
     b = os.system(f'echo "{e}" >> code/errors.log')
