@@ -92,8 +92,6 @@ name,first,last,gender,age,from,circum,condition,status,release_date,story,sourc
 זיו ברמן,זיו,ברמן,M,26,כפר עזה,home/work,חטוף,אזרח,,אח תאום של גלי ברמן,
 שגב כלפון,שגב,כלפון,M,26,דימונה,party,חטוף,אזרח,,היה במסיבה ברעים,
 נטאפורן אונגאו Natthaporn Onkaew,אונגאו,נטאפורן,M,26,תאילנד,home/work,שוחרר,זר,2023-11-25,,https://www.bbc.com/news/world-middle-east-67053011
-גונג סאו לאו,גונג,סאו לאו,M,26,תאילנד,home/work,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
-תוואצ’אי סיטאו,תוואצ’אי,סיטאו,M,26,תאילנד,home/work,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 אלמוג סרוסי,אלמוג,סרוסי,M,26,רעננה,party,חטוף,אזרח,,היה במסיבה ברעים,
 אריאל קוניו,אריאל,קוניו,M,26,ניר עוז,home/work,חטוף,אזרח,,בקיבוץ יחד עם חברתו ארבל - שנחטפה אף היא. הוא אחיו של דוד קוניו,
 אלון לולו שמריז,אלון,שמריז,M,26,כפר עזה,home/work,חטוף,אזרח,,נחטף מביתו,
@@ -129,20 +127,17 @@ name,first,last,gender,age,from,circum,condition,status,release_date,story,sourc
 יגב בוכשטב,יגב,בוכשטב,M,34,נירים,home/work,חטוף,אזרח,,נחטף מביתו עם אשתו רימון,
 ירדן ביבס,ירדן,ביבס,M,34,ניר עוז,home/work,חטוף,אזרח,,נחטף מביתו עם משפחתו,
 דורון כץ אשר,דורון,כץ אשר,F,34,ניר עוז,home/work,שוחרר,אזרח,2023-11-24,נחטפה עם בנותיה הפעוטות,
-סאטין סואקאם,סאטין,סואקאם,M,34,תאילנד,home/work,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 אוריאל ברוך,אוריאל,ברוך,M,35,גבעון,party,חטוף,אזרח,,נחטף מהמסיבה ברעים,
 מקסים הרקין,מקסים,הרקין,M,35,טירת הכרמל,party,חטוף,אזרח,,נחטף מהמסיבה ברעים,
 שגיא דקל חן,שגיא,חן,M,35,ניר עוז,home/work,חטוף,אזרח,,,
 דולב יהוד,דולב,יהוד,M,35,ניר עוז,home/work,חטוף,אזרח,,נחטף מביתו,
 נטאווארי מונקן Natthawaree Moonkan,נטאווארי,מונקן,F,35,תאילנד,home/work,שוחרר,זר,2023-11-24,"נחטפה ממגורי העובדים ב""גידולי אגו"" במושב ישע",https://www.nationthailand.com/world/middle-east-africa/40033196
-דואה סאיאנג,דואה,סאיאנג,M,35,תאילנד,home/work,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 ירדן רומן גת,ירדן,רומן גת,F,35,בארי,home/work,שוחרר,אזרח,2023-11-29,נחטפה מביתה,
 רימון קירשט בוכשטב,רימון,בוכשטב,F,36,נירים,home/work,שוחרר,אזרח,2023-11-28,נחטפה מביתה עם בעלה יגב,
 זיו דדו,זיו,דדו,M,36,רחובות,army,נרצח,חייל,,"נסע להגן על כיסופים. נרצח, וגופתו נחטפה לרצועת עזה",https://emek.mynet.co.il/local_news/article/r1srmvaksp
 איתן הורן,איתן,הורן,M,37,ניר עוז,home/work,חטוף,אזרח,,נחטף מביתו עם אחיו,
 ג'ימי גליינור פאצ’קו,פאצ’קו,גליינור,M,37,הפיליפינים,home/work,שוחרר,זר,2023-11-24,"היה העובד הסיעודי של אמיתי בן צבי, שנרצח",
 תמיר אדר,תמיר,אדר,M,38,ניר עוז,home/work,חטוף,אזרח,,"הנכד של יפה אדר, שנחטפה",
-טו סאלה,טו,סאלה,M,38,תאילנד,home/work,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 איתי סבירסקי,איתי,סבירסקי,M,38,תל אביב,home/work,חטוף,אזרח,,"נחטף כשביקר את משפחתו בקיבוץ בארי. אמו ואביו, אורית ורפי סבירסקי, נרצחו",
 עדי שוהם,עדי,שוהם,F,38,מעלה צביה,home/work,שוחרר,אזרח,2023-11-25,נחטפה מקיבוץ בארי עם משפחתה בעת ביקור משפחתי,
 טל שוהם,טל,שוהם,M,38,מעלה צביה,home/work,חטוף,אזרח,,נחטף מקיבוץ בארי עם משפחתו בעת ביקור משפחתי,
@@ -229,13 +224,18 @@ name,first,last,gender,age,from,circum,condition,status,release_date,story,sourc
 יפה אדר,יפה,אדר,F,85,ניר עוז,home/work,שוחרר,אזרח,2023-11-24,נחטפה מביתה,
 שלמה מנצור,שלמה,מנצור,M,85,כיסופים,home/work,חטוף,אזרח,,נחטף מביתו,
 אריה זלמנוביץ,אריה,זלמנוביץ,M,86,ניר עוז,home/work,נרצח,אזרח,,נחטף מביתו,https://www.nationthailand.com/world/middle-east-africa/40033196
+anonymous,_,_,M,,תאילנד,home/work,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
+anonymous,_,_,M,,תאילנד,home/work,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
+anonymous,_,_,M,,תאילנד,home/work,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
+anonymous,_,_,M,,תאילנד,home/work,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
+anonymous,_,_,M,,תאילנד,home/work,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 באנצ'ה קונגמאני Bancha Kongmanee,קונגמאני,באנצ'ה,M,,תאילנד,home/work,שוחרר,זר,2023-11-24,,https://www.nationthailand.com/world/middle-east-africa/40033196
 בודיי סינגהון Buddee Saengboon,סינגהון,בודיי,M,,תאילנד,home/work,שוחרר,זר,2023-11-24,,https://www.nationthailand.com/world/middle-east-africa/40033196
-בנצ'ה דוצ'רויאווץ,בנצ'ה,דוצ'רויאווץ,M,,תאילנד,home/work,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
+anonymous,_,_,M,,תאילנד,home/work,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 הותאי ת'ונגסרי Uthai Thunsri,ת'ונגסרי,הותאי,M,,תאילנד,home/work,שוחרר,זר,2023-11-24,,https://www.nationthailand.com/world/middle-east-africa/40033196
 הותאי סינגואן Uthai Sangnuan,סינגואן,הותאי,M,,תאילנד,home/work,שוחרר,זר,2023-11-24,עבד כפר עזה,https://www.nationthailand.com/world/middle-east-africa/40033196
 וויצ׳אן טמסונג Wichian Temthong,טמסונג,וויצ׳אן,M,,תאילנד,home/work,שוחרר,זר,2023-11-26,עבד כפר עזה,https://www.haaretz.co.il/news/2023-11-23/ty-article-magazine/0000018b-4196-d242-abef-53b654760000
-פונגסק טאנה,פונגסק,טאנה,M,,תאילנד,home/work,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
+anonymous,_,_,M,,תאילנד,home/work,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 מאני ג'ירצ'אט Manee Jirachart,ג'ירצ'אט,מאני,M,,תאילנד,home/work,שוחרר,זר,2023-11-25,,https://www.haaretz.co.il/news/2023-11-23/ty-article-magazine/0000018b-4196-d242-abef-53b654760000
 סורין קסונגונג Surin Kesungnog,קסונגונג,סורין,M,,תאילנד,home/work,שוחרר,זר,2023-11-26,,https://www.haaretz.co.il/news/2023-11-23/ty-article-magazine/0000018b-4196-d242-abef-53b654760000
 סנטי בונפרום Santi Boonphrom,בונפרום,סנטי,M,,תאילנד,home/work,שוחרר,זר,2023-11-24,,https://www.nationthailand.com/world/middle-east-africa/40033196
@@ -243,8 +243,8 @@ name,first,last,gender,age,from,circum,condition,status,release_date,story,sourc
 פאנסוואן פינאקאלו Phonsawan Pinakalo,פינאקאלו,פאנסוואן,M,,תאילנד,home/work,שוחרר,זר,2023-11-26,עבד בקיבוץ עלומים,https://www.haaretz.co.il/news/2023-11-23/ty-article-magazine/0000018b-4196-d242-abef-53b654760000
 מונגקול פצ’ובן Mongkhol Phajuabboon,מונגקול,פצ’ובן,M,,תאילנד,home/work,שוחרר,זר,2023-11-24,,https://www.nationthailand.com/world/middle-east-africa/40033196
 קומגריט צ'ומבואה Komkrit Chombua,,,M,,תאילנד,home/work,שוחרר,זר,2023-11-25,,https://www.bbc.com/news/world-middle-east-67053011
-"Kiattisak ""Top"" Patee",,,M,,תאילנד,home/work,חטוף,זר,,,https://www.bbc.com/news/world-middle-east-67053011
-Pongtorn,קונג,סאלו,M,,תאילנד,home/work,חטוף,זר,,,https://www.bbc.com/news/world-middle-east-67053011
+anonymous,_,_,M,,תאילנד,home/work,חטוף,זר,,,https://www.bbc.com/news/world-middle-east-67053011
+anonymous,_,_,M,,תאילנד,home/work,חטוף,זר,,,https://www.bbc.com/news/world-middle-east-67053011
 Kong Saelo,קונג,סאלו,M,,תאילנד,home/work,שוחרר,זר,2023-11-29,,https://www.nationthailand.com/world/middle-east-africa/40033360
 Phaiboon Ratnin,רטנין,פטבון,M,,תאילנד,home/work,שוחרר,זר,2023-11-29,,https://www.nationthailand.com/world/middle-east-africa/40033360
 Jakkaphan Sikhena,ג’קאפאן,סיקנה,M,,תאילנד,home/work,שוחרר,זר,2023-11-29,,https://www.nationthailand.com/world/middle-east-africa/40033360
