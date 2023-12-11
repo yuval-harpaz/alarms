@@ -123,19 +123,29 @@ try:
                         story = htmlp[ifro + len(fro) + 2:ifell - 8]+'.'+raised
                         gender = htmlp[ifell - 6:ifell - 4].replace('בן', 'M').replace('בת', 'F')
                     else:
-                        fro = ''
-                        age = 0
-                        story = ''
-                        gender = ''
-                        if 'נפטר' in htmlp:
-                            fro = htmlp.split(',')[1][2:]
-                            ifro = htmlp.index(fro)
-                            story = htmlp[ifro + len(fro) + 2:] + raised
-                            # story = story[:story.index('\n')]
+                        fro = htmlp.split(',')[2][2:]
+                        if 'בן' in htmlp:
+                            age = htmlp[htmlp.index('בן')+3:]
+                            gender = 'M'
+                        elif 'בת' in htmlp:
+                            age = htmlp[htmlp.index('בת') + 3:]
+                            gender = 'F'
                         else:
-                            msg = 'failed for ' + urlp.split('/')[-2]
-                            print(msg)
-                            os.system(f'echo "war23_idf_mem_all.py: {msg}" >> code/errors.log')
+                            gender = ''
+                            age = ''
+                        if len(gender) > 0:
+                            age = age[:age.index(',')]
+                            story = ','.join(htmlp.split(',')[3:])
+
+                        # if 'נפטר' in htmlp:
+                        #     fro = htmlp.split(',')[1][2:]
+                        #     ifro = htmlp.index(fro)
+                        #     story = htmlp[ifro + len(fro) + 2:] + raised
+                            # story = story[:story.index('\n')]
+                        # else:
+                        #     msg = 'failed for ' + urlp.split('/')[-2]
+                        #     print(msg)
+                        #     os.system(f'echo "war23_idf_mem_all.py: {msg}" >> code/errors.log')
                     if only_new and ('|'.join([name, str(age), str(fro)]) in id or name in id[-1]):
                         goon = False
                     else:
