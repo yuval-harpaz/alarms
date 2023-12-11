@@ -1,11 +1,7 @@
-name: idf dashboard
+name: manual idf dashboard
 on:
-  schedule:
-    #- cron: '10-59/20 * * * *'
-    - cron: '37 11 * * *'
+  workflow_dispatch:
 permissions: write-all
-  # contents: read
-
 jobs:
   alarms-fig:
     runs-on: ubuntu-latest
