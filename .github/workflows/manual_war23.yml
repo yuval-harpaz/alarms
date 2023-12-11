@@ -24,6 +24,7 @@ jobs:
     - name: run idf deaths
       run: |
         python code/war23_idf_mem_all.py
+        python -W ignore code/war23_fronts_update.py
     - name: run rocket alarms script
       env:
           OAuth: ${{ secrets.GOOMAP }}
