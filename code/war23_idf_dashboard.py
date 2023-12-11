@@ -68,6 +68,7 @@ try:
                 print('data is the same as last row')
             df.loc[len(df)] = data
             df.to_csv('data/idf_dashboard.csv', index=False)
+            df.to_excel('data/idf_dashboard.xlsx', index=False, sheet_name='Sheet1')
             print(f'added a line to idf_dashboard.csv')
 
 except Exception as e:
