@@ -19,7 +19,9 @@ df = pd.read_csv('data/idf_dashboard.csv')
 # try:
 keys = ['מתחילת המלחמה','מתחילת התמרון','מצב מאושפזים נוכחי','פצועים מתחילת המלחמה','פצועים ברצועת עזה']
 conds = ['קל','בינוני','קשה']
-
+now = np.datetime64('now', 'ns')
+nowisr = pd.to_datetime(now, utc=True, unit='s').astimezone(tz='Israel')
+nowstr = str(nowisr)[:10].replace('T', ' ')
 try:
     with Display() as disp:
         try:
@@ -34,30 +36,36 @@ try:
         idate = re.search('\d{2}\.\d{2}\.\d{2}', html).start()
         date = html[idate:idate+8]
         date = '20'+'-'.join(date.split('.')[::-1])
-        if date in df['תאריך'].values:
-            print(date+' already in idf_dashboard.csv')
-        else:
-            data = [date]
-            for ii in range(len(keys)):
-                idx = html.index(keys[ii])
-                segment = html[idx:idx+2000]
-                if ii < 2:
-                    segment = segment[segment.index('counters'):]
-                    val = segment.split('\n')[1].strip()
+        # if date in df['תאריך'].values:
+        #     print(date+' already in idf_dashboard.csv')
+        # else:
+        data = [nowstr]
+        for ii in range(len(keys)):
+            idx = html.index(keys[ii])
+            segment = html[idx:idx+2000]
+            if ii < 2:
+                segment = segment[segment.index('counters'):]
+                val = segment.split('\n')[1].strip()
+                data.append(val)
+                if not val.isnumeric():
+                    raise Exception('expected numeric for '+keys[ii])
+            else:
+                for icond in range(len(conds)):
+                    cond = conds[icond]
+                    seg = segment[segment.index(cond):]
+                    seg = seg[seg.index('counters'):]
+                    val = seg.split('\n')[1].strip()
                     data.append(val)
                     if not val.isnumeric():
-                        raise Exception('expected numeric for '+keys[ii])
-                else:
-                    for icond in range(len(conds)):
-                        cond = conds[icond]
-                        seg = segment[segment.index(cond):]
-                        seg = seg[seg.index('counters'):]
-                        val = seg.split('\n')[1].strip()
-                        data.append(val)
-                        if not val.isnumeric():
-                            raise Exception('expected numeric for ' + keys[ii]+' '+cond)
-
-            browser.close()
+                        raise Exception('expected numeric for ' + keys[ii]+' '+cond)
+        browser.close()
+        if data[0] == df['תאריך'].values[-1]:
+            print(f'idf dashboard date {nowstr} exists')
+            print(str(data))
+            print('not saving')
+        else:
+            if list(df.iloc[-1].values[1:]) == data[1:]:
+                print('data is the same as last row')
             df.loc[len(df)] = data
             df.to_csv('data/idf_dashboard.csv', index=False)
             print(f'added a line to idf_dashboard.csv')
