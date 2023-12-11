@@ -23,3 +23,7 @@ war23_idf_mem.py: failed for יונתן-דין-חיים
 war23_idf_mem.py: failed for יונתן-דין-חיים
 war23_idf_dashboard.py failed
 name 'data' is not defined
+war23_idf_mem_all.py: failed for גל-בכר
+war23_idf_mem_all.py: failed for אביתר-כהן
+war23_idf_mem_all.py: failed for איתי-פרי
+war23_idf_mem_all.py: failed for גדעון-אילני
