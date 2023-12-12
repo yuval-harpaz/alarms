@@ -2,9 +2,9 @@
 import pandas as pd
 import numpy as np
 # from datetime import datetime
-import os
 import Levenshtein
 import re
+import os
 # import re
 local = '/home/innereye/alarms/'
 # islocal = False
@@ -56,10 +56,11 @@ try:
                 ff = 'לבנון'
             elif 'נרצח' in yy or 'נרצח' in st:
                 ff = 'נרצח כאזרח'
+            elif idf['death_date'][ii] > '2023-10-30' and ('הרצועה' in st or 'רצועת עזה' in st):
+                ff = 'עזה'
             if len(yy) > 0 or len(ff) > 0:
                 changed = True
             front.loc[ii] = [idf['name'][ii], st, yy, ff]
-    if changed:
-        front.to_csv('data/front.csv', index=False)
+    front.to_csv('data/front.csv', index=False)
 except:
     print('failed front update')
