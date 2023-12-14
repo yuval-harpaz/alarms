@@ -91,14 +91,16 @@ ihaa = [x for x in range(len(haa)) if x not in found_idf[:,2]]
 ihaa = np.sort(ihaa)
 for ii in ihaa:
     story = haa['story'][ii]
-    if len(story) < 40 and story[-1].ismumeric():
+    if type(story) != float and len(story) < 40 and story[-1].isdigit():
         try:
             dd = '2023-' + story.split('.')[-1]+'-'+story.split('.')[-2][-2:].replace('-','').strip().zfill(2)
         except:
             dd = ''
     else:
         dd = ''
-    newrow = [dd, haa['name'][ii], haa['age'][ii], haa['from'][ii],
+    newrow = [dd, haa['name'][ii],'', '', '', haa['age'][ii], haa['from'][ii], '', haa['story'][ii],'', '', '',haa['status'][ii]]
+    df.loc[len(df)] = newrow
+df.to_csv('data/deaths.csv', index=False)
 
     ##
 # except Exception as e:
