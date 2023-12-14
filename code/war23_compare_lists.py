@@ -68,6 +68,14 @@ log = log + 'idf not in ynet: '+', '.join(idf['name'][found_idf[:,1] == -1].valu
 err = [x for x in range(len(haa)) if x not in found_idf[:,2]]
 err = np.array(err)[haa['status'].values[err] == 'חייל']
 log = log + 'haaretz not in idf:' + ', '.join(haa['name'][err]) + '\n'
+erry = [x for x in range(len(ynet)) if x not in found_idf[:,1]]
+erry = np.array(err)[ynet['דרגה'].values[err] == 'חייל']
+soldier = np.unique(idf['rank'])
+drg = np.unique([x for x in ynet['דרגה'].values if type(x) == str])
+for dy in drg:
+    if dy.split(' ')[0].strip() not in soldier:
+        print(dy)
+
 print(log)
 
 ##
@@ -100,9 +108,11 @@ for ii in ihaa:
         dd = ''
     newrow = [dd, haa['name'][ii],'', '', '', haa['age'][ii], haa['from'][ii], '', haa['story'][ii],'', '', '',haa['status'][ii]]
     df.loc[len(df)] = newrow
-df.to_csv('data/deaths.csv', index=False)
 
-    ##
+df.to_csv('data/deaths.csv', index=False)
+##
+
+##
 # except Exception as e:
 # print('war23_haaretz_kidnapped.py failed')
 # a = os.system('echo "war23_haaretz_kidnapped.py failed" >> code/errors.log')
