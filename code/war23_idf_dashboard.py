@@ -17,7 +17,7 @@ df = pd.read_csv('data/idf_dashboard.csv')
 ##
 # def get_deaths():
 # try:
-keys = ['מתחילת המלחמה','מתחילת התמרון','מצב מאושפזים נוכחי','פצועים מתחילת המלחמה','פצועים ברצועת עזה']
+keys = ['מתחילת המלחמה','מתחילת התמרון','מצב מאושפזים נוכחי','פצועים מתחילת המלחמה','פצועים מתחילת התמרון ברצועת עזה']
 conds = ['קל','בינוני','קשה']
 now = np.datetime64('now', 'ns')
 nowisr = pd.to_datetime(now, utc=True, unit='s').astimezone(tz='Israel')
