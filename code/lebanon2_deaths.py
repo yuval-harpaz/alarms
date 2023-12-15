@@ -20,6 +20,25 @@ html = resp.text
 html = html[html.index('מול האוי'):]
 aug = html.split('באוגוסט')
 jul = aug[0].split('ביולי')
+jul[0] = jul[0][17:]
+count = 0
+date = []
+num = []
+for day in jul:
+    count += 1
+    num.append(len(re.findall('\(\d{1,3}\)', day)))
+    ibe = re.search('ב\-', day).start()
+    tmp = day[ibe+2:]
+    date.append('2006-07-'+tmp[:tmp.index(' ')])
+for day in aug:
+    count += 1
+    num.append(len(re.findall('\(\d{1,3}\)', day)))
+    ibe = re.search('ב\-', day).start()
+    tmp = day[ibe+2:]
+    date.append('2006-08-'+tmp[:tmp.index(' ')])
+df = pd.DataFrame(date, columns=['date'])
+df['deaths'] = num
+df.to_csv('data/Lebanon2war.csv', index=False)
 #
 # df = pd.read_csv('data/idf_dashboard.csv')
 # # dfprev = pd.read_csv(csv)
