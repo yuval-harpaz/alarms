@@ -4,10 +4,12 @@ import os
 from pyvirtualdisplay import Display
 import time
 import numpy as np
-
+import re
 local = '/home/innereye/alarms/'
 
-
+month_heb = ['ינואר', 'פברואר', 'מרץ', 'אפריל',
+             'מאי', 'יוני', 'יולי', 'אוגוסט',
+             'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר']
 if os.path.isdir(local):
     os.chdir(local)
     local = True
@@ -55,10 +57,18 @@ try:
                     personal = personal[personal.index('"')+1:]
                     personal = personal[:personal.index('"')]
                     seg = seg[seg.index('solder-name'):]
-                    if '2023)' in seg:
-                        iyear = segs[iseg].index('2023)')
-                        date = segs[iseg][iyear - 6:iyear + 4]
-                        date = '-'.join(date.split('.')[::-1])
+                    # redate = re.search('202\d{1}\)', seg)
+                    redate = re.search('\(\d{2} [^\d]+ \d{4}\)', seg)
+                    if redate:
+                        iyear = redate.start()
+                        date = seg[redate.start()+1:redate.end()-1]
+                        date = date.split(' ')
+                        month = [x for x in range(12) if date[1][1:] in month_heb[x]][0]+1
+                        date[1] = str(month).zfill(2)
+                        # iyear = segs[iseg].index('2023)')
+                        # date = segs[iseg][iyear - 6:iyear + 4]
+                        # date = segs[iseg][iyear
+                        date = '-'.join(date[::-1])
                     else:
                         date=''
                     # seg = segs[iseg][:iyear+5]
