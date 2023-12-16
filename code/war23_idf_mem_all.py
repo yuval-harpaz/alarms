@@ -133,20 +133,21 @@ try:
                         story = htmlp[ifro + len(fro) + 2:ifell - 8]+'.'+raised
                         gender = htmlp[ifell - 6:ifell - 4].replace('בן', 'M').replace('בת', 'F')
                     else:
+                        gender = ''
+                        age = ''
                         fro = htmlp.split(',')[2][2:]
                         if 'בן' in htmlp:
-                            age = htmlp[htmlp.index('בן')+3:]
+                            g = 'בן'
                             gender = 'M'
                         elif 'בת' in htmlp:
-                            age = htmlp[htmlp.index('בת') + 3:]
+                            g = 'בת'
                             gender = 'F'
-                        else:
-                            gender = ''
-                            age = ''
-                        if len(gender) > 0:
+                        age = htmlp[htmlp.index(g)+3:]
+                        if ' ' in age:
+                            age = age[:age.index(' ')]
+                        if ',' in age:
                             age = age[:age.index(',')]
-                            story = ','.join(htmlp.split(',')[3:])
-
+                        story = ','.join([x for x in htmlp.split(',')[3:] if x[:4] != ' בן '])
                         # if 'נפטר' in htmlp:
                         #     fro = htmlp.split(',')[1][2:]
                         #     ifro = htmlp.index(fro)
