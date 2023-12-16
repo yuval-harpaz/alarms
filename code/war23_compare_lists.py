@@ -12,6 +12,7 @@ if os.path.isdir(local):
 
 haa = pd.read_csv('data/deaths_haaretz.csv')
 ynet = pd.read_csv('data/ynetlist.csv')
+ynet['מקום מגורים'] = ynet['מקום מגורים'].str.replace('\xa0',' ')
 idf = pd.read_csv('data/deaths_idf.csv')
 ##
 found_idf = np.zeros((len(idf), 3), int)
@@ -81,18 +82,27 @@ print(log)
 ##
 df = idf.copy()
 for ii in range(len(idf)):
+    identifier = '|'.join([idf['name'][ii], str(idf['age'][ii]), idf['from'][ii]])
     if found_idf[ii, 2] > -1:
         df.at[ii, 'haaretz'] = haa['story'][found_idf[ii, 2]]
+        identifier += ';'+'|'.join([haa['name'][found_idf[ii, 2]], haa['age'][found_idf[ii, 2]], haa['from'][found_idf[ii, 2]]])
     else:
         df.at[ii, 'haaretz'] = ''
+        identifier += ';'
     if found_idf[ii, 1] > -1:
         df.at[ii, 'ynet'] = ynet['מידע על המוות'][found_idf[ii, 1]]
-        df.at[ii, 'first'] = ynet['שם פרטי'][found_idf[ii, 1]]
-        df.at[ii, 'last'] = ynet['שם משפחה'][found_idf[ii, 1]]
+        f = ynet['שם פרטי'][found_idf[ii, 1]]
+        df.at[ii, 'first'] = f
+        l = ynet['שם משפחה'][found_idf[ii, 1]]
+        df.at[ii, 'last'] = l
+        identifier += ';' + '|'.join(
+            [f+' '+l, ynet['גיל'][found_idf[ii, 1]], ynet['מקום מגורים'][found_idf[ii, 1]]])
     else:
         df.at[ii, 'ynet'] = ''
         df.at[ii, 'first'] = idf['name'][ii].split(' ')[0]
         df.at[ii, 'last'] = ' '.join(idf['name'][ii].split(' ')[1:])
+        identifier += ';'
+    df.at[ii, 'identifier'] = identifier
 df['status'] = 'חייל'
 ##
 ihaa = [x for x in range(len(haa)) if x not in found_idf[:,2]]
@@ -106,11 +116,105 @@ for ii in ihaa:
             dd = ''
     else:
         dd = ''
-    newrow = [dd, haa['name'][ii],'', '', '', haa['age'][ii], haa['from'][ii], '', haa['story'][ii],'', '', '',haa['status'][ii]]
+    idt = ';'+'|'.join([haa['name'][ii], str(haa['age'][ii]).replace('nan',''), haa['from'][ii]])+';'
+    newrow = [dd, haa['name'][ii],'', '', '', haa['age'][ii], haa['from'][ii], '', haa['story'][ii],'', '', '', idt, haa['status'][ii]]
     df.loc[len(df)] = newrow
 
 df.to_csv('data/deaths.csv', index=False)
 ##
+df = pd.read_csv('data/deaths.csv')
+yd = []
+for yy in range(len(ynet)):
+    f = ynet['שם פרטי'][yy]
+    l = ynet['שם משפחה'][yy]
+    idt = '|'.join([f + ' ' + l,
+                    str(ynet['גיל'][yy]).replace('nan',''),
+                    str(ynet['מקום מגורים'][yy]).replace('nan','')])
+    yd.append(idt)
+yd = np.array(yd)
+for row in np.where(df['first'].isnull().values)[0]:
+    hd = df['identifier'][row].split(';')[1]
+    for rem in ['קיבוץ ', 'מושב ']:
+        hd = hd.replace(rem, '')
+    do_from = False
+    if df['status'][row] == 'שוטר':
+        hd = hd[hd.index(' ')+1:]
+        if hd[-1] == '-':
+            hd = hd[:-2]
+            do_from = True
+            dist = [Levenshtein.distance(hd, '|'.join(x.split('|')[:2])) for x in yd]
+        else:
+            dist = [Levenshtein.distance(hd, x) for x in yd]
+    else:
+        dist = [Levenshtein.distance(hd, x) for x in yd]
+    imin = np.argmin(dist)
+    vmin = dist[imin]
+    if vmin < 3:
+        ids = df['identifier'][row].split(';')
+        ids[2] = yd[imin]
+        df.at[row, 'identifier'] = ';'.join(ids)
+        df.at[row, 'first'] = ynet['שם פרטי'][imin]
+        df.at[row, 'last'] = ynet['שם משפחה'][imin]
+        df.at[row, 'ynet'] = ynet['מידע על המוות'][imin]
+        if do_from:
+            df.at[row, 'from'] = ynet['מקום מגורים'][imin]
+
+#
+indf = [x[2] for x in df['identifier'].str.split(';').values if len(x[2]) > 0]
+indf = np.array(indf)
+leftover = [x for x in range(len(yd)) if yd[x] not in indf]
+print(len(leftover))
+df.to_csv('data/tmp_deaths.csv', index=False)
+ynetl = ynet.iloc[leftover]
+ynetl.to_csv('data/tmp_leftover.csv', index=False)
+##
+yparts = []
+for yy in range(len(leftover)):
+    yparts.append([ynet['שם פרטי'][yy],
+                  ynet['שם משפחה'][yy],
+                  str(ynet['גיל'][yy]).replace('nan', ''),
+                  str(ynet['מקום מגורים'][yy]).replace('nan', '')])
+
+    yparts[-1] = [x for x in yparts[-1] if len(x) > 0]
+
+for row in np.where(df['first'].isnull().values)[0]:
+    hd = df['identifier'][row].split(';')[1]
+    hd = [x.split(' ') for x in hd.split('|')]
+    hparts = []
+    for p in hd:
+        hparts.extend(p)
+
+
+
+    for rem in ['קיבוץ ', 'מושב ']:
+        hd = hd.replace(rem, '')
+    do_from = False
+    if df['status'][row] == 'שוטר':
+        hd = hd[hd.index(' ')+1:]
+        if hd[-1] == '-':
+            hd = hd[:-2]
+            do_from = True
+            dist = [Levenshtein.distance(hd, '|'.join(x.split('|')[:2])) for x in yd]
+        else:
+            dist = [Levenshtein.distance(hd, x) for x in yd]
+    else:
+        dist = [Levenshtein.distance(hd, x) for x in yd]
+    imin = np.argmin(dist)
+    vmin = dist[imin]
+    if vmin < 3:
+        ids = df['identifier'][row].split(';')
+        ids[2] = yd[imin]
+        df.at[row, 'identifier'] = ';'.join(ids)
+        df.at[row, 'first'] = ynet['שם פרטי'][imin]
+        df.at[row, 'last'] = ynet['שם משפחה'][imin]
+        df.at[row, 'ynet'] = ynet['מידע על המוות'][imin]
+        if do_from:
+            df.at[row, 'from'] = ynet['מקום מגורים'][imin]
+
+#
+indf = [x[2] for x in df['identifier'].str.split(';').values if len(x[2]) > 0]
+indf = np.array(indf)
+leftover = [x for x in range(len(yd)) if yd[x] not in indf]
 
 ##
 # except Exception as e:
