@@ -174,47 +174,57 @@ for yy in range(len(leftover)):
                   ynet['שם משפחה'][yy],
                   str(ynet['גיל'][yy]).replace('nan', ''),
                   str(ynet['מקום מגורים'][yy]).replace('nan', '')])
-
     yparts[-1] = [x for x in yparts[-1] if len(x) > 0]
-
+##
 for row in np.where(df['first'].isnull().values)[0]:
     hd = df['identifier'][row].split(';')[1]
     hd = [x.split(' ') for x in hd.split('|')]
     hparts = []
     for p in hd:
         hparts.extend(p)
+    score = []
+    for iy in range(len(yparts)):
+        scr = 0
+        for yp in yparts[iy]:
+            scr += (yp in hparts)
+        score.append(scr)
+    if max(score) > 2:
+        imax = np.argmax(score)
+        print(df['identifier'][row].split(';')[1] + ' >> ' + '|'.join(yparts[imax]))
 
+##
 
-
-    for rem in ['קיבוץ ', 'מושב ']:
-        hd = hd.replace(rem, '')
-    do_from = False
-    if df['status'][row] == 'שוטר':
-        hd = hd[hd.index(' ')+1:]
-        if hd[-1] == '-':
-            hd = hd[:-2]
-            do_from = True
-            dist = [Levenshtein.distance(hd, '|'.join(x.split('|')[:2])) for x in yd]
-        else:
-            dist = [Levenshtein.distance(hd, x) for x in yd]
-    else:
-        dist = [Levenshtein.distance(hd, x) for x in yd]
-    imin = np.argmin(dist)
-    vmin = dist[imin]
-    if vmin < 3:
-        ids = df['identifier'][row].split(';')
-        ids[2] = yd[imin]
-        df.at[row, 'identifier'] = ';'.join(ids)
-        df.at[row, 'first'] = ynet['שם פרטי'][imin]
-        df.at[row, 'last'] = ynet['שם משפחה'][imin]
-        df.at[row, 'ynet'] = ynet['מידע על המוות'][imin]
-        if do_from:
-            df.at[row, 'from'] = ynet['מקום מגורים'][imin]
 
 #
-indf = [x[2] for x in df['identifier'].str.split(';').values if len(x[2]) > 0]
-indf = np.array(indf)
-leftover = [x for x in range(len(yd)) if yd[x] not in indf]
+#     for rem in ['קיבוץ ', 'מושב ']:
+#         hd = hd.replace(rem, '')
+#     do_from = False
+#     if df['status'][row] == 'שוטר':
+#         hd = hd[hd.index(' ')+1:]
+#         if hd[-1] == '-':
+#             hd = hd[:-2]
+#             do_from = True
+#             dist = [Levenshtein.distance(hd, '|'.join(x.split('|')[:2])) for x in yd]
+#         else:
+#             dist = [Levenshtein.distance(hd, x) for x in yd]
+#     else:
+#         dist = [Levenshtein.distance(hd, x) for x in yd]
+#     imin = np.argmin(dist)
+#     vmin = dist[imin]
+#     if vmin < 3:
+#         ids = df['identifier'][row].split(';')
+#         ids[2] = yd[imin]
+#         df.at[row, 'identifier'] = ';'.join(ids)
+#         df.at[row, 'first'] = ynet['שם פרטי'][imin]
+#         df.at[row, 'last'] = ynet['שם משפחה'][imin]
+#         df.at[row, 'ynet'] = ynet['מידע על המוות'][imin]
+#         if do_from:
+#             df.at[row, 'from'] = ynet['מקום מגורים'][imin]
+#
+# #
+# indf = [x[2] for x in df['identifier'].str.split(';').values if len(x[2]) > 0]
+# indf = np.array(indf)
+# leftover = [x for x in range(len(yd)) if yd[x] not in indf]
 
 ##
 # except Exception as e:
