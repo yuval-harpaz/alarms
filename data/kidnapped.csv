@@ -119,6 +119,7 @@ name,first,last,gender,age,from,circum,condition,status,release_date,story,sourc
 דורון שטיינברכר,דורון,שטיינברכר,F,30,כפר עזה,,חטוף,ישראלי,,"הקשר נותק איתה לאחר ששלחה הודעה קולית לחברותיה, בה היא נשמעת אומרת שהמחבלים תפסו אותה",
 שירי ביבס,שירי,ביבס,F,32,ניר עוז,,חטוף,ישראלי,,נחטפה עם שני ילדיה הפעוטים,
 אלכס לובנוב,אלכס,לובנוב,M,32,אשקלון,party,חטוף,ישראלי,,היה במסיבה ברעים,
+וואטצ'רה סריון,Watchara,Sriaoun,M,32,תאילנד,,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 אורן גולדין,אורן,גולדין,M,33,ניר יצחק,,נרצח,ישראלי,,אורן נחטף במצב לא ידוע בשבת השחורה ב-7 באוקטובר. לאחר יותר מחודש התבשרה משפחתו כי הוא נרצח וגופתו מוחזקת ככל הנראה בשבי חמאס,
 וויטון פומי Withoon Phumee,פומי,וויטון,M,33,תאילנד,,שוחרר,זר,2023-11-24,עבד בקיבוץ ניר עוז,https://www.nationthailand.com/world/middle-east-africa/40033196
 אור לוי,אור,לוי,M,33,גבעתיים,party,חטוף,ישראלי,,היה במסיבה ברעים,
@@ -128,6 +129,7 @@ name,first,last,gender,age,from,circum,condition,status,release_date,story,sourc
 יגב בוכשטב,יגב,בוכשטב,M,34,נירים,,חטוף,ישראלי,,נחטף מביתו עם אשתו רימון,
 ירדן ביבס,ירדן,ביבס,M,34,ניר עוז,,חטוף,ישראלי,,נחטף מביתו עם משפחתו,
 דורון כץ אשר,דורון,כץ אשר,F,34,ניר עוז,,שוחרר,ישראלי,2023-11-24,נחטפה עם בנותיה הפעוטות,
+סטיאן סוונאקאם,Sathian,Suwannakham,M,34,תאילנד,,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 אוריאל ברוך,אוריאל,ברוך,M,35,גבעון,party,חטוף,ישראלי,,נחטף מהמסיבה ברעים,
 מקסים הרקין,מקסים,הרקין,M,35,טירת הכרמל,party,חטוף,ישראלי,,נחטף מהמסיבה ברעים,
 שגיא דקל חן,שגיא,חן,M,35,ניר עוז,,חטוף,ישראלי,,,
@@ -226,8 +228,6 @@ name,first,last,gender,age,from,circum,condition,status,release_date,story,sourc
 יפה אדר,יפה,אדר,F,85,ניר עוז,,שוחרר,ישראלי,2023-11-24,נחטפה מביתה,
 שלמה מנצור,שלמה,מנצור,M,85,כיסופים,,חטוף,ישראלי,,נחטף מביתו,
 אריה זלמנוביץ,אריה,זלמנוביץ,M,86,ניר עוז,,נרצח,ישראלי,,נחטף מביתו,https://www.nationthailand.com/world/middle-east-africa/40033196
-סטיאן סוונאקאם,Sathian,Suwannakham,M,34,תאילנד,,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
-וואטצ'רה סריון,Watchara,Sriaoun,M,32,תאילנד,,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 Pongsak Thenna,Pongsak,Thaenna,M,,תאילנד,,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 Bannawat Seathao,Bannawat,Saethao,M,,תאילנד,,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 Surasak Rumnao,Sulasak,Lamnao,M,,תאילנד,,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
