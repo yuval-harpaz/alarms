@@ -45,7 +45,7 @@ try:
             segment = html[idx:idx+2000]
             if ii < 2:
                 segment = segment[segment.index('counters'):]
-                val = segment.split('\n')[1].strip()
+                val = segment.split('\n')[1].strip().replace(',', '')
                 data.append(val)
                 if not val.isnumeric():
                     raise Exception('expected numeric for '+keys[ii])
@@ -54,7 +54,7 @@ try:
                     cond = conds[icond]
                     seg = segment[segment.index(cond):]
                     seg = seg[seg.index('counters'):]
-                    val = seg.split('\n')[1].strip()
+                    val = seg.split('\n')[1].strip().replace(',', '')
                     data.append(val)
                     if not val.isnumeric():
                         raise Exception('expected numeric for ' + keys[ii]+' '+cond)
