@@ -27,7 +27,12 @@ if not all(equal):
         # name = update['name'][inew]
     update = pd.concat([update, deaths.iloc[new[0]:]], ignore_index=True)
 ##  check haaretz
-
+darga = np.unique(idf['rank'])
+darga = np.unique([x.split(' ')[0] for x in darga])
+darga = list(np.unique([x.replace('"','״') for x in darga]))
+for drg in darga:
+    if '״' in drg:
+        darga.append(drg.replace('״', '"'))
 storyh = update['haaretz'].values
 for ii in range(len(haa)):
     isnew = False
@@ -46,13 +51,35 @@ for ii in range(len(haa)):
     else:
         pass  # no news
     if isnew:
-        print(f'adding from haaretz {ii} {haa["name"][ii]}')
         nameh = haa["name"][ii]
-        for mil in ["(במיל')", "(מיל')"]:
+        for mil in ["(במיל')", "(מיל')", "(מיל׳)", "(במיל׳)"]:
             if mil in nameh:
                 nameh = nameh[nameh.index(mil)+len(mil):].strip()
-        np.where(idf['name'].contains(
+        for drg in darga:
+            nameh = nameh.replace(drg, '').strip()
+        row_idf = np.where(idf['name'].str.contains(nameh))[0]
+        if len(row_idf) == 1:
+            row_idf = int(row_idf)
+            idi = '|'.join([idf['name'][row_idf], str(idf['age'][row_idf]), str(idf['from'][row_idf])])
+            if update['haaretz'].isnull()[row_idf]:
+                update.at[row_idf, 'haaretz'] = haa['story'][ii]
+                update.at[row_idf, 'status'] = haa['status'][ii]
+                update.at[row_idf, 'identifier'] = idi+';'+idh+';'
+            print(f'added from haaretz {ii} {haa["name"][ii]}')
+        elif len(row_idf) > 1:
+            raise Exception('too many fits')
+        else:
+            next = len(update)
+            update.at[next, 'name'] = haa['name'][ii]
+            update.at[next, 'age'] = haa['age'][ii]
+            update.at[next, 'from'] = haa['from'][ii]
+            update.at[next, 'haaretz'] = haa['story'][ii]
+            update.at[next, 'status'] = haa['status'][ii]
+            update.at[next, 'identifier'] = ';' + idh + ';'
+            print(f'added new line from haaretz {ii} {haa["name"][ii]}')
 
+update.to_csv('data/deaths.csv', index=False)
+# TODO: sanity checks (no duplicates), ynet
 
 
 
