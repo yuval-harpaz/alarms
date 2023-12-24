@@ -19,7 +19,9 @@ deaths = pd.read_csv('data/deaths.csv')
 equal = [idf['name'].values[ii] == deaths['name'][ii] for ii in range(len(idf))]
 update = deaths.iloc[np.where(equal)[0]].copy()
 # update.reset_index(drop=True, inplace=True)
-if not all(equal):
+if all(equal):
+    update = pd.concat([update, deaths.iloc[len(idf):]], ignore_index=True)
+else:
     new = np.where(~np.array(equal))[0]
     for inew in new:
         for col in idf.columns:
@@ -69,20 +71,62 @@ for ii in range(len(haa)):
         elif len(row_idf) > 1:
             raise Exception('too many fits')
         else:
-            next = len(update)
-            update.at[next, 'name'] = haa['name'][ii]
-            update.at[next, 'age'] = haa['age'][ii]
-            update.at[next, 'from'] = haa['from'][ii]
-            update.at[next, 'haaretz'] = haa['story'][ii]
-            update.at[next, 'status'] = haa['status'][ii]
-            update.at[next, 'identifier'] = ';' + idh + ';'
-            print(f'added new line from haaretz {ii} {haa["name"][ii]}')
+            already = []
+            for x in range(len(update)):
+                id0 = update['identifier'][x]
+                if type(id0) == str and idh in id0:
+                    already.append(x)
+            if len(already) == 0:
+                # already = [x for x in range(len(update)) if and(type(idh in update['identifier'][x]]
+                next = len(update)
+                update.at[next, 'name'] = haa['name'][ii]
+                update.at[next, 'age'] = haa['age'][ii]
+                update.at[next, 'from'] = haa['from'][ii]
+                update.at[next, 'haaretz'] = haa['story'][ii]
+                update.at[next, 'status'] = haa['status'][ii]
+                update.at[next, 'identifier'] = ';' + idh + ';'
+                print(f'added new line from haaretz {ii} {haa["name"][ii]}')
+            elif len(already) == 1:
+                print('a')
+            else:
+                raise Exception('too many fits for '+nameh)
 
 update.to_csv('data/deaths.csv', index=False)
 # TODO: sanity checks (no duplicates), ynet
 
 
-
+changed = False
+if len(idf) >= to_fill:
+    ynet = pd.read_csv('data/ynetlist.csv')
+    yd = []
+    for iy in range(len(ynet)):
+        yd.append('|'.join([ynet[ynet.columns[5]][iy] + ' ' + ynet[ynet.columns[6]][iy],
+                       str(ynet['גיל'][iy]), str(ynet['מקום מגורים'][iy])]))
+    otef = '|'.join(['זיקים', 'נתיב העשרה', 'כפר עזה', 'נחל עוז', 'שדרות', 'בארי', 'כיסופים', 'מפלסים'])
+    for ii in range(to_fill, len(idf)):
+        st = idf['story'][ii]
+        yy = ''
+        ff = ''
+        id = '|'.join([idf['name'][ii], str(idf['age'][ii]), str(idf['from'][ii])])
+        distance = [Levenshtein.distance(id, x) for x in yd]
+        if min(distance) < 3:
+            yrow = np.argmin(distance)
+            yy = ynet['מידע על המוות'][yrow]
+        if (type(re.search(otef, yy)) == re.Match) or \
+            (type(re.search(otef, st)) == re.Match):
+            ff = 'עוטף עזה'
+        elif (type(re.search(r'נפל בקרב.+רצוע', yy)) == re.Match) or \
+             (type(re.search(r'נפל בקרב.+רצוע', st)) == re.Match):
+            ff = 'עזה'
+        elif 'לבנון' in yy or 'לבנון' in st:
+            ff = 'לבנון'
+        elif 'נרצח' in yy or 'נרצח' in st:
+            ff = 'נרצח כאזרח'
+        elif idf['death_date'][ii] > '2023-10-30' and ('הרצועה' in st or 'רצועת עזה' in st):
+            ff = 'עזה'
+        if len(yy) > 0 or len(ff) > 0:
+            changed = True
+        front.loc[ii] = [idf['name'][ii], st, yy, ff]
 ##
     # n_parts = np.zeros(len(update))
     # for name_part in haa['name'][ii].split(' '):

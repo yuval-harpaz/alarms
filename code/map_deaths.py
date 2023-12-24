@@ -45,6 +45,15 @@ def map_deaths():
     map.get_root().html.add_child(folium.Element(title_html))
     locs = np.array(locs)
     size = np.zeros(len(locu), int)
+    folium.Circle(location=[31.4025912, 34.4724382],
+                  tooltip='המסיבה ברעים, 357',
+                  radius=float((260 / np.pi) ** 0.5 * 750),
+                  fill=True,
+                  fill_color='#555555',
+                  color='#555555',
+                  opacity=0,
+                  fill_opacity=0.5
+                  ).add_to(map)
     for iloc in range(len(locu)):
         row_coo = coo['loc'] == locu[iloc]
         if np.sum(row_coo) == 1:
@@ -75,15 +84,6 @@ def map_deaths():
             #                     ).add_to(map)
         else:
             print('cannot find coord for '+locu[iloc])
-    folium.Circle(location=[31.4025912, 34.4724382],
-                  tooltip='המסיבה ברעים, 357',
-                  radius=float((260/np.pi)**0.5 * 750),
-                  fill=True,
-                  fill_color='#555555',
-                  color='#555555',
-                  opacity=0,
-                  fill_opacity=0.5
-                  ).add_to(map)
     map.save("docs/war_deaths23.html")
     print('done, one more thing')
     # רםצ https://www.mako.co.il/news-israel/2023_q2/Article-3abcb0281ca0b81026.htm
@@ -93,43 +93,43 @@ def map_deaths():
     n12 = n12.json()
     dfn12 = pd.DataFrame(n12['rows'])
     dfn12.to_excel('data/mako.xlsx')
-    ##  complete ynet with mako
-    # df.reset_index(drop=True, inplace=True)
-    already = np.zeros(len(dfn12))
-    for rown12 in range(len(dfn12)):
-        match = []
-        for rowynet in range(len(df)):
-            if (dfn12['b'][rown12] in df['name'][rowynet]) and (dfn12['c'][rown12] in df['name'][rowynet]):
-                match.append(rowynet)
-        if len(match) > 1:
-            pass
-            # print(dfn12['b']+' '+dfn12['c']+' has more than one match '+str(match))
-        elif len(match) == 0:
-            pass
-            # print(dfn12['b']+' '+dfn12['c']+' has no match')
-        else:
-            match = match[0]
-            if already[rown12]:
-                print(f'ynet {match} conflicts with ynet {already[rown12]}')
-            else:
-                already[rown12] = match
-                if pd.isnull(df['first'][match]):
-                    df.at[match, 'first'] = dfn12['b'][rown12]
-                    midlast = dfn12['c'][rown12].split(' ')
-                    df.at[match, 'last'] = midlast[-1]
-                    if len(midlast) == 2:
-                        df.at[match, 'middle'] = midlast[0]
-                    elif len(midlast) > 2:
-                        df.at[match, 'middle'] = ' '.join(midlast[:-1])
-                    df.at[match, 'mako_story'] = dfn12['l'][rown12]
-                    df.at[match, 'status'] = dfn12['g'][rown12]
-                    df.at[match, 'rank'] = dfn12['a'][rown12]
-                    if pd.isnull(df['gender'][match]):
-                        df.at[match, 'gender'] = dfn12['e'][rown12].replace('גבר', 'M').replace('אישה', 'F')
-                    if df['age'][match] == 0 and len(dfn12['d'][rown12]) > 0:
-                        df.at[match, 'age'] = int(dfn12['d'][rown12])
-    df.to_csv('data/deaths.csv', index=False)
-    df.to_excel('data/deaths.xlsx', index=False)
+    # ##  complete ynet with mako
+    # # df.reset_index(drop=True, inplace=True)
+    # already = np.zeros(len(dfn12))
+    # for rown12 in range(len(dfn12)):
+    #     match = []
+    #     for rowynet in range(len(df)):
+    #         if (dfn12['b'][rown12] in df['name'][rowynet]) and (dfn12['c'][rown12] in df['name'][rowynet]):
+    #             match.append(rowynet)
+    #     if len(match) > 1:
+    #         pass
+    #         # print(dfn12['b']+' '+dfn12['c']+' has more than one match '+str(match))
+    #     elif len(match) == 0:
+    #         pass
+    #         # print(dfn12['b']+' '+dfn12['c']+' has no match')
+    #     else:
+    #         match = match[0]
+    #         if already[rown12]:
+    #             print(f'ynet {match} conflicts with ynet {already[rown12]}')
+    #         else:
+    #             already[rown12] = match
+    #             if pd.isnull(df['first'][match]):
+    #                 df.at[match, 'first'] = dfn12['b'][rown12]
+    #                 midlast = dfn12['c'][rown12].split(' ')
+    #                 df.at[match, 'last'] = midlast[-1]
+    #                 if len(midlast) == 2:
+    #                     df.at[match, 'middle'] = midlast[0]
+    #                 elif len(midlast) > 2:
+    #                     df.at[match, 'middle'] = ' '.join(midlast[:-1])
+    #                 df.at[match, 'mako_story'] = dfn12['l'][rown12]
+    #                 df.at[match, 'status'] = dfn12['g'][rown12]
+    #                 df.at[match, 'rank'] = dfn12['a'][rown12]
+    #                 if pd.isnull(df['gender'][match]):
+    #                     df.at[match, 'gender'] = dfn12['e'][rown12].replace('גבר', 'M').replace('אישה', 'F')
+    #                 if df['age'][match] == 0 and len(dfn12['d'][rown12]) > 0:
+    #                     df.at[match, 'age'] = int(dfn12['d'][rown12])
+    # df.to_csv('data/deaths.csv', index=False)
+    # df.to_excel('data/deaths.xlsx', index=False)
 
 # https://ynet-pic1.yit.co.il/picserver5/wcm_upload_files/2023/11/12/S1sFis07p/ynetlist1211.xlsx
 # https://www.kavlaoved.org.il/%D7%A9%D7%9E%D7%95%D7%AA%D7%99%D7%94%D7%9D-%D7%A9%D7%9C-%D7%9E%D7%94%D7%92%D7%A8%D7%99-%D7%94%D7%A2%D7%91%D7%95%D7%93%D7%94-%D7%A9%D7%A0%D7%94%D7%A8%D7%92%D7%95-%D7%91%D7%9E%D7%9C%D7%97%D7%9E%D7%AA/
