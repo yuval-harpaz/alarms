@@ -21,7 +21,8 @@ min_deaths = {'בארי': 85, 'ניר עוז': 35, 'יכיני':4, 'נתיב ה�
 def map_deaths():
     df = pd.read_csv('data/deaths.csv')
     # coo = pd.read_csv('data/coord.csv')
-    locs = [x for x in df['from'] if type(x) == str]
+    locs = [x.replace('קיבוץ ','').replace('מושב ','').replace('קריית','קרית') for x in df['from'] if type(x) == str]
+    # locs = [x for x in df['from'].replace('קיבוץ', '').replace('מושב', '').strip() if type(x) == str]
     locu = np.unique(locs)
     for md in list(min_deaths.keys()):
         if md not in locu:
