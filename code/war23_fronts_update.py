@@ -60,7 +60,15 @@ try:
                 ff = 'עזה'
             if len(yy) > 0 or len(ff) > 0:
                 changed = True
-            front.loc[ii] = [idf['name'][ii], st, yy, ff]
+            gdud = ''
+            if 'גדוד' in st:
+                stsplit = st[st.index('גדוד'):].split(' ')[:3]
+                gdud = [x for x in stsplit if x.isdigit()]
+                if len(gdud) == 1:
+                    gdud = gdud[0]
+                else:
+                    gdud = ''
+            front.loc[ii] = [idf['name'][ii], st, yy, ff, gdud]
     front.to_csv('data/front.csv', index=False)
 except:
     print('failed front update')
