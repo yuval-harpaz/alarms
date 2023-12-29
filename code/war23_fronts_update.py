@@ -63,7 +63,7 @@ try:
             gdud = ''
             if 'גדוד' in st:
                 stsplit = st[st.index('גדוד'):].split(' ')[:3]
-                gdud = [x for x in stsplit if x.isdigit()]
+                gdud = [x.replace(',','') for x in stsplit if x.replace(',','').isdigit()]
                 if len(gdud) == 1:
                     gdud = gdud[0]
                 else:
