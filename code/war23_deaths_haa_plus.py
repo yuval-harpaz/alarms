@@ -1,70 +1,73 @@
 import pandas as pd
 import os
-import Levenshtein
+# import Levenshtein
 import numpy as np
+import re
 
 
 local = '/home/innereye/alarms/'
 if os.path.isdir(local):
     os.chdir(local)
     local = True
-
-
 haa = pd.read_csv('data/deaths_haaretz.csv').iloc[::-1]
 haa.reset_index(inplace=True, drop=True)
-ynet = pd.read_csv('data/ynetlist.csv')
-ynet['מקום מגורים'] = ynet['מקום מגורים'].str.replace('\xa0',' ')
+# ynet = pd.read_csv('data/ynetlist.csv')
+# ynet['מקום מגורים'] = ynet['מקום מגורים'].str.replace('\xa0',' ')
 idf = pd.read_csv('data/deaths_idf.csv')
 df = pd.read_csv('data/deaths_haaretz+.csv')
 ##
 new = haa.iloc[np.where(haa['name'].str.contains(df['name'][len(df)-1]))[0][0]+1:]
-new.reset_index(inplace=True, drop=True)
-mil = r'\([^)]*מיל[^)]*\)'
-for ii in range(len(new)):
-    if new['status'][ii] == 'שוטר':
-        rank = new['name'][ii].split(' ')[0]
-        name = ' '.join(new['name'][ii].split(' ')[1:])
-    elif new['status'][ii] == 'חייל':
-        nm = new['name'][ii]
-        if re.search(mil, nm):
-            rank = nm[:nm.index(')')+1]
-            name = nm[nm.index(')')+2:]
-        else:
-            rank = nm.split(' ')[0]
+if len(new) > 0:
+    print(f'{len(new)} new victims from haaretz')
+    new.reset_index(inplace=True, drop=True)
+    mil = r'\([^)]*מיל[^)]*\)'
+    for ii in range(len(new)):
+        if new['status'][ii] == 'שוטר':
+            rank = new['name'][ii].split(' ')[0]
             name = ' '.join(new['name'][ii].split(' ')[1:])
-    else:
-        name = new['name'][ii]
-        rank = np.nan
-    story = str(new['story'][ii])
-    if 'נפל ' in story or 'נרצח ' in story or 'נפטר ' in story:
-        gender = 'M'
-    elif 'נפלה ' in story or 'נרצחה ' in story or 'נפטרה ' in story:
-        gender = 'F'
-    else:
-        gender = ''
-    status = new['status'][ii]
-    idf_row = np.nan
-    death_date = ''
-    if status == 'חייל':
-        idf_row = np.where(idf['name'].str.contains(name))[0]
-        if len(idf_row) == 1:
-            idf_row = idf_row[0]
-            death_date = idf['death_date'][idf_row]
-    else:
-        if len(story) > 4 and story[-1:].isdigit():
-            dd = story.split(' ')[-1]
-            if '-' in dd:
-                dd = dd[dd.index('-')+1:].strip()
-            if dd.split('.')[0].isdigit() and dd.split('.')[1].isdigit():
-                death_date = '2023-'+dd.split('.')[1].zfill(2)+'-'+dd.split('.')[0].zfill(2)
-    story = story.replace('nan', '')
-    row = [name, rank, new['age'][ii], gender, new['from'][ii], status, story, idf_row, death_date]
-    df.loc[len(df)] = row
-
+        elif new['status'][ii] == 'חייל':
+            nm = new['name'][ii]
+            if re.search(mil, nm):
+                rank = nm[:nm.index(')')+1]
+                name = nm[nm.index(')')+2:]
+            else:
+                rank = nm.split(' ')[0]
+                name = ' '.join(new['name'][ii].split(' ')[1:])
+        else:
+            name = new['name'][ii]
+            rank = np.nan
+        story = str(new['story'][ii])
+        if 'נפל ' in story or 'נרצח ' in story or 'נפטר ' in story:
+            gender = 'M'
+        elif 'נפלה ' in story or 'נרצחה ' in story or 'נפטרה ' in story:
+            gender = 'F'
+        else:
+            gender = ''
+        status = new['status'][ii]
+        idf_row = np.nan
+        death_date = ''
+        if status == 'חייל':
+            idf_row = np.where(idf['name'].str.contains(name))[0]
+            if len(idf_row) == 1:
+                idf_row = idf_row[0]
+                death_date = idf['death_date'][idf_row]
+        else:
+            if len(story) > 4 and story[-1:].isdigit():
+                dd = story.split(' ')[-1]
+                if '-' in dd:
+                    dd = dd[dd.index('-')+1:].strip()
+                if dd.split('.')[0].isdigit() and dd.split('.')[1].isdigit():
+                    death_date = '2023-'+dd.split('.')[1].zfill(2)+'-'+dd.split('.')[0].zfill(2)
+        story = story.replace('nan', '')
+        row = [name, rank, new['age'][ii], gender, new['from'][ii], status, story, idf_row, death_date]
+        df.loc[len(df)] = row
+    df.to_csv('data/deaths_haaretz+.csv', index=False)
+else:
+    print('no new victims from haaretz')
 
 
 ##
-df.to_csv('data/deaths_haaretz+.csv', index=False)
+
 ##
 # darga = np.unique(idf['rank'])
 # darga = np.unique([x.split(' ')[0] for x in darga])
