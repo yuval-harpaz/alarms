@@ -37,7 +37,7 @@ if len(new) > 0:
             name = new['name'][ii]
             rank = np.nan
         story = str(new['story'][ii])
-        if 'נפל ' in story or 'נרצח ' in story or 'נפטר ' in story:
+        if 'נפל ' in story or 'נרצח ' in story or 'נפטר ' in story or 'נפצע ' in story or 'נהרג ' in story:
             gender = 'M'
         elif 'נפלה ' in story or 'נרצחה ' in story or 'נפטרה ' in story:
             gender = 'F'
@@ -59,8 +59,6 @@ if len(new) > 0:
                 if dd.split('.')[0].isdigit() and dd.split('.')[1].isdigit():
                     death_date = '2023-'+dd.split('.')[1].zfill(2)+'-'+dd.split('.')[0].zfill(2)
         story = story.replace('nan', '')
-        row = [name, rank, new['age'][ii], gender, new['from'][ii], status, story, idf_row+2, death_date]
-        df.loc[len(df)] = row
         # comment
         comment = ''
         if df['status'][ii] == 'חייל' and np.isnan(df['idf_row'][ii]):
@@ -92,45 +90,47 @@ if len(new) > 0:
             comment += 'נחטף; '
         if len(comment) > 0:
             comment = comment[:-2]
+        row = [name, rank, new['age'][ii], gender, new['from'][ii], status, story, idf_row + 2, death_date, comment]
+        df.loc[len(df)] = row
     df.to_csv('data/deaths_haaretz+.csv', index=False)
 else:
     print('no new victims from haaretz')
 
 
 ##
-df['comment'] = ''
-for ii in range(len(df)):
-    comment = ''
-    if df['status'][ii] == 'חייל' and np.isnan(df['idf_row'][ii]):
-        comment += 'לא חלל; '
-    elif df['status'][ii] != 'חייל' and ~np.isnan(df['idf_row'][ii]):
-        comment += 'חלל; '
-    konan = False
-    if ~np.isnan(df['idf_row'][ii]):
-        idf_name = idf['name'][df['idf_row'][ii] - 2]
-        if idf_name.split(' ')[0] not in df['name'][ii]:
-            print(f'{idf_name.split(" ")[0]} not in {df["name"][ii]}')
-        idf_story = idf['story'][df['idf_row'][ii] - 2]
-        if 'כוננות' in idf_story or 'רבש' in idf_story:
-            konan = True
-    else:
-        idf_story = ''
-    if not konan:
-        if 'כוננות' in df['story'][ii] or 'רבש' in df['story'][ii]:
-            konan = True
-    if konan:
-        comment += 'כיתת כוננות; '
-    if 'חטו' in df['story'][ii] or 'נחט' in df['story'][ii]:
-        kidnapped = True
-    elif 'חטו' in idf_story:
-        kidnapped = True
-    else:
-        kidnapped = False
-    if kidnapped:
-        comment += 'נחטף; '
-    if len(comment) > 0:
-        comment = comment[:-2]
-        df.at[ii, 'comment'] = comment
+# df['comment'] = ''
+# for ii in range(len(df)):
+#     comment = ''
+#     if df['status'][ii] == 'חייל' and np.isnan(df['idf_row'][ii]):
+#         comment += 'לא חלל; '
+#     elif df['status'][ii] != 'חייל' and ~np.isnan(df['idf_row'][ii]):
+#         comment += 'חלל; '
+#     konan = False
+#     if ~np.isnan(df['idf_row'][ii]):
+#         idf_name = idf['name'][df['idf_row'][ii] - 2]
+#         if idf_name.split(' ')[0] not in df['name'][ii]:
+#             print(f'{idf_name.split(" ")[0]} not in {df["name"][ii]}')
+#         idf_story = idf['story'][df['idf_row'][ii] - 2]
+#         if 'כוננות' in idf_story or 'רבש' in idf_story:
+#             konan = True
+#     else:
+#         idf_story = ''
+#     if not konan:
+#         if 'כוננות' in df['story'][ii] or 'רבש' in df['story'][ii]:
+#             konan = True
+#     if konan:
+#         comment += 'כיתת כוננות; '
+#     if 'חטו' in df['story'][ii] or 'נחט' in df['story'][ii]:
+#         kidnapped = True
+#     elif 'חטו' in idf_story:
+#         kidnapped = True
+#     else:
+#         kidnapped = False
+#     if kidnapped:
+#         comment += 'נחטף; '
+#     if len(comment) > 0:
+#         comment = comment[:-2]
+#         df.at[ii, 'comment'] = comment
 
 
 
