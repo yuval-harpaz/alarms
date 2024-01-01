@@ -41,6 +41,7 @@ jobs:
       run: |
         python -W ignore code/war23_idf_mem_all.py
         python -W ignore code/war23_fronts_update.py
+        python -W ignore code/war23_deaths_haa_plus.py
     - name: check news
       run: |
         git config --global user.name "actions"
