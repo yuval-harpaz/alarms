@@ -34,7 +34,7 @@ try:
         ynet = pd.read_csv('data/ynetlist.csv')
         yd = []
         for iy in range(len(ynet)):
-            yd.append('|'.join([ynet[ynet.columns[5]][iy] + ' ' + ynet[ynet.columns[6]][iy],
+            yd.append('|'.join([str(ynet[ynet.columns[5]][iy]).replace('nan','') + ' ' + str(ynet[ynet.columns[6]][iy]).replace('nan',''),
                            str(ynet['גיל'][iy]), str(ynet['מקום מגורים'][iy])]))
         otef = '|'.join(['זיקים', 'נתיב העשרה', 'כפר עזה', 'נחל עוז', 'שדרות', 'בארי', 'כיסופים', 'מפלסים'])
         for ii in range(to_fill, len(idf)):
