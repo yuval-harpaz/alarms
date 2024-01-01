@@ -65,29 +65,15 @@ try:
                         date = date.split(' ')
                         month = [x for x in range(12) if date[1][1:] in month_heb[x]][0]+1
                         date[1] = str(month).zfill(2)
-                        # iyear = segs[iseg].index('2023)')
-                        # date = segs[iseg][iyear - 6:iyear + 4]
-                        # date = segs[iseg][iyear
                         date = '-'.join(date[::-1])
                     else:
                         date=''
-                    # seg = segs[iseg][:iyear+5]
                     rank = seg[seg.index("small")+7:]
                     rank = rank[:rank.index('<')]
                     name = seg.split('\n')[2].strip()
                     print(name)
-                    # if name in dfprev['name'].values:
-                    #     already += 1
-                    #     print('already ' + name)
-                    #     if already == 2:
-                    #         goon = False
                     unit = seg.split('\n')[6].strip()
                     urlp = 'https://www.idf.il' + personal
-                    # urlp = 'https://www.idf.il/נופלים/חללי-המלחמה/'+'-'.join(name.split(' '))
-                    # for rep in ["'"]:
-                    #     urlp = urlp.replace(rep, '-')
-                    # for rep in ["(", ")"]:
-                    #     urlp = urlp.replace(rep, '')
                     browser.get(urlp)
                     htmlp = browser.page_source
                     htmlp = htmlp[htmlp.index("small"):]
@@ -148,15 +134,6 @@ try:
                         if ',' in age:
                             age = age[:age.index(',')]
                         story = ','.join([x for x in htmlp.split(',')[3:] if x[:4] != ' בן '])
-                        # if 'נפטר' in htmlp:
-                        #     fro = htmlp.split(',')[1][2:]
-                        #     ifro = htmlp.index(fro)
-                        #     story = htmlp[ifro + len(fro) + 2:] + raised
-                            # story = story[:story.index('\n')]
-                        # else:
-                        #     msg = 'failed for ' + urlp.split('/')[-2]
-                        #     print(msg)
-                        #     os.system(f'echo "war23_idf_mem_all.py: {msg}" >> code/errors.log')
                     if only_new and ('|'.join([name, str(age), str(fro)]) in id or name in id[-1]):
                         goon = False
                     else:
