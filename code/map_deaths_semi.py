@@ -208,7 +208,7 @@ with open(fname) as f:
     txt = f.read()
 
 txt = txt.replace('<div>', '<div dir="rtl">')
-txt.replace('http://jieter.github.io', 'https://jieter.github.io')
+txt = txt.replace('http://jieter.github.io', 'https://jieter.github.io')
 txt = txt.replace('בבירור', 'לא פורסם מיקום')
 txt = txt.replace('אזרחים', 'אזרחים וכיתות כוננות')
 with open(fname, 'w') as f:
