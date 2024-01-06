@@ -105,7 +105,7 @@ class SemiCircleColor(Marker):
                                             'if it is not in a Figure.')
 
         figure.header.add_child(
-            JavascriptLink('http://jieter.github.io/Leaflet-semicircle/Semicircle.js'),
+            JavascriptLink('https://jieter.github.io/Leaflet-semicircle/Semicircle.js'),
 name='semicirclejs')
 
 
@@ -139,8 +139,18 @@ title_html = f'''
 #              '''
 map.get_root().html.add_child(folium.Element(title_html))
 issoldier = names['citizenGroup'] == 'צה"ל'
+rescue = ['כבאות והצלה', 'מגן דוד אדום', "משטרה (מיל')"]
+ispolice = names['citizenGroup'] == 'משטרה'
+iscivil = ~(ispolice | issoldier)
+isrockets = names['servicePosition'] == "ירי רקטי"
+for r in rescue:
+    ispolice = ispolice | (names['citizenGroup'] == r)
+cat = [iscivil, issoldier, ispolice, isrockets]
+for icat in range(3):
+    cat[icat][isrockets] = False
 row_len = 7
 font_size = 2
+colors = ["#ff0000", "#808000", '#2255ff', '#800080']
 for iloc in range(len(coo)):
     lat = float(coo['lat'][iloc])
     long = float(coo['long'][iloc])
@@ -151,23 +161,21 @@ for iloc in range(len(coo)):
     #     raise Exception('wrong N for ' + loc)
     isloc = names['location'] == loc
     s = np.sum(isloc & issoldier)
-    c = nall - s
-    ns = [c, s]
+    p = np.sum(isloc & ispolice)
+    r = np.sum(isloc & isrockets)
+    c = nall - s - p - r
+    ns = [c, s, p, r]
     radius = (nall / np.pi) ** 0.5
-    start = [0, int(np.round(360*c/nall))]
-    end = [start[1], 360]
-    if s == 0 or c == 0:
+    start = [0, int(np.round(360*c/nall)), int(np.round(360*(c+s)/nall)), int(np.round(360*(c+s+p)/nall))]
+    end = [start[1], start[2], start[3], 360]
+    if np.sum(np.array(ns) > 0) == 1:
         onlyone = True
     else:
         onlyone = False
-    for icat in [0, 1]:
+    for icat in range(4):
+        color = colors[icat]
+        iscat = cat[icat]
         if ns[icat] > 0:
-            if icat == 0:
-                iscat = ~issoldier
-                color = "#ff0000"
-            else:
-                iscat = issoldier
-                color = "#808000"
             name_list = np.sort(names['fullName'][isloc & iscat])
             name_string = ''
             count = 0
@@ -185,7 +193,7 @@ for iloc in range(len(coo)):
                 fs = 1
             else:
                 fs = font_size
-            tip = f'<font size="{fs}">{loc}:  {ns[icat]} {["אזרחים","חיילים"][icat]}<br>{name_string}'
+            tip = f'<font size="{fs}">{loc}:  {ns[icat]} {["אזרחים","חיילים","שוטרים וכוחות הצלה","ירי רקטי"][icat]}<br>{name_string}'
             if onlyone:
                 folium.Circle(location=[lat, long],
                                     tooltip=tip,
@@ -214,7 +222,7 @@ with open(fname) as f:
     txt = f.read()
 
 txt = txt.replace('<div>', '<div dir="rtl">')
-txt = txt.replace('http://jieter.github.io', 'https://jieter.github.io')
+# txt = txt.replace('http://jieter.github.io', 'https://jieter.github.io')
 txt = txt.replace('בבירור', 'לא פורסם מיקום')
 txt = txt.replace('אזרחים', 'אזרחים וכיתות כוננות')
 with open(fname, 'w') as f:
