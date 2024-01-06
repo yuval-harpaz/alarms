@@ -129,9 +129,13 @@ now = np.datetime64('now', 'ns')
 nowisr = pd.to_datetime(now, utc=True, unit='s').astimezone(tz='Israel')
 nowstr = str(nowisr)[:16].replace('T', ' ')
 title_html = f'''
-             <h3 align="center" style="font-size:16px"><b>Deaths between 7-Oct-23 and 9-Oct-23. data from <a href="https://oct7names.co.il/" target="_blank">ואלה שמות</a> and other sources
-             . last update: {nowstr}</b></h3>
+             <h3 dir="rtl" align="center" style="font-size:16px"><b>נרצחים ונופלים במתקפת חמאס על ישראל בין 7-9.10.2023. עדכון אחרון: {nowstr}</b></h3>
              '''
+
+# title_html = f'''
+#              <h3 align="center" style="font-size:16px"><b>Deaths between 7-Oct-23 and 9-Oct-23. data from <a href="https://oct7names.co.il/" target="_blank">ואלה שמות</a> and other sources
+#              . last update: {nowstr}</b></h3>
+#              '''
 map.get_root().html.add_child(folium.Element(title_html))
 issoldier = names['citizenGroup'] == 'צה"ל'
 row_len = 7
