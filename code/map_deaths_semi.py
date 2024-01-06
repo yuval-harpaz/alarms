@@ -130,6 +130,7 @@ nowisr = pd.to_datetime(now, utc=True, unit='s').astimezone(tz='Israel')
 nowstr = str(nowisr)[:16].replace('T', ' ')
 title_html = f'''
              <h3 dir="rtl" align="center" style="font-size:16px"><b>נרצחים ונופלים במתקפת חמאס על ישראל בין 7-9.10.2023. עדכון אחרון: {nowstr}</b></h3>
+             <h4 dir="rtl" align="center" style="font-size:12px">הנתונים מ <a href="https://oct7names.co.il/" target="_blank">ואלה שמות</a> ומקורות נוספים</h4>             
              '''
 
 # title_html = f'''
