@@ -207,6 +207,6 @@ with open(fname) as f:
     txt = f.read()
 
 txt = txt.replace('<div>', '<div dir="rtl">')
-
+txt.replace('http://jieter.github.io', 'https://jieter.github.io')
 with open(fname, 'w') as f:
     f.write(txt)
