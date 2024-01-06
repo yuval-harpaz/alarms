@@ -117,7 +117,7 @@ if os.path.isdir(local):
     islocal = True
     sys.path.append(local + 'code')
 
-coo = pd.read_excel('data/deaths_by_loc.xlsx', 'data')
+coo = pd.read_excel('data/deaths_by_loc.xlsx', 'coo')
 names = pd.read_excel('data/deaths_by_loc.xlsx', 'names_by_id')
 names['location'] = names['location'].str.replace('?', 'בבירור')
 # coo = pd.read_csv('data/deaths_by_loc.csv')
@@ -140,15 +140,15 @@ for iloc in range(len(coo)):
     lat = float(coo['lat'][iloc])
     long = float(coo['long'][iloc])
     loc = coo["name"][iloc]
-    n = coo["deaths"][iloc]
+    # n = coo["deaths"][iloc]
     nall = np.sum(names['location'] == loc)
-    if nall != n:
-        raise Exception('wrong N for ' + loc)
+    # if nall != n:
+    #     raise Exception('wrong N for ' + loc)
     isloc = names['location'] == loc
     s = np.sum(isloc & issoldier)
     c = nall - s
     ns = [c, s]
-    radius = (coo["deaths"][iloc] / np.pi) ** 0.5
+    radius = (nall / np.pi) ** 0.5
     start = [0, int(np.round(360*c/nall))]
     end = [start[1], 360]
     if s == 0 or c == 0:
@@ -172,7 +172,8 @@ for iloc in range(len(coo)):
                 if count == row_len:
                     count = 0
                     name_string = name_string[:-2]+'<br>'
-
+            if name_string[-1] == ',':
+                name_string = name_string[:-1]
             # name_string = '; '.join(names['fullName'][isloc & iscat])
             if ns[icat] > 300:
                 fs = 1
@@ -208,5 +209,7 @@ with open(fname) as f:
 
 txt = txt.replace('<div>', '<div dir="rtl">')
 txt.replace('http://jieter.github.io', 'https://jieter.github.io')
+txt = txt.replace('בבירור', 'לא פורסם מיקום')
+txt = txt.replace('אזרחים', 'אזרחים וכיתות כוננות')
 with open(fname, 'w') as f:
     f.write(txt)
