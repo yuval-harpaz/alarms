@@ -1,0 +1,2222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_1ef14d2f4cc440bd57f0d0a6688572ab {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    <script src="http://jieter.github.io/Leaflet-semicircle/Semicircle.js"></script>
+</head>
+<body>
+    
+    
+             <h3 align="center" style="font-size:16px"><b>Deaths between 7-Oct-23 and 9-Oct-23. data from <a href="https://oct7names.co.il/" target="_blank">ואלה שמות</a> and other sources
+             . last update: 2024-01-06 03:06</b></h3>
+             
+    
+            <div class="folium-map" id="map_1ef14d2f4cc440bd57f0d0a6688572ab" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_1ef14d2f4cc440bd57f0d0a6688572ab = L.map(
+                "map_1ef14d2f4cc440bd57f0d0a6688572ab",
+                {
+                    center: [31.40687629972125, 34.49375514180303],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 10,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_09d142730036df6b5520a80e9953de2c = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            var tile_layer_88534f71c6ce0d4b32fe5a4939891fce = L.tileLayer(
+                "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca target=\"_blank\" href=\"http://cartodb.com/attributions\"\u003eCartoDB\u003c/a\u003e, CartoDB \u003ca target=\"_blank\" href =\"http://cartodb.com/attributions\"\u003eattributions\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+                if (0 || 0) {
+                    var semi_circle_3a60f39a8fbc446e7d62762bbfc4992b = L.semiCircle(
+                        [31.4014870534664,34.4724927048611],
+                        {radius:3268.8932193006635,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (0 || 346) {
+                    var semi_circle_3a60f39a8fbc446e7d62762bbfc4992b = L.semiCircle(
+                        [31.4014870534664,34.4724927048611],
+                        {radius:3268.8932193006635,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:346
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_3a60f39a8fbc446e7d62762bbfc4992b.bindTooltip(
+                `<div dir="rtl">
+                     <font size="1">פסטיבל נובה:  359 אזרחים<br>אבאסוב שמיל, אבדלאייב עדן, אבו עסא אוסאמה, אבוחצירה אוראל, אביב נוי, אביטן דור, אביר לוטן<br>אבני גיל יוסף, אברג'יל עודד, אברהם אילן, אברמוב לאור, אדברג אסף מרדכי, אדם מפל, אדר גילי<br>אדרי עידו, אוחיון עדן ליז, אוחנה דניאל, אורי בן, אורן אביאל, אזולאי גמליאל גבי גבריאל, אזולאי יוחאי<br>אזולאי יונתן חי, אחונדוב אמין, אחרק עמרי, אטון אופק, אטיאס דורין, איטח ליאל, איטח סיגל<br>איילון שירה, אילוז אליה אליהו, אילייב אדם, אילרמנדי סיזר איוון, אליהו אביב, אליהו יהונתן, אלמלם מתן (קידו)<br>אלפסי שלמה אליהו, אלפראחין ח'אלד, אלקיים לוי עינב, אלשיך שלמה (שלומי) אליהו, אמין שני, אנגלנדר נועה, אסולין ליאור<br>אסולין לירז, אסייג ליאב, אפרים ירין משה, אפרים נעם ליאל, אקשטיין מתן, ארד אורי, ארד נבו<br>אריאל דן, ארנין איילת, אשואן סהר, בהט דרור, בובטס בן איון אורטל, בולדס דורון, בונגרט סופיה<br>בוסקילה ירדן, בועזיז מורלי נטע, בוקובזה רז, בור גלאון ליעם, בורשטיין מטיאס (הרנן), בורשטיין עינב (חן), ביטון בניהו<br>ביטון מאיה, ביטון מרדכי בן אריאל, ביילין אורון, ביילין בן צבי שגיב, ביכר נעומי, בילמס ספיר, בכר יהודה<br>בן אבי חן, בן אבידה עמית (יהודה), בן דוד נגר סלין רחל, בן זינו עידו, בן זכריה יוחאי, בן חמו אור חיים, בן חמו דן<br>בן נעים שחר, בן סניור דניאל, בן עמי שני, בן רובי עדן, בנג'ו איתי, בר דין נהוראי, בראון יובל<br>בראל גבריאל ישי, ברגמן אלדד (אנג'ל), ברד אלון, ברדה לירון, ברזני סתיו, ברטיק (קליין) טל, ברטל נדב<br>ברנט אליהו רומי, ברנשטיין אליהו יעקב, ברנשטיין בן, ברסלבסקי דניאל (דני), ברעם עילי, ג'ורג'י שיר חנה, ג'רפי ליאל<br>גבאי שני, גוטמן תמר, גולדנברג ניצן, גולדנברג תמר, גולטמן דניאל, גוסק מרגריטה, גורביץ' (וסילקובסקי) ליליה<br>גורדני שרון, גוריונוב אנטון, גורלוב ויקטוריה, גז עדן, גטה סתיו, גילר ירוסלב (סלבה), גינדי שחר<br>גל שלו, גנדלין איזבלה, גנוט אביה, גנון שירן, גניס יוסף (ספי), גרציאני מאור, גרקוביץ' דפנה<br>דב רחל (רייצ'ל), דדון אבי, דהן יצחק איציק, דוד הודיה, דוד עמית יצחק, דוד תאיר, דוידוב קרינה אלה<br>דוידי ברק, דויטשוילי שון, דוקרקר קים, דור עידן, דייטשמן רונן, דמרי דן סאסי, דמתי קים<br>דנגורי גל, דפני לין, דראושה עווד, הירש (אוזן) שרון, הלוי אביעד, הרמן עידן, הרמתי עידן<br>ואקנין פרמוטר לימור, ודעי דניאל מאיר, והדי משה, וולדמן דניאל, ווקסר יוליה, ויגדרגאוז (דובז'נקו) סיימון, ויינברג רון<br>ולאנו פונטס ברונה, וקנין אושר, וקנין מיכאל, ורבר אלון, ורדי לורי, ורניקוב קרין, ז'ורנו קארין<br>זגדון רינת הודיה, זוארמן מוטי (מרדכי), זוהר בר, זיו אור, זיידמן יונתן (ג'וני), זנדר נועה, זנטי מתן<br>זפרני איתי, חבני שקד, חג'בי זיו, חדד אטיאס ליאור, חושן הדר, חיאל גידי, חיאל נועה<br>חיים מאיה, חליפה גאיה, חמוי אלה, חנום חזי (יחזקאל), חסיד בן בנציון, חפץ אריה אריק, טבגן גולדמן קטרינה (קטיה)<br>טוויג יפתח דן, טויטו עדיאל, טיברג אברהם גלעד, טמם אדיר, טקאץ' ליאור, טרבלסי מור, טשרניחובסקי אורי<br>יהודאי רון, יואב מיכאל, יעקב אילן משה, יעקב שהם, יעקב שובל, יעקב שנהב, יעקובוב סאן אמנון<br>יפרח אליאור, יצחקי מאי, ישמרני (טמם) שירז שירן, כהן בן בנימין, כהן דניאל, כהן מגורי ליבי, כהן מור<br>כהן עמית חיים, כפיר גלעד, כץ טל, לא. כביש 234, בין אורים לקיבוץ רעים, לביא עומרי יעקב, להב עמית, לוי גיא גבריאל<br>לוי יצחק, לוי ליבנת, לוי לידור יוסף, לוי נאור, לוי ניסים (מעיין), לוי סיגל, לוי עמית<br>לוי רותם רחל, לוין אליסיה, לוק אלכסנדר (אלכס), לוק שני ניקול, ליאור מתן מרדכי, ליבוביץ' שרון, ליטמן אוריה ריקרדו<br>ליסמן אניטה, ליסצ'וב דוד, ליפובסקי אילן, למאי דידנקו יוליה, לפידות תפארת, מגנזי עמית, מדמון ניר<br>מדמוני שליו, מדר שחק יוסף, מועלם נעמה, מוצפי שי שלום אליאור, מזרחי אלירן, מזרחי בן מנשה, מזרחי רז<br>מייזל עדי רבקה, מימון ליאור, מליחי אמיתי, מלכה דור, מנצור שחר, מנצורי נורל, מנצורי רויה<br>מסיאס מונטנו אנטוניו יניב, מסיקה אדיר, מקרצ'נקו סטיבן, מרגלית עדי, מרלו ג'ייק, מרקוביצ'י אהרון ארתור, משה עדן דוד<br>נאמן דוד יאיר שלום, נבון גל, נזרוב אילקין, נחום דור, נחמן עילי, נידג'לסקי גלזר חנני, ניימן רותם<br>ניסימבוים (כרמלי) ג'ני, ניסן לירז, נעים מאי, נפתלי עדן, נקמולי בר ליאור (ברלי), סאסי אבי, סבידיה שלומי<br>סוויסה מוריה אור, סולומון הילי, סטלזר מנדס קרלה, סטרוסטה תומר, סלומון יעקב, סלע רם, סמואלוב אלעזר<br>סמוילוב אלכסנדר, סמט תמר, סעידי צור, סעידיאן משה (מושיקו), סרודי יניב, עבדוש גל, עבדוש נאג'י<br>עדרי עידן, עודי עופר, עזר גיא, עזרא עוז משה, עטון ליאור, עמר חנן (חנניה), עמר מרסדס אוריה<br>פאר יועד, פודר מאיה, פולבנוב רוני, פוסטל יבגני, פורטי ניר, פושיבאי אנדריי, פטרובסקי רוני<br>פטרנקו דניאלה (דנה), פישמן בן, פלחטי אלינה, פסו אוראל, פרג' נועה, פריטיקה קארינה, פרינץ הדר<br>פרנקל זיו, פרץ אריק (אריה), פרץ עידו, פרץ רות הודיה, צפיר דדו, צפתי חי חיים, צרפתי אופיר<br>קונדרוב אירית, קופרווסר שני, קיז'נר שגב ישראל, קיילין הילה, קינן לינור, קליכמן מעין, קמחי אופק<br>קן דרור יהונתן (מאיר), קנפו שי אל, קסרוטי כלפה קשת, קרים מליק, קרסיק ויטלי, רביב מוריה, רביע אופק<br>רגב שי, רואימי מיכל, רוביו ורגס איבון עדן פטריסיה, רוזמן יעל, רום יהונתן, רומשקין אולגה נעמי, רחום ניצן<br>רחמים אביאל שלום, רחמים דביר, רחמני שרון, ריבלין גדעון הראל, ריכטר יונתן (שפיק), רם עמרי, רפאי (רפאל) אלי<br>רפאי שרון, שאמץ איליה, שגב שושן, שגב תומר, שהרבני סיון, שובה משה, שופן זיו<br>שטרית רוני, שי נעם, שיינקרמן דניאל, שינדל מארק, שכטר בר, שלו שי, שלום נעם<br>שלום רם, שלזינגר אסף, שם טוב ענבר, שמוניס הראל שרונה, שמעוני בנימין (בן), שמר רון, שניר איתן רפאל<br>שפירא זיו פפה, שפר רן, שרם ליאם, תאר דוד, תומר בר, תורג'מן אבידן, תורג'מן דוד (דודי)<br>תורג'מן שוהם ליה, תל צור ניב, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_0dabe7c7d89f1f93c77732387facfa8e = L.semiCircle(
+                        [31.4014870534664,34.4724927048611],
+                        {radius:3268.8932193006635,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (346 || 360) {
+                    var semi_circle_0dabe7c7d89f1f93c77732387facfa8e = L.semiCircle(
+                        [31.4014870534664,34.4724927048611],
+                        {radius:3268.8932193006635,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:346, 
+                        stopAngle:360
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_0dabe7c7d89f1f93c77732387facfa8e.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">פסטיבל נובה:  14 חיילים<br>ארביב אופק, באוסי איתי יהודה, ביטון נדב, בן פורת אליסף, בר שהם, ויינשטיין ליאל, טסטה אופיר<br>כהן אברהם נריה, צרפתי רון, קסבצ'וק דניאל, רוטנברג נועם אלימלך, ריבלין אביעד שר שלום, שוורצמן קארין, שפירא ענר אליקים<br>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_aa1197dc6944bbe4c9cb86e32d0ccf5f = L.semiCircle(
+                        [31.424513,34.492567],
+                        {radius:1892.34939151512,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (0 || 317) {
+                    var semi_circle_aa1197dc6944bbe4c9cb86e32d0ccf5f = L.semiCircle(
+                        [31.424513,34.492567],
+                        {radius:1892.34939151512,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:317
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_aa1197dc6944bbe4c9cb86e32d0ccf5f.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">בארי:  110 אזרחים<br>Cabrera Gracie, Castelvi Paul Vincent, Jayathilaka Anula, Sae Yang Sumchai, Yatawara Bandara Susujith, אבו עאמר אל רזאם סוהייב, אבן אלון<br>אבן חן, אבן עידו, אבן רינת, אבני חגי, אברג'יל אלירן, אוחיון סילביה, אור יונת<br>אפטלון יוסי (זיגי), בויום גיל, בויום ענבר, בירה אורון, בירה טל, בירה יסמין, בירה תאיר<br>בירה תהל, בכר גאולה, בכר דנה, בכר כרמל, בכר מזל (מזי), בליך ודים, בלקין עמרי<br>בן עמי חוה, בר יובל, בר מעיין, בר סיני יורם, גודארד (פרג) איילת, גודארד מני, גלסקי יבגני<br>גנות דן, גת כנרת, דגן עדי, דוידוב ג'י-אר, דנילוב בוריס, הנד נרקיס, הקר זאב<br>הקר זהבה, הרן אבשלום (אבשל), הרשקוביץ מעיינה, הרשקוביץ נח, וייס אילן, וייס מתי, וייס עמיר<br>וייס שמואל (שמוליק), זוהר חיים, זלמנוביץ' הלל, חדד איתן, חצרוני איילה, חצרוני הלר ליאל, חרמש עומר<br>טרנשצ'נסקי ליאור, יהושע איתי, יצחקי יהודית, כהן אוהד, כהן יונה, כהן מילה, כהן פסיה (פסי)<br>כרסנטי שוש (שושנה), לוי לודמיר דניאל, לוי רוני, לוסב איגור, לוסב מרינה, מאיר דוד חיים, מולוגטה גדיף<br>מור אבי, מורדו רפאל (רפי), מייזנר קרבונה גלית, מילס אלברט (אבלום), מן עמית, מנגדי דור, נגרי רועי<br>נווה מרדכי, נטע אדריאן, נעים אמיר, סבירסקי רפי, סוכמן תמי, סיטון חנה, סיטון טל<br>סיטון יצחק, סילבר ויויאן, סלע סבירסקי אורית, עמר אבי, פישביין זערור תכלת, פרייליך קפלון מרסל, פריקר יונה<br>צמח שחר, קוזין יצחק, קידר סמי, קיפניס אביתר (תרי), קיפניס לילך, קלדרון רותם, קלמנזון אלחנן מאיר<br>קפלון דרור, קראוניק אריה (אריק), קרול דוד, קריצמן חנה, רזילוב יחזקאל (חזי), רידר דור, רפופורט יונתן<br>שוש נוי, שלום אלון אוראל, שרעבי יהל, שרעבי ליאן, שרעבי נויה, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_34953f6122faf85fcfb3b8e851038c2e = L.semiCircle(
+                        [31.424513,34.492567],
+                        {radius:1892.34939151512,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (317 || 360) {
+                    var semi_circle_34953f6122faf85fcfb3b8e851038c2e = L.semiCircle(
+                        [31.424513,34.492567],
+                        {radius:1892.34939151512,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:317, 
+                        stopAngle:360
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_34953f6122faf85fcfb3b8e851038c2e.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">בארי:  15 חיילים<br>אוחנה אריאל, אליהו אריאל, ביבי אוריאל, בן דוד נריה, ברוך עידן, גוטין יונתן, גולן שגיא<br>גינסברג אלי, גנסיה ולנטין (אלי), טרקינסקי בנימין (בנג׳י), כהן אהד (בודי), כהן שילה, לקס נווה אלעזר, סקורי אמיר<br>רוסו אופק, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_8fab99bbf291354bac03ba1f757e8f21 = L.semiCircle(
+                        [31.483416,34.532291],
+                        {radius:1465.8075357087596,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (0 || 278) {
+                    var semi_circle_8fab99bbf291354bac03ba1f757e8f21 = L.semiCircle(
+                        [31.483416,34.532291],
+                        {radius:1465.8075357087596,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:278
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_8fab99bbf291354bac03ba1f757e8f21.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">כפר עזה:  58 אזרחים<br>Aguirre Angelyn, אביאני שחר, אדמוני מיכל, אדרי אביעד אברהם, אורגד גולדנברג אליהו (אלי), אילון טל, איתמרי לילי<br>איתמרי רם, אלקבץ סיון, אמיר מודי (מרדכי), אפשטיין בלהה, אפשטיין נטע, בויום יובל, בן דוד (ג'יבלי) מאיה<br>ברגשטיין שחף, ברדיצ'בסקי (רוזנפלד) הדר, ברדיצ'בסקי איתי, ברעם אביב, גולדשטיין אלמוג נדב, גורן ארן, גורן טובה<br>דגני נעמי, הנדי אברהם חננאל, וינר יהב, ורטהיים (בר אילן) דורית, ורטהיים אביב, זיו איתן, זיני ניראל<br>חסידים נאור, חצרוני אביה, חצרוני הלר ינאי, ליבשטיין אופיר, ליבשטיין ניצן, מור עידן סמדר, מיכאלי עמרי<br>סלומון יובל, עידן רועי, עמיקם נדב, פלג זיו (נאור) תמי, פלד גילה, פלד דניאל, פלד יזהר<br>פלש יגאל, פלש סינתיה תמר (סינדי), פרץ מארק (מרדכי), צדיקביץ' עומר, קוץ אביב, קוץ יונתן, קוץ יפתח<br>קוץ לבנת, קציר (קצ'קו) דוד, רביב ניב, רונן נירה, רוסו אורי שמעון, רייכנשטיין אליהו (אליקו), שוורצמן דוד אלברטו<br>שוורצמן פינקו אורלי, שטהל מירה, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_3a4a9b2b0de8da2fd1d9c7acf3bedd03 = L.semiCircle(
+                        [31.483416,34.532291],
+                        {radius:1465.8075357087596,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (278 || 360) {
+                    var semi_circle_3a4a9b2b0de8da2fd1d9c7acf3bedd03 = L.semiCircle(
+                        [31.483416,34.532291],
+                        {radius:1465.8075357087596,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:278, 
+                        stopAngle:360
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_3a4a9b2b0de8da2fd1d9c7acf3bedd03.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">כפר עזה:  17 חיילים<br>אדמוני גיא, ברונשטיין בן, גדליה יוסף מלאכי, גולדשטיין אלמוג ים, דושי רותם, ונינו עמיחי יעקב, זיסר עילי<br>כהן טל, לב בנימין, נהרי רועי, עדני איליי, פישר אמיר, צור אמיר, קוץ רותם<br>קמה הדר, רן אור יוסף, שושני אופיר, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_e29495f7fbb815f8776ba1cd15961fcc = L.semiCircle(
+                        [31.522694,34.595581],
+                        {radius:1243.778938096808,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (0 || 340) {
+                    var semi_circle_e29495f7fbb815f8776ba1cd15961fcc = L.semiCircle(
+                        [31.522694,34.595581],
+                        {radius:1243.778938096808,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:340
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_e29495f7fbb815f8776ba1cd15961fcc.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">שדרות:  51 אזרחים<br>Brema (Boma) Adam Mohammad, Cao Yongkai, Wan Zhishun, Zou Deli, אבדלימוב סמיון, אבו סבילה עאמר, אברג'יל מאיר<br>אברמוב מיכאל, איליאגוייב סלומון, אלגרגאוי סאמי, אשרף חיים, ביילין זינאידה (זינה), בלנקי דניס, בן דיין דוד<br>גבאי מור, גולימה סמצאו שמואל, גילר ליליה, דיין ירון מוריס, הרוש אליהו מיכאל, ויצמן ליאור, זרבאילוב מיכל מראל<br>טולדנו עמרם אלון, טומייב נטליה, טנבורה אמיר, לוזובסקי לאוניד, מאירי זוהר, מגירא אבי, מורזאחנוב מיכאל<br>מורטוב יעקב, מלכה מאיר, מרציאנו אריק יהודה, נאמן איתן מנחם, נווה נתיב מעיין, נחמיאס חן, סוויסה אודיה<br>סוויסה דולב, סורוקין דמיטרי, ספרבצ'יקוב נדז'דה, פופוב ולדימיר, פופוב סופיה, פורמן לודמילה (לודה), פרידמן ולרי<br>צבאן שלום, קאדר יהודה, קוזמיצקס מרטין, קורצר איגור, שלמה אדיר, שמיאייב לוי ברטה בטסיין, שמקלוב אלכסיי<br>שניטמן טטיאנה, שקורי מור, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_01ee927e718f61359bb568c73bc1eb97 = L.semiCircle(
+                        [31.522694,34.595581],
+                        {radius:1243.778938096808,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (340 || 360) {
+                    var semi_circle_01ee927e718f61359bb568c73bc1eb97 = L.semiCircle(
+                        [31.522694,34.595581],
+                        {radius:1243.778938096808,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:340, 
+                        stopAngle:360
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_01ee927e718f61359bb568c73bc1eb97.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">שדרות:  3 חיילים<br>ברוכים יוסף איתמר, גרושקה טל, רובינשטיין בן, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_55b77f0b463a4c69949f8f2492eea3d9 = L.semiCircle(
+                        [31.4792874887897,34.5015939038425],
+                        {radius:1184.7981254502881,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (0 || 7) {
+                    var semi_circle_55b77f0b463a4c69949f8f2492eea3d9 = L.semiCircle(
+                        [31.4792874887897,34.5015939038425],
+                        {radius:1184.7981254502881,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:7
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_55b77f0b463a4c69949f8f2492eea3d9.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">מוצב נחל עוז:  1 אזרחים<br>קרסנינסקי יעקב (יענקי) שלמה, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_13cb9f28a84eaf0dff0e802db73adac1 = L.semiCircle(
+                        [31.4792874887897,34.5015939038425],
+                        {radius:1184.7981254502881,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (7 || 360) {
+                    var semi_circle_13cb9f28a84eaf0dff0e802db73adac1 = L.semiCircle(
+                        [31.4792874887897,34.5015939038425],
+                        {radius:1184.7981254502881,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:7, 
+                        stopAngle:360
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_13cb9f28a84eaf0dff0e802db73adac1.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">מוצב נחל עוז:  48 חיילים<br>אביטל אור, אברמוביץ' נועם, איל אמיר, אילת שיר, אמויאל דולב, אמיתי נהוראי לוי, אסראף סיון שמחה<br>אשל רוני, אשרם שי, בוגלה אדיר אישטו, ביטון שיר, בן דוד ברק, בן יעקב יעד, בן שטרית שמעון אלרואי<br>בר עם נטע, גולן יונתן, גלס ים, גרומן עדי, דוכן יוחאי, הר אבן שילה, ויאלובו פולו מיה<br>זכאי דביר, חג'ג' אביב, חיים פור שיראל, יוגב בועז מנשה, יעבץ יפתח, כהן הדר מרים, כרמי אורי<br>לוגסי שמעון יוחאי, לזימי דור, ליבוביץ' תומר, לייבושור יעל, לנדמן עדי, מור שיראל, מידאני סהר<br>נידם שוהם שלמה, נימרי עדן, ניסני שחף, סיבוני נאור, עזיזוב ליאור, עמר שירת ים, פיטוסי ישי<br>פלד ירין מארי, פרייס נועה, רון איתי אברהם, רתנר דוד, שוחט שירה, שפרבר דניאל, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_0de2b438880bfd39cd90ca152592330b = L.semiCircle(
+                        [31.311337,34.622824],
+                        {radius:1029.5493776366548,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (0 || 331) {
+                    var semi_circle_0de2b438880bfd39cd90ca152592330b = L.semiCircle(
+                        [31.311337,34.622824],
+                        {radius:1029.5493776366548,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:331
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_0de2b438880bfd39cd90ca152592330b.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">אופקים:  34 אזרחים<br>אבוהרון רוני, אוחיון אליעד, אוחיון משה, אוסטרובסקי מיכאל, אילוז יגאל, אלטלאקת פאטמה, בוזגלו אבי<br>ביליה אריאל (אריק), בלטי יצחק (איציק), בן פורת משה, ג'מבקוב אנדריי, ג'מבקוב זויה, גורי אריאל רפאל, גרידסקול ויקטוריה<br>גרידסקול סרגיי, ויזמן ראובן, זארוק חטיב, זקוטו אבי, חטואל אברהם (אבי), חייט שמעון, חיימוב אהרון<br>יאחנגילוב יפתח, יאחנגילוב מריה, ידגרוב יורי, ידגרוב רוזה, לוגסי ניסים, ליזמי מיכאל, מלקמו עדנה<br>משייב אנה, פוליאקוב אמה, צ'אנה ישראל, צידון אבי, קוסטיצין יליזבטה (ליליה), רחמים בנימין, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_819f50e38c23694b49545c680642d784 = L.semiCircle(
+                        [31.311337,34.622824],
+                        {radius:1029.5493776366548,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (331 || 360) {
+                    var semi_circle_819f50e38c23694b49545c680642d784 = L.semiCircle(
+                        [31.311337,34.622824],
+                        {radius:1029.5493776366548,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:331, 
+                        stopAngle:360
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_819f50e38c23694b49545c680642d784.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">אופקים:  3 חיילים<br>אלעזרי יונתן, גורי רואי חיים, סעיד נהוראי, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_406a6980f094d4cae47b3f00d957f83b = L.semiCircle(
+                        [31.374545,34.398992],
+                        {radius:986.9286963719311,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (0 || 296) {
+                    var semi_circle_406a6980f094d4cae47b3f00d957f83b = L.semiCircle(
+                        [31.374545,34.398992],
+                        {radius:986.9286963719311,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:296
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_406a6980f094d4cae47b3f00d957f83b.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">כיסופים:  28 אזרחים<br>Chandrasena Chakkraphong, Kaison Aranthit, Khunsri Pongsatorn, Klangsuwan Theerapong, Kusaram Apichart, Kusaram Phongthep, Nachanׂ pichit<br>Phetkaew Anan, Phiia-ia Satawat, Prakotwong Thanakrit, Sae Wang Nitikorn, Sanusan Chairat, Satawat Phiaia, Sophakun Anucha<br>Srithat Kawao, Suchat Phongtphat, Surakhai Sakda, Thanonphim Phirun, גודו תום, זק (בן יעיש) אתי, זק איתי<br>זק שגיא, חוברה עידו, חולתי מנוחה, מור מעיין, מרגוליס סער, סמיאטיץ' ג'ינה, רון עופר<br>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_5329c38781c4520dab7af6f7a0bf7844 = L.semiCircle(
+                        [31.374545,34.398992],
+                        {radius:986.9286963719311,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (296 || 360) {
+                    var semi_circle_5329c38781c4520dab7af6f7a0bf7844 = L.semiCircle(
+                        [31.374545,34.398992],
+                        {radius:986.9286963719311,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:296, 
+                        stopAngle:360
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_5329c38781c4520dab7af6f7a0bf7844.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">כיסופים:  6 חיילים<br>אמר רגב, בוחניק לביא, יענקלוב בר, מלכה מתן, פרץ עמרי, צור עדי, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_657f0bc4ecde9e6ece140bb3b4d21b33 = L.circle(
+                [31.309697, 34.402075],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1001.3371767186818, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_657f0bc4ecde9e6ece140bb3b4d21b33.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">ניר עוז:  35 אזרחים<br>Ball Caroline, Cae Lee Tou, Clemence Felix Mtenga, Dachtuyawat Bancha, Darlington Daniel (Danny), אדר תמיר, אנגל רונן<br>אצילי אביב, בן חורין רבקה, בן צבי אמיתי, גורן אבנר, גרוס יוסף (יוסיניו), דן כרמלה, דן נויה<br>והב יוסף (יוסי), חגי גדי, טרופנוב ויטלי, כץ רביד, לוינסון ברכה, מונדר רועי, משה סעיד (דוד)<br>נוי שפרה, סילברמן (שניידר) מרגיט, סילברמן יוסף, סימן טוב ארבל, סימן טוב יונתן (ג'וני), סימן טוב עומר, סימן טוב קדם תמר<br>סימן טוב קרול, סימן טוב שחר, פאוקר גדעון, קציר אברהם (רמי), שלו דוד, שלו טל, שפיר ירמי (ירמיהו)<br>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_8cde1f6e935528219c78681bd587cf98 = L.semiCircle(
+                        [31.47268,34.497675],
+                        {radius:811.7274569709015,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (0 || 250) {
+                    var semi_circle_8cde1f6e935528219c78681bd587cf98 = L.semiCircle(
+                        [31.47268,34.497675],
+                        {radius:811.7274569709015,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:250
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_8cde1f6e935528219c78681bd587cf98.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">נחל עוז:  16 אזרחים<br>Somkuan Pansa-ard, אליקים נועם, ברוש שושנה (שושי), זוהר יניב, זוהר יסמין, זוהר קשת, זוהר תכלת<br>כץ אפרת, ליבנה חיים, מולל ג'ושוע לואיטו, עידן מעיין, ערבה אליעז תומר, ערבה דקלה, פוסלושני רן<br>פיורנטינו אילן, רון שלמה, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_430d61fe4a3678c2205c7de5f5384788 = L.semiCircle(
+                        [31.47268,34.497675],
+                        {radius:811.7274569709015,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (250 || 360) {
+                    var semi_circle_430d61fe4a3678c2205c7de5f5384788 = L.semiCircle(
+                        [31.47268,34.497675],
+                        {radius:811.7274569709015,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:250, 
+                        stopAngle:360
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_430d61fe4a3678c2205c7de5f5384788.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">נחל עוז:  7 חיילים<br>באלוי עידן, בוכריס חן, ברקת רועי, גואטה עמית, ירחי דור, ראשד דניאל, רוזנטל אפיק<br>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_9776cae5bffca185acf4620867dd47c1 = L.circle(
+                [31.3727633236407, 34.374932924728],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 756.9397566060481, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_9776cae5bffca185acf4620867dd47c1.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">מוצב כיסופים:  20 חיילים<br>אהרן יוגב, אוחיון אביתר, אסתו אור, בזק גיא, בטיטו ראם מאיר, בלאי בנימין, בן חמו מיכאל<br>בן מוחה עילי נועם, טקה בנימין טשגר, מיטלמן דוד, נגר תומר, סביצקי יונתן, סגל אוריאל, סקיפקביץ' ויטלי<br>פלד עמית, פרץ רז (רזיאל), רובין עמיחי שמעון, רוזנשטיין בר, שני אורי מרדכי, ששון אלעד מיכאל, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_cfa9b4b39d3350e20107b901c9406f55 = L.semiCircle(
+                        [31.3631573328565,34.4452834913286],
+                        {radius:655.5290583552475,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (0 || 168) {
+                    var semi_circle_cfa9b4b39d3350e20107b901c9406f55 = L.semiCircle(
+                        [31.3631573328565,34.4452834913286],
+                        {radius:655.5290583552475,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:168
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_cfa9b4b39d3350e20107b901c9406f55.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">מחנה רעים:  7 אזרחים<br>אברהם דבי (דבורה), הנקין אברהם, ינין סיון, כהן יוראי אליהו, משה אל שלמה, סיוון בר, שיינקמן סטניסלב<br>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_3e964953c2c2e7282ed26243bf2d993e = L.semiCircle(
+                        [31.3631573328565,34.4452834913286],
+                        {radius:655.5290583552475,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (168 || 360) {
+                    var semi_circle_3e964953c2c2e7282ed26243bf2d993e = L.semiCircle(
+                        [31.3631573328565,34.4452834913286],
+                        {radius:655.5290583552475,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:168, 
+                        stopAngle:360
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_3e964953c2c2e7282ed26243bf2d993e.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">מחנה רעים:  8 חיילים<br>אבן מרעי סלמאן, ברזילי אושר שמחה, ח'רובה איברהים, יהושע עידו, מחלוף סהר ציון, עזר עילי, עמאר נתאי<br>פלורס גרסיה ברנדו דוד, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_506dc8622a675478a86c8970de60e8d9 = L.semiCircle(
+                        [31.453049,34.514711],
+                        {radius:775.6324418739616,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (0 || 309) {
+                    var semi_circle_506dc8622a675478a86c8970de60e8d9 = L.semiCircle(
+                        [31.453049,34.514711],
+                        {radius:775.6324418739616,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:309
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_506dc8622a675478a86c8970de60e8d9.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">עלומים:  18 אזרחים<br>Alacre Loreta Lori Villarin, Bista Dipesh Raj, Chatdamdee Charoon, Chaudhary Ashish, Dipesh Raj Bist, Lekendora Sing Dahami, Nepali Ganesh Kumar<br>Neupane Narayan Prasad, Phulara Rajan, Pinjai Nanthawat, Prabesh Bhandari, Ritthiphon Meechai, Saksit Khotmee, Shah Ananda<br>Singh Dhami Lokendra, Swarnakar Raj Kumar, Thapa Padam, סלוטקי נועם, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_433dbf87a7ed69c532f4d1ccf14a21eb = L.semiCircle(
+                        [31.453049,34.514711],
+                        {radius:775.6324418739616,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (309 || 360) {
+                    var semi_circle_433dbf87a7ed69c532f4d1ccf14a21eb = L.semiCircle(
+                        [31.453049,34.514711],
+                        {radius:775.6324418739616,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:309, 
+                        stopAngle:360
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_433dbf87a7ed69c532f4d1ccf14a21eb.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">עלומים:  3 חיילים<br>כהן איתי, סלוטקי ישי, רוזנטל עידו, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_5f530b61a6bc783da07b272894b8a1fc = L.semiCircle(
+                        [31.386159,34.458823],
+                        {radius:610.2643417692328,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (0 || 222) {
+                    var semi_circle_5f530b61a6bc783da07b272894b8a1fc = L.semiCircle(
+                        [31.386159,34.458823],
+                        {radius:610.2643417692328,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:222
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_5f530b61a6bc783da07b272894b8a1fc.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">רעים:  8 אזרחים<br>בוזוקושווילי יצחק (בוזוקה), בלוכמן יקיר, גבאי עמית, הרמתי ורדה, פבר אסף, פוזדניאקוב אליק, קמחי סתיו<br>קרפ דביר, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_44c845a5e0fac7d160476b9b4d7cf284 = L.semiCircle(
+                        [31.386159,34.458823],
+                        {radius:610.2643417692328,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (222 || 360) {
+                    var semi_circle_44c845a5e0fac7d160476b9b4d7cf284 = L.semiCircle(
+                        [31.386159,34.458823],
+                        {radius:610.2643417692328,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:222, 
+                        stopAngle:360
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_44c845a5e0fac7d160476b9b4d7cf284.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">רעים:  5 חיילים<br>בן בסט יותם, בן משה אריאל, לוי רועי יוסף, שמחי גיא, שמיר מרדכי (מוטי), 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_fea6b1eea5e86659ccaf03bb3e7e0276 = L.semiCircle(
+                        [31.4427974207624,34.5079607114369],
+                        {radius:677.0275002573076,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (0 || 180) {
+                    var semi_circle_fea6b1eea5e86659ccaf03bb3e7e0276 = L.semiCircle(
+                        [31.4427974207624,34.5079607114369],
+                        {radius:677.0275002573076,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:180
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_fea6b1eea5e86659ccaf03bb3e7e0276.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">בבירור:  8 אזרחים<br>Tholaeng Phithak, אלטון דרור, בן משה (מושיאשוילי) מיכאל, גבאי יובל, גברה עומר, לוגבינצ'נקו ויטלי, לוי איתן<br>רפאל שלום מאור, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_1e5a283de6ffa87d0066ff9e115496a5 = L.semiCircle(
+                        [31.4427974207624,34.5079607114369],
+                        {radius:677.0275002573076,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (180 || 360) {
+                    var semi_circle_1e5a283de6ffa87d0066ff9e115496a5 = L.semiCircle(
+                        [31.4427974207624,34.5079607114369],
+                        {radius:677.0275002573076,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:180, 
+                        stopAngle:360
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_1e5a283de6ffa87d0066ff9e115496a5.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">בבירור:  8 חיילים<br>ארז אריאל, בזגודוב דניאל, גאורי אדיר, חובלאשוילי אברהם, ירוחין אופיר, רבינוב מקס, שלומי רום<br>שקותאי גלי רועי, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_5fa92748e27aa95f6e0cc50b7af1bd5b = L.circle(
+                [31.572407, 34.539322],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 718.0961047225787, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_5fa92748e27aa95f6e0cc50b7af1bd5b.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">נתיב העשרה:  18 אזרחים<br>אלמגור מרינה, אקוני אור, אקוני אריה, אקוני ארלט (רותי), בהרב רבינוביץ' עדי, בן נעים חיימי (חיים), ברגר נורית<br>דולב תומר, וובק דני, וקס יגאל, וקס עמית, ינון בלהה, ינון יעקובי, מולכו איילת<br>מולכו שלומה (שלומי), סגל חויק, שטרן אורן, תעסה גיל, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_c5663353309e1019ad166d513af6da96 = L.circle(
+                [31.6126901, 34.5045404],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 697.8639737521917, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_c5663353309e1019ad166d513af6da96.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">חוף זיקים:  17 אזרחים<br>אוזן אליהו (אליקו), אוזן אריה, אלזיאדנה אלרחמן עאטף עבד, אסלנוב ג'ון, גניש בנימין (בני), וייסברג אלינה, ז'וקוב ולדימיר<br>חסדאי אבי, טייב נדב יוסף חי, ליסובוי יורי, ליסובוי סבטלנה, צ'בן יוליה, קימנפלד דניל, קרייף שחף<br>קרן טל, שאולוב רוברט, תעסה אור, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_977ab10e842a6debe201d9b1010a9b9a = L.circle(
+                [31.3232254133789, 34.4024964699751],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 677.0275002573076, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_977ab10e842a6debe201d9b1010a9b9a.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">מסיבת פסיידאק:  16 אזרחים<br>אלקבץ מוטי, בן יהודה גלעד, בן יהודה יובל, הדר איתי (יוסטון), זומר דן, זעפרני נוי תפארת, כהן דניאל אשר<br>מעודי נוי, קדמן שחר גל, קוסובסקי זלטה, קיפר סביון חן, רביע יובל, רביע נועם, רוזנברג מתן<br>שפיר דור חנן, שרון (שוקרון) דודי, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_01e9ee4256b7ccbee059c3f6ff5740b8 = L.circle(
+                [31.230563, 34.32734],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 655.5290583552475, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_01e9ee4256b7ccbee059c3f6ff5740b8.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">חולית:  15 אזרחים<br>Busko Petro, אלחרר חלפון ליז, אלחרר מאיר, אלמוסנינו לירן מונס, גורני יפתח, כצמן חיים ישורון, מתיאס טרואן שחר דבורה (דבי)<br>מתיאס שלומי, סולטן רולאן, סולטן רונית, קורין אברהם גבריאל, קייסמן לילי, קעטבי תהילה, קפלון עדי ויטל<br>רידלר משה, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_b4ae8354c3d163731d41bbfc2300297c = L.semiCircle(
+                        [31.4993044924959,34.4612057026481],
+                        {radius:633.3012368467129,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (0 || 334) {
+                    var semi_circle_b4ae8354c3d163731d41bbfc2300297c = L.semiCircle(
+                        [31.4993044924959,34.4612057026481],
+                        {radius:633.3012368467129,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:334
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_b4ae8354c3d163731d41bbfc2300297c.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">עזה:  13 אזרחים<br>Mollel Joshua Loitu, אילוז גיא, ברוך סהר, גורן מיה, היימן ענבר, ויינשטיין ג'ודי, וייס יהודית<br>זכריה עדן, זלמנוביץ' אריה, טולדנו אליה, מרגלית אליהו (צ'רצ'יל), סמרנו יונתן מרדכי, קידר עופרה, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_e18baec73594a212f8699aaf601ffef3 = L.semiCircle(
+                        [31.4993044924959,34.4612057026481],
+                        {radius:633.3012368467129,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (334 || 360) {
+                    var semi_circle_e18baec73594a212f8699aaf601ffef3 = L.semiCircle(
+                        [31.4993044924959,34.4612057026481],
+                        {radius:633.3012368467129,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:334, 
+                        stopAngle:360
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_e18baec73594a212f8699aaf601ffef3.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">עזה:  1 חיילים<br>מרציאנו נועה, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_1782d099734dead9fcac063ecdaeb5d8 = L.semiCircle(
+                        [31.33573,34.394087],
+                        {radius:561.3615477764333,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (0 || 229) {
+                    var semi_circle_1782d099734dead9fcac063ecdaeb5d8 = L.semiCircle(
+                        [31.33573,34.394087],
+                        {radius:561.3615477764333,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:229
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_1782d099734dead9fcac063ecdaeb5d8.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">נירים:  7 אזרחים<br>Tamklang Parinya, Wisetdonwai Wutthipat, אלפסי אורן, באבאני גדעון, מאיר דורון, מאיר מור, פופלוול רועי<br>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_2659a997b76f01db052c239a65cefd87 = L.semiCircle(
+                        [31.33573,34.394087],
+                        {radius:561.3615477764333,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (229 || 360) {
+                    var semi_circle_2659a997b76f01db052c239a65cefd87 = L.semiCircle(
+                        [31.33573,34.394087],
+                        {radius:561.3615477764333,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:229, 
+                        stopAngle:360
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_2659a997b76f01db052c239a65cefd87.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">נירים:  4 חיילים<br>אגמון אדם, אחימס תומר יעקב, ברודסקי קיריל, חממי אסף, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_207aa031dbebc3b8c64e1b722e362d56 = L.circle(
+                [31.451442032419, 34.4694931921028],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 586.3230142835039, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_207aa031dbebc3b8c64e1b722e362d56.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">מוצב פגה:  12 חיילים<br>ביננשטוק עידו, בן יהודה איתמר, ברנס שלו, ברק תומר, גליסקו איתי אופק, כהן איתמר, לוי יקיר<br>סויסה דקל, עדן חיים מאיר, פרי רועי, קיעאן חביב, רז עידן, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_1ef00cf1c6257e16d00de16561f50880 = L.circle(
+                [31.2402695741122, 34.3362364083698],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 478.73073648171925, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_1ef00cf1c6257e16d00de16561f50880.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">מוצב סופה:  8 חיילים<br>דקל נחמן, לביא אמיר, לוי טל, מוסט עמית, מלמן אופיר, סעדון הלל שמואל, צ'אפל רועי<br>שוורץ שגב, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_d0d7263a5cfe1c7aa6c98845b9f45330 = L.semiCircle(
+                        [31.228281,34.284559],
+                        {radius:447.81159910813847,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (0 || 103) {
+                    var semi_circle_d0d7263a5cfe1c7aa6c98845b9f45330 = L.semiCircle(
+                        [31.228281,34.284559],
+                        {radius:447.81159910813847,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:103
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_d0d7263a5cfe1c7aa6c98845b9f45330.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">כרם שלום:  2 אזרחים<br>ויצן ישראל עמיחי, רזיאל (רוזנברג) ידידיה משה, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_97905aa5643cfc546ddafd86837927c6 = L.semiCircle(
+                        [31.228281,34.284559],
+                        {radius:447.81159910813847,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (103 || 360) {
+                    var semi_circle_97905aa5643cfc546ddafd86837927c6 = L.semiCircle(
+                        [31.228281,34.284559],
+                        {radius:447.81159910813847,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:103, 
+                        stopAngle:360
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_97905aa5643cfc546ddafd86837927c6.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">כרם שלום:  5 חיילים<br>בן הרוש שהם משה, ליאר נתן חי, שוהם תומר, שי ירון אורי, שני עידו ישראל, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_63b612845e741c1ae59d36049fef2c0a = L.circle(
+                [31.604753586258, 34.5073326774338],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 478.73073648171925, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_63b612845e741c1ae59d36049fef2c0a.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">מחנה זיקים:  8 חיילים<br>אלון לוי עדן, בן סימון אדר, יאנג נתנאל, מוזס אור, נגרי נריה אהרון, עבודי אדיר, פיירשטיין עומרי ניב<br>קמינקא ינאי, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_d42be58fcd284fe9559037f6b3762525 = L.circle(
+                [31.596972587333, 34.5117547187511],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 478.73073648171925, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_d42be58fcd284fe9559037f6b3762525.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">מחנה יפתח:  8 חיילים<br>בוני נעמה, בן יעקב יובל, בר שדה עילי, הרוש עידו, טל סהר, מלייב יואב, משה אוראל<br>צירינג אריה שלמה, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_1f08c7cff7a630e1b2209e4fe8b25971 = L.circle(
+                [31.287112, 35.048572],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 447.81159910813847, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_1f08c7cff7a630e1b2209e4fe8b25971.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">כוחלה:  7 אזרחים<br>אבו סבייח מאי זוהיר, אבו סבייח פאיזה, אלקרעאן אמין עקל, אלקרעאן ג'וואד אברהים, אלקרעאן טאלב, אלקרעאן מאלק אברהים, אלקרעאן מחמד ד'יב<br>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_4203909a9c4450235f98791884c880a3 = L.circle(
+                [31.3153804671977, 34.5412076991259],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 447.81159910813847, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_4203909a9c4450235f98791884c880a3.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">מחנה אורים:  7 חיילים<br>דוידיאן אופיר, כהן דנית, לוי ליאור, עיש איתמר, פרבוסודובה אלינה, פרש אהרון, שלמה שיר<br>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_d69adf0cbcf97db89d0e9d0d0a374f55 = L.circle(
+                [31.5605566379382, 34.5441659545204],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 447.81159910813847, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_d69adf0cbcf97db89d0e9d0d0a374f55.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">מעבר ארז:  7 חיילים<br>בייזר ניק, טהר אדיר, מזרחי אור, מלכה אור, מקייס לידור, סמוילוב אמיל, שרמן רון<br>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_480151ff678931a795188e0fa67517bc = L.circle(
+                [31.23604, 34.356702],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 447.81159910813847, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_480151ff678931a795188e0fa67517bc.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">ניר יצחק:  7 אזרחים<br>אברהם בועז, ארזי אופק, גולדין אורן, גולדין אורן, חיימי טל, חיימי טל, שחר ירון ויקטור<br>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_541c90d4e4e52ca8b1a33e0f7592d613 = L.semiCircle(
+                        [31.482205,34.598634],
+                        {radius:414.5929793656026,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (0 || 300) {
+                    var semi_circle_541c90d4e4e52ca8b1a33e0f7592d613 = L.semiCircle(
+                        [31.482205,34.598634],
+                        {radius:414.5929793656026,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:300
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_541c90d4e4e52ca8b1a33e0f7592d613.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">יכיני:  5 אזרחים<br>אסייג רווית חנה, זהבי יונתן, חג'בי אליצור צוריאל, חג'בי יהונתן, חג'בי יזהר, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_6286cb5784aa4292b6c091f5f547ceb3 = L.semiCircle(
+                        [31.482205,34.598634],
+                        {radius:414.5929793656026,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (300 || 360) {
+                    var semi_circle_6286cb5784aa4292b6c091f5f547ceb3 = L.semiCircle(
+                        [31.482205,34.598634],
+                        {radius:414.5929793656026,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:300, 
+                        stopAngle:360
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_6286cb5784aa4292b6c091f5f547ceb3.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">יכיני:  1 חיילים<br>סאלם פלג, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_546a2b6f4ec47f69e0168a27496dd87b = L.semiCircle(
+                        [31.242423,34.407488],
+                        {radius:414.5929793656026,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (0 || 300) {
+                    var semi_circle_546a2b6f4ec47f69e0168a27496dd87b = L.semiCircle(
+                        [31.242423,34.407488],
+                        {radius:414.5929793656026,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:300
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_546a2b6f4ec47f69e0168a27496dd87b.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">מבטחים:  5 אזרחים<br>אבו מדיע'ם אוסאמה עלי, אסולין דן, ירון שיר, לוי ציון, ממן טל, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_e9416d694af984e3d442fd494153a6f5 = L.semiCircle(
+                        [31.242423,34.407488],
+                        {radius:414.5929793656026,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (300 || 360) {
+                    var semi_circle_e9416d694af984e3d442fd494153a6f5 = L.semiCircle(
+                        [31.242423,34.407488],
+                        {radius:414.5929793656026,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:300, 
+                        stopAngle:360
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_e9416d694af984e3d442fd494153a6f5.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">מבטחים:  1 חיילים<br>נחמיאס איתי, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_f14753b2a3d5c5a432aaf4a72174ca8e = L.circle(
+                [31.6054753165714, 34.5024353281107],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 378.4698783030241, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_f14753b2a3d5c5a432aaf4a72174ca8e.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">מש"א ארז:  5 חיילים<br>לוקר אורי, לישה דביר, מאור איתי, צור עמית, ציוני אופיר, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_97ccd2bf95d5811a32bbfd7946295dcc = L.circle(
+                [31.423196, 34.595254],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 293.16150714175194, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_97ccd2bf95d5811a32bbfd7946295dcc.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">נתיבות:  3 אזרחים<br>מסקלצ'י נתנאל, מסקלצ'י רפאל מאיר, פהימי רפאל, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_94cab8259c339f1d3a75d9eefd6fdb1c = L.circle(
+                [31.351722, 34.403471],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 378.4698783030241, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_94cab8259c339f1d3a75d9eefd6fdb1c.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">עין השלושה:  5 אזרחים<br>גלזברג נועה, טליה מרסל, ליפשיץ אולג, מרנסקי סילביה, נגבי רם, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_bc303819d462895bb5b7ca2a3b820c25 = L.circle(
+                [31.5083627179843, 34.5865975081832],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 414.5929793656026, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_bc303819d462895bb5b7ca2a3b820c25.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">צמת שער הנגב:  6 אזרחים<br>ברודש שירז דניאל, פרץ אבשלום יאיר, קפשיטר איתן, קפשיטר אלין, קפשיטר דינה, קפשיטר יבגני (ג'ניה), 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_3febf75ba6c5329c5b1cfbda02d63e0d = L.circle(
+                [31.3267585501366, 34.3992462837037],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 338.5137501286538, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_3febf75ba6c5329c5b1cfbda02d63e0d.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">הבית הלבן:  4 חיילים<br>אלם מארו, דגן שלו, דהן שקד, וולף עומר, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_866d634384d5a7531e714dd419a2cd82 = L.semiCircle(
+                        [31.5783300781213,34.5548300108433],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (0 || 180) {
+                    var semi_circle_866d634384d5a7531e714dd419a2cd82 = L.semiCircle(
+                        [31.5783300781213,34.5548300108433],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:180
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_866d634384d5a7531e714dd419a2cd82.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">יד מרדכי - נתיב העשרה:  2 אזרחים<br>פריאנטה קובי, שטרית אזולאי נעמי, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_9211cbd99de774b9b62d928924df8b43 = L.semiCircle(
+                        [31.5783300781213,34.5548300108433],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (180 || 360) {
+                    var semi_circle_9211cbd99de774b9b62d928924df8b43 = L.semiCircle(
+                        [31.5783300781213,34.5548300108433],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:180, 
+                        stopAngle:360
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_9211cbd99de774b9b62d928924df8b43.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">יד מרדכי - נתיב העשרה:  2 חיילים<br>גמזו אילי, מרציאנו איתי אליהו, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_a8cdc338dd50bc3cfb39ec239d6a6477 = L.semiCircle(
+                        [31.238309,34.341987],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (0 || 180) {
+                    var semi_circle_a8cdc338dd50bc3cfb39ec239d6a6477 = L.semiCircle(
+                        [31.238309,34.341987],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:180
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_a8cdc338dd50bc3cfb39ec239d6a6477.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">סופה:  2 אזרחים<br>ארז אופיר, כהן ברנרד (פול), 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_4d59aff03783e0a6516d538e161ac16a = L.semiCircle(
+                        [31.238309,34.341987],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (180 || 360) {
+                    var semi_circle_4d59aff03783e0a6516d538e161ac16a = L.semiCircle(
+                        [31.238309,34.341987],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:180, 
+                        stopAngle:360
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_4d59aff03783e0a6516d538e161ac16a.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">סופה:  2 חיילים<br>יעקב מזרחי תומר, קליין אייל, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_c98f2425f6cbff0254dc76af367c7e53 = L.semiCircle(
+                        [31.5048736098764,34.5641492047324],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (0 || 270) {
+                    var semi_circle_c98f2425f6cbff0254dc76af367c7e53 = L.semiCircle(
+                        [31.5048736098764,34.5641492047324],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:270
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_c98f2425f6cbff0254dc76af367c7e53.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">צמת מפלסים:  3 אזרחים<br>דוידוביץ׳ שלומי, פופוב ניר (ניקיטה), שפירר תומר, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_99778abea84e76a19959bff8af7a0d51 = L.semiCircle(
+                        [31.5048736098764,34.5641492047324],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (270 || 360) {
+                    var semi_circle_99778abea84e76a19959bff8af7a0d51 = L.semiCircle(
+                        [31.5048736098764,34.5641492047324],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:270, 
+                        stopAngle:360
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_99778abea84e76a19959bff8af7a0d51.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">צמת מפלסים:  1 חיילים<br>זיו דדו, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_6fc2ad40f93bf94662be42d97675cfe3 = L.circle(
+                [31.222015, 34.355936],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 293.16150714175194, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_6fc2ad40f93bf94662be42d97675cfe3.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">פרי גן:  3 אזרחים<br>כהן אביעד גד, סויד בכור חי, שישפורטיש ראובן, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_a6ac16b953e30ed1668798a6736889af = L.circle(
+                [31.317032810289, 34.5289920555347],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 293.16150714175194, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_a6ac16b953e30ed1668798a6736889af.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">צמת אורים:  3 חיילים<br>יונה בנימין גבריאל, סעודין סהר, קוצרו נתיב, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_1c3c6b6902189eee3493386619da4f25 = L.circle(
+                [31.5009022, 34.4705065],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 293.16150714175194, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_1c3c6b6902189eee3493386619da4f25.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">שג'אעיה:  3 אזרחים<br>אלטלאלקה סאמר פואד, חיים יותם, שמריז אלון (לולו), 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_0f4df3de7d84c71dd5fb25ede91dd12b = L.circle(
+                [31.247595, 34.403091],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 239.36536824085962, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_0f4df3de7d84c71dd5fb25ede91dd12b.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">ישע:  2 אזרחים<br>אביטל גיל, בן יעקב ליאור, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_013b0a8f146c4cbaeab2d9d518fde759 = L.circle(
+                [31.298108, 34.427059],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 239.36536824085962, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_013b0a8f146c4cbaeab2d9d518fde759.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">מגן:  2 אזרחים<br>ירון אופיר מרדכי, פליישר אברהם (אבי), 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_ecb724a8285722972e3e31ccc90d1a52 = L.circle(
+                [31.2742733480027, 34.3867808772305],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 239.36536824085962, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_ecb724a8285722972e3e31ccc90d1a52.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">מוצב מו"פ דרום:  2 חיילים<br>ראוכברגר שילה, רשטניקוב שלמה, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_e4c485aee02886ee0192ae65e8ff3f10 = L.semiCircle(
+                        [31.518459,34.580544],
+                        {radius:239.36536824085962,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (0 || 180) {
+                    var semi_circle_e4c485aee02886ee0192ae65e8ff3f10 = L.semiCircle(
+                        [31.518459,34.580544],
+                        {radius:239.36536824085962,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:180
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_e4c485aee02886ee0192ae65e8ff3f10.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">ניר עם:  1 אזרחים<br>גנדל רומן, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_22604ee34a3a6b009805e830ce328ab2 = L.semiCircle(
+                        [31.518459,34.580544],
+                        {radius:239.36536824085962,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (180 || 360) {
+                    var semi_circle_22604ee34a3a6b009805e830ce328ab2 = L.semiCircle(
+                        [31.518459,34.580544],
+                        {radius:239.36536824085962,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:180, 
+                        stopAngle:360
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_22604ee34a3a6b009805e830ce328ab2.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">ניר עם:  1 חיילים<br>אברג'יל מתן, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_3c822d8df505e828f25e9172207147f5 = L.circle(
+                [31.507172, 34.553013],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_3c822d8df505e828f25e9172207147f5.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">אנדרטת חץ שחור:  1 אזרחים<br>בר (בן מוחה) ליאון, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_45a7e2bc5e2e902c51c4562d6b5ff789 = L.circle(
+                [31.6687885, 34.5742523],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_45a7e2bc5e2e902c51c4562d6b5ff789.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">אשקלון:  1 אזרחים<br>חטב יהושוע, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_3380c558d56ef5ea0fdc964162c4deee = L.circle(
+                [31.831039, 34.722577],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_3380c558d56ef5ea0fdc964162c4deee.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">כפר אביב:  1 אזרחים<br>בן ארצי חנה, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_2412843041ca3358c520ae9d75434375 = L.circle(
+                [31.602695, 34.540413],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_2412843041ca3358c520ae9d75434375.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">כרמיה:  1 אזרחים<br>Chan Udom, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_bc220dbf1d7d9cb4eae8fe0356ce55f3 = L.circle(
+                [31.6200665069165, 34.5808941844254],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_bc220dbf1d7d9cb4eae8fe0356ce55f3.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">מבקיעים:  1 אזרחים<br>אוחנה עדי, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_332f3fdc7cea4ddb8a1b405dcd6b1cec = L.circle(
+                [31.2201643247324, 34.2728105215167],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_332f3fdc7cea4ddb8a1b405dcd6b1cec.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">מוצב כרם שלום:  1 חיילים<br>מזרחי אור, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_a919a830ec1fb44ac57e9978a4647a58 = L.circle(
+                [31.5403394651369, 34.5713086782205],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_a919a830ec1fb44ac57e9978a4647a58.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">מוצב ק2:  1 חיילים<br>זוהר ירון, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_ef4b299e6d528299a6b9c52fc4d80077 = L.circle(
+                [31.502206, 34.561674],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_ef4b299e6d528299a6b9c52fc4d80077.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">מפלסים:  1 אזרחים<br>טהר יוסף (יוסי), 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_3015add63ff7ee02fac8262b9b62dad9 = L.circle(
+                [31.248463, 34.413404],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_3015add63ff7ee02fac8262b9b62dad9.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">עמיעוז:  1 אזרחים<br>אוביץ זיוה, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_838cc648edef658ba7407009f7d2a635 = L.circle(
+                [31.160927, 35.019757],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_838cc648edef658ba7407009f7d2a635.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">ערערה בנגב:  1 אזרחים<br>אבו ג'מאע יזן זכריה, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_53c3293170298ccdbb709cbda59e1429 = L.circle(
+                [31.256889, 34.403065],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_53c3293170298ccdbb709cbda59e1429.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">צמת מבטחים:  1 אזרחים<br>סקריסבסקי רודי, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_52da0c42bb060e171fc2d1494a706f08 = L.semiCircle(
+                        [31.4050740370778,34.4792224231953],
+                        {radius:293.16150714175194,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (0 || 240) {
+                    var semi_circle_52da0c42bb060e171fc2d1494a706f08 = L.semiCircle(
+                        [31.4050740370778,34.4792224231953],
+                        {radius:293.16150714175194,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:240
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_52da0c42bb060e171fc2d1494a706f08.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">רעים - בארי:  2 אזרחים<br>רפאלי מישקין חגית, שמעיה יעקב (קובי), 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_696c1dc4bb4a3ca6b10e67eef070ef6d = L.semiCircle(
+                        [31.4050740370778,34.4792224231953],
+                        {radius:293.16150714175194,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                } else if (240 || 360) {
+                    var semi_circle_696c1dc4bb4a3ca6b10e67eef070ef6d = L.semiCircle(
+                        [31.4050740370778,34.4792224231953],
+                        {radius:293.16150714175194,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.35,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:240, 
+                        stopAngle:360
+                        })
+                        .addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+                }
+            
+    
+            semi_circle_696c1dc4bb4a3ca6b10e67eef070ef6d.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">רעים - בארי:  1 חיילים<br>שמעיה אושר, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_fe6fa44e10197caeef172a013f95b9ab = L.circle(
+                [31.494184474791, 34.5963825869542],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_fe6fa44e10197caeef172a013f95b9ab.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">שדות יכיני:  1 אזרחים<br>משה רועי, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_c33fe9e7aa75ebffeb136be81998f84c = L.circle(
+                [31.199958, 34.363751],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_c33fe9e7aa75ebffeb136be81998f84c.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">תלמי יוסף:  1 אזרחים<br>דובדבני גיורא, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_649b1cef28e4de0e74e2efa5fc180c77 = L.circle(
+                [31.2939087780623, 34.4371592525311],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_649b1cef28e4de0e74e2efa5fc180c77.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">צמת מגן:  1 אזרחים<br>אבו מדיע'ם גאליה, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_57b2e80f282dc0616038f1b2f126d04e = L.circle(
+                [31.3128113358616, 34.4494548866754],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_57b2e80f282dc0616038f1b2f126d04e.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">מזרחית לצמת מעון:  1 חיילים<br>צור יהונתן, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_a4a6908fdc93bab256e10eb3e8465a7d = L.circle(
+                [31.3854586290051, 34.4492994479599],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 239.36536824085962, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_a4a6908fdc93bab256e10eb3e8465a7d.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">סמוך לרעים:  2 אזרחים<br>אברהם אוריאל, בודובסקי אלכסי, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_e1b743d70b0afe405f969bd9d9009969 = L.circle(
+                [31.3225019212402, 34.4466810989006],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_e1b743d70b0afe405f969bd9d9009969.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">פרדס ליד צמת מעון:  1 אזרחים<br>אבו סבילה מוסא, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_23862d3e3fa5cceb945d5ac1469cb5a7 = L.circle(
+                [31.3419613674272, 34.5051451093551],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_1ef14d2f4cc440bd57f0d0a6688572ab);
+        
+    
+            circle_23862d3e3fa5cceb945d5ac1469cb5a7.bindTooltip(
+                `<div dir="rtl">
+                     <font size="2">רעים - אורים:  1 אזרחים<br>אסטפנקו אליונה, 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+</script>
+</html>
