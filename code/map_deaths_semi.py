@@ -172,6 +172,7 @@ for iloc in range(len(coo)):
                 if count == row_len:
                     count = 0
                     name_string = name_string[:-2]+'<br>'
+            name_string = name_string.strip()
             if name_string[-1] == ',':
                 name_string = name_string[:-1]
             # name_string = '; '.join(names['fullName'][isloc & iscat])
