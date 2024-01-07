@@ -139,7 +139,7 @@ title_html = f'''
 #              '''
 map.get_root().html.add_child(folium.Element(title_html))
 issoldier = names['citizenGroup'] == 'צה"ל'
-rescue = ['כבאות והצלה', 'מגן דוד אדום', "משטרה (מיל')"]
+rescue = ['כבאות והצלה', 'מגן דוד אדום', "משטרה (מיל')", 'שב"כ']
 ispolice = names['citizenGroup'] == 'משטרה'
 iscivil = ~(ispolice | issoldier)
 isrockets = names['servicePosition'] == "ירי רקטי"
