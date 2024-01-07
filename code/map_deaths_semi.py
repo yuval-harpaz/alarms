@@ -141,16 +141,18 @@ map.get_root().html.add_child(folium.Element(title_html))
 issoldier = names['citizenGroup'] == 'צה"ל'
 rescue = ['כבאות והצלה', 'מגן דוד אדום', "משטרה (מיל')", 'שב"כ']
 ispolice = names['citizenGroup'] == 'משטרה'
-iscivil = ~(ispolice | issoldier)
-isrockets = names['servicePosition'] == "ירי רקטי"
 for r in rescue:
     ispolice = ispolice | (names['citizenGroup'] == r)
+iscivil = ~(ispolice | issoldier)
+isrockets = names['servicePosition'] == "ירי רקטי"
+
+opacity = 0.55
 cat = [iscivil, issoldier, ispolice, isrockets]
 for icat in range(3):
     cat[icat][isrockets] = False
 row_len = 7
 font_size = 2
-colors = ["#ff0000", "#808000", '#2255ff', '#800080']
+colors = ["#ff0000", "#808000", '#2255ff', '#FFA500']
 for iloc in range(len(coo)):
     lat = float(coo['lat'][iloc])
     long = float(coo['long'][iloc])
@@ -212,7 +214,7 @@ for iloc in range(len(coo)):
                                     fill_color=color,
                                     color=color,
                                     opacity=0,
-                                    fill_opacity=0.35
+                                    fill_opacity=opacity
                                     ).add_to(map)
             else:
                 SemiCircleColor(
@@ -221,7 +223,7 @@ for iloc in range(len(coo)):
                     radius=float(np.max([radius * 300, 1])),
                     fill_color=color,
                     opacity=0,
-                    fill_opacity=0.35,
+                    fill_opacity=opacity,
                     startAngle=start[icat],  # Start angle (0 to 360 degrees)
                     stopAngle=end[icat]  # Stop angle (0 to 360 degrees)
                 ).add_to(map)
