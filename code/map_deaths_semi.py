@@ -138,7 +138,7 @@ title_html = f'''
 #              . last update: {nowstr}</b></h3>
 #              '''
 map.get_root().html.add_child(folium.Element(title_html))
-issoldier = names['citizenGroup'] == 'צה"ל'
+issoldier = names['citizenGroup'].str.contains('צה"ל')
 rescue = ['כבאות והצלה', 'מגן דוד אדום', "משטרה (מיל')", 'שב"כ']
 ispolice = names['citizenGroup'] == 'משטרה'
 for r in rescue:
@@ -178,9 +178,11 @@ for iloc in range(len(coo)):
         color = colors[icat]
         iscat = cat[icat]
         if ns[icat] > 0:
-            order = np.argsort(names['fullName'][isloc & iscat])
-            name_list = names['fullName'][isloc & iscat].values[order]
-            rank = names['rank'][isloc & iscat].values[order]
+            nm = names['fullName'][isloc & iscat].values
+            rk = names['rank'][isloc & iscat].values
+            order = np.argsort(nm)
+            name_list = nm[order]
+            rank = rk[order]
             for irank in range(len(rank)):
                 if type(rank[irank]) == str:
                     rank[irank] = rank[irank].strip()
