@@ -176,7 +176,17 @@ for iloc in range(len(coo)):
         color = colors[icat]
         iscat = cat[icat]
         if ns[icat] > 0:
-            name_list = np.sort(names['fullName'][isloc & iscat])
+            order = np.argsort(names['fullName'][isloc & iscat])
+            name_list = names['fullName'][isloc & iscat].values[order]
+            rank = names['rank'][isloc & iscat].values[order]
+            for irank in range(len(rank)):
+                if type(rank[irank]) == str:
+                    rank[irank] = rank[irank].strip()
+                    if len(rank[irank]) > 2:
+                        name_list[irank] = rank[irank] + ' ' + name_list[irank]
+                else:
+                    rank[irank] = ''
+
             name_string = ''
             count = 0
             for ii in range(len(name_list)):
