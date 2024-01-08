@@ -123,7 +123,7 @@ names['location'] = names['location'].str.replace('?', 'בבירור')
 # coo = pd.read_csv('data/deaths_by_loc.csv')
 center = [coo['lat'].mean(), coo['long'].mean()]
 ##
-map = folium.Map(location=center, zoom_start=10)
+map = folium.Map(location=center, zoom_start=11)
 folium.TileLayer('cartodbpositron').add_to(map)
 now = np.datetime64('now', 'ns')
 nowisr = pd.to_datetime(now, utc=True, unit='s').astimezone(tz='Israel')
@@ -131,7 +131,7 @@ nowstr = str(nowisr)[:16].replace('T', ' ')
 title_html = f'''
              <h3 dir="rtl" align="center" style="font-size:16px"><b>נרצחים ונופלים במתקפת חמאס על ישראל בין 7-9.10.2023.</b></h3>
              <h4 dir="rtl" align="center" style="font-size:12px">
-             נערך על ידי שגיא אור ו<a href="https://twitter.com/yuvharpaz" target="_blank">יובל הרפז</a>. 
+             נערך על ידי שגיא אור ו<a href="https://twitter.com/yuvharpaz" target="_blank">יובל הרפז</a> (אנא שלחו תיקונית והערות). 
              הנתונים מ <a href="https://oct7names.co.il/" target="_blank">ואלה שמות</a> ומקורות נוספים.  עדכון אחרון: {nowstr}</h4>             
              '''
 
