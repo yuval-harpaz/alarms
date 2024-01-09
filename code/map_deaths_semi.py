@@ -173,6 +173,7 @@ for iloc in range(len(coo)):
     c = nall - s - p - r
     ns = [c, s, p, r]
     radius = (nall / np.pi) ** 0.5
+    # print(iloc)
     start = [0, int(np.round(360*c/nall)), int(np.round(360*(c+s)/nall)), int(np.round(360*(c+s+p)/nall))]
     end = [start[1], start[2], start[3], 360]
     if np.sum(np.array(ns) > 0) == 1:
