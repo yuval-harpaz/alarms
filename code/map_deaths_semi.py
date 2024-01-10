@@ -125,7 +125,14 @@ table = 'https://docs.google.com/spreadsheets/d/1bImioxD69gmyYhOsggcgCj1EK8Dxp8n
 # title_html = f'''
 #              <h3 align="center" style="font-size:16px"><b>Deaths between 7-Oct-23 and 9-Oct-23. data from <a href="https://oct7names.co.il/" target="_blank">ואלה שמות</a> and other sources
 #              . last update: {nowstr}</b></h3>
-#              '''
+#              '''+
+locu = np.unique(names['location'])
+missing = []
+for lc in locu:
+    if lc not in coo['name'].values:
+        missing.append(lc)
+if len(missing) > 0:
+    raise Exception('missing coordinates for :'+str(missing))
 for imap in [0, 1]:
     map = folium.Map(location=center, zoom_start=11)
     folium.TileLayer('cartodbpositron').add_to(map)
@@ -139,10 +146,10 @@ for imap in [0, 1]:
     title_html = f'''
                  <h3 dir="rtl" align="center" style="font-size:16px"><b>נרצחים ונופלים במתקפת חמאס על ישראל בין 7-9.10.2023.</b>{other}</h3>
                  <h4 dir="rtl" align="center" style="font-size:12px">
-                 נערך על ידי שגיא אור ו<a href="https://twitter.com/yuvharpaz" target="_blank">יובל הרפז</a> (אנא שלחו תיקונית והערות). 
+                 נערך על ידי שגיא אור ו<a href="https://twitter.com/yuvharpaz" target="_blank">יובל הרפז</a> (אנא שלחו תיקונים והערות). 
                  <a href={table} target="_blank"> הנתונים </a> מ 
                  <a href="https://oct7names.co.il/" target="_blank">ואלה שמות</a>
-                  ומקורות נוספים.  עדכון אחרון: {nowstr}</h4>             
+                  ומקורות נוספים. כללנו אנשים שנפצעו או נחטפו במתקפה, ומתו או נרצחו מאז.  עדכון אחרון: {nowstr}</h4>             
                  '''
 
     map.get_root().html.add_child(folium.Element(title_html))
@@ -172,6 +179,8 @@ for imap in [0, 1]:
         loc = coo["name"][iloc]
         # n = coo["deaths"][iloc]
         nall = np.sum(names['location'] == loc)
+        if nall == 0:
+            raise Exception('no people in '+loc)
         # if nall != n:
         #     raise Exception('wrong N for ' + loc)
         isloc = names['location'] == loc
