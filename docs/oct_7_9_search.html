@@ -25,7 +25,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_5d43f457a514384fcab0e046d01d3897 {
+                #map_5fadb01577554d7849801411fd4098e1 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -45,7 +45,7 @@
                  נערך על ידי שגיא אור ו<a href="https://twitter.com/yuvharpaz" target="_blank">יובל הרפז</a> (אנא שלחו תיקונים והערות). 
                  <a href=https://docs.google.com/spreadsheets/d/1bImioxD69gmyYhOsggcgCj1EK8Dxp8n25jwGS80GWSY/edit?usp=sharing target="_blank"> הנתונים </a> מ 
                  <a href="https://oct7names.co.il/" target="_blank">ואלה שמות</a>
-                  ומקורות נוספים. כללנו אנשים שנפצעו או נחטפו במתקפה, ומתו או נרצחו מאז.  עדכון אחרון: 2024-01-11 16:50</h4>             
+                  ומקורות נוספים. כללנו אנשים שנפצעו או נחטפו במתקפה, ומתו או נרצחו מאז.  עדכון אחרון: 2024-01-11 18:31</h4>             
                  
     <div class="autocomplete-drop-down">
                 <div class="Names-input-container">
@@ -226,7 +226,7 @@ display: block !important;
 {name: "קפשיטר יבגני (ג'ניה)", location: "צומת שער הנגב"},
 {name: "רפאלי מישקין חגית", location: "כביש רעים - בארי"},
 {name: "תורג'מן דוד (דודי)", location: "פסטיבל נובה"},
-{name: "#NAME?", location: "עלומים"},
+{name: "Alacre Loreta Lori Villarin", location: "עלומים"},
 {name: "Brema (Boma) Adam Mohammad", location: "שדרות"},
 {name: "Cae Lee Tou", location: "ניר עוז"},
 {name: "Chan Udom", location: "כרמיה"},
@@ -1444,7 +1444,7 @@ const addEventListenerToNames = () => {
       const coords = LocationByName[event.currentTarget.getAttribute('data-location')];
       const zoom = 13;
 
-      map_5d43f457a514384fcab0e046d01d3897.setView([coords['lat'], coords['long']], zoom);
+      map_5fadb01577554d7849801411fd4098e1.setView([coords['lat'], coords['long']], zoom);
 
       filterNamesOnChange({ target: { value } });
 
@@ -1487,14 +1487,14 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
     
-            <div class="folium-map" id="map_5d43f457a514384fcab0e046d01d3897" ></div>
+            <div class="folium-map" id="map_5fadb01577554d7849801411fd4098e1" ></div>
         
 </body>
 <script>
     
     
-            var map_5d43f457a514384fcab0e046d01d3897 = L.map(
-                "map_5d43f457a514384fcab0e046d01d3897",
+            var map_5fadb01577554d7849801411fd4098e1 = L.map(
+                "map_5fadb01577554d7849801411fd4098e1",
                 {
                     center: [31.41968797383808, 34.50215652531082],
                     crs: L.CRS.EPSG3857,
@@ -1508,20 +1508,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
         
     
-            var tile_layer_56a344f1e30ed993231797e012c78312 = L.tileLayer(
+            var tile_layer_09bad218b53e9f65926726a86ea57611 = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            var tile_layer_7c603d63d274eefc31da60c3ddf4d2f5 = L.tileLayer(
+            var tile_layer_cc68efb3f2d648489196628fb9eefd11 = L.tileLayer(
                 "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
                 {"attribution": "\u0026copy; \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca target=\"_blank\" href=\"http://cartodb.com/attributions\"\u003eCartoDB\u003c/a\u003e, CartoDB \u003ca target=\"_blank\" href =\"http://cartodb.com/attributions\"\u003eattributions\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
                 if (0 || 0) {
-                    var semi_circle_210623e0ff8ab2db352dfae0deb8b262 = L.semiCircle(
+                    var semi_circle_2a6e88a843987a8b86bbcd45645d5c74 = L.semiCircle(
                         [31.4014870534664,34.4724927048611],
                         {radius:3260.117651201682,
                         fill: true,
@@ -1530,9 +1530,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 332) {
-                    var semi_circle_210623e0ff8ab2db352dfae0deb8b262 = L.semiCircle(
+                    var semi_circle_2a6e88a843987a8b86bbcd45645d5c74 = L.semiCircle(
                         [31.4014870534664,34.4724927048611],
                         {radius:3260.117651201682,
                         fill: true,
@@ -1543,11 +1543,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:332
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_210623e0ff8ab2db352dfae0deb8b262.bindTooltip(
+            semi_circle_2a6e88a843987a8b86bbcd45645d5c74.bindTooltip(
                 `<div dir="rtl">
                      <font size="1">פסטיבל נובה:  342 אזרחים וכיתות כוננות<br>אבאסוב שמיל, אבדלאייב עדן, אבו עסא אוסאמה, אבוחצירה אוראל, אביב נוי, אביטן דור, אביר לוטן<br>אבני גיל יוסף, אברג'יל עודד, אברמוב לאור, אדברג אסף מרדכי, אדם מפל, אדר גילי, אוחיון עדן ליז<br>אוחנה דניאל, אורי בן, אורן אביאל, אזולאי גמליאל גבי גבריאל, אזולאי יוחאי, אזולאי יונתן חי, אחרק עמרי<br>אטון אופק, אטיאס דורין, איטח ליאל, איטח סיגל, איילון שירה, אילוז אליה אליהו, אילייב אדם<br>אילרמנדי סיזר איוון, אליהו אביב, אליהו יהונתן, אלמלם מתן (קידו), אלפסי שלמה אליהו, אלפראחין ח'אלד, אלקיים לוי עינב<br>אלקרים אלנסאסרה עבד, אלשיך שלמה (שלומי) אליהו, אמין שני, אנגלנדר נועה, אסולין ליאור, אסולין לירז, אסייג ליאב<br>אפרים ירין משה, אפרים נעם ליאל, אקשטיין מתן, ארד אורי, ארד נבו, אריאל דן, ארנין איילת<br>אשואן סהר, בהט דרור, בובטס בן איון אורטל, בולדס דורון, בונגרט סופיה, בוסקילה ירדן, בועזיז מורלי נטע<br>בוקובזה רז, בור גלאון ליעם, בורשטיין מטיאס (הרנן), בורשטיין עינב (חן), ביטון בניהו, ביטון מאיה, ביטון מרדכי בן אריאל<br>ביילין אורון, ביילין בן צבי שגיב, ביכר נעומי, בילמס ספיר, בכר יהודה, בן אבי חן, בן אבידה עמית (יהודה)<br>בן דוד נגר סלין רחל, בן זינו עידו, בן זכריה יוחאי, בן חמו אור חיים, בן חמו דן, בן נעים שחר, בן סניור דניאל<br>בן עמי שני, בן רובי עדן, בנג'ו איתי, בר דין נהוראי, בראון יובל, בראל גבריאל ישי, ברגמן אלדד (אנג'ל)<br>ברדה לירון, ברזני סתיו, ברטיק (קליין) טל, ברטל נדב, ברנט אליהו רומי, ברנשטיין אליהו יעקב, ברנשטיין בן<br>ברסלבסקי דניאל (דני), ברעם עילי, ג'ורג'י שיר חנה, ג'רפי ליאל, גבאי שני, גוטמן תמר, גולדנברג ניצן<br>גולדנברג תמר, גולטמן דניאל, גוסק מרגריטה, גורביץ' (וסילקובסקי) ליליה, גורדני שרון, גוריונוב אנטון, גורלוב ויקטוריה<br>גז עדן, גטה סתיו, גילר ירוסלב (סלבה), גינדי שחר, גל שלו, גנדלין איזבלה, גנוט אביה<br>גנון שירן, גניס יוסף (ספי), גרציאני מאור, גרקוביץ' דפנה, דב רחל (רייצ'ל), דדון אבי, דהן יצחק איציק<br>דוד הודיה, דוד עמית יצחק, דוד תאיר, דוידוב קרינה אלה, דוידי ברק, דויטשוילי שון, דור עידן<br>דייטשמן רונן, דמרי דן סאסי, דמתי קים, דנגורי גל, דפני לין, הירש (אוזן) שרון, הלוי אביעד<br>הרמן עידן, הרמתי עידן, ואקנין פרמוטר לימור, ודעי דניאל מאיר, והדי משה, וולדמן דניאל, ויגדרגאוז (דובז'נקו) סיימון<br>ויינברג רון, ולאנו פונטס ברונה, וקנין אושר, וקנין מיכאל, ורבר אלון, ורדי לורי, ורניקוב קרין<br>ז'ורנו קארין, זגדון רינת הודיה, זהר בר, זוארמן מוטי (מרדכי), זיו אור, זיידמן יונתן (ג'וני), זנדר נועה<br>זנטי מתן, זפרני איתי, חבני שקד, חג'בי זיו, חדד אטיאס ליאור, חושן הדר, חיאל גידי<br>חיאל נועה, חיים מאיה, חליפה גאיה, חמוי אלה, חנום חזי (יחזקאל), חסיד בן בנציון, חפץ אריה אריק<br>טבגן גולדמן קטרינה (קטיה), טוויג יפתח דן, טויטו עדיאל, טיברג אברהם גלעד, טמם אדיר, טקאץ' ליאור, טרבלסי מור<br>טשרניחובסקי אורי, יהודאי רון, יואב מיכאל, יעקב אילן משה, יעקב שהם, יעקב שובל, יעקב שנהב<br>יעקובוב סאן אמנון, יצחקי מאי, ישמרני (טמם) שירז שירן, כהן בן בנימין, כהן דניאל, כהן מגורי ליבי, כהן מור<br>כהן עמית, כהן עמית חיים, כץ טל, לביא עומרי יעקב, להב עמית, לוי גיא גבריאל, לוי יצחק<br>לוי ליבנת, לוי לידור יוסף, לוי נאור, לוי ניסים (מעיין), לוי סיגל, לוי עמית, לוי רותם רחל<br>לוין אליסיה, לוק אלכסנדר (אלכס), לוק שני ניקול, ליאור מתן מרדכי, ליטמן אוריה ריקרדו, ליסמן אניטה, ליסצ'וב דוד<br>ליפובסקי אילן, למאי דידנקו יוליה, לפידות תפארת, מגנזי עמית, מדמון ניר, מדמוני שליו, מדר שחק יוסף<br>מועלם נעמה, מוצפי שי שלום אליאור, מזרחי אלירן, מזרחי בן מנשה, מזרחי רז, מייזל עדי רבקה, מימון ליאור<br>מליחי אמיתי, מלכה דור, מנצור שחר, מנצורי נורל, מנצורי רויה, מסיאס מונטנו אנטוניו יניב, מסיקה אדיר<br>מקרצ'נקו סטיבן, מרגלית עדי, מרלו ג'ייק, משה עדן דוד, נאמן דוד יאיר שלום, נבון גל, נזרוב אילקין<br>נחום דור, נידג'לסקי גלזר חנני, ניימן רותם, ניסימבוים (כרמלי) ג'ני, ניסן לירז, נעים מאי, נפתלי עדן<br>נקמולי בר ליאור (ברלי), סאסי אבי, סבידיה שלומי, סוויסה מוריה אור, סולומון הילי, סטלזר מנדס קרלה, סטרוסטה תומר<br>סלומון יעקב, סלע רם, סמואלוב אלעזר, סמוילוב אלכסנדר, סמט תמר, סעידי צור, סעידיאן משה (מושיקו)<br>סרודי יניב, עבדוש נאג'י, עדרי עידן, עודי עופר, עזר גיא, עזרא עוז משה, עטון ליאור<br>עמר חנן (חנניה), עמר מרסדס אוריה, פאר יועד, פודר מאיה, פולבנוב רוני, פוסטל יבגני, פורטי ניר<br>פטרובסקי רוני, פטרנקו דניאלה (דנה), פישמן בן, פלחטי אלינה, פסו אוראל, פרג' נועה, פריטיקה קארינה<br>פרינץ הדר, פרנקל זיו, פרץ אריק (אריה), פרץ עידו, פרץ רות הודיה, צפיר דדו, צפתי חי חיים<br>צרפתי אופיר, קונדרוב אירית, קופרווסר שני, קיז'נר שגב ישראל, קיילין הילה, קינן לינור, קליכמן מעין<br>קמחי אופק, קן דרור יהונתן (מאיר), קסרוטי כלפה קשת, רביב מוריה, רביע אופק, רגב שי, רואימי מיכל<br>רוביו ורגס איבון עדן פטריסיה, רוזמן יעל, רום יהונתן, רומשקין אולגה נעמי, רחום ניצן, רחמים אביאל שלום, רחמים דביר<br>ריבלין גדעון הראל, ריכטר יונתן (שפיק), רם עמרי, רפאי (רפאל) אלי, רפאי שרון, שאמץ איליה, שגב שושן<br>שגב תומר, שהרבני סיון, שובה משה, שופן זיו, שטרית רוני, שי נעם, שיינקרמן דניאל<br>שינדל מארק, שכטר בר, שלו שי, שלום נעם, שלום רם, שלזינגר אסף, שם טוב ענבר<br>שמוניס הראל שרונה, שמעוני בנימין (בן), שמר רון, שניר איתן רפאל, שפירא זיו פפה, שפר רן, שרם ליאם<br>תאר דוד, תומר בר, תורג'מן אבידן, תורג'מן דוד (דודי), תורג'מן שוהם ליה, תל צור ניב
                  </div>`,
@@ -1556,7 +1556,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_4f71c05f4a060f146996f3bce676ec6e = L.semiCircle(
+                    var semi_circle_b9c436551defe9b61f946f1f1cba91eb = L.semiCircle(
                         [31.4014870534664,34.4724927048611],
                         {radius:3260.117651201682,
                         fill: true,
@@ -1565,9 +1565,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (332 || 345) {
-                    var semi_circle_4f71c05f4a060f146996f3bce676ec6e = L.semiCircle(
+                    var semi_circle_b9c436551defe9b61f946f1f1cba91eb = L.semiCircle(
                         [31.4014870534664,34.4724927048611],
                         {radius:3260.117651201682,
                         fill: true,
@@ -1578,11 +1578,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:332, 
                         stopAngle:345
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_4f71c05f4a060f146996f3bce676ec6e.bindTooltip(
+            semi_circle_b9c436551defe9b61f946f1f1cba91eb.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">פסטיבל נובה:  14 חיילים<br>סמ"ר ארביב אופק, רס״ל באוסי איתי יהודה, סמ"ר ביטון נדב, סמ"ר בן פורת אליסף, סמ"ר בר שהם, סמל ויינשטיין ליאל, רב"ט טסטה אופיר<br>סמ"ר כהן אברהם נריה, סרן צרפתי רון, סמ"ר קסבצ'וק דניאל, סמל רוטנברג נועם אלימלך, סמ"ר ריבלין אביעד שר שלום, סמל שוורצמן קארין, סמ"ר שפירא ענר אליקים<br>
                  </div>`,
@@ -1591,7 +1591,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_fb6b76bed306212b66107a317643538f = L.semiCircle(
+                    var semi_circle_1d04974b3633a7c8651a289bc77eb884 = L.semiCircle(
                         [31.4014870534664,34.4724927048611],
                         {radius:3260.117651201682,
                         fill: true,
@@ -1600,9 +1600,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (345 || 360) {
-                    var semi_circle_fb6b76bed306212b66107a317643538f = L.semiCircle(
+                    var semi_circle_1d04974b3633a7c8651a289bc77eb884 = L.semiCircle(
                         [31.4014870534664,34.4724927048611],
                         {radius:3260.117651201682,
                         fill: true,
@@ -1613,11 +1613,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:345, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_fb6b76bed306212b66107a317643538f.bindTooltip(
+            semi_circle_1d04974b3633a7c8651a289bc77eb884.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">פסטיבל נובה:  15 שוטרים וכוחות הצלה<br>סגן אדרי עידו, רפ"ק אחונדוב אמין, רס"ב ברד אלון, מפקח דוקרקר קים, דראושה עווד, רס"ב ווקסר יוליה, רס"ר יפרח אליאור<br>רס״ם ליבוביץ' שרון, רס״ר מרקוביצ'י אהרון ארתור, נחמן עילי, פקד פושיבאי אנדריי, רס"ר קנפו שי אל, רס"ב קרים מליק, רס"ב קרסיק ויטלי<br>רס"ם רחמני שרון
                  </div>`,
@@ -1626,7 +1626,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_12facc91b4add8aa9abf094f415f692c = L.semiCircle(
+                    var semi_circle_d0ae65336481773abbe4ffe1090cb94a = L.semiCircle(
                         [31.424513,34.492567],
                         {radius:1877.149551861695,
                         fill: true,
@@ -1635,9 +1635,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 269) {
-                    var semi_circle_12facc91b4add8aa9abf094f415f692c = L.semiCircle(
+                    var semi_circle_d0ae65336481773abbe4ffe1090cb94a = L.semiCircle(
                         [31.424513,34.492567],
                         {radius:1877.149551861695,
                         fill: true,
@@ -1648,11 +1648,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:269
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_12facc91b4add8aa9abf094f415f692c.bindTooltip(
+            semi_circle_d0ae65336481773abbe4ffe1090cb94a.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">בארי:  92 אזרחים וכיתות כוננות<br>Cabrera Gracie, Castelvi Paul Vincent, Jayathilaka Anula, Yatawara Bandara Susujith, אבו עאמר אל רזאם סוהייב, אבן אלון, אבן חן<br>אבן עידו, אבן רינת, רס"ם אבני חגי, אוחיון סילביה, אור יונת, אפטלון יוסי (זיגי), רס"ב בויום גיל<br>בויום ענבר, בירה אורון, בירה טל, בירה יסמין, בירה תאיר, בירה תהל, בכר גאולה<br>בכר דנה, בכר כרמל, בכר מזל (מזי), בן עמי חוה, בר יובל, בר מעיין, בר סיני יורם<br>גודארד (פרג) איילת, גודארד מני, גת כנרת, דגן עדי, הנד נרקיס, הקר זאב, הקר זהבה<br>הרן אבשלום (אבשל), הרשקוביץ מעיינה, הרשקוביץ נח, וייס אילן, וייס מתי, וייס עמיר, וייס שמואל (שמוליק)<br>זוהר חיים, זלמנוביץ' הלל, רס"ם חדד איתן, חצרוני איילה, חצרוני הלר ינאי, חצרוני הלר ליאל, חרמש עומר<br>טרנשצ'נסקי ליאור, יצחקי יהודית, כהן אוהד, כהן יונה, כהן מילה, כהן פסיה (פסי), כרסנטי שוש (שושנה)<br>לוי לודמיר דניאל, לוי רוני, לוסב איגור, לוסב מרינה, מור אבי, מורדו רפאל (רפי), מייזנר קרבונה גלית<br>מילס אלברט (אבלום), נווה מרדכי, נטע אדריאן, סבירסקי רפי, סוכמן תמי, סיטון חנה, סיטון טל<br>סיטון יצחק, סילבר ויויאן, סלע סבירסקי אורית, פישביין זערור תכלת, פרייליך קפלון מרסל, פריקר יונה, רס"ם צמח שחר<br>קוזין יצחק, קידר סמי, קיפניס אביתר (תרי), קיפניס לילך, קלדרון רותם, קפלון דרור, רס"ם קראוניק אריה (אריק)<br>קרול דוד, קריצמן חנה, רזילוב יחזקאל (חזי), רידר דור, רפופורט יונתן, שרעבי יהל, שרעבי ליאן<br>שרעבי נויה
                  </div>`,
@@ -1661,7 +1661,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_e8efe55cf161f708e26140f39194ea77 = L.semiCircle(
+                    var semi_circle_f4699d8e752716ba0b0451ecf7c03b76 = L.semiCircle(
                         [31.424513,34.492567],
                         {radius:1877.149551861695,
                         fill: true,
@@ -1670,9 +1670,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (269 || 325) {
-                    var semi_circle_e8efe55cf161f708e26140f39194ea77 = L.semiCircle(
+                    var semi_circle_f4699d8e752716ba0b0451ecf7c03b76 = L.semiCircle(
                         [31.424513,34.492567],
                         {radius:1877.149551861695,
                         fill: true,
@@ -1683,11 +1683,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:269, 
                         stopAngle:325
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_e8efe55cf161f708e26140f39194ea77.bindTooltip(
+            semi_circle_f4699d8e752716ba0b0451ecf7c03b76.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">בארי:  19 חיילים<br>סמל אוחנה אריאל, רב"ט אליהו אריאל, רס"ר בלקין עמרי, סמ"ר בן דוד נריה, רב"ט ברוך עידן, סגן גוטין יונתן, רס״ן גולן שגיא<br>סא״ל גינסברג אלי, סמ״ר גנסיה ולנטין (אלי), רס״ן טרקינסקי בנימין (בנג׳י), רס"ל כהן אהד (בודי), סרן כהן שילה, סגן לקס נווה אלעזר, רס"ן מאיר דוד חיים<br>רס"ן נגרי רועי, רס"ן סקורי אמיר, סרן קלמנזון אלחנן מאיר, רס"ל רוסו אופק, רס"ן שוש נוי
                  </div>`,
@@ -1696,7 +1696,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_165411bea9a6e6792a3a4557f103dcee = L.semiCircle(
+                    var semi_circle_b10bec62769120cefc7039be63374a97 = L.semiCircle(
                         [31.424513,34.492567],
                         {radius:1877.149551861695,
                         fill: true,
@@ -1705,9 +1705,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (325 || 360) {
-                    var semi_circle_165411bea9a6e6792a3a4557f103dcee = L.semiCircle(
+                    var semi_circle_b10bec62769120cefc7039be63374a97 = L.semiCircle(
                         [31.424513,34.492567],
                         {radius:1877.149551861695,
                         fill: true,
@@ -1718,11 +1718,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:325, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_165411bea9a6e6792a3a4557f103dcee.bindTooltip(
+            semi_circle_b10bec62769120cefc7039be63374a97.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">בארי:  12 שוטרים וכוחות הצלה<br>רס"ר אברג'יל אלירן, רפ"ק בליך ודים, סמל גלסקי יבגני, רפ״ק גנות דן, רס"ם דנילוב בוריס, חצרוני אביה, רס"ר יהושע איתי<br>רס״ל מולוגטה גדיף, מן עמית, רס"ל מנגדי דור, סנ"צ עמר אבי, רס"ל שלום אלון אוראל
                  </div>`,
@@ -1731,7 +1731,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_608d286f0c2144ed053c9d32aed76f3a = L.semiCircle(
+                    var semi_circle_981ffcb35d35941ce195ab739ed1824d = L.semiCircle(
                         [31.483416,34.532291],
                         {radius:1485.223051010746,
                         fill: true,
@@ -1740,9 +1740,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 262) {
-                    var semi_circle_608d286f0c2144ed053c9d32aed76f3a = L.semiCircle(
+                    var semi_circle_981ffcb35d35941ce195ab739ed1824d = L.semiCircle(
                         [31.483416,34.532291],
                         {radius:1485.223051010746,
                         fill: true,
@@ -1753,11 +1753,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:262
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_608d286f0c2144ed053c9d32aed76f3a.bindTooltip(
+            semi_circle_981ffcb35d35941ce195ab739ed1824d.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">כפר עזה:  56 אזרחים וכיתות כוננות<br>Aguirre Angelyn, Homsorn Settha , Sae Wang Nitikorn, רס"ם אביאני שחר, אדמוני מיכל, אדרי אביעד אברהם, אורגד גולדנברג אליהו (אלי)<br>רס"ם אילון טל, איתמרי לילי, איתמרי רם, אלקבץ סיון, אמיר מודי (מרדכי), אפשטיין בלהה, אפשטיין נטע<br>בויום יובל, בן דוד (ג'יבלי) מאיה, רס"ם ברגשטיין שחף, ברדיצ'בסקי (רוזנפלד) הדר, ברדיצ'בסקי איתי, רס"ם ברעם אביב, גולדשטיין אלמוג נדב<br>גורן ארן, גורן טובה, דגני נעמי, סרן הנדי אברהם חננאל, וינר יהב, ורטהיים (בר אילן) דורית, ורטהיים אביב<br>זיו איתן, זיני ניראל, חסידים נאור, רס"ר ליבשטיין אופיר, ליבשטיין ניצן, סלומון יובל, עידן רועי<br>רס"ם עמיקם נדב, פלג זיו (נאור) תמי, פלד גילה, פלד דניאל, פלד יזהר, פלש יגאל, פלש סינתיה תמר (סינדי)<br>פרץ מארק (מרדכי), צדיקביץ' עומר, קוץ אביב, קוץ יונתן, קוץ יפתח, קוץ לבנת, קציר (קצ'קו) דוד<br>רביב ניב, רונן נירה, רס"ן רוסו אורי שמעון, רייכנשטיין אליהו (אליקו), שוורצמן דוד אלברטו, שוורצמן פינקו אורלי, שטהל מירה<br>
                  </div>`,
@@ -1766,7 +1766,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_fb5853ce355295c2bd812918bda0041c = L.semiCircle(
+                    var semi_circle_c5aaf782ddd60273dfa561fe40e094ec = L.semiCircle(
                         [31.483416,34.532291],
                         {radius:1485.223051010746,
                         fill: true,
@@ -1775,9 +1775,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (262 || 355) {
-                    var semi_circle_fb5853ce355295c2bd812918bda0041c = L.semiCircle(
+                    var semi_circle_c5aaf782ddd60273dfa561fe40e094ec = L.semiCircle(
                         [31.483416,34.532291],
                         {radius:1485.223051010746,
                         fill: true,
@@ -1788,11 +1788,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:262, 
                         stopAngle:355
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_fb5853ce355295c2bd812918bda0041c.bindTooltip(
+            semi_circle_c5aaf782ddd60273dfa561fe40e094ec.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">כפר עזה:  20 חיילים<br>סרן אדמוני גיא, רס"ן ברונשטיין בן, רס״ל גדליה יוסף מלאכי, סמ״ר גולדשטיין אלמוג ים, סמ״ר דושי רותם, סמל הלל יותם, סמ"ר ונינו עמיחי יעקב<br>רס"ן זיסר עילי, רס"ן כהן טל, סמ״ר לב בנימין, רס״ם מיכאלי עמרי, סרן נהרי רועי, סרן עדני איליי, רס"ל פישר אמיר<br>סרן צור אמיר, סמל קוץ רותם, סרן קמה הדר, סרן רן אור יוסף, סרן שדה דור, סמל שושני אופיר
                  </div>`,
@@ -1801,7 +1801,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_0e34790420878a992291d2d67e57cfac = L.semiCircle(
+                    var semi_circle_d60963228507b2b499dd2da396bbb150 = L.semiCircle(
                         [31.483416,34.532291],
                         {radius:1485.223051010746,
                         fill: true,
@@ -1810,9 +1810,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (355 || 360) {
-                    var semi_circle_0e34790420878a992291d2d67e57cfac = L.semiCircle(
+                    var semi_circle_d60963228507b2b499dd2da396bbb150 = L.semiCircle(
                         [31.483416,34.532291],
                         {radius:1485.223051010746,
                         fill: true,
@@ -1823,11 +1823,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:355, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_0e34790420878a992291d2d67e57cfac.bindTooltip(
+            semi_circle_d60963228507b2b499dd2da396bbb150.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">כפר עזה:  1 שוטרים וכוחות הצלה<br>מור עידן סמדר
                  </div>`,
@@ -1836,7 +1836,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_eeff76c107e9bbc7ad2bb0ff4d76176d = L.semiCircle(
+                    var semi_circle_e21b302799fa94114a91bc57794fa20b = L.semiCircle(
                         [31.522694,34.595581],
                         {radius:1232.2086499845232,
                         fill: true,
@@ -1845,9 +1845,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 245) {
-                    var semi_circle_eeff76c107e9bbc7ad2bb0ff4d76176d = L.semiCircle(
+                    var semi_circle_e21b302799fa94114a91bc57794fa20b = L.semiCircle(
                         [31.522694,34.595581],
                         {radius:1232.2086499845232,
                         fill: true,
@@ -1858,11 +1858,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:245
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_eeff76c107e9bbc7ad2bb0ff4d76176d.bindTooltip(
+            semi_circle_e21b302799fa94114a91bc57794fa20b.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">שדרות:  36 אזרחים וכיתות כוננות<br>Brema (Boma) Adam Mohammad, Cao Yongkai, Wan Zhishun, Zou Deli, אבדלימוב סמיון, אבו סבילה עאמר, אברמוב מיכאל<br>איליאגוייב סלומון, אלגרגאוי סאמי, אשרף חיים, ביילין זינאידה (זינה), גבאי מור, גילר ליליה, ויצמן ליאור<br>זרבאילוב מיכל מראל, טולדנו עמרם אלון, טומייב נטליה, טנבורה אמיר, לוזובסקי לאוניד, מאירי זוהר, מגירא אבי<br>מורזאחנוב מיכאל, מורטוב יעקב, מלכה מאיר, נווה נתיב מעיין, סוויסה אודיה, סוויסה דולב, סורוקין דמיטרי<br>ספרבצ'יקוב נדז'דה, פופוב ולדימיר, פופוב סופיה, פורמן לודמילה (לודה), פרידמן ולרי, קורצר איגור, שמיאייב לוי ברטה בטסיין<br>שניטמן טטיאנה
                  </div>`,
@@ -1871,7 +1871,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_94995f5777dd98d33566391561e19308 = L.semiCircle(
+                    var semi_circle_481ae61a5b9e88c05a44569119404092 = L.semiCircle(
                         [31.522694,34.595581],
                         {radius:1232.2086499845232,
                         fill: true,
@@ -1880,9 +1880,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (245 || 265) {
-                    var semi_circle_94995f5777dd98d33566391561e19308 = L.semiCircle(
+                    var semi_circle_481ae61a5b9e88c05a44569119404092 = L.semiCircle(
                         [31.522694,34.595581],
                         {radius:1232.2086499845232,
                         fill: true,
@@ -1893,11 +1893,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:245, 
                         stopAngle:265
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_94995f5777dd98d33566391561e19308.bindTooltip(
+            semi_circle_481ae61a5b9e88c05a44569119404092.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">שדרות:  3 חיילים<br>סמ"ר ברוכים יוסף איתמר, רס״ן גרושקה טל, סמל רובינשטיין בן
                  </div>`,
@@ -1906,7 +1906,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_6c50cee7481363882d612703c9c2ed0f = L.semiCircle(
+                    var semi_circle_82902cb0d68e201189ad5ef8c89f55db = L.semiCircle(
                         [31.522694,34.595581],
                         {radius:1232.2086499845232,
                         fill: true,
@@ -1915,9 +1915,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (265 || 360) {
-                    var semi_circle_6c50cee7481363882d612703c9c2ed0f = L.semiCircle(
+                    var semi_circle_82902cb0d68e201189ad5ef8c89f55db = L.semiCircle(
                         [31.522694,34.595581],
                         {radius:1232.2086499845232,
                         fill: true,
@@ -1928,11 +1928,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:265, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_6c50cee7481363882d612703c9c2ed0f.bindTooltip(
+            semi_circle_82902cb0d68e201189ad5ef8c89f55db.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">שדרות:  14 שוטרים וכוחות הצלה<br>רנ"ג אברג'יל מאיר, רס"ם אלטון דרור, רנ"ג בלנקי דניס, רנ"ג בן דיין דוד, רנ״ג גולימה סמצאו שמואל, רס״ב דיין ירון מוריס, רס"ר הרוש אליהו מיכאל<br>רס״ם מרציאנו אריק יהודה, רנ"ג נחמיאס חן, סגן טפסר צבאן שלום, רפ"ק קוזמיצקס מרטין, רס"ב שלמה אדיר, רפ"ק שמקלוב אלכסיי, רס"ר שקורי מור<br>
                  </div>`,
@@ -1940,13 +1940,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_8d7edd354c982d9c5afaaad44e9dc920 = L.circle(
+            var circle_5b9e92aded6171ead27ac0366ee8968f = L.circle(
                 [31.4792874887897, 34.5015939038425],
                 {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1208.7358593107094, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_8d7edd354c982d9c5afaaad44e9dc920.bindTooltip(
+            circle_5b9e92aded6171ead27ac0366ee8968f.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">מוצב נחל עוז:  51 חיילים<br>סמל אביטל אור, רב"ט אברמוביץ' נועם, סמל איל אמיר, סגן אילת שיר, סמ"ר אמויאל דולב, סמ"ר אמיתי נהוראי לוי, סמל אסראף סיון שמחה<br>סמל אשל רוני, סמל אשרם שי, סמ"ר בוגלה אדיר אישטו, סמל ביטון שיר, סמ"ר בן דוד ברק, סמ"ר בן יעקב יעד, סמ"ר בן שטרית שמעון אלרואי<br>סמ"ר בר עם נטע, סמל ברזילי אושר שמחה, סמ"ר ברקת רועי, סמ״ר גולן יונתן, סמ"ר גלס ים, סג"ם דוכן יוחאי, רס״ן הר אבן שילה<br>רב"ט ויאלובו פולו מיה, סמ"ר זכאי דביר, רס״ב ח'רובה איברהים, סמל חג'ג' אביב, סמ״ר חיים פור שיראל, סמל יוגב בועז מנשה, סמל ירוחין אופיר<br>סמ"ר ירחי דור, רב"ט כהן הדר מרים, סמ"ר כרמי אורי, סמל לוגסי שמעון יוחאי, סמ"ר לזימי דור, סמל ליבוביץ' תומר, סמל לייבושור יעל<br>סמ"ר לנדמן עדי, סמל מור שיראל, סמ"ר מידאני סהר, סמל נידם שוהם שלמה, סרן נימרי עדן, סמ"ר ניסני שחף, סמ"ר סיבוני נאור<br>סמל עזיזוב ליאור, רב"ט עמר שירת ים, סמ"ר פיטוסי ישי, סמ"ר פלד ירין מארי, סמ"ר פרייס נועה, סמ"ר רון איתי אברהם, סמ"ר רתנר דוד<br>סמל שוחט שירה, סמ"ר שפרבר דניאל
                  </div>`,
@@ -1955,7 +1955,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_e247ff3696b7a414e4febe89c2e42683 = L.semiCircle(
+                    var semi_circle_3dc82ac4437bd6af90c7088364428073 = L.semiCircle(
                         [31.311337,34.622824],
                         {radius:1029.5493776366548,
                         fill: true,
@@ -1964,9 +1964,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 272) {
-                    var semi_circle_e247ff3696b7a414e4febe89c2e42683 = L.semiCircle(
+                    var semi_circle_3dc82ac4437bd6af90c7088364428073 = L.semiCircle(
                         [31.311337,34.622824],
                         {radius:1029.5493776366548,
                         fill: true,
@@ -1977,11 +1977,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:272
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_e247ff3696b7a414e4febe89c2e42683.bindTooltip(
+            semi_circle_3dc82ac4437bd6af90c7088364428073.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">אופקים:  28 אזרחים וכיתות כוננות<br>אוחיון אליעד, אוחיון משה, אוסטרובסקי מיכאל, אלטלאקת פאטמה, ביליה אריאל (אריק), בלטי יצחק (איציק), בן פורת משה<br>ג'מבקוב אנדריי, ג'מבקוב זויה, גורי אריאל רפאל, גרידסקול ויקטוריה, גרידסקול סרגיי, דמידובה נטליה, ויזמן ראובן<br>זארוק חטיב, זקוטו אבי, חטואל אברהם (אבי), חייט שמעון, יאחנגילוב יפתח, יאחנגילוב מריה, ידגרוב יורי<br>ידגרוב רוזה, מלקמו עדנה, משייב אנה, פוליאקוב אמה, צ'אנה ישראל, קוסטיצין יליזבטה (ליליה), רחמים בנימין<br>
                  </div>`,
@@ -1990,7 +1990,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_406065e2abd54b8c8ba6eb9f5ca8660f = L.semiCircle(
+                    var semi_circle_3163c13c29d5fe867e4c023c835af7e0 = L.semiCircle(
                         [31.311337,34.622824],
                         {radius:1029.5493776366548,
                         fill: true,
@@ -1999,9 +1999,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (272 || 302) {
-                    var semi_circle_406065e2abd54b8c8ba6eb9f5ca8660f = L.semiCircle(
+                    var semi_circle_3163c13c29d5fe867e4c023c835af7e0 = L.semiCircle(
                         [31.311337,34.622824],
                         {radius:1029.5493776366548,
                         fill: true,
@@ -2012,11 +2012,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:272, 
                         stopAngle:302
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_406065e2abd54b8c8ba6eb9f5ca8660f.bindTooltip(
+            semi_circle_3163c13c29d5fe867e4c023c835af7e0.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">אופקים:  3 חיילים<br>רב"ט אלעזרי יונתן, סמ״ר גורי רואי חיים, סמ"ר סעיד נהוראי
                  </div>`,
@@ -2025,7 +2025,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_e674437022c4ac9f87e9cb5fbe8077d3 = L.semiCircle(
+                    var semi_circle_62737f674ad1c72c07a4d3e7cdc5d39d = L.semiCircle(
                         [31.311337,34.622824],
                         {radius:1029.5493776366548,
                         fill: true,
@@ -2034,9 +2034,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (302 || 360) {
-                    var semi_circle_e674437022c4ac9f87e9cb5fbe8077d3 = L.semiCircle(
+                    var semi_circle_62737f674ad1c72c07a4d3e7cdc5d39d = L.semiCircle(
                         [31.311337,34.622824],
                         {radius:1029.5493776366548,
                         fill: true,
@@ -2047,11 +2047,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:302, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_e674437022c4ac9f87e9cb5fbe8077d3.bindTooltip(
+            semi_circle_62737f674ad1c72c07a4d3e7cdc5d39d.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">אופקים:  6 שוטרים וכוחות הצלה<br>רנ"ג אבוהרון רוני, רנ"ג אילוז יגאל, רס"ר בוזגלו אבי, חיימוב אהרון, פקד לוגסי ניסים, רס״ר ליזמי מיכאל
                  </div>`,
@@ -2060,7 +2060,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_bba3e032c3c89586a168b6bf28760ddc = L.semiCircle(
+                    var semi_circle_51f6f3dee71ffbb50c2a87255d59a034 = L.semiCircle(
                         [31.374545,34.398992],
                         {radius:957.4614729634385,
                         fill: true,
@@ -2069,9 +2069,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 281) {
-                    var semi_circle_bba3e032c3c89586a168b6bf28760ddc = L.semiCircle(
+                    var semi_circle_51f6f3dee71ffbb50c2a87255d59a034 = L.semiCircle(
                         [31.374545,34.398992],
                         {radius:957.4614729634385,
                         fill: true,
@@ -2082,11 +2082,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:281
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_bba3e032c3c89586a168b6bf28760ddc.bindTooltip(
+            semi_circle_51f6f3dee71ffbb50c2a87255d59a034.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">כיסופים:  25 אזרחים וכיתות כוננות<br>Chandrasena Chakkraphong, Kaison Aranthit, Khunsri Pongsatorn, Klangsuwan Theerapong, Kusaram Apichart, Kusaram Phongthep, Nachanׂ pichit<br>Phiia-ia Satawat, Prakotwong Thanakrit, Sanusan Chairat, Sophakun Anucha, Srithat Kawao, Suchat Phongtphat, Surakhai Sakda<br>Thanonphim Phirun, גודו תום, הייניק ראובן, זק (בן יעיש) אתי, זק איתי, זק שגיא, חולתי מנוחה<br>מור מעיין, רס"ם מרגוליס סער, סמיאטיץ' ג'ינה, רון עופר
                  </div>`,
@@ -2095,7 +2095,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_c5d4ce38ea6100b14481700f4360116b = L.semiCircle(
+                    var semi_circle_196cfc94d75661d37bc34d2e6be5ae19 = L.semiCircle(
                         [31.374545,34.398992],
                         {radius:957.4614729634385,
                         fill: true,
@@ -2104,9 +2104,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (281 || 360) {
-                    var semi_circle_c5d4ce38ea6100b14481700f4360116b = L.semiCircle(
+                    var semi_circle_196cfc94d75661d37bc34d2e6be5ae19 = L.semiCircle(
                         [31.374545,34.398992],
                         {radius:957.4614729634385,
                         fill: true,
@@ -2117,11 +2117,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:281, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_c5d4ce38ea6100b14481700f4360116b.bindTooltip(
+            semi_circle_196cfc94d75661d37bc34d2e6be5ae19.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">כיסופים:  7 חיילים<br>סמ"ר אמר רגב, סמל בוחניק לביא, סמל יענקלוב בר, סמל מלכה מתן, רס"ל מלקמו אביאל, סמ"ר פרץ עמרי, סמ"ר צור עדי<br>
                  </div>`,
@@ -2129,13 +2129,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_a11a8eb73bddfd42d370c01abdc05a35 = L.circle(
+            var circle_2ec416abfdaee92a000a53acb1aa96d8 = L.circle(
                 [31.309697, 34.402075],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1001.3371767186818, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_a11a8eb73bddfd42d370c01abdc05a35.bindTooltip(
+            circle_2ec416abfdaee92a000a53acb1aa96d8.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">ניר עוז:  35 אזרחים וכיתות כוננות<br>Bohl Caroline, Cae Lee Tou, Clemence Felix Mtenga, Dachtuyawat Bancha, Darlington Daniel (Danny), אדר תמיר, אנגל רונן<br>אצילי אביב, בן חורין רבקה, בן צבי אמיתי, גורן אבנר, גרוס יוסף (יוסיניו), דן כרמלה, דן נויה<br>והב יוסף (יוסי), חגי גדי, טרופנוב ויטלי, כץ רביד, לוינסון ברכה, מונדר רועי, משה סעיד (דוד)<br>נוי שפרה, סילברמן (שניידר) מרגיט, סילברמן יוסף, סימן טוב ארבל, סימן טוב יונתן (ג'וני), סימן טוב עומר, סימן טוב קדם תמר<br>סימן טוב קרול, סימן טוב שחר, פאוקר גדעון, קציר אברהם (רמי), שלו דוד, שלו טל, שפיר ירמי (ירמיהו)<br>
                  </div>`,
@@ -2144,7 +2144,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_a2111ed2e6cc7080eade1cf7f06924bc = L.semiCircle(
+                    var semi_circle_cafa730378ab127ae39c5ad66a8a02d7 = L.semiCircle(
                         [31.47268,34.497675],
                         {radius:793.8851142601841,
                         fill: true,
@@ -2153,9 +2153,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 245) {
-                    var semi_circle_a2111ed2e6cc7080eade1cf7f06924bc = L.semiCircle(
+                    var semi_circle_cafa730378ab127ae39c5ad66a8a02d7 = L.semiCircle(
                         [31.47268,34.497675],
                         {radius:793.8851142601841,
                         fill: true,
@@ -2166,11 +2166,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:245
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_a2111ed2e6cc7080eade1cf7f06924bc.bindTooltip(
+            semi_circle_cafa730378ab127ae39c5ad66a8a02d7.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">נחל עוז:  15 אזרחים וכיתות כוננות<br>Somkuan Pansa-ard, אליקים נועם, ברוש שושנה (שושי), זוהר יניב, זוהר יסמין, זוהר קשת, זוהר תכלת<br>כץ אפרת, ליבנה חיים, עידן מעיין, ערבה אליעז תומר, ערבה דקלה, רס"ם פוסלושני רן, רס"ם פיורנטינו אילן<br>רון שלמה
                  </div>`,
@@ -2179,7 +2179,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_3d7ea3833c8ccc9e2a1ac67c0f88545e = L.semiCircle(
+                    var semi_circle_71002c167ebc64ccd83452420e2c17d7 = L.semiCircle(
                         [31.47268,34.497675],
                         {radius:793.8851142601841,
                         fill: true,
@@ -2188,9 +2188,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (245 || 344) {
-                    var semi_circle_3d7ea3833c8ccc9e2a1ac67c0f88545e = L.semiCircle(
+                    var semi_circle_71002c167ebc64ccd83452420e2c17d7 = L.semiCircle(
                         [31.47268,34.497675],
                         {radius:793.8851142601841,
                         fill: true,
@@ -2201,11 +2201,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:245, 
                         stopAngle:344
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_3d7ea3833c8ccc9e2a1ac67c0f88545e.bindTooltip(
+            semi_circle_71002c167ebc64ccd83452420e2c17d7.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">נחל עוז:  6 חיילים<br>סגן באלוי עידן, רס"ן בוכריס חן, סמל גואטה עמית, סגן יעבץ יפתח, סמ"ר ראשד דניאל, סמ"ר רוזנטל אפיק
                  </div>`,
@@ -2214,7 +2214,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_6c6eda26c1b946c1e7c7f1fc950ecb67 = L.semiCircle(
+                    var semi_circle_2ef3b9899f3d880c6f69fdee80deb418 = L.semiCircle(
                         [31.47268,34.497675],
                         {radius:793.8851142601841,
                         fill: true,
@@ -2223,9 +2223,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (344 || 360) {
-                    var semi_circle_6c6eda26c1b946c1e7c7f1fc950ecb67 = L.semiCircle(
+                    var semi_circle_2ef3b9899f3d880c6f69fdee80deb418 = L.semiCircle(
                         [31.47268,34.497675],
                         {radius:793.8851142601841,
                         fill: true,
@@ -2236,11 +2236,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:344, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_6c6eda26c1b946c1e7c7f1fc950ecb67.bindTooltip(
+            semi_circle_2ef3b9899f3d880c6f69fdee80deb418.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">נחל עוז:  1 שוטרים וכוחות הצלה<br>רס"ר קרסנינסקי יעקב (יענקי) שלמה
                  </div>`,
@@ -2248,13 +2248,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_a5338c805ebd245caac5d7b03d41e333 = L.circle(
+            var circle_f6095e3411d1796bd2b8242a99cd287b = L.circle(
                 [31.3727633236407, 34.374932924728],
                 {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 737.7736139048902, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_a5338c805ebd245caac5d7b03d41e333.bindTooltip(
+            circle_f6095e3411d1796bd2b8242a99cd287b.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">מוצב כיסופים:  19 חיילים<br>סמ"ר אהרן יוגב, סמ"ר אוחיון אביתר, סמ"ר אסתו אור, סמל בזק גיא, סמל בטיטו ראם מאיר, סמ"ר בלאי בנימין, סמ"ר בן חמו מיכאל<br>סמל בן מוחה עילי נועם, סמ"ר טקה בנימין טשגר, סמל מיטלמן דוד, סמל נגר תומר, רס״ל סביצקי יונתן, סמל סגל אוריאל, רס"ל סקיפקביץ' ויטלי<br>רס"ל פלד עמית, רס"ן פרץ רז (רזיאל), סמ"ר רוזנשטיין בר, סרן שני אורי מרדכי, רס״ל ששון אלעד מיכאל
                  </div>`,
@@ -2263,7 +2263,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_541bb1096b455a5d2e8852a4328a57d1 = L.semiCircle(
+                    var semi_circle_d811a76f91978c1282e6fa69dad91c32 = L.semiCircle(
                         [31.3631573328565,34.4452834913286],
                         {radius:633.3012368467129,
                         fill: true,
@@ -2272,9 +2272,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 180) {
-                    var semi_circle_541bb1096b455a5d2e8852a4328a57d1 = L.semiCircle(
+                    var semi_circle_d811a76f91978c1282e6fa69dad91c32 = L.semiCircle(
                         [31.3631573328565,34.4452834913286],
                         {radius:633.3012368467129,
                         fill: true,
@@ -2285,11 +2285,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:180
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_541bb1096b455a5d2e8852a4328a57d1.bindTooltip(
+            semi_circle_d811a76f91978c1282e6fa69dad91c32.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">מחנה רעים:  7 חיילים<br>רס"ם אבן מרעי סלמאן, רס"ן יהושע עידו, סא"ל מחלוף סהר ציון, רב"ט עזר עילי, סרן עמאר נתאי, סמ״ר פלורס גרסיה ברנדו דוד, סרן שלומי רום<br>
                  </div>`,
@@ -2298,7 +2298,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_92e0114810d4f3cbb14dcc430c839a32 = L.semiCircle(
+                    var semi_circle_6a0df96d2b531f1022ff7a3865dca057 = L.semiCircle(
                         [31.3631573328565,34.4452834913286],
                         {radius:633.3012368467129,
                         fill: true,
@@ -2307,9 +2307,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (180 || 360) {
-                    var semi_circle_92e0114810d4f3cbb14dcc430c839a32 = L.semiCircle(
+                    var semi_circle_6a0df96d2b531f1022ff7a3865dca057 = L.semiCircle(
                         [31.3631573328565,34.4452834913286],
                         {radius:633.3012368467129,
                         fill: true,
@@ -2320,11 +2320,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:180, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_92e0114810d4f3cbb14dcc430c839a32.bindTooltip(
+            semi_circle_6a0df96d2b531f1022ff7a3865dca057.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">מחנה רעים:  7 שוטרים וכוחות הצלה<br>רס״ם אברהם דבי (דבורה), פקד הנקין אברהם, רס״ב ינין סיון, רס"ם כהן יוראי אליהו, פקד משה אל שלמה, רס"ם סיוון בר, פקד שיינקמן סטניסלב<br>
                  </div>`,
@@ -2333,7 +2333,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_a8a0c21671223f9217aa972463ee12ef = L.semiCircle(
+                    var semi_circle_336ea4c1076b0ec9ac6ee570df5597aa = L.semiCircle(
                         [31.453049,34.514711],
                         {radius:895.6231982162769,
                         fill: true,
@@ -2342,9 +2342,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 309) {
-                    var semi_circle_a8a0c21671223f9217aa972463ee12ef = L.semiCircle(
+                    var semi_circle_336ea4c1076b0ec9ac6ee570df5597aa = L.semiCircle(
                         [31.453049,34.514711],
                         {radius:895.6231982162769,
                         fill: true,
@@ -2355,20 +2355,20 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:309
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_a8a0c21671223f9217aa972463ee12ef.bindTooltip(
+            semi_circle_336ea4c1076b0ec9ac6ee570df5597aa.bindTooltip(
                 `<div dir="rtl">
-                     <font size="2">עלומים:  24 אזרחים וכיתות כוננות<br>#NAME?, Bista Dipesh Raj, Champasim Saksit, Chatdamdee Charoon, Chaudhary Ashish, Diawtmaisong Jakkapan, Kraisorn Thumyoma<br>Lekendora Sing Dahami, Nepali Ganesh Kumar, Neupane Narayan Prasad, Phetkaew Anan, Phulara Rajan, Pinjai Nanthawat, Prabesh Bhandari<br>Ritthiphon Meechai, Ruksanon Chaiya, Sae Yang Sumchai, Saethao Thawatchai, Saksit Khotmee, Seayang Dua, Shah Ananda<br>Swarnakar Raj Kumar, Thapa Padam, Yotthongdee Tianchai
+                     <font size="2">עלומים:  24 אזרחים וכיתות כוננות<br>Alacre Loreta Lori Villarin, Bista Dipesh Raj, Champasim Saksit, Chatdamdee Charoon, Chaudhary Ashish, Diawtmaisong Jakkapan, Kraisorn Thumyoma<br>Lekendora Sing Dahami, Nepali Ganesh Kumar, Neupane Narayan Prasad, Phetkaew Anan, Phulara Rajan, Pinjai Nanthawat, Prabesh Bhandari<br>Ritthiphon Meechai, Ruksanon Chaiya, Sae Yang Sumchai, Saethao Thawatchai, Saksit Khotmee, Seayang Dua, Shah Ananda<br>Swarnakar Raj Kumar, Thapa Padam, Yotthongdee Tianchai
                  </div>`,
                 {"sticky": true}
             );
         
     
                 if (0 || 0) {
-                    var semi_circle_b2b5c54f1e6533b774f1c5b37f2c72f6 = L.semiCircle(
+                    var semi_circle_1b8bdbc217f0c197a97a4e711b6ffa83 = L.semiCircle(
                         [31.453049,34.514711],
                         {radius:895.6231982162769,
                         fill: true,
@@ -2377,9 +2377,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (309 || 360) {
-                    var semi_circle_b2b5c54f1e6533b774f1c5b37f2c72f6 = L.semiCircle(
+                    var semi_circle_1b8bdbc217f0c197a97a4e711b6ffa83 = L.semiCircle(
                         [31.453049,34.514711],
                         {radius:895.6231982162769,
                         fill: true,
@@ -2390,11 +2390,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:309, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_b2b5c54f1e6533b774f1c5b37f2c72f6.bindTooltip(
+            semi_circle_1b8bdbc217f0c197a97a4e711b6ffa83.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">עלומים:  4 חיילים<br>סרן כהן איתי, רס"ר סלוטקי ישי, רס"ם סלוטקי נועם, רנ"ג רוזנטל עידו
                  </div>`,
@@ -2403,7 +2403,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_4b1baa82943b3972d11995936c23e68c = L.semiCircle(
+                    var semi_circle_bf7dec30aa8febfe283416ce9df00026 = L.semiCircle(
                         [31.386159,34.458823],
                         {radius:655.5290583552475,
                         fill: true,
@@ -2412,9 +2412,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 144) {
-                    var semi_circle_4b1baa82943b3972d11995936c23e68c = L.semiCircle(
+                    var semi_circle_bf7dec30aa8febfe283416ce9df00026 = L.semiCircle(
                         [31.386159,34.458823],
                         {radius:655.5290583552475,
                         fill: true,
@@ -2425,11 +2425,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:144
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_4b1baa82943b3972d11995936c23e68c.bindTooltip(
+            semi_circle_bf7dec30aa8febfe283416ce9df00026.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">רעים:  6 אזרחים וכיתות כוננות<br>Patee Kiattisak, גבאי עמית, הרמתי ורדה, פבר אסף, קמחי סתיו, קרפ דביר
                  </div>`,
@@ -2438,7 +2438,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_ededb9405dd64998b068e4265a51fcdf = L.semiCircle(
+                    var semi_circle_d7a3dc315bf7ecd01442c6ecdfdd0341 = L.semiCircle(
                         [31.386159,34.458823],
                         {radius:655.5290583552475,
                         fill: true,
@@ -2447,9 +2447,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (144 || 288) {
-                    var semi_circle_ededb9405dd64998b068e4265a51fcdf = L.semiCircle(
+                    var semi_circle_d7a3dc315bf7ecd01442c6ecdfdd0341 = L.semiCircle(
                         [31.386159,34.458823],
                         {radius:655.5290583552475,
                         fill: true,
@@ -2460,11 +2460,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:144, 
                         stopAngle:288
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_ededb9405dd64998b068e4265a51fcdf.bindTooltip(
+            semi_circle_d7a3dc315bf7ecd01442c6ecdfdd0341.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">רעים:  6 חיילים<br>סרן בן בסט יותם, רס"ן בן משה אריאל, סגן גאורי אדיר, אל"ם לוי רועי יוסף, סמ"ר שמחי גיא, רס"ן שמיר מרדכי (מוטי)
                  </div>`,
@@ -2473,7 +2473,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_ab273fed3368d11a81d450cb24a289b4 = L.semiCircle(
+                    var semi_circle_ba275005297ce7656dc0eee7bfc074aa = L.semiCircle(
                         [31.386159,34.458823],
                         {radius:655.5290583552475,
                         fill: true,
@@ -2482,9 +2482,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (288 || 360) {
-                    var semi_circle_ab273fed3368d11a81d450cb24a289b4 = L.semiCircle(
+                    var semi_circle_ba275005297ce7656dc0eee7bfc074aa = L.semiCircle(
                         [31.386159,34.458823],
                         {radius:655.5290583552475,
                         fill: true,
@@ -2495,11 +2495,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:288, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_ab273fed3368d11a81d450cb24a289b4.bindTooltip(
+            semi_circle_ba275005297ce7656dc0eee7bfc074aa.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">רעים:  3 שוטרים וכוחות הצלה<br>נצ"מ בוזוקושווילי יצחק (בוזוקה), רס"ב בלוכמן יקיר, רס"ב פוזדניאקוב אליק
                  </div>`,
@@ -2508,7 +2508,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_bb6c3ab5907fcb1d074cec02487b9877 = L.semiCircle(
+                    var semi_circle_f6ab9e7e353bf9258cd47ceae552f36a = L.semiCircle(
                         [31.563745499879,34.4407886393767],
                         {radius:478.73073648171925,
                         fill: true,
@@ -2517,9 +2517,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 180) {
-                    var semi_circle_bb6c3ab5907fcb1d074cec02487b9877 = L.semiCircle(
+                    var semi_circle_f6ab9e7e353bf9258cd47ceae552f36a = L.semiCircle(
                         [31.563745499879,34.4407886393767],
                         {radius:478.73073648171925,
                         fill: true,
@@ -2530,11 +2530,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:180
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_bb6c3ab5907fcb1d074cec02487b9877.bindTooltip(
+            semi_circle_f6ab9e7e353bf9258cd47ceae552f36a.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">לא פורסם מיקום:  4 אזרחים וכיתות כוננות<br>Pankitvanitjaroen Sarayuth, Pongkhrurea Paphonthanai, Tholaeng Phithak, לוגבינצ'נקו ויטלי
                  </div>`,
@@ -2543,7 +2543,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_4714deb8d96f18ef5026f6b674f62297 = L.semiCircle(
+                    var semi_circle_f29d0962168194c8b492a71c8f31cba4 = L.semiCircle(
                         [31.563745499879,34.4407886393767],
                         {radius:478.73073648171925,
                         fill: true,
@@ -2552,9 +2552,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (180 || 270) {
-                    var semi_circle_4714deb8d96f18ef5026f6b674f62297 = L.semiCircle(
+                    var semi_circle_f29d0962168194c8b492a71c8f31cba4 = L.semiCircle(
                         [31.563745499879,34.4407886393767],
                         {radius:478.73073648171925,
                         fill: true,
@@ -2565,11 +2565,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:180, 
                         stopAngle:270
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_4714deb8d96f18ef5026f6b674f62297.bindTooltip(
+            semi_circle_f29d0962168194c8b492a71c8f31cba4.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">לא פורסם מיקום:  2 חיילים<br>רס"ר גבאי יובל, סמ"ר מאסלי אלכסנדר
                  </div>`,
@@ -2578,7 +2578,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_4f55a5d10f7bacac014304f47f765d81 = L.semiCircle(
+                    var semi_circle_089820059a3c589a3d4ee12a38d30fb9 = L.semiCircle(
                         [31.563745499879,34.4407886393767],
                         {radius:478.73073648171925,
                         fill: true,
@@ -2587,9 +2587,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (270 || 360) {
-                    var semi_circle_4f55a5d10f7bacac014304f47f765d81 = L.semiCircle(
+                    var semi_circle_089820059a3c589a3d4ee12a38d30fb9 = L.semiCircle(
                         [31.563745499879,34.4407886393767],
                         {radius:478.73073648171925,
                         fill: true,
@@ -2600,11 +2600,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:270, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_4f55a5d10f7bacac014304f47f765d81.bindTooltip(
+            semi_circle_089820059a3c589a3d4ee12a38d30fb9.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">לא פורסם מיקום:  2 שוטרים וכוחות הצלה<br>בן משה (מושיאשוילי) מיכאל, רפאל שלום מאור
                  </div>`,
@@ -2613,7 +2613,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_912834f3d9842eeb1e1d22c78907b310 = L.semiCircle(
+                    var semi_circle_f94caf337cbd4443cab6ae79178f556c = L.semiCircle(
                         [31.572407,34.539322],
                         {radius:718.0961047225787,
                         fill: true,
@@ -2622,9 +2622,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 340) {
-                    var semi_circle_912834f3d9842eeb1e1d22c78907b310 = L.semiCircle(
+                    var semi_circle_f94caf337cbd4443cab6ae79178f556c = L.semiCircle(
                         [31.572407,34.539322],
                         {radius:718.0961047225787,
                         fill: true,
@@ -2635,11 +2635,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:340
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_912834f3d9842eeb1e1d22c78907b310.bindTooltip(
+            semi_circle_f94caf337cbd4443cab6ae79178f556c.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">נתיב העשרה:  17 אזרחים וכיתות כוננות<br>אלמגור מרינה, אקוני אור, אקוני אריה, אקוני ארלט (רותי), סרן בהרב רבינוביץ' עדי, בן נעים חיימי (חיים), ברגר נורית<br>וובק דני, וקס יגאל, רס"ב וקס עמית, ינון בלהה, ינון יעקובי, כפיר גלעד, מולכו איילת<br>מולכו שלומה (שלומי), סגל חויק, רס"ן שטרן אורן
                  </div>`,
@@ -2648,7 +2648,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_87a9bf2486b16d94642d4665e1682fce = L.semiCircle(
+                    var semi_circle_cb94e408bacf4c2dc042bc1bab087012 = L.semiCircle(
                         [31.572407,34.539322],
                         {radius:718.0961047225787,
                         fill: true,
@@ -2657,9 +2657,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (340 || 360) {
-                    var semi_circle_87a9bf2486b16d94642d4665e1682fce = L.semiCircle(
+                    var semi_circle_cb94e408bacf4c2dc042bc1bab087012 = L.semiCircle(
                         [31.572407,34.539322],
                         {radius:718.0961047225787,
                         fill: true,
@@ -2670,11 +2670,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:340, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_87a9bf2486b16d94642d4665e1682fce.bindTooltip(
+            semi_circle_cb94e408bacf4c2dc042bc1bab087012.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">נתיב העשרה:  1 שוטרים וכוחות הצלה<br>רס"ר תעסה גיל
                  </div>`,
@@ -2682,13 +2682,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_3317aec9b8a92be4fb8cb6ffdef5777c = L.circle(
+            var circle_2023617f1d4ae72ebcd8956b4e5ae307 = L.circle(
                 [31.6126901, 34.5045404],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 697.8639737521917, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_3317aec9b8a92be4fb8cb6ffdef5777c.bindTooltip(
+            circle_2023617f1d4ae72ebcd8956b4e5ae307.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">חוף זיקים:  17 אזרחים וכיתות כוננות<br>אוזן אליהו (אליקו), אוזן אריה, אלזיאדנה אלרחמן עאטף עבד, אסלנוב ג'ון, גניש בנימין (בני), וייסברג אלינה, ז'וקוב ולדימיר<br>חסדאי אבי, טייב נדב יוסף חי, ליסובוי יורי, ליסובוי סבטלנה, צ'בן יוליה, קימנפלד דניל, קרייף שחף<br>קרן טל, שאולוב רוברט, תעסה אור
                  </div>`,
@@ -2696,13 +2696,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_fac9509a1e5960761c5addf689e2f6c5 = L.circle(
+            var circle_615be4c428ed8486ab0591a30ea7dced = L.circle(
                 [31.3232254133789, 34.4024964699751],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 677.0275002573076, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_fac9509a1e5960761c5addf689e2f6c5.bindTooltip(
+            circle_615be4c428ed8486ab0591a30ea7dced.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">מסיבת פסיידאק:  16 אזרחים וכיתות כוננות<br>אלקבץ מוטי, בן יהודה גלעד, בן יהודה יובל, הדר איתי (יוסטון), זומר דן, זעפרני נוי תפארת, כהן דניאל אשר<br>מעודי נוי, קדמן שחר גל, קוסובסקי זלטה, קיפר סביון חן, רביע יובל, רביע נועם, רוזנברג מתן<br>שפיר דור חנן, שרון (שוקרון) דודי
                  </div>`,
@@ -2711,7 +2711,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_ff64a19630a843b964e425be35f2b69a = L.semiCircle(
+                    var semi_circle_30e05e54b1660ca72360df41e6bc6129 = L.semiCircle(
                         [31.230563,34.32734],
                         {radius:655.5290583552475,
                         fill: true,
@@ -2720,9 +2720,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 312) {
-                    var semi_circle_ff64a19630a843b964e425be35f2b69a = L.semiCircle(
+                    var semi_circle_30e05e54b1660ca72360df41e6bc6129 = L.semiCircle(
                         [31.230563,34.32734],
                         {radius:655.5290583552475,
                         fill: true,
@@ -2733,11 +2733,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:312
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_ff64a19630a843b964e425be35f2b69a.bindTooltip(
+            semi_circle_30e05e54b1660ca72360df41e6bc6129.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">חולית:  13 אזרחים וכיתות כוננות<br>Busko Petro, אלחרר חלפון ליז, אלחרר מאיר, רס"ר כצמן חיים ישורון, מתיאס טרואן שחר דבורה (דבי), מתיאס שלומי, סולטן רולאן<br>סולטן רונית, רס"ם קורין אברהם גבריאל, קייסמן לילי, קעטבי תהילה, קפלון עדי ויטל, רידלר משה
                  </div>`,
@@ -2746,7 +2746,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_2ed73cd4cdb9e762abd5ada24b887ba7 = L.semiCircle(
+                    var semi_circle_c1028be407c4022d327e75e0f81dd74b = L.semiCircle(
                         [31.230563,34.32734],
                         {radius:655.5290583552475,
                         fill: true,
@@ -2755,9 +2755,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (312 || 360) {
-                    var semi_circle_2ed73cd4cdb9e762abd5ada24b887ba7 = L.semiCircle(
+                    var semi_circle_c1028be407c4022d327e75e0f81dd74b = L.semiCircle(
                         [31.230563,34.32734],
                         {radius:655.5290583552475,
                         fill: true,
@@ -2768,11 +2768,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:312, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_2ed73cd4cdb9e762abd5ada24b887ba7.bindTooltip(
+            semi_circle_c1028be407c4022d327e75e0f81dd74b.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">חולית:  2 חיילים<br>רס"ם אלמוסנינו לירן מונס, סרן גורני יפתח
                  </div>`,
@@ -2781,7 +2781,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_a605ec41c7c18d036ca51e66176604f4 = L.semiCircle(
+                    var semi_circle_d1b54b3236891672931f61fa9bf86d8a = L.semiCircle(
                         [31.4993044924959,34.4612057026481],
                         {radius:697.8639737521917,
                         fill: true,
@@ -2790,9 +2790,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 296) {
-                    var semi_circle_a605ec41c7c18d036ca51e66176604f4 = L.semiCircle(
+                    var semi_circle_d1b54b3236891672931f61fa9bf86d8a = L.semiCircle(
                         [31.4993044924959,34.4612057026481],
                         {radius:697.8639737521917,
                         fill: true,
@@ -2803,11 +2803,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:296
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_a605ec41c7c18d036ca51e66176604f4.bindTooltip(
+            semi_circle_d1b54b3236891672931f61fa9bf86d8a.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">עזה:  14 אזרחים וכיתות כוננות<br>Mollel Joshua Loitu, אילוז גיא, ברוך סהר, גורן מיה, היימן ענבר, ויינשטיין ג'ודי, וייס יהודית<br>זכריה עדן, זלמנוביץ' אריה, טולדנו אליה, לוי איתן, מרגלית אליהו (צ'רצ'יל), סמרנו יונתן מרדכי, קידר עופרה<br>
                  </div>`,
@@ -2816,7 +2816,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_11998314d6a67307fa5d83ffce0dfe23 = L.semiCircle(
+                    var semi_circle_3f72c7630345edcabfe83686c51aa91a = L.semiCircle(
                         [31.4993044924959,34.4612057026481],
                         {radius:697.8639737521917,
                         fill: true,
@@ -2825,9 +2825,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (296 || 360) {
-                    var semi_circle_11998314d6a67307fa5d83ffce0dfe23 = L.semiCircle(
+                    var semi_circle_3f72c7630345edcabfe83686c51aa91a = L.semiCircle(
                         [31.4993044924959,34.4612057026481],
                         {radius:697.8639737521917,
                         fill: true,
@@ -2838,11 +2838,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:296, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_11998314d6a67307fa5d83ffce0dfe23.bindTooltip(
+            semi_circle_3f72c7630345edcabfe83686c51aa91a.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">עזה:  3 חיילים<br>רב"ט בייזר ניק, רב"ט מרציאנו נועה, סמל שרמן רון
                  </div>`,
@@ -2851,7 +2851,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_12a2ca54cb734fa10236d651c193beba = L.semiCircle(
+                    var semi_circle_8912b26e6c7c9ed5400d68d6aa501536 = L.semiCircle(
                         [31.33573,34.394087],
                         {radius:561.3615477764333,
                         fill: true,
@@ -2860,9 +2860,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 229) {
-                    var semi_circle_12a2ca54cb734fa10236d651c193beba = L.semiCircle(
+                    var semi_circle_8912b26e6c7c9ed5400d68d6aa501536 = L.semiCircle(
                         [31.33573,34.394087],
                         {radius:561.3615477764333,
                         fill: true,
@@ -2873,11 +2873,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:229
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_12a2ca54cb734fa10236d651c193beba.bindTooltip(
+            semi_circle_8912b26e6c7c9ed5400d68d6aa501536.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">נירים:  7 אזרחים וכיתות כוננות<br>Tamklang Parinya, Wisetdonwai Wutthipat, אלפסי אורן, באבאני גדעון, מאיר דורון, מאיר מור, פופלוול רועי<br>
                  </div>`,
@@ -2886,7 +2886,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_5cab6f161212572dba7ea6b8542d8308 = L.semiCircle(
+                    var semi_circle_af08d9d865d4606cdd11998b30680955 = L.semiCircle(
                         [31.33573,34.394087],
                         {radius:561.3615477764333,
                         fill: true,
@@ -2895,9 +2895,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (229 || 360) {
-                    var semi_circle_5cab6f161212572dba7ea6b8542d8308 = L.semiCircle(
+                    var semi_circle_af08d9d865d4606cdd11998b30680955 = L.semiCircle(
                         [31.33573,34.394087],
                         {radius:561.3615477764333,
                         fill: true,
@@ -2908,11 +2908,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:229, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_5cab6f161212572dba7ea6b8542d8308.bindTooltip(
+            semi_circle_af08d9d865d4606cdd11998b30680955.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">נירים:  4 חיילים<br>סמ"ר אגמון אדם, סמ"ר אחימס תומר יעקב, סמל ברודסקי קיריל, אל"ם חממי אסף
                  </div>`,
@@ -2920,13 +2920,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_ce3b186498c136fb1e86602e084d4a8f = L.circle(
+            var circle_40132f4c08a7907bc19818a4912dd5b8 = L.circle(
                 [31.451442032419, 34.4694931921028],
                 {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 586.3230142835039, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_ce3b186498c136fb1e86602e084d4a8f.bindTooltip(
+            circle_40132f4c08a7907bc19818a4912dd5b8.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">מוצב פגה:  12 חיילים<br>רב"ט ביננשטוק עידו, סמ"ר בן יהודה איתמר, סמ"ר ברנס שלו, סמ"ר ברק תומר, סמ"ר גליסקו איתי אופק, סמל כהן איתמר, סמ"ר לוי יקיר<br>סרן סויסה דקל, סמ"ר עדן חיים מאיר, סמל פרי רועי, סמל קיעאן חביב, סמ"ר רז עידן
                  </div>`,
@@ -2934,13 +2934,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_f6ffdfc0f644ae05b27bcc0532a02a05 = L.circle(
+            var circle_406734f1f3fe7146f8af0d645b6a1039 = L.circle(
                 [31.2402695741122, 34.3362364083698],
                 {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 535.2372348458314, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_f6ffdfc0f644ae05b27bcc0532a02a05.bindTooltip(
+            circle_406734f1f3fe7146f8af0d645b6a1039.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">מוצב סופה:  10 חיילים<br>סמ"ר בזגודוב דניאל, סמל דקל נחמן, סמל לביא אמיר, סמ"ר לוי טל, סמ"ר מוסט עמית, סמ"ר מלמן אופיר, סמל סעדון הלל שמואל<br>רס"ן צ'אפל רועי, סמל שוורץ שגב, סמ"ר שקותאי גלי רועי
                  </div>`,
@@ -2949,7 +2949,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_9a1e6bf611ee598bc4af0d592aba7331 = L.semiCircle(
+                    var semi_circle_63df6a90b4318c73e3f37d646397e86c = L.semiCircle(
                         [31.228281,34.284559],
                         {radius:414.5929793656026,
                         fill: true,
@@ -2958,9 +2958,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 120) {
-                    var semi_circle_9a1e6bf611ee598bc4af0d592aba7331 = L.semiCircle(
+                    var semi_circle_63df6a90b4318c73e3f37d646397e86c = L.semiCircle(
                         [31.228281,34.284559],
                         {radius:414.5929793656026,
                         fill: true,
@@ -2971,11 +2971,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:120
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_9a1e6bf611ee598bc4af0d592aba7331.bindTooltip(
+            semi_circle_63df6a90b4318c73e3f37d646397e86c.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">כרם שלום:  2 אזרחים וכיתות כוננות<br>רס"ר ויצן ישראל עמיחי, רס"ר רזיאל (רוזנברג) ידידיה משה
                  </div>`,
@@ -2984,7 +2984,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_43793f3a9acbf3e488c4904010889de8 = L.semiCircle(
+                    var semi_circle_8fb543e00aadfcf70adb474afb417f85 = L.semiCircle(
                         [31.228281,34.284559],
                         {radius:414.5929793656026,
                         fill: true,
@@ -2993,9 +2993,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (120 || 360) {
-                    var semi_circle_43793f3a9acbf3e488c4904010889de8 = L.semiCircle(
+                    var semi_circle_8fb543e00aadfcf70adb474afb417f85 = L.semiCircle(
                         [31.228281,34.284559],
                         {radius:414.5929793656026,
                         fill: true,
@@ -3006,11 +3006,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:120, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_43793f3a9acbf3e488c4904010889de8.bindTooltip(
+            semi_circle_8fb543e00aadfcf70adb474afb417f85.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">כרם שלום:  4 חיילים<br>סמ"ר בן הרוש שהם משה, סמל ליאר נתן חי, סרן שוהם תומר, סמ"ר שי ירון אורי
                  </div>`,
@@ -3018,13 +3018,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_c8528c13a6e6479b8a9a35cbe3dfeb9e = L.circle(
+            var circle_b5914407588c59cb6a180389d1bfbf65 = L.circle(
                 [31.604753586258, 34.5073326774338],
                 {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 478.73073648171925, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_c8528c13a6e6479b8a9a35cbe3dfeb9e.bindTooltip(
+            circle_b5914407588c59cb6a180389d1bfbf65.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">מחנה זיקים:  8 חיילים<br>סמ"ר אלון לוי עדן, סגן בן סימון אדר, רב"ט יאנג נתנאל, סרן מוזס אור, רב"ט נגרי נריה אהרון, רס"ן עבודי אדיר, סמ"ר פיירשטיין עומרי ניב<br>סגן קמינקא ינאי
                  </div>`,
@@ -3032,13 +3032,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_e7ec5f1b5fba83dd1a4aaacec729a4e7 = L.circle(
+            var circle_1e99ab5c6d4c1c87c3634467d417bbf0 = L.circle(
                 [31.596972587333, 34.5117547187511],
                 {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 478.73073648171925, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_e7ec5f1b5fba83dd1a4aaacec729a4e7.bindTooltip(
+            circle_1e99ab5c6d4c1c87c3634467d417bbf0.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">מחנה יפתח:  8 חיילים<br>רב"ט בוני נעמה, סמ"ר בן יעקב יובל, סמל בר שדה עילי, סמ"ר הרוש עידו, סגן טל סהר, סג"ם מלייב יואב, סמ"ר משה אוראל<br>רס"ן צירינג אריה שלמה
                  </div>`,
@@ -3046,13 +3046,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_2a6b7b4e0e49a51bf0fcd515a5333c5e = L.circle(
+            var circle_f897c41eadf53d627ca753c8c7b3ac61 = L.circle(
                 [31.287112, 35.048572],
                 {"bubblingMouseEvents": true, "color": "#FFA500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA500", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 447.81159910813847, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_2a6b7b4e0e49a51bf0fcd515a5333c5e.bindTooltip(
+            circle_f897c41eadf53d627ca753c8c7b3ac61.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">כוחלה:  7 ירי רקטי<br>אבו סבייח מאי זוהיר, אבו סבייח פאיזה, אלקרעאן אמין עקל, אלקרעאן ג'וואד אברהים, אלקרעאן טאלב, אלקרעאן מאלק אברהים, אלקרעאן מחמד ד'יב<br>
                  </div>`,
@@ -3060,13 +3060,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_86bbfd3607f91622bbc33a4894117567 = L.circle(
+            var circle_f87881232401862d0277ab2f78131a93 = L.circle(
                 [31.3153804671977, 34.5412076991259],
                 {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 478.73073648171925, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_86bbfd3607f91622bbc33a4894117567.bindTooltip(
+            circle_f87881232401862d0277ab2f78131a93.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">מחנה אורים:  8 חיילים<br>רב"ט גרומן עדי, רב״ט דוידיאן אופיר, סמל כהן דנית, רב"ט לוי ליאור, סמל עיש איתמר, סרן פרבוסודובה אלינה, רס"ם פרש אהרון<br>סמל שלמה שיר
                  </div>`,
@@ -3074,13 +3074,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_c4aa5ac80633b6c2026472724aee92b9 = L.circle(
+            var circle_92c4af544ff149ca5ff761db3ecde05c = L.circle(
                 [31.5605566379382, 34.5441659545204],
                 {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 507.7706251929807, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_c4aa5ac80633b6c2026472724aee92b9.bindTooltip(
+            circle_92c4af544ff149ca5ff761db3ecde05c.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">מעבר ארז:  9 חיילים<br>סמל ארז אריאל, סמ"ר דנינו דניאל משה, סמ"ר וייזר רועי חיים, סמל טהר אדיר, סמ"ר מזרחי אור, סמ"ר מלכה אור, רב"ט מקייס לידור<br>סמל סמוילוב אמיל, סמ"ר רבינוב מקס
                  </div>`,
@@ -3088,13 +3088,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_b925e1517263ff1f8dff928378433ea0 = L.circle(
+            var circle_b76e6e92f8e97e6c013924e286e2e724 = L.circle(
                 [31.23604, 34.356702],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 378.4698783030241, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_b925e1517263ff1f8dff928378433ea0.bindTooltip(
+            circle_b76e6e92f8e97e6c013924e286e2e724.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">ניר יצחק:  5 אזרחים וכיתות כוננות<br>רס"ם אברהם בועז, רס״ל ארזי אופק, גולדין אורן, חיימי טל, רס"ר שחר ירון ויקטור
                  </div>`,
@@ -3103,7 +3103,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_120d06a9a2e04db10bbf65dd415034e6 = L.semiCircle(
+                    var semi_circle_d1d790a9cbfaaca341431c766d2ed446 = L.semiCircle(
                         [31.482205,34.598634],
                         {radius:447.81159910813847,
                         fill: true,
@@ -3112,9 +3112,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 257) {
-                    var semi_circle_120d06a9a2e04db10bbf65dd415034e6 = L.semiCircle(
+                    var semi_circle_d1d790a9cbfaaca341431c766d2ed446 = L.semiCircle(
                         [31.482205,34.598634],
                         {radius:447.81159910813847,
                         fill: true,
@@ -3125,11 +3125,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:257
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_120d06a9a2e04db10bbf65dd415034e6.bindTooltip(
+            semi_circle_d1d790a9cbfaaca341431c766d2ed446.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">יכיני:  5 אזרחים וכיתות כוננות<br>אברהם אילן, זהבי יונתן, חג'בי אליצור צוריאל, חג'בי יהונתן, חג'בי יזהר
                  </div>`,
@@ -3138,7 +3138,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_3c821c7ac139b1d152248d6c7798d9fc = L.semiCircle(
+                    var semi_circle_b54e4fa7e33fc07391c71d3b54e05255 = L.semiCircle(
                         [31.482205,34.598634],
                         {radius:447.81159910813847,
                         fill: true,
@@ -3147,9 +3147,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (257 || 309) {
-                    var semi_circle_3c821c7ac139b1d152248d6c7798d9fc = L.semiCircle(
+                    var semi_circle_b54e4fa7e33fc07391c71d3b54e05255 = L.semiCircle(
                         [31.482205,34.598634],
                         {radius:447.81159910813847,
                         fill: true,
@@ -3160,11 +3160,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:257, 
                         stopAngle:309
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_3c821c7ac139b1d152248d6c7798d9fc.bindTooltip(
+            semi_circle_b54e4fa7e33fc07391c71d3b54e05255.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">יכיני:  1 חיילים<br>רס״ן סאלם פלג
                  </div>`,
@@ -3173,7 +3173,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_da410e9d300c9b00b746e33d60809c27 = L.semiCircle(
+                    var semi_circle_280f5fec38c13b5cc52f2481a2fe0909 = L.semiCircle(
                         [31.482205,34.598634],
                         {radius:447.81159910813847,
                         fill: true,
@@ -3182,9 +3182,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (309 || 360) {
-                    var semi_circle_da410e9d300c9b00b746e33d60809c27 = L.semiCircle(
+                    var semi_circle_280f5fec38c13b5cc52f2481a2fe0909 = L.semiCircle(
                         [31.482205,34.598634],
                         {radius:447.81159910813847,
                         fill: true,
@@ -3195,11 +3195,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:309, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_da410e9d300c9b00b746e33d60809c27.bindTooltip(
+            semi_circle_280f5fec38c13b5cc52f2481a2fe0909.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">יכיני:  1 שוטרים וכוחות הצלה<br>סמ"ש אסייג רווית חנה
                  </div>`,
@@ -3208,7 +3208,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_62733d52e07b2f779c1004a9d4a9e1ca = L.semiCircle(
+                    var semi_circle_a3c95cd74a7b399f1b9569f7b6d61d66 = L.semiCircle(
                         [31.242423,34.407488],
                         {radius:414.5929793656026,
                         fill: true,
@@ -3217,9 +3217,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 300) {
-                    var semi_circle_62733d52e07b2f779c1004a9d4a9e1ca = L.semiCircle(
+                    var semi_circle_a3c95cd74a7b399f1b9569f7b6d61d66 = L.semiCircle(
                         [31.242423,34.407488],
                         {radius:414.5929793656026,
                         fill: true,
@@ -3230,11 +3230,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:300
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_62733d52e07b2f779c1004a9d4a9e1ca.bindTooltip(
+            semi_circle_a3c95cd74a7b399f1b9569f7b6d61d66.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">מבטחים:  5 אזרחים וכיתות כוננות<br>אבו מדיע'ם אוסאמה עלי, רס"ר אסולין דן, ירון שיר, לוי ציון, רס"ם ממן טל
                  </div>`,
@@ -3243,7 +3243,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_a17ee94a21854915b1e75f763f7e48ef = L.semiCircle(
+                    var semi_circle_490b42e22fd3b09041caf3dc87a294ef = L.semiCircle(
                         [31.242423,34.407488],
                         {radius:414.5929793656026,
                         fill: true,
@@ -3252,9 +3252,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (300 || 360) {
-                    var semi_circle_a17ee94a21854915b1e75f763f7e48ef = L.semiCircle(
+                    var semi_circle_490b42e22fd3b09041caf3dc87a294ef = L.semiCircle(
                         [31.242423,34.407488],
                         {radius:414.5929793656026,
                         fill: true,
@@ -3265,11 +3265,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:300, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_a17ee94a21854915b1e75f763f7e48ef.bindTooltip(
+            semi_circle_490b42e22fd3b09041caf3dc87a294ef.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">מבטחים:  1 חיילים<br>סמ"ר נחמיאס איתי
                  </div>`,
@@ -3277,13 +3277,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_79900111c6231ab0525881e226d3f1ca = L.circle(
+            var circle_b86d0b954573e480f9f55680750588b7 = L.circle(
                 [31.6054753165714, 34.5024353281107],
                 {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 378.4698783030241, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_79900111c6231ab0525881e226d3f1ca.bindTooltip(
+            circle_b86d0b954573e480f9f55680750588b7.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">מש"א ארז:  5 חיילים<br>סמל לוקר אורי, רב"ט לישה דביר, סרן מאור איתי, סמל צור עמית, סמ"ר ציוני אופיר
                  </div>`,
@@ -3291,13 +3291,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_50bd5b5d72009adde27801a19484e30d = L.circle(
+            var circle_62123d821cca17d6dce06e5b784241af = L.circle(
                 [31.423196, 34.595254],
                 {"bubblingMouseEvents": true, "color": "#FFA500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA500", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 293.16150714175194, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_50bd5b5d72009adde27801a19484e30d.bindTooltip(
+            circle_62123d821cca17d6dce06e5b784241af.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">נתיבות:  3 ירי רקטי<br>מסקלצ'י נתנאל, מסקלצ'י רפאל מאיר, פהימי רפאל
                  </div>`,
@@ -3305,13 +3305,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_3c00c9efe76e5bbe83b5c700c537cd29 = L.circle(
+            var circle_b1f997dbd580b82f259aa08a689594af = L.circle(
                 [31.351722, 34.403471],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 378.4698783030241, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_3c00c9efe76e5bbe83b5c700c537cd29.bindTooltip(
+            circle_b1f997dbd580b82f259aa08a689594af.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">עין השלושה:  5 אזרחים וכיתות כוננות<br>גלזברג נועה, טליה מרסל, ליפשיץ אולג, מרנסקי סילביה, רס"ן נגבי רם
                  </div>`,
@@ -3320,7 +3320,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_19072ce9facfe1522fe3abb9565f2dc6 = L.semiCircle(
+                    var semi_circle_1e23c416ec8755ca928229ad6dc2ad90 = L.semiCircle(
                         [31.5083627179843,34.5865975081832],
                         {radius:414.5929793656026,
                         fill: true,
@@ -3329,9 +3329,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 300) {
-                    var semi_circle_19072ce9facfe1522fe3abb9565f2dc6 = L.semiCircle(
+                    var semi_circle_1e23c416ec8755ca928229ad6dc2ad90 = L.semiCircle(
                         [31.5083627179843,34.5865975081832],
                         {radius:414.5929793656026,
                         fill: true,
@@ -3342,11 +3342,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:300
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_19072ce9facfe1522fe3abb9565f2dc6.bindTooltip(
+            semi_circle_1e23c416ec8755ca928229ad6dc2ad90.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">צומת שער הנגב:  5 אזרחים וכיתות כוננות<br>ברודש שירז דניאל, קפשיטר איתן, קפשיטר אלין, קפשיטר דינה, קפשיטר יבגני (ג'ניה)
                  </div>`,
@@ -3355,7 +3355,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_14b581865921bca0eadb3f3b4925f36a = L.semiCircle(
+                    var semi_circle_b88cd974b14ce758822761233017a669 = L.semiCircle(
                         [31.5083627179843,34.5865975081832],
                         {radius:414.5929793656026,
                         fill: true,
@@ -3364,9 +3364,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (300 || 360) {
-                    var semi_circle_14b581865921bca0eadb3f3b4925f36a = L.semiCircle(
+                    var semi_circle_b88cd974b14ce758822761233017a669 = L.semiCircle(
                         [31.5083627179843,34.5865975081832],
                         {radius:414.5929793656026,
                         fill: true,
@@ -3377,11 +3377,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:300, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_14b581865921bca0eadb3f3b4925f36a.bindTooltip(
+            semi_circle_b88cd974b14ce758822761233017a669.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">צומת שער הנגב:  1 שוטרים וכוחות הצלה<br>רס"ם פרץ אבשלום יאיר
                  </div>`,
@@ -3389,13 +3389,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_19a7a01650f59a4dfb8d3743d84ba437 = L.circle(
+            var circle_1ef2ec0ea4fc489d07e244adfed98424 = L.circle(
                 [31.3267585501366, 34.3992462837037],
                 {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 338.5137501286538, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_19a7a01650f59a4dfb8d3743d84ba437.bindTooltip(
+            circle_1ef2ec0ea4fc489d07e244adfed98424.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">הבית הלבן:  4 חיילים<br>סמ"ר אלם מארו, סמ״ר דגן שלו, סמל דהן שקד, סרן וולף עומר
                  </div>`,
@@ -3404,7 +3404,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_a408004e681a66b5c589456d6a54748f = L.semiCircle(
+                    var semi_circle_7ba03d204ebe45f23e50ac370488c807 = L.semiCircle(
                         [31.5783300781213,34.5548300108433],
                         {radius:338.5137501286538,
                         fill: true,
@@ -3413,9 +3413,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 180) {
-                    var semi_circle_a408004e681a66b5c589456d6a54748f = L.semiCircle(
+                    var semi_circle_7ba03d204ebe45f23e50ac370488c807 = L.semiCircle(
                         [31.5783300781213,34.5548300108433],
                         {radius:338.5137501286538,
                         fill: true,
@@ -3426,11 +3426,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:180
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_a408004e681a66b5c589456d6a54748f.bindTooltip(
+            semi_circle_7ba03d204ebe45f23e50ac370488c807.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">יד מרדכי - נתיב העשרה:  2 אזרחים וכיתות כוננות<br>פריאנטה קובי, שטרית אזולאי נעמי
                  </div>`,
@@ -3439,7 +3439,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_1cb039b21e0863d74ced67f00195db6c = L.semiCircle(
+                    var semi_circle_44785bf15632d15e04fdbe05fabe398f = L.semiCircle(
                         [31.5783300781213,34.5548300108433],
                         {radius:338.5137501286538,
                         fill: true,
@@ -3448,9 +3448,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (180 || 360) {
-                    var semi_circle_1cb039b21e0863d74ced67f00195db6c = L.semiCircle(
+                    var semi_circle_44785bf15632d15e04fdbe05fabe398f = L.semiCircle(
                         [31.5783300781213,34.5548300108433],
                         {radius:338.5137501286538,
                         fill: true,
@@ -3461,11 +3461,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:180, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_1cb039b21e0863d74ced67f00195db6c.bindTooltip(
+            semi_circle_44785bf15632d15e04fdbe05fabe398f.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">יד מרדכי - נתיב העשרה:  2 חיילים<br>סמ״ר גמזו אילי, סמ"ר מרציאנו איתי אליהו
                  </div>`,
@@ -3474,7 +3474,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_bcd084d2bfd240118b5c84dd079b3b71 = L.semiCircle(
+                    var semi_circle_a191b9a70739db3f46841d2113620ab8 = L.semiCircle(
                         [31.238309,34.341987],
                         {radius:378.4698783030241,
                         fill: true,
@@ -3483,9 +3483,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 216) {
-                    var semi_circle_bcd084d2bfd240118b5c84dd079b3b71 = L.semiCircle(
+                    var semi_circle_a191b9a70739db3f46841d2113620ab8 = L.semiCircle(
                         [31.238309,34.341987],
                         {radius:378.4698783030241,
                         fill: true,
@@ -3496,11 +3496,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:216
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_bcd084d2bfd240118b5c84dd079b3b71.bindTooltip(
+            semi_circle_a191b9a70739db3f46841d2113620ab8.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">סופה:  3 אזרחים וכיתות כוננות<br>רס"ן ארז אופיר, רס"ן חוברה עידו, כהן ברנרד (פול)
                  </div>`,
@@ -3509,7 +3509,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_bfa265663099c297d1bd22227f63828b = L.semiCircle(
+                    var semi_circle_30a4e6dbfbd64dc3f809466b90385cc2 = L.semiCircle(
                         [31.238309,34.341987],
                         {radius:378.4698783030241,
                         fill: true,
@@ -3518,9 +3518,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (216 || 360) {
-                    var semi_circle_bfa265663099c297d1bd22227f63828b = L.semiCircle(
+                    var semi_circle_30a4e6dbfbd64dc3f809466b90385cc2 = L.semiCircle(
                         [31.238309,34.341987],
                         {radius:378.4698783030241,
                         fill: true,
@@ -3531,11 +3531,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:216, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_bfa265663099c297d1bd22227f63828b.bindTooltip(
+            semi_circle_30a4e6dbfbd64dc3f809466b90385cc2.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">סופה:  2 חיילים<br>סמ"ר יעקב מזרחי תומר, סרן קליין אייל
                  </div>`,
@@ -3544,7 +3544,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_c0eb1fe4b292fce2b4344380e53e9e79 = L.semiCircle(
+                    var semi_circle_1ff7d86ef9f2ab388438c10548f8a05a = L.semiCircle(
                         [31.5048736098764,34.5641492047324],
                         {radius:338.5137501286538,
                         fill: true,
@@ -3553,9 +3553,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 270) {
-                    var semi_circle_c0eb1fe4b292fce2b4344380e53e9e79 = L.semiCircle(
+                    var semi_circle_1ff7d86ef9f2ab388438c10548f8a05a = L.semiCircle(
                         [31.5048736098764,34.5641492047324],
                         {radius:338.5137501286538,
                         fill: true,
@@ -3566,11 +3566,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:270
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_c0eb1fe4b292fce2b4344380e53e9e79.bindTooltip(
+            semi_circle_1ff7d86ef9f2ab388438c10548f8a05a.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">צומת מפלסים:  3 אזרחים וכיתות כוננות<br>דוידוביץ׳ שלומי, פופוב ניר (ניקיטה), שפירר תומר
                  </div>`,
@@ -3579,7 +3579,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_8cb08a3e0e046253219360f0f2931eeb = L.semiCircle(
+                    var semi_circle_b925b59f5cc7b73f01be21cc3bc025fc = L.semiCircle(
                         [31.5048736098764,34.5641492047324],
                         {radius:338.5137501286538,
                         fill: true,
@@ -3588,9 +3588,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (270 || 360) {
-                    var semi_circle_8cb08a3e0e046253219360f0f2931eeb = L.semiCircle(
+                    var semi_circle_b925b59f5cc7b73f01be21cc3bc025fc = L.semiCircle(
                         [31.5048736098764,34.5641492047324],
                         {radius:338.5137501286538,
                         fill: true,
@@ -3601,11 +3601,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:270, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_8cb08a3e0e046253219360f0f2931eeb.bindTooltip(
+            semi_circle_b925b59f5cc7b73f01be21cc3bc025fc.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">צומת מפלסים:  1 חיילים<br>רס"ם זיו דדו
                  </div>`,
@@ -3614,7 +3614,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_7751d9ae5aad9655b4c602fe5dd76bf7 = L.semiCircle(
+                    var semi_circle_3ec44fe67ecb4b1ec939b6e5d076f562 = L.semiCircle(
                         [31.222015,34.355936],
                         {radius:338.5137501286538,
                         fill: true,
@@ -3623,9 +3623,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 270) {
-                    var semi_circle_7751d9ae5aad9655b4c602fe5dd76bf7 = L.semiCircle(
+                    var semi_circle_3ec44fe67ecb4b1ec939b6e5d076f562 = L.semiCircle(
                         [31.222015,34.355936],
                         {radius:338.5137501286538,
                         fill: true,
@@ -3636,11 +3636,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:270
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_7751d9ae5aad9655b4c602fe5dd76bf7.bindTooltip(
+            semi_circle_3ec44fe67ecb4b1ec939b6e5d076f562.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">פרי גן:  3 אזרחים וכיתות כוננות<br>רס"ם כהן אביעד גד, רס"ר סויד בכור חי, רס"ם שישפורטיש ראובן
                  </div>`,
@@ -3649,7 +3649,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_f7277edee606383e6eb4bf2bf676941a = L.semiCircle(
+                    var semi_circle_ed388b35cac67a11a5352755e35a8382 = L.semiCircle(
                         [31.222015,34.355936],
                         {radius:338.5137501286538,
                         fill: true,
@@ -3658,9 +3658,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (270 || 360) {
-                    var semi_circle_f7277edee606383e6eb4bf2bf676941a = L.semiCircle(
+                    var semi_circle_ed388b35cac67a11a5352755e35a8382 = L.semiCircle(
                         [31.222015,34.355936],
                         {radius:338.5137501286538,
                         fill: true,
@@ -3671,11 +3671,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:270, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_f7277edee606383e6eb4bf2bf676941a.bindTooltip(
+            semi_circle_ed388b35cac67a11a5352755e35a8382.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">פרי גן:  1 שוטרים וכוחות הצלה<br>פקד צידון אבי
                  </div>`,
@@ -3683,13 +3683,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_8515cfdb69db3985b329ba5c22dca390 = L.circle(
+            var circle_4b587674cff4b115b33961f6e4d2d897 = L.circle(
                 [31.317032810289, 34.5289920555347],
                 {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 293.16150714175194, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_8515cfdb69db3985b329ba5c22dca390.bindTooltip(
+            circle_4b587674cff4b115b33961f6e4d2d897.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">צומת אורים:  3 חיילים<br>סמל יונה בנימין גבריאל, סרן סעודין סהר, סמל קוצרו נתיב
                  </div>`,
@@ -3697,13 +3697,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_d45a0d18fc34cb2fd90920eac9957b30 = L.circle(
+            var circle_03356930593814f3f706cae731667460 = L.circle(
                 [31.5009022, 34.4705065],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 293.16150714175194, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_d45a0d18fc34cb2fd90920eac9957b30.bindTooltip(
+            circle_03356930593814f3f706cae731667460.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">שג'אעיה:  3 אזרחים וכיתות כוננות<br>אלטלאלקה סאמר פואד, חיים יותם, שמריז אלון (לולו)
                  </div>`,
@@ -3711,13 +3711,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_0b2ddd3b246a76cba2baee67dd753b10 = L.circle(
+            var circle_4adfca05396e8e1e2fa50f46a3d9718f = L.circle(
                 [31.247595, 34.403091],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 239.36536824085962, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_0b2ddd3b246a76cba2baee67dd753b10.bindTooltip(
+            circle_4adfca05396e8e1e2fa50f46a3d9718f.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">ישע:  2 אזרחים וכיתות כוננות<br>רס"ם אביטל גיל, רס"ם בן יעקב ליאור
                  </div>`,
@@ -3725,13 +3725,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_b083ec4087970b5e540d58ffaa2bc8b0 = L.circle(
+            var circle_8a5280409c794902c83dd8879659cdaf = L.circle(
                 [31.298108, 34.427059],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 239.36536824085962, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_b083ec4087970b5e540d58ffaa2bc8b0.bindTooltip(
+            circle_8a5280409c794902c83dd8879659cdaf.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">מגן:  2 אזרחים וכיתות כוננות<br>רס"ם ירון אופיר מרדכי, רנ"ג פליישר אברהם (אבי)
                  </div>`,
@@ -3739,13 +3739,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_403f83e479b52b47908ad8eea3cb627e = L.circle(
+            var circle_cc5164407cc3ddd9302090261c6c481b = L.circle(
                 [31.2742733480027, 34.3867808772305],
                 {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 338.5137501286538, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_403f83e479b52b47908ad8eea3cb627e.bindTooltip(
+            circle_cc5164407cc3ddd9302090261c6c481b.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">מו"פ דרום:  4 חיילים<br>סרן ראוכברגר שילה, סמל רובין עמיחי שמעון, סמ"ר רסלר דביר חיים, סמ"ר רשטניקוב שלמה
                  </div>`,
@@ -3754,7 +3754,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_5b09fba19179d3392e71c2841b155773 = L.semiCircle(
+                    var semi_circle_4cce2523968e6e30456888f2bc86c5dd = L.semiCircle(
                         [31.518459,34.580544],
                         {radius:239.36536824085962,
                         fill: true,
@@ -3763,9 +3763,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 180) {
-                    var semi_circle_5b09fba19179d3392e71c2841b155773 = L.semiCircle(
+                    var semi_circle_4cce2523968e6e30456888f2bc86c5dd = L.semiCircle(
                         [31.518459,34.580544],
                         {radius:239.36536824085962,
                         fill: true,
@@ -3776,11 +3776,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:180
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_5b09fba19179d3392e71c2841b155773.bindTooltip(
+            semi_circle_4cce2523968e6e30456888f2bc86c5dd.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">ניר עם:  1 חיילים<br>סמל אברג'יל מתן
                  </div>`,
@@ -3789,7 +3789,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_a8684e9a052764324c486215255cb52e = L.semiCircle(
+                    var semi_circle_dfa7adc6a9116e0414ad60a6b6152377 = L.semiCircle(
                         [31.518459,34.580544],
                         {radius:239.36536824085962,
                         fill: true,
@@ -3798,9 +3798,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (180 || 360) {
-                    var semi_circle_a8684e9a052764324c486215255cb52e = L.semiCircle(
+                    var semi_circle_dfa7adc6a9116e0414ad60a6b6152377 = L.semiCircle(
                         [31.518459,34.580544],
                         {radius:239.36536824085962,
                         fill: true,
@@ -3811,11 +3811,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:180, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_a8684e9a052764324c486215255cb52e.bindTooltip(
+            semi_circle_dfa7adc6a9116e0414ad60a6b6152377.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">ניר עם:  1 שוטרים וכוחות הצלה<br>רס"ב גנדל רומן
                  </div>`,
@@ -3823,13 +3823,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_89ce664b489dc4d58d225ddaba067b54 = L.circle(
+            var circle_9692519eb4ed7385c4780cc24646c668 = L.circle(
                 [31.507172, 34.553013],
                 {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_89ce664b489dc4d58d225ddaba067b54.bindTooltip(
+            circle_9692519eb4ed7385c4780cc24646c668.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">אנדרטת חץ שחור:  1 חיילים<br>אל"ם בר (בן מוחה) ליאון
                  </div>`,
@@ -3837,13 +3837,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_be2bc21edabccf99c4a638d40f9822d6 = L.circle(
+            var circle_87ecd0747c907d226cefac6cc9c955c1 = L.circle(
                 [31.6687885, 34.5742523],
                 {"bubblingMouseEvents": true, "color": "#FFA500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA500", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_be2bc21edabccf99c4a638d40f9822d6.bindTooltip(
+            circle_87ecd0747c907d226cefac6cc9c955c1.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">אשקלון:  1 ירי רקטי<br>חטב יהושוע
                  </div>`,
@@ -3851,13 +3851,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_57bfa9dd74fb42b2ef8004bdbdcbe0de = L.circle(
+            var circle_1721c337ab2b61dfb1fa9e7d57155e94 = L.circle(
                 [31.831039, 34.722577],
                 {"bubblingMouseEvents": true, "color": "#FFA500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA500", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_57bfa9dd74fb42b2ef8004bdbdcbe0de.bindTooltip(
+            circle_1721c337ab2b61dfb1fa9e7d57155e94.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">כפר אביב:  1 ירי רקטי<br>בן ארצי חנה
                  </div>`,
@@ -3865,13 +3865,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_5e45ecf8be73e86953f45c03ce72c505 = L.circle(
+            var circle_bec5f225b0c957ccfca0d664d03d79bb = L.circle(
                 [31.602695, 34.540413],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_5e45ecf8be73e86953f45c03ce72c505.bindTooltip(
+            circle_bec5f225b0c957ccfca0d664d03d79bb.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">כרמיה:  1 אזרחים וכיתות כוננות<br>Chan Udom
                  </div>`,
@@ -3879,13 +3879,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_f9e585ef38f9ad23c9b72a2fd169cdbc = L.circle(
+            var circle_0405995d2e76c322ccb822e79be88e43 = L.circle(
                 [31.6200665069165, 34.5808941844254],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_f9e585ef38f9ad23c9b72a2fd169cdbc.bindTooltip(
+            circle_0405995d2e76c322ccb822e79be88e43.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">מבקיעים:  1 אזרחים וכיתות כוננות<br>אוחנה עדי
                  </div>`,
@@ -3893,13 +3893,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_3189f66c4a45f62ff1bf8e7049172c93 = L.circle(
+            var circle_4577d107b1b5ef217c4704a3d64c01e8 = L.circle(
                 [31.2201643247324, 34.2728105215167],
                 {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_3189f66c4a45f62ff1bf8e7049172c93.bindTooltip(
+            circle_4577d107b1b5ef217c4704a3d64c01e8.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">מוצב כרם שלום:  1 חיילים<br>סמ"ר מזרחי אור
                  </div>`,
@@ -3907,13 +3907,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_9d0f85bdb49e0bc074a44cea009b0853 = L.circle(
+            var circle_ed3e6fc0317073d74929350e6c5aff7b = L.circle(
                 [31.5403394651369, 34.5713086782205],
                 {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_9d0f85bdb49e0bc074a44cea009b0853.bindTooltip(
+            circle_ed3e6fc0317073d74929350e6c5aff7b.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">מוצב ק2:  1 חיילים<br>סמל זוהר ירון
                  </div>`,
@@ -3921,13 +3921,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_bf4a441db1c213b7e978a44f732ccfc0 = L.circle(
+            var circle_dc2feade0d0e0e52061f64b6c5227637 = L.circle(
                 [31.502206, 34.561674],
                 {"bubblingMouseEvents": true, "color": "#2255ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2255ff", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_bf4a441db1c213b7e978a44f732ccfc0.bindTooltip(
+            circle_dc2feade0d0e0e52061f64b6c5227637.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">מפלסים:  1 שוטרים וכוחות הצלה<br>טהר יוסף (יוסי)
                  </div>`,
@@ -3935,13 +3935,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_96b7dbe7ac7234091c51f65d4c8e7c15 = L.circle(
+            var circle_2639d4a7e6631ff32025c2a4ea293873 = L.circle(
                 [31.248463, 34.413404],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_96b7dbe7ac7234091c51f65d4c8e7c15.bindTooltip(
+            circle_2639d4a7e6631ff32025c2a4ea293873.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">עמיעוז:  1 אזרחים וכיתות כוננות<br>אוביץ זיוה
                  </div>`,
@@ -3949,13 +3949,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_cc79724c184bed966b402f7301d64a50 = L.circle(
+            var circle_a5a339930678156966bf2f713de334f3 = L.circle(
                 [31.160927, 35.019757],
                 {"bubblingMouseEvents": true, "color": "#FFA500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA500", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_cc79724c184bed966b402f7301d64a50.bindTooltip(
+            circle_a5a339930678156966bf2f713de334f3.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">ערערה בנגב:  1 ירי רקטי<br>אבו ג'מאע יזן זכריה
                  </div>`,
@@ -3963,13 +3963,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_88334bd34ffa2d7cb5389cebba62b5c8 = L.circle(
+            var circle_55e93125f189d783a318d79116d35750 = L.circle(
                 [31.256889, 34.403065],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_88334bd34ffa2d7cb5389cebba62b5c8.bindTooltip(
+            circle_55e93125f189d783a318d79116d35750.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">צומת מבטחים:  1 אזרחים וכיתות כוננות<br>סקריסבסקי רודי
                  </div>`,
@@ -3978,7 +3978,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_81cdb1403d82374c10ab17cc3287eb49 = L.semiCircle(
+                    var semi_circle_ce475d0c6f9b2cad8beee9ff6bedd1d6 = L.semiCircle(
                         [31.4050740370778,34.4792224231953],
                         {radius:338.5137501286538,
                         fill: true,
@@ -3987,9 +3987,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (0 || 180) {
-                    var semi_circle_81cdb1403d82374c10ab17cc3287eb49 = L.semiCircle(
+                    var semi_circle_ce475d0c6f9b2cad8beee9ff6bedd1d6 = L.semiCircle(
                         [31.4050740370778,34.4792224231953],
                         {radius:338.5137501286538,
                         fill: true,
@@ -4000,11 +4000,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:0, 
                         stopAngle:180
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_81cdb1403d82374c10ab17cc3287eb49.bindTooltip(
+            semi_circle_ce475d0c6f9b2cad8beee9ff6bedd1d6.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">כביש רעים - בארי:  2 אזרחים וכיתות כוננות<br>רפאלי מישקין חגית, שמעיה יעקב (קובי)
                  </div>`,
@@ -4013,7 +4013,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
     
                 if (0 || 0) {
-                    var semi_circle_22b5ed6aa039defe144c9735425c2498 = L.semiCircle(
+                    var semi_circle_c0eefaafe220009dd866e8a5a52bfb84 = L.semiCircle(
                         [31.4050740370778,34.4792224231953],
                         {radius:338.5137501286538,
                         fill: true,
@@ -4022,9 +4022,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         color: '#3388ff',
                         opacity: 0
                         }).setDirection(0,0)
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 } else if (180 || 360) {
-                    var semi_circle_22b5ed6aa039defe144c9735425c2498 = L.semiCircle(
+                    var semi_circle_c0eefaafe220009dd866e8a5a52bfb84 = L.semiCircle(
                         [31.4050740370778,34.4792224231953],
                         {radius:338.5137501286538,
                         fill: true,
@@ -4035,11 +4035,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         startAngle:180, 
                         stopAngle:360
                         })
-                        .addTo(map_5d43f457a514384fcab0e046d01d3897);
+                        .addTo(map_5fadb01577554d7849801411fd4098e1);
                 }
             
     
-            semi_circle_22b5ed6aa039defe144c9735425c2498.bindTooltip(
+            semi_circle_c0eefaafe220009dd866e8a5a52bfb84.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">כביש רעים - בארי:  2 חיילים<br>רס"ן ביבי אוריאל, סמל שמעיה אושר
                  </div>`,
@@ -4047,13 +4047,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_6e897817b6df7cc935b4234f7e11c8ec = L.circle(
+            var circle_4c7016b74103bcf3ba8b3c5027898193 = L.circle(
                 [31.494184474791, 34.5963825869542],
                 {"bubblingMouseEvents": true, "color": "#2255ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2255ff", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_6e897817b6df7cc935b4234f7e11c8ec.bindTooltip(
+            circle_4c7016b74103bcf3ba8b3c5027898193.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">שדות יכיני:  1 שוטרים וכוחות הצלה<br>רס"ל משה רועי
                  </div>`,
@@ -4061,13 +4061,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_c1340b39fecaa139b42266b85f030048 = L.circle(
+            var circle_3a18a478baad8528d28591c1c0183895 = L.circle(
                 [31.199958, 34.363751],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_c1340b39fecaa139b42266b85f030048.bindTooltip(
+            circle_3a18a478baad8528d28591c1c0183895.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">תלמי יוסף:  1 אזרחים וכיתות כוננות<br>דובדבני גיורא
                  </div>`,
@@ -4075,13 +4075,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_3130d7cb892b4fcf8eb0ae9d9bbd2e72 = L.circle(
+            var circle_4c8ec77e57f35a37cbcd95d1cb776de2 = L.circle(
                 [31.2939087780623, 34.4371592525311],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_3130d7cb892b4fcf8eb0ae9d9bbd2e72.bindTooltip(
+            circle_4c8ec77e57f35a37cbcd95d1cb776de2.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">צומת מגן:  1 אזרחים וכיתות כוננות<br>אבו מדיע'ם גאליה
                  </div>`,
@@ -4089,13 +4089,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_509d392b702be0d31346b316135f1553 = L.circle(
+            var circle_e332b51b81a72817534ef3029e34febf = L.circle(
                 [31.3116047876017, 34.4541386307133],
                 {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 239.36536824085962, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_509d392b702be0d31346b316135f1553.bindTooltip(
+            circle_e332b51b81a72817534ef3029e34febf.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">מזרחית לצומת מעון:  2 חיילים<br>סא"ל צור יהונתן, אל"ם שטיינברג יהונתן
                  </div>`,
@@ -4103,13 +4103,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_7399dda616978396fd72c069e0e3cd2e = L.circle(
+            var circle_e814364e3b5a3761f8788698b365be50 = L.circle(
                 [31.3854586290051, 34.4492994479599],
                 {"bubblingMouseEvents": true, "color": "#2255ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2255ff", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 293.16150714175194, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_7399dda616978396fd72c069e0e3cd2e.bindTooltip(
+            circle_e814364e3b5a3761f8788698b365be50.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">סמוך לרעים:  3 שוטרים וכוחות הצלה<br>רס"ם אברהם אוריאל, רס"ם בודובסקי אלכסי, סגן-ניצב דוידוב ג'י-אר
                  </div>`,
@@ -4117,13 +4117,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_7c7ed46d4e25d2739f672d97c4c0a5c3 = L.circle(
+            var circle_a6a06eb1731fd3423a45e207d4005b72 = L.circle(
                 [31.3225019212402, 34.4466810989006],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_7c7ed46d4e25d2739f672d97c4c0a5c3.bindTooltip(
+            circle_a6a06eb1731fd3423a45e207d4005b72.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">פרדס ליד צומת מעון:  1 אזרחים וכיתות כוננות<br>אבו סבילה מוסא
                  </div>`,
@@ -4131,13 +4131,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_972ca5a2a6dba5816040dbf4ee79d592 = L.circle(
+            var circle_bae4f802a98a2b2364b6de089022b4f7 = L.circle(
                 [31.3419613674272, 34.5051451093551],
                 {"bubblingMouseEvents": true, "color": "#2255ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2255ff", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_972ca5a2a6dba5816040dbf4ee79d592.bindTooltip(
+            circle_bae4f802a98a2b2364b6de089022b4f7.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">כביש רעים - אורים:  1 שוטרים וכוחות הצלה<br>רס"ל אסטפנקו אליונה
                  </div>`,
@@ -4145,13 +4145,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_a10b1300da042f4f6ee41a41b51bdcff = L.circle(
+            var circle_8c6dbef0973c3c09a1e1abd15dae24f3 = L.circle(
                 [31.2337701203655, 34.3345636763638],
                 {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_a10b1300da042f4f6ee41a41b51bdcff.bindTooltip(
+            circle_8c6dbef0973c3c09a1e1abd15dae24f3.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">בדרך למוצב סופה:  1 חיילים<br>רס"ן חובלאשוילי אברהם
                  </div>`,
@@ -4159,13 +4159,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_9cafc3d329f942e28032868cbcd821f1 = L.circle(
+            var circle_64edfb4de6681dc500699e5f32bb3821 = L.circle(
                 [31.3739277447309, 34.4484453396138],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_9cafc3d329f942e28032868cbcd821f1.bindTooltip(
+            circle_64edfb4de6681dc500699e5f32bb3821.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">מדרום לצומת רעים:  1 אזרחים וכיתות כוננות<br>אבו ראשד תינוקת בת יומה
                  </div>`,
@@ -4173,13 +4173,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_3af66f9eb034d6688340a233b43c1051 = L.circle(
+            var circle_12e3383346de09e552dc421369e4dbfa = L.circle(
                 [31.5711925456624, 34.5470178881721],
                 {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_3af66f9eb034d6688340a233b43c1051.bindTooltip(
+            circle_12e3383346de09e552dc421369e4dbfa.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">בדרך לנתיב העשרה:  1 חיילים<br>רס"ר דולב תומר
                  </div>`,
@@ -4187,13 +4187,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_a1b86947224f9edc853026fd9ef071be = L.circle(
+            var circle_96f630fa04ef1570a2882d9efa6e20da = L.circle(
                 [31.5109378985614, 34.5867814561644],
                 {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 293.16150714175194, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_a1b86947224f9edc853026fd9ef071be.bindTooltip(
+            circle_96f630fa04ef1570a2882d9efa6e20da.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">ליד צומת שער הנגב:  3 חיילים<br>רס"ר אמסלם אביחי, סרן הליבני יובל, רס"ן נאמן איתן מנחם
                  </div>`,
@@ -4201,13 +4201,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_9d5ea30bc59ba5bf4acdb3355823d7a6 = L.circle(
+            var circle_99e76c523a438839a77f24bc372e8363 = L.circle(
                 [31.7052030735826, 34.6185964491199],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_9d5ea30bc59ba5bf4acdb3355823d7a6.bindTooltip(
+            circle_99e76c523a438839a77f24bc372e8363.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">צומת ניצן:  1 אזרחים וכיתות כוננות<br>איוס ניב
                  </div>`,
@@ -4215,13 +4215,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_7bc5b48dffc5f5f5539cbb25e884aa87 = L.circle(
+            var circle_0a4ff6e7956b9916e4dfd5c9d3654652 = L.circle(
                 [31.8061517274756, 35.1104181445333],
                 {"bubblingMouseEvents": true, "color": "#FFA500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA500", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_7bc5b48dffc5f5f5539cbb25e884aa87.bindTooltip(
+            circle_0a4ff6e7956b9916e4dfd5c9d3654652.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">אבו גוש:  1 ירי רקטי<br>אברהים מאג'ד
                  </div>`,
@@ -4229,13 +4229,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_509f723c5b833b9203d5c93fe01a9000 = L.circle(
+            var circle_c7dcef05c98c0490758661da65324087 = L.circle(
                 [31.5635961931394, 34.5566272845726],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_509f723c5b833b9203d5c93fe01a9000.bindTooltip(
+            circle_c7dcef05c98c0490758661da65324087.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">סמוך לארז:  1 אזרחים וכיתות כוננות<br>רס"ן נעים אמיר
                  </div>`,
@@ -4243,13 +4243,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_2a9f0d2803f54931f15d787ed0553285 = L.circle(
+            var circle_9c4069d24b98deb425851181f4594e64 = L.circle(
                 [31.3452361354348, 34.4465779612038],
                 {"bubblingMouseEvents": true, "color": "#2255ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2255ff", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_2a9f0d2803f54931f15d787ed0553285.bindTooltip(
+            circle_9c4069d24b98deb425851181f4594e64.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">כביש רעים - מגן:  1 שוטרים וכוחות הצלה<br>רנ״ג קאדר יהודה
                  </div>`,
@@ -4257,13 +4257,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_6067fad67b119e1c60dfa35e717a7110 = L.circle(
+            var circle_95fc117e39a71781941150df8f9f4655 = L.circle(
                 [31.5062083317539, 34.5587812262019],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_6067fad67b119e1c60dfa35e717a7110.bindTooltip(
+            circle_95fc117e39a71781941150df8f9f4655.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">סמוך למפלסים:  1 אזרחים וכיתות כוננות<br>עבדוש גל
                  </div>`,
@@ -4271,13 +4271,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_b6f593902588d457a6ef70c1e6b591eb = L.circle(
+            var circle_c17ddc7d07fad5754e87a7561bb5567a = L.circle(
                 [31.2328012435022, 34.3326614036071],
                 {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_b6f593902588d457a6ef70c1e6b591eb.bindTooltip(
+            circle_c17ddc7d07fad5754e87a7561bb5567a.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">בין סופה לחולית:  1 חיילים<br>רס"ן שני עידו ישראל
                  </div>`,
@@ -4285,13 +4285,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var circle_0865411a0421696ac147f86f6cfe40a4 = L.circle(
+            var circle_61adc0d657b18a5a0fbf566ab14f476f = L.circle(
                 [31.4805599847471, 34.5918292048947],
                 {"bubblingMouseEvents": true, "color": "#2255ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2255ff", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            circle_0865411a0421696ac147f86f6cfe40a4.bindTooltip(
+            circle_61adc0d657b18a5a0fbf566ab14f476f.bindTooltip(
                 `<div dir="rtl">
                      <font size="2">צומת יכיני:  1 שוטרים וכוחות הצלה<br>גברה עומר
                  </div>`,
@@ -4299,68 +4299,68 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         
     
-            var marker_0585054a3e07730c3eaa04cdff807564 = L.marker(
+            var marker_6da0e50203370ee4b774de82044b05db = L.marker(
                 [31.576, 34.197],
                 {}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            var div_icon_313437eae4bdda872b49dda1af4875b8 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt\"\u003e\u05d0\u05d6\u05e8\u05d7\u05d9\u05dd\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
-            marker_0585054a3e07730c3eaa04cdff807564.setIcon(div_icon_313437eae4bdda872b49dda1af4875b8);
+            var div_icon_af03c9dbe1fc93a85bc12a3f176550e3 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt\"\u003e\u05d0\u05d6\u05e8\u05d7\u05d9\u05dd \u05d5\u05db\u05d9\u05ea\u05d5\u05ea \u05db\u05d5\u05e0\u05e0\u05d5\u05ea\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_6da0e50203370ee4b774de82044b05db.setIcon(div_icon_af03c9dbe1fc93a85bc12a3f176550e3);
         
     
-            var circle_c0a5895752b4f156ff4011ada7a9af62 = L.circle(
+            var circle_3d79ce2b132e0b3d3da2c08bf1d67119 = L.circle(
                 [31.569, 34.179],
                 {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 500.0, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            var marker_9c56c68152b9a0fcb9150103f99a13da = L.marker(
+            var marker_9052d745f00a73d335b1c7bf7ec7374e = L.marker(
                 [31.558, 34.197],
                 {}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            var div_icon_ca2bc85d101abd5d4b18eaa1d497d879 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt\"\u003e\u05d7\u05d9\u05d9\u05dc\u05d9\u05dd\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
-            marker_9c56c68152b9a0fcb9150103f99a13da.setIcon(div_icon_ca2bc85d101abd5d4b18eaa1d497d879);
+            var div_icon_95f4ad89751bd4192dc2fadde482863d = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt\"\u003e\u05d7\u05d9\u05d9\u05dc\u05d9\u05dd\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_9052d745f00a73d335b1c7bf7ec7374e.setIcon(div_icon_95f4ad89751bd4192dc2fadde482863d);
         
     
-            var circle_daacd532cae5670ec02ef838c5c0fe34 = L.circle(
+            var circle_39bf13422caa98956332f01cb25630d5 = L.circle(
                 [31.551, 34.179],
                 {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 500.0, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            var marker_7d2c35e62b6160025d2653677e3834bb = L.marker(
+            var marker_550da934a306617dd042bba84f462922 = L.marker(
                 [31.54, 34.197],
                 {}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            var div_icon_844d8e35279912d4efbf259a2820493c = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt\"\u003e\u05e9\u05d5\u05d8\u05e8\u05d9\u05dd \u05d5\u05db\u05d5\u05d7\u05d5\u05ea \u05d4\u05e6\u05dc\u05d4\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
-            marker_7d2c35e62b6160025d2653677e3834bb.setIcon(div_icon_844d8e35279912d4efbf259a2820493c);
+            var div_icon_d1a3cada65f3f5f88cc8bd72979271dc = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt\"\u003e\u05e9\u05d5\u05d8\u05e8\u05d9\u05dd \u05d5\u05db\u05d5\u05d7\u05d5\u05ea \u05d4\u05e6\u05dc\u05d4\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_550da934a306617dd042bba84f462922.setIcon(div_icon_d1a3cada65f3f5f88cc8bd72979271dc);
         
     
-            var circle_57df359c98fb5c52c9d14f482b6ced1b = L.circle(
+            var circle_2c3bd3f00cd4047bdcc4af3ee14e5833 = L.circle(
                 [31.532999999999998, 34.179],
                 {"bubblingMouseEvents": true, "color": "#2255ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2255ff", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 500.0, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            var marker_ea202ded5f96eeeb6ac443b72b8c1204 = L.marker(
+            var marker_00cdc58eb1a066ba5aa76743733dfc22 = L.marker(
                 [31.522, 34.197],
                 {}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
     
-            var div_icon_25a939df089eb29f9869f579a3186de0 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt\"\u003e\u05d9\u05e8\u05d9 \u05e8\u05e7\u05d8\u05d9\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
-            marker_ea202ded5f96eeeb6ac443b72b8c1204.setIcon(div_icon_25a939df089eb29f9869f579a3186de0);
+            var div_icon_2717f0f167f6944498b79220de27bdfe = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt\"\u003e\u05d9\u05e8\u05d9 \u05e8\u05e7\u05d8\u05d9\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_00cdc58eb1a066ba5aa76743733dfc22.setIcon(div_icon_2717f0f167f6944498b79220de27bdfe);
         
     
-            var circle_a3f98fa3a93c12382fffeaca5ed55581 = L.circle(
+            var circle_4f3b691d8bc60b2b29a9d8490dc09a79 = L.circle(
                 [31.514999999999997, 34.179],
                 {"bubblingMouseEvents": true, "color": "#FFA500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA500", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 500.0, "stroke": true, "weight": 3}
-            ).addTo(map_5d43f457a514384fcab0e046d01d3897);
+            ).addTo(map_5fadb01577554d7849801411fd4098e1);
         
 </script>
 </html>

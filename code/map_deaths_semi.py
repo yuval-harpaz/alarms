@@ -144,7 +144,7 @@ for nm in nameu:
         dup_name.append(nm)
 if len(dup_name) > 0:
     raise Exception('duplicate names: '+str(dup_name))
-catname = ["אזרחים","חיילים","שוטרים וכוחות הצלה","ירי רקטי"]
+catname = ["אזרחים וכיתות כוננות","חיילים","שוטרים וכוחות הצלה","ירי רקטי"]
 for imap in [0, 1]:
     map = folium.Map(location=center, zoom_start=11)
     folium.TileLayer('cartodbpositron').add_to(map)
