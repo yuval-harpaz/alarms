@@ -126,6 +126,7 @@ table = 'https://docs.google.com/spreadsheets/d/1bImioxD69gmyYhOsggcgCj1EK8Dxp8n
 #              <h3 align="center" style="font-size:16px"><b>Deaths between 7-Oct-23 and 9-Oct-23. data from <a href="https://oct7names.co.il/" target="_blank">ואלה שמות</a> and other sources
 #              . last update: {nowstr}</b></h3>
 #              '''+
+# Look for missing coordinates
 locu = np.unique(names['location'])
 missing = []
 for lc in locu:
@@ -133,6 +134,17 @@ for lc in locu:
         missing.append(lc)
 if len(missing) > 0:
     raise Exception('missing coordinates for :'+str(missing))
+# Look for identical names
+
+nameu = np.unique(names['fullName'])
+allowed = ['מזרחי אור']
+dup_name = []
+for nm in nameu:
+    if np.sum(names['fullName'] == nm) > 1 and nm not in allowed:
+        dup_name.append(nm)
+if len(dup_name) > 0:
+    raise Exception('duplicate names: '+str(dup_name))
+
 for imap in [0, 1]:
     map = folium.Map(location=center, zoom_start=11)
     folium.TileLayer('cartodbpositron').add_to(map)
