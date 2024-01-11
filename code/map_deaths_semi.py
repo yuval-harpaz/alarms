@@ -12,7 +12,7 @@ from folium.utilities import validate_location
 from jinja2 import Template
 sys.path.append('code')
 from map_deaths_name_search import name_search_addon
-
+from folium.features import DivIcon
 
 class SemiCircleColor(Marker):
     """
@@ -144,7 +144,7 @@ for nm in nameu:
         dup_name.append(nm)
 if len(dup_name) > 0:
     raise Exception('duplicate names: '+str(dup_name))
-
+catname = ["אזרחים","חיילים","שוטרים וכוחות הצלה","ירי רקטי"]
 for imap in [0, 1]:
     map = folium.Map(location=center, zoom_start=11)
     folium.TileLayer('cartodbpositron').add_to(map)
@@ -265,6 +265,34 @@ for imap in [0, 1]:
                         stopAngle=end[icat]  # Stop angle (0 to 360 degrees)
                     ).add_to(map)
 
+    # legend
+    ydif = 0.018
+    xdif = 0.018
+    lltext = [31.576, 34.197]
+    llcirc = lltext.copy()
+    llcirc[1] = lltext[1] - xdif
+    llcirc[0] = lltext[0] - 0.007
+    for icat in range(4):
+        color = colors[icat]
+        folium.map.Marker(
+            lltext,
+            icon=DivIcon(
+                icon_size=(250, 36),
+                icon_anchor=(0, 0),
+                html=f'<div style="font-size: 10pt">{catname[icat]}</div>',
+            )
+        ).add_to(map)
+        folium.Circle(location=llcirc,
+                      radius=500.0,
+                      fill=True,
+                      fill_color=color,
+                      color=color,
+                      opacity=0,
+                      fill_opacity=opacity
+                      ).add_to(map)
+        lltext[0] = lltext[0] - ydif
+        llcirc[0] = llcirc[0] - ydif
+    # some fixes
     map.save(fname)
     with open(fname) as f:
         txt = f.read()
