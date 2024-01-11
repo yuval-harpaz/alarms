@@ -79,7 +79,6 @@
                 "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
                 {"attribution": "\u0026copy; \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca target=\"_blank\" href=\"http://cartodb.com/attributions\"\u003eCartoDB\u003c/a\u003e, CartoDB \u003ca target=\"_blank\" href =\"http://cartodb.com/attributions\"\u003eattributions\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
             ).addTo(map_b8dbd6e7094d05c8fb1a9bfd964cd5bb);
-        
     
                 if (0 || 0) {
                     var semi_circle_a1c7c6a0b86bec9a56f8857c31d111af = L.semiCircle(
@@ -177,8 +176,8 @@
   תומר בר, תורג'מן אבידן, תורג'מן דוד (דודי), תורג'מן שוהם ליה, תל צור ניב
 
                 `, {
-                    maxWidth: 200,
-    maxHeight: 150
+                    maxWidth: L.Browser.mobile ? 200 : 768,
+                    maxHeight: L.Browser.mobile ? 150 : 450
                 }
             );
         
