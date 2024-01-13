@@ -145,6 +145,18 @@ for nm in nameu:
 if len(dup_name) > 0:
     raise Exception('duplicate names: '+str(dup_name))
 catname = ["אזרחים וכיתות כוננות","חיילים","שוטרים וכוחות הצלה","ירי רקטי"]
+issoldier = names['citizenGroup'].str.contains('צה"ל')
+rescue = ['כבאות והצלה', 'מגן דוד אדום', "משטרה (מיל')", 'שב"כ']
+ispolice = names['citizenGroup'] == 'משטרה'
+for r in rescue:
+    ispolice = ispolice | (names['citizenGroup'] == r)
+iscivil = ~(ispolice | issoldier)
+
+isrockets = names['servicePosition'] == "ירי רקטי"
+cat = [iscivil, issoldier, ispolice, isrockets]
+for icat in range(3):
+    cat[icat][isrockets] = False
+
 for imap in [0, 1]:
     map = folium.Map(location=center, zoom_start=11)
     folium.TileLayer('cartodbpositron').add_to(map)
@@ -156,7 +168,7 @@ for imap in [0, 1]:
     else:
         other = '    <a href="https://yuval-harpaz.github.io/alarms/oct_7_9_search.html" target="_blank"> חיפוש שם</a>'
     title_html = f'''
-                 <h3 dir="rtl" align="center" style="font-size:16px"><b>נרצחים ונופלים במתקפת חמאס על ישראל בין 7-9.10.2023.</b>{other}</h3>
+                 <h3 dir="rtl" align="center" style="font-size:16px"><b>מקום מותם של {len(ispolice)} הנרצחים והנופלים במתקפת חמאס על ישראל בין 7-9.10.2023.</b>{other}</h3>
                  <h4 dir="rtl" align="center" style="font-size:12px">
                  נערך על ידי שגיא אור ו<a href="https://twitter.com/yuvharpaz" target="_blank">יובל הרפז</a> (אנא שלחו תיקונים והערות). 
                  <a href={table} target="_blank"> הנתונים </a> מ 
@@ -170,18 +182,9 @@ for imap in [0, 1]:
         fname = 'docs/oct_7_9_search.html'
     else:
         fname = 'docs/oct_7_9.html'
-    issoldier = names['citizenGroup'].str.contains('צה"ל')
-    rescue = ['כבאות והצלה', 'מגן דוד אדום', "משטרה (מיל')", 'שב"כ']
-    ispolice = names['citizenGroup'] == 'משטרה'
-    for r in rescue:
-        ispolice = ispolice | (names['citizenGroup'] == r)
-    iscivil = ~(ispolice | issoldier)
-    isrockets = names['servicePosition'] == "ירי רקטי"
 
     opacity = 0.55
-    cat = [iscivil, issoldier, ispolice, isrockets]
-    for icat in range(3):
-        cat[icat][isrockets] = False
+
     row_len = 7
     font_size = 2
     colors = ["#ff0000", "#808000", '#2255ff', '#FFA500']
@@ -279,7 +282,7 @@ for imap in [0, 1]:
             icon=DivIcon(
                 icon_size=(250, 36),
                 icon_anchor=(0, 0),
-                html=f'<div style="font-size: 10pt">{catname[icat]}</div>',
+                html=f'<div style="font-size: 10pt">{catname[icat]} ({sum(cat[icat])})</div>',
             )
         ).add_to(map)
         folium.Circle(location=llcirc,
