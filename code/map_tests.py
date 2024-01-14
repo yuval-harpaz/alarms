@@ -47,4 +47,9 @@ blank = fixed[fixed['haaretz_row'].isnull()]
 blank.to_csv('data/tmp_nohaa.csv')
 imiss = [x for x in range(len(haa)) if x not in fixed['haaretz_row'].values]
 missed = haa.iloc[np.array(imiss)-2]
+missed = missed[missed['death_date'].values < '2023-10-10']
 missed.to_csv('data/tmp_unacc.csv')
+haarow = np.where(~fixed['haaretz_row'].isnull())[0]
+for ii in range(len(haarow)):
+    # print(haa['name'][fixed['haaretz_row'][haarow[ii]]-2]+' '+fixed['fullName'][haarow[ii]])
+    haa.at[fixed['haaretz_row'][haarow[ii]] - 2, 'map_row'] = haarow[ii]+2
