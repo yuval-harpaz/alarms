@@ -295,6 +295,30 @@ for imap in [0, 1]:
                       ).add_to(map)
         lltext[0] = lltext[0] - ydif
         llcirc[0] = llcirc[0] - ydif
+    idx = list(range(18))
+    idx.pop(13)
+    for iloc in idx:
+        loc = coo["name"][iloc]
+        # if 'מוצב' not in loc:
+        tot = np.sum(names['location'] == loc)
+        radius = (tot / np.pi) ** 0.5
+        latlong = [coo['lat'][iloc] + 0.006, coo['long'][iloc] + radius * 0.0035]
+
+        if loc in ['נחל עוז', 'מוצב כיסופים','מוצב נחל עוז']:
+            latlong[0] = latlong[0] - 0.003
+            latlong[1] = latlong[1] - 0.003
+        if loc in ['בארי', 'נחל עוז','כיסופים', 'רעים']:
+            loc = 'קיבוץ ' + loc
+        # print(radius)
+        folium.map.Marker(
+            latlong,
+            icon=DivIcon(
+                icon_size=(250, 36),
+                icon_anchor=(0, 0),
+                html=f'<div style="font-size: 10pt; color:gray">{loc} ({tot})</div>',
+            )
+        ).add_to(map)
+
     # some fixes
     map.save(fname)
     with open(fname) as f:
