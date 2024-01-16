@@ -13,6 +13,7 @@ if os.path.isdir(local):
 
 haa = pd.read_csv('data/deaths_haaretz+.csv')
 names = pd.read_csv('data/oct_7_9.csv')
+idf = pd.read_csv('data/deaths_idf.csv')
 # names_row = np.array(names.index)+2
 missing = []
 for ii in range(2, len(names)+2):
@@ -35,13 +36,49 @@ for ii in range(2, len(names)+2):
     rankm = str(names['rank'][ii-2]).replace("(מיל')",'').replace("(מיל׳)",'').replace('"', '״').strip()
     rankh = str(haa['rank'][haarow]).replace("(מיל')",'').replace("(מיל׳)",'').replace('"', '״').strip()
     jdf = haa['idf_row'][haarow]
-    nans = np.sum(np.array([rankm, rankh]) == 'nan')
-    if nans == 1:
-        print(f'{namem} map: {rankm} haaretz: {rankh}')
-        missmatch.append(f'{namem} map: {rankm} haaretz: {rankh}')
-    elif nans ==0 and rankm != rankh:
-        print(f'{namem} map: {rankm} haaretz: {rankh}')
-        missmatch.append(f'{namem} map: {rankm} haaretz: {rankh}')
+    if ~np.isnan(jdf):  # type(jdf) == np.float64:
+        ranki = idf['rank'][jdf-2].replace('במי','מי').replace("(מיל')",'').replace("(מיל׳)",'').replace('"', '״').strip()
+        if ranki != rankm:
+            missmatch.append(f'{namem} map: {rankm} idf: {ranki}')
+#             names.at[ii-2, 'rank'] = idf['rank'][jdf-2]
+# names.to_csv('data/oct_7_9.csv', index=False)
+for ii in range(len(names)):
+    rnk = names['rank'][ii]
+    if type(rnk) == str:
+        names.at[ii, 'rank'] = rnk.strip()
+
+missmatch = []
+for ii in range(2, len(names) + 2):
+    haarow = np.where(haa['map_row'] == ii)[0][0]
+    namem = names['fullName'][ii - 2]
+    agem = str(names['age'][ii - 2])
+    ageh = str(haa['rank'][haarow])
+    jdf = haa['idf_row'][haarow]
+    if ~np.isnan(jdf):  # type(jdf) == np.float64:
+        agei = idf['age'][jdf - 2]
+        if agei != int(float(agem)):
+            missmatch.append(f'{namem} map: {agem} idf: {agei}')
+            names.at[ii-2, 'age'] = float(idf['age'][jdf-2])
+
+missmatch = []
+for ii in range(2, len(names) + 2):
+    haarow = np.where(haa['map_row'] == ii)[0][0]
+    namem = names['fullName'][ii - 2]
+    agem = names['age'][ii - 2]
+    ageh = haa['age'][haarow]
+    # jdf = haa['idf_row'][haarow]
+    if ~np.isnan(ageh):  # type(jdf) == np.float64:
+        # agei = idf['age'][jdf - 2]
+        if ageh != agem:
+            missmatch.append(f'{namem} map: {agem} haa: {ageh}')
+
+    # nans = np.sum(np.array([rankm, rankh]) == 'nan')
+    # if nans == 1:
+    #     print(f'{namem} map: {rankm} haaretz: {rankh}')
+    #     missmatch.append(f'{namem} map: {rankm} haaretz: {rankh}')
+    # elif nans ==0 and rankm != rankh:
+    #     print(f'{namem} map: {rankm} haaretz: {rankh}')
+    #     missmatch.append(f'{namem} map: {rankm} haaretz: {rankh}')
 
 #
 # coo = pd.read_excel('data/deaths_by_loc.xlsx', 'coo')
