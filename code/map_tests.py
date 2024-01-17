@@ -38,7 +38,7 @@ for iname in range(len(names)):
         if len(idx) == 1:
             names.at[iname, 'haaretz_row'] = idx[0]+2
             names.at[iname, 'haaretz_name'] = nameh[idx[0]]
-names.to_csv('data/tmp.csv', index=False)
+# names.to_csv('data/tmp.csv', index=False)
 ##
 FIX MANUALLY
 ##

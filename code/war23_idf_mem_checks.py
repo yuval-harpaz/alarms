@@ -32,7 +32,7 @@ data = []
 goon = True
 page = 0
 name = []
-for page in range(1, 46):
+for page in range(1, 100):
     prev = len(data)
     url = 'https://www.idf.il/%D7%A0%D7%95%D7%A4%D7%9C%D7%99%D7%9D/%D7%97%D7%9C%D7%9C%D7%99-%D7%94%D7%9E%D7%9C%D7%97%D7%9E%D7%94/?page='+str(page)
     browser.get(url)

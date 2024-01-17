@@ -69,8 +69,8 @@ for ii in range(2, len(names) + 2):
     # jdf = haa['idf_row'][haarow]
     if ~np.isnan(ageh):  # type(jdf) == np.float64:
         # agei = idf['age'][jdf - 2]
-        if ageh != agem:
-            missmatch.append(f'{namem} map: {agem} haa: {ageh}')
+        if np.abs(ageh - agem) > 1:
+            missmatch.append([namem,agem,ageh])
 
     # nans = np.sum(np.array([rankm, rankh]) == 'nan')
     # if nans == 1:
