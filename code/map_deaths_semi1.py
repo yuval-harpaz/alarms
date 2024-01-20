@@ -331,6 +331,13 @@ for imap in [0, 1]:
     # txt = txt.replace('http://jieter.github.io', 'https://jieter.github.io')
     txt = txt.replace('בבירור', 'לא פורסם מיקום')
     txt = txt.replace('אזרחים', 'אזרחים וכיתות כוננות')
+    meta = '<head>\n' \
+           '    <meta  name="author" content="Yuval Harpaz, Sagi Or">\n' \
+           '    <meta  name="Description" content="A map showing where Israeli civillians and soldiers were murdered and fell in battle during the attack by Hamas, from Oct-7 to Oct-9 2023. ">\n' \
+           '    <meta  name="keywords" content="map, massacre, Oct-7, 7.10, 7-10, Gaza, Nova Festival, party, Beeri, Oz' \
+           'מפה, מפת הטבח, רצח, הרצח, נובה, רעים, עזה, עוטף עזה, כפר עזה, נחל עוז, בארי, שער הנגב, חיילים, אזרחים, כיתות כוננות, חמאס">'
+
+    txt = txt.replace('<head>\n    ', meta)
     with open(fname, 'w') as f:
         f.write(txt)
     del map
