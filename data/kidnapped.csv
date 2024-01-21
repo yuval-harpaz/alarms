@@ -48,6 +48,7 @@ name,first,last,gender,age,from,circum,condition,status,release_date,story,sourc
 רום ברסלבסקי,רום,ברסלבסקי,M,19,ירושלים,party,חטוף,ישראלי,,היה בממאבטח במסיבה ברעים,https://13tv.co.il/item/news/domestic/internal/cxlbe-903754218/
 דניאלה גלבוע,דניאלה,גלבוע,F,19,פתח תקוה,,חטוף,ישראלי,,נחטפה מנחל עוז,
 שקד דהן,שקד,דהן,M,19,עפולה,,נפל,ישראלי,,"סמל, לוחם בגדוד 77, נהרג ב 7 לאוק וגופתו נחטפה",https://www.ynet.co.il/blogs/gazawar53mor#h1dxbtxsa
+עוז דניאל,עוז,דניאל,M,19,כפר סבא,,חטוף,ישראלי,,נחטף לעזה בידי מחבלי חמאס ב-7 באוקטובר בעת ששהה באזור העוטף,https://w.ynet.co.il/news/absent?externalurl=true
 איתי חן,איתי,חן,M,19,נתניה,,חטוף,ישראלי,,,
 נמרוד כהן,נמרוד,כהן,M,19,רחובות,,חטוף,ישראלי,,,
 נעמה לוי,נעמה,לוי,F,19,רעננה,,חטוף,ישראלי,,תצפיתנית בנחל עוז,
@@ -117,19 +118,19 @@ name,first,last,gender,age,from,circum,condition,status,release_date,story,sourc
 אילנה גריצבסקי,אילנה,גריצבסקי,F,30,ניר עוז,,שוחרר,ישראלי,2023-11-30,נחטפה מביתה,
 אוריון הרננדס ראדו,אוריון,ראדו,M,30,מקסיקו,party,חטוף,זר,,"נחטף מהמסיבה ברעים, בן זוגה של שני לוק שנרצחה",
 דורון שטיינברכר,דורון,שטיינברכר,F,30,כפר עזה,,חטוף,ישראלי,,"הקשר נותק איתה לאחר ששלחה הודעה קולית לחברותיה, בה היא נשמעת אומרת שהמחבלים תפסו אותה",
+וואטצ'רה סריון,Watchara,Sriaoun,M,32,תאילנד,,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 שירי ביבס,שירי,ביבס,F,32,ניר עוז,,חטוף,ישראלי,,נחטפה עם שני ילדיה הפעוטים,
 אלכס לובנוב,אלכס,לובנוב,M,32,אשקלון,party,חטוף,ישראלי,,היה במסיבה ברעים,
-וואטצ'רה סריון,Watchara,Sriaoun,M,32,תאילנד,,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 אורן גולדין,אורן,גולדין,M,33,ניר יצחק,,נרצח,ישראלי,,אורן נחטף במצב לא ידוע בשבת השחורה ב-7 באוקטובר. לאחר יותר מחודש התבשרה משפחתו כי הוא נרצח וגופתו מוחזקת ככל הנראה בשבי חמאס,
 וויטון פומי Withoon Phumee,פומי,וויטון,M,33,תאילנד,,שוחרר,זר,2023-11-24,עבד בקיבוץ ניר עוז,https://www.nationthailand.com/world/middle-east-africa/40033196
 אור לוי,אור,לוי,M,33,גבעתיים,party,חטוף,ישראלי,,היה במסיבה ברעים,
 דוד קוניו,דוד,קוניו,M,33,ניר עוז,,חטוף,ישראלי,,נחטף מביתו עם משפחתו,
+סטיאן סוונאקאם,Sathian,Suwannakham,M,34,תאילנד,,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 שרון אלוני קוניו,שרון,אלוני קוניו,F,34,ניר עוז,,שוחרר,ישראלי,2023-11-27,נחטפה מביתה עם משפחתה,
 אלקנה בוחבוט,אלקנה,בוחבוט,M,34,מבשרת ציון,party,חטוף,ישראלי,,היה במסיבה ברעים,
 יגב בוכשטב,יגב,בוכשטב,M,34,נירים,,חטוף,ישראלי,,נחטף מביתו עם אשתו רימון,
 ירדן ביבס,ירדן,ביבס,M,34,ניר עוז,,חטוף,ישראלי,,נחטף מביתו עם משפחתו,
 דורון כץ אשר,דורון,כץ אשר,F,34,ניר עוז,,שוחרר,ישראלי,2023-11-24,נחטפה עם בנותיה הפעוטות,
-סטיאן סוונאקאם,Sathian,Suwannakham,M,34,תאילנד,,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 אוריאל ברוך,אוריאל,ברוך,M,35,גבעון,party,חטוף,ישראלי,,נחטף מהמסיבה ברעים,
 מקסים הרקין,מקסים,הרקין,M,35,טירת הכרמל,party,חטוף,ישראלי,,נחטף מהמסיבה ברעים,
 שגיא דקל חן,שגיא,חן,M,35,ניר עוז,,חטוף,ישראלי,,,
@@ -228,12 +229,12 @@ name,first,last,gender,age,from,circum,condition,status,release_date,story,sourc
 יפה אדר,יפה,אדר,F,85,ניר עוז,,שוחרר,ישראלי,2023-11-24,נחטפה מביתה,
 שלמה מנצור,שלמה,מנצור,M,85,כיסופים,,חטוף,ישראלי,,נחטף מביתו,
 אריה זלמנוביץ,אריה,זלמנוביץ,M,86,ניר עוז,,נרצח,ישראלי,,נחטף מביתו,https://www.nationthailand.com/world/middle-east-africa/40033196
-Pongsak Thenna,Pongsak,Thaenna,M,,תאילנד,,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
-Bannawat Seathao,Bannawat,Saethao,M,,תאילנד,,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 Surasak Rumnao,Sulasak,Lamnao,M,,תאילנד,,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 Sonthaya Oakkharasri,Sonthaya,Oakkharasri,M,,תאילנד,,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
-Sudthisak Rinthalak,Sudthisak,Rinthalak,M,,תאילנד,,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 Natthapong Pinta,Nattapong,Pinta,M,,תאילנד,,חטוף,זר,,,https://www.bbc.com/news/world-middle-east-67053011
+Sudthisak Rinthalak,Sudthisak,Rinthalak,M,,תאילנד,,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
+Bannawat Seathao,Bannawat,Saethao,M,,תאילנד,,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
+Pongsak Thenna,Pongsak,Thaenna,M,,תאילנד,,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm
 באנצ'ה קונגמאני Bancha Kongmanee,קונגמאני,באנצ'ה,M,,תאילנד,,שוחרר,זר,2023-11-24,,https://www.nationthailand.com/world/middle-east-africa/40033196
 בודיי סינגהון Buddee Saengboon,סינגהון,בודיי,M,,תאילנד,,שוחרר,זר,2023-11-24,,https://www.nationthailand.com/world/middle-east-africa/40033196
 הותאי ת'ונגסרי Uthai Thunsri,ת'ונגסרי,הותאי,M,,תאילנד,,שוחרר,זר,2023-11-24,,https://www.nationthailand.com/world/middle-east-africa/40033196
