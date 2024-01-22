@@ -250,6 +250,9 @@ for imap in [0, 1]:
                 else:
                     fs = font_size
                 tip = f'<font size="{fs}">{loc}:  {ns[icat]} {["אזרחים","חיילים","שוטרים וכוחות הצלה","ירי רקטי"][icat]}<br>{name_string}'
+                if loc == 'עמיעוז':
+                    tip = tip.replace('<br>', '<br>נחבלה בדרך לממ\"ד - ')
+                    print('kavabanga')
                 if onlyone:
                     folium.Circle(location=[lat, long],
                                         tooltip=tip,
@@ -279,26 +282,7 @@ for imap in [0, 1]:
     llcirc = lltext.copy()
     llcirc[1] = lltext[1] - xdif
     llcirc[0] = lltext[0] - 0.007
-    for icat in range(4):
-        color = colors[icat]
-        folium.map.Marker(
-            lltext,
-            icon=DivIcon(
-                icon_size=(250, 36),
-                icon_anchor=(0, 0),
-                html=f'<div style="font-size: 10pt">{catname[icat]} ({sum(cat[icat])})</div>',
-            )
-        ).add_to(map)
-        folium.Circle(location=llcirc,
-                      radius=500.0,
-                      fill=True,
-                      fill_color=color,
-                      color=color,
-                      opacity=0,
-                      fill_opacity=opacity
-                      ).add_to(map)
-        lltext[0] = lltext[0] - ydif
-        llcirc[0] = llcirc[0] - ydif
+    # add text for sig places
     idx = list(range(18))
     idx.pop(13)
     for iloc in idx:
@@ -322,6 +306,30 @@ for imap in [0, 1]:
                 html=f'<div style="font-size: 10pt; color:gray">{loc} ({tot})</div>',
             )
         ).add_to(map)
+    # make legend
+    for icat in range(4):
+        color = colors[icat]
+        html_txt = f'<div style="font-size: 10pt">{catname[icat]} ({sum(cat[icat])})</div>'
+        folium.map.Marker(
+            lltext,
+            icon=DivIcon(
+                icon_size=(250, 36),
+                icon_anchor=(0, 0),
+                html=html_txt,
+            )
+        ).add_to(map)
+        folium.Circle(location=llcirc,
+                      radius=500.0,
+                      fill=True,
+                      fill_color=color,
+                      color=color,
+                      opacity=0,
+                      fill_opacity=opacity
+                      ).add_to(map)
+        lltext[0] = lltext[0] - ydif
+        llcirc[0] = llcirc[0] - ydif
+
+
 
     # some fixes
     map.save(fname)
