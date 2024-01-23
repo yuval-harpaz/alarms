@@ -61,16 +61,20 @@ if len(new) > 0:
         story = story.replace('nan', '')
         # comment
         comment = ''
-        if df['status'][ii] == 'חייל' and np.isnan(df['idf_row'][ii]):
+        print(ii)
+        idf_row = df['idf_row'][ii]
+        if type(idf_row) == str:
+            idf_row = float(idf_row)
+        if df['status'][ii] == 'חייל' and np.isnan(idf_row):
             comment += 'לא חלל; '
-        elif df['status'][ii] != 'חייל' and ~np.isnan(df['idf_row'][ii]):
+        elif df['status'][ii] != 'חייל' and ~np.isnan(idf_row):
             comment += 'חלל; '
         konan = False
-        if ~np.isnan(df['idf_row'][ii]):
-            idf_name = idf['name'][df['idf_row'][ii] - 2]
+        if ~np.isnan(idf_row):
+            idf_name = idf['name'][idf_row - 2]
             if idf_name.split(' ')[0] not in df['name'][ii]:
                 raise Exception(f'{idf_name.split(" ")[0]} not in {df["name"][ii]}')
-            idf_story = idf['story'][df['idf_row'][ii] - 2]
+            idf_story = idf['story'][idf_row - 2]
             if 'כוננות' in idf_story or 'רבש' in idf_story:
                 konan = True
         else:
