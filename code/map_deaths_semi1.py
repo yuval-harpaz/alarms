@@ -146,21 +146,20 @@ for nm in nameu:
 if len(dup_name) > 0:
     raise Exception('duplicate names: '+str(dup_name))
 catname = ["אזרחים וכיתות כוננות","חיילים","שוטרים וכוחות הצלה","ירי רקטי"]
-# issoldier = names['citizenGroup'].str.contains('צה"ל')
-# rescue = ['כבאות והצלה', 'מגן דוד אדום', "משטרה (מיל')", 'שב"כ']
-# ispolice = names['citizenGroup'] == 'משטרה'
-# for r in rescue:
-#     ispolice = ispolice | (names['citizenGroup'] == r)
-# iscivil = ~(ispolice | issoldier)
-#
-# isrockets = names['servicePosition'] == "ירי רקטי"
-# cat = [iscivil, issoldier, ispolice, isrockets]
-# for icat in range(3):
-#     cat[icat][isrockets] = False
+
 cat = []
 for icat in range(4):
     cat.append(names['category'].values == catname[icat])
 
+# for iloc in range(len(coo)):
+#     fest = np.sum(names['comment'][names['location'] == coo["name"][iloc]] == 'פסטיבל נובה')
+#     if fest > 0:
+#         print(coo["name"][iloc]+' '+str(fest))
+opacity = 0.55
+row_len = 7
+font_size = 2
+colors = ["#ff0000", "#808000", '#2255ff', '#FFA500']
+isparty = names['comment'] == 'פסטיבל נובה'
 for imap in [0, 1]:
     map = folium.Map(location=center, zoom_start=11)
     folium.TileLayer('cartodbpositron').add_to(map)
@@ -179,19 +178,12 @@ for imap in [0, 1]:
                  <a href="https://oct7names.co.il/" target="_blank">ואלה שמות</a>
                   ומקורות נוספים. כללנו אנשים שנפצעו או נחטפו במתקפה, ומתו או נרצחו מאז.  עדכון אחרון: {nowstr}</h4>             
                  '''
-
     map.get_root().html.add_child(folium.Element(title_html))
     if imap == 1:
         map.get_root().html.add_child(folium.Element(name_search_addon(names, coo, map.get_name())))
         fname = 'docs/oct_7_9_search.html'
     else:
         fname = 'docs/oct_7_9.html'
-
-    opacity = 0.55
-
-    row_len = 7
-    font_size = 2
-    colors = ["#ff0000", "#808000", '#2255ff', '#FFA500']
     for iloc in range(len(coo)):
         lat = float(coo['lat'][iloc])
         long = float(coo['long'][iloc])
@@ -220,6 +212,7 @@ for imap in [0, 1]:
             color = colors[icat]
             iscat = cat[icat]
             if ns[icat] > 0:
+                fest = np.sum(iscat & isparty & isloc)
                 nm = names['fullName'][isloc & iscat].values
                 rk = names['rank'][isloc & iscat].values
                 order = np.argsort(nm)
@@ -249,10 +242,13 @@ for imap in [0, 1]:
                     fs = 1
                 else:
                     fs = font_size
-                tip = f'<font size="{fs}">{loc}:  {ns[icat]} {["אזרחים","חיילים","שוטרים וכוחות הצלה","ירי רקטי"][icat]}<br>{name_string}'
+                tip = f'<font size="{fs}">{loc}:  {ns[icat]} {["אזרחים","חיילים","שוטרים וכוחות הצלה","ירי רקטי"][icat]}'
+                if fest > 0 and (loc != 'פסטיבל נובה') and (loc != 'מיגוניות בכניסה לרעים'):
+                    tip = tip + f' (כולל {fest} מפסטיבל נובה)'
+                tip = tip + '<br>' + name_string
                 if loc == 'עמיעוז':
                     tip = tip.replace('<br>', '<br>נחבלה בדרך לממ\"ד - ')
-                    print('kavabanga')
+                    # print('kavabanga')
                 if onlyone:
                     folium.Circle(location=[lat, long],
                                         tooltip=tip,
@@ -292,18 +288,21 @@ for imap in [0, 1]:
         radius = (tot / np.pi) ** 0.5
         latlong = [coo['lat'][iloc] + 0.006, coo['long'][iloc] + radius * 0.0035]
 
-        if loc in ['נחל עוז', 'מוצב כיסופים','מוצב נחל עוז']:
+        if loc in ['נחל עוז', 'מוצב כיסופים', 'מוצב נחל עוז', 'רעים']:
             latlong[0] = latlong[0] - 0.003
             latlong[1] = latlong[1] - 0.003
         if loc in ['בארי', 'נחל עוז','כיסופים', 'רעים']:
             loc = 'קיבוץ ' + loc
+        html_txt1 = f'<div style="font-size: 10pt; color:gray">{loc} ({tot})</div>'
+        if loc == 'פסטיבל נובה':
+            html_txt1 += f'<div style="font-size: 7; color:gray">כולל הנמלטים למיגוניות ולקיבוצים: {np.sum(isparty)}</div>'
         # print(radius)
         folium.map.Marker(
             latlong,
             icon=DivIcon(
                 icon_size=(250, 36),
                 icon_anchor=(0, 0),
-                html=f'<div style="font-size: 10pt; color:gray">{loc} ({tot})</div>',
+                html=html_txt1,
             )
         ).add_to(map)
     # make legend
