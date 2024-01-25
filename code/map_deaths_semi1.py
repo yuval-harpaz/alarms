@@ -279,7 +279,7 @@ for imap in [0, 1]:
     llcirc[1] = lltext[1] - xdif
     llcirc[0] = lltext[0] - 0.007
     # add text for sig places
-    idx = list(range(18))
+    idx = list(range(18))+[34]
     idx.pop(13)
     for iloc in idx:
         loc = coo["name"][iloc]
