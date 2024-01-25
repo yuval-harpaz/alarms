@@ -295,7 +295,7 @@ for imap in [0, 1]:
             loc = 'קיבוץ ' + loc
         html_txt1 = f'<div style="font-size: 10pt; color:gray">{loc} ({tot})</div>'
         if loc == 'פסטיבל נובה':
-            html_txt1 += f'<div style="font-size: 7; color:gray">כולל הנמלטים למיגוניות ולקיבוצים: {np.sum(isparty)}</div>'
+            html_txt1 += f'<div style="font-size:7pt; color:gray">כולל הנמלטים למיגוניות ולקיבוצים: {np.sum(isparty)}</div>'
         # print(radius)
         folium.map.Marker(
             latlong,
