@@ -151,15 +151,26 @@ cat = []
 for icat in range(4):
     cat.append(names['category'].values == catname[icat])
 
-# for iloc in range(len(coo)):
-#     fest = np.sum(names['comment'][names['location'] == coo["name"][iloc]] == 'פסטיבל נובה')
-#     if fest > 0:
-#         print(coo["name"][iloc]+' '+str(fest))
+
+# legend
+ydif = 0.018
+xdif = 0.018
+lltext = [31.576, 34.197]
+llcirc = lltext.copy()
+llcirc[1] = lltext[1] - xdif
+llcirc[0] = lltext[0] - 0.007
+# add text for sig places
+idx = list(range(19))
+
+_ = idx.pop(np.where(coo['name'] == 'עזה')[0][0])
+
 opacity = 0.55
 row_len = 7
 font_size = 2
 colors = ["#ff0000", "#808000", '#2255ff', '#FFA500']
 isparty = names['comment'] == 'פסטיבל נובה'
+
+
 for imap in [0, 1]:
     map = folium.Map(location=center, zoom_start=11)
     folium.TileLayer('cartodbpositron').add_to(map)
@@ -271,16 +282,6 @@ for imap in [0, 1]:
                         stopAngle=end[icat]  # Stop angle (0 to 360 degrees)
                     ).add_to(map)
 
-    # legend
-    ydif = 0.018
-    xdif = 0.018
-    lltext = [31.576, 34.197]
-    llcirc = lltext.copy()
-    llcirc[1] = lltext[1] - xdif
-    llcirc[0] = lltext[0] - 0.007
-    # add text for sig places
-    idx = list(range(18))+[34]
-    idx.pop(13)
     for iloc in idx:
         loc = coo["name"][iloc]
         # if 'מוצב' not in loc:
@@ -288,11 +289,15 @@ for imap in [0, 1]:
         radius = (tot / np.pi) ** 0.5
         latlong = [coo['lat'][iloc] + 0.006, coo['long'][iloc] + radius * 0.0035]
 
-        if loc in ['נחל עוז', 'מוצב כיסופים', 'מוצב נחל עוז', 'רעים']:
+        if loc in ['נחל עוז', 'מוצב כיסופים', 'מוצב נחל עוז' ,'רעים', 'סמוך למפלסים']:
             latlong[0] = latlong[0] - 0.003
             latlong[1] = latlong[1] - 0.003
         if loc in ['בארי', 'נחל עוז','כיסופים', 'רעים']:
             loc = 'קיבוץ ' + loc
+        elif loc == 'מיגוניות בכניסה לרעים':
+            latlong[0] = latlong[0] + 0.003
+            latlong[1] = latlong[1] - 0.006
+            loc = 'מיגוניות'
         html_txt1 = f'<div style="font-size: 10pt; color:gray">{loc} ({tot})</div>'
         if loc == 'פסטיבל נובה':
             html_txt1 += f'<div style="font-size:7pt; color:gray">כולל הנמלטים למיגוניות ולקיבוצים: {np.sum(isparty)}</div>'
