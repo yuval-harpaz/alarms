@@ -1,0 +1,3326 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta  name="author" content="Yuval Harpaz, Sagi Or">
+    <meta  name="Description" content="A map showing where Israeli civillians and soldiers were murdered and fell in battle during the attack by Hamas, from Oct-7 to Oct-9 2023. ">
+    <meta  name="keywords" content="map, massacre, Oct-7, 7.10, 7-10, Gaza, Nova Festival, party, Beeri, Ozמפה, מפת הטבח, רצח, הרצח, נובה, רעים, עזה, עוטף עזה, כפר עזה, נחל עוז, בארי, שער הנגב, חיילים, אזרחים, כיתות כוננות, חמאס">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_da4f0b4832264064b2a8a54742019c96 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    <script src="https://jieter.github.io/Leaflet-semicircle/Semicircle.js"></script>
+</head>
+<body>
+    
+    
+                         <h3 dir="rtl" align="center" style="font-size:16px"><b>Death locations of 1166 murdered and fallen during the Hamas attack on Israel between 7-9.10.2023.</b>    <a href="https://yuval-harpaz.github.io/alarms/oct_7_9_eng_search.html" target="_blank"> search name</a></h3>
+                         <h4 dir="rtl" align="center" style="font-size:12px">
+                         Edited by Sagi Or and <a href="https://twitter.com/yuvharpaz" target="_blank">Yuval Harpaz</a>. 
+                         <a href=https://docs.google.com/spreadsheets/d/1bImioxD69gmyYhOsggcgCj1EK8Dxp8n25jwGS80GWSY/edit?usp=sharing target="_blank"> The data </a> are from 
+                         <a href="https://oct7names.co.il/" target="_blank">oct7names</a>
+                          and other sources. We included people who were kidnapped or injured in the attack, and died or murdered later.  Last update: 2024-01-28 00:44</h4>             
+                         
+    
+            <div class="folium-map" id="map_da4f0b4832264064b2a8a54742019c96" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_da4f0b4832264064b2a8a54742019c96 = L.map(
+                "map_da4f0b4832264064b2a8a54742019c96",
+                {
+                    center: [31.42508656835141, 34.507388449894165],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 11,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_ef9a335314b3ef3b494d3725981e32dc = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var tile_layer_9a544541589a8a6a786269082eb902b1 = L.tileLayer(
+                "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca target=\"_blank\" href=\"http://cartodb.com/attributions\"\u003eCartoDB\u003c/a\u003e, CartoDB \u003ca target=\"_blank\" href =\"http://cartodb.com/attributions\"\u003eattributions\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+                if (0 || 0) {
+                    var semi_circle_d9e0a4f46b331d976ba8b8fec60bd63a = L.semiCircle(
+                        [31.4014870534664,34.4724927048611],
+                        {radius:3041.918537923525,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 328) {
+                    var semi_circle_d9e0a4f46b331d976ba8b8fec60bd63a = L.semiCircle(
+                        [31.4014870534664,34.4724927048611],
+                        {radius:3041.918537923525,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:328
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_d9e0a4f46b331d976ba8b8fec60bd63a.bindTooltip(
+                `<div>
+                     <font size="2">Nova festival:  294 Civilians and emergency teams<br>Abd Al-Karim Nasasra, Adam Ilaev, Addir Mesika, Adi Margalit, Adi Rivka Mayzel, Adiel Twitto, Alexander Samoilov<br>Alina Palhati, Alisia Levin, Alon Werber, Amit Cohen, Amit David, Amit Lahav, Amit Levi<br>Amit Magnezi, Amitay Malihi, Anita Lisman, Anton Guryonov, Arie Hefetz, Ariel Ben Mordechai Bitton, Asaf Edberg<br>Asaf Shlezinger, Avi Dadon, Aviad Halevi, Avidan Turgeman, Aviel Oren, Aviel Shalom Rahamim, Aviv Eliyahu<br>Aviv Noy, Aviya Ganot, Avraham Gilad Tiberg, Ayelet Arnin, Bar Lior Nakmoli, Bar Shechter, Bar Tomer<br>Bar Zohar, Barak Davidi, Ben Ben Zion Hassid, Ben Bernstein, Ben Binyamin Cohen, Ben Fishman, Ben Menashe Mizrahi<br>Ben Shimoni, Ben Uri, Bruna Valeanu, Chen Ben Avi, Dan Ariel, Dan Ben Hemo, Dan Damri<br>Dan Zomer, Daniel Ben Senior, Daniel Braslavsky, Daniel Cohen, Daniel Goltman, Daniel Ohana, Daniel Sheinkerman<br>Daniel Vadai, Daniela Petrenko, Danielle Waldman, David (Dudi) Turgeman, David Lischov, David Yair Shalom Newman, Dedo Tzafir<br>Din Bar, Dor Avitan, Dor Malka, Dor Nahum, Dor Toar, Dorin Atias, Doron Bolds<br>Dror Bahat, Dvir Rahamim, Eden Abdulayev, Eden Ben Rubi, Eden David Moshe, Eden Guez, Eden Liz Ohayon<br>Einav (Hen) Burstein, Einav Elkayam-Levy, Eitan Snir, Elazar Samuelov, Eldad (Angel) Bergman, Eli Refai, Eliran Mizrahi<br>Eliya Iluz, Eliya Shamatz, Eliyahu Ya'akov Bernstein, Ella Hamoy, Eric Perez, Evgeni Postel, Gabi Azulay<br>Gabriel Ishay Barel, Gal Navon, Gaya Halifa, Gideon Rivlin, Gidon Chiell, Gil Avni, Gilad Ben-Yehuda<br>Gili Adar, Guy Azar, Guy Gabriel Levy, Hadar Prince, Hai Zfati, Hanan Amar, Hezi (Yechezkel) Hanom<br>Hila Keylin, Hilly Solomon, Hodaya David, Idan Dor, Idan Edri, Idan Haramaty, Ido Even<br>Ilan Lipovsky, Ilan Moshe Yaacov, Ilkin Nazarov, Inbar Shem-Tov, Irit Konderov, Itay Zafrani, Itzhak Levy<br>Itzik Dahan, Ivonne Patricia Rubio Vargas Eden, Izabella Gandlin, Jake Marlowe, Jenny Nisimboim Carmeli, Jonathan Ken-Dror, Karin Journo<br>Karina Ella Davidov, Karina Pritika, Karla Stelzer, Katerina Tavgan Goldman, Keshet Kasroti-Kalfa, Khaled al-Farajin, Laor Abramov<br>Laurie Vardi, Liam Gallon, Liav Asayag, Libby Cohen Maguri, Liel Eitah, Lilia Gurevich, Limor Vaknin Permuter<br>Lior Asulin, Lior Atun, Lior Hadad Atias, Lior Maimon, Lior Tkach, Liraz Asulin, Liraz Nissan<br>Liron Barda, Lotan Abir, Lynn Daphne, Maayan Kalihman, Mai Itzhaki, Mapal Adam, Margarita Gusak<br>Mark Schindel, Matan (Kido) Elmalem, Matan Ekstein, Matan Mordechai Lior, Matan Znati, Matias Burstein, May Naim<br>Maya Bitton, Maya Chaim, Maya Puder, Mercedes Amar, Michael Vaknin, Michael Yoav, Michal Roimi<br>Mor Cohen, Mor Trabelsi, Moriya Or Swisa, Moriya Raviv, Moshe (Moshiko) Saidian, Moshe Shuva, Moshe Vadi<br>Moti Zoerman, Naama Moalem, Nagi Abdush, Naomie Bikhar, Naor Levy, Neta Boaziz Morali, Nevo Arad<br>Nir Forti, Nir Madmon, Nissim Levy, Nitzan Goldenberg, Noa Chiell, Noa Englander, Noa Farage<br>Noam Efraim, Noam Shalom, Noam Shay, Oded Abargel, Ofer Udi, Olga Naomi Romashkin, Omri Ahrak<br>Omri Lavi, Omri Ram, Or Chaim Ben Hemo, Or Ziv, Orel Abuhatzira, Orel Pesso, Oren Aharon Vaknin<br>Ori Tchernichovsky, Oron Beiilin, Osher Vaknin, Oz Ezra, Rachel Dove, Ram (Nesher) Sela, Ram Shalom<br>Ran Sheffer, Ranani Glazer, Raz Bokovza, Raz Mizrahi, Rinat Hodia Zagdon, Romi Eli Bernat, Ron Shemer<br>Ron Weinberg, Ron Yehudai, Ronen Deitchman, Roni Polanov, Roni Shitrit, Rotem Neumann, Rotem Rachel Levi<br>Ruth Perez, SHalev Gal, Sahar Ashuan, Sean Deutchvili, Sefi Yossef Genis, Segev Israel Kishner, Segev Shushan<br>Shahak Madar, Shahar Ben Naim, Shahar Gindi, Shai Regev, Shai Shalev, Shai Shalev, Shaked Habani<br>Shalev Madmoni, Shamil Abbasov, Shani Amin, Shani Gabay, Shani Louk, Sharon Gordeni, Sharon Hirsch<br>Sharona Shmunis Harel, Shimi Hayat, Shir Georgy Hanna, Shira Eylon, Shiran Ganon, Shlomi Svidia, Shlomo Alfasi<br>Shlomo Eliyahu Alshich, Shoham Lia Turgeman, Shoval Yaakov, Sigal Levy, Simon Vigdergauz, Sivan Shaharbani, Sofia Bongrat<br>Stav Barazani, Stav Gueta, Steven Makarchenko, Tair David, Tal Bartik, Tamar Goldenberg, Tamar Gutman<br>Tamar Samet, Tiferet Lapidot, Tomer Segev, Tomer Strosta, Victoria Gorlov, Yaakov Salomon, Yael Rozman<br>Yaniv Macias Montano Antonio, Yaniv Sarudi, Yarden Buskila, Yarin Moshe Efraim, Yaroslav Giler Slava, Yehuda Bachar, Yiftach Twig<br>Yoad Peer, Yohai Azulay, Yohay Ben Zechariah, Yonatan Chai Azulay, Yonatan Eliyahu, Yonatan Richter, Yonatan Rom<br>Yulia Didenko Lamai, Yuval Bar-On, Ziv Frenkel, Ziv Hajbi, Ziv pepe Shapira, Zur Saidi, ortal Bubtas Ben-Ayun<br>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_d5c4b86e927665c5c99b8133e7e2f961 = L.semiCircle(
+                        [31.4014870534664,34.4724927048611],
+                        {radius:3041.918537923525,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (328 || 342) {
+                    var semi_circle_d5c4b86e927665c5c99b8133e7e2f961 = L.semiCircle(
+                        [31.4014870534664,34.4724927048611],
+                        {radius:3041.918537923525,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:328, 
+                        stopAngle:342
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_d5c4b86e927665c5c99b8133e7e2f961.bindTooltip(
+                `<div>
+                     <font size="2">Nova festival:  13 Soldiers<br>Ariel Eliyahu, Aviad Rivlin, Avraham Neriya Cohen, Daniel Kasavchuck, Elyasif Ben Porat, Itai Yehuda Bausi, Liel Weinstein<br>Nadav Biton, Noam Elimelech Rotenberg, Ofek Arbiv, Ofir Tasta, Ron Zarfati, Shoham Bar
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_1272afa5dbc03e60467080a882d1913d = L.semiCircle(
+                        [31.4014870534664,34.4724927048611],
+                        {radius:3041.918537923525,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (342 || 360) {
+                    var semi_circle_1272afa5dbc03e60467080a882d1913d = L.semiCircle(
+                        [31.4014870534664,34.4724927048611],
+                        {radius:3041.918537923525,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:342, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_1272afa5dbc03e60467080a882d1913d.bindTooltip(
+                `<div>
+                     <font size="2">Nova festival:  16 Police and rescue teams<br>Aharon Arthur Marcovichi, Alon Barad, Amin Ohanadov, Andrei Poshivay, Awad Darawshe, Dvora Avraham, Elior Yifrach<br>Ido Edri, Ilay Nahman, Malik Karim, Shai El Knafo, Sharon Leibovitz, Sharon Rachmani, Vitaly Karasik<br>Yenin Sivan, Yulia Vakser
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_0515fd47dfdd876480e75640a980da38 = L.semiCircle(
+                        [31.424513,34.492567],
+                        {radius:1892.34939151512,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 274) {
+                    var semi_circle_0515fd47dfdd876480e75640a980da38 = L.semiCircle(
+                        [31.424513,34.492567],
+                        {radius:1892.34939151512,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:274
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_0515fd47dfdd876480e75640a980da38.bindTooltip(
+                `<div>
+                     <font size="2">Kןibbutz Be’eri:  95 Civilians and emergency teams (including 5 from Nova festival)<br>Adi Dagan, Albert Avlom Miles, Alon Even, Amir Weiss, Avi Mor, Avshalom Haran, Ayala Hetzroni<br>Ayelet Godard, Benayahu Biton, Cabrera Gracie, Carmel Bachar, Castelvi Paul Vincent, Chaim Zohar, Chava Ben-Ami<br>Chen Even, Dana Bachar, Daniel Levy, David Carol, Dor Rider, Dror Kaplun, Eitan Hadad<br>Eric kraunik, Evyatar Kipnis, Galit Carbone, Geula Bachar, Gil Buyum, Haggai Avni, Hanna Kritzman<br>Hanna Siton, Hezi (Yechezkel) Rezilov, Hillel Zalmanovich, Ido Even, Igor Lusev, Ilan Weiss, Itzhak Siton<br>Jayathilaka Anula, Jonathan Rappaport, Kinneret Gat, Lianne Sharabi, Liel Hetzroni, Lilach Kipnis, Linor Keinan<br>Lior Tarshansky, Maayan Bar, Maor Graziani, Marcel Frailich, Marina Lusev, Mati Weiss, Mayana Hershkowitz<br>Meni Godard, Mezzi Bachar, Mila Cohen, Mordechai Naveh, Narkis Hand, Neta Adrian, Noah Hershkowitz<br>Noya Sharabi, Ohad Cohen, Orit Svirski, Oron Bira, Pessy Cohen, Raffi Mordo, Raffi Svirski<br>Rinat Even, Ronnie Levy, Rotem Kalderon, Sami Keidar, Shachar Zemach, Shmulik Weiss, Shoshana Karasenti<br>Silvia Ohayon, Suhaib Abu Ame, Tahel Bira, Tair Bira, Tal Bira, Tal Katz, Tal Siton<br>Tamar Sochman, Tchelet Fishbein, Vivian Silver, Yahel Sharabi, Yanai Heler Hetzroni, Yasmin Bira, Yatawara Bandara Susujith<br>Yehudit Itzhaki, Yitzhak Cozin, Yona Cohen, Yona Fricker, Yonat Or, Yoram Bar-Sinai, Yossi Aptalon<br>Yuval Bar, Zeev Haker, Zehava Haker, Ziv Shoffen
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_ae1afb91abf9cd75f03be562873c2a4a = L.semiCircle(
+                        [31.424513,34.492567],
+                        {radius:1892.34939151512,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (274 || 328) {
+                    var semi_circle_ae1afb91abf9cd75f03be562873c2a4a = L.semiCircle(
+                        [31.424513,34.492567],
+                        {radius:1892.34939151512,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:274, 
+                        stopAngle:328
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_ae1afb91abf9cd75f03be562873c2a4a.bindTooltip(
+                `<div>
+                     <font size="2">Kןibbutz Be’eri:  19 Soldiers<br>Amir Skoury, Ariel Ohana, Avraham Hobelashvili, Benjamin Trakeniski, David Haim Meir, Eli Ginsberg, Idan Baruch<br>Meir Elhanan Clemanzon, Naveh Eliezer Lax, Neria Ben-David, Noy Shosh, Ofek Rousso, Ohad Cohen, Omri Belkin<br>Roee Negri, Sagi Golan, Shilo Cohen, Valentin (Eli) Ghnassia, Yonatan Gutin
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_605e0e33a93ac8649cb40240c760d71b = L.semiCircle(
+                        [31.424513,34.492567],
+                        {radius:1892.34939151512,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (328 || 360) {
+                    var semi_circle_605e0e33a93ac8649cb40240c760d71b = L.semiCircle(
+                        [31.424513,34.492567],
+                        {radius:1892.34939151512,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:328, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_605e0e33a93ac8649cb40240c760d71b.bindTooltip(
+                `<div>
+                     <font size="2">Kןibbutz Be’eri:  11 Police and rescue teams<br>Amit Mann, Avi Amar, Avia Hetzroni, Boris Danilov, Dan Ganot, Dor Mangadi, Eliran Abargil<br>Gadif Mologota, Itay Yehoshua, Orel Alon, Vadim Blich
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_381900fd293f0a7bb059c20d3ba2f0fa = L.semiCircle(
+                        [31.483416,34.532291],
+                        {radius:1485.223051010746,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 262) {
+                    var semi_circle_381900fd293f0a7bb059c20d3ba2f0fa = L.semiCircle(
+                        [31.483416,34.532291],
+                        {radius:1485.223051010746,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:262
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_381900fd293f0a7bb059c20d3ba2f0fa.bindTooltip(
+                `<div>
+                     <font size="2">Kfar Aza:  56 Civilians and emergency teams<br>Aguirre Angelyn, Aran Goren, Aviad Avraham Edri, Aviv Baram, Aviv Kutz, Aviv Werthheim, Avraham Hananel Hindi<br>Bilha Epstein, Cynthia Tamar Flash, Daniel Peled, David (Kachko) Katzir, David Schwartzman Pinko, Dorit Werthheim, Eitan Ziv<br>Eliyahu Orgad, Eliyahu Reichenstein, Gila Peled, Hadar Berdichevsky, Homsorn Settha , Itay Berdichevsky, Izhar Peled<br>Lili Itamari, Livnat Kutz, Maya Ben David, Michal Admoni, Mira Shtahl, Mordechai (Mody) Amir, Nadav Amikam<br>Nadav Goldstein, Naomi Dgani, Naor Hassidim, Neta Epstein, Nira Ronen, Nirel Zini, Nitzan Libstein<br>Niv Raviv, Ofir Libstein, Omer Hermesh, Omer Zadikevitch, Orly Schwartzman Pinko, Ram Itamari, Roee Idan<br>Sae Wang Nitikorn, Shachaf Bergstein, Shachar Aviani, Sivan Elkabets, Tal Eilon, Tammy Peleg Ziv, Tova Goren<br>Uri Shimon Russo, Yahav Winner, Yiftach Kutz, Yigal Flash, Yonatan Kutz, Yuval Boyum, Yuval Salomon<br>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_0461a2fd3c6ca0c096147b278c62600d = L.semiCircle(
+                        [31.483416,34.532291],
+                        {radius:1485.223051010746,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (262 || 355) {
+                    var semi_circle_0461a2fd3c6ca0c096147b278c62600d = L.semiCircle(
+                        [31.483416,34.532291],
+                        {radius:1485.223051010746,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:262, 
+                        stopAngle:355
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_0461a2fd3c6ca0c096147b278c62600d.bindTooltip(
+                `<div>
+                     <font size="2">Kfar Aza:  20 Soldiers<br>Amichai Yakov-Vaninu, Amir Fisher, Amir Tzur, Ben Bronshtein, Benyamin Lev, Dor Sade, Eily Adani<br>Guy Admoni, Hadar Kamah, Ilay Zisser, Ofir Shoshani, Omri Michaeli, Or Yossef Ran, Roey Nahari<br>Rotem Dushi, Rotem Kutz, Tal Cohen, Yam Goldstein Almog, Yosef Malachi Guedalia, Yotam Hillel
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_43511256621855ff3255a9855e416b71 = L.semiCircle(
+                        [31.483416,34.532291],
+                        {radius:1485.223051010746,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (355 || 360) {
+                    var semi_circle_43511256621855ff3255a9855e416b71 = L.semiCircle(
+                        [31.483416,34.532291],
+                        {radius:1485.223051010746,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:355, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_43511256621855ff3255a9855e416b71.bindTooltip(
+                `<div>
+                     <font size="2">Kfar Aza:  1 Police and rescue teams<br>Smadar Idan
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_2b3835603d7fec738a8180534d97aefb = L.semiCircle(
+                        [31.522694,34.595581],
+                        {radius:1220.5286835384657,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 249) {
+                    var semi_circle_2b3835603d7fec738a8180534d97aefb = L.semiCircle(
+                        [31.522694,34.595581],
+                        {radius:1220.5286835384657,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:249
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_2b3835603d7fec738a8180534d97aefb.bindTooltip(
+                `<div>
+                     <font size="2">Sderot:  36 Civilians and emergency teams<br>Alon Amram Toledano, Amer Abu Sabila Odeh, Amir Tanbora, Avi Megira, Berhe Wolderaphael Hagos, Berta Bastain Shemayev, Brema (Boma) Adam Mohammad<br>Cao Yongkai, Chaim Ashraf, Dimitri Sorokin, Dolev Swisa, Goyitom Gebrehiyet, Igor Kortzov, Leonid Luzovski<br>Lilya Giler, Lyudmila Furman, Meir Malka, Meiri Zohar, Michael Avramov, Michal Zrabailov, Mor Gabay<br>Nadejda Spravchikov, Natalia Tomayev, Nativ Maayan Nave, Odaya Swisa, Sammi Elgargawi, Semion Avdalimov, Solomon Ilyaguyev<br>Sonia Popov, Tatiana Shnitman, Valerie Friedman, Vladimir Popov, Wan Zhishun, Yaakov Mortov, Zinaida Beilin<br>Zou Deli
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_b6d5347958bbc12b74b047fb195ca4cd = L.semiCircle(
+                        [31.522694,34.595581],
+                        {radius:1220.5286835384657,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (249 || 263) {
+                    var semi_circle_b6d5347958bbc12b74b047fb195ca4cd = L.semiCircle(
+                        [31.522694,34.595581],
+                        {radius:1220.5286835384657,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:249, 
+                        stopAngle:263
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_b6d5347958bbc12b74b047fb195ca4cd.bindTooltip(
+                `<div>
+                     <font size="2">Sderot:  2 Soldiers<br>Ben Rubinstein, Yosef Itamar-Bruchim
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_91797c167665b50401f7b92bc0728c3f = L.semiCircle(
+                        [31.522694,34.595581],
+                        {radius:1220.5286835384657,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (263 || 360) {
+                    var semi_circle_91797c167665b50401f7b92bc0728c3f = L.semiCircle(
+                        [31.522694,34.595581],
+                        {radius:1220.5286835384657,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:263, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_91797c167665b50401f7b92bc0728c3f.bindTooltip(
+                `<div>
+                     <font size="2">Sderot:  14 Police and rescue teams<br>Adir Shlomo, Alexei Shmakalov, Arik Yehuda Marciano, Chen Nahmias, David Ben-Dayan, Denis Belinki, Eliyahu Michael Harush<br>Evgeny Galsky, Martin Kuzmickas, Meir Abragil, Mor Shkuri, Shalom Tzaban, Shmuel Gulima, Yaron Dayan Moris<br>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_0210854ba88fd729b7330f13f965a64f = L.circle(
+                [31.4792874887897, 34.5015939038425],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1196.826841204298, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_0210854ba88fd729b7330f13f965a64f.bindTooltip(
+                `<div>
+                     <font size="2">Nahal Oz Base:  50 Soldiers<br>Adi Landman, Adir Ishto Bogla, Amir Eyal, Aviv Hajaj, Barak Ben-David, Boaz Menashe Yoggev, Daniel Shperber<br>David Rathner, Dolev Amouyal, Dor Lazimi, Dor Yarchi, Dvir Zakai, Eden Nimri, Elroy Ben Shitrit<br>Hadar Miriam Cohen, Ibrahim Kharuba, Itay Avraham Ron, Mia Viallovo Polo, Naor Sivoni, Nehorai Levi Amitay, Neta Baram<br>Noa Price, Noam Abramovich, Ofir Yeruhin, Or Avital, Ori Karmi, Osher (Simcha) Barzilay, Roi Bareket<br>Roni Eshel, Sahar Midani, Shahaf Nissani, Shai Ashram, Shilo Har-Even, Shimon Lugassi, Shir Biton<br>Shir Eilat, Shira Shohat, Shirat-Yam Amar, Shirel Haim Pour, Shirel Mor, Shoham Shlomo Nidam, Sivan Asraf<br>Tomer Leibovitz, Ya'ad Ben-Yakov, Yael Leibushor, Yam Glass, Yarin Marie Peled, Yishai Fitussi, Yohai Dukhan<br>Yonatan Golan
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_0d80656e655656a9fe86003d8290776e = L.circle(
+                [31.309697, 34.402075],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 1029.5493776366548, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_0d80656e655656a9fe86003d8290776e.bindTooltip(
+                `<div>
+                     <font size="2">Nir Oz:  37 Civilians and emergency teams<br>Amitai Ben Zvi, Arbel Siman-Tov, Aviv Atzili, Avner Goren, Avraham Katzir, Bracha Levinson, Cae Lee Tou<br>Carmela Sara Dan, Carol Siman-Tov, Carolin Bohl, Clemence Felix Mtenga, Dachtuyawat Bancha, Darlington Daniel (Danny), David Shalev<br>Efrat Katz, Gadi Haggai, Gidon Pauker, Margit Silberman, Noya Dan, Omer Siman-Tov, Pongkhrurea Paphonthanai<br>Ravid Katz, Rebecca Ben-Horin, Roey Munder, Ronen Engel, Sai'd (David) Moshe, Shachar Siman-Tov, Shifra Noy<br>Tal Shalev, Tamar Kedem Siman-Tov, Tamir Adar, Vitaly Trupanob, Yermiyahu Shafir, Yonatan Siman-Tov, Yosef Yossi Silberman<br>Yossef (Yossi) Vahav, Yossef Gross
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_4895d686217ca3973a3b466a4bda3f19 = L.semiCircle(
+                        [31.311337,34.622824],
+                        {radius:1015.5412503859613,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 270) {
+                    var semi_circle_4895d686217ca3973a3b466a4bda3f19 = L.semiCircle(
+                        [31.311337,34.622824],
+                        {radius:1015.5412503859613,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:270
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_4895d686217ca3973a3b466a4bda3f19.bindTooltip(
+                `<div>
+                     <font size="2">Ofakim:  27 Civilians and emergency teams<br>Andrei Jambacov, Anna Mishayev, Ariel Bilya, Avi Hatuel, Avi Zakuto, Binyamin Rahamim, Edna Malkamo<br>Eliad Ohayon, Emma Poliakov, Fatma Altlakat, Israel Chana, Itzhak Balti, Maria Yahnagilov, Michael Ostrovsky<br>Moshe Ben Porat, Moshe Ohayon, Natalia Demidova, Refael Ariel Guri, Reuven Vizman, Rosa Yadgarov, Sergei Gredeskul<br>Victoria Gredeskul, Yelizabeta Kostitzin, Yiftach Yahnagilov, Yuri Yadgarov, Zarek Hativ, Zoya Jambacov
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_d4375e78144ab4e9d1449f252ed8e179 = L.semiCircle(
+                        [31.311337,34.622824],
+                        {radius:1015.5412503859613,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (270 || 300) {
+                    var semi_circle_d4375e78144ab4e9d1449f252ed8e179 = L.semiCircle(
+                        [31.311337,34.622824],
+                        {radius:1015.5412503859613,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:270, 
+                        stopAngle:300
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_d4375e78144ab4e9d1449f252ed8e179.bindTooltip(
+                `<div>
+                     <font size="2">Ofakim:  3 Soldiers<br>Nehorai Said, Roeh-Haim Guri, Yonatan Elazari
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_a2e3f127acf58399c080b73209e1450b = L.semiCircle(
+                        [31.311337,34.622824],
+                        {radius:1015.5412503859613,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (300 || 360) {
+                    var semi_circle_a2e3f127acf58399c080b73209e1450b = L.semiCircle(
+                        [31.311337,34.622824],
+                        {radius:1015.5412503859613,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:300, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_a2e3f127acf58399c080b73209e1450b.bindTooltip(
+                `<div>
+                     <font size="2">Ofakim:  6 Police and rescue teams<br>Aharon Haimov, Avi Buzaglo, Michael Lizmi, Nisim Lugasi, Roni Abuharon, Yigal Iluz
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_20d40c201465be78dcbe65ea64d44f9b = L.semiCircle(
+                        [31.374545,34.398992],
+                        {radius:1001.3371767186818,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 288) {
+                    var semi_circle_20d40c201465be78dcbe65ea64d44f9b = L.semiCircle(
+                        [31.374545,34.398992],
+                        {radius:1001.3371767186818,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:288
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_20d40c201465be78dcbe65ea64d44f9b.bindTooltip(
+                `<div>
+                     <font size="2">Kibbutz Kisufim:  28 Civilians and emergency teams (including 1 from Nova festival)<br>Chandrasena Chakkraphong, Dafna Garcovich, Etay Zak, Etty Zak, Gina Smiatich, Iván Illarramendi Saizar, Kaison Aranthit<br>Khunsri Pongsatorn, Klangsuwan Theerapong, Kusaram Apichart, Kusaram Phongthep, Maayan Mor, Menuha Hulati, Nachanׂ pichit<br>Ofer Ron, Pankitvanitjaroen Sarayuth, Phiia-ia Satawat, Prakotwong Thanakrit, Reuven Heinek, Saar Margolis, Sagi Zak<br>Sanusan Chairat, Sophakun Anucha, Srithat Kawao, Suchat Phongtphat, Surakhai Sakda, Thanonphim Phirun, Tom Godo<br>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_76e308692dda026730cac56380bbdfe0 = L.semiCircle(
+                        [31.374545,34.398992],
+                        {radius:1001.3371767186818,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (288 || 360) {
+                    var semi_circle_76e308692dda026730cac56380bbdfe0 = L.semiCircle(
+                        [31.374545,34.398992],
+                        {radius:1001.3371767186818,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:288, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_76e308692dda026730cac56380bbdfe0.bindTooltip(
+                `<div>
+                     <font size="2">Kibbutz Kisufim:  7 Soldiers<br>Adi Tzur, Aviel Malkamu, Bar Yancolov, Lavie Buchnik, Matan Malka, Omri Peretz, Regev Amar<br>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_360f9bcd64dfffe005c2379141520e86 = L.semiCircle(
+                        [31.453049,34.514711],
+                        {radius:927.058084855655,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 312) {
+                    var semi_circle_360f9bcd64dfffe005c2379141520e86 = L.semiCircle(
+                        [31.453049,34.514711],
+                        {radius:927.058084855655,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:312
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_360f9bcd64dfffe005c2379141520e86.bindTooltip(
+                `<div>
+                     <font size="2">Alumim:  26 Civilians and emergency teams (including 3 from Nova festival)<br>Bista Dipesh Raj, Champasim Saksit, Chatdamdee Charoon, Chaudhary Ashish, Diawtmaisong Jakkapan, Karin Vernikov, Kraisorn Thumyoma<br>Lekendora Sing Dahami, Nepali Ganesh Kumar, Neupane Narayan Prasad, Ofek Aton, Phetkaew Anan, Phulara Rajan, Pinjai Nanthawat<br>Prabesh Bhandari, Ritthiphon Meechai, Ruksanon Chaiya, Sae Yang Sumchai, Saethao Thawatchai, Saksit Khotmee, Sapir Bilmes<br>Seayang Dua, Shah Ananda, Swarnakar Raj Kumar, Thapa Padam, Yotthongdee Tianchai
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_99a3dfa8bbac3a0e581a65da33739371 = L.semiCircle(
+                        [31.453049,34.514711],
+                        {radius:927.058084855655,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (312 || 360) {
+                    var semi_circle_99a3dfa8bbac3a0e581a65da33739371 = L.semiCircle(
+                        [31.453049,34.514711],
+                        {radius:927.058084855655,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:312, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_99a3dfa8bbac3a0e581a65da33739371.bindTooltip(
+                `<div>
+                     <font size="2">Alumim:  4 Soldiers<br>Ido Rosental, Itay Cohen, Noam Slotki, Yishai Slotki
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_28b948191f420f6c6b3ee4527e936da7 = L.semiCircle(
+                        [31.3880609362127,34.4510943485888],
+                        {radius:863.0441087627388,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 318) {
+                    var semi_circle_28b948191f420f6c6b3ee4527e936da7 = L.semiCircle(
+                        [31.3880609362127,34.4510943485888],
+                        {radius:863.0441087627388,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:318
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_28b948191f420f6c6b3ee4527e936da7.bindTooltip(
+                `<div>
+                     <font size="2">Shelters near Re’im:  23 Civilians and emergency teams<br>Alexandre look, Amit Cohen, Amit Mann, Avi Sasi, Eden Naftali, Hadar Hoshen, Idan Herman<br>Itay Banjo, Kim Damti, Lidor Levy, Liel Gherafi, Livnat Levy, Nitzan Rahum, Noa Zender<br>Norel Manzouri, Osama Ibrahim Abu Asa, Roya Manzouri, San-Amnon Yaacobov, Shani Ben-Ami, Shani Kupervaser, Shenhav Yaakov Gherafi<br>Shoham Yaakov Gherafi, Sigal Itah
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_5b0cbd07bee85e28888900edc2a7f6a4 = L.semiCircle(
+                        [31.3880609362127,34.4510943485888],
+                        {radius:863.0441087627388,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (318 || 346) {
+                    var semi_circle_5b0cbd07bee85e28888900edc2a7f6a4 = L.semiCircle(
+                        [31.3880609362127,34.4510943485888],
+                        {radius:863.0441087627388,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:318, 
+                        stopAngle:346
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_5b0cbd07bee85e28888900edc2a7f6a4.bindTooltip(
+                `<div>
+                     <font size="2">Shelters near Re’im:  2 Soldiers<br>Aner Elyakim Shapira, Karin Schwartzman
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_c7c7ba9945cc52eaab5e4fe8a3eff557 = L.semiCircle(
+                        [31.3880609362127,34.4510943485888],
+                        {radius:863.0441087627388,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (346 || 360) {
+                    var semi_circle_c7c7ba9945cc52eaab5e4fe8a3eff557 = L.semiCircle(
+                        [31.3880609362127,34.4510943485888],
+                        {radius:863.0441087627388,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:346, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_c7c7ba9945cc52eaab5e4fe8a3eff557.bindTooltip(
+                `<div>
+                     <font size="2">Shelters near Re’im:  1 Police and rescue teams<br>Kim Dukarker
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_8c0969196aa30555b03b1494c9f2ca07 = L.semiCircle(
+                        [31.47268,34.497675],
+                        {radius:793.8851142601841,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 245) {
+                    var semi_circle_8c0969196aa30555b03b1494c9f2ca07 = L.semiCircle(
+                        [31.47268,34.497675],
+                        {radius:793.8851142601841,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:245
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_8c0969196aa30555b03b1494c9f2ca07.bindTooltip(
+                `<div>
+                     <font size="2">Kibbutz Nahal Oz:  15 Civilians and emergency teams<br>Dikla Arava, Haim Livne, Ilan Fiorentino, Keshet Zohar, Maayan Idan, Mollel Joshua Loitu, Noam Elyakim<br>Ran Poslushni, Shlomo Ron, Shoshana Brosh, Somkuan Pansa-ard, Tchelet Zohar, Tomer Arava, Yaniv Zohar<br>Yasmin Zohar
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_a2e1fb3abb04c945c7d0773f96789466 = L.semiCircle(
+                        [31.47268,34.497675],
+                        {radius:793.8851142601841,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (245 || 344) {
+                    var semi_circle_a2e1fb3abb04c945c7d0773f96789466 = L.semiCircle(
+                        [31.47268,34.497675],
+                        {radius:793.8851142601841,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:245, 
+                        stopAngle:344
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_a2e1fb3abb04c945c7d0773f96789466.bindTooltip(
+                `<div>
+                     <font size="2">Kibbutz Nahal Oz:  6 Soldiers<br>Afik Rozental, Amit Gueta, Chen Buchris, Daniel Rashad, Idan Balui, Yiftach Yavetz
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_3dad2d215d87d0d659d3751657977f3d = L.semiCircle(
+                        [31.47268,34.497675],
+                        {radius:793.8851142601841,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (344 || 360) {
+                    var semi_circle_3dad2d215d87d0d659d3751657977f3d = L.semiCircle(
+                        [31.47268,34.497675],
+                        {radius:793.8851142601841,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:344, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_3dad2d215d87d0d659d3751657977f3d.bindTooltip(
+                `<div>
+                     <font size="2">Kibbutz Nahal Oz:  1 Police and rescue teams<br>Yakov Shlomo Karsninski
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_162a5291a002b8fcfa4453e99a7b6e5c = L.circle(
+                [31.3727633236407, 34.374932924728],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 737.7736139048902, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_162a5291a002b8fcfa4453e99a7b6e5c.bindTooltip(
+                `<div>
+                     <font size="2">Kisufim Base:  19 Soldiers<br>Amit Peled, Bar Rosenstein, Benjamin Taka Tashgar, Benyamin Blay, David Mittleman, Elad Michael Sasson, Evyatar Ohayon<br>Guy Bazak, Ilay Noam Ben Muha , Jonathan Savitsky, Michael Ben Chemo, Or Esto, Ori Mordechay Shani, Raz Peretz<br>Re'em Meir-Betito, Tomer Nagar, Uriel Segal, Vitaly Skipkavich, Yogev Aharon
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_ff685e7cb67b69ea39131add15cf2a04 = L.semiCircle(
+                        [31.4993044924959,34.4612057026481],
+                        {radius:737.7736139048902,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 303) {
+                    var semi_circle_ff685e7cb67b69ea39131add15cf2a04 = L.semiCircle(
+                        [31.4993044924959,34.4612057026481],
+                        {radius:737.7736139048902,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:303
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_ff685e7cb67b69ea39131add15cf2a04.bindTooltip(
+                `<div>
+                     <font size="2">Gaza:  16 Civilians and emergency teams (including 6 from Nova festival)<br>Arye Zalmanovich, Eden Zecharya, Eitan Levy, Elia Toledano, Eliyahu Margalit, Guy Illouz, Inbar Haiman<br>Itay Svirski, Judith Weiss, Judy Weinstein Haggai, Maya Goren, Ofir Tzarfati, Ofra Kedar, Sahar Baruch<br>Yonatan Samerano, Yossi Sharabi
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_9346b7324ea2bc5a5a9fb8664590a5bc = L.semiCircle(
+                        [31.4993044924959,34.4612057026481],
+                        {radius:737.7736139048902,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (303 || 360) {
+                    var semi_circle_9346b7324ea2bc5a5a9fb8664590a5bc = L.semiCircle(
+                        [31.4993044924959,34.4612057026481],
+                        {radius:737.7736139048902,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:303, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_9346b7324ea2bc5a5a9fb8664590a5bc.bindTooltip(
+                `<div>
+                     <font size="2">Gaza:  3 Soldiers<br>Nik Beizer, Noa Marciano, Ron Scherman
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_24d9809b9a63009ae6f3bc9feb5052d9 = L.semiCircle(
+                        [31.5083627179843,34.5865975081832],
+                        {radius:737.7736139048902,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 189) {
+                    var semi_circle_24d9809b9a63009ae6f3bc9feb5052d9 = L.semiCircle(
+                        [31.5083627179843,34.5865975081832],
+                        {radius:737.7736139048902,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:189
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_24d9809b9a63009ae6f3bc9feb5052d9.bindTooltip(
+                `<div>
+                     <font size="2">Sha’ar HaNegev jct:  10 Civilians and emergency teams (including 3 from Nova festival)<br>Aline Kapshetar, Dina Kapshetar, Ethan Kapshetar, Evgeni Kapshetar, Ilai Baram, Jonathan Seidmen, Liam Shrem<br>Lior Weizman, Michael Muzarkov, Shiraz Brodash
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_9f7b5f07985fb1d7fb0a58fe89d71581 = L.semiCircle(
+                        [31.5083627179843,34.5865975081832],
+                        {radius:737.7736139048902,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (189 || 246) {
+                    var semi_circle_9f7b5f07985fb1d7fb0a58fe89d71581 = L.semiCircle(
+                        [31.5083627179843,34.5865975081832],
+                        {radius:737.7736139048902,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:189, 
+                        stopAngle:246
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_9f7b5f07985fb1d7fb0a58fe89d71581.bindTooltip(
+                `<div>
+                     <font size="2">Sha’ar HaNegev jct:  3 Soldiers<br>Avichai Amsalem, Eitan Neeman, Yuval Halivni
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_af7d43906e1fa97c6b1e3d06cae0cd73 = L.semiCircle(
+                        [31.5083627179843,34.5865975081832],
+                        {radius:737.7736139048902,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (246 || 360) {
+                    var semi_circle_af7d43906e1fa97c6b1e3d06cae0cd73 = L.semiCircle(
+                        [31.5083627179843,34.5865975081832],
+                        {radius:737.7736139048902,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:246, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_af7d43906e1fa97c6b1e3d06cae0cd73.bindTooltip(
+                `<div>
+                     <font size="2">Sha’ar HaNegev jct:  6 Police and rescue teams<br>Avraham Henkin, Avshalom Yair Peretz, Bar Sivan, Dror Alton, Shlomo Moshe-El, Yorai Eliyahu Cohen
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_a62e73c6985d3418d13d2f3f53325e4b = L.semiCircle(
+                        [31.572407,34.539322],
+                        {radius:718.0961047225787,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 340) {
+                    var semi_circle_a62e73c6985d3418d13d2f3f53325e4b = L.semiCircle(
+                        [31.572407,34.539322],
+                        {radius:718.0961047225787,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:340
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_a62e73c6985d3418d13d2f3f53325e4b.bindTooltip(
+                `<div>
+                     <font size="2">Netiv HaAsara:  17 Civilians and emergency teams (including 1 from Nova festival)<br>Adi Baharav, Amit Vaks, Aryeh Akuni, Ayelet Nir Molcho, Bilha Yinon, Chaimi Ben Naim, Dani Woveck<br>Gilad Kfir, Havik Segal, Marina Almagor, Nurit Berger, Or Akuni, Oren Stern, Ruti Akuni<br>Shlomi Molcho, Yaacobi Yinon, Yigal Vaks
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_896ff20a407f8245c093a1ca5ede4558 = L.semiCircle(
+                        [31.572407,34.539322],
+                        {radius:718.0961047225787,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (340 || 360) {
+                    var semi_circle_896ff20a407f8245c093a1ca5ede4558 = L.semiCircle(
+                        [31.572407,34.539322],
+                        {radius:718.0961047225787,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:340, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_896ff20a407f8245c093a1ca5ede4558.bindTooltip(
+                `<div>
+                     <font size="2">Netiv HaAsara:  1 Police and rescue teams<br>Gil Tasa
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_8104100774a2de1c1f5946bfddd5bafc = L.semiCircle(
+                        [31.5048736098764,34.5641492047324],
+                        {radius:718.0961047225787,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 320) {
+                    var semi_circle_8104100774a2de1c1f5946bfddd5bafc = L.semiCircle(
+                        [31.5048736098764,34.5641492047324],
+                        {radius:718.0961047225787,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:320
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_8104100774a2de1c1f5946bfddd5bafc.bindTooltip(
+                `<div>
+                     <font size="2">Near Miflasim:  16 Civilians and emergency teams (including 13 from Nova festival)<br>Adir Tamam, Celine Ben-David Nagar, Gal Abdush, Gal Danguri, Nadav Bartal, Nir Popov, Ofek Kimchi<br>Ofek Revia, Oriya Litman Ricardo, Roni Petrovski, Sagiv Baylin Ben Zvi, Shahar Mantzur, Sharon Refai, Shiraz Shiran Tamam<br>Shlomi Davidovich, Tomer Shpirer
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_7ee68c0f0918e41d77e3c469cbc517eb = L.semiCircle(
+                        [31.5048736098764,34.5641492047324],
+                        {radius:718.0961047225787,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (320 || 340) {
+                    var semi_circle_7ee68c0f0918e41d77e3c469cbc517eb = L.semiCircle(
+                        [31.5048736098764,34.5641492047324],
+                        {radius:718.0961047225787,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:320, 
+                        stopAngle:340
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_7ee68c0f0918e41d77e3c469cbc517eb.bindTooltip(
+                `<div>
+                     <font size="2">Near Miflasim:  1 Soldiers<br>Ziv Dedo
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_9d5bc8b98e6887bdfba74ee393cf6307 = L.semiCircle(
+                        [31.5048736098764,34.5641492047324],
+                        {radius:718.0961047225787,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (340 || 360) {
+                    var semi_circle_9d5bc8b98e6887bdfba74ee393cf6307 = L.semiCircle(
+                        [31.5048736098764,34.5641492047324],
+                        {radius:718.0961047225787,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:340, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_9d5bc8b98e6887bdfba74ee393cf6307.bindTooltip(
+                `<div>
+                     <font size="2">Near Miflasim:  1 Police and rescue teams<br>Yossi Tahar
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_bce3c8ea5eb23b625e9368032eac7d9b = L.circle(
+                [31.6126901, 34.5045404],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 697.8639737521917, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_bce3c8ea5eb23b625e9368032eac7d9b.bindTooltip(
+                `<div>
+                     <font size="2">Zikim Beach:  17 Civilians and emergency teams<br>Alina Weissberg, Alrahman Atef Alziadna Abed, Aryeh Ozen, Avi Hasday, Benyamin Genish, Denil Kimenfeld, Eliyahu Ozen<br>John Aslanov, Nadav Yossef Hai Tayeb, Or Tasa, Robert Shaulov, Shahaf Krief, Svetlana Lisovoy, Tal Keren<br>Vladimir Zukov, Yulia Chaben, Yuri Lisovoy
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_45cb9154018ffc6a4c6636e23faa4cb7 = L.semiCircle(
+                        [31.230563,34.32734],
+                        {radius:697.8639737521917,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 318) {
+                    var semi_circle_45cb9154018ffc6a4c6636e23faa4cb7 = L.semiCircle(
+                        [31.230563,34.32734],
+                        {radius:697.8639737521917,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:318
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_45cb9154018ffc6a4c6636e23faa4cb7.bindTooltip(
+                `<div>
+                     <font size="2">Holit:  15 Civilians and emergency teams<br>Adi Kaploun Vital, Avraham Gabriel Korin, Busko Petro, Chan Udom, Haim Katzman, Lily Keisman, Liz Elharar<br>Meir Elharar, Moshe Ridler, Roland Sultan, Ronit Sultan, Shachar Deborah Troen Matias, Shlomi Mathias, Tamklang Parinya<br>Tehila Katabi
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_8e8ab77e0168f65102b29efc839d8bcb = L.semiCircle(
+                        [31.230563,34.32734],
+                        {radius:697.8639737521917,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (318 || 360) {
+                    var semi_circle_8e8ab77e0168f65102b29efc839d8bcb = L.semiCircle(
+                        [31.230563,34.32734],
+                        {radius:697.8639737521917,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:318, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_8e8ab77e0168f65102b29efc839d8bcb.bindTooltip(
+                `<div>
+                     <font size="2">Holit:  2 Soldiers<br>Liran Almosnino, Yiftach Gorny
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_df34599131682116f966d368d00e7091 = L.semiCircle(
+                        [31.3836193993611,34.4619630054181],
+                        {radius:655.5290583552475,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 144) {
+                    var semi_circle_df34599131682116f966d368d00e7091 = L.semiCircle(
+                        [31.3836193993611,34.4619630054181],
+                        {radius:655.5290583552475,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:144
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_df34599131682116f966d368d00e7091.bindTooltip(
+                `<div>
+                     <font size="2">Kibbutz Re’im:  6 Civilians and emergency teams<br>Amit Gabay, Asaf Fever, Dvir Karp, Patee Kiattisak, Stav Kimchi, Varda Haramati
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_5b683625c41d5605a062b1f4da9bcbf0 = L.semiCircle(
+                        [31.3836193993611,34.4619630054181],
+                        {radius:655.5290583552475,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (144 || 288) {
+                    var semi_circle_5b683625c41d5605a062b1f4da9bcbf0 = L.semiCircle(
+                        [31.3836193993611,34.4619630054181],
+                        {radius:655.5290583552475,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:144, 
+                        stopAngle:288
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_5b683625c41d5605a062b1f4da9bcbf0.bindTooltip(
+                `<div>
+                     <font size="2">Kibbutz Re’im:  6 Soldiers<br>Adir Gaori, Dan Ariel, Guy Simhi, Mordechai (moti) Shamir, Roey Yosef Levy, Yotam Ben-Basat
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_86715a0eefa3f1c93e52c0e3771fb8b5 = L.semiCircle(
+                        [31.3836193993611,34.4619630054181],
+                        {radius:655.5290583552475,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (288 || 360) {
+                    var semi_circle_86715a0eefa3f1c93e52c0e3771fb8b5 = L.semiCircle(
+                        [31.3836193993611,34.4619630054181],
+                        {radius:655.5290583552475,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:288, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_86715a0eefa3f1c93e52c0e3771fb8b5.bindTooltip(
+                `<div>
+                     <font size="2">Kibbutz Re’im:  3 Police and rescue teams<br>Alik Pozdnyakov, Itzhak Bazuka-Shvili, Yakir Blochman
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_f06e0515e37b2b81fc1d05deffc31e00 = L.circle(
+                [31.3232254133789, 34.4024964699751],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 633.3012368467129, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_f06e0515e37b2b81fc1d05deffc31e00.bindTooltip(
+                `<div>
+                     <font size="2">Psyduck Party:  14 Civilians and emergency teams<br>Daniel Asher Cohen, Dor Hanan Shafir, Dudi Sharon, Itay Hadar Houston, Matan Rozeberg, Moti Elkabatz, Noam Rabia<br>Noy Maodi, Noy Zafraani, Savyon Chen Kipper, Shachar Kedman, Yuval Bar, Yuval Rabia, Zlata Kosovsky<br>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_5470b2219995cce924758ea869936ef4 = L.circle(
+                [31.451442032419, 34.4694931921028],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 610.2643417692328, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_5470b2219995cce924758ea869936ef4.bindTooltip(
+                `<div>
+                     <font size="2">Paga Base:  13 Soldiers<br>Dekel Swisa, Haim Meir Eden, Haviv Qyan, Idan Raz, Ido Binenstock, Itamar Ben-Yehuda, Itamar Cohen<br>Itay Ofek Glisko, Lior Azizov, Roey Peri, Shalev Baranes, Tomer Barak, Yakir Levy
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_60c185e68f1241783559ac08e2b8389e = L.circle(
+                [31.2402695741122, 34.3362364083698],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 586.3230142835039, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_60c185e68f1241783559ac08e2b8389e.bindTooltip(
+                `<div>
+                     <font size="2">Sufa Base:  12 Soldiers<br>Amir Lavi, Amit Most, Daniel Bezgodov, Eyal Klein, Gali Roi Shakotai, Hallel Shmuel Saadon, Nahman Dekel<br>Ofir Melman, Roey Chapell, Segev Schwartz, Tal Levi, Tomer Yaakov Mizrahi
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_a374f030fbac0fbff98adad5f4a3504b = L.semiCircle(
+                        [31.33573,34.394087],
+                        {radius:535.2372348458314,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 216) {
+                    var semi_circle_a374f030fbac0fbff98adad5f4a3504b = L.semiCircle(
+                        [31.33573,34.394087],
+                        {radius:535.2372348458314,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:216
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_a374f030fbac0fbff98adad5f4a3504b.bindTooltip(
+                `<div>
+                     <font size="2">Nirim:  6 Civilians and emergency teams<br>Doron Meir, Gidon Bavani, Mor Meir, Oran Elfassi, Roey Popplewell, Wisetdonwai Wutthipat
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_01d0af30d66c8863540f898098172cee = L.semiCircle(
+                        [31.33573,34.394087],
+                        {radius:535.2372348458314,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (216 || 360) {
+                    var semi_circle_01d0af30d66c8863540f898098172cee = L.semiCircle(
+                        [31.33573,34.394087],
+                        {radius:535.2372348458314,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:216, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_01d0af30d66c8863540f898098172cee.bindTooltip(
+                `<div>
+                     <font size="2">Nirim:  4 Soldiers<br>Adam Agmon, Asaf Hamami, Kiril Brodski, Tomer Yaakov Ahimas
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_8b949885cffee55088b19d9fad66c998 = L.circle(
+                [31.5605566379382, 34.5441659545204],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 535.2372348458314, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_8b949885cffee55088b19d9fad66c998.bindTooltip(
+                `<div>
+                     <font size="2">Erez Checkpoint:  10 Soldiers<br>Adir Tahar, Ariel Erez, Daniel Moshe-Danino, Dor Malka, Emil Samoilov, Lidor Makayes, Max Rabinov<br>Nethanel Young, Or Mizrahi, Roey Weiser
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_d8366cce6927be5d37d97e847b8dc8a9 = L.semiCircle(
+                        [31.3631573328565,34.4452834913286],
+                        {radius:478.73073648171925,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 315) {
+                    var semi_circle_d8366cce6927be5d37d97e847b8dc8a9 = L.semiCircle(
+                        [31.3631573328565,34.4452834913286],
+                        {radius:478.73073648171925,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:315
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_d8366cce6927be5d37d97e847b8dc8a9.bindTooltip(
+                `<div>
+                     <font size="2">Re’im Base:  7 Soldiers<br>David Flores Gracia, Ido Yehoshua, Ilay Azar, Nitay Amar, Rom Shlomi, Sahar Zion Machaluf, Salman Eben Marei<br>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_7970ae1f3094a8236c28a38af6bcc8fa = L.semiCircle(
+                        [31.3631573328565,34.4452834913286],
+                        {radius:478.73073648171925,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (315 || 360) {
+                    var semi_circle_7970ae1f3094a8236c28a38af6bcc8fa = L.semiCircle(
+                        [31.3631573328565,34.4452834913286],
+                        {radius:478.73073648171925,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:315, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_7970ae1f3094a8236c28a38af6bcc8fa.bindTooltip(
+                `<div>
+                     <font size="2">Re’im Base:  1 Police and rescue teams<br>Stas Sheinkman
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_d2814bfa5909ce97f95b3fb77d833f36 = L.circle(
+                [31.596972587333, 34.5117547187511],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 478.73073648171925, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_d2814bfa5909ce97f95b3fb77d833f36.bindTooltip(
+                `<div>
+                     <font size="2">Yiftah Base:  8 Soldiers<br>Aryeh Shlomo Ziring, Ido Harush, Ilai Bar-Sadeh, Naama Boni, Orel Moshe, Sahar Tal, Yoav Meliev<br>Yuval Bar
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_caee1e200d371c29fc4108d5eb73fc60 = L.circle(
+                [31.3153804671977, 34.5412076991259],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 478.73073648171925, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_caee1e200d371c29fc4108d5eb73fc60.bindTooltip(
+                `<div>
+                     <font size="2">Urim Base:  8 Soldiers<br>Adi Gruman, Aharon Fresh, Alina Pravosudova, Danit Cohen, Itamar Ayish, Lior Levy, Ofir Davidyan<br>Shir Shlomo
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_db2e88222b8d9055afeb943a535885ff = L.circle(
+                [31.604753586258, 34.5073326774338],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 447.81159910813847, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_db2e88222b8d9055afeb943a535885ff.bindTooltip(
+                `<div>
+                     <font size="2">Zikim Base:  7 Soldiers<br>Adar Ben-Simon, Adir Abudi, Eden Alon-Levy, Neria Aaron Nagari , Omri Niv- Fierstein, Or Moses, Yanai Kaminka<br>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_4db5a4855d7354ac35c58cf0c826f70e = L.circle(
+                [31.287112, 35.048572],
+                {"bubblingMouseEvents": true, "color": "#FFA500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA500", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 447.81159910813847, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_4db5a4855d7354ac35c58cf0c826f70e.bindTooltip(
+                `<div>
+                     <font size="2">Kukhleh:  7 Rockets<br>Amin Akal Alkra’an, Faiza Abu Sabaakh, Jawad Ibrahim Alkra’an, Mahmoud Diab Alkra’an, Malek Ibrahim Alkra’an, May Abu Sabaakh, Taleb Alkra’an<br>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_1d46be5e9f1aa293dd9610e8c51b9a60 = L.semiCircle(
+                        [31.482205,34.598634],
+                        {radius:414.5929793656026,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 240) {
+                    var semi_circle_1d46be5e9f1aa293dd9610e8c51b9a60 = L.semiCircle(
+                        [31.482205,34.598634],
+                        {radius:414.5929793656026,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:240
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_1d46be5e9f1aa293dd9610e8c51b9a60.bindTooltip(
+                `<div>
+                     <font size="2">Yakhini:  4 Civilians and emergency teams (including 1 from Nova festival)<br>Elitzur Tzuriel Hajbi, Ilan Avraham, Izhar Hajbi, Yehonathan Hajbi
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_c264282b22ad6a3606d5bd70cde1a8c9 = L.semiCircle(
+                        [31.482205,34.598634],
+                        {radius:414.5929793656026,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (240 || 300) {
+                    var semi_circle_c264282b22ad6a3606d5bd70cde1a8c9 = L.semiCircle(
+                        [31.482205,34.598634],
+                        {radius:414.5929793656026,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:240, 
+                        stopAngle:300
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_c264282b22ad6a3606d5bd70cde1a8c9.bindTooltip(
+                `<div>
+                     <font size="2">Yakhini:  1 Soldiers<br>Peleg Salem
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_0ae148330644e17f233c3dcb223bdd45 = L.semiCircle(
+                        [31.482205,34.598634],
+                        {radius:414.5929793656026,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (300 || 360) {
+                    var semi_circle_0ae148330644e17f233c3dcb223bdd45 = L.semiCircle(
+                        [31.482205,34.598634],
+                        {radius:414.5929793656026,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:300, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_0ae148330644e17f233c3dcb223bdd45.bindTooltip(
+                `<div>
+                     <font size="2">Yakhini:  1 Police and rescue teams<br>Ravit Hana Assayag
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_12b3d166af6315c6fd6bb8623c69854c = L.semiCircle(
+                        [31.242423,34.407488],
+                        {radius:414.5929793656026,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 300) {
+                    var semi_circle_12b3d166af6315c6fd6bb8623c69854c = L.semiCircle(
+                        [31.242423,34.407488],
+                        {radius:414.5929793656026,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:300
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_12b3d166af6315c6fd6bb8623c69854c.bindTooltip(
+                `<div>
+                     <font size="2">Mivtahim:  5 Civilians and emergency teams<br>Dan Asulin, Osamah Abu Madi'am, Tal Maman, Yaron Shahar, Zion Levy
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_a60b1ec3e4e132af6c926110a353949c = L.semiCircle(
+                        [31.242423,34.407488],
+                        {radius:414.5929793656026,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (300 || 360) {
+                    var semi_circle_a60b1ec3e4e132af6c926110a353949c = L.semiCircle(
+                        [31.242423,34.407488],
+                        {radius:414.5929793656026,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:300, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_a60b1ec3e4e132af6c926110a353949c.bindTooltip(
+                `<div>
+                     <font size="2">Mivtahim:  1 Soldiers<br>Itay Nahmias
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_93d5a065ee98c38170903be7f51b6c62 = L.circle(
+                [31.351722, 34.403471],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 414.5929793656026, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_93d5a065ee98c38170903be7f51b6c62.bindTooltip(
+                `<div>
+                     <font size="2">Ein HaShlosha:  6 Civilians and emergency teams<br>Noa Glazberg, Olag Lifshitz, Rami Negbi, Silvia Marnasky, Talia Marcel, Vitaly Lugvinechenko
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_91399c0a12d2ad3163a6bb2d431e0175 = L.semiCircle(
+                        [31.228281,34.284559],
+                        {radius:378.4698783030241,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 144) {
+                    var semi_circle_91399c0a12d2ad3163a6bb2d431e0175 = L.semiCircle(
+                        [31.228281,34.284559],
+                        {radius:378.4698783030241,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:144
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_91399c0a12d2ad3163a6bb2d431e0175.bindTooltip(
+                `<div>
+                     <font size="2">Kerem Shalom:  2 Civilians and emergency teams<br>Amichai Israel Vitzan, Yedidya Moshe Raziel
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_100cc657dca6c975920d86922ea271e5 = L.semiCircle(
+                        [31.228281,34.284559],
+                        {radius:378.4698783030241,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (144 || 360) {
+                    var semi_circle_100cc657dca6c975920d86922ea271e5 = L.semiCircle(
+                        [31.228281,34.284559],
+                        {radius:378.4698783030241,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:144, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_100cc657dca6c975920d86922ea271e5.bindTooltip(
+                `<div>
+                     <font size="2">Kerem Shalom:  3 Soldiers<br>Natan Lier Chai, Shoham Moshe Ben-Harush, Yaron Oree Shay
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_dee2ad70dfa2cf021628d8ecc8e3e5db = L.circle(
+                [31.23604, 34.356702],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 378.4698783030241, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_dee2ad70dfa2cf021628d8ecc8e3e5db.bindTooltip(
+                `<div>
+                     <font size="2">Nir Yitzhak:  5 Civilians and emergency teams<br>Avraham Boaz, Ofek Arazi, Oren Goldin, Tal Chaimi, Yaron Shahar
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_db3ae0d51e32aa630c9aa2024639c686 = L.circle(
+                [31.6054753165714, 34.5024353281107],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 378.4698783030241, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_db3ae0d51e32aa630c9aa2024639c686.bindTooltip(
+                `<div>
+                     <font size="2">MASA Erez:  5 Soldiers<br>Amit Tzur, Dvir Lisha, Itay Maor, Ofir Tzioni, Ori Locker
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_df50055843678dd28c3e4cc005bc68c8 = L.semiCircle(
+                        [31.563745499879,34.4407886393767],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 90) {
+                    var semi_circle_df50055843678dd28c3e4cc005bc68c8 = L.semiCircle(
+                        [31.563745499879,34.4407886393767],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:90
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_df50055843678dd28c3e4cc005bc68c8.bindTooltip(
+                `<div>
+                     <font size="2">Unknown:  1 Civilians and emergency teams<br>Tholaeng Phithak
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_7836f0fea30df65016dcd4abfda4991b = L.semiCircle(
+                        [31.563745499879,34.4407886393767],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (90 || 180) {
+                    var semi_circle_7836f0fea30df65016dcd4abfda4991b = L.semiCircle(
+                        [31.563745499879,34.4407886393767],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:90, 
+                        stopAngle:180
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_7836f0fea30df65016dcd4abfda4991b.bindTooltip(
+                `<div>
+                     <font size="2">Unknown:  1 Soldiers<br>Alexander Masli
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_134a2e8a1f5c1f48bd31274b2659be87 = L.semiCircle(
+                        [31.563745499879,34.4407886393767],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (180 || 360) {
+                    var semi_circle_134a2e8a1f5c1f48bd31274b2659be87 = L.semiCircle(
+                        [31.563745499879,34.4407886393767],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:180, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_134a2e8a1f5c1f48bd31274b2659be87.bindTooltip(
+                `<div>
+                     <font size="2">Unknown:  2 Police and rescue teams<br>Maor Shalom, Michael Ben-Moshe (Moshiasvhili)
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_3ddc4630536e4707205ee9c2333621ef = L.circle(
+                [31.3267585501366, 34.3992462837037],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 338.5137501286538, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_3ddc4630536e4707205ee9c2333621ef.bindTooltip(
+                `<div>
+                     <font size="2">White House:  4 Soldiers<br>Maro Elem, Omer Wolf, Shaked Dahan, Shalev Dagan
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_3b08e89c817e9a77e1c05d1e1a9f7baf = L.semiCircle(
+                        [31.5783300781213,34.5548300108433],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 180) {
+                    var semi_circle_3b08e89c817e9a77e1c05d1e1a9f7baf = L.semiCircle(
+                        [31.5783300781213,34.5548300108433],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:180
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_3b08e89c817e9a77e1c05d1e1a9f7baf.bindTooltip(
+                `<div>
+                     <font size="2">Yad Mordekhai-Netiv HaAsara:  2 Civilians and emergency teams<br>Kobi Paryante, Neomi Shitrit-Azulay
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_641e5d864d84e1a95f609d90351d95ed = L.semiCircle(
+                        [31.5783300781213,34.5548300108433],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (180 || 360) {
+                    var semi_circle_641e5d864d84e1a95f609d90351d95ed = L.semiCircle(
+                        [31.5783300781213,34.5548300108433],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:180, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_641e5d864d84e1a95f609d90351d95ed.bindTooltip(
+                `<div>
+                     <font size="2">Yad Mordekhai-Netiv HaAsara:  2 Soldiers<br>Itay-Eliyahu Marchiano, ilay Gamzo
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_1b98bfc9cd11f759dbf393029c89d256 = L.semiCircle(
+                        [31.222015,34.355936],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 270) {
+                    var semi_circle_1b98bfc9cd11f759dbf393029c89d256 = L.semiCircle(
+                        [31.222015,34.355936],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:270
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_1b98bfc9cd11f759dbf393029c89d256.bindTooltip(
+                `<div>
+                     <font size="2">Pri Gan:  3 Civilians and emergency teams<br>Aviad Gad Cohen, Bechor Sueid, Reuven Shishportish
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_83bcb6076dacc3cd9eafaa613142e1cc = L.semiCircle(
+                        [31.222015,34.355936],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (270 || 360) {
+                    var semi_circle_83bcb6076dacc3cd9eafaa613142e1cc = L.semiCircle(
+                        [31.222015,34.355936],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:270, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_83bcb6076dacc3cd9eafaa613142e1cc.bindTooltip(
+                `<div>
+                     <font size="2">Pri Gan:  1 Police and rescue teams<br>Avi Zidon
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_788c4d63c93bdea52a3c32afb178571a = L.circle(
+                [31.2742733480027, 34.3867808772305],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 338.5137501286538, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_788c4d63c93bdea52a3c32afb178571a.bindTooltip(
+                `<div>
+                     <font size="2">MOP Darom:  4 Soldiers<br>Amichay Shimon Rubin, Dvir Haim Resler, Shilo Rauchberger, Shlomo Reshetnikov
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_62198d653b2fd718ee459f4e8c95742a = L.semiCircle(
+                        [31.4050740370778,34.4792224231953],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 180) {
+                    var semi_circle_62198d653b2fd718ee459f4e8c95742a = L.semiCircle(
+                        [31.4050740370778,34.4792224231953],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:180
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_62198d653b2fd718ee459f4e8c95742a.bindTooltip(
+                `<div>
+                     <font size="2">Re’im-Be’eri road:  2 Civilians and emergency teams<br>Hagit Refaeli Mishkin, Kobi Shmaya
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_563401096f709bb9006e43998bbd5bbd = L.semiCircle(
+                        [31.4050740370778,34.4792224231953],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (180 || 360) {
+                    var semi_circle_563401096f709bb9006e43998bbd5bbd = L.semiCircle(
+                        [31.4050740370778,34.4792224231953],
+                        {radius:338.5137501286538,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:180, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_563401096f709bb9006e43998bbd5bbd.bindTooltip(
+                `<div>
+                     <font size="2">Re’im-Be’eri road:  2 Soldiers<br>Oriel Bibi, Osher Shmaya
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_8e70436b54cafb550d8d359cf2698e87 = L.circle(
+                [31.423196, 34.595254],
+                {"bubblingMouseEvents": true, "color": "#FFA500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA500", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 293.16150714175194, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_8e70436b54cafb550d8d359cf2698e87.bindTooltip(
+                `<div>
+                     <font size="2">Netivot:  3 Rockets<br>Rabbi Netanel Maskalatchi, Rabbi Rafael Fahimi, Rafael Meir Maskalatchi
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_6a8c865bf797e6e0f76691566ad82b71 = L.circle(
+                [31.238309, 34.341987],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 293.16150714175194, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_6a8c865bf797e6e0f76691566ad82b71.bindTooltip(
+                `<div>
+                     <font size="2">Kibbutz Sufa:  3 Civilians and emergency teams<br>Bernard Cohen, Ido Hubara, Ofir Erez
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_365ef8f8d1ebf9f21dfe2901ad75352e = L.circle(
+                [31.317032810289, 34.5289920555347],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 293.16150714175194, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_365ef8f8d1ebf9f21dfe2901ad75352e.bindTooltip(
+                `<div>
+                     <font size="2">Urim jct:  3 Soldiers<br>Benyamin Gabriel Yona, Nativ Kotzro, Sahar Saudin
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_388051e428f059e7641922a290387d35 = L.circle(
+                [31.5009022, 34.4705065],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 293.16150714175194, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_388051e428f059e7641922a290387d35.bindTooltip(
+                `<div>
+                     <font size="2">Friendly fire in Shejaiya:  3 Civilians and emergency teams<br>Alon Lulu Shamriz, Samar Fouad Talalka, Yotam Haim
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_1889f0338630bbef3a94ed3b5a317957 = L.circle(
+                [31.256889, 34.403065],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 293.16150714175194, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_1889f0338630bbef3a94ed3b5a317957.bindTooltip(
+                `<div>
+                     <font size="2">Mivtahim jct:  3 Civilians and emergency teams (including 2 from Nova festival)<br>Ido Perez, Niv Tel-Tzur, Rodolfo (Rody) Fabián Skariszewski
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_11dfe8757c581cd531bed337990a5918 = L.circle(
+                [31.3831314780484, 34.4474645994214],
+                {"bubblingMouseEvents": true, "color": "#2255ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2255ff", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 293.16150714175194, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_11dfe8757c581cd531bed337990a5918.bindTooltip(
+                `<div>
+                     <font size="2">Near Re’im:  3 Police and rescue teams<br>Alexy Budovski, Jayar Davidov, Uriel Avraham
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_23dfdf525add5d4de5d69cd23116af6d = L.circle(
+                [31.247595, 34.403091],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 239.36536824085962, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_23dfdf525add5d4de5d69cd23116af6d.bindTooltip(
+                `<div>
+                     <font size="2">Yesha:  2 Civilians and emergency teams<br>Gil Avital, Lior Ben-Yakov
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_dbd6c4252fda8b512b433b67f6643ed9 = L.circle(
+                [31.298108, 34.427059],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 239.36536824085962, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_dbd6c4252fda8b512b433b67f6643ed9.bindTooltip(
+                `<div>
+                     <font size="2">Magen:  2 Civilians and emergency teams<br>Avi Fleisher, Ofir Mordechai Yaron
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_fda65c0c43f025a375bc3160b8698c14 = L.semiCircle(
+                        [31.518459,34.580544],
+                        {radius:239.36536824085962,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 180) {
+                    var semi_circle_fda65c0c43f025a375bc3160b8698c14 = L.semiCircle(
+                        [31.518459,34.580544],
+                        {radius:239.36536824085962,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:180
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_fda65c0c43f025a375bc3160b8698c14.bindTooltip(
+                `<div>
+                     <font size="2">Nir Am:  1 Soldiers<br>Matan Abarjil
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_4a402c474544e8694bc9b58fe1bacc4e = L.semiCircle(
+                        [31.518459,34.580544],
+                        {radius:239.36536824085962,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (180 || 360) {
+                    var semi_circle_4a402c474544e8694bc9b58fe1bacc4e = L.semiCircle(
+                        [31.518459,34.580544],
+                        {radius:239.36536824085962,
+                        fill: true,
+                        fillColor:'#2255ff',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:180, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_4a402c474544e8694bc9b58fe1bacc4e.bindTooltip(
+                `<div>
+                     <font size="2">Nir Am:  1 Police and rescue teams<br>Roman Gendel
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_c2dbc83e842fabda1a8b2cb5bc13b374 = L.circle(
+                [31.3116047876017, 34.4541386307133],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 239.36536824085962, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_c2dbc83e842fabda1a8b2cb5bc13b374.bindTooltip(
+                `<div>
+                     <font size="2">East of Ma’on jct:  2 Soldiers<br>Jonathan Steinberg, Yonatan Tzur
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_9229d8292a4acc6cc4cfa5cdd8f22dbc = L.circle(
+                [31.2195203120312, 34.2890150993901],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 239.36536824085962, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_9229d8292a4acc6cc4cfa5cdd8f22dbc.bindTooltip(
+                `<div>
+                     <font size="2">Friendly fire near Kerem Shalom:  2 Civilians and emergency teams<br>Dani Alush, Tal Danieli
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_65e24fffb26047492e502acdd2613145 = L.semiCircle(
+                        [31.4884088906255,34.5501481402354],
+                        {radius:239.36536824085962,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (0 || 180) {
+                    var semi_circle_65e24fffb26047492e502acdd2613145 = L.semiCircle(
+                        [31.4884088906255,34.5501481402354],
+                        {radius:239.36536824085962,
+                        fill: true,
+                        fillColor:'#ff0000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:0, 
+                        stopAngle:180
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_65e24fffb26047492e502acdd2613145.bindTooltip(
+                `<div>
+                     <font size="2">Mefalsim-Kfar Aza road:  1 Civilians and emergency teams (including 1 from Nova festival)<br>Ori Arad
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+                if (0 || 0) {
+                    var semi_circle_802dbf16ae4210fe95f8faff410b3a89 = L.semiCircle(
+                        [31.4884088906255,34.5501481402354],
+                        {radius:239.36536824085962,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0
+                        }).setDirection(0,0)
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                } else if (180 || 360) {
+                    var semi_circle_802dbf16ae4210fe95f8faff410b3a89 = L.semiCircle(
+                        [31.4884088906255,34.5501481402354],
+                        {radius:239.36536824085962,
+                        fill: true,
+                        fillColor:'#808000',
+                        fillOpacity: 0.55,
+                        color: '#3388ff',
+                        opacity: 0,
+                        startAngle:180, 
+                        stopAngle:360
+                        })
+                        .addTo(map_da4f0b4832264064b2a8a54742019c96);
+                }
+            
+    
+            semi_circle_802dbf16ae4210fe95f8faff410b3a89.bindTooltip(
+                `<div>
+                     <font size="2">Mefalsim-Kfar Aza road:  1 Soldiers<br>Tal Grushka
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_65325f1979ef48b28ad05f7397586e9a = L.circle(
+                [31.507172, 34.553013],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_65325f1979ef48b28ad05f7397586e9a.bindTooltip(
+                `<div>
+                     <font size="2">Black Arrow Memorial:  1 Soldiers<br>Leon Bar
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_a6ad8df351ddaaef5efd47726ab5c31f = L.circle(
+                [31.6687885, 34.5742523],
+                {"bubblingMouseEvents": true, "color": "#FFA500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA500", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_a6ad8df351ddaaef5efd47726ab5c31f.bindTooltip(
+                `<div>
+                     <font size="2">Ashkelon:  1 Rockets<br>Yehoshua Hatab
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_a0a93871e2cf2d96ec900f8c6fcb3cec = L.circle(
+                [31.831039, 34.722577],
+                {"bubblingMouseEvents": true, "color": "#FFA500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA500", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_a0a93871e2cf2d96ec900f8c6fcb3cec.bindTooltip(
+                `<div>
+                     <font size="2">Kfar aviv:  1 Rockets<br>Hana Ben-Artzi
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_be9c7739d0f98bf10fb61ce2ec84012a = L.circle(
+                [31.6200665069165, 34.5808941844254],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_be9c7739d0f98bf10fb61ce2ec84012a.bindTooltip(
+                `<div>
+                     <font size="2">Friendly fire near Mavki’im:  1 Civilians and emergency teams<br>Adi Ohana
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_43329560e466cb2595773d27ad0d9cd4 = L.circle(
+                [31.2305456661852, 34.2868788433916],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_43329560e466cb2595773d27ad0d9cd4.bindTooltip(
+                `<div>
+                     <font size="2">Kerem Shalom Base:  1 Soldiers<br>Or Mizrahi
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_f134ddf9364fbf181a471062bed378a1 = L.circle(
+                [31.5403394651369, 34.5713086782205],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_f134ddf9364fbf181a471062bed378a1.bindTooltip(
+                `<div>
+                     <font size="2">post:  1 Soldiers<br>Yaron Zohar
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_787ce6421c11f66a96a9461215ac8bb9 = L.circle(
+                [31.248463, 34.413404],
+                {"bubblingMouseEvents": true, "color": "#FFA500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA500", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_787ce6421c11f66a96a9461215ac8bb9.bindTooltip(
+                `<div>
+                     <font size="2">Amioz:  1 Rockets<br>נחבלה בדרך לממ"ד - Ziva Ovitz
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_647e865d038cff4dd91ba5ccc06002e6 = L.circle(
+                [31.160927, 35.019757],
+                {"bubblingMouseEvents": true, "color": "#FFA500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA500", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_647e865d038cff4dd91ba5ccc06002e6.bindTooltip(
+                `<div>
+                     <font size="2">Ar'ara:  1 Rockets<br>Yazan Zakaria Abu Jama
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_a776c95948ded4ee23b345296ee34b3b = L.circle(
+                [31.494184474791, 34.5963825869542],
+                {"bubblingMouseEvents": true, "color": "#2255ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2255ff", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_a776c95948ded4ee23b345296ee34b3b.bindTooltip(
+                `<div>
+                     <font size="2">Yakhini Fields:  1 Police and rescue teams<br>Roei moshe
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_b22ef2bfadefba0ae035061cfc5d0d95 = L.circle(
+                [31.199958, 34.363751],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_b22ef2bfadefba0ae035061cfc5d0d95.bindTooltip(
+                `<div>
+                     <font size="2">Talmei Yosef:  1 Civilians and emergency teams<br>Duvdevani Giora
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_293ca8bab248bedd2857f65972422be0 = L.circle(
+                [31.2939087780623, 34.4371592525311],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_293ca8bab248bedd2857f65972422be0.bindTooltip(
+                `<div>
+                     <font size="2">Magen jct:  1 Civilians and emergency teams<br>Dalia Abu Madi'am
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_41f3c4e50cecf9a1be76115048232fb5 = L.circle(
+                [31.3225019212402, 34.4466810989006],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_41f3c4e50cecf9a1be76115048232fb5.bindTooltip(
+                `<div>
+                     <font size="2">Orchard near Magen jct:  1 Civilians and emergency teams<br>Musa Abu Sabila
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_921d90e644b7e594f235a3227b02779d = L.circle(
+                [31.3419613674272, 34.5051451093551],
+                {"bubblingMouseEvents": true, "color": "#2255ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2255ff", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_921d90e644b7e594f235a3227b02779d.bindTooltip(
+                `<div>
+                     <font size="2">Re’im-Urim road:  1 Police and rescue teams<br>Eliona Astafniko
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_f13c2d49973c83b6cf67a87b71ff3fb4 = L.circle(
+                [31.3739277447309, 34.4484453396138],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_f13c2d49973c83b6cf67a87b71ff3fb4.bindTooltip(
+                `<div>
+                     <font size="2">South of Re’im jct:  1 Civilians and emergency teams<br>one day old baby Abu Rashed
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_cd9ad66bb9311dc7f60e85ad4fa0bad1 = L.circle(
+                [31.5711925456624, 34.5470178881721],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_cd9ad66bb9311dc7f60e85ad4fa0bad1.bindTooltip(
+                `<div>
+                     <font size="2">Friendly fire near Netiv HaAsara:  1 Soldiers<br>Tomer Dolev
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_fbd7df47786043086f9093965e8ff84d = L.circle(
+                [31.7052030735826, 34.6185964491199],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_fbd7df47786043086f9093965e8ff84d.bindTooltip(
+                `<div>
+                     <font size="2">Friendly fire near Nitzan:  1 Civilians and emergency teams<br>Niv Ayos
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_fd60d31c16f838eabe3b216c126db497 = L.circle(
+                [31.8061517274756, 35.1104181445333],
+                {"bubblingMouseEvents": true, "color": "#FFA500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA500", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_fd60d31c16f838eabe3b216c126db497.bindTooltip(
+                `<div>
+                     <font size="2">Abu Gosh:  1 Rockets<br>Majed Ibrahim
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_3cec1060663b3ac45575bcdd11f865b4 = L.circle(
+                [31.5635961931394, 34.5566272845726],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_3cec1060663b3ac45575bcdd11f865b4.bindTooltip(
+                `<div>
+                     <font size="2">Near Erez:  1 Civilians and emergency teams<br>Amir Naim
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_c6e977923cb4f5356f1ad935a9aed989 = L.circle(
+                [31.3452361354348, 34.4465779612038],
+                {"bubblingMouseEvents": true, "color": "#2255ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2255ff", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_c6e977923cb4f5356f1ad935a9aed989.bindTooltip(
+                `<div>
+                     <font size="2">Re’im-Magen road:  1 Police and rescue teams<br>Yehuda Kedar
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_07ebce099d5a2d94c06c62fabbe0f821 = L.circle(
+                [31.2328012435022, 34.3326614036071],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_07ebce099d5a2d94c06c62fabbe0f821.bindTooltip(
+                `<div>
+                     <font size="2">Between Sufa and Holit:  1 Soldiers<br>Ido Israel-Shani
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_e069b0ee0b43d0deb997c9ad1b85f0a5 = L.circle(
+                [31.4805599847471, 34.5918292048947],
+                {"bubblingMouseEvents": true, "color": "#2255ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2255ff", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_e069b0ee0b43d0deb997c9ad1b85f0a5.bindTooltip(
+                `<div>
+                     <font size="2">Yakhini jct:  1 Police and rescue teams<br>Omer Gavra
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_452a3220b8dde5d9d15898580ea768b0 = L.circle(
+                [31.2396494649759, 34.2934079740074],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_452a3220b8dde5d9d15898580ea768b0.bindTooltip(
+                `<div>
+                     <font size="2">North of Kerem Shalom:  1 Soldiers<br>Tomer Shoham
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_3c03fb71425c7b68f9333b74506df268 = L.circle(
+                [31.5284100627267, 34.5804872047531],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_3c03fb71425c7b68f9333b74506df268.bindTooltip(
+                `<div>
+                     <font size="2">Road 34:  1 Civilians and emergency teams<br>Alacre Loreta Lori Villarin
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_8a4a3c1a0e4b4ac439cf2b33ba66291f = L.circle(
+                [31.5194892166215, 34.5855605334004],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_8a4a3c1a0e4b4ac439cf2b33ba66291f.bindTooltip(
+                `<div>
+                     <font size="2">Near Nir Am:  1 Civilians and emergency teams<br>Inbar Buyum
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_0cc2700968cc53d125cf636cfa52193d = L.circle(
+                [31.42428, 34.433753],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_0cc2700968cc53d125cf636cfa52193d.bindTooltip(
+                `<div>
+                     <font size="2">post:  1 Soldiers<br>Shai Levinson
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_c10704fee6f5c011ec8066e612407948 = L.circle(
+                [31.4774818044843, 34.5359055421903],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_c10704fee6f5c011ec8066e612407948.bindTooltip(
+                `<div>
+                     <font size="2">Kfar Aza gas station:  1 Civilians and emergency teams<br>Mark Peretz
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_a6d75467889b8541b830958af2279e97 = L.circle(
+                [32.1756415295653, 35.2746481053219],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 169.2568750643269, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            circle_a6d75467889b8541b830958af2279e97.bindTooltip(
+                `<div>
+                     <font size="2">En route to tamar:  1 Soldiers<br>Yuval Gabay
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_e507995e94f24604a897d4f57aaaa61d = L.marker(
+                [31.4074870534664, 34.5079817544702],
+                {}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var div_icon_4d17fc3dbbf512b48e445bcaf5f76263 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt; color:gray\"\u003eNova festival (323)\u003c/div\u003e\u003cdiv style=\"font-size:7pt; color:gray\"\u003eincluding escapees to shelters and kibbutzim: 385\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_e507995e94f24604a897d4f57aaaa61d.setIcon(div_icon_4d17fc3dbbf512b48e445bcaf5f76263);
+        
+    
+            var marker_cd5e29f4b204720beb91cc15fd6e2849 = L.marker(
+                [31.430513, 34.51464440956768],
+                {}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var div_icon_6871666979a1106cc133cf208a2a3a0c = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt; color:gray\"\u003eK\u05dfibbutz Be\u2019eri (125)\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_cd5e29f4b204720beb91cc15fd6e2849.setIcon(div_icon_6871666979a1106cc133cf208a2a3a0c);
+        
+    
+            var marker_b5a7cd6352b6f4188d82ef1e7f656611 = L.marker(
+                [31.489416, 34.549618602261795],
+                {}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var div_icon_c642fab4e06da401ee2a0e3bb2faf4a2 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt; color:gray\"\u003eKfar Aza (77)\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_b5a7cd6352b6f4188d82ef1e7f656611.setIcon(div_icon_c642fab4e06da401ee2a0e3bb2faf4a2);
+        
+    
+            var marker_a00bfe136e26459fa014519e8af364ae = L.marker(
+                [31.528694, 34.60982050130795],
+                {}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var div_icon_b93aa7e29c2e1b002f14510d54379dd5 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt; color:gray\"\u003eSderot (52)\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_a00bfe136e26459fa014519e8af364ae.setIcon(div_icon_b93aa7e29c2e1b002f14510d54379dd5);
+        
+    
+            var marker_0e38c887947f7c4f85891e964835f898 = L.marker(
+                [31.4822874887897, 34.51255688365655],
+                {}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var div_icon_c08201d545c6f0208ece34f8d9add0d6 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt; color:gray\"\u003eNahal Oz Base (50)\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_0e38c887947f7c4f85891e964835f898.setIcon(div_icon_c08201d545c6f0208ece34f8d9add0d6);
+        
+    
+            var marker_75e478e5630f25c60d49d2f1ba4dac90 = L.marker(
+                [31.315697, 34.41408640940576],
+                {}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var div_icon_c0793adcd32fb9191aefd3bb1890e43f = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt; color:gray\"\u003eNir Oz (37)\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_75e478e5630f25c60d49d2f1ba4dac90.setIcon(div_icon_c0793adcd32fb9191aefd3bb1890e43f);
+        
+    
+            var marker_26dcd1738ccc1b6f1ee68ca3261a30fe = L.marker(
+                [31.317337000000002, 34.634671981254506],
+                {}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var div_icon_1e4e635ae5fa1c4306ae8133865673cc = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt; color:gray\"\u003eOfakim (36)\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_26dcd1738ccc1b6f1ee68ca3261a30fe.setIcon(div_icon_1e4e635ae5fa1c4306ae8133865673cc);
+        
+    
+            var marker_f1c94ac8b9e79eeccc6fa117e7cbb8e4 = L.marker(
+                [31.380545, 34.410674267061715],
+                {}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var div_icon_b82474e4b7fc8d94bd7e7dcf29fd0955 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt; color:gray\"\u003eKibbutz Kisufim (35)\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_f1c94ac8b9e79eeccc6fa117e7cbb8e4.setIcon(div_icon_b82474e4b7fc8d94bd7e7dcf29fd0955);
+        
+    
+            var marker_eaa7d2492b1ebfc3e0e97e3bdae51d24 = L.marker(
+                [31.459049, 34.52552667765665],
+                {}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var div_icon_4111689bd042a164fa9f1a6b7168e1dd = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt; color:gray\"\u003eAlumim (30)\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_eaa7d2492b1ebfc3e0e97e3bdae51d24.setIcon(div_icon_4111689bd042a164fa9f1a6b7168e1dd);
+        
+    
+            var marker_18b6d34abfb3bdc4d41e1f972d021110 = L.marker(
+                [31.3970609362127, 34.45516319652437],
+                {}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var div_icon_8316084d788ef8344b5d484e3fab80d5 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt; color:gray\"\u003eShelters (26)\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_18b6d34abfb3bdc4d41e1f972d021110.setIcon(div_icon_8316084d788ef8344b5d484e3fab80d5);
+        
+    
+            var marker_321c2a4bfd5472f89badef6ff8d5a183 = L.marker(
+                [31.47568, 34.503936992999705],
+                {}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var div_icon_98234559bf348a1df1e1112b43861634 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt; color:gray\"\u003eKibbutz Nahal Oz (22)\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_321c2a4bfd5472f89badef6ff8d5a183.setIcon(div_icon_98234559bf348a1df1e1112b43861634);
+        
+    
+            var marker_4e11a9e5037caa0dc7ffd45e7816fc5b = L.marker(
+                [31.3757633236407, 34.38054028355689],
+                {}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var div_icon_80dd7dba5020a624b42dc385ca7cc65a = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt; color:gray\"\u003eKisufim Base (19)\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_4e11a9e5037caa0dc7ffd45e7816fc5b.setIcon(div_icon_80dd7dba5020a624b42dc385ca7cc65a);
+        
+    
+            var marker_5cbe5da622b186e34beb73a0464640e0 = L.marker(
+                [31.5143627179843, 34.59520486701209],
+                {}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var div_icon_ffd3f818b41ea4bf8db055aa06e3357c = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt; color:gray\"\u003eSha\u2019ar HaNegev jct (19)\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_5cbe5da622b186e34beb73a0464640e0.setIcon(div_icon_ffd3f818b41ea4bf8db055aa06e3357c);
+        
+    
+            var marker_de6756b4d4b531ca57daf24ac742e176 = L.marker(
+                [31.578407, 34.547699787888426],
+                {}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var div_icon_738b4558f23c87eb3ffd908c5e43a9bb = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt; color:gray\"\u003eNetiv HaAsara (18)\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_de6756b4d4b531ca57daf24ac742e176.setIcon(div_icon_738b4558f23c87eb3ffd908c5e43a9bb);
+        
+    
+            var marker_4de595d13475c45c6cd0659ca903132c = L.marker(
+                [31.507873609876402, 34.56952699262083],
+                {}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var div_icon_86c3e503aa4d8fce5bba6b27ec375516 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt; color:gray\"\u003eNear Miflasim (18)\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_4de595d13475c45c6cd0659ca903132c.setIcon(div_icon_86c3e503aa4d8fce5bba6b27ec375516);
+        
+    
+            var marker_a5a47d3715ed28ad933bfe75d83d58ef = L.marker(
+                [31.6186901, 34.51268214636045],
+                {}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var div_icon_bf4ef5d193f5e970759a355362360f55 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt; color:gray\"\u003eZikim Beach (17)\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_a5a47d3715ed28ad933bfe75d83d58ef.setIcon(div_icon_bf4ef5d193f5e970759a355362360f55);
+        
+    
+            var marker_a7377f8ee4542e1a6f981dbbb51b1646 = L.marker(
+                [31.236563, 34.33548174636044],
+                {}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var div_icon_a18b2f533206102321e3682c7b49c2cc = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt; color:gray\"\u003eHolit (17)\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_a7377f8ee4542e1a6f981dbbb51b1646.setIcon(div_icon_a18b2f533206102321e3682c7b49c2cc);
+        
+    
+            var marker_7f60944584c7cf4e5329b922b7826d66 = L.marker(
+                [31.3866193993611, 34.466610844432246],
+                {}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var div_icon_d657072c781b09cf50516676701131eb = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt; color:gray\"\u003eKibbutz Re\u2019im (15)\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_7f60944584c7cf4e5329b922b7826d66.setIcon(div_icon_d657072c781b09cf50516676701131eb);
+        
+    
+            var marker_a6b006369abb0fc9622d09c40d118f2c = L.marker(
+                [31.576, 34.197],
+                {}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var div_icon_fc7dda27bf015ef61f7a286d00d6df9a = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt\"\u003eCivilians and emergency teams (810)\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_a6b006369abb0fc9622d09c40d118f2c.setIcon(div_icon_fc7dda27bf015ef61f7a286d00d6df9a);
+        
+    
+            var circle_d9723db2a865466179e1d838c6dfff29 = L.circle(
+                [31.569, 34.179],
+                {"bubblingMouseEvents": true, "color": "#ff0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff0000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 500.0, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var marker_bd16fc8d1b73210478526f0af74ff199 = L.marker(
+                [31.558, 34.197],
+                {}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var div_icon_3dd669c9f7debf3ed1764efebb9ec30b = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt\"\u003eSoldiers (267)\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_bd16fc8d1b73210478526f0af74ff199.setIcon(div_icon_3dd669c9f7debf3ed1764efebb9ec30b);
+        
+    
+            var circle_967364d9c6156798bd5b5d2c979aee74 = L.circle(
+                [31.551, 34.179],
+                {"bubblingMouseEvents": true, "color": "#808000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#808000", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 500.0, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var marker_ef1fff66cc76b2ae266927fa7aa09371 = L.marker(
+                [31.54, 34.197],
+                {}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var div_icon_5669346ef9a3147513c6f7eae49cd0ea = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt\"\u003ePolice and rescue teams (74)\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_ef1fff66cc76b2ae266927fa7aa09371.setIcon(div_icon_5669346ef9a3147513c6f7eae49cd0ea);
+        
+    
+            var circle_5db1505fc1231111730cc1ec2a11ed41 = L.circle(
+                [31.532999999999998, 34.179],
+                {"bubblingMouseEvents": true, "color": "#2255ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2255ff", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 500.0, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var marker_3332b16a91d1b8a86bc2b91669ea35da = L.marker(
+                [31.522, 34.197],
+                {}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+    
+            var div_icon_64b39300414e8aa7c80895bffc98f98f = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 10pt\"\u003eRockets (15)\u003c/div\u003e", "iconAnchor": [0, 0], "iconSize": [250, 36]});
+            marker_3332b16a91d1b8a86bc2b91669ea35da.setIcon(div_icon_64b39300414e8aa7c80895bffc98f98f);
+        
+    
+            var circle_6119f33cafe7231eb4a7ea8e988e3d7b = L.circle(
+                [31.514999999999997, 34.179],
+                {"bubblingMouseEvents": true, "color": "#FFA500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA500", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0, "radius": 500.0, "stroke": true, "weight": 3}
+            ).addTo(map_da4f0b4832264064b2a8a54742019c96);
+        
+</script>
+</html>

@@ -152,16 +152,8 @@ for icat in range(4):
     cat.append(names['category'].values == catname[icat])
 
 
-# legend
-ydif = 0.018
-xdif = 0.018
-lltext = [31.576, 34.197]
-llcirc = lltext.copy()
-llcirc[1] = lltext[1] - xdif
-llcirc[0] = lltext[0] - 0.007
 # add text for sig places
 idx = list(range(19))
-
 _ = idx.pop(np.where(coo['name'] == 'עזה')[0][0])
 
 opacity = 0.55
@@ -170,195 +162,238 @@ font_size = 2
 colors = ["#ff0000", "#808000", '#2255ff', '#FFA500']
 isparty = names['comment'] == 'פסטיבל נובה'
 
-
-for imap in [0, 1]:
-    map = folium.Map(location=center, zoom_start=11)
-    folium.TileLayer('cartodbpositron').add_to(map)
-    now = np.datetime64('now', 'ns')
-    nowisr = pd.to_datetime(now, utc=True, unit='s').astimezone(tz='Israel')
-    nowstr = str(nowisr)[:16].replace('T', ' ')
-    if imap == 1:
-        other = '    <a href="https://yuval-harpaz.github.io/alarms/oct_7_9.html" target="_blank">חזרה</a>'
+for lang in ['heb', 'eng']:
+    if lang == 'heb':
+        cat_lang = ["אזרחים וכיתות כוננות", "חיילים", "שוטרים וכוחות הצלה", "ירי רקטי"]
     else:
-        other = '    <a href="https://yuval-harpaz.github.io/alarms/oct_7_9_search.html" target="_blank"> חיפוש שם</a>'
-    title_html = f'''
-                 <h3 dir="rtl" align="center" style="font-size:16px"><b>מקום מותם של {len(cat[0])} הנרצחים והנופלים במתקפת חמאס על ישראל בין 7-9.10.2023.</b>{other}</h3>
-                 <h4 dir="rtl" align="center" style="font-size:12px">
-                 נערך על ידי שגיא אור ו<a href="https://twitter.com/yuvharpaz" target="_blank">יובל הרפז</a> (אנא שלחו תיקונים והערות). 
-                 <a href={table} target="_blank"> הנתונים </a> מ 
-                 <a href="https://oct7names.co.il/" target="_blank">ואלה שמות</a>
-                  ומקורות נוספים. כללנו אנשים שנפצעו או נחטפו במתקפה, ומתו או נרצחו מאז.  עדכון אחרון: {nowstr}</h4>             
-                 '''
-    map.get_root().html.add_child(folium.Element(title_html))
-    if imap == 1:
-        map.get_root().html.add_child(folium.Element(name_search_addon(names, coo, map.get_name())))
-        fname = 'docs/oct_7_9_search.html'
-    else:
-        fname = 'docs/oct_7_9.html'
-    for iloc in range(len(coo)):
-        lat = float(coo['lat'][iloc])
-        long = float(coo['long'][iloc])
-        loc = coo["name"][iloc]
-        # n = coo["deaths"][iloc]
-        nall = np.sum(names['location'] == loc)
-        if nall == 0:
-            raise Exception('no people in '+loc)
-        # if nall != n:
-        #     raise Exception('wrong N for ' + loc)
-        isloc = names['location'] == loc
-        s = np.sum(isloc & cat[1])
-        p = np.sum(isloc & cat[2])
-        r = np.sum(isloc & cat[3])
-        c = nall - s - p - r
-        ns = [c, s, p, r]
-        radius = (nall / np.pi) ** 0.5
-        # print(iloc)
-        start = [0, int(np.round(360*c/nall)), int(np.round(360*(c+s)/nall)), int(np.round(360*(c+s+p)/nall))]
-        end = [start[1], start[2], start[3], 360]
-        if np.sum(np.array(ns) > 0) == 1:
-            onlyone = True
+        cat_lang = ['Civilians and emergency teams', 'Soldiers', 'Police and rescue teams', 'Rockets']
+    for imap in [0, 1]:
+        # legend
+        ydif = 0.018
+        xdif = 0.018
+        lltext = [31.576, 34.197]
+        llcirc = lltext.copy()
+        llcirc[1] = lltext[1] - xdif
+        llcirc[0] = lltext[0] - 0.007
+        map = folium.Map(location=center, zoom_start=11)
+        folium.TileLayer('cartodbpositron').add_to(map)
+        now = np.datetime64('now', 'ns')
+        nowisr = pd.to_datetime(now, utc=True, unit='s').astimezone(tz='Israel')
+        nowstr = str(nowisr)[:16].replace('T', ' ')
+        if lang == 'heb':
+            if imap == 1:
+                other = '    <a href="https://yuval-harpaz.github.io/alarms/oct_7_9.html" target="_blank">חזרה</a>'
+            else:
+                other = '    <a href="https://yuval-harpaz.github.io/alarms/oct_7_9_search.html" target="_blank"> חיפוש שם</a>'
+            title_html = f'''
+                         <h3 dir="rtl" align="center" style="font-size:16px"><b>מקום מותם של {len(cat[0])} הנרצחים והנופלים במתקפת חמאס על ישראל בין 7-9.10.2023.</b>{other}</h3>
+                         <h4 dir="rtl" align="center" style="font-size:12px">
+                         נערך על ידי שגיא אור ו<a href="https://twitter.com/yuvharpaz" target="_blank">יובל הרפז</a> (אנא שלחו תיקונים והערות). 
+                         <a href={table} target="_blank"> הנתונים </a> מ 
+                         <a href="https://oct7names.co.il/" target="_blank">ואלה שמות</a>
+                          ומקורות נוספים. כללנו אנשים שנפצעו או נחטפו במתקפה, ומתו או נרצחו מאז.  עדכון אחרון: {nowstr}</h4>             
+                         '''
         else:
-            onlyone = False
+            if imap == 1:
+                other = '    <a href="https://yuval-harpaz.github.io/alarms/oct_7_9_eng.html" target="_blank"> back</a>'
+            else:
+                other = '    <a href="https://yuval-harpaz.github.io/alarms/oct_7_9_eng_search.html" target="_blank"> search name</a>'
+            title_html = f'''
+                         <h3 dir="rtl" align="center" style="font-size:16px"><b>Death locations of {len(cat[0])} murdered and fallen during the Hamas attack on Israel between 7-9.10.2023.</b>{other}</h3>
+                         <h4 dir="rtl" align="center" style="font-size:12px">
+                         Edited by Sagi Or and <a href="https://twitter.com/yuvharpaz" target="_blank">Yuval Harpaz</a>. 
+                         <a href={table} target="_blank"> The data </a> are from 
+                         <a href="https://oct7names.co.il/" target="_blank">oct7names</a>
+                          and other sources. We included people who were kidnapped or injured in the attack, and died or murdered later.  Last update: {nowstr}</h4>             
+                         '''
+        map.get_root().html.add_child(folium.Element(title_html))
+        if imap == 1:
+            map.get_root().html.add_child(folium.Element(name_search_addon(names, coo, map.get_name())))
+            fname = f'docs/oct_7_9_{lang}_search.html'
+        else:
+            fname = f'docs/oct_7_9_{lang}.html'
+        fname = fname.replace('_heb', '')
+        print(fname)
+        for iloc in range(len(coo)):
+            lat = float(coo['lat'][iloc])
+            long = float(coo['long'][iloc])
+            loc = coo["name"][iloc]
+            if lang == 'heb':
+                loc_lang = loc
+            else:
+                loc_lang = coo['eng'][np.where(coo['name'] == loc)[0][0]]
+            # n = coo["deaths"][iloc]
+            nall = np.sum(names['location'] == loc)
+            if nall == 0:
+                raise Exception('no people in '+loc)
+            # if nall != n:
+            #     raise Exception('wrong N for ' + loc)
+            isloc = names['location'] == loc
+            s = np.sum(isloc & cat[1])
+            p = np.sum(isloc & cat[2])
+            r = np.sum(isloc & cat[3])
+            c = nall - s - p - r
+            ns = [c, s, p, r]
+            radius = (nall / np.pi) ** 0.5
+            # print(iloc)
+            start = [0, int(np.round(360*c/nall)), int(np.round(360*(c+s)/nall)), int(np.round(360*(c+s+p)/nall))]
+            end = [start[1], start[2], start[3], 360]
+            if np.sum(np.array(ns) > 0) == 1:
+                onlyone = True
+            else:
+                onlyone = False
+            for icat in range(4):
+                color = colors[icat]
+                iscat = cat[icat]
+                if ns[icat] > 0:
+                    fest = np.sum(iscat & isparty & isloc)
+                    if lang == 'heb':
+                        nm = names['fullName'][isloc & iscat].values
+                        rk = names['rank'][isloc & iscat].values
+                    else:
+                        nm = names['eng'][isloc & iscat].values
+                        rk = np.array(['']*len(nm))
+                    order = np.argsort(nm)
+                    name_list = nm[order]
+                    rank = rk[order]
+                    for irank in range(len(rank)):
+                        if type(rank[irank]) == str:
+                            rank[irank] = rank[irank].strip()
+                            if len(rank[irank]) > 2:
+                                name_list[irank] = rank[irank] + ' ' + name_list[irank]
+                        else:
+                            rank[irank] = ''
+
+                    name_string = ''
+                    count = 0
+                    for ii in range(len(name_list)):
+                        count += 1
+                        name_string = name_string + name_list[ii] + ', '
+                        if count == row_len:
+                            count = 0
+                            name_string = name_string[:-2]+'<br>'
+                    name_string = name_string.strip()
+                    if name_string[-1] == ',':
+                        name_string = name_string[:-1]
+                    if ns[icat] > 300:
+                        fs = 1
+                    else:
+                        fs = font_size
+                    tip = f'<font size="{fs}">{loc_lang}:  {ns[icat]} {cat_lang[icat]}'
+                    if fest > 0 and (loc != 'פסטיבל נובה') and (loc != 'מיגוניות בכניסה לרעים'):
+                        if lang == 'heb':
+                            tip = tip + f' (כולל {fest} מפסטיבל נובה)'
+                        else:
+                            tip = tip + f' (including {fest} from Nova festival)'
+                    tip = tip + '<br>' + name_string
+                    if loc == 'עמיעוז':
+                        tip = tip.replace('<br>', '<br>נחבלה בדרך לממ\"ד - ')
+                        # print('kavabanga')
+                    if onlyone:
+                        folium.Circle(location=[lat, long],
+                                            tooltip=tip,
+                                            radius=float(np.max([radius*300, 1])),
+                                            fill=True,
+                                            fill_color=color,
+                                            color=color,
+                                            opacity=0,
+                                            fill_opacity=opacity
+                                            ).add_to(map)
+                    else:
+                        SemiCircleColor(
+                            location=[lat, long],
+                            tooltip=tip,
+                            radius=float(np.max([radius * 300, 1])),
+                            fill_color=color,
+                            opacity=0,
+                            fill_opacity=opacity,
+                            startAngle=start[icat],  # Start angle (0 to 360 degrees)
+                            stopAngle=end[icat]  # Stop angle (0 to 360 degrees)
+                        ).add_to(map)
+
+        for iloc in idx:
+            loc = coo["name"][iloc]
+            if lang == 'heb':
+                loc_lang = loc
+            else:
+                loc_lang = coo['eng'][np.where(coo['name'] == loc)[0][0]]
+            # if 'מוצב' not in loc:
+            tot = np.sum(names['location'] == loc)
+            radius = (tot / np.pi) ** 0.5
+            latlong = [coo['lat'][iloc] + 0.006, coo['long'][iloc] + radius * 0.0035]
+
+            if loc in ['נחל עוז', 'מוצב כיסופים', 'מוצב נחל עוז' ,'רעים', 'סמוך למפלסים']:
+                latlong[0] = latlong[0] - 0.003
+                latlong[1] = latlong[1] - 0.003
+            if loc in ['בארי', 'נחל עוז','כיסופים', 'רעים']:
+                if lang == 'heb':
+                    loc_lang = 'קיבוץ ' + loc_lang
+                # else:
+                #     loc_lang = 'Kibbutz ' + loc_lang
+            elif loc == 'מיגוניות בכניסה לרעים':
+                latlong[0] = latlong[0] + 0.003
+                latlong[1] = latlong[1] - 0.006
+                if lang == 'heb':
+                    loc_lang = 'מיגוניות'
+                else:
+                    loc_lang = 'Shelters'
+            html_txt1 = f'<div style="font-size: 10pt; color:gray">{loc_lang} ({tot})</div>'
+            if loc == 'פסטיבל נובה':
+                if lang == 'heb':
+                    html_txt1 += f'<div style="font-size:7pt; color:gray">כולל הנמלטים למיגוניות ולקיבוצים: {np.sum(isparty)}</div>'
+                else:
+                    html_txt1 += f'<div style="font-size:7pt; color:gray">including escapees to shelters and kibbutzim: {np.sum(isparty)}</div>'
+            # print(radius)
+            folium.map.Marker(
+                latlong,
+                icon=DivIcon(
+                    icon_size=(250, 36),
+                    icon_anchor=(0, 0),
+                    html=html_txt1,
+                )
+            ).add_to(map)
+        # make legend
         for icat in range(4):
             color = colors[icat]
-            iscat = cat[icat]
-            if ns[icat] > 0:
-                fest = np.sum(iscat & isparty & isloc)
-                nm = names['fullName'][isloc & iscat].values
-                rk = names['rank'][isloc & iscat].values
-                order = np.argsort(nm)
-                name_list = nm[order]
-                rank = rk[order]
-                for irank in range(len(rank)):
-                    if type(rank[irank]) == str:
-                        rank[irank] = rank[irank].strip()
-                        if len(rank[irank]) > 2:
-                            name_list[irank] = rank[irank] + ' ' + name_list[irank]
-                    else:
-                        rank[irank] = ''
-
-                name_string = ''
-                count = 0
-                for ii in range(len(name_list)):
-                    count += 1
-                    name_string = name_string + name_list[ii] + ', '
-                    if count == row_len:
-                        count = 0
-                        name_string = name_string[:-2]+'<br>'
-                name_string = name_string.strip()
-                if name_string[-1] == ',':
-                    name_string = name_string[:-1]
-                # name_string = '; '.join(names['fullName'][isloc & iscat])
-                if ns[icat] > 300:
-                    fs = 1
-                else:
-                    fs = font_size
-                tip = f'<font size="{fs}">{loc}:  {ns[icat]} {["אזרחים","חיילים","שוטרים וכוחות הצלה","ירי רקטי"][icat]}'
-                if fest > 0 and (loc != 'פסטיבל נובה') and (loc != 'מיגוניות בכניסה לרעים'):
-                    tip = tip + f' (כולל {fest} מפסטיבל נובה)'
-                tip = tip + '<br>' + name_string
-                if loc == 'עמיעוז':
-                    tip = tip.replace('<br>', '<br>נחבלה בדרך לממ\"ד - ')
-                    # print('kavabanga')
-                if onlyone:
-                    folium.Circle(location=[lat, long],
-                                        tooltip=tip,
-                                        radius=float(np.max([radius*300, 1])),
-                                        fill=True,
-                                        fill_color=color,
-                                        color=color,
-                                        opacity=0,
-                                        fill_opacity=opacity
-                                        ).add_to(map)
-                else:
-                    SemiCircleColor(
-                        location=[lat, long],
-                        tooltip=tip,
-                        radius=float(np.max([radius * 300, 1])),
-                        fill_color=color,
-                        opacity=0,
-                        fill_opacity=opacity,
-                        startAngle=start[icat],  # Start angle (0 to 360 degrees)
-                        stopAngle=end[icat]  # Stop angle (0 to 360 degrees)
-                    ).add_to(map)
-
-    for iloc in idx:
-        loc = coo["name"][iloc]
-        # if 'מוצב' not in loc:
-        tot = np.sum(names['location'] == loc)
-        radius = (tot / np.pi) ** 0.5
-        latlong = [coo['lat'][iloc] + 0.006, coo['long'][iloc] + radius * 0.0035]
-
-        if loc in ['נחל עוז', 'מוצב כיסופים', 'מוצב נחל עוז' ,'רעים', 'סמוך למפלסים']:
-            latlong[0] = latlong[0] - 0.003
-            latlong[1] = latlong[1] - 0.003
-        if loc in ['בארי', 'נחל עוז','כיסופים', 'רעים']:
-            loc = 'קיבוץ ' + loc
-        elif loc == 'מיגוניות בכניסה לרעים':
-            latlong[0] = latlong[0] + 0.003
-            latlong[1] = latlong[1] - 0.006
-            loc = 'מיגוניות'
-        html_txt1 = f'<div style="font-size: 10pt; color:gray">{loc} ({tot})</div>'
-        if loc == 'פסטיבל נובה':
-            html_txt1 += f'<div style="font-size:7pt; color:gray">כולל הנמלטים למיגוניות ולקיבוצים: {np.sum(isparty)}</div>'
-        # print(radius)
-        folium.map.Marker(
-            latlong,
-            icon=DivIcon(
-                icon_size=(250, 36),
-                icon_anchor=(0, 0),
-                html=html_txt1,
-            )
-        ).add_to(map)
-    # make legend
-    for icat in range(4):
-        color = colors[icat]
-        html_txt = f'<div style="font-size: 10pt">{catname[icat]} ({sum(cat[icat])})</div>'
-        folium.map.Marker(
-            lltext,
-            icon=DivIcon(
-                icon_size=(250, 36),
-                icon_anchor=(0, 0),
-                html=html_txt,
-            )
-        ).add_to(map)
-        folium.Circle(location=llcirc,
-                      radius=500.0,
-                      fill=True,
-                      fill_color=color,
-                      color=color,
-                      opacity=0,
-                      fill_opacity=opacity
-                      ).add_to(map)
-        lltext[0] = lltext[0] - ydif
-        llcirc[0] = llcirc[0] - ydif
+            html_txt = f'<div style="font-size: 10pt">{cat_lang[icat]} ({sum(cat[icat])})</div>'
+            folium.map.Marker(
+                lltext,
+                icon=DivIcon(
+                    icon_size=(250, 36),
+                    icon_anchor=(0, 0),
+                    html=html_txt,
+                )
+            ).add_to(map)
+            folium.Circle(location=llcirc,
+                          radius=500.0,
+                          fill=True,
+                          fill_color=color,
+                          color=color,
+                          opacity=0,
+                          fill_opacity=opacity
+                          ).add_to(map)
+            lltext[0] = lltext[0] - ydif
+            llcirc[0] = llcirc[0] - ydif
 
 
 
-    # some fixes
-    map.save(fname)
-    with open(fname) as f:
-        txt = f.read()
-    txt = txt.replace('<div>', '<div dir="rtl">')
-    # txt = txt.replace('http://jieter.github.io', 'https://jieter.github.io')
-    txt = txt.replace('בבירור', 'לא פורסם מיקום')
-    txt = txt.replace('אזרחים', 'אזרחים וכיתות כוננות')
-    meta = '<head>\n' \
-           '    <meta  name="author" content="Yuval Harpaz, Sagi Or">\n' \
-           '    <meta  name="Description" content="A map showing where Israeli civillians and soldiers were murdered and fell in battle during the attack by Hamas, from Oct-7 to Oct-9 2023. ">\n' \
-           '    <meta  name="keywords" content="map, massacre, Oct-7, 7.10, 7-10, Gaza, Nova Festival, party, Beeri, Oz' \
-           'מפה, מפת הטבח, רצח, הרצח, נובה, רעים, עזה, עוטף עזה, כפר עזה, נחל עוז, בארי, שער הנגב, חיילים, אזרחים, כיתות כוננות, חמאס">'
+        # some fixes
+        map.save(fname)
+        with open(fname) as f:
+            txt = f.read()
+        if lang == 'heb':
+            txt = txt.replace('<div>', '<div dir="rtl">')
+        # txt = txt.replace('http://jieter.github.io', 'https://jieter.github.io')
+        txt = txt.replace('בבירור', 'לא פורסם מיקום')
+        # txt = txt.replace('אזרחים', 'אזרחים וכיתות כוננות')
+        meta = '<head>\n' \
+               '    <meta  name="author" content="Yuval Harpaz, Sagi Or">\n' \
+               '    <meta  name="Description" content="A map showing where Israeli civillians and soldiers were murdered and fell in battle during the attack by Hamas, from Oct-7 to Oct-9 2023. ">\n' \
+               '    <meta  name="keywords" content="map, massacre, Oct-7, 7.10, 7-10, Gaza, Nova Festival, party, Beeri, Oz' \
+               'מפה, מפת הטבח, רצח, הרצח, נובה, רעים, עזה, עוטף עזה, כפר עזה, נחל עוז, בארי, שער הנגב, חיילים, אזרחים, כיתות כוננות, חמאס">'
 
-    txt = txt.replace('<head>\n    ', meta)
-    with open(fname, 'w') as f:
-        f.write(txt)
-    del map
-    # map.save(fname)
-    # with open(fname) as f:
-    #     txt = f.read()
-    # txt = txt.replace('<div>', '<div dir="rtl">')
-    # # txt = txt.replace('http://jieter.github.io', 'https://jieter.github.io')
-    # txt = txt.replace('בבירור', 'לא פורסם מיקום')
-    # txt = txt.replace('אזרחים', 'אזרחים וכיתות כוננות')
-    # with open('docs/oct_7_9_search.html', 'w') as f:
-    #     f.write(txt)
+        txt = txt.replace('<head>\n    ', meta)
+        with open(fname, 'w') as f:
+            f.write(txt)
+        del map
+
