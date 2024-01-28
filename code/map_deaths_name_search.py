@@ -1,3 +1,4 @@
+import numpy as np
 name_search_html = """<div class="autocomplete-drop-down">
                 <div class="Names-input-container">
                   <input class="Names-input" placeholder="שם" type="text">
@@ -209,13 +210,24 @@ def clean(text):
     text = text.replace('"', '&quot;')
     return text
 
-def name_data_js(names, name_col='fullName'):
-    data = "\n".join([f'{{name: "{clean(name)}", location: "{clean(location)}"}},' for name, location in zip(names[name_col], names['location'])])
+def name_data_js(names, coo, name_col='fullName'):
+    if name_col =='fullName':
+        personal_loc = names['location']
+    else:
+        personal_loc = []
+        for plh in names['location']:
+            loc_row = np.where(coo['name'] == plh)[0][0]
+            personal_loc.append(coo['eng'][loc_row])
+    data = "\n".join([f'{{name: "{clean(name)}", location: "{clean(location)}"}},' for name, location in zip(names[name_col], personal_loc)])
     return f"const NamesByLocation = [{data}];\n"
 
-def location_data_js(coo):
-    data = "\n".join([f'"{clean(name)}": {{"lat": {lat}, "long": {long}}},' for name, lat, long in zip(coo['name'], coo['lat'], coo['long'])])
+def location_data_js(coo, name_col='fullName'):
+    if name_col == 'fullName':
+        loc_col = 'name'
+    else:
+        loc_col = 'eng'
+    data = "\n".join([f'"{clean(name)}": {{"lat": {lat}, "long": {long}}},' for name, lat, long in zip(coo[loc_col], coo['lat'], coo['long'])])
     return f"const LocationByName = {{{data}}};\n"
 
 def name_search_addon(names, coo, map_name, name_col='fullName'):
-    return name_search_html + name_search_style + "<script>" + name_data_js(names, name_col=name_col) + location_data_js(coo) + name_search_script.replace("MAP_NAME", map_name) + "</script>"
+    return name_search_html + name_search_style + "<script>" + name_data_js(names, coo, name_col=name_col) + location_data_js(coo, name_col=name_col) + name_search_script.replace("MAP_NAME", map_name) + "</script>"
