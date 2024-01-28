@@ -183,10 +183,12 @@ for lang in ['heb', 'eng']:
         if lang == 'heb':
             if imap == 1:
                 other = '    <a href="https://yuval-harpaz.github.io/alarms/oct_7_9.html" target="_blank">חזרה</a>'
+                change_lang = ''
             else:
                 other = '    <a href="https://yuval-harpaz.github.io/alarms/oct_7_9_search.html" target="_blank"> חיפוש שם</a>'
+                change_lang = '    <a href="https://yuval-harpaz.github.io/alarms/oct_7_9_eng.html"> Eng</a>'
             title_html = f'''
-                         <h3 dir="rtl" align="center" style="font-size:16px"><b>מקום מותם של {len(cat[0])} הנרצחים והנופלים במתקפת חמאס על ישראל בין 7-9.10.2023.</b>{other}</h3>
+                         <h3 dir="rtl" align="center" style="font-size:16px"><b>מקום מותם של {len(cat[0])} הנרצחים והנופלים במתקפת חמאס על ישראל בין 7-9.10.2023.</b>{other},{change_lang}</h3>
                          <h4 dir="rtl" align="center" style="font-size:12px">
                          נערך על ידי שגיא אור ו<a href="https://twitter.com/yuvharpaz" target="_blank">יובל הרפז</a> (אנא שלחו תיקונים והערות). 
                          <a href={table} target="_blank"> הנתונים </a> מ 
@@ -196,19 +198,25 @@ for lang in ['heb', 'eng']:
         else:
             if imap == 1:
                 other = '    <a href="https://yuval-harpaz.github.io/alarms/oct_7_9_eng.html" target="_blank"> back</a>'
+                change_lang = ''
             else:
                 other = '    <a href="https://yuval-harpaz.github.io/alarms/oct_7_9_eng_search.html" target="_blank"> search name</a>'
+                change_lang = '    <a href="https://yuval-harpaz.github.io/alarms/oct_7_9.html"> עברית</a>'
             title_html = f'''
-                         <h3 dir="rtl" align="center" style="font-size:16px"><b>Death locations of {len(cat[0])} murdered and fallen during the Hamas attack on Israel between 7-9.10.2023.</b>{other}</h3>
+                         <h3 dir="rtl" align="center" style="font-size:16px"><b>Death locations of {len(cat[0])} murdered and fallen during the Hamas attack on Israel between 7-9.10.2023.</b>{other},{change_lang}</h3>
                          <h4 dir="rtl" align="center" style="font-size:12px">
                          Edited by Sagi Or and <a href="https://twitter.com/yuvharpaz" target="_blank">Yuval Harpaz</a>. 
                          <a href={table} target="_blank"> The data </a> are from 
                          <a href="https://oct7names.co.il/" target="_blank">oct7names</a>
-                          and other sources. We included people who were kidnapped or injured in the attack, and died or murdered later.  Last update: {nowstr}</h4>             
+                          and other sources. We included people who were kidnapped or injured in the attack, and died or were murdered later.  Last update: {nowstr}</h4>             
                          '''
         map.get_root().html.add_child(folium.Element(title_html))
         if imap == 1:
-            map.get_root().html.add_child(folium.Element(name_search_addon(names, coo, map.get_name())))
+            if lang == 'heb':
+                name_col = 'fullName'
+            else:
+                name_col = 'eng'
+            map.get_root().html.add_child(folium.Element(name_search_addon(names, coo, map.get_name(), name_col=name_col)))
             fname = f'docs/oct_7_9_{lang}_search.html'
         else:
             fname = f'docs/oct_7_9_{lang}.html'
@@ -390,7 +398,7 @@ for lang in ['heb', 'eng']:
                '    <meta  name="author" content="Yuval Harpaz, Sagi Or">\n' \
                '    <meta  name="Description" content="A map showing where Israeli civillians and soldiers were murdered and fell in battle during the attack by Hamas, from Oct-7 to Oct-9 2023. ">\n' \
                '    <meta  name="keywords" content="map, massacre, Oct-7, 7.10, 7-10, Gaza, Nova Festival, party, Beeri, Oz' \
-               'מפה, מפת הטבח, רצח, הרצח, נובה, רעים, עזה, עוטף עזה, כפר עזה, נחל עוז, בארי, שער הנגב, חיילים, אזרחים, כיתות כוננות, חמאס">'
+               'מפה, מפת הטבח, רצח, הרצח, נובה, רעים, עזה, עוטף עזה, כפר עזה, נחל עוז, בארי, שער הנגב, חיילים, אזרחים, כיתות כוננות,יובל הרפז, חמאס">'
 
         txt = txt.replace('<head>\n    ', meta)
         with open(fname, 'w') as f:

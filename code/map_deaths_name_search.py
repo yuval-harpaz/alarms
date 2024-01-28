@@ -209,13 +209,13 @@ def clean(text):
     text = text.replace('"', '&quot;')
     return text
 
-def name_data_js(names):
-    data = "\n".join([f'{{name: "{clean(name)}", location: "{clean(location)}"}},' for name, location in zip(names['fullName'], names['location'])])
+def name_data_js(names, name_col='fullName'):
+    data = "\n".join([f'{{name: "{clean(name)}", location: "{clean(location)}"}},' for name, location in zip(names[name_col], names['location'])])
     return f"const NamesByLocation = [{data}];\n"
 
 def location_data_js(coo):
     data = "\n".join([f'"{clean(name)}": {{"lat": {lat}, "long": {long}}},' for name, lat, long in zip(coo['name'], coo['lat'], coo['long'])])
     return f"const LocationByName = {{{data}}};\n"
 
-def name_search_addon(names, coo, map_name):
-    return name_search_html + name_search_style + "<script>" + name_data_js(names) + location_data_js(coo) + name_search_script.replace("MAP_NAME", map_name) + "</script>"
+def name_search_addon(names, coo, map_name, name_col='fullName'):
+    return name_search_html + name_search_style + "<script>" + name_data_js(names, name_col=name_col) + location_data_js(coo) + name_search_script.replace("MAP_NAME", map_name) + "</script>"
