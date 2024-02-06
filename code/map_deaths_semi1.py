@@ -115,7 +115,7 @@ if os.path.isdir(local):
     islocal = True
     sys.path.append(local + 'code')
 
-coo = pd.read_excel('data/deaths_by_loc.xlsx', 'coo')
+coo = pd.read_csv('data/deaths_by_loc.csv')
 # names = pd.read_excel('data/deaths_by_loc.xlsx', 'names_by_id')
 names = pd.read_csv('data/oct_7_9.csv')
 # names['location'] = names['location'].str.replace('?', 'בבירור')
@@ -168,6 +168,7 @@ for lang in ['heb', 'eng']:
     else:
         cat_lang = ['Civilians and emergency teams', 'Soldiers', 'Police and rescue teams', 'Rockets']
     for imap in [0, 1]:
+        n_loc = []
         # legend
         ydif = 0.018
         xdif = 0.018
@@ -234,6 +235,7 @@ for lang in ['heb', 'eng']:
             nall = np.sum(names['location'] == loc)
             if nall == 0:
                 raise Exception('no people in '+loc)
+            n_loc.append(nall)
             # if nall != n:
             #     raise Exception('wrong N for ' + loc)
             isloc = names['location'] == loc
@@ -404,4 +406,6 @@ for lang in ['heb', 'eng']:
         with open(fname, 'w') as f:
             f.write(txt)
         del map
-
+coo['total'] = n_loc
+coo.sort_values('total', inplace=True, ascending=False)
+coo.to_csv('data/deaths_by_loc.csv', index=False)
