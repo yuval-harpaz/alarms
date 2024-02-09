@@ -3,6 +3,7 @@ import numpy as np
 import os
 from datetime import datetime
 import plotly.graph_objects as go
+pd.options.mode.chained_assignment = None
 try:
     local = '/home/innereye/alarms/'
     islocal = False
@@ -10,12 +11,17 @@ try:
         os.chdir(local)
         islocal = True
     dfwar = pd.read_csv('data/alarms.csv')
+    lebdrone = dfwar[(dfwar['threat'] == 5) & (dfwar['origin'] == 'Lebanon')]
+    lebdrone.loc[:, 'datetime'] = pd.to_datetime(lebdrone['time'])
+    lebdrone['time_diff'] = lebdrone['datetime'].diff().dt.total_seconds()/60
+    drone_time = lebdrone['time'][lebdrone['time_diff'] > 2].values
+    drone_date = np.array([x[:10] for x in drone_time])
     dfwar = dfwar[dfwar['threat'] == 0]
     dfwar = dfwar[dfwar['time'] >= '2023-10-07 00:00:00']
     dfleb = dfwar[dfwar['origin']  == 'Lebanon']
     dfleb = dfleb.reset_index(drop=True)
     dateleb = np.array([d[:10] for d in dfleb['time']])
-    dfwar = dfwar[dfwar['origin']  == 'Gaza']
+    dfwar = dfwar[dfwar['origin'] == 'Gaza']
     dfwar = dfwar.reset_index(drop=True)
     daterange = pd.date_range(start='2023-10-07', end=datetime.today().strftime('%Y-%m-%d'), freq='D')
     date = np.array([d[:10] for d in dfwar['time']])
@@ -34,7 +40,7 @@ try:
     coo = pd.read_csv('data/coord_km_gaza.csv')
     edges = [0, 7, 15, 30, 50, 300]
     n_lines = len(edges)
-    hist = np.zeros((len(edges), len(dateu)))
+    hist = np.zeros((len(edges)+1, len(dateu)))
     for day in range(len(dateu)):
         idx = date == dateu[day]
         ids = np.unique(dfwar['time'][idx])
@@ -47,15 +53,20 @@ try:
             for irow, row in enumerate(rows):
                 d.append(coo['km_from_Gaza'][coo['loc'] == dfwar['cities'].values[row]].values[0])
             dist[iid] = np.mean(d)
-        hist[:-1, day] = np.histogram(dist, edges)[0]
+        hist[:-2, day] = np.histogram(dist, edges)[0]
         idxleb = dateleb == dateu[day]
         idsleb = np.unique(dfleb['time'][idxleb])
-        hist[-1, day] = len(idsleb)
+        hist[-2, day] = len(idsleb)
+        idxlebd = drone_date == dateu[day]
+        hist[-1, day] = sum(idxlebd)
+
     ##
     df = pd.DataFrame(dateu, columns=['date'])
     for irange in range(len(edges) - 1):
         df[(str(edges[irange])+'-'+str(edges[irange+1])).replace('-300', '+')] = hist[irange, :]
-    df['Lebanon'] = hist[-1, :]
+    df['Lebanon'] = hist[-2, :]
+    df['Lebanon_drone'] = hist[-1, :]
+
     ##
     now = np.datetime64('now', 'ns')
     now = np.datetime64('now', 'ns')
