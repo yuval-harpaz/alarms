@@ -155,7 +155,7 @@ for icat in range(4):
 # add text for sig places
 idx = list(range(19))
 _ = idx.pop(np.where(coo['name'] == 'עזה')[0][0])
-
+idx = idx + [np.where(coo['name'] == 'בבירור')[0][0]]
 opacity = 0.55
 row_len = 7
 font_size = 2
@@ -222,7 +222,7 @@ for lang in ['heb', 'eng']:
         else:
             fname = f'docs/oct_7_9_{lang}.html'
         fname = fname.replace('_heb', '')
-        print(fname)
+        # print(fname)
         for iloc in range(len(coo)):
             lat = float(coo['lat'][iloc])
             long = float(coo['long'][iloc])
@@ -245,7 +245,6 @@ for lang in ['heb', 'eng']:
             c = nall - s - p - r
             ns = [c, s, p, r]
             radius = (nall / np.pi) ** 0.5
-            # print(iloc)
             start = [0, int(np.round(360*c/nall)), int(np.round(360*(c+s)/nall)), int(np.round(360*(c+s+p)/nall))]
             end = [start[1], start[2], start[3], 360]
             if np.sum(np.array(ns) > 0) == 1:
@@ -298,7 +297,6 @@ for lang in ['heb', 'eng']:
                     tip = tip + '<br>' + name_string
                     if loc == 'עמיעוז':
                         tip = tip.replace('<br>', '<br>נחבלה בדרך לממ\"ד - ')
-                        # print('kavabanga')
                     if onlyone:
                         folium.Circle(location=[lat, long],
                                             tooltip=tip,
@@ -347,13 +345,17 @@ for lang in ['heb', 'eng']:
                     loc_lang = 'מיגוניות'
                 else:
                     loc_lang = 'Shelters'
+            elif loc == 'בבירור':
+                if lang == 'heb':
+                    loc_lang = 'לא פורסם'
+                else:
+                    loc_lang = 'Not published'
             html_txt1 = f'<div style="font-size: 10pt; color:gray">{loc_lang} ({tot})</div>'
             if loc == 'פסטיבל נובה':
                 if lang == 'heb':
                     html_txt1 += f'<div style="font-size:7pt; color:gray">כולל הנמלטים למיגוניות ולקיבוצים: {np.sum(isparty)}</div>'
                 else:
                     html_txt1 += f'<div style="font-size:7pt; color:gray">including escapees to shelters and kibbutzim: {np.sum(isparty)}</div>'
-            # print(radius)
             folium.map.Marker(
                 latlong,
                 icon=DivIcon(
