@@ -62,7 +62,7 @@ if len(new) > 0:
         # comment
         comment = ''
         print(ii)
-        idf_row = df['idf_row'][ii]
+        # idf_row = df['idf_row'][ii]
         if type(idf_row) == str:
             idf_row = float(idf_row)
         if df['status'][ii] == 'חייל' and np.isnan(idf_row):
