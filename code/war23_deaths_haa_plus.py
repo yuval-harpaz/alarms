@@ -57,7 +57,7 @@ if len(new) > 0:
                 if '-' in dd:
                     dd = dd[dd.index('-')+1:].strip()
                 if dd.split('.')[0].isdigit() and dd.split('.')[1].isdigit():
-                    death_date = '2023-'+dd.split('.')[1].zfill(2)+'-'+dd.split('.')[0].zfill(2)
+                    death_date = '2024-'+dd.split('.')[1].zfill(2)+'-'+dd.split('.')[0].zfill(2)
         story = story.replace('nan', '')
         # comment
         comment = ''
