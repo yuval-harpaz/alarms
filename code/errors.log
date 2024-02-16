@@ -142,3 +142,5 @@ war23_idf_mem.py failed
 [Errno 2] No such file or directory: 'data/war23_idf_deaths.csv'
 war23_distance.py failed
 could not broadcast input array from shape (5,) into shape (4,)
+war23_idf_dashboard.py failed
+expected numeric for פצועים מתחילת המלחמה קל
