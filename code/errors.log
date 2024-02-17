@@ -144,3 +144,7 @@ war23_distance.py failed
 could not broadcast input array from shape (5,) into shape (4,)
 war23_idf_dashboard.py failed
 expected numeric for פצועים מתחילת המלחמה קל
+war23_idf_mem_all.py failed
+substring not found
+war23_idf_dashboard.py failed
+expected numeric for פצועים מתחילת המלחמה קל
