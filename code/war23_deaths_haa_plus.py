@@ -49,8 +49,9 @@ if len(new) > 0:
         if status == 'חייל':
             idf_row = np.where(idf['name'].str.contains(name))[0]
             if len(idf_row) == 1:
-                idf_row = idf_row[0]
-                death_date = idf['death_date'][idf_row]
+                idf_row = idf_row[0] + 2
+                death_date = idf['death_date'][idf_row - 2]
+
         else:
             if len(story) > 4 and story[-1:].isdigit():
                 dd = story.split(' ')[-1]
@@ -65,14 +66,14 @@ if len(new) > 0:
         # idf_row = df['idf_row'][ii]
         if type(idf_row) == str:
             idf_row = float(idf_row)
-        if df['status'][ii] == 'חייל' and np.isnan(idf_row):
+        if new['status'][ii] == 'חייל' and np.isnan(idf_row):
             comment += 'לא חלל; '
-        elif df['status'][ii] != 'חייל' and ~np.isnan(idf_row):
+        elif new['status'][ii] != 'חייל' and ~np.isnan(idf_row):
             comment += 'חלל; '
         konan = False
         if ~np.isnan(idf_row):
             idf_name = idf['name'][idf_row - 2]
-            if idf_name.split(' ')[0] not in df['name'][ii]:
+            if idf_name.split(' ')[0] not in new['name'][ii]:
                 raise Exception(f'{idf_name.split(" ")[0]} not in {df["name"][ii]}')
             idf_story = idf['story'][idf_row - 2]
             if 'כוננות' in idf_story or 'רבש' in idf_story:
@@ -80,7 +81,7 @@ if len(new) > 0:
         else:
             idf_story = ''
         if not konan:
-            if 'כוננות' in df['story'][ii] or 'רבש' in df['story'][ii]:
+            if 'כוננות' in new['story'][ii] or 'רבש' in new['story'][ii]:
                 konan = True
         if konan:
             comment += 'כיתת כוננות; '
