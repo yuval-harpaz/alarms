@@ -411,3 +411,4 @@ for lang in ['heb', 'eng']:
 coo['total'] = n_loc
 coo.sort_values('total', inplace=True, ascending=False)
 coo.to_csv('data/deaths_by_loc.csv', index=False)
+print('done map semi1')
