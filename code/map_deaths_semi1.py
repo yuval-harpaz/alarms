@@ -154,7 +154,9 @@ for icat in range(4):
 
 # add text for sig places
 idx = list(range(19))
-_ = idx.pop(np.where(coo['name'] == 'עזה')[0][0])
+idxa = np.where(coo['name'] == 'עזה')[0][0]
+if idxa in idx:
+    _ = idx.pop(idxa)
 idx = idx + [np.where(coo['name'] == 'בבירור')[0][0]]
 opacity = 0.55
 row_len = 7
