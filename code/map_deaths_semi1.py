@@ -118,6 +118,9 @@ if os.path.isdir(local):
 coo = pd.read_csv('data/deaths_by_loc.csv')
 # names = pd.read_excel('data/deaths_by_loc.xlsx', 'names_by_id')
 names = pd.read_csv('data/oct_7_9.csv')
+replace = [['בכניסה לעלומים'], ['צומת גמה']]  # ['מיגוניות בצומת רעים', 'צומת רעים']
+for uu in replace:
+    names.loc[names['location'].str.contains(uu[0]), 'location'] = uu[-1]  # -1 allows for pairs, search term + what to change into
 # names['location'] = names['location'].str.replace('?', 'בבירור')
 # coo = pd.read_csv('data/deaths_by_loc.csv')
 center = [coo['lat'].mean(), coo['long'].mean()]
@@ -130,11 +133,16 @@ table = 'https://docs.google.com/spreadsheets/d/1bImioxD69gmyYhOsggcgCj1EK8Dxp8n
 # Look for missing coordinates
 locu = np.unique(names['location'])
 missing = []
+dupcoo = []
 for lc in locu:
     if lc not in coo['name'].values:
         missing.append(lc)
+    if np.sum(coo['name'] == lc) > 1 and lc not in dupcoo:
+        dupcoo.append(lc)
 if len(missing) > 0:
     raise Exception('missing coordinates for :'+str(missing))
+if len(dupcoo) > 0:
+    raise Exception('duplicate coordinates for :'+str(dupcoo))
 # Look for identical names
 
 nameu = np.unique(names['fullName'])
