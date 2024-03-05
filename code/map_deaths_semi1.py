@@ -161,7 +161,7 @@ for icat in range(4):
 
 
 # add text for sig places
-idx = list(range(19))
+idx = list(range(20))
 idxa = np.where(coo['name'] == 'עזה')[0][0]
 if idxa in idx:
     _ = idx.pop(idxa)
@@ -346,9 +346,11 @@ for lang in ['heb', 'eng']:
             if loc in ['בארי', 'נחל עוז','כיסופים', 'רעים']:
                 if lang == 'heb':
                     loc_lang = 'קיבוץ ' + loc_lang
+                if loc == 'כיסופים':
+                    latlong[1] = latlong[1] - 0.014
                 # else:
                 #     loc_lang = 'Kibbutz ' + loc_lang
-            elif loc == 'מיגוניות בכניסה לרעים':
+            elif loc == 'מיגוניות בצומת רעים':
                 latlong[0] = latlong[0] + 0.003
                 latlong[1] = latlong[1] - 0.006
                 if lang == 'heb':
@@ -360,6 +362,9 @@ for lang in ['heb', 'eng']:
                     loc_lang = 'לא פורסם'
                 else:
                     loc_lang = 'Not published'
+            elif loc == 'צומת גמה':
+                latlong[0] = latlong[0] - 0.006
+                # latlong[1] = latlong[1] + 0.006
             html_txt1 = f'<div style="font-size: 10pt; color:gray">{loc_lang} ({tot})</div>'
             if loc == 'פסטיבל נובה':
                 if lang == 'heb':
