@@ -118,7 +118,7 @@ if os.path.isdir(local):
 coo = pd.read_csv('data/deaths_by_loc.csv')
 # names = pd.read_excel('data/deaths_by_loc.xlsx', 'names_by_id')
 names = pd.read_csv('data/oct_7_9.csv')
-replace = [['בכניסה לעלומים'], ['צומת גמה']]  # ['מיגוניות בצומת רעים', 'צומת רעים']
+replace = [['בכניסה לעלומים'], ['סמוך לצומת גמה','צומת גמה'], ['מיגונית בצומת גמה','צומת גמה'], ['צומת בארי'], ['מיגוניות בצומת רעים', 'צומת רעים']]  #
 for uu in replace:
     names.loc[names['location'].str.contains(uu[0]), 'location'] = uu[-1]  # -1 allows for pairs, search term + what to change into
 # names['location'] = names['location'].str.replace('?', 'בבירור')
