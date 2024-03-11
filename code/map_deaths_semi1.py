@@ -120,7 +120,7 @@ coo = pd.read_csv('data/deaths_by_loc.csv')
 names = pd.read_csv('data/oct_7_9.csv')
 # pairs of search phrase+replacement. When one is given, search for contains(phrase) and replace with phrase
 replace = [['בכניסה לעלומים'], ['סמוך לצומת גמה', 'צומת גמה'], ['מיגונית בצומת גמה', 'צומת גמה'],
-           ['צומת בארי'], ['מיגוניות בצומת רעים', 'צומת רעים'], ['ירי בשוגג בעלומים', 'עלומים']]  #
+           ['צומת בארי'], ['מיגוניות בצומת רעים', 'צומת רעים']]  #
 for uu in replace:
     names.loc[names['location'].str.contains(uu[0]), 'location'] = uu[-1]  # -1 allows for pairs, search term + what to change into
 # names['location'] = names['location'].str.replace('?', 'בבירור')
@@ -243,7 +243,7 @@ for lang in ['heb', 'eng']:
             party_tip = ['נובה ('+str(party_rad[0])+'), כולל נמלטים שנרצחו', 'פסיידאק ('+str(party_rad[1])+'), כולל נמלטים שנרצחו']
         else:
             party_tip = ['Nova ('+str(party_rad[0])+'), including murdered escapees', 'Psyduck ('+str(party_rad[1])+'), including murdered escapees']
-        for iparty in [0, 1]:
+        for iparty in [1]:
             folium.Circle(location=[party_lat[iparty], party_long[iparty]],
                           tooltip=party_tip[iparty],
                           radius=float(np.max([(party_rad[iparty] / np.pi) ** 0.5 * 300, 1])),
