@@ -234,7 +234,25 @@ for lang in ['heb', 'eng']:
         else:
             fname = f'docs/oct_7_9_{lang}.html'
         fname = fname.replace('_heb', '')
-        # print(fname)
+        # parties first
+        party_lat = [31.4014870534664, 31.3417157186523]
+        party_long = [34.4724927048611, 34.4161349190368]
+        party_rad = [np.sum(names['comment'] == 'פסטיבל נובה'), np.sum(names['comment'] == 'מסיבת פסיידאק')]
+        # party_rad = (np.array(party_rad) / np.pi) ** 0.5
+        if lang == 'heb':
+            party_tip = ['נובה ('+str(party_rad[0])+'), כולל נמלטים שנרצחו', 'פסיידאק ('+str(party_rad[1])+'), כולל נמלטים שנרצחו']
+        else:
+            party_tip = ['Nova ('+str(party_rad[0])+'), including murdered escapees', 'Psyduck ('+str(party_rad[1])+'), including murdered escapees']
+        for iparty in [0, 1]:
+            folium.Circle(location=[party_lat[iparty], party_long[iparty]],
+                          tooltip=party_tip[iparty],
+                          radius=float(np.max([(party_rad[iparty] / np.pi) ** 0.5 * 300, 1])),
+                          fill=True,
+                          fill_color='#AAAAAA',
+                          color='#AAAAAA',
+                          opacity=0,
+                          fill_opacity=opacity
+                          ).add_to(map)
         for iloc in range(len(coo)):
             lat = float(coo['lat'][iloc])
             long = float(coo['long'][iloc])
@@ -243,13 +261,10 @@ for lang in ['heb', 'eng']:
                 loc_lang = loc
             else:
                 loc_lang = coo['eng'][np.where(coo['name'] == loc)[0][0]]
-            # n = coo["deaths"][iloc]
             nall = np.sum(names['location'] == loc)
             if nall == 0:
                 raise Exception('no people in '+loc)
             n_loc.append(nall)
-            # if nall != n:
-            #     raise Exception('wrong N for ' + loc)
             isloc = names['location'] == loc
             s = np.sum(isloc & cat[1])
             p = np.sum(isloc & cat[2])
