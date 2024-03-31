@@ -41,7 +41,7 @@ for ii in range(len(locu)):
         n = np.sum(isloc & (df['citizenGroup'] == group[jj]))
         toll.at[ii, group[jj]] = n
     # np.sum(isloc & isinside)
-toll = toll.sort_values('ביישוב', ignore_index=True, ascending=False)
+toll = toll.sort_values('הרוגים', ignore_index=True, ascending=False)
 toll.to_csv('/home/innereye/Documents/groups.csv', index=False)
 ## אזרחים וכיתות כוננות
 locuu = np.unique([x for x in df['location'].values if 'ירי בשוגג' not in x])
@@ -92,14 +92,14 @@ for ii in range(5):
 ismig = df['location'].str.contains('מיגונ').to_numpy()
 
 df[ismig].to_csv('../Documents/migunit.csv', index=False)
-
+summary.to_csv('../Documents/summary.csv', index=False)
 ##
-fam =
+# fam =
 
 
 ##
 first = df['fullName'].str.split(' ')
-first =[x[-1] for x in first]
+first =[x[-1].replace('(','').replace(')','') for x in first]
 first = np.array(first)
 fu = np.unique(first)
 count = []
@@ -110,13 +110,13 @@ names['count'] = count
 names = names.sort_values('count', ascending=False, ignore_index=True)
 names.to_csv('../Documents/names.csv', index=False)
 ## issue with map_row
-haa = pd.read_csv('data/deaths_haaretz+.csv')
-got_row = ~np.isnan(haa['map_row'].values)
-dup = []
-for ii in np.where(got_row)[0]:
-    if sum(haa['map_row'] == haa['map_row'][ii]) > 1:
-    dup.append(haa['map_row'][ii])
- np.unique(dup)
+# haa = pd.read_csv('data/deaths_haaretz+.csv')
+# got_row = ~np.isnan(haa['map_row'].values)
+# dup = []
+# for ii in np.where(got_row)[0]:
+#     if sum(haa['map_row'] == haa['map_row'][ii]) > 1:
+#     dup.append(haa['map_row'][ii])
+#  np.unique(dup)
 
 ## families
 last = df['fullName'].str.split(' ')
