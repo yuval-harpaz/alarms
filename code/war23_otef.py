@@ -98,7 +98,7 @@ summary.to_csv('../Documents/summary.csv', index=False)
 
 
 ##
-first = df['fullName'].str.split(' ')
+first = df['fullName'].str.strip().str.split(' ')
 first =[x[-1].replace('(','').replace(')','') for x in first]
 first = np.array(first)
 fu = np.unique(first)
@@ -107,7 +107,7 @@ for name in fu:
     count.append(np.sum(first == name))
 names = pd.DataFrame(fu, columns = ['name'])
 names['count'] = count
-names = names.sort_values('count', ascending=False, ignore_index=True)
+names = names.sort_values(['count', 'name'], ascending=[False, True], ignore_index=True)
 names.to_csv('../Documents/names.csv', index=False)
 ## issue with map_row
 # haa = pd.read_csv('data/deaths_haaretz+.csv')
