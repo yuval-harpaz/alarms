@@ -32,6 +32,7 @@ for ii in range(len(cat)):
         cat[ii] = 'road'
 cat[np.where(locuu =='כוחלה')[0][0]] = 'residential'
 cat[np.where(locuu =='פרי גן')[0][0]] = 'residential'
+cat[np.where(locuu =='סמוך למחנה רעים')[0][0]] = 'road'
 cat = np.array(cat, str)
 for army in ['עמדה 91', 'מעבר ארז', 'מש"א ארז', 'מו"פ דרום']:
     cat[np.where(locuu == army)[0][0]] = 'army'
@@ -51,10 +52,10 @@ for ii in range(len(df)):
     else:
         include[ii] = dfc['cat'].values[jj[0]] == 'road'
 miguniot = np.where(df['location'].str.contains('מיגוניות'))[0]
-include[miguniot] = False
+# include[miguniot] = False
 df_road = df[include].copy()
 df_road = df_road[df_road['date'] == '07.10.2023']
-df_road.sort_values('location', inplace=True)
+df_road.sort_values(['location', 'fullName'], inplace=True)
 
 df_road.to_excel('../Documents/road.xlsx', index=False)
 ##
@@ -112,5 +113,5 @@ folium.map.LayerControl('topleft', collapsed=False).add_to(map)
 map.save("docs/tmp_bar1.html")
 # df.to_csv('data/earthquakes.csv', index=False)
 ##
-prev = pd.read_csv('data/tmp_bar.csv')
-df = pd.read_excel('../Documents/road.xlsx')
+# prev = pd.read_csv('data/tmp_bar.csv')
+# df = pd.read_excel('../Documents/road.xlsx')
