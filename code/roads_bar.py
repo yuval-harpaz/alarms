@@ -15,8 +15,8 @@ df = pd.read_csv('data/oct_7_9.csv')
 # for uu in replace:
 #     df.loc[df['location'].str.contains(uu[0]), 'location'] = uu[-1]  # -1 allows for pairs, search term + what to change into
 
-locuu = np.unique([x for x in df['location'].values if 'ירי בשוגג' not in x])
-locuu = locuu[locuu != 'עזה']
+locuu = np.unique([x for x in df['location'].values if x != 'עזה'])
+locuu = locuu[locuu != "ירי בשוגג בשג'אעיה"]
 cat = ['']*len(locuu)
 cat[np.where(locuu =='פרי גן')[0][0]] = 'residential'
 cat[np.where(locuu =='כוחלה')[0][0]] = 'residential'
@@ -28,15 +28,27 @@ for ii in range(len(cat)):
         cat[ii] = 'residential'
     elif locuu[ii] in ['חוף זיקים','מסיבת פסיידאק','פסטיבל נובה']:
         cat[ii] = 'camping'
+    elif 'ירי בשוגג' in locuu[ii]:
+        if 'נתיב העשרה' in locuu[ii] or 'ניצן' in locuu[ii]:
+            cat[ii] = 'road'
+        else:
+            cat[ii] = 'residential'
     else:
         cat[ii] = 'road'
 cat[np.where(locuu =='כוחלה')[0][0]] = 'residential'
 cat[np.where(locuu =='פרי גן')[0][0]] = 'residential'
 cat[np.where(locuu =='סמוך למחנה רעים')[0][0]] = 'road'
+cat[np.where(locuu =='בין ניר עוז לגבול')[0][0]] = 'fence'
 cat = np.array(cat, str)
 for army in ['עמדה 91', 'מעבר ארז', 'מש"א ארז', 'מו"פ דרום']:
     cat[np.where(locuu == army)[0][0]] = 'army'
-
+cat[np.where(locuu =='מוצב הבית הלבן')[0][0]] = 'road'
+cat[np.where(locuu =='סמוך לארז')[0][0]] = 'residential'
+cat[np.where(locuu =='מערבית לניר עם')[0][0]] = 'residential'
+cat[np.where(locuu =='צפונית לכרם שלום')[0][0]] = 'army'
+# cat[np.where(locuu =='עזה')[0][0]] = 'Gaza'
+# cat[np.where(locuu =="ירי בשוגג בשג'אעיה")[0][0]] = 'Gaza'
+# cat[np.where(locuu =='עזה')[0][0]] = 'army'
 dfc = pd.DataFrame(columns=['loc', 'cat'])
 dfc['loc'] = locuu
 dfc['cat'] = cat
@@ -49,6 +61,7 @@ for ii in range(len(df)):
     jj = np.where(dfc['loc'].values == df['location'][ii])[0]
     if len(jj) == 0:
        print(df['location'][ii])
+       include[ii] = False
     else:
         include[ii] = dfc['cat'].values[jj[0]] == 'road'
 miguniot = np.where(df['location'].str.contains('מיגוניות'))[0]
