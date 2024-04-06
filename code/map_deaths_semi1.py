@@ -357,8 +357,11 @@ for lang in ['heb', 'eng']:
             radius = (tot / np.pi) ** 0.5
             latlong = [coo['lat'][iloc] + 0.006, coo['long'][iloc] + radius * 0.0035]
 
-            if loc in ['נחל עוז', 'מוצב כיסופים', 'מוצב נחל עוז' ,'רעים', 'סמוך למפלסים']:
+            if loc in ['נחל עוז', 'מוצב נחל עוז' ,'רעים', 'סמוך למפלסים']:
                 latlong[0] = latlong[0] - 0.003
+                latlong[1] = latlong[1] - 0.003
+            elif loc == 'מוצב כיסופים':
+                latlong[0] = latlong[0] - 0.006
                 latlong[1] = latlong[1] - 0.003
             if loc in ['בארי', 'נחל עוז','כיסופים', 'רעים']:
                 if lang == 'heb':
