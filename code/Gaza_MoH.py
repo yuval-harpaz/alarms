@@ -120,3 +120,39 @@ for ii in range(len(millions)):
 
 ##
 np.sum((controlled == 0) & (df['source'].values == 'report from family'))
+##
+from translate import Translator
+def translate_names(names):
+    translator= Translator(to_lang="en", from_lang="ar")
+    translated_names = [translator.translate(name) for name in names]
+    return translated_names
+# Example usage
+
+df = pd.read_excel('/home/innereye/Documents/Gaza_MoH_comments.xlsx')
+
+arab = df.loc[1]['name']
+arab = [x for x in arab.split(' ') if len(x) > 1]
+translate_names(arab)
+
+##
+from googletrans import Translator
+
+def translate_names(names):
+    translator = Translator()
+    translated_names = [translator.translate(name, src='ar', dest='en').text for name in names]
+    return translated_names
+
+# Example usage
+arabic_names = ["محمد", "فاطمة", "علي"]
+english_names = translate_names(arabic_names)
+print(english_names)
+
+
+df = pd.read_excel('/home/innereye/Documents/Gaza_MoH_comments.xlsx')
+names = list(df['name'])
+# names = names[:3]
+trans = translate_names(names)
+print('done translating')
+for ii in range(len(trans)):
+    df.at[ii, 'eng'] = trans[ii]
+df.to_excel('/home/innereye/Documents/Gaza_MoH_eng.xlsx')
