@@ -262,89 +262,96 @@ for lang in ['heb', 'eng']:
             else:
                 loc_lang = coo['eng'][np.where(coo['name'] == loc)[0][0]]
             nall = np.sum(names['location'] == loc)
-            if nall == 0:
-                raise Exception('no people in '+loc)
             n_loc.append(nall)
-            isloc = names['location'] == loc
-            s = np.sum(isloc & cat[1])
-            p = np.sum(isloc & cat[2])
-            r = np.sum(isloc & cat[3])
-            c = nall - s - p - r
-            ns = [c, s, p, r]
-            radius = (nall / np.pi) ** 0.5
-            start = [0, int(np.round(360*c/nall)), int(np.round(360*(c+s)/nall)), int(np.round(360*(c+s+p)/nall))]
-            end = [start[1], start[2], start[3], 360]
-            if np.sum(np.array(ns) > 0) == 1:
-                onlyone = True
+            if nall == 0:
+                if loc != 'מסיבת פסיידאק':
+                    raise Exception('no people in '+loc)
             else:
-                onlyone = False
-            for icat in range(4):
-                color = colors[icat]
-                iscat = cat[icat]
-                if ns[icat] > 0:
-                    fest = np.sum(iscat & isparty & isloc)
-                    if lang == 'heb':
-                        nm = names['fullName'][isloc & iscat].values
-                        rk = names['rank'][isloc & iscat].values
-                    else:
-                        nm = names['eng'][isloc & iscat].values
-                        rk = np.array(['']*len(nm))
-                    order = np.argsort(nm)
-                    name_list = nm[order]
-                    rank = rk[order]
-                    for irank in range(len(rank)):
-                        if type(rank[irank]) == str:
-                            rank[irank] = rank[irank].strip()
-                            if len(rank[irank]) > 2:
-                                name_list[irank] = rank[irank] + ' ' + name_list[irank]
-                        else:
-                            rank[irank] = ''
-
-                    name_string = ''
-                    count = 0
-                    for ii in range(len(name_list)):
-                        count += 1
-                        name_string = name_string + name_list[ii] + ', '
-                        if count == row_len:
-                            count = 0
-                            name_string = name_string[:-2]+'<br>'
-                    name_string = name_string.strip()
-                    if name_string[-1] == ',':
-                        name_string = name_string[:-1]
-                    if ns[icat] > 300:
-                        fs = 1
-                    else:
-                        fs = font_size
-                    tip = f'<font size="{fs}">{loc_lang}:  {ns[icat]} {cat_lang[icat]}'
-                    if fest > 0 and (loc != 'פסטיבל נובה') and (loc != 'מיגוניות בכניסה לרעים'):
+                isloc = names['location'] == loc
+                s = np.sum(isloc & cat[1])
+                p = np.sum(isloc & cat[2])
+                r = np.sum(isloc & cat[3])
+                c = nall - s - p - r
+                ns = [c, s, p, r]
+                radius = (nall / np.pi) ** 0.5
+                start = [0, int(np.round(360*c/nall)), int(np.round(360*(c+s)/nall)), int(np.round(360*(c+s+p)/nall))]
+                end = [start[1], start[2], start[3], 360]
+                if np.sum(np.array(ns) > 0) == 1:
+                    onlyone = True
+                else:
+                    onlyone = False
+                for icat in range(4):
+                    color = colors[icat]
+                    iscat = cat[icat]
+                    if ns[icat] > 0:
+                        fest = np.sum(iscat & isparty & isloc)
                         if lang == 'heb':
-                            tip = tip + f' (כולל {fest} מפסטיבל נובה)'
+                            nm = names['fullName'][isloc & iscat].values
+                            rk = names['rank'][isloc & iscat].values
                         else:
-                            tip = tip + f' (including {fest} from Nova festival)'
-                    tip = tip + '<br>' + name_string
-                    if loc == 'עמיעוז':
-                        tip = tip.replace('<br>', '<br>נחבלה בדרך לממ\"ד - ')
-                    if onlyone:
-                        folium.Circle(location=[lat, long],
-                                            tooltip=tip,
-                                            radius=float(np.max([radius*300, 1])),
-                                            fill=True,
-                                            fill_color=color,
-                                            color=color,
-                                            opacity=0,
-                                            fill_opacity=opacity
-                                            ).add_to(map)
-                    else:
-                        SemiCircleColor(
-                            location=[lat, long],
-                            tooltip=tip,
-                            radius=float(np.max([radius * 300, 1])),
-                            fill_color=color,
-                            opacity=0,
-                            fill_opacity=opacity,
-                            startAngle=start[icat],  # Start angle (0 to 360 degrees)
-                            stopAngle=end[icat]  # Stop angle (0 to 360 degrees)
-                        ).add_to(map)
+                            nm = names['eng'][isloc & iscat].values
+                            rk = np.array(['']*len(nm))
+                        order = np.argsort(nm)
+                        name_list = nm[order]
+                        rank = rk[order]
+                        for irank in range(len(rank)):
+                            if type(rank[irank]) == str:
+                                rank[irank] = rank[irank].strip()
+                                if len(rank[irank]) > 2:
+                                    name_list[irank] = rank[irank] + ' ' + name_list[irank]
+                            else:
+                                rank[irank] = ''
+
+                        name_string = ''
+                        count = 0
+                        for ii in range(len(name_list)):
+                            count += 1
+                            name_string = name_string + name_list[ii] + ', '
+                            if count == row_len:
+                                count = 0
+                                name_string = name_string[:-2]+'<br>'
+                        name_string = name_string.strip()
+                        if name_string[-1] == ',':
+                            name_string = name_string[:-1]
+                        if ns[icat] > 300:
+                            fs = 1
+                        else:
+                            fs = font_size
+                        tip = f'<font size="{fs}">{loc_lang}:  {ns[icat]} {cat_lang[icat]}'
+                        if fest > 0 and (loc != 'פסטיבל נובה') and (loc != 'מיגוניות בכניסה לרעים'):
+                            if lang == 'heb':
+                                tip = tip + f' (כולל {fest} מפסטיבל נובה)'
+                            else:
+                                tip = tip + f' (including {fest} from Nova festival)'
+                        if loc == 'ניר עוז':
+                            if lang == 'heb':
+                                tip = tip + f' (כולל {3} ממסיבת פסיידאק)'
+                            else:
+                                tip = tip + f' (including {fest} from Psyduck Party)'
+                        tip = tip + '<br>' + name_string
+                        if loc == 'עמיעוז':
+                            tip = tip.replace('<br>', '<br>נחבלה בדרך לממ\"ד - ')
+                        if onlyone:
+                            folium.Circle(location=[lat, long],
+                                                tooltip=tip,
+                                                radius=float(np.max([radius*300, 1])),
+                                                fill=True,
+                                                fill_color=color,
+                                                color=color,
+                                                opacity=0,
+                                                fill_opacity=opacity
+                                                ).add_to(map)
+                        else:
+                            SemiCircleColor(
+                                location=[lat, long],
+                                tooltip=tip,
+                                radius=float(np.max([radius * 300, 1])),
+                                fill_color=color,
+                                opacity=0,
+                                fill_opacity=opacity,
+                                startAngle=start[icat],  # Start angle (0 to 360 degrees)
+                                stopAngle=end[icat]  # Stop angle (0 to 360 degrees)
+                            ).add_to(map)
 
         for iloc in idx:
             loc = coo["name"][iloc]
