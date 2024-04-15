@@ -173,6 +173,7 @@ row_len = 7
 font_size = 2
 colors = ["#ff0000", "#808000", '#2255ff', '#FFA500']
 isparty = names['comment'] == 'פסטיבל נובה'
+isduck = names['comment'] == 'מסיבת פסיידאק'
 
 for lang in ['heb', 'eng']:
     if lang == 'heb':
@@ -285,6 +286,7 @@ for lang in ['heb', 'eng']:
                     iscat = cat[icat]
                     if ns[icat] > 0:
                         fest = np.sum(iscat & isparty & isloc)
+                        pfest = np.sum(iscat & isduck & isloc)
                         if lang == 'heb':
                             nm = names['fullName'][isloc & iscat].values
                             rk = names['rank'][isloc & iscat].values
@@ -323,11 +325,17 @@ for lang in ['heb', 'eng']:
                                 tip = tip + f' (כולל {fest} מפסטיבל נובה)'
                             else:
                                 tip = tip + f' (including {fest} from Nova festival)'
-                        if loc == 'ניר עוז':
-                            if lang == 'heb':
-                                tip = tip + f' (כולל {3} ממסיבת פסיידאק)'
+                        if pfest > 0:
+                            if fest and pfest:
+                                if lang == 'heb':
+                                    tip = tip[:-1] + f' ו- {pfest} ממסיבת פסיידאק)'
+                                else:
+                                    tip = tip[:-1] + f' and {pfest} from Psyduck party)'
                             else:
-                                tip = tip + f' (including {fest} from Psyduck Party)'
+                                if lang == 'heb':
+                                    tip = tip + f' (כולל {pfest} ממסיבת פסיידאק)'
+                                else:
+                                    tip = tip + f' (including {pfest} from Psyduck Party)'
                         tip = tip + '<br>' + name_string
                         if loc == 'עמיעוז':
                             tip = tip.replace('<br>', '<br>נחבלה בדרך לממ\"ד - ')
