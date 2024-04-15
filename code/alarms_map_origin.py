@@ -15,7 +15,9 @@ if os.path.isdir(local):
     islocal = True
 coo = pd.read_csv('data/coord.csv')
 def guess_origin(df_toguess):
-    toguess = pd.isnull(df_toguess['origin']).values
+    okcat = (df_toguess['description'].values == 'ירי רקטות וטילים') | \
+            (df_toguess['description'].values == 'חדירת כלי טיס עוין')
+    toguess = df_toguess['origin'].isnull().values & okcat
     row_lat = np.array([coo['lat'][coo['loc'] == x].values[0] for x in df_toguess['cities'].values])
     row_long = np.array([coo['long'][coo['loc'] == x].values[0] for x in df_toguess['cities'].values])
     syria = toguess & (row_long > 35.63) & (row_lat < 33.1)
