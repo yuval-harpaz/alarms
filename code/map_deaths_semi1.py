@@ -241,12 +241,12 @@ for lang in ['heb', 'eng']:
         party_rad = [np.sum(names['comment'] == 'פסטיבל נובה'), np.sum(names['comment'] == 'מסיבת פסיידאק')]
         # party_rad = (np.array(party_rad) / np.pi) ** 0.5
         if lang == 'heb':
-            party_tip = ['נובה ('+str(party_rad[0])+'), כולל נמלטים שנרצחו', 'פסיידאק ('+str(party_rad[1])+'), כולל נמלטים שנרצחו']
+            party_tip = ['נובה ('+str(party_rad[0])+'), כולל נמלטים שנרצחו', 'פסיידאק ('+str(party_rad[1])+'), לא נרצחו באתר המסיבה']
         else:
             party_tip = ['Nova ('+str(party_rad[0])+'), including murdered escapees', 'Psyduck ('+str(party_rad[1])+'), including murdered escapees']
         for iparty in [1]:
             folium.Circle(location=[party_lat[iparty], party_long[iparty]],
-                          tooltip=party_tip[iparty],
+                          tooltip=f'<font size="{font_size}">'+party_tip[iparty],
                           radius=float(np.max([(party_rad[iparty] / np.pi) ** 0.5 * 300, 1])),
                           fill=True,
                           fill_color='#AAAAAA',
