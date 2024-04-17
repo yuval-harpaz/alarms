@@ -436,9 +436,6 @@ for lang in ['heb', 'eng']:
                           ).add_to(map)
             lltext[0] = lltext[0] - ydif
             llcirc[0] = llcirc[0] - ydif
-
-
-
         # some fixes
         map.save(fname)
         with open(fname) as f:
