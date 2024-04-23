@@ -1,7 +1,7 @@
 import numpy as np
 name_search_html = """<div class="autocomplete-drop-down">
                 <div class="Names-input-container">
-                  <input class="Names-input" placeholder="שם" type="text">
+                  <input class="Names-input" placeholder="שם משפחה ו\או פרטי" type="text">
                   <div class="input-underline"></div>
                   <span class="input-arrow">&#9662;</div>
                 </div>

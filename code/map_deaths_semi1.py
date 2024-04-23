@@ -123,15 +123,9 @@ replace = [['בכניסה לעלומים'], ['סמוך לצומת גמה', 'צו
            ['צומת בארי'], ['מיגוניות בצומת רעים', 'צומת רעים']]  #
 for uu in replace:
     names.loc[names['location'].str.contains(uu[0]), 'location'] = uu[-1]  # -1 allows for pairs, search term + what to change into
-# names['location'] = names['location'].str.replace('?', 'בבירור')
-# coo = pd.read_csv('data/deaths_by_loc.csv')
 center = [coo['lat'].mean(), coo['long'].mean()]
 ##
 table = 'https://docs.google.com/spreadsheets/d/1bImioxD69gmyYhOsggcgCj1EK8Dxp8n25jwGS80GWSY/edit?usp=sharing'
-# title_html = f'''
-#              <h3 align="center" style="font-size:16px"><b>Deaths between 7-Oct-23 and 9-Oct-23. data from <a href="https://oct7names.co.il/" target="_blank">ואלה שמות</a> and other sources
-#              . last update: {nowstr}</b></h3>
-#              '''+
 # Look for missing coordinates
 locu = np.unique(names['location'])
 missing = []
@@ -205,9 +199,8 @@ for lang in ['heb', 'eng']:
                          <h3 dir="rtl" align="center" style="font-size:16px"><b>מקום מותם של {len(cat[0])} הנרצחים והנופלים במתקפת חמאס על ישראל בין 7-9.10.2023.</b>{other},{change_lang}</h3>
                          <h4 dir="rtl" align="center" style="font-size:12px">
                          נערך על ידי שגיא אור ו<a href="https://twitter.com/yuvharpaz" target="_blank">יובל הרפז</a> (אנא שלחו תיקונים והערות). 
-                         <a href={table} target="_blank"> הנתונים </a> מ 
-                         <a href="https://oct7names.co.il/" target="_blank">ואלה שמות</a>
-                          ומקורות נוספים. כללנו אנשים שנפצעו או נחטפו במתקפה, ומתו או נרצחו מאז.  עדכון אחרון: {nowstr}</h4>             
+                         קישור <a href={table} target="_blank"> לנתונים </a> במסמך גוגל 
+                          . כללנו אנשים שנפצעו או נחטפו במתקפה, ומתו או נרצחו מאז.  עדכון אחרון: {nowstr}</h4>             
                          '''
         else:
             if imap == 1:
@@ -220,9 +213,8 @@ for lang in ['heb', 'eng']:
                          <h3 dir="rtl" align="center" style="font-size:16px"><b>Death locations of {len(cat[0])} murdered and fallen during the Hamas attack on Israel between 7-9.10.2023.</b>{other},{change_lang}</h3>
                          <h4 dir="rtl" align="center" style="font-size:12px">
                          Edited by Sagi Or and <a href="https://twitter.com/yuvharpaz" target="_blank">Yuval Harpaz</a>. 
-                         <a href={table} target="_blank"> The data </a> are from 
-                         <a href="https://oct7names.co.il/" target="_blank">oct7names</a>
-                          and other sources. We included people who were kidnapped or injured in the attack, and died or were murdered later.  Last update: {nowstr}</h4>             
+                         <a href={table} target="_blank"> The data </a> in a google sheet 
+                         . We included people who were kidnapped or injured in the attack, and died or were murdered later.  Last update: {nowstr}</h4>             
                          '''
         map.get_root().html.add_child(folium.Element(title_html))
         if imap == 1:
