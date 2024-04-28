@@ -147,12 +147,15 @@ arabic_names = ["محمد", "فاطمة", "علي"]
 english_names = translate_names(arabic_names)
 print(english_names)
 
-
-df = pd.read_excel('/home/innereye/Documents/Gaza_MoH_comments.xlsx')
+##
+df = pd.read_excel('/home/innereye/Documents/Gaza_MoH_eng.xlsx')
 names = list(df['name'])
 # names = names[:3]
-trans = translate_names(names)
-print('done translating')
-for ii in range(len(trans)):
-    df.at[ii, 'eng'] = trans[ii]
-df.to_excel('/home/innereye/Documents/Gaza_MoH_eng.xlsx')
+start = np.where(df['google_eng'].isnull())[0][0]
+print('translating')
+for ii in range(start, len(names)):
+    trans = translate_names([names[ii]])
+    df.at[ii, 'google_eng'] = trans
+    if ii%100 == 0:
+        df.to_excel('/home/innereye/Documents/Gaza_MoH_eng.xlsx', index=False)
+        print(ii)
