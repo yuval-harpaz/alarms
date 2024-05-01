@@ -159,3 +159,75 @@ for ii in range(start, len(names)):
     if ii%100 == 0:
         df.to_excel('/home/innereye/Documents/Gaza_MoH_eng.xlsx', index=False)
         print(ii)
+
+##
+okay = df['comment'].isnull() & (~df['age'].isnull()) & (df['ID'] > 0)
+okay = okay.values
+millions = [4, 7, 8, 9]
+plt.figure()
+for ii in range(len(millions)):
+    ifrom = millions[ii]*10**8
+    ito = (millions[ii]+1)*10**8
+    plt.subplot(2, 2, ii+1)
+    group = okay & (df['ID'].values >= ifrom) & (df['ID'].values < ito)
+    plt.plot(df['ID'][group], df['age'][group], '.'+'b')
+    x = [ifrom, ifrom+50000000, ito]
+    xst = [str(x) for x in x]
+    plt.xticks(x, xst)
+    plt.xlim(ifrom, ito)
+    plt.text(ifrom+50000000, 95,  f'ID from {ifrom} to {ito}', ha='center')
+    plt.ylabel('age')
+    plt.xlabel('ID')
+    plt.ylim(0, 105)
+    plt.grid()
+
+##
+ID = df['ID'].values
+age = df['age'].values
+
+# -28x - 45000000y + 12550000000 = 0
+y = (12550000000 - 28*ID)/45000000
+g1 = np.abs(age - y) < 5  # linear
+g1[(ID > 800000000) & (ID < 804620000) & (age < 45.5) & (age > 28)] = True
+g1[(ID > 900000000) & (ID < 910620000) & (age < 51) & (age > 37)] = True
+g2 = ((ID > 410000000) & (ID < 417000000)) | ((ID > 452000000) & (ID < 480000000)) | ((ID > 700000000) & (ID < 800000000)) | ((ID > 804650000) & (ID < 804685000))
+g1[g2] = False
+g3 = (age == 24) & ~g1 & ~g2
+g4 = (ID > 900000000) & (age >= 50) & ~g1
+subgroup = np.zeros((len(ID),5), bool)
+subgroup[g1, 0] = True
+subgroup[g2, 1] = True
+subgroup[g3, 2] = True
+subgroup[g4, 3] = True
+subgroup[np.sum(subgroup[:, :-1], 1) == 0, 4] = True
+co = ['g', 'r', 'k', 'c', 'b']
+label = ['linear', 'random age', 'age 24', 'random ID', 'all the rest']
+lbl = []
+for jj in range(len(co)):
+    lbl.append(f"{label[jj]} ({str(np.sum(subgroup[okay, jj]))})")
+##
+plt.figure()
+for ii in range(len(millions)):
+    ifrom = millions[ii]*10**8
+    ito = (millions[ii]+1)*10**8
+    plt.subplot(2, 2, ii+1)
+    group = okay & (ID >= ifrom) & (ID < ito)
+    # plt.plot(df['ID'][group], df['age'][group], '.'+'b')
+    if ii == 0:
+        for jj in range(len(co)):
+            plt.plot(-5, -5, '.' + co[jj])
+        plt.legend(lbl)
+    for jj in range(len(co)):
+        plt.plot(df['ID'][group & subgroup[:, jj]], age[group & subgroup[:, jj]], '.'+co[jj])
+    x = [ifrom, ifrom+50000000, ito]
+    xst = [str(x) for x in x]
+    plt.xticks(x, xst)
+    plt.xlim(ifrom, ito)
+    plt.text(ifrom+50000000, 95,  f'ID from {ifrom} to {ito}', ha='center')
+    plt.ylabel('age')
+    plt.xlabel('ID')
+    plt.ylim(0, 105)
+    plt.grid()
+plt.suptitle('ID numbers against age for deaths reported by Gaza MoH\n'
+             'Of 21323 reported deaths there were 17855 unique and valid IDs and age')
+
