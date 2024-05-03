@@ -120,7 +120,8 @@ coo = pd.read_csv('data/deaths_by_loc.csv')
 names = pd.read_csv('data/oct_7_9.csv')
 # pairs of search phrase+replacement. When one is given, search for contains(phrase) and replace with phrase
 replace = [['בכניסה לעלומים'], ['ביה"ח שיפא'], ['סמוך לצומת גמה', 'צומת גמה'], ['מיגונית בצומת גמה', 'צומת גמה'],
-           ['צומת בארי'], ['מיגוניות בצומת רעים', 'צומת רעים']]  #
+           ['צומת בארי'], ['מיגוניות בצומת רעים', 'צומת רעים'], ['חאן יונס'],
+           ['רצועת עזה', 'רצועת עזה, לא פורסם מיקום מדוייק'], ['דיר אל בלח']]  #
 for uu in replace:
     names.loc[names['location'].str.contains(uu[0]), 'location'] = uu[-1]  # -1 allows for pairs, search term + what to change into
 center = [coo['lat'].mean(), coo['long'].mean()]
@@ -158,9 +159,7 @@ for icat in range(4):
 
 # add text for sig places
 idx = list(range(20))
-idxa = np.where(coo['name'] == 'עזה')[0][0]
-if idxa in idx:
-    _ = idx.pop(idxa)
+
 idx = idx + [np.where(coo['name'] == 'בבירור')[0][0]]
 opacity = 0.55
 row_len = 7
