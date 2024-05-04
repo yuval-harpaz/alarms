@@ -12,14 +12,38 @@ if os.path.isdir(local):
     islocal = True
 
 map7 = pd.read_json('https://service-f5qeuerhaa-ey.a.run.app/api/individuals')
-# nameh = map7['hebrew_name'].values
-namee = map7['name'].values[(map7['status'].values == 'Murdered') | (map7['status'].values == 'Killed on duty')]
 map = pd.read_csv('data/oct_7_9.csv')
+# nameh = map7['hebrew_name'].values
+# namee = map7['name'].values[(map7['status'].values == 'Murdered') | (map7['status'].values == 'Killed on duty')]
 name = map['eng'].values
+namh = map['fullName'].values
+
+map_match = pd.read_excel('/home/innereye/Documents/pid (1).xlsx')
 ##
-missing = [x.strip() for x in namee if x.strip() not in name]
+n = np.arange(len(map)) + 1
+df = pd.DataFrame(n, columns=['oct_7_9_id'])
+df['oct_7_9_fullName'] = namh
+df['oct_7_9_residence'] = map['residence']
+manual = []
+for ii in range(len(map_match)):
+    row = np.where((map['fullName'].values == map_match['fullName'][ii]) & (map['fullName'].values == map_match['fullName'][ii]))[0]
+    if len(row) == 1:
+        row = row[0]
+        pid = map_match['oct7map_pid'][ii]
+        df.at[row, 'oct7map_pid'] = pid
+        if not np.isnan(map_match['oct7map_pid'][ii]) and pid > 0:
+            row7 = np.where(map7['pid'].values == pid)[0][0]
+            df.at[row, 'oct7map_name'] = map7['name'][row7]
+    else:
+        manual.append(ii)
+        print(map_match['fullName'][ii])
+df['oct7map_pid'] = df['oct7map_pid'].values.astype(int)
+df['oct7map_pid'][df['oct7map_pid'] < 0] = 0
+df.to_csv('data/crossref.csv', index=False)
 ##
-matched = pd.read_excel('/home/innereye/Documents/pid (1).xlsx')
+# missing = [x.strip() for x in namee if x.strip() not in name]
+# ##
+# matched = pd.read_excel('/home/innereye/Documents/pid (1).xlsx')
 
 # noheb = []
 # for iname in range(len(names)):
