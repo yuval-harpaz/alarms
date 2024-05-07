@@ -41,10 +41,49 @@ df['oct7map_pid'] = df['oct7map_pid'].values.astype(int)
 df['oct7map_pid'][df['oct7map_pid'] < 0] = 0
 df.to_csv('data/crossref.csv', index=False)
 ##
+df = pd.read_csv('data/crossref.csv')
+btl = pd.read_csv('data/batal.csv')
+dfid = df['btl_id'].values
+for ii in range(len(btl)):
+    if btl['ID'][ii] in dfid:
+        r = np.where(dfid == btl['ID'][ii])[0]
+        if len(r) != 1:
+            raise Exception('too many '+btl['ID'][ii])
+        else:
+            r = r[0]
+        if np.isnan(btl['oct_7_9_id'][ii]):
+            btl.at[ii, 'oct_7_9_id'] = df['oct_7_9_id'][r]
+        if np.isnan(btl['oct_7_9_name'][ii]):
+            btl.at[ii, 'oct_7_9_name'] = df['oct_7_9_fullName'][r]
+    else:
+        parts = btl['full'][ii].replace('(', '').replace(')', '').split(' ')
+        first = btl['first'][ii]
+        parts = [x for x in parts if x not in [first, '']]
 
+        row_first = df['oct_7_9_fullName'].str.contains(first).values.astype(int)
+        row = row_first.copy()
+        try:
+            for part in parts:
+                row = row + df['oct_7_9_fullName'].str.contains(part).values.astype(int)
+            row = np.where(row_first.astype(bool) & (row > 1))[0]
+            if len(row) == 1:
+                df.at[row[0], 'btl_id'] = btl['ID'][ii]
+                df.at[row[0], 'btl_name'] = btl['full'][ii]
+                btl.at[ii, 'oct_7_9_id'] = row[0]
+                btl.at[ii, 'oct_7_9_name'] = df['oct_7_9_fullName'][row[0]]
+        except:
+            print('issue with '+btl['full'][ii]+' '+str(ii))
+        if ii%100 == 0:
+            print(f'done {ii}')
 
+df['btl_id'] = df['btl_id'].values.astype(int)
+df['btl_id'][df['btl_id'] < 0] = 0
+df.to_csv('data/crossref.csv', index=False)
 
-
+btl['oct_7_9_id'] = btl['oct_7_9_id'].values.astype(int)
+# btl['oct_7_9_id'][btl['oct_7_9_id'] < 0] = 0
+btl.to_csv('data/batal.csv', index=False)
+##
 # missing = [x.strip() for x in namee if x.strip() not in name]
 # ##
 # matched = pd.read_excel('/home/innereye/Documents/pid (1).xlsx')
