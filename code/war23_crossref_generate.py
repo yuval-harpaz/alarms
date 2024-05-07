@@ -48,13 +48,15 @@ for ii in range(len(btl)):
     if btl['ID'][ii] in dfid:
         r = np.where(dfid == btl['ID'][ii])[0]
         if len(r) != 1:
-            raise Exception('too many '+btl['ID'][ii])
+            raise Exception('too many '+str(btl['ID'][ii]))
         else:
             r = r[0]
-        if np.isnan(btl['oct_7_9_id'][ii]):
+        if np.isnan(btl['oct_7_9_id'][ii]) or btl['oct_7_9_id'][ii] == 0:
             btl.at[ii, 'oct_7_9_id'] = df['oct_7_9_id'][r]
-        if np.isnan(btl['oct_7_9_name'][ii]):
+        if type(btl['oct_7_9_name'][ii]) == float and np.isnan(btl['oct_7_9_name'][ii]):
             btl.at[ii, 'oct_7_9_name'] = df['oct_7_9_fullName'][r]
+        if type(df['btl_name'][r]) == float:
+            df.at[r, 'btl_name'] = btl['full'][ii]
     else:
         parts = btl['full'][ii].replace('(', '').replace(')', '').split(' ')
         first = btl['first'][ii]
@@ -76,6 +78,7 @@ for ii in range(len(btl)):
         if ii%100 == 0:
             print(f'done {ii}')
 
+##
 df['btl_id'] = df['btl_id'].values.astype(int)
 df['btl_id'][df['btl_id'] < 0] = 0
 df.to_csv('data/crossref.csv', index=False)
