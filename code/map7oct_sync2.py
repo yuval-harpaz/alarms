@@ -28,3 +28,6 @@ for ii in range(len(name)):
         missing.append(ii)
 map['oct7map_pid'] = map['oct7map_pid'].values.astype(int)
 map.to_excel('/home/innereye/Documents/pid.xlsx', index=False)
+
+##
+exact = map7[
