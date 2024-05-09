@@ -79,6 +79,8 @@ try:
                     htmlp = htmlp[htmlp.index("small"):]
                     if name+',' in htmlp:
                         htmlp = htmlp[htmlp.index(name+','):]
+                    elif name + ' (' in htmlp:
+                        htmlp = htmlp[htmlp.index(name + ' ('):]
                     else:
                         if name[-6:]+',' in htmlp:
                             htmlp = htmlp[htmlp.index(name[-6:] + ','):]
