@@ -64,3 +64,11 @@ for ii in range(len(df)):
         dt = dt[dt.index(',')+1: dt.index('<')].strip()
         df.at[ii, 'death_date'] = dt
         print(id)
+##
+
+map = pd.read_csv('data/oct_7_9.csv')
+for ii in range(len(df)):
+    row = df['oct_7_9_id'][ii]
+    if row > 0:
+        df.at[ii, 'oct_7_9_loc'] = map['location'][row-1]
+df.to_csv('data/batal.csv', index=False)
