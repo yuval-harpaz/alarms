@@ -4,8 +4,7 @@ import folium
 import pandas as pd
 import numpy as np
 import os
-from datetime import datetime, timedelta
-import plotly.express as px
+
 
 
 local = '/home/innereye/alarms/'
