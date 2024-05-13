@@ -102,4 +102,30 @@ else:
     print('no new victims from haaretz')
 
 
-##
+## update by-year list
+df = pd.read_csv('data/deaths_haaretz+.csv')
+idf = pd.read_csv('data/deaths_idf.csv')
+yearly = pd.read_csv('data/deaths_by_year.csv')
+isidf = ~df['idf_row'].isnull().values
+row = df['idf_row'].values[isidf]
+if len(row) > len(np.unique(row)):
+    print('duplicates!')
+rng = np.arange(2, len(idf)+2)
+missing = [x for x in rng if x not in row]
+if len(missing) > 0:
+    print('missing idf row: '+str(missing)[1:-1])
+year = df['death_date'].values.astype(str)
+for ii in range(len(year)):
+    yy = year[ii]
+    if len(yy) > 4:
+        year[ii] = yy[:4]
+for yr in [2023, 2024]:
+    yrow = np.where(yearly['year'] == yr)[0][0]
+    soldiers = np.sum(isidf & (year == str(yr)))
+    civil = np.sum(~isidf & (year == str(yr)))
+    if yr == 2023:  # deaths before 7/10
+        soldiers += 55
+        civil += 34
+    yearly.at[yrow, 'armed_forces'] = soldiers
+    yearly.at[yrow, 'civilians'] = civil
+yearly.to_csv('data/deaths_by_year.csv', index=False)
