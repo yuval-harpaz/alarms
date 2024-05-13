@@ -7,4 +7,3 @@ oath.txt
 *.orig
 data/deaths_manual.xlsx
 geckodriver*
-data/deaths_by_loc*
