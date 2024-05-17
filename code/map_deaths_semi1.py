@@ -121,7 +121,7 @@ names = pd.read_csv('data/oct_7_9.csv')
 # pairs of search phrase+replacement. When one is given, search for contains(phrase) and replace with phrase
 replace = [['בכניסה לעלומים'], ['ביה"ח שיפא'], ['סמוך לצומת גמה', 'צומת גמה'], ['מיגונית בצומת גמה', 'צומת גמה'],
            ['צומת בארי'], ['מיגוניות בצומת רעים', 'צומת רעים'], ['חאן יונס'],['מיגונית חניון רעים', 'פסטיבל נובה'],
-           ['רצועת עזה', 'רצועת עזה, לא פורסם מיקום מדוייק'], ['דיר אל בלח']]  #
+           ['רצועת עזה', 'רצועת עזה, לא פורסם מיקום מדוייק'], ['דיר אל בלח'], ['מיגונית מפלסים','סמוך למפלסים']]  #
 for uu in replace:
     names.loc[names['location'].str.contains(uu[0]), 'location'] = uu[-1]  # -1 allows for pairs, search term + what to change into
 center = [coo['lat'].mean(), coo['long'].mean()]
