@@ -13,6 +13,28 @@ if os.path.isdir(local):
 
 map7 = pd.read_json('https://service-f5qeuerhaa-ey.a.run.app/api/individuals')
 map = pd.read_csv('data/oct_7_9.csv')
+cref = pd.read_csv('data/crossref.csv')
+new = np.zeros(len(map), bool)
+bad_start = np.where(map['fullName'].values[:len(cref)] != cref['oct_7_9_fullName'])[0]
+if len(bad_start) > 0:
+    err = ''
+    for ii in range(len(bad_start)):
+        err += f'\ncref: {cref["oct_7_9_fullName"][bad_start[ii]]} >> map: {map["fullName"][bad_start[ii]]}'
+    print(err)
+    resp = input('allow changes? y/!y')
+    if resp.lower() == 'y':
+        for ii in range(len(bad_start)):
+            cref.at[bad_start[ii], "oct_7_9_fullName"] = map["fullName"][bad_start[ii]]
+        cref.to_csv('data/crossref.csv', index=False)
+    raise Exception('saved cref, start over')
+
+if len(map) == len(cref):
+    raise Exception('equal length lists')
+new = map[len(cref):]
+for inew in len(new):
+    newline = len(cref)
+    cref.at[newline,'oct_7_9_fullName'] = new['fullName'][inew]
+
 # nameh = map7['hebrew_name'].values
 # namee = map7['name'].values[(map7['status'].values == 'Murdered') | (map7['status'].values == 'Killed on duty')]
 name = map['eng'].values
