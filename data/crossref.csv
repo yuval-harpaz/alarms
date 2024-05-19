@@ -25,7 +25,7 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 24,רחמים בנימין,אופקים,992,Binyamin Rahamim,43467,בנימין  רחמים
 25,אוזן אליהו (אליקו),גילת,1359,Eliyahu Ozen,43397,אליהו  אוזן
 26,אוזן אריה,גילת,1360,Aryeh Ozen,43378,אריה  אוזן
-27,אלזיאדנא עבד אלרחמן עאטף ,רהט,0,,43703,עבד אלרחמן  אלזיאדנא
+27,אלזיאדנא עבד אלרחמן עאטף ,רהט,1210,Alrahman Atef Alziadna Abed,43703,עבד אלרחמן  אלזיאדנא
 28,אסלנוב ג'ון,אשדוד,1676,John Aslanov,43375,דז ון  אסלנוב
 29,גניש בנימין (בני),אשקלון,1207,Benyamin Genish,43377,בני  גניש
 30,וייסברג אלינה,באר שבע,883,Alina Weissberg,43342,אלינה  וייסברג
@@ -41,7 +41,7 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 40,תעסה אור,נתיב העשרה,515,Or Tasa,43327,אור  תעסה
 41,אוביץ זיוה,עמיעוז,1420,Ziva Ovitz,43371,זיוה  קולט אוביץ
 42,אוחנה עדי,מבקיעים,0,,44044,עדי  אוחנה
-43,בנעים חיימי (חיים),נתיב העשרה,0,,43365,חיימי  בנעים
+43,בנעים חיימי (חיים),נתיב העשרה,517,Chaimi Ben-Naim,43365,חיימי  בנעים
 44,גולדין אורן,ניר יצחק,652,Oren Goldin,0,
 45,לוגבינצ'נקו ויטלי,אשקלון,1596,Vitaly Lugvinechenko,44067,ויטלי  לוגבינצ נקו
 46,משה רועי,אשקלון,1591,Roei moshe ,43426,רועי  משה
@@ -59,7 +59,7 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 58,Chatdamdee Charoon,תאילנד,1401,Jaroon Chatdumdee,44030,ג ארון  צאטדומדי
 59,Clemence Felix Mtenga,טנזניה,1682,Clemence Felix Matanga,44136,קלמנס פליקס  מטנג ה
 60,Kusaram Apichart,תאילנד,1413,Apichart Kusaram,43399,אפיצ רט  גוסרום
-61,Kusaram Pongthep,תאילנד,0,,43407,פונג תפ  קוסרם
+61,Kusaram Pongthep,תאילנד,1409,Phongthep Kusaram,43407,פונג תפ  קוסרם
 62,Nachanׂ Pichit,תאילנד,0,,43408,פיצ יט  נאג אן
 63,Phetkaew Anan,תאילנד,1419,Arnan Phetrkaeo,43402,ארנאן  פטרקאו
 64,Phiia-ia Satawat,תאילנד,1404,Sattawat Phiaaia,43356,סאטאוואט  פאהייה
@@ -86,7 +86,7 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 85,ינון בלהה,נתיב העשרה,532,Bilha Yinon,0,
 86,ינון יעקובי,נתיב העשרה,533,Yaacobi Yinon,43305,יעקובי  ינון
 87,מולכו איילת,נתיב העשרה,510,Ayelet Nir (Molcho),43298,איילת ניר  מולכו
-88,מולכו שלמה (שלומי),נתיב העשרה,0,,43299,שלמה  מולכו
+88,מולכו שלמה (שלומי),נתיב העשרה,511,Shlomi Molcho,43299,שלמה  מולכו
 89,סגל חויק,נתיב העשרה,512,Havik Segal,43297,חוויק  סגל
 90,דובדבני גיורא,תלמי יוסף,1371,Duvdevani Giora,0,
 91,אלקבץ מוטי,יתד,1039,Moti Elkabatz,43660,מוטי  אלקבץ
@@ -108,7 +108,7 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 107,אבאסוב שמיל,באר שבע,912,Shamil Abbasov,43674,שמיל  אבאסוב
 108,אבדולאייב עדן,רמת גן,735,Eden Abdulayev,43675,עדן  אבדולאייב רחמין
 109,אבו סבילה מוסא,אבו תלול,1384,Musa Abu Sabila,43277,מוסא  אבו סבילה
-110,אבו עאמר אלרזאם סוהייב,ירושלים,0,,43676,סוהייב  אבו עאמר אלרזאם
+110,אבו עאמר אלרזאם סוהייב,ירושלים,1432,Suhaib Abu Ame,43676,סוהייב  אבו עאמר אלרזאם
 111,אבו עסא אוסאמה,תל שבע,1383,Osamah Ibrahim Abu Asa,43276,אוסאמה  אבו עסא
 112,אבוחצירה אוראל,ראש העין,672,Orel Abuhatzira,43677,אוראל  אבוחצירה
 113,אביב נוי,אילת,890,Noy Aviv,43678,נוי  אביב
@@ -136,12 +136,12 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 135,איילון שירה,ראשון לציון,687,Shira Eylon,43700,שירה  איילון
 136,אילוז אליה אליהו,אשקלון,776,Eliya Iluz,43701,אליה אליהו  אילוז
 137,אילייב אדם,אשדוד,1575,Adam Ilaev,43702,אדם  אילייב
-138,איירמנדי סיזר איוון,כיסופים,0,,44077,איוון  אלרמנדי סיזר
+138,איירמנדי סיזר איוון,כיסופים,383,Iván Illarramendi Saizar,44077,איוון  אלרמנדי סיזר
 139,אליהו יהונתן,ראשון לציון,743,Yehonatan Eliyahu,43705,יהונתן יוני  אליהו
 140,אלפסי שלמה אליהו,אשקלון,1595,Shlomo Alfasi,43709,שלמה אליהו  אלשיך
 141,אלפראחין ח'אלד,ערערה בנגב,1381,Khaled al-Farajin,43708,חאלד  אבו פרחין
 142,אלקיים לוי עינב,ראשון לציון,745,Einav Elkayam-Levy,43875,עינב  אלקיים לוי
-143,נסאסרה עבד אלכרים,כסייפה,0,,43287,עבד אלכרים  נסאסרה
+143,נסאסרה עבד אלכרים,כסייפה,1380,Abd al-Karim Nasasra,43287,עבד אלכרים  נסאסרה
 144,אלשיך שלמה (שלומי) אליהו,בני ברק,1616,Shlomo Eliyahu Alshich,0,
 145,אמין שני,אשדוד,676,Shani Amin,43710,שני  אמין
 146,אנגלנדר נועה,קריית ביאליק,747,Noa Englander,43711,נועה נונוש אנגלנדר
@@ -197,7 +197,7 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 196,ברזני סתיו,גן נר,1390,Stav Barazani,43758,סתיו  ברזני
 197,ברטיק (קליין) טל,באר שבע,700,Tal Bartik,43759,טל טטיאנה  ברטיק קליין
 198,ברטל נדב,בית אריה,699,Nadav Bartal,43760,נדב  ברטל
-199,אליהו ברנט רומי,מודיעין מכבים רעות,0,,43761,רומי (רוחמה)  אליהו ברנט
+199,אליהו ברנט רומי,מודיעין מכבים רעות,1422,Romi Eli Bernat ,43761,רומי (רוחמה)  אליהו ברנט
 200,ברנשטיין אליהו יעקב,ירושלים,1517,Eliyahu Ya'akov Bernstein,43762,אליהו יעקב  ברנשטיין
 201,ברנשטיין בן,ציפורי,709,Ben Bernstein,43763,בן  ברנשטיין
 202,ברסלבסקי דניאל (דני),קריית גת,1550,Daniel Braslavsky,44056,דניאל  ברסלבסקי
@@ -411,7 +411,7 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 410,רחום ניצן,פרדסיה,830,Nitzan Rahum,43971,ניצן  רחום
 411,רחמים אביאל שלום,שפיר,1530,Aviel Shalom Rahamim,43973,אביאל שלום  רחמים
 412,רחמים דביר,אשדוד,829,Dvir Rahamim,43972,דביר  רחמים
-413,רפאל (רפאי) אלי,יבנה,0,,43980,אלי  רפאל
+413,רפאל (רפאי) אלי,יבנה,1593,Eli Refai,43980,אלי  רפאל
 414,רפאי שרון,יבנה,833,Sharon Refai,43979,שרון  רפאי
 415,שאמץ איליה,חיפה,858,Ilia Schametc,43981,איליה  שאמץ
 416,שגב שושן,מודיעין מכבים רעות,867,Segev Shushan,43986,שגב שגבוני שושן
@@ -429,7 +429,7 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 428,שלום נעם,פרדס חנה-כרכור,857,Noam Shalom,43992,נעם  שלום
 429,שלום רם,גבעת זאב,1528,Ram Shalom,44039,רם רמצ וק שלום
 430,שלזינגר אסף,ראש העין,864,Asaf Shlezinger,43993,אסף  שלזינגר
-431,שם טוב עינבר,חולון,0,,43994,עינבר בובי
+431,שם טוב עינבר,חולון,861,Inbar Shem-Tov,43994,עינבר בובי
 432,שמוניס הראל שרונה,ראשון לציון,865,Sharona Shmunis Harel,43995,שרונה  שמוניס הראל
 433,שמעוני בנימין (בן),אשקלון,862,Ben Shimoni,0,
 434,שמר רון,לוד,907,Ron Shemer,43997,רון  שמר
@@ -440,7 +440,7 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 439,תאר דוד,משמר איילון,1332,Dor Toar,44001,דור  תאר
 440,תומר בר,עין שמר,879,Bar Tomer,44002,בר  תומר
 441,תורג'מן אבידן,משואות יצחק,880,Avidan Tordjman,44004,אבידן גמליאל  תורג מן
-442,תורג'מן שהם ליה,בית שאן,0,,44003,שהם ליה  תורג מן
+442,תורג'מן שהם ליה,בית שאן,1509,Shoham Lia Turgeman,44003,שהם ליה  תורג מן
 443,תל צור ניב,רמת גן,876,Niv Tel-Tzur,44036,ניב  תל צור
 444,זיו דדו,רחובות,1703,Ziv Dedo,0,
 445,שפירר תומר,גדרה,1368,Tomer Shpirer,43362,תומר  שפירר
@@ -491,7 +491,7 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 490,כהן יונה,בארי,62,Yona Cohen,43621,יונה  כהן
 491,כהן מילה,בארי,60,Mila Cohen,43620,מילה  כהן
 492,כהן פסיה (פסי),בארי,61,Pessy Cohen,43622,פסיה פסי  כהן
-493,כרסנתי שושנה (שוש),בארי,0,,43623,שושנה  כרסנתי
+493,כרסנתי שושנה (שוש),בארי,92,Shoshana Karasenti,43623,שושנה  כרסנתי
 494,לוי לודמיר דניאל,קריית אונו,65,Daniel Levy,43624,דניאל  לוי לודמיר
 495,לוי רוני,בארי,99,Ronnie Levy,43625,רוני  לוי
 496,לוסב איגור,בארי,101,Igor Lusev,43626,איגור  לוסב
@@ -527,7 +527,7 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 526,שרעבי יהל,בארי,121,Yahel Sharabi,43657,יהל  שרעבי
 527,שרעבי ליאן,בארי,119,Lianne Sharabi,43658,ליאן  שרעבי
 528,שרעבי נויה,בארי,120,Noya Sharabi,43659,נויה  שרעבי
-529,Prodigo Cabrera Gracie,פיליפינים,0,,43573,גרייס  קבררה
+529,Prodigo Cabrera Gracie,פיליפינים,56,Grace Cabrera,43573,גרייס  קבררה
 530,Castelvi Paul Vincent,פיליפינים,144,Paul Vincent Castelvi,43351,פול וינסנט  קסטלבי
 531,Jayathilaka Anula,סרי לנקה,145,Anula Jayathilaka,43574,אנולה  רטנאייקה מודיאנס
 532,Sae Yang Sumchai,תאילנד,1681,Somchai Saeyang,44106,סומאצי  סייאנג
@@ -670,7 +670,7 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 669,Phulara Rajan,נפאל,15,Rajan Phulara,43312,רגאן  פולארה
 670,Prabesh Bhandari,נפאל,22,Prabesh Bhandari,43314,פראבש  בהנדרי
 671,Shah Ananda,נפאל,20,Anand Sah,43310,אנאנד  סאה
-672,Swarnakar Rajesh Kumar,נפאל,0,,43311,רג ש קומאר  סווארנקר
+672,Swarnakar Rajesh Kumar,נפאל,21,Rajesh Kumar Swarnakar,43311,רג ש קומאר  סווארנקר
 673,Thapa Padam,נפאל,13,Padam Thapa,43313,פדאם  ת אפה
 674,אוסטפנקו אליונה,נתיבות,972,Eliona Astafniko,0,
 675,גבאי עמית,רעים,1059,Amit Gabay,43387,עמית  גבאי
@@ -697,8 +697,8 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 696,פריאנטה קובי,שדרות,1491,Kobi Paryante,43429,קובי (יעקב)  פריאנטה
 697,שטרית אזולאי נעמי,שדרות,1489,Neomi Shitrit-Azulay,43432,נעמי  שטרית אזולאי
 698,Cao Yongcai,סין,0,,44134,יונגקאי סאו
-699,Wan Zhishun,סין,0,,44049,ג יסהון  וון
-700,Zou Deli,סין,0,,44050,דלי  זואו
+699,Wan Zhishun,סין,1701,Zhishun Wen,44049,ג יסהון  וון
+700,Zou Deli,סין,1700,Deli Zuo,44050,דלי  זואו
 701,ביילין זינאידה (זינה),שדרות,1151,Zinaida Beilin,43417,זינה  ביילין
 702,גילר ליליה,אופקים,981,Lilya Giler,43442,ליליה  גילר
 703,זרבאילוב מיכל מראל,אופקים,1031,Michal Zrabailov,43450,מראל  זרבאילוב
@@ -725,8 +725,8 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 724,גבאי מור,שדרות,516,Mor Gabay,43418,מור  סויד גבאי
 725,ז'וקוב ולדימיר,אשקלון,1261,Vladimir Zukov,44066,ולדימיר  ז וקוב
 726,חטב יהושוע,אשקלון,1614,Yehoshua Hatab,44010,יהושע  חטאב
-727,מסקאלצ'י נתנאל,נתיבות,0,,43395,נתנאל  מסקאלצ י
-728,מסקאלצ'י רפאל מאיר,נתיבות,0,,43396,רפאל מאיר  מסקאלצ י
+727,מסקאלצ'י נתנאל,נתיבות,1541,Rabbi Netanel Maskalatchi,43395,נתנאל  מסקאלצ י
+728,מסקאלצ'י רפאל מאיר,נתיבות,1542,Rafael Meir Maskalatchi,43396,רפאל מאיר  מסקאלצ י
 729,פהימי רפאל,נתיבות,1540,Rabbi Rafael Fahimi,43394,רפאל  פהימי
 730,פרץ אבשלום יאיר,נתיבות,1560,Avshalom Yair Peretz,0,
 731,אבוהרון רוני,אופקים,1182,Roni Abuharon,0,
@@ -788,14 +788,14 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 787,כהן דנית,שדרות,1137,Danit Cohen,0,
 788,לב בנימין,ירושלים,235,Benyamin Lev,0,
 789,לביא אמיר,ירושלים,1179,Amir Lavi,0,
-790,לוגאסי שמעון יוחאי,עכו,0,,0,
+790,לוגאסי שמעון יוחאי,עכו,481,Shimon Lugassi,0,
 791,לוי טל,ירושלים,1714,Tal Levi,0,
 792,לוי יקיר,מורשת,480,Yakir Levy,0,
 793,ליאר נתן חי,נתניה,1280,Natan Lier Chai,0,
-794,מזרחי אור,רמת גן,0,,0,
-795,מזרחי אור,פתח תקווה,0,,0,
+794,מזרחי אור,רמת גן,484,Or Mizrahi,0,
+795,מזרחי אור,פתח תקווה,264,Or Mizrahi,0,
 796,מידאני סהר,קריית עקרון,0,,0,
-797,מלכה אור,עכו,804,Dor Malka,0,
+797,מלכה אור,עכו,0,,0,
 798,ממן טל,מבטחים,403,Tal Maman,0,
 799,מקייס לידור,אופקים,259,Lidor Makayes,0,
 800,מרציאנו אריק יהודה,קריית גת,1562,Arik Yehuda Marciano,43425,אריק יהודה  מרציאנו
@@ -826,7 +826,7 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 825,רתנר דוד,אשדוד,491,David Rathner,0,
 826,שי ירון אורי,קדימה צורן,286,Yaron Oree Shay,0,
 827,שלומי רום,גנות,994,Rom Shlomi,0,
-828,ישראל שני עידו,רמת גן,0,,0,
+828,ישראל שני עידו,רמת גן,1279,Ido Israel-Shani,0,
 829,שפרבר דניאל,יהוד מונוסון,1496,Daniel Shperber,0,
 830,שקותאי גלי רועי,צופר,242,Gali Roi Shakotai,0,
 831,טהר אדיר,ירושלים,1585,Adir Tahar,0,
@@ -843,11 +843,11 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 842,סגל אוריאל,פתח תקווה,380,Uriel Segal,0,
 843,פלד עמית,חיפה,397,Amit Peled,0,
 844,פרץ רז (רזיאל),עפולה,398,Raz Peretz,0,
-845,רובין עמיחי שמעון,עכו,0,,0,
+845,רובין עמיחי שמעון,עכו,1733,Amichay Shimon Rubin,0,
 846,רוזנשטיין בר,ראשון לציון,1285,Bar Rosenstein,0,
 847,שני אורי מרדכי,קריית ארבע,0,,0,
 848,ששון אלעד מיכאל,מוצא עלית,1287,Elad Michael Sasson,0,
-849,ראוכברגר שילה,עלי,0,,0,
+849,ראוכברגר שילה,עלי,1732,Shilo Rauchberger,0,
 850,אברמוביץ' נועם,גבעת ברנר,459,Noam Abramovich,0,
 851,איל אמיר,חיפה,473,Amir Eyal,0,
 852,אילת שיר,כפר שמואל,1544,Shir Eilat,0,
@@ -927,7 +927,7 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 926,משה אוראל,רכסים,1269,Orel Moshe,0,
 927,נגרי נריה אהרון,טלמון,210,Neriya Aharon-Negri,0,
 928,עבודי אדיר,מודיעין מכבים רעות,209,Adir Abudi,0,
-929,ניב פיירשטיין עומרי,גבעתיים,0,,0,
+929,ניב פיירשטיין עומרי,גבעתיים,1270,Omri Niv- Fierstein,0,
 930,צור עמית,אליכין,255,Amit Tzur,0,
 931,קמינקא ינאי,צור הדסה,1265,Yanai Kaminka,0,
 932,בן יעקב יובל,כפר מנחם,258,Yuval Ben-Yaakov,0,
@@ -944,7 +944,7 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 943,יפרח אליאור,אופקים,1076,Elior Yifrach,0,
 944,כהן יוראי אליהו,נהריה,1184,Yorai Eliyahu Cohen,0,
 945,מחלוף סהר ציון,מודיעין מכבים רעות,238,Sahar Zion Machaluf,0,
-946,שלמה משהאל,רמלה,0,,0,
+946,שלמה משהאל,רמלה,239,Shlomo Moshe-El,0,
 947,סיון בר,כוכב יאיר,1143,Bar Sivan,0,
 948,עזר עילי,שפיים,1077,Ilay Azar,0,
 949,עמאר נתאי,עלומים,26,Nitay Amar,0,
@@ -1009,8 +1009,8 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 1008,קלמנזון אלחנן מאיר,עתניאל,59,Meir Elhanan Clemanzon,0,
 1009,קראוניק אריה (אריק),בארי,97,Eric kraunik,0,
 1010,רוסו אופק,קדימה צורן,116,Ofek Rousso,0,
-1011,אלון אוראל שלום,קריית אתא,0,,0,
-1012,מונס אלמוסנינו לירן,כמהין,0,,0,
+1011,אלון אוראל שלום,קריית אתא,142,Orel Alon,0,
+1012,מונס אלמוסנינו לירן,כמהין,267,Liran Almosnino,0,
 1013,גורני יפתח,באר מילכה,1561,Yiftach Gorny,0,
 1014,כצמן חיים ישורון,חולית,274,Haim Katzman,0,
 1015,קורין אברהם גבריאל,חולית,276,Avraham Gabriel Korin,0,
@@ -1106,7 +1106,7 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 1105,שמקלוב אלכסיי,חיפה,243,Alexei Shmakalov,0,
 1106,שקורי מור,שדרות,1459,Mor Shkuri,0,
 1107,אילוז גיא,תל אביב,775,Guy Illouz,44091,גיא  אילוז
-1108,טאללקה סאמר פואד,חורה,0,,44121,סאמר  טאללקה
+1108,טאללקה סאמר פואד,חורה,1690,Samar Fouad Talalka,44121,סאמר  טאללקה
 1109,אנגל רונן,ניר עוז,543,Ronen Engel,44086,רונן  אנגל
 1110,בייזר ניק,באר שבע,192,Nik Beizer,0,
 1111,ברוך סהר,בארי,1452,Sahar Baruch,44114,סהר  ברוך
@@ -1143,9 +1143,9 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 1142,מאסלי אלכסנדר,עפולה,263,Alexander Masli,0,
 1143,שדה דור,ערוגות,0,,0,
 1144,מלקמו אביאל,קריית אתא,1587,Aviel Malkamu,0,
-1145,Diawthaisong Jakkapan,תאילנד,0,,44033,גקפאמן  דיאוטציסונג
+1145,Diawthaisong Jakkapan,תאילנד,1405,Jakkaphong Jantharasena,44033,גקפאמן  דיאוטציסונג
 1146,Champasim Saksit,תאילנד,1680,Saksit Champasim,43404,סאסקיט  צאמפאסים
-1147,Raksanon Chaiya,תאילנד,0,,44032,צ איה  רוקסון
+1147,Raksanon Chaiya,תאילנד,1679,Chaiya Raksanon,44032,צ איה  רוקסון
 1148,Homsorn Settha,תאילנד,1686,Settha Homsorn,44107,סטה  הומסורן
 1149,Kraisorn Thumyoma,תאילנד,1685,Kraisorn Tumyoma,44110,קראיסורן  טומיומה
 1150,Yotthongdee Tianchai,תאילנד,1677,Thianchai Yodthongdee,44103,טיאנצאי  יוטונגדי
@@ -1160,7 +1160,7 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 1159,שרעבי יוסי,בארי,122,Yossi Sharabi,44132,יוסי  שרעבי
 1160,לוינסון שי,גבעת אבני,1706,Shai Levinson,0,
 1161,Goyitom Gebrehiyet,אריתריאה,1697,Goitom Gebrehiwot,0,
-1162,Berhe Wolderaphael Hagos,אריתריאה,0,,0,
+1162,Berhe Wolderaphael Hagos,אריתריאה,1697,Goitom Gebrehiwot,0,
 1163,גואילי רן,מיתר,23,Ran Guili,0,
 1164,יעקב יאיר,ניר עוז,644,Yair Yaakov,44137,יאיר  יעקב
 1165,דניאל עוז,כפר סבא,1726,Oz Daniel,0,
@@ -1175,6 +1175,14 @@ oct_7_9_id,oct_7_9_fullName,oct_7_9_residence,oct7map_pid,oct7map_name,btl_id,bt
 1174,אלעטאר סלימאן,עזה,0,,0,
 1175,גאנם זיאד,עזה,0,,0,
 1176,קציר אלעד,ניר עוז,584,Elad Katzir,44148,אלעד  קציר
-1177,אור דרור,בארי,0,,0,
-1178,ליבמן אליקים,קרית ארבע,0,,0,
-1179,רודאיף ליאור,ניר יצחק,0,,0,
+1177,אור דרור,בארי,1320,Dror Or,0,
+1178,ליבמן אליקים,קרית ארבע,798,Elyakim Libman,0,
+1179,רודאיף ליאור,ניר יצחק,659,Lior Rudaeff,0,
+1180,Shi Zhenhong,סין,1702,Shi Zhenhong,,
+1181,Liu Jianhe,סין,0,,,
+1182,Liu Zhiguo,סין,0,,,
+1183,Oakkharasri Sonthaya,תאילנד,1734,Sonthaya Oakkharasr,,
+1184,Rinthalak Sudthisak,תאילנד,1735,Sudthisak Rinthalak,,
+1185,בוסקילה עמית,אשדוד,716,Amit Esther Buskila,,
+1186,גלרנטר יצחק (איציק),אירוס,1600,Itzhak Gelerenter ,,
+1187,בנימין רון,רחובות,402,Ron Benjamin,,

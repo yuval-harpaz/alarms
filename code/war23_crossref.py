@@ -30,38 +30,67 @@ if len(bad_start) > 0:
 
 if len(map) == len(cref):
     raise Exception('equal length lists')
+for ii in range(len(map)):
+    map.at[ii, 'id'] = ii + 1
 new = map[len(cref):]
-for inew in len(new):
+for inew in range(len(new)):
+    idx = new.iloc[inew]['id']-1
     newline = len(cref)
-    cref.at[newline,'oct_7_9_fullName'] = new['fullName'][inew]
+    cref.at[newline,'oct_7_9_fullName'] = new['fullName'][idx]
+    cref.at[newline, 'oct_7_9_id'] = new['id'][idx]
+    cref.at[newline, 'oct_7_9_residence'] = new['residence'][idx]
+cref.to_csv('data/crossref.csv', index=False)
 
 # nameh = map7['hebrew_name'].values
 # namee = map7['name'].values[(map7['status'].values == 'Murdered') | (map7['status'].values == 'Killed on duty')]
 name = map['eng'].values
 namh = map['fullName'].values
-
-map_match = pd.read_excel('/home/innereye/Documents/pid (1).xlsx')
-##
-n = np.arange(len(map)) + 1
-df = pd.DataFrame(n, columns=['oct_7_9_id'])
-df['oct_7_9_fullName'] = namh
-df['oct_7_9_residence'] = map['residence']
+#
+# map_match = pd.read_excel('/home/innereye/Documents/pid (1).xlsx')
+# ##
+# n = np.arange(len(map)) + 1
+# df = pd.DataFrame(n, columns=['oct_7_9_id'])
+# df['oct_7_9_fullName'] = namh
+# df['oct_7_9_residence'] = map['residence']
+no_pid = np.where((cref['oct7map_pid'].isnull().values) | (cref['oct7map_pid'].values == 0))[0]
 manual = []
-for ii in range(len(map_match)):
-    row = np.where((map['fullName'].values == map_match['fullName'][ii]) & (map['fullName'].values == map_match['fullName'][ii]))[0]
-    if len(row) == 1:
-        row = row[0]
-        pid = map_match['oct7map_pid'][ii]
-        df.at[row, 'oct7map_pid'] = pid
-        if not np.isnan(map_match['oct7map_pid'][ii]) and pid > 0:
-            row7 = np.where(map7['pid'].values == pid)[0][0]
-            df.at[row, 'oct7map_name'] = map7['name'][row7]
+for row in no_pid:
+    # print(cref['oct_7_9_fullName'][row])
+    match = np.where(map7['hebrew_name'] == cref['oct_7_9_fullName'][row])[0]
+    if len(match) != 1:
+        match = np.where(map7['name'] == map['eng'][row])[0]
+        # if len(match) == 1:
+            # print(map7['name'][match[0]])
+    if len(match) == 1:
+        print(cref['oct_7_9_fullName'][row])
+        row7 = match[0]
+        pid = map7['pid'][row7]
+        cref.at[row, 'oct7map_pid'] = pid
+        cref.at[row, 'oct7map_name'] = map7['name'][row7]
     else:
-        manual.append(ii)
-        print(map_match['fullName'][ii])
-df['oct7map_pid'] = df['oct7map_pid'].values.astype(int)
-df['oct7map_pid'][df['oct7map_pid'] < 0] = 0
-df.to_csv('data/crossref.csv', index=False)
+        manual.append(cref['oct_7_9_fullName'][row])
+    # row = np.where((map['fullName'].values == cref['fullName'][ii]) & (map['fullName'].values == map_match['fullName'][ii]))[0]
+    # if len(row) == 1:
+    #     row = row[0]
+    # pid = map_match['oct7map_pid'][ii]
+    #     df.at[row, 'oct7map_pid'] = pid
+    #    if not np.isnan(map_match['oct7map_pid'][ii]) and pid > 0:
+    # row7 = np.where(map7['pid'].values == pid)[0][0]
+    #         df.at[row, 'oct7map_name'] = map7['name'][row7]
+    # else:
+    #     manual.append(ii)
+    #     print(map_match['fullName'][ii])
+cref['oct7map_pid'] = cref['oct7map_pid'].values.astype(int)
+cref['oct7map_pid'][cref['oct7map_pid'] < 0] = 0
+cref.to_csv('data/crossref.csv', index=False)
+## AFTER MANUAL FIX
+
+cref = pd.read_csv('data/crossref.csv')
+no_map7_name = np.where((cref['oct7map_pid'].values > 0) & (cref['oct7map_name'].isnull().values))[0]
+for row in no_map7_name:
+    pid = cref['oct7map_pid'][row]
+    cref.at[row, 'oct7map_name'] = map7['name'][map7['pid'] == pid].values[0]
+cref.to_csv('data/crossref.csv', index=False)
 ##
 # missing = [x.strip() for x in namee if x.strip() not in name]
 # ##

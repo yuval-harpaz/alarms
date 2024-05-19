@@ -41,7 +41,7 @@ subloc = {'232 Blocked Road': [31.399963, 34.474210],
           'Nova Bar': [31.398900, 34.470031],
           'Nova Entrance Bomb Shelter': [31.400190, 34.473742],
           "Re'im Bomb Shelter (East)": [31.389740, 34.459447],
-          "Re'im Bomb Shelter (West)": [31.428803, 34.496924],
+          "Re'im Bomb Shelter (West)": [31.3897815832395, 34.45805954741456],
           'Yellow Containers': [31.398628, 34.470782]}
 
 for ii in range(len(locs)):
@@ -79,8 +79,9 @@ locs.to_csv('data/tmp_locs.csv', index=False)
 ## compute distance
 names = pd.read_csv('data/oct_7_9.csv')
 replace = [['בכניסה לעלומים'], ['ביה"ח שיפא'], ['סמוך לצומת גמה', 'צומת גמה'], ['מיגונית בצומת גמה', 'צומת גמה'],
-           ['צומת בארי'], ['מיגוניות בצומת רעים', 'צומת רעים'], ['חאן יונס'],
-           ['רצועת עזה', 'רצועת עזה, לא פורסם מיקום מדוייק'], ['דיר אל בלח']]  #
+           ['צומת בארי'], ['מיגונית בצומת רעים', 'צומת רעים'], ['סמוך לצומת רעים', 'צומת רעים'], ['חאן יונס'],['מיגונית חניון רעים', 'פסטיבל נובה'],
+           ['רצועת עזה', 'רצועת עזה, לא פורסם מיקום מדוייק'], ['דיר אל בלח'], ['מיגונית מפלסים','סמוך למפלסים']]  #
+
 for uu in replace:
     names.loc[names['location'].str.contains(uu[0]), 'location'] = uu[-1]  # -1 allows for pairs, search term + what to change into
 
@@ -102,23 +103,26 @@ difs = difs.sort_values('dif', ascending=False, ignore_index=True)
 difs = difs[difs['dif'] >= 1]
 difs.to_csv('data/tmp_dif.csv', index=False)
 ##
-locs = pd.read_csv('data/tmp_locs.csv')
-est = locs['oct7map_est'].values.astype(str)
-est = np.array([x.strip() for x in est])
-est[est == 'nan'] = 'None'
-est[est == ''] = 'None'
-estu = np.unique(est)
-dif = locs['dif'].values
-co = ['k*', '.c', '.b', '.g', '.k', '.r']
-plt.figure()
-for ig in range(len(estu)):
-    x = np.where(est == estu[ig])[0]
-    plt.plot(x, dif[x], co[ig], label=estu[ig])
-plt.legend()
-plt.xlabel('oct_7_9 row in table')
-plt.ylabel('difference in km')
-plt.grid()
-plt.title('distance by estimate type')
+# locs = pd.read_csv('data/tmp_locs.csv')
+# est = locs['oct7map_est'].values.astype(str)
+# est = np.array([x.strip() for x in est])
+# est[est == 'nan'] = 'None'
+# est[est == ''] = 'None'
+# estu = np.unique(est)
+# dif = locs['dif'].values
+# co = ['k*', '.c', '.b', '.g', '.k', '.r']
+# plt.figure()
+# for ig in range(len(estu)):
+#     x = np.where(est == estu[ig])[0]
+#     plt.plot(x, dif[x], co[ig], label=estu[ig])
+# plt.legend()
+# plt.xlabel('oct_7_9 row in table')
+# plt.ylabel('difference in km')
+# plt.grid()
+# plt.title('distance by estimate type')
+
+
+
 # nameh = map7['hebrew_name'].values
 # namee = map7['name'].values  # [(map7['status'].values == 'Murdered') | (map7['status'].values == 'Killed on duty')]
 # map = pd.read_csv('data/oct_7_9.csv')
