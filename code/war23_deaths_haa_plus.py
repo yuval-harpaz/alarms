@@ -80,12 +80,13 @@ if len(new) > 0:
                 konan = True
         else:
             idf_story = ''
+        sty = str(new['story'][ii])
         if not konan:
-            if 'כוננות' in new['story'][ii] or 'רבש' in new['story'][ii]:
+            if 'כוננות' in sty or 'רבש' in sty:
                 konan = True
         if konan:
             comment += 'כיתת כוננות; '
-        if 'חטו' in df['story'][ii] or 'נחט' in df['story'][ii]:
+        if 'חטו' in sty or 'נחט' in sty:
             kidnapped = True
         elif 'חטו' in idf_story:
             kidnapped = True
