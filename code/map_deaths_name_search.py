@@ -1,4 +1,13 @@
 import numpy as np
+
+def group_locs(df):
+    replace = [['בכניסה לעלומים'], ['ביה"ח שיפא'], ['מערבית לצומת גמה', 'צומת גמה'], ['סמוך לצומת גמה', 'צומת גמה'], ['מיגונית בצומת גמה', 'צומת גמה'],
+               ['צומת בארי'], ['מיגונית בצומת רעים', 'צומת רעים'], ['סמוך לצומת רעים', 'צומת רעים'], ['חאן יונס'],['מיגונית חניון רעים', 'פסטיבל נובה'],
+               ['רצועת עזה', 'רצועת עזה, לא פורסם מיקום מדוייק'], ['דיר אל בלח'], ['מיגונית מפלסים','סמוך למפלסים']]  #
+    for uu in replace:
+        df.loc[df['location'].str.contains(uu[0]), 'location'] = uu[-1]  # -1 allows for pairs, search term + what to change into
+    return df
+
 name_search_html = """<div class="autocomplete-drop-down">
                 <div class="Names-input-container">
                   <input class="Names-input" placeholder="שם משפחה ו\או פרטי" type="text">

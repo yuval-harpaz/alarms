@@ -11,7 +11,7 @@ from folium.map import Marker
 from folium.utilities import validate_location
 from jinja2 import Template
 sys.path.append('code')
-from map_deaths_name_search import name_search_addon
+from map_deaths_name_search import name_search_addon, group_locs
 from folium.features import DivIcon
 
 class SemiCircleColor(Marker):
@@ -119,11 +119,15 @@ coo = pd.read_csv('data/deaths_by_loc.csv')
 # names = pd.read_excel('data/deaths_by_loc.xlsx', 'names_by_id')
 names = pd.read_csv('data/oct_7_9.csv')
 # pairs of search phrase+replacement. When one is given, search for contains(phrase) and replace with phrase
-replace = [['בכניסה לעלומים'], ['ביה"ח שיפא'], ['סמוך לצומת גמה', 'צומת גמה'], ['מיגונית בצומת גמה', 'צומת גמה'],
-           ['צומת בארי'], ['מיגונית בצומת רעים', 'צומת רעים'], ['סמוך לצומת רעים', 'צומת רעים'], ['חאן יונס'],['מיגונית חניון רעים', 'פסטיבל נובה'],
-           ['רצועת עזה', 'רצועת עזה, לא פורסם מיקום מדוייק'], ['דיר אל בלח'], ['מיגונית מפלסים','סמוך למפלסים']]  #
-for uu in replace:
-    names.loc[names['location'].str.contains(uu[0]), 'location'] = uu[-1]  # -1 allows for pairs, search term + what to change into
+# def group_locs(df):
+#     replace = [['בכניסה לעלומים'], ['ביה"ח שיפא'], ['מערבית לצומת גמה', 'צומת גמה'], ['סמוך לצומת גמה', 'צומת גמה'], ['מיגונית בצומת גמה', 'צומת גמה'],
+#                ['צומת בארי'], ['מיגונית בצומת רעים', 'צומת רעים'], ['סמוך לצומת רעים', 'צומת רעים'], ['חאן יונס'],['מיגונית חניון רעים', 'פסטיבל נובה'],
+#                ['רצועת עזה', 'רצועת עזה, לא פורסם מיקום מדוייק'], ['דיר אל בלח'], ['מיגונית מפלסים','סמוך למפלסים']]  #
+#     for uu in replace:
+#         names.loc[names['location'].str.contains(uu[0]), 'location'] = uu[-1]  # -1 allows for pairs, search term + what to change into
+#     return df
+
+names = group_locs(names)
 center = [coo['lat'].mean(), coo['long'].mean()]
 ##
 table = 'https://docs.google.com/spreadsheets/d/1bImioxD69gmyYhOsggcgCj1EK8Dxp8n25jwGS80GWSY/edit?usp=sharing'

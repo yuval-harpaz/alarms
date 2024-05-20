@@ -2,6 +2,9 @@ import pandas as pd
 import os
 import numpy as np
 from geopy.distance import geodesic
+import sys
+sys.path.append('code')
+from map_deaths_name_search import group_locs
 local = '/home/innereye/alarms/'
 islocal = False
 if os.path.isdir(local):
@@ -78,6 +81,7 @@ for othr in list(other.keys()):
 locs.to_csv('data/tmp_locs.csv', index=False)
 ## compute distance
 names = pd.read_csv('data/oct_7_9.csv')
+names = group_locs(names)
 replace = [['בכניסה לעלומים'], ['ביה"ח שיפא'], ['סמוך לצומת גמה', 'צומת גמה'], ['מיגונית בצומת גמה', 'צומת גמה'],
            ['צומת בארי'], ['מיגונית בצומת רעים', 'צומת רעים'], ['סמוך לצומת רעים', 'צומת רעים'], ['חאן יונס'],['מיגונית חניון רעים', 'פסטיבל נובה'],
            ['רצועת עזה', 'רצועת עזה, לא פורסם מיקום מדוייק'], ['דיר אל בלח'], ['מיגונית מפלסים','סמוך למפלסים']]  #
