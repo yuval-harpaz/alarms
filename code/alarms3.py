@@ -14,7 +14,7 @@ import re
 # dr = webdriver.Chrome()
 # # dr.get("https://www.mobile.de/?lang=en")
 # dr.get("https://api.tzevaadom.co.il/alerts-history")
-
+# https://www.tzevaadom.co.il/static/cities.json
 
 local = '/home/innereye/alarms/'
 islocal = False
