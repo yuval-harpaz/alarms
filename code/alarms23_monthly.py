@@ -12,7 +12,7 @@ if os.path.isdir(local):
     os.chdir(local)
     islocal = True
 prev = pd.read_csv('data/alarms.csv')
-
+prev = prev[(prev['origin'] != 'FA') & (prev['origin'] != 'Israel')]
 prev = prev.reset_index(drop=True)
 last_alarm = pd.to_datetime(prev['time'][len(prev)-1])
 last_alarm = last_alarm.tz_localize('Israel')
@@ -79,7 +79,7 @@ monthly.to_csv('data/war23_alarms_monthly.csv', index=False)
 
 for ig in range(len(monthu)):
     grp[ig].add_to(map)
-select = [['קריית שמונה'], ['נהריה'], ['קצרין'], ['חיפה - נווה שאנן ורמות כרמל', 'חיפה'], ['תל אביב - מרכז העיר', 'תל אביב'],
+select = [['קריית שמונה'], ['נהריה'], ['קצרין'], ['חיפה - כרמל ועיר תחתית', 'חיפה'], ['תל אביב - מרכז העיר', 'תל אביב'],
           ['אופקים'], ['שדרות'], ['אשקלון - צפון', 'אשקלון'], ['באר שבע - מערב', 'באר שבע']]
 for cit in select:
     iloc = np.where(monthly['loc'] == cit[0])[0]
