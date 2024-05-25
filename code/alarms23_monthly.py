@@ -12,9 +12,11 @@ if os.path.isdir(local):
     os.chdir(local)
     islocal = True
 prev = pd.read_csv('data/alarms.csv')
+
+prev = prev.reset_index(drop=True)
 last_alarm = pd.to_datetime(prev['time'][len(prev)-1])
 last_alarm = last_alarm.tz_localize('Israel')
-prev = prev.reset_index(drop=True)
+
 date = np.array([d[:10] for d in prev['time']])
 month = np.array([d[:7] for d in prev['time']])
 monthu = np.unique(month)
