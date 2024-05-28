@@ -110,6 +110,31 @@ for ii in range(len(cref)):
         map_row = cref['oct_7_9_id'][ii] - 1
         map.at[map_row, 'pid'] = pid
 map.to_csv('data/oct_7_9.csv', index=False)
+##
+for ii in range(len(map)):
+    pid = map['pid'][ii]
+    haa_row = np.where(haa['map_row'] == ii + 2)[0]
+    if len(haa_row) == 1:
+        haa.at[haa_row[0], 'pid'] = pid
+haa.to_csv('data/deaths_haaretz+.csv', index=False)
+
+idf = pd.read_csv('data/deaths_idf.csv')
+recent = haa.filter(['pid', 'name', 'rank', 'death_date'])
+recent = recent[recent['pid'].isnull()]
+for ii in recent.index:
+    idf_row = haa['idf_row'][ii] - 2
+    if ~np.isnan(idf_row):
+        name = idf['name'][idf_row]
+        recent.at[ii, 'idf_name'] = name
+        name = name.split(' ')
+    else:
+        name = haa['name'][ii].split(' ')
+    recent.at[ii, 'שם פרטי'] = name[0]
+    recent.at[ii, 'שם משפחה'] = name[-1]
+    if len(name) > 2:
+        middle = ' '.join(name[1:-1])
+        recent.at[ii, 'שם נוסף'] = middle
+recent.to_csv('/home/innereye/Documents/recent.csv', index=False)
 
 ## make sure hebrew names are okay
 ## add oct_7_9 not in oct7map
