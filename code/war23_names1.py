@@ -135,7 +135,44 @@ for ii in recent.index:
         middle = ' '.join(name[1:-1])
         recent.at[ii, 'שם נוסף'] = middle
 recent.to_csv('/home/innereye/Documents/recent.csv', index=False)
-
+##
+recent = pd.read_csv('/home/innereye/Documents/recent.csv')
+idf = pd.read_csv('data/tmp_idf_eng.csv')
+for ii in range(len(recent)):
+    namer = recent['name'][ii].split()
+    fit = []
+    for jj in range(len(idf)):
+        namei = idf['heb'][jj]
+        score = 0
+        for part in namer:
+            if part in namei:
+                score += 1
+        fit.append(score)
+    cand = np.where(np.array(fit) > 1)[0]
+    if len(cand) == 1:
+        recent.at[ii, 'idf_eng'] = idf['eng'][cand[0]]
+    print(ii)
+##
+recent = pd.read_csv('/home/innereye/Documents/recent_eng.csv')
+for ii in range(len(recent)):
+    name = recent['idf_eng'][ii]
+    if type(name) == str:
+        if '(res.)' in name:
+            name = name[name.index('(res.)') + 6:].strip()
+        elif 'class' in name.lower():
+            name = name[name.lower().index('class') + 5:].strip()
+        else:
+            rank = [x for x in ['sergeant', 'sergent', 'captain', 'lieutenant', 'major'] if x in name.lower()]
+            if len(rank) == 1:
+                name = name[name.lower().index(rank[0]) + len(rank[0]):].strip()
+        name = name.split(' ')
+        recent.at[ii, 'first name'] = name[0]
+        recent.at[ii, 'last name'] = name[-1]
+        if len(name) > 2:
+            recent.at[ii, 'middle name'] = ' '.join(name[1:-1])
+        else:
+            recent.at[ii, 'middle name'] = np.nan
+recent.to_csv('/home/innereye/Documents/recent_eng.csv', index=False)
 ## make sure hebrew names are okay
 ## add oct_7_9 not in oct7map
 # nopid = np.where([
