@@ -96,7 +96,7 @@ if len(new) > 0:
             comment += 'נחטף; '
         if len(comment) > 0:
             comment = comment[:-2]
-        row = [name, rank, new['age'][ii], gender, new['from'][ii], status, story, idf_row, death_date, comment, np.nan]
+        row = [name, rank, new['age'][ii], gender, new['from'][ii], status, story, idf_row, death_date, comment, np.nan, np.nan]
         df.loc[len(df)] = row
     df.to_csv('data/deaths_haaretz+.csv', index=False)
 else:
