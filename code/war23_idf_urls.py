@@ -11,6 +11,7 @@ local = '/home/innereye/alarms/'
 if os.path.isdir(local):
     os.chdir(local)
     local = True
+##
 csv = 'data/deaths_idf.csv'
 only_new = False
 # if only_new:
@@ -74,3 +75,22 @@ df = pd.DataFrame(eng, columns=['name'])
 df['url'] = urls
 df = df[::-1]
 df.to_csv('data/tmp_idf_eng.csv', index=False)
+
+##
+df = pd.read_csv('data/tmp_idf_eng.csv')
+# db = pd.read_csv('data/deaths_idf.csv')
+db = pd.read_csv('/home/innereye/Documents/oct7database - Data.csv')
+# name = []
+# for x in range(len(db)):
+#     name.append(db['שם פרטי'][x] + ' ' + str(db['שם נוסף'][x]) + ' ' + db['שם משפחה'][x])
+#     name[-1] = name[-1].replace(' nan', '')
+# name = np.array(name)
+for ii in range(len(df)):
+    row = np.where(np.array([x in df['heb'][ii] for x in db['שם פרטי']]) &
+                   np.array([x in df['heb'][ii] for x in db['שם משפחה']]))[0]
+    if len(row) == 1:
+        row = row[0]
+        df.at[ii, 'pid'] = db['pid'][row]
+
+pid = df['pid'].values
+pidu = np.unique(pid)

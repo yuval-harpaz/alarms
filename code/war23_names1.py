@@ -10,6 +10,7 @@ islocal = False
 if os.path.isdir(local):
     os.chdir(local)
     islocal = True
+##
 # map7 = pd.read_json('https://service-f5qeuerhaa-ey.a.run.app/api/individuals')
 # map = pd.read_csv('data/oct_7_9.csv')
 cref = pd.read_csv('data/crossref.csv')
@@ -173,6 +174,26 @@ for ii in range(len(recent)):
         else:
             recent.at[ii, 'middle name'] = np.nan
 recent.to_csv('/home/innereye/Documents/recent_eng.csv', index=False)
+## look for duplicates
+war = pd.read_csv('/home/innereye/Documents/oct7database - war.csv')
+data = pd.read_csv('/home/innereye/Documents/oct7database - Data.csv')
+namew = [war['שם פרטי'][x] + ' ' + war['שם משפחה'][x] for x in range(len(war))]
+named = np.array([data['שם פרטי'][x] + ' ' + data['שם משפחה'][x] for x in range(len(data))])
+dup = pd.DataFrame(columns=['pid','name'])
+for ii in range(len(namew)):
+    row = np.where(named == namew[ii])[0]
+    if len(row) > 1:
+        raise Exception(namew[ii])
+    elif len(row) == 1:
+        dup.loc[len(dup)] = [data['pid'].values[row][0], namew[ii]]
+dup.to_csv('/home/innereye/Documents/duplicates.csv', index=False)
+
+dup = pd.DataFrame(columns=['pid','name'])
+for ii in range(len(namew)):
+    row = np.where(named == named[ii])[0]
+    row = row[row != ii]
+    if len(row) == 1:
+        dup.loc[len(dup)] = [data['pid'].values[row][0], named[ii]]
 ## make sure hebrew names are okay
 ## add oct_7_9 not in oct7map
 # nopid = np.where([

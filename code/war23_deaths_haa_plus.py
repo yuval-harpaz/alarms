@@ -9,6 +9,7 @@ local = '/home/innereye/alarms/'
 if os.path.isdir(local):
     os.chdir(local)
     local = True
+##
 haa = pd.read_csv('data/deaths_haaretz.csv').iloc[::-1]
 haa.reset_index(inplace=True, drop=True)
 # ynet = pd.read_csv('data/ynetlist.csv')

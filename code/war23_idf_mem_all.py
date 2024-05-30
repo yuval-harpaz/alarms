@@ -139,7 +139,7 @@ try:
                     if only_new and ('|'.join([name, str(age), str(fro)]) in id or name in id[-1]):
                         goon = False
                     else:
-                        data.append([date, name, rank, unit, gender, age, fro, story])
+                        data.append([date, name, rank, unit, gender, age, fro, story, np.nan])
             if len(data) == prev:  # new page with no names
                 goon = False
             else:
@@ -148,7 +148,7 @@ try:
     print(f'new IDF deaths: {len(data)}')
     ##
     if len(data) > 0:
-        df = pd.DataFrame(data, columns=['death_date', 'name', 'rank', 'unit', 'gender', 'age', 'from','story'])
+        df = pd.DataFrame(data, columns=['death_date', 'name', 'rank', 'unit', 'gender', 'age', 'from','story', 'pid'])
         df = df.iloc[::-1]
         df = pd.concat([dfprev, df])
         df.to_csv(csv, index=False)
