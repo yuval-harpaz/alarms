@@ -94,3 +94,19 @@ for ii in range(len(df)):
 
 pid = df['pid'].values
 pidu = np.unique(pid)
+dbpid = db['pid'].values
+for ii in range(len(df)):
+    row = np.where(dbpid == df['pid'][ii])[0][0]
+    db.at[row, 'הנצחה'] = df['url'][ii]
+
+null = np.where(db['הנצחה'].isnull())[0]
+for dbr in null:
+    pid = db['pid'][dbr]
+    crr = np.where(cref['oct7map_pid'] == pid)[0]
+    if len(crr) == 1:
+        btl_id = cref['btl_id'].values[crr[0]]
+        if ~np.isnan(btl_id):
+            laad = 'https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID='+str(int(btl_id))
+            db.at[dbr, 'הנצחה'] = laad
+
+db.to_csv('tmp.csv', index=False)
