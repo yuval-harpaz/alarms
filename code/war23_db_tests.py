@@ -14,6 +14,10 @@ if os.path.isdir(local):
 data = pd.read_csv('/home/innereye/Documents/oct7database - Data.csv')
 omi = pd.read_csv('/home/innereye/Documents/oct7database - omissions.csv')
 ##
+''' TODO
+check that middle names and nicknames are present for both languages
+check that all parts of a name are present in the corresponding url
+'''
 def duplicates(pid, names):
     dup = pd.DataFrame(columns=['idx', 'pid', 'name'])
     for ii in range(len(names)):
