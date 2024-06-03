@@ -17,6 +17,7 @@ haa.reset_index(inplace=True, drop=True)
 idf = pd.read_csv('data/deaths_idf.csv')
 df = pd.read_csv('data/deaths_haaretz+.csv')
 ##
+
 new = haa.iloc[np.where(haa['name'].str.contains(df['name'][len(df)-1]))[0][-1]+1:]
 if len(new) > 0:
     print(f'{len(new)} new victims from haaretz')
