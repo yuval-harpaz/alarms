@@ -100,14 +100,17 @@ class TestOmissions(unittest.TestCase):
         pid_okay = omi['duplicate'][~omi['duplicate'].isnull()].values
         dpd = [x for x in pid_okay if x not in pid]
         n_dropped = len(dpd)
-        if n_not_dropped > 0:
+        if n_dropped > 0:
             print(f'Omitted a valid PID!!!! {dpd}'.replace('[', '').replace(']', ''))
         self.assertEqual(n_dropped, 0)
 
     def all_acounted(self):
             pid = data['pid'].values
             pid_all = np.unique(list(omi['pid']) + list(pid))
-            json = pd.read_json('https://service-f5qeuerhaa-ey.a.run.app/api/individuals')
+            try:
+                json = pd.read_json('https://service-f5qeuerhaa-ey.a.run.app/api/individuals')
+            except:
+                raise Exception('no internet?')
             pid_json = json['pid'].values
             unaccounted = [x for x in pid_json if x not in pid_all]
             n_missing = len(unaccounted)
@@ -135,6 +138,29 @@ class Test79(unittest.TestCase):
             dup79 = np.unique([x for x in pid79 if np.sum(pid79 == x) > 1])
             print(f'OCT_7_9 PID Not Unique!!!! {dup79}'.replace('[', '').replace(']', ''))
         self.assertEqual(len_unique, 0)
+
+
+haa = pd.read_csv('data/deaths_haaretz+.csv')
+class TestHaa(unittest.TestCase):
+    def extras_haa(self):
+        pid = data['pid'].values
+        ext = [x for x in haa['pid'] if x not in pid]
+        ext = np.array(ext)
+        ext = np.unique(ext[~np.isnan(ext)]).astype(int)
+        n_extra = len(ext)
+        if n_extra > 0:
+            print(f'haaretz+ PID Not in DB!!!! {ext}'.replace('[', '').replace(']', ''))
+        self.assertEqual(n_extra, 0)
+
+    def unique_haa(self):
+        pid_haa = haa['pid'].values
+        pid_haa = pid_haa[~np.isnan(pid_haa)]
+        len_unique = len(pid_haa) - len(np.unique(pid_haa))
+        if len_unique > 0:
+            dup_haa = np.unique([x for x in pid_haa if np.sum(pid_haa == x) > 1])
+            print(f'haartz+ PID Not Unique!!!! {dup_haa}'.replace('[', '').replace(']', ''))
+        self.assertEqual(len_unique, 0)
+
 ##
 oct7db_results = unittest.TestResult()
 oct7suite = unittest.TestSuite(tests=[TestDuplicates('duplicate_pid'),
@@ -142,10 +168,12 @@ oct7suite = unittest.TestSuite(tests=[TestDuplicates('duplicate_pid'),
                                       TestDuplicates('duplicate_eng'),
                                       TestDuplicates('duplicate_url'),
                                       TestOmissions('not_dropped'),
-                                      TestOmissions('not_dropped'),
+                                      TestOmissions('dropped'),
                                       TestOmissions('all_acounted'),
                                       Test79('extras79'),
                                       Test79('unique_pid79'),
+                                      TestHaa('extras_haa'),
+                                      TestHaa('unique_haa'),
                                       ]
                                )
 
