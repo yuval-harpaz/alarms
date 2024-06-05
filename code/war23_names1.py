@@ -194,6 +194,15 @@ for ii in range(len(namew)):
     row = row[row != ii]
     if len(row) == 1:
         dup.loc[len(dup)] = [data['pid'].values[row][0], named[ii]]
+
+##
+for ii in range(len(haa)):
+    pid = haa['pid'][ii]
+    if np.isnan(pid):
+        row = np.where([(data['שם פרטי'][x] in haa['name'][ii]) & (data['שם משפחה'][x] in haa['name'][ii]) for x in range(len(data))])[0]
+        if len(row) == 1:
+            haa.at[ii, 'pid'] = data['pid'][row[0]]
+haa.to_csv('data/deaths_haaretz+.csv', index=False)
 ## make sure hebrew names are okay
 ## add oct_7_9 not in oct7map
 # nopid = np.where([
