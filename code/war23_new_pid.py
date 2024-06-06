@@ -14,6 +14,7 @@ if os.path.isdir(local):
 ##
 df = pd.read_csv('data/oct7database.csv')
 idf = pd.read_csv('data/deaths_idf.csv')
+prev_len = len(df)
 nopid = np.where(idf['pid'].isnull())[0]
 if len(nopid) > 0:
     browser = webdriver.Firefox()
@@ -47,8 +48,8 @@ if len(nopid) > 0:
                     en = en[en.lower().index('class') + 5:].strip()
                 else:
                     rank = [x for x in ['sergeant', 'sergent', 'captain', 'lieutenant', 'major', 'colonel'] if x in en.lower()]
-                    if len(rank) == 1:
-                        en = en[en.lower().index(rank[0]) + len(rank[0]):].strip()
+                    if len(rank) > 0:
+                        en = en[en.lower().index(rank[-1]) + len(rank[-1]):].strip()
                 en = en.split(' ')
                 row[1] = en[0]
                 row[2] = en[-1]
@@ -56,9 +57,12 @@ if len(nopid) > 0:
                     row[3] = ' '.join(ns[1:-1])
             else:
                 print('no zal for ' + name)
-    df.loc[len(df)] = row
-df.to_csv('data/oct7database.csv', index=False)
-
+        df.loc[len(df)] = row
+        idf.at[nopid[ii], 'pid'] = pid
+##
+if len(df) > prev_len:
+    df.to_csv('data/oct7database.csv', index=False)
+    idf.to_csv('data/deaths_idf.csv', index=False)
 
 #
 # # data = data[~data['issues'].isnull()]
