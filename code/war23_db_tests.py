@@ -19,6 +19,8 @@ omi = pd.read_csv('/home/innereye/Documents/oct7database - omissions.csv')
 check that middle names and nicknames are present for both languages
 check that all parts of a name are present in the corresponding url
 '''
+
+
 def duplicates(pid, names):
     dup = pd.DataFrame(columns=['idx', 'pid', 'name'])
     for ii in range(len(names)):
@@ -86,6 +88,11 @@ class TestDuplicates(unittest.TestCase):
             print(f'URL Duplicates!!!! {du}'.replace('[', '').replace(']', ''))
         self.assertEqual(duplicates_length, 0)
 
+    def rank_name(self):
+        pid_rank = [data['pid'][x] for x in range(len(data)) if data['first name'][x] in ['sergeant', 'sergent', 'captain', 'lieutenant', 'major', 'colonel', 'class']]
+        if len(pid_rank) > 0:
+            print(f'rank in first name!!!! {pid_rank}'.replace('[', '').replace(']', ''))
+        self.assertEqual(len(pid_rank), 0)
 
 class TestOmissions(unittest.TestCase):
     def not_dropped(self):
@@ -181,6 +188,7 @@ oct7suite = unittest.TestSuite(tests=[TestDuplicates('duplicate_pid'),
                                       TestDuplicates('duplicate_heb'),
                                       TestDuplicates('duplicate_eng'),
                                       TestDuplicates('duplicate_url'),
+                                      TestDuplicates('rank_name'),
                                       TestOmissions('not_dropped'),
                                       TestOmissions('dropped'),
                                       TestOmissions('all_acounted'),

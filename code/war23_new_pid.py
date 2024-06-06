@@ -46,7 +46,7 @@ if len(nopid) > 0:
                 elif 'class' in en.lower():
                     en = en[en.lower().index('class') + 5:].strip()
                 else:
-                    rank = [x for x in ['sergeant', 'sergent', 'captain', 'lieutenant', 'major'] if x in en.lower()]
+                    rank = [x for x in ['sergeant', 'sergent', 'captain', 'lieutenant', 'major', 'colonel'] if x in en.lower()]
                     if len(rank) == 1:
                         en = en[en.lower().index(rank[0]) + len(rank[0]):].strip()
                 en = en.split(' ')
