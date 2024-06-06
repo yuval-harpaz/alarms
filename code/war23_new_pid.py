@@ -33,10 +33,9 @@ if len(nopid) > 0:
         time.sleep(0.1)
         htmlp = browser.page_source
         if 'אין מה לראות כאן' in htmlp:
-            urls.append('')
-            eng.append('')
+            print('no url for ' + name)
         else:
-            urls.append(urlp)
+            row[9] = url
             if 'z"l' in htmlp:
                 htmlp = htmlp[htmlp.index("small"):]
                 htmlp = htmlp[:htmlp.index('z"l')]
@@ -51,69 +50,74 @@ if len(nopid) > 0:
                     if len(rank) == 1:
                         en = en[en.lower().index(rank[0]) + len(rank[0]):].strip()
                 en = en.split(' ')
+                row[1] = en[0]
+                row[2] = en[-1]
+                if len(en) > 2:
+                    row[3] = ' '.join(ns[1:-1])
             else:
-                eng.append('')
+                print('no zal for ' + name)
+    df.loc[len(df)] = row
+df.to_csv('data/oct7database.csv', index=False)
 
 
-
-
-# data = data[~data['issues'].isnull()]
-data.to_csv('/home/innereye/Documents/issues_url.csv', index = False)
-##
-for ii in range(954, len(data)):
-    url = data['הנצחה'][ii]
-    if '.btl.' not in url:
-        browser.get(url)
-        time.sleep(0.1)
-        html = browser.page_source
-        if '.idf.' in url:
-            columns = colall
-        else:
-            columns = colheb
-        issue = ''
-        for col in columns:
-            nm = data[col][ii]
-            if str(nm) != 'nan':
-                if nm not in html:
-                    issue = issue + ' ' + nm
-        if issue == '':
-            issue = np.nan
-        else:
-            issue = issue.strip()
-        data.at[ii, 'issues'] = issue
-    else:
-        data.at[ii, 'issues'] = np.nan
-
-##
-data = pd.read_csv('/home/innereye/Documents/issues_url.csv')
-colall = list(data.columns[1:9])
-colheb = list(data.columns[5:9])
-browser = webdriver.Firefox()
-for ii in range(760, len(data)):
-    url = data['הנצחה'][ii]
-    if '.btl.' in url:
-        time.sleep(1.05)
-        browser.get(url)
-        time.sleep(0.1)
-        html = browser.page_source
-        if '.idf.' in url:
-            columns = colall
-        else:
-            columns = colheb
-        issue = ''
-        for col in columns:
-            nm = data[col][ii]
-            if str(nm) != 'nan':
-                if nm not in html:
-                    issue = issue + ' ' + nm
-        if issue == '':
-            issue = np.nan
-        else:
-            issue = issue.strip()
-        data.at[ii, 'issues'] = issue
-    # else:
-        # data.at[ii, 'issues'] = np.nan
 #
-data.to_csv('/home/innereye/Documents/issues_url.csv', index = False)
-data = data[~data['issues'].isnull()]
-data.to_csv('/home/innereye/Documents/issues_url_gist.csv', index = False)
+# # data = data[~data['issues'].isnull()]
+# data.to_csv('/home/innereye/Documents/issues_url.csv', index = False)
+# ##
+# for ii in range(954, len(data)):
+#     url = data['הנצחה'][ii]
+#     if '.btl.' not in url:
+#         browser.get(url)
+#         time.sleep(0.1)
+#         html = browser.page_source
+#         if '.idf.' in url:
+#             columns = colall
+#         else:
+#             columns = colheb
+#         issue = ''
+#         for col in columns:
+#             nm = data[col][ii]
+#             if str(nm) != 'nan':
+#                 if nm not in html:
+#                     issue = issue + ' ' + nm
+#         if issue == '':
+#             issue = np.nan
+#         else:
+#             issue = issue.strip()
+#         data.at[ii, 'issues'] = issue
+#     else:
+#         data.at[ii, 'issues'] = np.nan
+#
+# ##
+# data = pd.read_csv('/home/innereye/Documents/issues_url.csv')
+# colall = list(data.columns[1:9])
+# colheb = list(data.columns[5:9])
+# browser = webdriver.Firefox()
+# for ii in range(760, len(data)):
+#     url = data['הנצחה'][ii]
+#     if '.btl.' in url:
+#         time.sleep(1.05)
+#         browser.get(url)
+#         time.sleep(0.1)
+#         html = browser.page_source
+#         if '.idf.' in url:
+#             columns = colall
+#         else:
+#             columns = colheb
+#         issue = ''
+#         for col in columns:
+#             nm = data[col][ii]
+#             if str(nm) != 'nan':
+#                 if nm not in html:
+#                     issue = issue + ' ' + nm
+#         if issue == '':
+#             issue = np.nan
+#         else:
+#             issue = issue.strip()
+#         data.at[ii, 'issues'] = issue
+#     # else:
+#         # data.at[ii, 'issues'] = np.nan
+# #
+# data.to_csv('/home/innereye/Documents/issues_url.csv', index = False)
+# data = data[~data['issues'].isnull()]
+# data.to_csv('/home/innereye/Documents/issues_url_gist.csv', index = False)
