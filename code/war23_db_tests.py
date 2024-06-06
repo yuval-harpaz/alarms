@@ -153,6 +153,19 @@ class TestHaa(unittest.TestCase):
             print(f'haaretz+ PID Not in DB!!!! {ext}'.replace('[', '').replace(']', ''))
         self.assertEqual(n_extra, 0)
 
+    def missing_haa(self):  # TODO: add kidnapped
+        pid = data['pid'].values
+        pid_haa = haa['pid'].values
+        missing = [x for x in pid if x not in pid_haa]
+        missing = np.array(missing)
+        missing = np.unique(missing[~np.isnan(missing)]).astype(int)
+        n_extra = len(missing)
+        if n_extra > 0:
+            print(f'haaretz+ PID Not in DB!!!! {missing}'.replace('[', '').replace(']', ''))
+        self.assertEqual(n_extra, 0)
+
+
+
     def unique_haa(self):
         pid_haa = haa['pid'].values
         pid_haa = pid_haa[~np.isnan(pid_haa)]
@@ -175,6 +188,7 @@ oct7suite = unittest.TestSuite(tests=[TestDuplicates('duplicate_pid'),
                                       Test79('unique_pid79'),
                                       TestHaa('extras_haa'),
                                       TestHaa('unique_haa'),
+                                      # TestHaa('missing_haa'),  kidnapped missing
                                       ]
                                )
 
