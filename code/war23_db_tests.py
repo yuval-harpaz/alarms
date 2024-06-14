@@ -14,6 +14,7 @@ if os.path.isdir(local):
 # data = pd.read_csv('/home/innereye/Documents/oct7database - Data.csv')
 data = pd.read_csv('data/oct7database.csv')
 omi = pd.read_csv('/home/innereye/Documents/oct7database - omissions.csv')
+kidn = pd.read_csv('data/kidnapped.csv')
 ##
 ''' TODO
 check that middle names and nicknames are present for both languages
@@ -160,15 +161,26 @@ class TestHaa(unittest.TestCase):
             print(f'haaretz+ PID Not in DB!!!! {ext}'.replace('[', '').replace(']', ''))
         self.assertEqual(n_extra, 0)
 
+    def extras_kidnapped(self):
+        pid = data['pid'].values
+        pid_kidn = kidn['pid'].values
+        extras = [x for x in pid_kidn if x not in pid]
+        n_extra = len(extras)
+        if n_extra > 0:
+            print(f'kidnapped PID Not in DB!!!! {extras}'.replace('[', '').replace(']', ''))
+        self.assertEqual(n_extra, 0)
     def missing_haa(self):  # TODO: add kidnapped
         pid = data['pid'].values
+        pid_kidn = kidn['pid'].values
         pid_haa = haa['pid'].values
         missing = [x for x in pid if x not in pid_haa]
         missing = np.array(missing)
         missing = np.unique(missing[~np.isnan(missing)]).astype(int)
+        missing = [x for x in missing if x not in pid_kidn]
+        missing = [x for x in missing if x not in range(2024, 2031)]  # Gazans
         n_extra = len(missing)
         if n_extra > 0:
-            print(f'haaretz+ PID Not in DB!!!! {missing}'.replace('[', '').replace(']', ''))
+            print(f'pid not in haaretz+!!!! {missing}'.replace('[', '').replace(']', ''))
         self.assertEqual(n_extra, 0)
 
 
@@ -196,7 +208,7 @@ oct7suite = unittest.TestSuite(tests=[TestDuplicates('duplicate_pid'),
                                       Test79('unique_pid79'),
                                       TestHaa('extras_haa'),
                                       TestHaa('unique_haa'),
-                                      # TestHaa('missing_haa'),  kidnapped missing
+                                      TestHaa('missing_haa'),
                                       ]
                                )
 
