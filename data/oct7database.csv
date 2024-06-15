@@ -1,4 +1,4 @@
-pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם נוסף,כינוי,הנצחה,event_location,event_location_class
+pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם נוסף,כינוי,הנצחה,draft,event_location_class
 11,Dipesh,Bista,Raj,,דיפש,ביסט,ראג',,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43309,Alumim,General vicinity
 12,Ganesh,Nepali,Kumar,,גאנש,נפאלי,קומאר,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43307,Alumim,General vicinity
 13,Padam,Thapa,,,פדאם,ת'אפה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43313,Alumim,General vicinity
@@ -1394,18 +1394,18 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2030,Ziad,Ganem,,,זיאד,גאנם,,,,Sha'ar HaNegev jct,oct_7_9
 2031,Jianhe,Liu,,,ג'יאנה,ליו,,,,South of Gevim,oct_7_9
 2032,Zhiguo,Liu,,,זהיגו,ליו,,,,South of Gevim,oct_7_9
-2033,Yuval,Yoffe,,,יובל,יפה,,,https://www.idf.il/נופלים/חללי-המלחמה/יובל-יפה/,עוטף עזה,idf
-2034,Adi,Borech,Odeya,,עדי,ברוך,אודיה,,https://www.idf.il/נופלים/חללי-המלחמה/עדי-אודיה-ברוך/,עוטף עזה,idf
-2035,Yakov,Nedlin,,,יעקב,נדלין,,,https://www.idf.il/נופלים/חללי-המלחמה/יעקב-נדלין/,"יו""ש",idf
-2036,Kamay,Achiel,,,קאמיי,אחיאל,,,https://www.idf.il/נופלים/חללי-המלחמה/קאמיי-אחיאל/,תאונה,idf
-2037,Omer,Bitan,Nissim,,עומר,ביתן,ניסים,,https://www.idf.il/נופלים/חללי-המלחמה/עומר-ניסים-ביתן/,עוטף עזה,idf
+2033,Yuval,Yoffe,,,יובל,יפה,,,https://www.idf.il/נופלים/חללי-המלחמה/יובל-יפה/,כיסופים,idf
+2034,Adi,Borech,Odeya,,עדי,ברוך,אודיה,,https://www.idf.il/נופלים/חללי-המלחמה/עדי-אודיה-ברוך/,פגיעת רקטה במבואות שדרות,idf
+2035,Yakov,Nedlin,,,יעקב,נדלין,,,https://www.idf.il/נופלים/חללי-המלחמה/יעקב-נדלין/,"ירי דו""צ ליד כפר אימתין, הגדה המערבית",idf
+2036,Kamay,Achiel,,,קאמיי,אחיאל,,,https://www.idf.il/נופלים/חללי-המלחמה/קאמיי-אחיאל/,"בלב ים, מול חוף הצפון / לבנון",idf
+2037,Omer,Bitan,Nissim,,עומר,ביתן,ניסים,,https://www.idf.il/נופלים/חללי-המלחמה/עומר-ניסים-ביתן/,נירים,idf
 2038,Shraga,Hasid,,,שרגא,חסיד,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44008,Ashkelon (hospital),oct_7_9
-2039,Amitay,Granot,Zvi,,אמתי,גרנות,צבי,,https://www.idf.il/נופלים/חללי-המלחמה/אמתי-צבי-גרנות/,גבול לבנון,idf
-2040,Maxim,Rizkov,,,מקסים,ריז'קוב,,,https://lezichram.police.gov.il/main/nofel/42181,,
-2041,Hagai,Efrat,,,חגי,אפרת,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44013,,
+2039,Amitay,Granot,Zvi,,אמתי,גרנות,צבי,,https://www.idf.il/נופלים/חללי-המלחמה/אמתי-צבי-גרנות/,"ליד מוצב נורית, הגליל המערבי",idf
+2040,Maxim,Rizkov,,,מקסים,ריז'קוב,,,https://lezichram.police.gov.il/main/nofel/42181,"מחנה הפליטים נור א־שמס, ליד טול כרם",
+2041,Hagai,Efrat,,,חגי,אפרת,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44013,"אלכסנדריה, מצרים",
 2042,Tamir,Barak,,,תמיר,ברק,,,https://www.idf.il/נופלים/חללי-המלחמה/תמיר-ברק/,צפון רצועת עזה,idf
-2043,Tamar,Torpiashvili,,,תמר,טורפיאשוילי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44034,,
-2044,Yinon,Fleishman,,,ינון,פליישמן,,,https://www.idf.il/נופלים/חללי-המלחמה/ינון-פליישמן/,תאונה,idf
+2043,Tamar,Torpiashvili,,,תמר,טורפיאשוילי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44034,אשדוד,
+2044,Yinon,Fleishman,,,ינון,פליישמן,,,https://www.idf.il/נופלים/חללי-המלחמה/ינון-פליישמן/,ליד ראש הנקרה,idf
 2045,Israel,Meidan,,,מידן,ישראל,,,https://www.idf.il/נופלים/חללי-המלחמה/מידן-ישראל/,תאונה,idf
 2046,Roei,Wolf,,,רועי,וולף,,,https://www.idf.il/נופלים/חללי-המלחמה/רועי-וולף/,צפון רצועת עזה,idf
 2047,Lavi,Lipshitz,,,לביא,ליפשיץ,,,https://www.idf.il/נופלים/חללי-המלחמה/לביא-ליפשיץ/,צפון רצועת עזה,idf
@@ -1422,10 +1422,10 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2058,Roei,Saragosti,,,רועי,סרגוסטי,,,https://www.idf.il/נופלים/חללי-המלחמה/שי-ארוס/,צפון רצועת עזה,idf
 2059,Shay,Arvas,,,שי,ארוס,,,https://www.idf.il/נופלים/חללי-המלחמה/איתי-יהודה/,צפון רצועת עזה,idf
 2060,Itay,Yehuda,,,איתי,יהודה,,,https://www.idf.il/נופלים/חללי-המלחמה/פדיה-מנחם-מרק/,צפון רצועת עזה,idf
-2061,Shalev,Sharabi,Zion,,שלו,שרעבי,ציון,,https://www.idf.il/נופלים/חללי-המלחמה/יובל-זילבר/,עוטף עזה,idf
+2061,Shalev,Sharabi,Zion,,שלו,שרעבי,ציון,,https://www.idf.il/נופלים/חללי-המלחמה/יובל-זילבר/,בארי,idf
 2062,Yuval,Zilber,,,יובל,זילבר,,,https://www.idf.il/נופלים/חללי-המלחמה/סלמאן-חבקה/,צפון רצועת עזה,idf
 2063,Habaka,Salman,,,סלמאן,חבקה,,,https://www.idf.il/נופלים/חללי-המלחמה/אלחנן-אריאל-קליין/,צפון רצועת עזה,idf
-2064,Elhanan,Klein,Ariel,,אלחנן,קליין,אריאל,,https://www.idf.il/נופלים/חללי-המלחמה/רועי-סרגוסטי/,נרצח כאזרח,idf
+2064,Elhanan,Klein,Ariel,,אלחנן,קליין,אריאל,,https://www.idf.il/נופלים/חללי-המלחמה/רועי-סרגוסטי/,ליד ההתנחלות עינב,idf
 2065,Yair,Nifousy,,,יאיר,ניפוסי,,,https://www.idf.il/נופלים/חללי-המלחמה/יאיר-ניפוסי/,צפון רצועת עזה,idf
 2066,Beni,Wais,,,בני,וייס,,,https://www.idf.il/נופלים/חללי-המלחמה/בני-וייס/,צפון רצועת עזה,idf
 2067,Uriah,Mash,,,אוריה,מש,,,https://www.idf.il/נופלים/חללי-המלחמה/אוריה-מש/,צפון רצועת עזה,idf
@@ -1438,12 +1438,12 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2074,Yonadav,Levenstein,Raz,,יונדב,לוינשטיין,רז,,https://www.idf.il/נופלים/חללי-המלחמה/יונדב-רז-לוינשטיין/,צפון רצועת עזה,idf
 2075,Lior,Arzi,,,ליאור,ארזי,,,https://www.idf.il/נופלים/חללי-המלחמה/ידידיה-אליהו/,צפון רצועת עזה,idf
 2076,Yehonatan,Maimon,,,יהונתן,מימון,,,https://www.idf.il/נופלים/חללי-המלחמה/יהונתן-מימון/,צפון רצועת עזה,idf
-2077,Naaran,Eshchar,,,נערן,אשחר,,,https://www.idf.il/נופלים/חללי-המלחמה/נערן-אשחר/,תאונה,idf
+2077,Naaran,Eshchar,,,נערן,אשחר,,,https://www.idf.il/נופלים/חללי-המלחמה/נערן-אשחר/,תאונה מבצעית בגבול הצפון,idf
 2078,Shahar,Mivtach,Cohen,,שחר,מבטח,כהן,,https://www.idf.il/נופלים/חללי-המלחמה/שחר-כהן-מבטח/,צפון רצועת עזה,idf
-2079,Ross,Lubin,Elisheva Rose Ida,,רוס,לובין,אלישבע רוז איידה,,https://lezichram.police.gov.il/main/nofel/42182,,
+2079,Ross,Lubin,Elisheva Rose Ida,,רוס,לובין,אלישבע רוז איידה,,https://lezichram.police.gov.il/main/nofel/42182,"ירושלים, העיר העתיקה, תחנת שלם",
 2080,Yaacov,Ozeri,,,יעקב,עוזרי,,,https://www.idf.il/נופלים/חללי-המלחמה/יעקב-עוזרי/,צפון רצועת עזה,idf
 2081,Jonathan,Chazor,,,יונתן,חצור,,,https://www.idf.il/נופלים/חללי-המלחמה/יונתן-חצור/,צפון רצועת עזה,idf
-2082,Meir,Moyal,,,מאיר,מויאל,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44078,,
+2082,Meir,Moyal,,,מאיר,מויאל,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44078,"מוצב שושן, ליד קיבוץ יפתח",
 2083,Noam,Abou,Yosef,,נועם,אבו,יוסף,,https://www.idf.il/נופלים/חללי-המלחמה/נועם-יוסף-אבו/,צפון רצועת עזה,idf
 2084,Eliahou,Elmakayes,Benjamin,,אליהו,אלמקייס,בנימין,,https://www.idf.il/נופלים/חללי-המלחמה/אליהו-בנימין-אלמקייס/,מרכז רצועת עזה,idf
 2085,Dov,Kogan,Moshe,,דב,כוגן,משה,דובי,https://www.idf.il/נופלים/חללי-המלחמה/דב-משה-דובי-כוגן/,צפון רצועת עזה,idf
@@ -1456,7 +1456,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2092,Netanel,Harush,,Nati,נתנאל,הרוש,,נתי,https://www.idf.il/נופלים/חללי-המלחמה/נתנאל-נתי-הרוש/,צפון רצועת עזה,idf
 2093,Isachar,Natan,,,יששכר,נתן,,,https://www.idf.il/נופלים/חללי-המלחמה/יששכר-נתן/,צפון רצועת עזה,idf
 2094,Itay,Shoham,,,איתי,שהם,,,https://www.idf.il/נופלים/חללי-המלחמה/איתי-שהם/,צפון רצועת עזה,idf
-2095,Shalom,Abudi,,,שלום,עבודי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44080,,
+2095,Shalom,Abudi,,,שלום,עבודי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44080,"דוב""ב",
 2097,Roei,Marom,,,רועי,מרום,,,https://www.idf.il/נופלים/חללי-המלחמה/רועי-מרום/,צפון רצועת עזה,idf
 2098,Raz,Abulafia,,,רז,אבולעפיה,,,https://www.idf.il/נופלים/חללי-המלחמה/רז-אבולעפיה/,צפון רצועת עזה,idf
 2099,Yedidya,Lev,Asher,,ידידיה,לב,אשר,,https://www.idf.il/נופלים/חללי-המלחמה/ידידיה-אשר-לב/,צפון רצועת עזה,idf
@@ -1464,7 +1464,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2101,Kfir,Franco,Itzhak,,כפיר,פרנקו,יצחק,,https://www.idf.il/נופלים/חללי-המלחמה/כפיר-יצחק-פרנקו/,צפון רצועת עזה,idf
 2102,Asaf,Master,,,אסף,מסטר,,,https://www.idf.il/נופלים/חללי-המלחמה/אסף-מסטר/,צפון רצועת עזה,idf
 2103,Shlomo,Nun,Ben,,שלמה,נון,בן,,https://www.idf.il/נופלים/חללי-המלחמה/שלמה-בן-נון/,צפון רצועת עזה,idf
-2105,Corporal,Fetena,Avraham,,אברהם,פטנה,,,https://www.idf.il/נופלים/חללי-המלחמה/אברהם-פטנה/,"יו""ש",idf
+2105,Corporal,Fetena,Avraham,,אברהם,פטנה,,,https://www.idf.il/נופלים/חללי-המלחמה/אברהם-פטנה/,מחסום המנהרות,idf
 2106,David,Digmi,,Dudi,דוד,דגמי,,דודי,https://www.idf.il/נופלים/חללי-המלחמה/דוד-דודי-דגמי/,תאונה,idf
 2107,Shlomo,Gurtovnik,,,שלמה,גורטובניק,,,https://www.idf.il/נופלים/חללי-המלחמה/שלמה-גורטובניק/,צפון רצועת עזה,idf
 2108,Shachar,Fridman,,,שחר,פרידמן,,,https://www.idf.il/נופלים/חללי-המלחמה/שחר-פרידמן/,צפון רצועת עזה,idf
@@ -1475,7 +1475,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2113,Roey,biber,,,רועי,ביבר,,,https://www.idf.il/נופלים/חללי-המלחמה/רועי-ביבר/,צפון רצועת עזה,idf
 2114,Yakir,Biton,,,יקיר,ביטון,,,https://www.idf.il/נופלים/חללי-המלחמה/יקיר-ביטון/,צפון רצועת עזה,idf
 2115,Rani,Tahan,,,רני,טחן,,,https://www.idf.il/נופלים/חללי-המלחמה/רני-טחן/,צפון רצועת עזה,idf
-2116,Chen,Yahalom,,,חן,יהלום,,,https://www.idf.il/נופלים/חללי-המלחמה/חן-יהלום/,תאונה,idf
+2116,Chen,Yahalom,,,חן,יהלום,,,https://www.idf.il/נופלים/חללי-המלחמה/חן-יהלום/,"כביש 44, ליד חולון",idf
 2117,Adir,Portugal,,,אדיר,פורטוגל,,,https://www.idf.il/נופלים/חללי-המלחמה/אדיר-פורטוגל/,צפון רצועת עזה,idf
 2118,Gal,Mishaelof,,,גל,מישאלוף,,,https://www.idf.il/נופלים/חללי-המלחמה/גל-מישאלוף/,צפון רצועת עזה,idf
 2119,Dvir,Barazani,,,דביר,ברזני,,,https://www.idf.il/נופלים/חללי-המלחמה/דביר-ברזני/,צפון רצועת עזה,idf
@@ -1485,11 +1485,11 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2123,Ilya,Senkin,,,איליה,סנקין,,,https://www.idf.il/נופלים/חללי-המלחמה/איליה-סנקין/,צפון רצועת עזה,idf
 2124,Liron,Snir,,,לירון,שניר,,,https://www.idf.il/נופלים/חללי-המלחמה/לירון-שניר/,צפון רצועת עזה,idf
 2125,Eitan,Rosenzweig,Dov,,איתן,רוזנצוויג,דב,,https://www.idf.il/נופלים/חללי-המלחמה/איתן-דב-רוזנצוויג/,צפון רצועת עזה,idf
-2126,Avihu,Mori,,,אביהוא,מורי,,,,,
-2127,Elimelech,Vaserman,,,אלימלך,וסרמן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44097,,
-2128,Hanna,Ifergan,,,חנה,איפרגן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44095,,
-2129,Livia,Dickman,,,ליביה,דיקמן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44096,,
-2130,Yuval,Kastelmann,Doron,,יובל,קסטלמן,דורון,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44098,,
+2126,Avihu,Mori,,,אביהוא,מורי,,,,"רצועת עזה, מול נחל עוז",
+2127,Elimelech,Vaserman,,,אלימלך,וסרמן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44097,כביש 1 בכניסה לירושלים,
+2128,Hanna,Ifergan,,,חנה,איפרגן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44095,כביש 1 בכניסה לירושלים,
+2129,Livia,Dickman,,,ליביה,דיקמן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44096,כביש 1 בכניסה לירושלים,
+2130,Yuval,Kastelmann,Doron,,יובל,קסטלמן,דורון,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44098,כביש 1 בכניסה לירושלים,
 2131,Aschalwu,Sama,,,אסצ'אלו,סמה,,,https://www.idf.il/נופלים/חללי-המלחמה/אסצ-אלו-סמה/,צפון רצועת עזה,idf
 2132,Or,Brandes,,,אור,ברנדס,,,https://www.idf.il/נופלים/חללי-המלחמה/אור-ברנדס/,מרכז רצועת עזה,idf
 2133,Neriya,Shaer,,,נריה,שאער,,,https://www.idf.il/נופלים/חללי-המלחמה/נריה-שאער/,צפון רצועת עזה,idf
@@ -1503,13 +1503,13 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2141,Ilay,Cohen,Eliyahu,,עילי,כהן,אליהו,,https://www.idf.il/נופלים/חללי-המלחמה/עילי-אליהו-כהן/,צפון רצועת עזה,idf
 2142,Matan,Damari,,,מתן,דמארי,,,https://www.idf.il/נופלים/חללי-המלחמה/מתן-דמארי/,צפון רצועת עזה,idf
 2143,Yehonatan,Malka,,,יהונתן,מלכה,,,https://www.idf.il/נופלים/חללי-המלחמה/יהונתן-מלכה/,דרום רצועת עזה,idf
-2144,Colonel,Hershberg,Yochai Gur,,יוחאי,הרשברג,גור,,https://www.idf.il/נופלים/חללי-המלחמה/יוחאי-גור-הרשברג/,תאונה,idf
+2144,Colonel,Hershberg,Yochai Gur,,יוחאי,הרשברג,גור,,https://www.idf.il/נופלים/חללי-המלחמה/יוחאי-גור-הרשברג/,כביש 25 ליד שדה תימן,idf
 2145,Adi,Shani,,,עדי,שני,,,https://www.idf.il/נופלים/חללי-המלחמה/עדי-שני/,צפון רצועת עזה,idf
 2146,Amit,Bonzel,,,עמית,בונצל,,,https://www.idf.il/נופלים/חללי-המלחמה/עמית-בונצל/,מרכז רצועת עזה,idf
 2147,Alemnew,Feleke,Emanuel,,עלמנאו,פלקה,עמנואל,,https://www.idf.il/נופלים/חללי-המלחמה/עלמנאו-עמנואל-פלקה/,דרום רצועת עזה,idf
 2148,Maor,Gershoni,,,מאור,גרשוני,,,https://www.idf.il/נופלים/חללי-המלחמה/מאור-גרשוני/,צפון רצועת עזה,idf
 2149,Jonathan,Deitch,David,,יונתן,דיטש,דוד,,https://www.idf.il/נופלים/חללי-המלחמה/יונתן-דוד-דיטש/,דרום רצועת עזה,idf
-2150,Eyal,Uzan,,,אייל,אוזן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44112,,
+2150,Eyal,Uzan,,,אייל,אוזן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44112,נטועה,
 2151,Omri,Rot,,,עומרי,רוט,,,https://www.idf.il/נופלים/חללי-המלחמה/עומרי-רוט/,דרום רצועת עזה,idf
 2152,Naftali,Gordon,Yonah,,נפתלי,גורדון,יונה,,https://www.idf.il/נופלים/חללי-המלחמה/נפתלי-יונה-גורדון/,דרום רצועת עזה,idf
 2153,Gal,Eisenkot,Meir,,גל,איזנקוט,מאיר,,https://www.idf.il/נופלים/חללי-המלחמה/גל-מאיר-איזנקוט/,צפון רצועת עזה,idf
@@ -1523,7 +1523,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2161,Gideon,Ilani,,,גדעון,אילני,,,https://www.idf.il/נופלים/חללי-המלחמה/גדעון-אילני/,דרום רצועת עזה,idf
 2162,Etay,Perry,,,איתי,פרי,,,https://www.idf.il/נופלים/חללי-המלחמה/איתי-פרי/,דרום רצועת עזה,idf
 2163,Eviatar,Cohen,,,אביתר,כהן,,,https://www.idf.il/נופלים/חללי-המלחמה/אביתר-כהן/,דרום רצועת עזה,idf
-2164,Gal,Becher,,,גל,בכר,,,https://www.idf.il/נופלים/חללי-המלחמה/גל-בכר/,תאונה,idf
+2164,Gal,Becher,,,גל,בכר,,,https://www.idf.il/נופלים/חללי-המלחמה/גל-בכר/,תאונת דרכים בעוטף עזה,idf
 2165,Roman,Bronshtein,,,רומן,ברונשטיין,,,https://www.idf.il/נופלים/חללי-המלחמה/רומן-ברונשטיין/,דרום רצועת עזה,idf
 2166,Eliya,Yanovsky,,,אליה,יאנובסקי,,,https://www.idf.il/נופלים/חללי-המלחמה/אליה-יאנובסקי/,דרום רצועת עזה,idf
 2167,Ari,Zenilman,Yehiel,,ארי,זנילמן,יחיאל,,https://www.idf.il/נופלים/חללי-המלחמה/ארי-יחיאל-זנילמן/,דרום רצועת עזה,idf
@@ -1542,7 +1542,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2180,Oz,Aradi,Shmuel,,עוז,ארדי,שמואל,,https://www.idf.il/נופלים/חללי-המלחמה/עוז-שמואל-ארדי/,דרום רצועת עזה,idf
 2181,Shay,Pizem,Uriel,,שי,פיזם,אוריאל,,https://www.idf.il/נופלים/חללי-המלחמה/שי-אוריאל-פיזם/,דרום רצועת עזה,idf
 2182,Tomer,Myara,Shlomo,,תומר,מיארה,שלמה,,https://www.idf.il/נופלים/חללי-המלחמה/תומר-שלמה-מיארה/,צפון רצועת עזה,idf
-2183,Yehezkel,Azaria,,,יחזקאל,עזריה,,,https://www.idf.il/נופלים/חללי-המלחמה/יחזקאל-עזריה/,גבול לבנון,idf
+2183,Yehezkel,Azaria,,,יחזקאל,עזריה,,,https://www.idf.il/נופלים/חללי-המלחמה/יחזקאל-עזריה/,מרגליות,idf
 2184,Joseph,Duran,Avner,,יוסף,דורן,אבנר,,https://www.idf.il/נופלים/חללי-המלחמה/יוסף-אבנר-דורן/,צפון רצועת עזה,idf
 2185,Shalev,Zaltsman,,,שלו,זלצמן,,,https://www.idf.il/נופלים/חללי-המלחמה/שלו-זלצמן/,דרום רצועת עזה,idf
 2186,Boris,Dunavetski,,,בוריס,דונבצקי,,,https://www.idf.il/נופלים/חללי-המלחמה/בוריס-דונבצקי/,צפון רצועת עזה,idf
@@ -1562,7 +1562,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2200,Omri,Shwartz,,,עומרי,שורץ,,,https://www.idf.il/נופלים/חללי-המלחמה/עומרי-שורץ/,צפון רצועת עזה,idf
 2201,Shai,Ayeli,,,שי,איילי,,,https://www.idf.il/נופלים/חללי-המלחמה/שי-איילי/,צפון רצועת עזה,idf
 2202,Tal,Shua,,,טל,שועה,,,https://www.idf.il/נופלים/חללי-המלחמה/טל-שועה/,דרום רצועת עזה,idf
-2203,Amit,Ziv,Hod,,עמית,זיו,הוד,,https://www.idf.il/נופלים/חללי-המלחמה/עמית-הוד-זיו/,גבול לבנון,idf
+2203,Amit,Ziv,Hod,,עמית,זיו,הוד,,https://www.idf.il/נופלים/חללי-המלחמה/עמית-הוד-זיו/,ליד שתולה,idf
 2204,Nir,Kananian,Rafael,,ניר,קנניאן,רפאל,,https://www.idf.il/נופלים/חללי-המלחמה/ניר-רפאל-קנניאן/,דרום רצועת עזה,idf
 2205,Birhanu,Kassie,,,בירהנו,קאסיה,,,https://www.idf.il/נופלים/חללי-המלחמה/בירהנו-קאסיה/,דרום רצועת עזה,idf
 2206,Shay,Termin,,,שי,טרמין,,,https://www.idf.il/נופלים/חללי-המלחמה/שי-טרמין/,דרום רצועת עזה,idf
@@ -1578,12 +1578,12 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2216,Ohad,Ashur,,,אוהד,אשור,,,https://www.idf.il/נופלים/חללי-המלחמה/אוהד-אשור/,מרכז רצועת עזה,idf
 2217,Roy,Elias,,,רואי,אליאס,,,https://www.idf.il/נופלים/חללי-המלחמה/רואי-אליאס/,דרום רצועת עזה,idf
 2218,Rani,Tamir,,,רני,תמיר,,,https://www.idf.il/נופלים/חללי-המלחמה/רני-תמיר/,צפון רצועת עזה,idf
-2219,Elisha,Lober,Yehonatan,,אלישע,לובר,יהונתן,,https://www.idf.il/נופלים/חללי-המלחמה/אלישע-יהונתן-לובר/,דרום רצועת עזה,idf
-2220,Joseph,Gitarts,,,יוסף,גיטרץ,,,https://www.idf.il/נופלים/חללי-המלחמה/יוסף-גיטרץ/,דרום רצועת עזה,idf
-2221,Daniel,Nachmani,,,דניאל,נחמני,,,https://www.idf.il/נופלים/חללי-המלחמה/דניאל-נחמני/,גבול לבנון,idf
-2222,Maor,Lavi,,,מאור,לביא,,,https://www.idf.il/נופלים/חללי-המלחמה/מאור-לביא/,מרכז רצועת עזה,idf
+2219,Elisha,Lober,Yehonatan,,אלישע,לובר,יהונתן,,https://www.idf.il/נופלים/חללי-המלחמה/אלישע-יהונתן-לובר/,צפון רצועת עזה,idf
+2220,Joseph,Gitarts,,,יוסף,גיטרץ,,,https://www.idf.il/נופלים/חללי-המלחמה/יוסף-גיטרץ/,צפון רצועת עזה,idf
+2221,Daniel,Nachmani,,,דניאל,נחמני,,,https://www.idf.il/נופלים/חללי-המלחמה/דניאל-נחמני/,ליד שתולה,idf
+2222,Maor,Lavi,,,מאור,לביא,,,https://www.idf.il/נופלים/חללי-המלחמה/מאור-לביא/,דרום רצועת עזה,idf
 2223,Shaul,Greenglick,,,שאול,גרינגליק,,,https://www.idf.il/נופלים/חללי-המלחמה/שאול-גרינגליק/,צפון רצועת עזה,idf
-2224,Aryeh,rein,,,אריה,ריין,,,https://www.idf.il/נופלים/חללי-המלחמה/אריה-ריין/,צפון רצועת עזה,idf
+2224,Aryeh,rein,,,אריה,ריין,,,https://www.idf.il/נופלים/חללי-המלחמה/אריה-ריין/,מרכז רצועת עזה,idf
 2225,Nitai,Meisels,,,ניתאי,מייזלס,,,https://www.idf.il/נופלים/חללי-המלחמה/ניתאי-מייזלס/,צפון רצועת עזה,idf
 2226,Shay,Shamriz,,,שי,שמריז,,,https://www.idf.il/נופלים/חללי-המלחמה/שי-שמריז/,צפון רצועת עזה,idf
 2227,Yaron,Chitiz,Eliezer,,ירון,צ׳יטיז,אליעזר,,https://www.idf.il/נופלים/חללי-המלחמה/ירון-אליעזר-צ-יטיז/,צפון רצועת עזה,idf
@@ -1601,7 +1601,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2239,Sufian,Dagash,,,סופיאן,דגש,,,https://www.idf.il/נופלים/חללי-המלחמה/סופיאן-דגש/,צפון רצועת עזה,idf
 2240,Meiron,Gersch,Moshe,,מירון,גרש,משה,,https://www.idf.il/נופלים/חללי-המלחמה/מירון-משה-גרש/,צפון רצועת עזה,idf
 2241,Roee,Mordechay,Yohay Yosef,,רועי,מרדכי,יוחאי יוסף,,https://www.idf.il/נופלים/חללי-המלחמה/רועי-יוחאי-יוסף-מרדכי/,צפון רצועת עזה,idf
-2242,Shai,Garmai,,,שי,גרמאי,,,https://lezichram.police.gov.il/main/nofel/42186,,
+2242,Shai,Garmai,,,שי,גרמאי,,,https://lezichram.police.gov.il/main/nofel/42186,מחנה הפליטים ג'נין,
 2243,Roi,Tal,,,רועי,טל,,,https://www.idf.il/נופלים/חללי-המלחמה/רועי-טל/,דרום רצועת עזה,idf
 2244,Yakir,Hexter,,,יקיר,הכסטר,,,https://www.idf.il/נופלים/חללי-המלחמה/יקיר-הכסטר/,דרום רצועת עזה,idf
 2245,Gavriel,Bloom,,,גבריאל,בלום,,,https://www.idf.il/נופלים/חללי-המלחמה/גבריאל-בלום/,מרכז רצועת עזה,idf
@@ -1614,14 +1614,14 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2252,Elkana,Newlander,,,אלקנה,נוילנדר,,,https://www.idf.il/נופלים/חללי-המלחמה/אלקנה-נוילנדר/,מרכז רצועת עזה,idf
 2253,Dan,Wajdenbaum,,,דן,ווידנבאום,,,https://www.idf.il/נופלים/חללי-המלחמה/דן-ווידנבאום/,מרכז רצועת עזה,idf
 2254,Andu’alem,kabeda,,,אנדועלם,קבדה,,,https://www.idf.il/נופלים/חללי-המלחמה/אנדועלם-קבדה/,דרום רצועת עזה,idf
-2255,Barak,Ayalon,,,ברק,איילון,,,https://www.idf.il/נופלים/חללי-המלחמה/ברק-איילון/,גבול לבנון,idf
-2256,Ayalon,Miriam,,Mira,מרים,איילון,,מירה,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44128,,
-2257,Edna,Bluestein,,,עדנה,בלושטיין,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44130,,
+2255,Barak,Ayalon,,,ברק,איילון,,,https://www.idf.il/נופלים/חללי-המלחמה/ברק-איילון/,כפר יובל,idf
+2256,Ayalon,Miriam,,Mira,מרים,איילון,,מירה,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44128,כפר יובל,
+2257,Edna,Bluestein,,,עדנה,בלושטיין,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44130,"רעננה, רחוב אחוזה",
 2258,Nitzan,Schessler,,,ניצן,שסלר,,,https://www.idf.il/נופלים/חללי-המלחמה/ניצן-שסלר/,דרום רצועת עזה,idf
 2259,Noam,Ashram,,,נועם,אשרם,,,https://www.idf.il/נופלים/חללי-המלחמה/נועם-אשרם/,מרכז רצועת עזה,idf
 2260,Zechariah,Haber,Pesach,,זכריה,הבר,פסח,,https://www.idf.il/נופלים/חללי-המלחמה/זכריה-פסח-הבר/,צפון רצועת עזה,idf
 2261,Yair,Katz,,,יאיר,כץ,,,https://www.idf.il/נופלים/חללי-המלחמה/יאיר-כץ/,צפון רצועת עזה,idf
-2262,Anwar,Serhan,,,אנואר,סרחאן,,,https://www.idf.il/נופלים/חללי-המלחמה/אנואר-סרחאן/,תאונה,idf
+2262,Anwar,Serhan,,,אנואר,סרחאן,,,https://www.idf.il/נופלים/חללי-המלחמה/אנואר-סרחאן/,"כביש 60, גוש עציון",idf
 2263,Oriya,Goshen,Ayimalk,,אוריה,גושן,איימלק,,https://www.idf.il/נופלים/חללי-המלחמה/אוריה-איימלק-גושן/,דרום רצועת עזה,idf
 2264,Ori,Gerby,,,אורי,ג'רבי,,,https://www.idf.il/נופלים/חללי-המלחמה/אורי-ג-רבי/,דרום רצועת עזה,idf
 2265,Uriel,Silberman,Aviad,,אוריאל,סילברמן,אביעד,,https://www.idf.il/נופלים/חללי-המלחמה/אוריאל-אביעד-סילברמן/,דרום רצועת עזה,idf
@@ -1662,36 +1662,36 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2300,Netanel,Elkouby,Yaacov,,נתנאל,אלקובי,יעקב,,https://www.idf.il/נופלים/חללי-המלחמה/נתנאל-יעקב-אלקובי/,דרום רצועת עזה,idf
 2301,Ziv,Chen,,,זיו,חן,,,https://www.idf.il/נופלים/חללי-המלחמה/זיו-חן/,דרום רצועת עזה,idf
 2302,Yair,Cohen,,,יאיר,כהן,,,https://www.idf.il/נופלים/חללי-המלחמה/יאיר-כהן/,דרום רצועת עזה,idf
-2303,Omer,Benjo,Sarah,,עמר,בנג'ו,שרה,,https://www.idf.il/נופלים/חללי-המלחמה/עמר-שרה-בנג-ו/,גבול לבנון,idf
+2303,Omer,Benjo,Sarah,,עמר,בנג'ו,שרה,,https://www.idf.il/נופלים/חללי-המלחמה/עמר-שרה-בנג-ו/,"צפת, פיקוד צפון",idf
 2304,Rotem,Sahar-Hadar,,,רותם,סהר-הדר,,,https://www.idf.il/נופלים/חללי-המלחמה/רותם-סהר-הדר/,דרום רצועת עזה,idf
 2305,Noam,Haba,,,נועם,חבה,,,https://www.idf.il/נופלים/חללי-המלחמה/נועם-חבה/,דרום רצועת עזה,idf
-2306,Ishay ,Gertner,,,ישי,גרטנר,אלעזר,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44138,,
-2307,Ori,Yaish,,,אורי,יעיש,,,https://www.idf.il/נופלים/חללי-המלחמה/אורי-יעיש/,עורף,idf
+2306,Ishay ,Gertner,,,ישי,גרטנר,אלעזר,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44138,צומת ראם,
+2307,Ori,Yaish,,,אורי,יעיש,,,https://www.idf.il/נופלים/חללי-המלחמה/אורי-יעיש/,צומת ראם,idf
 2308,Simon,Shlomov,,,סימון,שלומוב,,,https://www.idf.il/נופלים/חללי-המלחמה/סימון-שלומוב/,דרום רצועת עזה,idf
 2309,Maoz,Morell,,,מעוז,מורל,,,https://www.idf.il/נופלים/חללי-המלחמה/מעוז-מורל/,דרום רצועת עזה,idf
 2310,Avraham,Wovagen,,,אברהם,אובגן,,,https://www.idf.il/נופלים/חללי-המלחמה/אברהם-אובגן/,צפון רצועת עזה,idf
-2311,Matan,Elmaliach,,,מתן,אלמליח,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44139,,
+2311,Matan,Elmaliach,,,מתן,אלמליח,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44139,"מחסום א-זעיים, ליד מעלה אדומים",
 2312,Eyal,Shuminov,,,אייל,שומינוב,,,https://www.idf.il/נופלים/חללי-המלחמה/אייל-שומינוב/,צפון רצועת עזה,idf
 2313,Narya,Belete,,,נריה,בלטה,,,https://www.idf.il/נופלים/חללי-המלחמה/נריה-בלטה/,דרום רצועת עזה,idf
 2314,Ido,Zrihen,Eli,,עידו,זריהן,אלי,,https://www.idf.il/נופלים/חללי-המלחמה/עידו-זריהן/,דרום רצועת עזה,idf
 2315,Iftah,Shahar,,,יפתח,שחר,,,https://www.idf.il/נופלים/חללי-המלחמה/יפתח-שחר/,צפון רצועת עזה,idf
 2316,Itai,Seif,,,איתי,סייף,,,https://www.idf.il/נופלים/חללי-המלחמה/איתי-סייף/,צפון רצועת עזה,idf
-2317,Yitzhak ,Zeiger,,,יצחק,צייגר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44141,,
-2318,Uriah ,Hartum,,,אוריה,הרטום,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44140,,
+2317,Yitzhak ,Zeiger,,,יצחק,צייגר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44141,תחנת דלק ליד עלי,
+2318,Uriah ,Hartum,,,אוריה,הרטום,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44140,תחנת דלק ליד עלי,
 2319,Dolev,Malca,,,דולב,מלכה,,,https://www.idf.il/נופלים/חללי-המלחמה/דולב-חיים-מלכה/,דרום רצועת עזה,idf
 2320,Afik,Tery,,,אפיק,טרי,,,https://www.idf.il/נופלים/חללי-המלחמה/אפיק-טרי/,דרום רצועת עזה,idf
 2321,Inon,Itzhak,,,ינון,יצחק,,,https://www.idf.il/נופלים/חללי-המלחמה/ינון-יצחק/,דרום רצועת עזה,idf
 2322,Dennis,Yekimov,,,דניס,יקימוב,,,https://www.idf.il/נופלים/חללי-המלחמה/דניס-יקימוב/,דרום רצועת עזה,idf
-2323,Pat Nibin,Maxwell,,,פאטניבין,מקסוול,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44142,,
+2323,Pat Nibin,Maxwell,,,פאטניבין,מקסוול,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44142,מטעי מושב מרגליות,
 2324,David,Sasson,,,דויד,ששון,,,https://www.idf.il/נופלים/חללי-המלחמה/דויד-ששון/,דרום רצועת עזה,idf
 2325,Amishar,Ben David,,,עמישר,בן דוד,,,https://www.idf.il/נופלים/חללי-המלחמה/עמישר-בן-דוד/,דרום רצועת עזה,idf
 2326,Michael,Gal,,,מיכאל,גל,,,https://www.idf.il/נופלים/חללי-המלחמה/מיכאל-גל/,דרום רצועת עזה,idf
-2327,Uri,Moyal,,,אורי,מויאל,,,https://www.idf.il/נופלים/חללי-המלחמה/אורי-מויאל/,עורף,idf
+2327,Uri,Moyal,,,אורי,מויאל,,,https://www.idf.il/נופלים/חללי-המלחמה/אורי-מויאל/,צומת בית קמה,idf
 2328,Matan,Vinogradov,,,מתן,וינוגרדוב,,,https://www.idf.il/נופלים/חללי-המלחמה/מתן-וינוגרדוב/,צפון רצועת עזה,idf
 2329,Warrant,Haion,,,סבסטיאן,איון,,,https://www.idf.il/נופלים/חללי-המלחמה/סבסטיאן-איון/,צפון רצועת עזה,idf
-2330,Sergeant,Garfinkel,,,עילי,גרפינקל,דוד,,https://www.idf.il/נופלים/חללי-המלחמה/עילי-דוד-גרפינקל/,"יו""ש",idf
+2330,Sergeant,Garfinkel,,,עילי,גרפינקל,דוד,,https://www.idf.il/נופלים/חללי-המלחמה/עילי-דוד-גרפינקל/,"ליד צומת הפרסה, אזור רמאללה",idf
 2331,Lior,Raviv,,,ליאור,רביב,,,https://www.idf.il/נופלים/חללי-המלחמה/ליאור-רביב/,צפון רצועת עזה,idf
-2332,Zaher ,Bashara,,,זאהר,בשארה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44146,,
+2332,Zaher ,Bashara,,,זאהר,בשארה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44146,"מפעל ""אלון מוצרי נייר"", קריית שמונה",
 2333,Nisim,Kachlon,,,ניסים,כחלון,,,https://www.idf.il/נופלים/חללי-המלחמה/ניסים-כחלון/,דרום רצועת עזה,idf
 2334,Sergeant,Kudriashov,,,אלון,קודריאשוב,,,https://www.idf.il/נופלים/חללי-המלחמה/אלון-קודריאשוב/,דרום רצועת עזה,idf
 2335,sivan,wail,,,סיון,ווייל,,,https://www.idf.il/נופלים/חללי-המלחמה/סיון-ווייל/,דרום רצועת עזה,idf
@@ -1700,28 +1700,28 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2338,Amitai,Even Shoshan,,,אמיתי,אבן שושן,,,https://www.idf.il/נופלים/חללי-המלחמה/אמיתי-אבן-שושן/,דרום רצועת עזה,idf
 2339,Reef,Harush,,,ריף,הרוש,,,https://www.idf.il/נופלים/חללי-המלחמה/ריף-הרוש/,דרום רצועת עזה,idf
 2340,Ilai,Zair,,,עילאי,צעיר,,,https://www.idf.il/נופלים/חללי-המלחמה/עילאי-צעיר/,דרום רצועת עזה,idf
-2341,Dor,Zimel,,,דור,זימל,,,https://www.idf.il/נופלים/חללי-המלחמה/דור-זימל/,גבול לבנון,idf
-2342,Benjamin ,Achimeir,,,בנימין,אחימאיר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44149,,
+2341,Dor,Zimel,,,דור,זימל,,,https://www.idf.il/נופלים/חללי-המלחמה/דור-זימל/,ערב על עראמשה,idf
+2342,Benjamin ,Achimeir,,,בנימין,אחימאיר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44149,"סמוך למאחז ""מלאכי השלום""",
 2343,‏Salm,Alkreshat,,,סאלם,אלכרישאת,,,https://www.idf.il/נופלים/חללי-המלחמה/סאלם-אלכרישאת/,צפון רצועת עזה,idf
-2344,Sharif,Suad,,,שריף,סוועאד,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44150,,
+2344,Sharif,Suad,,,שריף,סוועאד,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44150,הר דב,
 2345,Kalkidan,Mehar,,,קאלקידן,מהרי,,,https://www.idf.il/נופלים/חללי-המלחמה/קאלקידן-מהרי/,מרכז רצועת עזה,idf
 2346,Ido,Aviv,,,עידו,אביב,,,https://www.idf.il/נופלים/חללי-המלחמה/עידו-אביב/,מרכז רצועת עזה,idf
-2347,Tal,Shavit,,,טל,שביט,,,https://www.idf.il/נופלים/חללי-המלחמה/טל-שביט/,עוטף עזה,idf
-2348,Ido,Testa,,,עידו,טסטה,,,https://www.idf.il/נופלים/חללי-המלחמה/עידו-טסטה/,עוטף עזה,idf
-2349,Ruben,Assouline,Marc Mordechai,,ראובן,אסולין,מרק מורדכי,,https://www.idf.il/נופלים/חללי-המלחמה/ראובן-מרק-מורדכי-אסולין/,עוטף עזה,idf
-2350,Michael,Ruzal,,,מיכאל,רוזל,,,https://www.idf.il/נופלים/חללי-המלחמה/מיכאל-רוזל/,עוטף עזה,idf
-2351,Dan,Kamkagi,,,דן,קמחג׳י,,,https://www.idf.il/נופלים/חללי-המלחמה/נחמן-נתן-הרץ/,גבול לבנון,idf
-2352,Nahman,Hertz,Natan,,נחמן,הרץ,נתן,,https://www.idf.il/נופלים/חללי-המלחמה/דן-קמחג-י/,גבול לבנון,idf
-2353,Yitav,Halevi,Lev,,ייטב,הלוי,לב,,https://lezichram.police.gov.il/main/nofel/42195,,
-2354,Haim,Sabach,,,חיים,סבח,,,https://www.idf.il/נופלים/חללי-המלחמה/חיים-סבח/,גבול לבנון,idf
+2347,Tal,Shavit,,,טל,שביט,,,https://www.idf.il/נופלים/חללי-המלחמה/טל-שביט/,שטח כינוס ליד כרם שלום,idf
+2348,Ido,Testa,,,עידו,טסטה,,,https://www.idf.il/נופלים/חללי-המלחמה/עידו-טסטה/,שטח כינוס ליד כרם שלום,idf
+2349,Ruben,Assouline,Marc Mordechai,,ראובן,אסולין,מרק מורדכי,,https://www.idf.il/נופלים/חללי-המלחמה/ראובן-מרק-מורדכי-אסולין/,שטח כינוס ליד כרם שלום,idf
+2350,Michael,Ruzal,,,מיכאל,רוזל,,,https://www.idf.il/נופלים/חללי-המלחמה/מיכאל-רוזל/,שטח כינוס ליד כרם שלום,idf
+2351,Dan,Kamkagi,,,דן,קמחג׳י,,,https://www.idf.il/נופלים/חללי-המלחמה/נחמן-נתן-הרץ/,אזור מטולה,idf
+2352,Nahman,Hertz,Natan,,נחמן,הרץ,נתן,,https://www.idf.il/נופלים/חללי-המלחמה/דן-קמחג-י/,אזור מטולה,idf
+2353,Yitav,Halevi,Lev,,ייטב,הלוי,לב,,https://lezichram.police.gov.il/main/nofel/42195,טול כרם,
+2354,Haim,Sabach,,,חיים,סבח,,,https://www.idf.il/נופלים/חללי-המלחמה/חיים-סבח/,"מוצב תורמוס, מלכיה",idf
 2355,Itay,Livny,,,איתי,לבני,,,https://www.idf.il/נופלים/חללי-המלחמה/איתי-לבני/,צפון רצועת עזה,idf
 2356,Yosef,Dassa,,,יוסף,דסה,,,https://www.idf.il/נופלים/חללי-המלחמה/יוסף-דסה/,צפון רצועת עזה,idf
 2357,Ermiyas,Mekuriyaw,,,ארמיאס,מקוריאו,,,https://www.idf.il/נופלים/חללי-המלחמה/ארמיאס-מקוריאו/,צפון רצועת עזה,idf
 2358,Daniel,Levy,,,דניאל,לוי,,,https://www.idf.il/נופלים/חללי-המלחמה/דניאל-לוי/,צפון רצועת עזה,idf
 2359,Ariel,Tsym,,,אריאל,צים,,,https://www.idf.il/נופלים/חללי-המלחמה/אריאל-צים/,צפון רצועת עזה,idf
 2360,Ira,Gispan,Yair,,עירא,גיספן,יאיר,,https://www.idf.il/נופלים/חללי-המלחמה/עירא-יאיר-גיספן/,דרום רצועת עזה,idf
-2361,Elad,Fingerhut,,,אלעד,פינגרהוט,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44157,,
-2362,Liron,Yitzhak,,,לירון,יצחק,,,,,
+2361,Elad,Fingerhut,,,אלעד,פינגרהוט,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44157,אדמית,
+2362,Liron,Yitzhak,,,לירון,יצחק,,,,מעבר כרם שלום,
 2363,Roy,Beit Yaakov,,,רועי,בית יעקב,,,https://www.idf.il/נופלים/חללי-המלחמה/רועי-בית-יעקב/,צפון רצועת עזה,idf
 2364,Gilad,Boim,Arye,,גילעד,בוים,אריה,,https://www.idf.il/נופלים/חללי-המלחמה/גילעד-אריה-בוים/,צפון רצועת עזה,idf
 2365,Daniel,Chemu,,,דניאל,חמו,,,https://www.idf.il/נופלים/חללי-המלחמה/דניאל-חמו/,צפון רצועת עזה,idf
@@ -1736,22 +1736,22 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2374,Gideon,DeRowe,Chay,,גדעון,דירוא,חי,,https://www.idf.il/נופלים/חללי-המלחמה/גדעון-חי-דירוא/,צפון רצועת עזה,idf
 2375,Betzalel,Kovach,Zvi,,בצלאל,קובץ,צבי,,https://www.idf.il/נופלים/חללי-המלחמה/בצלאל-צבי-קובץ/,צפון רצועת עזה,idf
 2376,Sahar,Sudaei,,,סהר,סודאי,,,https://www.idf.il/נופלים/חללי-המלחמה/סהר-סודאי/,צפון רצועת עזה,idf
-2377,Ran,Yavetz,,,רן,יעבץ,,,https://www.idf.il/נופלים/חללי-המלחמה/רן-יעבץ/,תאונה,idf
+2377,Ran,Yavetz,,,רן,יעבץ,,,https://www.idf.il/נופלים/חללי-המלחמה/רן-יעבץ/,אנדרטת חץ שחור,idf
 2378,Lamnao,Sulasak,,,לאמנאו,סוראסאק,,,,,
 2379,Thaenna,Pongsak,,,טהנה,פונגסאק,,,,,
-2380,Suwannakham,Sathian,,,סוונאקאם,סטיאן,,,,,
-2381,Saethao,Bannawat,,,סהטאן,באנאוואט,,,,,
-2382,Nattapong,Pinta,,,נטפונג,פינטה,,,,,
-2383,Watchara,Sriaoun,,,סריון,וואטצ'רה,,,,,
-2384,Lidor,Levi,,,לידור,לוי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44147,,
-2385,Rotem,Levi,Yosef,,רותם,לוי,יוסף,,https://www.idf.il/נופלים/חללי-המלחמה/רותם-יוסף-לוי/,,
+2380,Suwannakham,Sathian,,,סוונאקאם,סטיאן,,,,נחטף מניר עוז,
+2381,Saethao,Bannawat,,,סהטאן,באנאוואט,,,,נחטף ממושב ישע,
+2382,Nattapong,Pinta,,,נטפונג,פינטה,,,,נחטף מניר עוז,
+2383,Watchara,Sriaoun,,,סריון,וואטצ'רה,,,,נחטף מניר עוז,
+2384,Lidor,Levi,,,לידור,לוי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44147,גן יבנה,
+2385,Rotem,Levi,Yosef,,רותם,לוי,יוסף,,https://www.idf.il/נופלים/חללי-המלחמה/רותם-יוסף-לוי/,צפון רצועת עזה,
 2386,Amir,Galilove,,,אמיר,גלילוב,,,https://www.idf.il/נופלים/חללי-המלחמה/אמיר-גלילוב/,דרום רצועת עזה,idf
 2387,Uri,Bar Or,,,אורי,בר אור,,,https://www.idf.il/נופלים/חללי-המלחמה/אורי-בר-אור/,דרום רצועת עזה,idf
 2388,Ido,Apple,,,עידו,אפל,,,https://www.idf.il/נופלים/חללי-המלחמה/עידו-אפל/,דרום רצועת עזה,idf
-2389,Eliya,Hilel,,,אליה,הלל,,,https://www.idf.il/נופלים/חללי-המלחמה/אליה-הלל/,"יו""ש",idf
-2390,Diego,Shvisha harsaj,,,דייגו,שוישה הרסאג’,,,https://www.idf.il/נופלים/חללי-המלחמה/דייגו-שוישה-הרסאג/,"יו""ש",idf
+2389,Eliya,Hilel,,,אליה,הלל,,,https://www.idf.il/נופלים/חללי-המלחמה/אליה-הלל/,צומת 'חווה 6' ליד שכם,idf
+2390,Diego,Shvisha harsaj,,,דייגו,שוישה הרסאג’,,,https://www.idf.il/נופלים/חללי-המלחמה/דייגו-שוישה-הרסאג/,צומת 'חווה 6' ליד שכם,idf
 2391,Yedidya,Azugi,,,ידידיה,אזוגי,,,https://www.idf.il/נופלים/חללי-המלחמה/ידידיה-אזוגי/,צפון רצועת עזה,idf
 2392,Adar,Gavriel,,,אדר,גבריאל,,,https://www.idf.il/נופלים/חללי-המלחמה/אדר-גבריאל/,צפון רצועת עזה,idf
 2393,Yehonatan,Elias,,,יהונתן,אליאס,,,https://www.idf.il/נופלים/חללי-המלחמה/יהונתן-אליאס/,דרום רצועת עזה,idf
-2394,Zeed,Mazarib,,,זייד,מזאריב,,,https://www.idf.il/נופלים/חללי-המלחמה/זייד-מזאריב,,
+2394,Zeed,Mazarib,,,זייד,מזאריב,,,https://www.idf.il/נופלים/חללי-המלחמה/זייד-מזאריב,"דרום רצועת עזה, מול כרם שלום",
 2395,Refael,Kauders,,,רפאל,קאודרס,,,https://www.idf.il/נופלים/חללי-המלחמה/רפאל-קאודרס,דרום רצועת עזה,idf
