@@ -260,7 +260,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 313,Omer,Hermesh,,,עומר,חרמש,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43501,Kfar Aza,General vicinity
 314,Avigail,Idan,,,אביגיל,עידן,,,,Kfar Aza,General vicinity
 315,Roee,Idan,,,רועי,עידן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43506,Kfar Aza,General vicinity
-316,Smadar,Mor Idan,,,סמדר,מור עידן,,,https://www.shabak.gov.il/memorial/%D7%A1%D7%9E%D7%93%D7%A8-%D7%9E%D7%95%D7%A8-%D7%A2%D7%99%D7%93%D7%9F/,Kfar Aza,General vicinity
+316,Smadar,Mor Idan,,,סמדר,מור עידן,,,https://www.shabak.gov.il/memorial/סמדר-מור-עידן/,Kfar Aza,General vicinity
 317,Lili,Itamari,,,לילי,איתמרי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43475,Kfar Aza,General vicinity
 318,Ram,Itamari,,,רם,איתמרי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43476,Kfar Aza,General vicinity
 319,Hadar,Kamah,,,הדר,קמה,,,https://www.idf.il/נופלים/חללי-המלחמה/הדר-קמה/,Kfar Aza,General vicinity
@@ -529,7 +529,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 656,Mia,Leimberg,,,מיאה,ליימברג,,,,Nir Yitzhak,General vicinity
 657,Clara,Marman,Rosa,,קלרה,מרמן,רוזה,,,Nir Yitzhak,General vicinity
 658,Fernando,Marman,,,פרננדו,מרמן,,,,Nir Yitzhak,General vicinity
-659,Lior,Rudaeff,,,ליאור,רודאיף,,,https://www.mdais.org/noflim/%D7%9C%D7%99%D7%90%D7%95%D7%A8-%D7%A8%D7%95%D7%93%D7%90%D7%99%D7%A3,Nir Yitzhak,General vicinity
+659,Lior,Rudaeff,,,ליאור,רודאיף,,,https://www.mdais.org/noflim/ליאור-רודאיף,Nir Yitzhak,General vicinity
 660,Yaron,Shahar,,,ירון,שחר,ויקטור,,https://www.idf.il/נופלים/חללי-המלחמה/ירון-ויקטור-שחר/,Nir Yitzhak,General vicinity
 661,Oran,Elfassi,,,אורן,אלפסי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43529,Nirim,General vicinity
 662,Gidon,Bavani,,,גדעון,באבאני,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43530,Nirim,General vicinity
@@ -603,7 +603,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 733,Dorin,Atias,,,דורין,אטיאס,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43697,Nova,General vicinity
 735,Eden,Abdulayev,,,עדן,אבדולאייב,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43675,Nova; Nova Entrance Bomb Shelter,Exact location
 736,Idan,Edri,,,עידן,עדרי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43927,Nova,General vicinity
-737,Ido,Edri,,,עידו,אדרי,,,https://www.shabak.gov.il/memorial/%D7%A2%D7%99%D7%93%D7%95-%D7%90%D7%93%D7%A8%D7%99/,Nova,General vicinity
+737,Ido,Edri,,,עידו,אדרי,,,https://www.shabak.gov.il/memorial/עידו-אדרי/,Nova,General vicinity
 738,Liel,Eitah,,,ליאל,איטח,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43699,Nova,General vicinity
 739,Sigal,Itah,,,סיגל,איטח,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43698,Nova; Re'im Bomb Shelter (East),Exact location
 740,Matan,Ekstein,,,מתן,אקשטיין,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43716,Nova; Gama Junction Bomb Shelter (North),Exact location
@@ -953,7 +953,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 1295,Bar,Yancolov,,,בר,יענקלוב,,,https://www.idf.il/נופלים/חללי-המלחמה/בר-יענקלוב/,Kissufim,General vicinity
 1296,Ron,Zarfati,,,רון,צרפתי,,,https://www.idf.il/נופלים/חללי-המלחמה/רון-צרפתי/,Nova,General vicinity
 1297,Yair,Zloof,,,יאיר,זלוף,,,https://www.idf.il/נופלים/חללי-המלחמה/יאיר-זלוף/,Gaza Envelope,Missing / unreported location
-1298,Maor,Shalom,Raphael,,מאור,שלום,רפאל,,https://www.shabak.gov.il/memorial/%D7%9E%D7%90%D7%95%D7%A8-%D7%A8%D7%A4%D7%90%D7%9C-%D7%A9%D7%9C%D7%95%D7%9D/,Kfar Aza,General vicinity
+1298,Maor,Shalom,Raphael,,מאור,שלום,רפאל,,https://www.shabak.gov.il/memorial/מאור-רפאל-שלום/,Kfar Aza,General vicinity
 1299,Idan,Dor,,,עידן,דור,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43932,Nova,Exact location
 1300,Maayan,Kalihman,,,מעין,קליכמן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43959,Nova,General vicinity
 1301,Livnat,Levy,,,ליבנת,לוי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43871,Nova; Re'im Bomb Shelter (East),Exact location
@@ -1124,7 +1124,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 1474,Alon,Toledano,Amram,,עמרם,טולדנו,אלון,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43421,Sderot,General vicinity
 1475,Eden,Nimri,,,עדן,נימרי,,,https://www.idf.il/נופלים/חללי-המלחמה/עדן-נימרי/,Nahal Oz Base,General vicinity
 1476,Addir,Mesika,,,אדיר,מסיקה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43898,Nova; Gama Junction Bomb Shelter (North),Exact location
-1477,Ilay,Nahman,,,עילי,נחמן,,,https://www.shabak.gov.il/memorial/%D7%A2%D7%99%D7%9C%D7%99-%D7%A0%D7%97%D7%9E%D7%9F/,Nova; Gama Junction Bomb Shelter (North),Exact location
+1477,Ilay,Nahman,,,עילי,נחמן,,,https://www.shabak.gov.il/memorial/עילי-נחמן/,Nova; Gama Junction Bomb Shelter (North),Exact location
 1478,Yarin,Efraim,Moshe,,ירין,אפרים,משה,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43856,Nova,General vicinity
 1479,Yona,Fricker,,,יונה,פריקר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44072,Be'eri,General vicinity
 1480,Bar,Shechter,,,בר,שכטר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43990,Nova,Exact location
@@ -1139,7 +1139,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 1491,Kobi,Paryante,,,קובי,פריאנטה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43429,Netiv HaAsara; Running Group Attack,Exact location
 1492,Shahaf,Krief,,,שחף,קרייף,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43366,Zikim Beach,General vicinity
 1493,Ron,Weinberg,,,רון,ויינברג,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43810,Nova,Approximate location
-1494,Itay,Cohen,,,איתי,כהן,,,https://www.idf.il/%D7%A0%D7%95%D7%A4%D7%9C%D7%99%D7%9D/%D7%97%D7%9C%D7%9C%D7%99-%D7%94%D7%9E%D7%9C%D7%97%D7%9E%D7%94/%D7%90%D7%99%D7%AA%D7%99-%D7%9B%D7%94%D7%9F/,Alumim,General vicinity
+1494,Itay,Cohen,,,איתי,כהן,,,https://www.idf.il/נופלים/חללי-המלחמה/איתי-כהן/,Alumim,General vicinity
 1495,Yam,Glass,,,ים,גלס,,,https://www.idf.il/נופלים/חללי-המלחמה/ליאור-ארזי/,Nahal Oz Base,General vicinity
 1496,Daniel,Shperber,,,דניאל,שפרבר,,,https://www.idf.il/נופלים/חללי-המלחמה/דניאל-שפרבר/,Nahal Oz Base,General vicinity
 1497,Dolev,Amouyal,,,דולב,אמויאל,,,https://www.idf.il/נופלים/חללי-המלחמה/דולב-אמויאל/,Zikim Base,General vicinity
@@ -1249,7 +1249,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 1609,Tzafir,Dedo,,,דדו,צפיר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43952,Nova,Exact location
 1610,Olag,lifshitz,,,אולג,ליפשיץ,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44068,Ein HaShlosha,General vicinity
 1611,Aharon,Marcovichi,Arthur,,אהרון,מרקוביצ'י,ארתור,,https://lezichram.police.gov.il/main/nofel/42171,Nova; 232 Blocked Road,Exact location
-1612,Michael,Ben-Moshe Moshiasvhili,,,מיכאל,בן משה מושיאשווילי,,,https://www.shabak.gov.il/memorial/%D7%9E%D7%99%D7%9B%D7%90%D7%9C-%D7%91%D7%9F-%D7%9E%D7%A9%D7%94/,Zikim Beach,Approximate location
+1612,Michael,Ben-Moshe Moshiasvhili,,,מיכאל,בן משה מושיאשווילי,,,https://www.shabak.gov.il/memorial/מיכאל-בן-משה/,Zikim Beach,Approximate location
 1613,Jana,Roderman,,,ז'אנה,רודרמן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44012,Ashkelon,General vicinity
 1614,Yehoshua,Hatab,,,יהושוע,חטאב,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44010,Ashkelon,General vicinity
 1615,Tomer,Dolev,,,תומר,דולב,,,https://www.idf.il/נופלים/חללי-המלחמה/תומר-דולב/,Netiv HaAsara,General vicinity
@@ -1325,7 +1325,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 1690,Samar,Talalka,Fouad,,סאמר,אלטלאלקה,פואד,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44121,Nir Am,General vicinity
 1691,Kaid,Al-Qadi,Farhan,,קאיד,אלקאדי,פרחאן,,,Magen,General vicinity
 1692,Ariel,Ben Moshe,,,אריאל,בן משה,,,https://www.idf.il/נופלים/חללי-המלחמה/אריאל-בן-משה/,Re'im,General vicinity
-1693,Yossi,Tahar,,,יוסף,טהר,חי,יוסי,https://www.shabak.gov.il/memorial/%D7%99%D7%95%D7%A1%D7%99-%D7%98%D7%94%D7%A8/,Mefalsim,General vicinity
+1693,Yossi,Tahar,,,יוסף,טהר,חי,יוסי,https://www.shabak.gov.il/memorial/יוסי-טהר/,Mefalsim,General vicinity
 1694,Joshua,Mollel,Loitu,,ג'ושוע,מולל,לואיטו ,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44117,Nahal Oz,General vicinity
 1695,Muhammad,Alatrash,,,מוחמד,אלאטרש,,,,Holit,General vicinity
 1696,Udom,Chan,,,אודום,צ'אן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43352,Gaza Envelope,General vicinity
@@ -1371,7 +1371,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2003,Yaakov,Salomon,,,יעקב,סלומון,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44022,Nova festival,oct_7_9
 2006,Nativ,Nave,Maayan,,נתיב,נווה,מעיין,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44024,Sderot,oct_7_9
 2007,Cao,Yongkai,,, סאו,יונגקאי,,,,Sderot,oct_7_9
-2008,Omer,Gavra,,,עומר,גברה,,,https://www.shabak.gov.il/memorial/%D7%A2%D7%95%D7%9E%D7%A8-%D7%92%D7%91%D7%A8%D7%94/,Yakhini jct,oct_7_9
+2008,Omer,Gavra,,,עומר,גברה,,,https://www.shabak.gov.il/memorial/עומר-גברה/,Yakhini jct,oct_7_9
 2009,Sahar,Midani,,,סהר,מידאני,,,https://www.idf.il/נופלים/חללי-המלחמה/סהר-מידאני/,Nahal Oz Base,oct_7_9
 2010,Or,Malka,,,אור,מלכה,,,https://www.idf.il/נופלים/חללי-המלחמה/אור-מלכה/,Erez Checkpoint,oct_7_9
 2011,Ilay,Ben Muha,Noam ,,עילי,בן-מוחה,נועם,,https://www.idf.il/נופלים/חללי-המלחמה/עילי-נועם-בן-מוחה/,Kisufim Base,oct_7_9
@@ -1577,14 +1577,14 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2215,Elyassaf,Shoshan,,,אליסף,שושן,,,https://www.idf.il/נופלים/חללי-המלחמה/אליסף-שושן/,מרכז רצועת עזה,idf
 2216,Ohad,Ashur,,,אוהד,אשור,,,https://www.idf.il/נופלים/חללי-המלחמה/אוהד-אשור/,מרכז רצועת עזה,idf
 2217,Roy,Elias,,,רואי,אליאס,,,https://www.idf.il/נופלים/חללי-המלחמה/רואי-אליאס/,דרום רצועת עזה,idf
-2218,Rani,Tamir,,,אריה,ריין,,,https://www.idf.il/נופלים/חללי-המלחמה/רני-תמיר/,צפון רצועת עזה,idf
-2219,Elisha,Lober,Yehonatan,,ניתאי,מייזלס,,,https://www.idf.il/נופלים/חללי-המלחמה/אלישע-יהונתן-לובר/,צפון רצועת עזה,idf
-2220,Joseph,Gitarts,,,רני,תמיר,,,https://www.idf.il/נופלים/חללי-המלחמה/יוסף-גיטרץ/,צפון רצועת עזה,idf
-2221,Daniel,Nachmani,,,אלישע,לובר,יהונתן,,https://www.idf.il/נופלים/חללי-המלחמה/דניאל-נחמני/,דרום רצועת עזה,idf
-2222,Maor,Lavi,,,יוסף,גיטרץ,,,https://www.idf.il/נופלים/חללי-המלחמה/מאור-לביא/,דרום רצועת עזה,idf
-2223,Shaul,Greenglick,,,דניאל,נחמני,,,https://www.idf.il/נופלים/חללי-המלחמה/שאול-גרינגליק/,גבול לבנון,idf
-2224,Aryeh,rein,,,מאור,לביא,,,https://www.idf.il/נופלים/חללי-המלחמה/אריה-ריין/,מרכז רצועת עזה,idf
-2225,Nitai,Meisels,,,שאול,גרינגליק,,,https://www.idf.il/נופלים/חללי-המלחמה/ניתאי-מייזלס/,צפון רצועת עזה,idf
+2218,Rani,Tamir,,,רני,תמיר,,,https://www.idf.il/נופלים/חללי-המלחמה/רני-תמיר/,צפון רצועת עזה,idf
+2219,Elisha,Lober,Yehonatan,,אלישע,לובר,יהונתן,,https://www.idf.il/נופלים/חללי-המלחמה/אלישע-יהונתן-לובר/,צפון רצועת עזה,idf
+2220,Joseph,Gitarts,,,יוסף,גיטרץ,,,https://www.idf.il/נופלים/חללי-המלחמה/יוסף-גיטרץ/,צפון רצועת עזה,idf
+2221,Daniel,Nachmani,,,דניאל,נחמני,,,https://www.idf.il/נופלים/חללי-המלחמה/דניאל-נחמני/,דרום רצועת עזה,idf
+2222,Maor,Lavi,,,מאור,לביא,,,https://www.idf.il/נופלים/חללי-המלחמה/מאור-לביא/,דרום רצועת עזה,idf
+2223,Shaul,Greenglick,,,שאול,גרינגליק,,,https://www.idf.il/נופלים/חללי-המלחמה/שאול-גרינגליק/,גבול לבנון,idf
+2224,Aryeh,rein,,,אריה,ריין,,,https://www.idf.il/נופלים/חללי-המלחמה/אריה-ריין/,מרכז רצועת עזה,idf
+2225,Nitai,Meisels,,,ניתאי,מייזלס,,,https://www.idf.il/נופלים/חללי-המלחמה/ניתאי-מייזלס/,צפון רצועת עזה,idf
 2226,Shay,Shamriz,,,שי,שמריז,,,https://www.idf.il/נופלים/חללי-המלחמה/שי-שמריז/,צפון רצועת עזה,idf
 2227,Yaron,Chitiz,Eliezer,,ירון,צ׳יטיז,אליעזר,,https://www.idf.il/נופלים/חללי-המלחמה/ירון-אליעזר-צ-יטיז/,צפון רצועת עזה,idf
 2228,Itay,Buton,,,איתי,בוטון,,,https://www.idf.il/נופלים/חללי-המלחמה/איתי-בוטון/,צפון רצועת עזה,idf
@@ -1744,7 +1744,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2382,Nattapong,Pinta,,,נטפונג,פינטה,,,,,
 2383,Watchara,Sriaoun,,,סריון,וואטצ'רה,,,,,
 2384,Lidor,Levi,,,לידור,לוי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44147,,
-2385,Rotem,Levi,Yosef,,רותם,לוי,יוסף,,https://www.idf.il/%D7%A0%D7%95%D7%A4%D7%9C%D7%99%D7%9D/%D7%97%D7%9C%D7%9C%D7%99-%D7%94%D7%9E%D7%9C%D7%97%D7%9E%D7%94/%D7%A8%D7%95%D7%AA%D7%9D-%D7%99%D7%95%D7%A1%D7%A3-%D7%9C%D7%95%D7%99/,,
+2385,Rotem,Levi,Yosef,,רותם,לוי,יוסף,,https://www.idf.il/נופלים/חללי-המלחמה/רותם-יוסף-לוי/,,
 2386,Amir,Galilove,,,אמיר,גלילוב,,,https://www.idf.il/%D7%A0%D7%95%D7%A4%D7%9C%D7%99%D7%9D/%D7%97%D7%9C%D7%9C%D7%99-%D7%94%D7%9E%D7%9C%D7%97%D7%9E%D7%94/%D7%90%D7%9E%D7%99%D7%A8-%D7%92%D7%9C%D7%99%D7%9C%D7%95%D7%91/,דרום רצועת עזה,idf
 2387,Uri,Bar Or,,,אורי,בר אור,,,https://www.idf.il/%D7%A0%D7%95%D7%A4%D7%9C%D7%99%D7%9D/%D7%97%D7%9C%D7%9C%D7%99-%D7%94%D7%9E%D7%9C%D7%97%D7%9E%D7%94/%D7%90%D7%95%D7%A8%D7%99-%D7%91%D7%A8-%D7%90%D7%95%D7%A8/,דרום רצועת עזה,idf
 2388,Ido,Apple,,,עידו,אפל,,,https://www.idf.il/%D7%A0%D7%95%D7%A4%D7%9C%D7%99%D7%9D/%D7%97%D7%9C%D7%9C%D7%99-%D7%94%D7%9E%D7%9C%D7%97%D7%9E%D7%94/%D7%A2%D7%99%D7%93%D7%95-%D7%90%D7%A4%D7%9C/,דרום רצועת עזה,idf
