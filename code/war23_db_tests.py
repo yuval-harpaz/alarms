@@ -238,6 +238,26 @@ class TestIDF(unittest.TestCase):
             print(f"idf name doesn't match !!!! {pid_mismatch}".replace('[', '').replace(']', ''))
         self.assertEqual(mismatch, 0)
 
+    def lastname_idf(self):
+        pid = data['pid'].values
+        pid_idf = idf['pid'].values
+        pid_idf = pid_idf[~np.isnan(pid_idf)].astype(int)
+        mismatch = 0
+        pid_mismatch = []
+        for ii in range(len(pid_idf)):
+            row = np.where(pid == pid_idf[ii])[0]
+            if len(row) == 1:
+                row = row[0]
+                last = data['שם משפחה'][row]
+                last = last.replace('רזיאל רוזנברג', 'רזיאל')
+                name = idf['name'][ii].replace('(', '').replace(')', '')
+                if last not in name:
+                    print(f'IDF: pid={idf["pid"][ii]}, {last} not in {name}')
+                    mismatch += 1
+                    pid_mismatch.append(idf["pid"][ii])
+        if mismatch > 0:
+            print(f"idf name doesn't match !!!! {pid_mismatch}".replace('[', '').replace(']', ''))
+        self.assertEqual(mismatch, 0)
 
 
 
@@ -259,6 +279,7 @@ oct7suite = unittest.TestSuite(tests=[TestDuplicates('duplicate_pid'),
                                       TestIDF('unique_idf'),
                                       TestIDF('extras_idf'),
                                       TestIDF('name_idf'),
+                                      TestIDF('lastname_idf'),
                                       ]
                                )
 
