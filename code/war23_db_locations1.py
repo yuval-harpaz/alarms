@@ -70,3 +70,19 @@ df.to_csv('/home/innereye/Documents/db_tmp.csv', index=False)
 
 
 ##
+map = pd.read_csv('data/oct_7_9.csv')
+pid = map['pid'].values
+df = pd.read_csv('/home/innereye/Documents/db_tmp.csv')
+kidnapped = np.where(df['status'].str.contains('capt'))[0]
+for ii in kidnapped:
+    row = np.where(pid == df['pid'][ii])[0]
+    if len(row) > 1:
+        raise Exception('too many rows for pid ' + str(df['pid'][ii]))
+    elif len(row) == 1:
+        date = map['date'][row[0]]
+        date = '-'.join(date.split('.')[::-1])
+        if df['death_date'][ii] != date:
+            print(f"{df['first name'][ii]} {df['last name'][ii]} {df['death_date'][ii]} >> {date}")
+            df.at[ii, 'death_date'] = date
+df.to_csv('/home/innereye/Documents/db_tmp.csv', index=False)
+##
