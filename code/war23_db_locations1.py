@@ -86,3 +86,4 @@ for ii in kidnapped:
             df.at[ii, 'death_date'] = date
 df.to_csv('/home/innereye/Documents/db_tmp.csv', index=False)
 ##
+
