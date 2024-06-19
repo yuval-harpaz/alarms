@@ -49,6 +49,7 @@ for ii in range(len(df)):
             df.at[ii, 'status'] = map['citizenGroup'][row[0]]
 df.to_csv('/home/innereye/Documents/db_tmp.csv', index=False)
 ##
+
 df = pd.read_csv('/home/innereye/Documents/db_tmp.csv')
 idf = pd.read_csv('data/deaths_idf.csv')
 pid = idf['pid'].values
@@ -86,4 +87,22 @@ for ii in kidnapped:
             df.at[ii, 'death_date'] = date
 df.to_csv('/home/innereye/Documents/db_tmp.csv', index=False)
 ##
-
+df = pd.read_csv('data/oct7database.csv')
+haa = pd.read_csv('data/deaths_haaretz+.csv')
+kidn = pd.read_csv('data/kidnapped.csv')
+for ii in range(len(df)):
+    row = np.where(map['pid'] == df['pid'][ii])[0]
+    if len(row) == 1:
+        df.at[ii, 'residence'] = map['residence'][row[0]]
+    else:
+        row = np.where(idf['pid'] == df['pid'][ii])[0]
+        if len(row) == 1:
+            df.at[ii, 'residence'] = idf['from'][row[0]]
+        else:
+            row = np.where(haa['pid'] == df['pid'][ii])[0]
+            if len(row) == 1:
+                df.at[ii, 'residence'] = haa['from'][row[0]]
+            else:
+                row = np.where(kidn['pid'] == df['pid'][ii])[0]
+                if len(row) == 1:
+                    df.at[ii, 'residence'] = kidn['from'][row[0]]
