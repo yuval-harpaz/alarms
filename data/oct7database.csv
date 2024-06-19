@@ -148,9 +148,9 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 194,Matanya,Alster,,,מתניה,אלסטר,,,https://www.idf.il/נופלים/חללי-המלחמה/מתניה-אלסטר/,Northern Border,General vicinity,M,Killed on duty,2023-10-11,2023-10-11
 195,Omer,Balva,,,עומר,בלוה,,,https://www.idf.il/נופלים/חללי-המלחמה/עומר-בלוה/,Northern Border,General vicinity,M,Killed on duty,2023-10-20,2023-10-20
 197,Gilad,Molco,,,גלעד,מולכו,,,https://www.idf.il/נופלים/חללי-המלחמה/גלעד-מולכו/,Northern Border,General vicinity,M,Killed on duty,2023-10-09,2023-10-09
-198,Mofed,Sanunu Elazir,,,מופיד,סנונו אלזיר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44047,Northern Border,General vicinity,M,Murdered,,
-199,Amnon,Bezalel,,,אמנון,בצלאל,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44006,Egypt Terror attack,General vicinity,M,Murdered,,
-200,Alon,Shamli,,,אלון,שמלי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44007,Egypt Terror attack,General vicinity,M,Murdered,,
+198,Mofed,Sanunu Elazir,,,מופיד,סנונו אלזיר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44047,Northern Border,General vicinity,M,Murdered,2023-10-15,2023-10-15
+199,Amnon,Bezalel,,,אמנון,בצלאל,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44006,Egypt Terror attack,General vicinity,M,Murdered,2023-10-08,2023-10-08
+200,Alon,Shamli,,,אלון,שמלי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44007,Egypt Terror attack,General vicinity,M,Murdered,2023-10-08,2023-10-08
 201,Noa,Glazberg,,,נועה,גלזברג,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43341,Ein HaShlosha,General vicinity,F,Murdered,2023-10-07,2023-10-07
 202,Marcel,Talia,,,מרסל,טליה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43338,Ein HaShlosha,General vicinity,F,Murdered,2023-10-07,2023-10-07
 203,Silvia,Marnasky,,,סילביה,מרנסקי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43339,Ein HaShlosha,General vicinity,F,Murdered,2023-10-07,2023-10-07
@@ -418,7 +418,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 535,Matan,Abarjil,,,מתן,אברג׳יל,,,https://www.idf.il/נופלים/חללי-המלחמה/מתן-אברג-יל/,Nir Am,General vicinity,M,Killed on duty,2023-10-07,2023-10-07
 536,Roman,Gendel,,,רומן,גנדל,,,https://lezichram.police.gov.il/main/nofel/42159,Nir Am,General vicinity,M,Killed on duty,2023-10-07,2023-10-07
 537,Ada,Sagi,,,עדה,שגיא,,,,Nir Oz,General vicinity,F,Kidnap survivor,2023-10-07,
-538,Tamir,Adar,,,תמיר,אדר,,,,Nir Oz,General vicinity,M,Kidnapped,2023-10-07,
+538,Tamir,Adar,,,תמיר,אדר,,,,Nir Oz,General vicinity,M,Kidnapped,2023-10-07,2023-10-07
 539,Yafa,Adar,,,יפה,אדר,,,,Nir Oz,General vicinity,F,Kidnap survivor,2023-10-07,
 540,Daniel,Aloni,,,דניאל,אלוני,,,,Nir Oz,General vicinity,F,Kidnap survivor,2023-10-07,
 541,Emilia,Aloni,,,אמיליה,אלוני,,,,Nir Oz,General vicinity,F,Kidnap survivor,2023-10-07,
@@ -1250,7 +1250,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 1610,Olag,lifshitz,,,אולג,ליפשיץ,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44068,Ein HaShlosha,General vicinity,M,Murdered,2023-10-07,2023-10-07
 1611,Aharon,Marcovichi,Arthur,,אהרון,מרקוביצ׳י,ארתור,,https://lezichram.police.gov.il/main/nofel/42171,Nova; 232 Blocked Road,Exact location,M,Killed on duty,2023-10-07,2023-10-07
 1612,Michael,Ben-Moshe Moshiasvhili,,,מיכאל,בן משה מושיאשווילי,,,https://www.shabak.gov.il/memorial/מיכאל-בן-משה/,Zikim Beach,Approximate location,M,Killed on duty,2023-10-07,2023-10-07
-1613,Jana,Roderman,,,ז׳אנה,רודרמן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44012,Ashkelon,General vicinity,F,Murdered,,
+1613,Jana,Roderman,,,ז׳אנה,רודרמן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44012,Ashkelon,General vicinity,F,Murdered,2023-10-10,2023-10-14
 1614,Yehoshua,Hatab,,,יהושוע,חטאב,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44010,Ashkelon,General vicinity,M,Murdered,2023-10-07,2023-10-07
 1615,Tomer,Dolev,,,תומר,דולב,,,https://www.idf.il/נופלים/חללי-המלחמה/תומר-דולב/,Netiv HaAsara,General vicinity,M,Killed on duty,2023-10-07,2023-10-07
 1616,Shlomo,Alshich,Eliyahu,,שלמה,אלשיך,אליהו,שלומי,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43709,Nova,Estimated location,M,Murdered,2023-10-07,2023-10-07
