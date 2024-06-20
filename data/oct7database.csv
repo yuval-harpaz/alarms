@@ -464,7 +464,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 581,Efrat,Katz,,,אפרת,כץ,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43557,Nir Oz,General vicinity,F,Murdered,2023-10-07,2023-10-07
 582,Ravid,Katz,,,רביד,כץ,,,,Nir Oz,General vicinity,M,Murdered,2023-10-07,2023-10-07
 583,Avraham,Katzir,,,אברהם,קציר,,רמי,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43571,Nir Oz,General vicinity,M,Murdered,2023-10-07,2023-10-07
-584,Elad,Katzir,,,אלעד,קציר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44148,Nir Oz,General vicinity,M,Murdered in captivity,2023-10-07,2024-01
+584,Elad,Katzir,,,אלעד,קציר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44148,Nir Oz,General vicinity,M,Murdered in captivity,2023-10-07,2024-01-01
 585,Hanna,Katzir,,,חנה,קציר,,,,Nir Oz,General vicinity,F,Kidnap survivor,2023-10-07,
 586,Ariel,Konio,,,אריאל,קוניו,,,,Nir Oz,General vicinity,M,Kidnapped,2023-10-07,
 587,David,Konio,,,דוד,קוניו,,,,Nir Oz,General vicinity,M,Kidnapped,2023-10-07,
@@ -1054,7 +1054,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 1403,Phithak,Tholaeng,,,פיטק,טולאנג,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43398,Yesha,General vicinity,?,Murdered,2023-10-07,2023-10-07
 1404,Satawat,Phiia-ia,,,סאטאוואט,פאהייה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43356,Kissufim,General vicinity,?,Murdered,2023-10-07,2023-10-07
 1405,Jakkaphong,Jantharasena,,,ג׳קפונג,גנטרסנה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43358,Kissufim,General vicinity,?,Murdered,2023-10-07,2023-10-07
-1406,Saksit,Khotmee,,,סקסיט,קוטמי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43401,Gaza Envelope,General vicinity,M,Murdered,,
+1406,Saksit,Khotmee,,,סקסיט,קוטמי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43401,Gaza Envelope,General vicinity,M,Murdered,45209,45209
 1407,Thanakrit,Prakotwong,,,תנקריט,פרקוטוונג,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43410,Nir Oz,General vicinity,?,Murdered,2023-10-07,2023-10-07
 1408,Kawao,Srithat,,,סרית׳אט,קווי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43406,Nir Oz,General vicinity,M,Murdered,2023-10-07,2023-10-07
 1409,Pongthep,Kusaram,,,פונג׳תפ,קוסרם,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43407,Nir Oz,General vicinity,M,Murdered,2023-10-07,2023-10-07
@@ -1250,7 +1250,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 1610,Olag,lifshitz,,,אולג,ליפשיץ,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44068,Ein HaShlosha,General vicinity,M,Murdered,2023-10-07,2023-10-07
 1611,Aharon,Marcovichi,Arthur,,אהרון,מרקוביצ׳י,ארתור,,https://lezichram.police.gov.il/main/nofel/42171,Nova; 232 Blocked Road,Exact location,M,Killed on duty,2023-10-07,2023-10-07
 1612,Michael,Ben-Moshe Moshiasvhili,,,מיכאל,בן משה מושיאשווילי,,,https://www.shabak.gov.il/memorial/מיכאל-בן-משה/,Zikim Beach,Approximate location,M,Killed on duty,2023-10-07,2023-10-07
-1613,Jana,Roderman,,,ז׳אנה,רודרמן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44012,Ashkelon,General vicinity,F,Murdered,2023-10-10,2023-10-14
+1613,Jana,Roderman,,,ז׳אנה,רודרמן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44012,Ashkelon,General vicinity,F,Murdered,,2023-10-14
 1614,Yehoshua,Hatab,,,יהושוע,חטאב,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44010,Ashkelon,General vicinity,M,Murdered,2023-10-07,2023-10-07
 1615,Tomer,Dolev,,,תומר,דולב,,,https://www.idf.il/נופלים/חללי-המלחמה/תומר-דולב/,Netiv HaAsara,General vicinity,M,Killed on duty,2023-10-07,2023-10-07
 1616,Shlomo,Alshich,Eliyahu,,שלמה,אלשיך,אליהו,שלומי,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43709,Nova,Estimated location,M,Murdered,2023-10-07,2023-10-07

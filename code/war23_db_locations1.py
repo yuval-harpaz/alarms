@@ -106,3 +106,9 @@ for ii in range(len(df)):
                 row = np.where(kidn['pid'] == df['pid'][ii])[0]
                 if len(row) == 1:
                     df.at[ii, 'residence'] = kidn['from'][row[0]]
+
+##
+df = pd.read_csv('../Documents/oct7database - Data.csv')
+kidn = pd.read_csv('data/kidnapped.csv')
+map = pd.read_csv('data/oct_7_9.csv')
+nodate = np.where(df
