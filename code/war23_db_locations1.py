@@ -111,4 +111,20 @@ for ii in range(len(df)):
 df = pd.read_csv('../Documents/oct7database - Data.csv')
 kidn = pd.read_csv('data/kidnapped.csv')
 map = pd.read_csv('data/oct_7_9.csv')
-nodate = np.where(df
+noloc = np.where(~df['death_date'].isnull() & df['death_location'].isnull())[0]
+for ii in range(len(df)):
+    row = np.where(map['pid'] == df['pid'][ii])[0]
+    if len(row) == 1:
+        df.at[ii, 'residence'] = map['residence'][row[0]]
+    else:
+        row = np.where(idf['pid'] == df['pid'][ii])[0]
+        if len(row) == 1:
+            df.at[ii, 'residence'] = idf['from'][row[0]]
+        else:
+            row = np.where(haa['pid'] == df['pid'][ii])[0]
+            if len(row) == 1:
+                df.at[ii, 'residence'] = haa['from'][row[0]]
+            else:
+                row = np.where(kidn['pid'] == df['pid'][ii])[0]
+                if len(row) == 1:
+                    df.at[ii, 'residence'] = kidn['from'][row[0]]
