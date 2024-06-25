@@ -14,7 +14,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 26,Nitay,Amar,,,ניתאי,עמאר,,,https://www.idf.il/נופלים/חללי-המלחמה/ניתאי-עמאר/,Re'im Base,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,מחנה רעים,מחנה רעים
 27,Noam,Slotki,,,נועם,סלוטקי,,,https://www.idf.il/נופלים/חללי-המלחמה/נועם-סלוטקי/,Alumim,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,עלומים,עלומים
 28,Yishai,Slotki,,,ישי,סלוטקי,,,https://www.idf.il/נופלים/חללי-המלחמה/ישי-סלוטקי/,Alumim,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,עלומים,עלומים
-29,Ofir,Tzarfati,,,אופיר,צרפתי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44093,Nova,Exact location,M,Murdered,2023-10-07,2023-10-07,פסטיבל נובה,"עזה- מסגד סמוך לביה""ח שיפא"
+29,Ofir,Tzarfati,,,אופיר,צרפתי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44093,Nova,Exact location,M,Murdered,2023-10-07,2023-10-07,פסטיבל נובה,"עזה; מסגד סמוך לביה""ח שיפא"
 30,Eliran,Abargil,,,אלירן,אברג׳יל,,,https://lezichram.police.gov.il/main/nofel/42156,Be'eri,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,בארי,בארי
 31,Neta,Adrian,,,אדריאן,נטע,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43633,Be'eri,General vicinity,F,Murdered,2023-10-07,2023-10-07,בארי,בארי
 32,Yossi,Aptalon,,,יוסי,אפטלון,,זיגי,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43582,Be'eri,General vicinity,M,Murdered,2023-10-07,2023-10-07,בארי,בארי
@@ -80,7 +80,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 95,Lilach,Kipnis,,,לילך,קיפניס,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43647,Be'eri,General vicinity,F,Murdered,2023-10-07,2023-10-07,בארי,בארי
 96,Evyatar,Kipnis,,,אביתר,קיפניס,,תרי,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43646,Be'eri,General vicinity,M,Murdered,2023-10-07,2023-10-07,בארי,בארי
 97,Eric,kraunik,,,אריה,קראוניק,,אריק,https://www.idf.il/נופלים/חללי-המלחמה/אריה-אריק-קראוניק/,Be'eri,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,בארי,בארי
-98,Eitan,Levy,,,איתן,לוי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44113,Be'eri,General vicinity,M,Murdered in captivity,2023-10-07,2023-10-07,בארי,אנדרטת חץ שחור
+98,Eitan,Levy,,,איתן,לוי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44113,Be'eri,General vicinity,M,Murdered in captivity,2023-10-07,2023-10-07,אנדרטת חץ שחור,אנדרטת חץ שחור
 99,Ronnie,Levy,,,רוני,לוי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43625,Be'eri,General vicinity,M,Murdered,2023-10-07,2023-10-07,בארי,בארי
 100,Alex,Lobanov,,,אלכס,לובנוב,,,,Nova,General vicinity,M,Kidnapped,2023-10-07,,פסטיבל נובה,
 101,Igor,Lusev,,,איגור,לוסב,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43626,Be'eri,General vicinity,M,Murdered,2023-10-07,2023-10-07,בארי,בארי
@@ -102,7 +102,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 119,Lianne,Sharabi,,,ליאן,שרעבי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43658,Be'eri,General vicinity,F,Murdered,2023-10-07,2023-10-07,בארי,בארי
 120,Noya,Sharabi,,,נויה,שרעבי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43659,Be'eri,General vicinity,F,Murdered,2023-10-07,2023-10-07,בארי,בארי
 121,Yahel,Sharabi,,,יהל,שרעבי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43657,Be'eri,General vicinity,F,Murdered,2023-10-07,2023-10-07,בארי,בארי
-122,Yossi,Sharabi,,,יוסי,שרעבי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44132,Be'eri,General vicinity,M,Murdered in captivity,2023-10-07,2024-01-13,בארי,מחנה הפליטים נוסייראת
+122,Yossi,Sharabi,,,יוסי,שרעבי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44132,Be'eri,General vicinity,M,Murdered in captivity,2023-10-07,2024-01-13,בארי,נוסייראת
 123,Ran,Sheffer,,,רן,שפר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43656,Nova,Exact location,M,Murdered,2023-10-07,2023-10-07,פסטיבל נובה,פסטיבל נובה
 124,Ziv,Shoffen,,,זיו,שופן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43654,Be'eri,General vicinity,M,Murdered,2023-10-07,2023-10-07,בארי,בארי
 125,Adi,Shoham,,,עדי,שוהם,,,,Be'eri,General vicinity,F,Kidnap survivor,2023-10-07,,בארי,
@@ -115,7 +115,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 132,Itzhak,Siton,,,יצחק,סיטון,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43638,Be'eri,General vicinity,M,Murdered,2023-10-07,2023-10-07,בארי,בארי
 133,Tal,Siton,,,טל,סיטון,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43637,Be'eri,General vicinity,M,Murdered,2023-10-07,2023-10-07,בארי,בארי
 134,Tamar,Sochman,,,תמי,סוכמן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43636,Be'eri,General vicinity,F,Murdered,2023-10-07,2023-10-07,בארי,בארי
-135,Itay,Svirski,,,איתי,סבירסקי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44131,Be'eri,General vicinity,M,Murdered in captivity,2023-10-07,2024-01-11,בארי,מחנה הפליטים נוסייראת
+135,Itay,Svirski,,,איתי,סבירסקי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44131,Be'eri,General vicinity,M,Murdered in captivity,2023-10-07,2024-01-11,בארי,נוסייראת
 136,Orit,Svirski,,,אורית,סבירסקי סלע,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43635,Be'eri,General vicinity,F,Murdered,2023-10-07,2023-10-07,בארי,בארי
 137,Raffi,Svirski,,,רפי,סבירסקי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43634,Be'eri,General vicinity,M,Murdered,2023-10-07,2023-10-07,בארי,בארי
 138,Benjamin,Trakeniski,,,בנימין,טרקינסקי,,בנג׳י,https://www.idf.il/נופלים/חללי-המלחמה/בנימין-בנג-י-טרקינסקי/,Be'eri,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,בארי,בארי
@@ -145,17 +145,17 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 188,Chaim,Zohar,,,חיים,זוהר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43613,Be'eri,General vicinity,M,Murdered,2023-10-07,2023-10-07,בארי,בארי
 192,Nik,Beizer,,,ניק,בייזר,,,https://www.idf.il/נופלים/חללי-המלחמה/רון-שרמן/,מעבר ארז,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,מעבר ארז,ג'באליה
 193,Ron,Scherman,,,רון,שרמן,,,https://www.idf.il/נופלים/חללי-המלחמה/ניק-בייזר/,מעבר ארז,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,מעבר ארז,ג'באליה
-194,Matanya,Alster,,,מתניה,אלסטר,,,https://www.idf.il/נופלים/חללי-המלחמה/מתניה-אלסטר/,Northern Border,General vicinity,M,Killed on duty,2023-10-11,2023-10-11,Northern Border,
-195,Omer,Balva,,,עומר,בלוה,,,https://www.idf.il/נופלים/חללי-המלחמה/עומר-בלוה/,Northern Border,General vicinity,M,Killed on duty,2023-10-20,2023-10-20,Northern Border,
-197,Gilad,Molco,,,גלעד,מולכו,,,https://www.idf.il/נופלים/חללי-המלחמה/גלעד-מולכו/,Northern Border,General vicinity,M,Killed on duty,2023-10-09,2023-10-09,Northern Border,
-198,Mofed,Sanunu Elazir,,,מופיד,סנונו אלזיר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44047,Northern Border,General vicinity,M,Murdered,2023-10-15,2023-10-15,Northern Border,
+194,Matanya,Alster,,,מתניה,אלסטר,,,https://www.idf.il/נופלים/חללי-המלחמה/מתניה-אלסטר/,Northern Border,General vicinity,M,Killed on duty,2023-10-11,2023-10-11,ערב אל ערמשה,ערב אל ערמשה
+195,Omer,Balva,,,עומר,בלוה,,,https://www.idf.il/נופלים/חללי-המלחמה/עומר-בלוה/,Northern Border,General vicinity,M,Killed on duty,2023-10-20,2023-10-20,מוצב בירנית,מוצב בירנית
+197,Gilad,Molco,,,גלעד,מולכו,,,https://www.idf.il/נופלים/חללי-המלחמה/גלעד-מולכו/,Northern Border,General vicinity,M,Killed on duty,2023-10-09,2023-10-09,סמוך לאדמית,סמוך לאדמית
+198,Mofed,Sanunu Elazir,,,מופיד,סנונו אלזיר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44047,Northern Border,General vicinity,M,Murdered,2023-10-15,2023-10-15,שתולה,שתולה
 199,Amnon,Bezalel,,,אמנון,בצלאל,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44006,מצרים; אלכסנדריה,General vicinity,M,Murdered,2023-10-08,2023-10-08,מצרים; אלכסנדריה,
 200,Alon,Shamli,,,אלון,שמלי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44007,מצרים; אלכסנדריה,General vicinity,M,Murdered,2023-10-08,2023-10-08,מצרים; אלכסנדריה,
 201,Noa,Glazberg,,,נועה,גלזברג,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43341,Ein HaShlosha,General vicinity,F,Murdered,2023-10-07,2023-10-07,עין השלושה,עין השלושה
 202,Marcel,Talia,,,מרסל,טליה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43338,Ein HaShlosha,General vicinity,F,Murdered,2023-10-07,2023-10-07,עין השלושה,עין השלושה
 203,Silvia,Marnasky,,,סילביה,מרנסקי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43339,Ein HaShlosha,General vicinity,F,Murdered,2023-10-07,2023-10-07,עין השלושה,עין השלושה
 204,Ram,Negbi,,Rami,רם,נגבי,,רמי,https://www.idf.il/נופלים/חללי-המלחמה/רם-נגבי/,Ein HaShlosha,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,עין השלושה,עין השלושה
-206,Amir,Naim,,,אמיר,נעים,,,https://www.idf.il/נופלים/חללי-המלחמה/אמיר-נעים/,Erez,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,Erez,סמוך לארז
+206,Amir,Naim,,,אמיר,נעים,,,https://www.idf.il/נופלים/חללי-המלחמה/אמיר-נעים/,Erez,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,סמוך לארז,סמוך לארז
 207,Tamir,Nimrodi,,,תמיר,נמרודי,,,,Erez Checkpoint,General vicinity,M,Kidnapped,2023-10-07,,מעבר ארז,
 208,Meir,Abragil,,,מאיר,אברג׳ל,,,https://lezichram.police.gov.il/main/nofel/42136,Sderot Police Station,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,שדרות; תחנת משטרה,שדרות
 209,Adir,Abudi,,,אדיר,עבודי,,,https://www.idf.il/נופלים/חללי-המלחמה/אדיר-עבודי/,Zikim Base,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,מחנה זיקים,מחנה זיקים
@@ -177,7 +177,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 225,Amir,Fisher,,,אמיר,פישר,,,https://www.idf.il/נופלים/חללי-המלחמה/יואב-מלייב/,Kfar Aza,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,כפר עזה,כפר עזה
 226,Yuval,Gabay,,,יובל,גבאי,,,https://www.idf.il/נופלים/חללי-המלחמה/יובל-גבאי/,,Approximate location,M,Killed on duty,2023-10-07,2023-10-07,,מזרחית למחנה עופר
 227,Benyamin,Yona,Gabriel,,בנימין,יונה,גבריאל,,https://www.idf.il/נופלים/חללי-המלחמה/בנימין-גבריאל-יונה/,Urim Base,Approximate location,M,Killed on duty,2023-10-07,2023-10-07,מחנה אורים,כביש רעים – אורים (צפון)
-228,Ilay,Gamzo,,,אילי,גמזו,,,https://www.idf.il/נופלים/חללי-המלחמה/אילי-גמזו/,Netiv HaAsara; Running Group Attack,Exact location,M,Killed on duty,2023-10-07,2023-10-07,Netiv HaAsara; Running Group Attack,יד מרדכי - נתיב העשרה
+228,Ilay,Gamzo,,,אילי,גמזו,,,https://www.idf.il/נופלים/חללי-המלחמה/אילי-גמזו/,Netiv HaAsara; Running Group Attack,Exact location,M,Killed on duty,2023-10-07,2023-10-07,יד מרדכי - נתיב העשרה; קבוצת ריצה,יד מרדכי - נתיב העשרה; קבוצת ריצה
 229,Yonatan,Golan,,,יונתן,גולן,,,https://www.idf.il/נופלים/חללי-המלחמה/יונתן-גולן/,Nahal Oz Base,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,מוצב נחל עוז,מוצב נחל עוז
 230,Amit,Gueta,,,עמית,גואטה,,,https://www.idf.il/נופלים/חללי-המלחמה/עמית-גואטה/,Near Sderot,Exact location,M,Killed on duty,2023-10-07,2023-10-07,צומת שער הנגב,צומת שער הנגב
 231,Yonatan,Gutin,,,יונתן,גוטין,,,https://www.idf.il/נופלים/חללי-המלחמה/יונתן-גוטין/,Be'eri,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,בארי,בארי
@@ -518,7 +518,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 644,Yair,Yaakov,,,יאיר,יעקב,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44137,Nir Oz,General vicinity,M,Murdered in captivity,2023-10-07,2023-10-07,ניר עוז,ניר עוז
 645,Arbel,Yehoud,,,ארבל,יהוד,,,,Nir Oz,General vicinity,F,Kidnapped,2023-10-07,,ניר עוז,
 646,Sivan,Yanin,,,סיון,ינין,,,https://lezichram.police.gov.il/main/nofel/42178,Nova,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,פסטיבל נובה,פסטיבל נובה
-648,Arye,Zalmanovich,,,אריה,זלמנוביץ׳,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44084,Nir Oz,General vicinity,M,Murdered in captivity,2023-10-07,2023-10-07,ניר עוז,"חאן יונס, ביה""ח נאצר"
+648,Arye,Zalmanovich,,,אריה,זלמנוביץ׳,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44084,Nir Oz,General vicinity,M,Murdered in captivity,2023-10-07,2023-10-07,ניר עוז,"חאן יונס; ביה""ח נאצר"
 649,Matan,Zangauker,,,מתן,צנגאוקר,,,,Nir Oz,General vicinity,M,Kidnapped,2023-10-07,,ניר עוז,
 650,Ofek,Arazi,,,אופק,ארזי,,,https://www.idf.il/נופלים/חללי-המלחמה/אופק-ארזי/,Nir Yitzhak,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,ניר יצחק,ניר יצחק
 651,Avraham,Boaz,,,בועז,אברהם,,,https://www.idf.il/נופלים/חללי-המלחמה/בועז-אברהם/,Nir Yitzhak,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,ניר יצחק,ניר יצחק
@@ -638,7 +638,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 772,Maxim,Herkin,,,מקסים,הרקין,,,,Nova,General vicinity,M,Kidnapped,2023-10-07,,פסטיבל נובה,
 773,Hersh,Goldberg-Polin,,,הירש,גולדברג-פולין,,,,Nova; Re'im Bomb Shelter (West),Exact location,M,Kidnapped,2023-10-07,,מיגונית בצומת רעים (מערב),
 774,Hadar,Hoshen,,,הדר,חושן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43830,Nova; Re'im Bomb Shelter (East),Exact location,F,Murdered,2023-10-07,2023-10-07,מיגונית בצומת רעים (מזרח),מיגונית בצומת רעים (מזרח)
-775,Guy,Illouz,,,גיא,אילוז,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44091,Nova,General vicinity,M,Murdered in captivity,2023-10-07,2023-10-15,פסטיבל נובה,"דיר אל בלח, בי""ח חללי אל אקצא"
+775,Guy,Illouz,,,גיא,אילוז,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44091,Nova,General vicinity,M,Murdered in captivity,2023-10-07,2023-10-15,פסטיבל נובה,"דיר אל בלח; בי""ח חללי אל אקצא"
 776,Eliya,Iluz,,,אליה,אילוז,אליהו,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43701,Nova,General vicinity,M,Murdered,2023-10-07,2023-10-07,פסטיבל נובה,פסטיבל נובה
 777,Mai,Itzhaki,,,מאי,יצחקי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43855,Nova; Nova Bar,Exact location,F,Murdered,2023-10-07,2023-10-07,פסטיבל נובה; בר,פסטיבל נובה
 778,Ivonne,Rubio Vargas,Eden Patricia ,,איבון,רוביו ורגס,עדן פטריסיה,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43967,Nova; Re'im Bomb Shelter (West),Exact location,F,Murdered,2023-10-07,2023-10-07,מיגונית בצומת רעים (מערב),מיגונית בצומת רעים (מערב)
@@ -856,7 +856,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 1058,Asaf,Fever,,,אסף,פבר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43390,Re'im,General vicinity,M,Murdered,2023-10-07,2023-10-07,רעים,רעים
 1059,Amit,Gabay,,,עמית,גבאי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43387,Re'im,General vicinity,M,Murdered,2023-10-07,2023-10-07,רעים,רעים
 1061,Varda,Haramati,,,ורדה,הרמתי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43389,Re'im,General vicinity,F,Murdered,2023-10-07,2023-10-07,רעים,רעים
-1062,Malik,Karim,,,מליק,קרים,,,https://lezichram.police.gov.il/main/nofel/42155,Re'im; 232 Blocked Road,Exact location,M,Killed on duty,2023-10-07,2023-10-07,Re'im; 232 Blocked Road,פסטיבל נובה
+1062,Malik,Karim,,,מליק,קרים,,,https://lezichram.police.gov.il/main/nofel/42155,Re'im; 232 Blocked Road,Exact location,M,Killed on duty,2023-10-07,2023-10-07,פסטיבל נובה; מחסום בכביש 232,פסטיבל נובה
 1063,Roey,Levy,Yosef,,רועי,לוי,יוסף,,https://www.idf.il/נופלים/חללי-המלחמה/רועי-יוסף-לוי/,Re'im,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,רעים,רעים
 1064,Amin,Ohanadov,,,אמין,אוחנדוב,,,https://lezichram.police.gov.il/main/nofel/42144,Nova,Exact location,M,Killed on duty,2023-10-07,2023-10-07,פסטיבל נובה,פסטיבל נובה
 1065,Kobi,Shmaya,,,יעקב,שמעיה,,קובי,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43372,Re'im,General vicinity,M,Murdered,2023-10-07,2023-10-07,רעים,סמוך למחנה רעים
@@ -1112,8 +1112,8 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 1461,Daniel,Rashad,,,דניאל,ראשד,,,https://www.idf.il/נופלים/חללי-המלחמה/דניאל-ראשד/,Nahal Oz Base,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,מוצב נחל עוז,מוצב נחל עוז
 1462,Svetlana,Lisovoy,,,סבטלנה,ליסובוי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43368,Zikim Beach,General vicinity,F,Murdered,2023-10-07,2023-10-07,חוף זיקים,חוף זיקים
 1463,Yuri,Lisovoy,,,יורי,ליסובוי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43367,Zikim Beach,General vicinity,M,Murdered,2023-10-07,2023-10-07,חוף זיקים,חוף זיקים
-1465,Jawad,Amer,,,ג׳ואד,עאמר,,,https://www.idf.il/נופלים/חללי-המלחמה/ג-ואד-עאמר/,Northern Border,General vicinity,M,Killed on duty,2023-10-09,2023-10-09,Northern Border,
-1466,Alim,Abdallah,,,עלים,עבדאללה,,,https://www.idf.il/נופלים/חללי-המלחמה/עלים-עבדאללה/,Northern Border,General vicinity,M,Killed on duty,2023-10-09,2023-10-09,Northern Border,
+1465,Jawad,Amer,,,ג׳ואד,עאמר,,,https://www.idf.il/נופלים/חללי-המלחמה/ג-ואד-עאמר/,Northern Border,General vicinity,M,Killed on duty,2023-10-09,2023-10-09,אדמית,אדמית
+1466,Alim,Abdallah,,,עלים,עבדאללה,,,https://www.idf.il/נופלים/חללי-המלחמה/עלים-עבדאללה/,Northern Border,General vicinity,M,Killed on duty,2023-10-09,2023-10-09,אדמית,אדמית
 1467,Khaled,Elfrahin,,,חאלד,אבו פרחין,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43708,Nova,General vicinity,M,Murdered,2023-10-07,2023-10-07,פסטיבל נובה,שדרות
 1468,Awad,Darawshe,,,עווד,דראושה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43800,Nova,Approximate location,M,Murdered,2023-10-07,2023-10-07,פסטיבל נובה,פסטיבל נובה
 1469,Sammi,Elgargawi,,,סמי,ג׳רג׳אוי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43286,Sderot,General vicinity,M,Murdered,2023-10-07,2023-10-07,שדרות,צומת שער הנגב
@@ -1134,9 +1134,9 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 1486,Rinat,Zagdon,Hodia,,רינת,זגדון,הודיה,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43818,Nova; Nova Bar,Exact location,F,Murdered,2023-10-07,2023-10-07,פסטיבל נובה; בר,פסטיבל נובה
 1487,Yuri,Yadgarov,,,יורי,ידגרוב,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43456,Ofakim,Exact location,M,Murdered,2023-10-07,2023-10-07,אופקים,אופקים
 1488,Rosa,Yadgarov,,,רוזה,ידגרוב,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43455,Ofakim,Exact location,F,Murdered,2023-10-07,2023-10-07,אופקים,אופקים
-1489,Neomi,Shitrit-Azulay,,,נעמי,שטרית אזולאי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43432,Netiv HaAsara; Running Group Attack,Exact location,F,Murdered,2023-10-07,2023-10-07,Netiv HaAsara; Running Group Attack,יד מרדכי - נתיב העשרה
+1489,Neomi,Shitrit-Azulay,,,נעמי,שטרית אזולאי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43432,Netiv HaAsara; Running Group Attack,Exact location,F,Murdered,2023-10-07,2023-10-07,יד מרדכי - נתיב העשרה; קבוצת ריצה,יד מרדכי - נתיב העשרה; קבוצת ריצה
 1490,Ilan,Avraham,,,אילן,אברהם,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43683,Nova,Exact location,M,Murdered,2023-10-07,2023-10-07,פסטיבל נובה,יכיני
-1491,Kobi,Paryante,,,קובי,פריאנטה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43429,Netiv HaAsara; Running Group Attack,Exact location,M,Murdered,2023-10-07,2023-10-07,Netiv HaAsara; Running Group Attack,יד מרדכי - נתיב העשרה
+1491,Kobi,Paryante,,,קובי,פריאנטה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43429,Netiv HaAsara; Running Group Attack,Exact location,M,Murdered,2023-10-07,2023-10-07,יד מרדכי - נתיב העשרה; קבוצת ריצה,יד מרדכי - נתיב העשרה; קבוצת ריצה
 1492,Shahaf,Krief,,,שחף,קרייף,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43366,Zikim Beach,General vicinity,M,Murdered,2023-10-07,2023-10-07,חוף זיקים,חוף זיקים
 1493,Ron,Weinberg,,,רון,ויינברג,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43810,Nova,Approximate location,M,Murdered,2023-10-07,2023-10-07,פסטיבל נובה,סמוך לצומת מבטחים
 1494,Itay,Cohen,,,איתי,כהן,,,https://www.idf.il/נופלים/חללי-המלחמה/איתי-כהן/,Alumim,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,עלומים,עלומים
@@ -1203,7 +1203,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 1558,Yulia,Chaben,,,יוליה,צ׳בן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43370,Zikim Beach,General vicinity,F,Murdered,2023-10-07,2023-10-07,חוף זיקים,חוף זיקים
 1559,Emily,Damari,,,אמילי,דמארי,,,,Kfar Aza,General vicinity,F,Kidnapped,2023-10-07,,כפר עזה,
 1560,Avshalom,Peretz,Yair,,אבשלום,פרץ,יאיר,,https://lezichram.police.gov.il/main/nofel/42131,Near Sderot,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,צומת שער הנגב,צומת שער הנגב
-1561,Yiftach,Gorny,,,יפתח,גורני,,,https://www.idf.il/נופלים/חללי-המלחמה/יפתח-גורני/,Kerem Shalom,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,Kerem Shalom,חולית
+1561,Yiftach,Gorny,,,יפתח,גורני,,,https://www.idf.il/נופלים/חללי-המלחמה/יפתח-גורני/,Kerem Shalom,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,חולית,חולית
 1562,Arik,Marciano,Yehuda,,אריק,מרציאנו,יהודה,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43425,Sderot,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,שדרות,שדרות
 1563,Izhar,Hajbi,,,יזהר,חג׳בי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43386,Yakhini,General vicinity,M,Murdered,2023-10-07,2023-10-07,יכיני,יכיני
 1564,Elitzur,Hajbi,Tzuriel,,אליצור,חג׳בי,צוריאל,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43384,Yakhini,General vicinity,M,Murdered,2023-10-07,2023-10-07,יכיני,יכיני
@@ -1250,8 +1250,8 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 1610,Olag,lifshitz,,,אולג,ליפשיץ,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44068,Ein HaShlosha,General vicinity,M,Murdered,2023-10-07,2023-10-07,עין השלושה,צומת גמה
 1611,Aharon,Marcovichi,Arthur,,אהרון,מרקוביצ׳י,ארתור,,https://lezichram.police.gov.il/main/nofel/42171,פסטיבל נובה; חסימה בכביש 232,Exact location,M,Killed on duty,2023-10-07,2023-10-07,פסטיבל נובה; חסימה בכביש 232,פסטיבל נובה
 1612,Michael,Ben-Moshe Moshiasvhili,,,מיכאל,בן משה מושיאשווילי,,,https://www.shabak.gov.il/memorial/מיכאל-בן-משה/,Zikim Beach,Approximate location,M,Killed on duty,2023-10-07,2023-10-07,חוף זיקים,מערבית לזיקים
-1613,Jana,Roderman,,,ז׳אנה,רודרמן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44012,Ashkelon,General vicinity,F,Murdered,,2023-10-14,Ashkelon,
-1614,Yehoshua,Hatab,,,יהושוע,חטאב,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44010,Ashkelon,General vicinity,M,Murdered,2023-10-07,2023-10-07,Ashkelon,אשקלון
+1613,Jana,Roderman,,,ז׳אנה,רודרמן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44012,Ashkelon,General vicinity,F,Murdered,,2023-10-14,אשקלון,אשקלון
+1614,Yehoshua,Hatab,,,יהושוע,חטאב,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44010,Ashkelon,General vicinity,M,Murdered,2023-10-07,2023-10-07,אשקלון,אשקלון
 1615,Tomer,Dolev,,,תומר,דולב,,,https://www.idf.il/נופלים/חללי-המלחמה/תומר-דולב/,Netiv HaAsara,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,נתיב העשרה,ירי בשוגג בדרך לנתיב העשרה
 1616,Shlomo,Alshich,Eliyahu,,שלמה,אלשיך,אליהו,שלומי,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43709,Nova,Estimated location,M,Murdered,2023-10-07,2023-10-07,פסטיבל נובה,פסטיבל נובה
 1617,Gabriel,Barel,Ishay,,גבריאל,בראל,ישי,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43755,Nova,Exact location,M,Murdered,2023-10-07,2023-10-07,פסטיבל נובה,סמוך למפלסים
@@ -1267,7 +1267,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 1629,Nir,Popov,,,ניר,פופוב,,ניקיטה,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43939,Mefalsim,Exact location,M,Murdered,2023-10-07,2023-10-07,סמוך למפלסים,סמוך למפלסים
 1631,Orel,Pesso,,,אוראל,פסו,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43944,Nova; Re'im Bomb Shelter (East),Exact location,M,Murdered,2023-10-07,2023-10-07,מיגונית בצומת רעים (מזרח),מיגונית בצומת רעים (מזרח)
 1632,Nutthawaree,Munkan,,,נטווארי,מולקאן,,,,Be'eri,General vicinity,F,Kidnap survivor,2023-10-07,,ישע גידולי אגו,
-1633,Itay,Martsiano,,,איתי,מרציאנו,אליהו,,https://www.idf.il/נופלים/חללי-המלחמה/איתי-אליהו-מרציאנו/,Netiv HaAsara; Running Group Attack,Exact location,M,Killed on duty,2023-10-07,2023-10-07,Netiv HaAsara; Running Group Attack,יד מרדכי - נתיב העשרה
+1633,Itay,Martsiano,,,איתי,מרציאנו,אליהו,,https://www.idf.il/נופלים/חללי-המלחמה/איתי-אליהו-מרציאנו/,Netiv HaAsara; Running Group Attack,Exact location,M,Killed on duty,2023-10-07,2023-10-07,יד מרדכי - נתיב העשרה; קבוצת ריצה,יד מרדכי - נתיב העשרה; קבוצת ריצה
 1634,Aisha,Alziadana,,,עאישה,אלזיאדנה,,,,Holit,General vicinity,F,Kidnap survivor,2023-10-07,,חולית,
 1635,Bilal,Alziadana,,,בילאל,אלזיאדנה,,,,Holit,General vicinity,M,Kidnap survivor,2023-10-07,,חולית,
 1636,Hamza,Alziadana,,,חמזה,אלזיאדנה,   ,,,Holit,General vicinity,M,Kidnapped,2023-10-07,,חולית,
@@ -1328,7 +1328,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 1693,Yossi,Tahar,,,יוסף,טהר,חי,יוסי,https://www.shabak.gov.il/memorial/יוסי-טהר/,Mefalsim,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,סמוך למפלסים,סמוך למפלסים
 1694,Joshua,Mollel,Loitu,,ג׳ושוע,מולל,לואיטו ,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44117,Nahal Oz,General vicinity,M,Murdered in captivity,2023-10-07,2023-10-07,נחל עוז,נחל עוז
 1695,Muhammad,Alatrash,,,מוחמד,אלאטרש,,,,Holit,General vicinity,M,Kidnapped,2023-10-07,,חולית,
-1696,Udom,Chan,,,אודום,צ׳אן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43352,,General vicinity,M,Murdered,2023-10-07,2023-10-07,,חולית
+1696,Udom,Chan,,,אודום,צ׳אן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43352,,General vicinity,M,Murdered,2023-10-07,2023-10-07,חולית,חולית
 1697,Goitom,Gebrehiwot,,,גויטום,גברהיווט,,,,Sderot,General vicinity,M,Murdered,2023-10-07,2023-10-07,שדרות,שדרות
 1698,Adam,Brema,Mohammad,Boma,אדם,ברימה,מוחמד,פומה,,Sderot,General vicinity,M,Murdered,2023-10-07,2023-10-07,שדרות,שדרות
 1699,Angelyn,Aguirre,,,אנג,אגירה,לין,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43349,Kfar Aza,General vicinity,F,Murdered,2023-10-07,2023-10-07,כפר עזה,כפר עזה
@@ -1339,7 +1339,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 1704,Haim,Eden,Meir,,חיים,עדן,מאיר,,https://www.idf.il/נופלים/חללי-המלחמה/חיים-מאיר-עדן/,Paga Post,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,מוצב פגה,מוצב פגה
 1705,Avi,Amar,,,אבי,עמר,,,https://lezichram.police.gov.il/main/nofel/42174,Be'eri,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,בארי,בארי
 1706,Shai,Levinson,,,שי,לוינסון,,,https://www.idf.il/נופלים/חללי-המלחמה/שי-לוינסון/,Re'im,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,רעים,עמדה 91
-1707,Shoham,Ben-Harush,Moshe,,שהם,בן הרוש,משה,,https://www.idf.il/נופלים/חללי-המלחמה/שהם-משה-בן-הרוש/,Kerem Shalom,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,Kerem Shalom,כרם שלום
+1707,Shoham,Ben-Harush,Moshe,,שהם,בן הרוש,משה,,https://www.idf.il/נופלים/חללי-המלחמה/שהם-משה-בן-הרוש/,Kerem Shalom,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,כרם שלום,כרם שלום
 1708,Itai,Bausi,Yehuda,,איתי,באוסי,יהודה,,https://www.idf.il/נופלים/חללי-המלחמה/איתי-יהודה-באוסי/,Nova,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,פסטיבל נובה,פסטיבל נובה
 1709,Adir,Gaori,,,אדיר,גאורי,,,https://www.idf.il/נופלים/חללי-המלחמה/אדיר-גאורי/,Be'eri,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,בארי,רעים
 1710,Ilay,Zisser,,,עילי,זיסר,,,https://www.idf.il/נופלים/חללי-המלחמה/עילי-זיסר/,Kfar Aza,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,כפר עזה,כפר עזה
@@ -1356,7 +1356,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 1721,Yelizabeta,Kostitzin,,,יליזבטה,קוסטיצין,,ליליה,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43465,Ofakim,Exact location,F,Murdered,2023-10-07,2023-10-07,אופקים,אופקים
 1722,Emma,Poliakov,,,אמה,פוליאקוב,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43460,Ofakim,Exact location,F,Murdered,2023-10-07,2023-10-07,אופקים,אופקים
 1723,Emil,Samoilov,,,אמיל,סמוילוב,,,https://www.idf.il/נופלים/חללי-המלחמה/אמיל-סמוילוב/,מעבר ארז,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,מעבר ארז,מעבר ארז
-1724,Pongpat,Suchart,,,פונגפט,סוצ׳אט,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43400,,General vicinity,,Murdered,2023-10-10,2023-10-10,Talmei Eliyahu,
+1724,Pongpat,Suchart,,,פונגפט,סוצ׳אט,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43400,,General vicinity,,Murdered,2023-10-10,2023-10-10,תלמי אליהו,תלמי אליהו
 1725,Evyatar,Ohayon,,,אביתר,אוחיון,,,https://www.idf.il/נופלים/חללי-המלחמה/אביתר-אוחיון/,Kissufim Base,General vicinity,M,Killed on duty,2023-10-07,2023-10-07,מוצב כיסופים,מוצב כיסופים
 1726,Oz,Daniel,,,עוז,דניאל,,,https://www.idf.il/נופלים/חללי-המלחמה/עוז-דניאל/,Nir Oz,Exact location,M,Killed on duty,2023-10-07,2023-10-07,ניר עוז,בין ניר עוז לגבול
 1727,Igal,Flash,,,יגאל,פלש,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43512,Kfar Aza,General vicinity,M,Murdered,2023-10-07,2023-10-07,כפר עזה,כפר עזה
@@ -1367,41 +1367,41 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 1733,Amichay,Rubin,Shimon,,עמיחי,רובין,שמעון,,https://www.idf.il/נופלים/חללי-המלחמה/עמיחי-שמעון-רובין/,Mivtahim,Approximate location,M,Killed on duty,2023-10-07,2023-10-07,צומת מבטחים,"מו""פ דרום"
 1734,Sonthaya,Oakkharasri,,,סונטאיה,אקראסי,,,,Be'eri,General vicinity,M,Murdered in captivity,2023-10-07,2023-10-07,בארי,מטעים של בארי
 1735,Sudthisak,Rinthalak,,,סותטיסאק,רינטלאק,,,,Be'eri,General vicinity,M,Murdered in captivity,2023-10-07,2023-10-07,בארי,מטעים של בארי
-2001,Adi,Ohana,,,עדי,אוחנה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44044,Friendly fire near Mavki'im,oct_7_9,M,אזרחים,2023-10-07,2023-10-07,Friendly fire near Mavki'im,ירי בשוגג ליד מבקיעים
+2001,Adi,Ohana,,,עדי,אוחנה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44044,Friendly fire near Mavki'im,oct_7_9,M,אזרחים,2023-10-07,2023-10-07,ירי בשוגג ליד מבקיעים,ירי בשוגג ליד מבקיעים
 2003,Yaakov,Salomon,,,יעקב,סלומון,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44022,פסטיבל נובה,oct_7_9,M,אזרחים,2023-10-07,2023-10-07,פסטיבל נובה,פסטיבל נובה
 2006,Nativ,Nave,Maayan,,נתיב,נווה,מעיין,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44024,Sderot,oct_7_9,M,אזרחים,2023-10-07,2023-10-07,שדרות,שדרות
 2007,Cao,Yongkai,,, סאו,יונגקאי,,,,Sderot,oct_7_9,M,אזרחים זרים,2023-10-07,2023-10-07,שדרות,שדרות
-2008,Omer,Gavra,,,עומר,גברה,,,https://www.shabak.gov.il/memorial/עומר-גברה/,Yakhini jct,oct_7_9,M,"שב""כ",2023-10-07,2023-10-07,Yakhini jct,צומת שדרות דרום
+2008,Omer,Gavra,,,עומר,גברה,,,https://www.shabak.gov.il/memorial/עומר-גברה/,Yakhini jct,oct_7_9,M,"שב""כ",2023-10-07,2023-10-07,צומת שדרות דרום,צומת שדרות דרום
 2009,Sahar,Midani,,,סהר,מידאני,,,https://www.idf.il/נופלים/חללי-המלחמה/סהר-מידאני/,Nahal Oz Base,oct_7_9,M,Killed on duty,2023-10-07,2023-10-07,מוצב נחל עוז,מוצב נחל עוז
 2010,Or,Malka,,,אור,מלכה,,,https://www.idf.il/נופלים/חללי-המלחמה/אור-מלכה/,Erez Checkpoint,oct_7_9,M,Killed on duty,2023-10-07,2023-10-07,מעבר ארז,מעבר ארז
-2011,Ilay,Ben Muha,Noam ,,עילי,בן מוחה,נועם,,https://www.idf.il/נופלים/חללי-המלחמה/עילי-נועם-בן-מוחה/,Kisufim Base,oct_7_9,M,Killed on duty,2023-10-07,2023-10-07,Kisufim Base,מוצב כיסופים
-2012,Ori,Shani,Mordechay,,אורי,שני,מרדכי,,https://www.idf.il/נופלים/חללי-המלחמה/אורי-מרדכי-שני/,Kisufim Base,oct_7_9,M,Killed on duty,2023-10-07,2023-10-07,Kisufim Base,מוצב כיסופים
-2013,Majed,Ibrahim,,,מאג׳ד,אברהים,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44011,Abu Gosh,oct_7_9,M,אזרחים,2023-10-09,2023-10-09,Abu Gosh,אבו גוש
-2014,Naama,Abu Qrenat,,,נעאמה,אבו קרינאת,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44048,Magen jct,oct_7_9,F,אזרחים,2023-10-07,2023-10-07,Magen jct,צומת מגן
+2011,Ilay,Ben Muha,Noam ,,עילי,בן מוחה,נועם,,https://www.idf.il/נופלים/חללי-המלחמה/עילי-נועם-בן-מוחה/,Kisufim Base,oct_7_9,M,Killed on duty,2023-10-07,2023-10-07,מוצב כיסופים,מוצב כיסופים
+2012,Ori,Shani,Mordechay,,אורי,שני,מרדכי,,https://www.idf.il/נופלים/חללי-המלחמה/אורי-מרדכי-שני/,Kisufim Base,oct_7_9,M,Killed on duty,2023-10-07,2023-10-07,מוצב כיסופים,מוצב כיסופים
+2013,Majed,Ibrahim,,,מאג׳ד,אברהים,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44011,Abu Gosh,oct_7_9,M,אזרחים,2023-10-09,2023-10-09,אבו גוש,אבו גוש
+2014,Naama,Abu Qrenat,,,נעאמה,אבו קרינאת,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44048,Magen jct,oct_7_9,F,אזרחים,2023-10-07,2023-10-07,צומת מגן,צומת מגן
 2015,Natalia,Demidova,,,נטליה,דמידובה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44062,Sderot,oct_7_9,F,אזרחים זרים,2023-10-07,2023-10-07,שדרות,שדרות
-2016,Niv,Ayos,,,ניב,איוס,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44005,Friendly fire near Nitzan,oct_7_9,M,אזרחים,2023-10-07,2023-10-07,Friendly fire near Nitzan,ירי בשוגג ליד צומת ניצן
+2016,Niv,Ayos,,,ניב,איוס,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44005,Friendly fire near Nitzan,oct_7_9,M,אזרחים,2023-10-07,2023-10-07,ירי בשוגג ליד צומת ניצן,ירי בשוגג ליד צומת ניצן
 2017,Dor,Sade,,,דור,שדה,,,https://www.idf.il/נופלים/חללי-המלחמה/דור-שדה/,Kfar Aza,oct_7_9,M,Killed on duty,2023-10-09,2023-10-09,כפר עזה,כפר עזה
 2019,Paphonthanai,Pongkhrurea,,,פפונתנאי,פונגקרואה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44108,Nir Oz,oct_7_9,M,אזרחים זרים,2023-10-07,2023-10-07,ניר עוז,ניר עוז
-2020,Dani,Alush,,,דני,עלוש,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44009,Friendly fire near Kerem Shalom,oct_7_9,M,אזרחים,2023-10-09,2023-10-09,Friendly fire near Kerem Shalom,ירי בשוגג ליד כרם שלום
-2021,Tal,Danieli,,,טל,דניאלי,,טלטול,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44045,Friendly fire near Kerem Shalom,oct_7_9,M,אזרחים,2023-10-09,2023-10-09,Friendly fire near Kerem Shalom,ירי בשוגג ליד כרם שלום
+2020,Dani,Alush,,,דני,עלוש,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44009,Friendly fire near Kerem Shalom,oct_7_9,M,אזרחים,2023-10-09,2023-10-09,ירי בשוגג ליד כרם שלום,ירי בשוגג ליד כרם שלום
+2021,Tal,Danieli,,,טל,דניאלי,,טלטול,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44045,Friendly fire near Kerem Shalom,oct_7_9,M,אזרחים,2023-10-09,2023-10-09,ירי בשוגג ליד כרם שלום,ירי בשוגג ליד כרם שלום
 2023,Wolderaphael,Hagos Berhe,,Tiger,וולדרפאל,האגוס-ברהה,,טייגר,,Sderot,oct_7_9,M,אזרחים זרים,2023-10-07,2023-10-07,שדרות,שדרות
-2024,Hashem,Barawi,,,האשם,בראווי,,,,Sha'ar HaNegev jct,oct_7_9,M,אזרחים זרים,2023-10-07,2023-10-07,Sha'ar HaNegev jct,צומת שער הנגב
-2025,Salah,Abd Eldayim,,,סלאח,עבד אלדיים,,,,Sha'ar HaNegev jct,oct_7_9,M,אזרחים זרים,2023-10-07,2023-10-07,Sha'ar HaNegev jct,צומת שער הנגב
-2026,Ismail,Rakba,Abu,,אסמעיל,אבו רקבה,,,,Sha'ar HaNegev jct,oct_7_9,M,אזרחים זרים,2023-10-07,2023-10-07,Sha'ar HaNegev jct,צומת שער הנגב
-2027,Suheil,Masri,,,סוהייל,מסרי,,,,Sha'ar HaNegev jct,oct_7_9,M,אזרחים זרים,2023-10-07,2023-10-07,Sha'ar HaNegev jct,צומת שער הנגב
-2028,Huri,Elmasri,,,חורי,אלמסרי,,,,Sha'ar HaNegev jct,oct_7_9,M,אזרחים זרים,2023-10-07,2023-10-07,Sha'ar HaNegev jct,צומת שער הנגב
-2029,Suliman,Elatar,,,סלימאן,אלעטאר,,,,Sha'ar HaNegev jct,oct_7_9,M,אזרחים זרים,2023-10-07,2023-10-07,Sha'ar HaNegev jct,צומת שער הנגב
-2030,Ziad,Ganem,,,זיאד,גאנם,,,,Sha'ar HaNegev jct,oct_7_9,M,אזרחים זרים,2023-10-07,2023-10-07,Sha'ar HaNegev jct,צומת שער הנגב
-2031,Jianhe,Liu,,,ג׳יאנה,ליו,,,,South of Gevim,oct_7_9,M,אזרחים זרים,2023-10-07,2023-10-07,South of Gevim,דרומית לגבים
-2032,Zhiguo,Liu,,,זהיגו,ליו,,,,South of Gevim,oct_7_9,M,אזרחים זרים,2023-10-07,2023-10-07,South of Gevim,דרומית לגבים
+2024,Hashem,Barawi,,,האשם,בראווי,,,,Sha'ar HaNegev jct,oct_7_9,M,אזרחים זרים,2023-10-07,2023-10-07,צומת שער הנגב,צומת שער הנגב
+2025,Salah,Abd Eldayim,,,סלאח,עבד אלדיים,,,,Sha'ar HaNegev jct,oct_7_9,M,אזרחים זרים,2023-10-07,2023-10-07,צומת שער הנגב,צומת שער הנגב
+2026,Ismail,Rakba,Abu,,אסמעיל,אבו רקבה,,,,Sha'ar HaNegev jct,oct_7_9,M,אזרחים זרים,2023-10-07,2023-10-07,צומת שער הנגב,צומת שער הנגב
+2027,Suheil,Masri,,,סוהייל,מסרי,,,,Sha'ar HaNegev jct,oct_7_9,M,אזרחים זרים,2023-10-07,2023-10-07,צומת שער הנגב,צומת שער הנגב
+2028,Huri,Elmasri,,,חורי,אלמסרי,,,,Sha'ar HaNegev jct,oct_7_9,M,אזרחים זרים,2023-10-07,2023-10-07,צומת שער הנגב,צומת שער הנגב
+2029,Suliman,Elatar,,,סלימאן,אלעטאר,,,,Sha'ar HaNegev jct,oct_7_9,M,אזרחים זרים,2023-10-07,2023-10-07,צומת שער הנגב,צומת שער הנגב
+2030,Ziad,Ganem,,,זיאד,גאנם,,,,Sha'ar HaNegev jct,oct_7_9,M,אזרחים זרים,2023-10-07,2023-10-07,צומת שער הנגב,צומת שער הנגב
+2031,Jianhe,Liu,,,ג׳יאנה,ליו,,,,South of Gevim,oct_7_9,M,אזרחים זרים,2023-10-07,2023-10-07,דרומית לגבים,דרומית לגבים
+2032,Zhiguo,Liu,,,זהיגו,ליו,,,,South of Gevim,oct_7_9,M,אזרחים זרים,2023-10-07,2023-10-07,דרומית לגבים,דרומית לגבים
 2033,Yuval,Yoffe,,,יובל,יפה,,,https://www.idf.il/נופלים/חללי-המלחמה/יובל-יפה/,כיסופים,idf,M,Killed on duty,2023-10-11,2023-10-11,כיסופים,כיסופים
-2034,Adi,Borech,Odeya,,עדי,ברוך,אודיה,,https://www.idf.il/נופלים/חללי-המלחמה/עדי-אודיה-ברוך/,פגיעת רקטה במבואות שדרות,idf,F,Killed on duty,2023-10-12,2023-10-12,פגיעת רקטה במבואות שדרות,פגיעת רקטה במבואות שדרות
-2035,Yakov,Nedlin,,,יעקב,נדלין,,,https://www.idf.il/נופלים/חללי-המלחמה/יעקב-נדלין/,"ירי דו""צ ליד כפר אימתין, הגדה המערבית",idf,M,Killed on duty,2023-10-13,2023-10-13,"ירי דו""צ ליד כפר אימתין, הגדה המערבית","ירי דו""צ ליד כפר אימתין, הגדה המערבית"
-2036,Kamay,Achiel,,,קאמיי,אחיאל,,,https://www.idf.il/נופלים/חללי-המלחמה/קאמיי-אחיאל/,"בלב ים, מול חוף הצפון / לבנון",idf,F,Killed on duty,2023-10-14,2023-10-14,"בלב ים, מול חוף הצפון / לבנון","בלב ים, מול חוף הצפון / לבנון"
+2034,Adi,Borech,Odeya,,עדי,ברוך,אודיה,,https://www.idf.il/נופלים/חללי-המלחמה/עדי-אודיה-ברוך/,פגיעת רקטה במבואות שדרות,idf,F,Killed on duty,2023-10-12,2023-10-12,במבואות שדרות,במבואות שדרות
+2035,Yakov,Nedlin,,,יעקב,נדלין,,,https://www.idf.il/נופלים/חללי-המלחמה/יעקב-נדלין/,"ירי דו""צ ליד כפר אימתין, הגדה המערבית",idf,M,Killed on duty,2023-10-13,2023-10-13,"ירי דו""צ ליד כפר אימתין","ירי דו""צ ליד כפר אימתין"
+2036,Kamay,Achiel,,,קאמיי,אחיאל,,,https://www.idf.il/נופלים/חללי-המלחמה/קאמיי-אחיאל/,"בלב ים, מול חוף הצפון / לבנון",idf,F,Killed on duty,2023-10-14,2023-10-14,בלב ים מול חוף לבנון,בלב ים מול חוף לבנון
 2037,Omer,Bitan,Nissim,,עומר,ביתן,ניסים,,https://www.idf.il/נופלים/חללי-המלחמה/עומר-ניסים-ביתן/,נירים,idf,M,Killed on duty,2023-10-14,2023-10-14,נירים,נירים
-2038,Shraga,Hasid,,,שרגא,חסיד,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44008,Ashkelon (hospital),oct_7_9,M,אזרחים,2023-10-09,2023-10-09,Ashkelon (hospital),"אשקלון (בי""ח ברזילי)"
+2038,Shraga,Hasid,,,שרגא,חסיד,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44008,Ashkelon (hospital),oct_7_9,M,אזרחים,2023-10-09,2023-10-09,"אשקלון; בי""ח ברזילי","אשקלון; בי""ח ברזילי"
 2039,Amitay,Granot,Zvi,,אמתי,גרנות,צבי,,https://www.idf.il/נופלים/חללי-המלחמה/אמתי-צבי-גרנות/,"ליד מוצב נורית, הגליל המערבי",idf,M,Killed on duty,2023-10-15,2023-10-15,"ליד מוצב נורית, הגליל המערבי","ליד מוצב נורית, הגליל המערבי"
-2040,Maxim,Rizkov,,,מקסים,ריז׳קוב,,,https://lezichram.police.gov.il/main/nofel/42181,"מחנה הפליטים נור א־שמס, ליד טול כרם",,,,2023-10-19,2023-10-19,"מחנה הפליטים נור א־שמס, ליד טול כרם",
+2040,Maxim,Rizkov,,,מקסים,ריז׳קוב,,,https://lezichram.police.gov.il/main/nofel/42181,"מחנה הפליטים נור א־שמס, ליד טול כרם",,,,2023-10-19,2023-10-19,טול כרם; מחנה הפליטים נור א־שמס,
 2041,Hagai,Efrat,,,חגי,אפרת,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44013,"אלכסנדריה, מצרים",,,,2023-10-08,2023-10-08,"אלכסנדריה, מצרים",
 2042,Tamir,Barak,,,תמיר,ברק,,,https://www.idf.il/נופלים/חללי-המלחמה/תמיר-ברק/,צפון רצועת עזה,idf,M,Killed on duty,2023-10-22,2023-10-22,צפון רצועת עזה,צפון רצועת עזה
 2043,Tamar,Torpiashvili,,,תמר,טורפיאשוילי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44034,אשדוד,,,,2023-10-27,2023-10-27,אשדוד,
@@ -1440,7 +1440,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2076,Yehonatan,Maimon,,,יהונתן,מימון,,,https://www.idf.il/נופלים/חללי-המלחמה/יהונתן-מימון/,צפון רצועת עזה,idf,M,Killed on duty,2023-11-04,2023-11-04,צפון רצועת עזה,צפון רצועת עזה
 2077,Naaran,Eshchar,,,נערן,אשחר,,,https://www.idf.il/נופלים/חללי-המלחמה/נערן-אשחר/,תאונה מבצעית בגבול הצפון,idf,M,Killed on duty,2023-10-29,2023-11-05,תאונה מבצעית בגבול הצפון,תאונה מבצעית בגבול הצפון
 2078,Shahar,Mivtach,Cohen,,שחר,מבטח,כהן,,https://www.idf.il/נופלים/חללי-המלחמה/שחר-כהן-מבטח/,צפון רצועת עזה,idf,M,Killed on duty,2023-11-05,2023-11-05,צפון רצועת עזה,צפון רצועת עזה
-2079,Ross,Lubin,Elisheva Rose Ida,,רוס,לובין,אלישבע רוז איידה,,https://lezichram.police.gov.il/main/nofel/42182,"ירושלים, העיר העתיקה, תחנת שלם",,,,2024-11-06,2024-11-06,"ירושלים, העיר העתיקה, תחנת שלם",
+2079,Ross,Lubin,Elisheva Rose Ida,,רוס,לובין,אלישבע רוז איידה,,https://lezichram.police.gov.il/main/nofel/42182,"ירושלים, העיר העתיקה, תחנת שלם",,,,2024-11-06,2024-11-06,ירושלים; העיר העתיקה תחנת שלם,
 2080,Yaacov,Ozeri,,,יעקב,עוזרי,,,https://www.idf.il/נופלים/חללי-המלחמה/יעקב-עוזרי/,צפון רצועת עזה,idf,M,Killed on duty,2023-11-07,2023-11-07,צפון רצועת עזה,צפון רצועת עזה
 2081,Jonathan,Chazor,,,יונתן,חצור,,,https://www.idf.il/נופלים/חללי-המלחמה/יונתן-חצור/,צפון רצועת עזה,idf,M,Killed on duty,2023-11-07,2023-11-07,צפון רצועת עזה,צפון רצועת עזה
 2082,Meir,Moyal,,,מאיר,מויאל,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44078,"מוצב שושן, ליד קיבוץ יפתח",,,,2023-11-08,2023-11-08,"מוצב שושן, ליד קיבוץ יפתח",
@@ -1601,7 +1601,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2239,Sufian,Dagash,,,סופיאן,דגש,,,https://www.idf.il/נופלים/חללי-המלחמה/סופיאן-דגש/,צפון רצועת עזה,idf,M,Killed on duty,2024-01-02,2024-01-02,צפון רצועת עזה,צפון רצועת עזה
 2240,Meiron,Gersch,Moshe,,מירון,גרש,משה,,https://www.idf.il/נופלים/חללי-המלחמה/מירון-משה-גרש/,צפון רצועת עזה,idf,M,Killed on duty,2024-01-02,2024-01-02,צפון רצועת עזה,צפון רצועת עזה
 2241,Roee,Mordechay,Yohay Yosef,,רועי,מרדכי,יוחאי יוסף,,https://www.idf.il/נופלים/חללי-המלחמה/רועי-יוחאי-יוסף-מרדכי/,צפון רצועת עזה,idf,M,Killed on duty,2024-01-06,2024-01-06,צפון רצועת עזה,צפון רצועת עזה
-2242,Shai,Garmai,,,שי,גרמאי,,,https://lezichram.police.gov.il/main/nofel/42186,מחנה הפליטים ג'נין,,,,2024-01-07,2024-01-07,מחנה הפליטים ג'נין,
+2242,Shai,Garmai,,,שי,גרמאי,,,https://lezichram.police.gov.il/main/nofel/42186,מחנה הפליטים ג'נין,,,,2024-01-07,2024-01-07,ג'נין; מחנה הפליטים,
 2243,Roi,Tal,,,רועי,טל,,,https://www.idf.il/נופלים/חללי-המלחמה/רועי-טל/,דרום רצועת עזה,idf,M,Killed on duty,2024-01-08,2024-01-08,דרום רצועת עזה,דרום רצועת עזה
 2244,Yakir,Hexter,,,יקיר,הכסטר,,,https://www.idf.il/נופלים/חללי-המלחמה/יקיר-הכסטר/,דרום רצועת עזה,idf,M,Killed on duty,2024-01-08,2024-01-08,דרום רצועת עזה,דרום רצועת עזה
 2245,Gavriel,Bloom,,,גבריאל,בלום,,,https://www.idf.il/נופלים/חללי-המלחמה/גבריאל-בלום/,מרכז רצועת עזה,idf,M,Killed on duty,2024-01-08,2024-01-08,מרכז רצועת עזה,מרכז רצועת עזה
@@ -1616,12 +1616,12 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2254,Andu’alem,kabeda,,,אנדועלם,קבדה,,,https://www.idf.il/נופלים/חללי-המלחמה/אנדועלם-קבדה/,דרום רצועת עזה,idf,M,Killed on duty,2024-01-13,2024-01-13,דרום רצועת עזה,דרום רצועת עזה
 2255,Barak,Ayalon,,,ברק,איילון,,,https://www.idf.il/נופלים/חללי-המלחמה/ברק-איילון/,כפר יובל,idf,M,Killed on duty,2024-01-14,2024-01-14,כפר יובל,כפר יובל
 2256,Ayalon,Miriam,,Mira,מרים,איילון,,מירה,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44128,כפר יובל,,,,2024-01-14,2024-01-14,כפר יובל,
-2257,Edna,Bluestein,,,עדנה,בלושטיין,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44130,"רעננה, רחוב אחוזה",,,,2024-01-15,2024-01-15,"רעננה, רחוב אחוזה",
+2257,Edna,Bluestein,,,עדנה,בלושטיין,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44130,"רעננה, רחוב אחוזה",,,,2024-01-15,2024-01-15,רעננה; רחוב אחוזה,
 2258,Nitzan,Schessler,,,ניצן,שסלר,,,https://www.idf.il/נופלים/חללי-המלחמה/ניצן-שסלר/,דרום רצועת עזה,idf,M,Killed on duty,2024-01-15,2024-01-15,דרום רצועת עזה,דרום רצועת עזה
 2259,Noam,Ashram,,,נועם,אשרם,,,https://www.idf.il/נופלים/חללי-המלחמה/נועם-אשרם/,מרכז רצועת עזה,idf,M,Killed on duty,2024-12-29,2024-01-16,מרכז רצועת עזה,מרכז רצועת עזה
 2260,Zechariah,Haber,Pesach,,זכריה,הבר,פסח,,https://www.idf.il/נופלים/חללי-המלחמה/זכריה-פסח-הבר/,צפון רצועת עזה,idf,M,Killed on duty,2024-01-16,2024-01-16,צפון רצועת עזה,צפון רצועת עזה
 2261,Yair,Katz,,,יאיר,כץ,,,https://www.idf.il/נופלים/חללי-המלחמה/יאיר-כץ/,צפון רצועת עזה,idf,M,Killed on duty,2024-01-16,2024-01-16,צפון רצועת עזה,צפון רצועת עזה
-2262,Anwar,Serhan,,,אנואר,סרחאן,,,https://www.idf.il/נופלים/חללי-המלחמה/אנואר-סרחאן/,"כביש 60, גוש עציון",idf,M,Killed on duty,2024-01-17,2024-01-17,"כביש 60, גוש עציון","כביש 60, גוש עציון"
+2262,Anwar,Serhan,,,אנואר,סרחאן,,,https://www.idf.il/נופלים/חללי-המלחמה/אנואר-סרחאן/,"כביש 60, גוש עציון",idf,M,Killed on duty,2024-01-17,2024-01-17,כביש 60 בגוש עציון,כביש 60 בגוש עציון
 2263,Oriya,Goshen,Ayimalk,,אוריה,גושן,איימלק,,https://www.idf.il/נופלים/חללי-המלחמה/אוריה-איימלק-גושן/,דרום רצועת עזה,idf,M,Killed on duty,2024-01-17,2024-01-17,דרום רצועת עזה,דרום רצועת עזה
 2264,Ori,Gerby,,,אורי,ג׳רבי,,,https://www.idf.il/נופלים/חללי-המלחמה/אורי-ג-רבי/,דרום רצועת עזה,idf,M,Killed on duty,2024-01-17,2024-01-18,דרום רצועת עזה,דרום רצועת עזה
 2265,Uriel,Silberman,Aviad,,אוריאל,סילברמן,אביעד,,https://www.idf.il/נופלים/חללי-המלחמה/אוריאל-אביעד-סילברמן/,דרום רצועת עזה,idf,M,Killed on duty,2024-01-19,2024-01-19,דרום רצועת עזה,דרום רצועת עזה
@@ -1670,7 +1670,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2308,Simon,Shlomov,,,סימון,שלומוב,,,https://www.idf.il/נופלים/חללי-המלחמה/סימון-שלומוב/,דרום רצועת עזה,idf,M,Killed on duty,2024-02-18,2024-02-18,דרום רצועת עזה,דרום רצועת עזה
 2309,Maoz,Morell,,,מעוז,מורל,,,https://www.idf.il/נופלים/חללי-המלחמה/מעוז-מורל/,דרום רצועת עזה,idf,M,Killed on duty,2024-02-15,2024-02-19,דרום רצועת עזה,דרום רצועת עזה
 2310,Avraham,Wovagen,,,אברהם,אובגן,,,https://www.idf.il/נופלים/חללי-המלחמה/אברהם-אובגן/,צפון רצועת עזה,idf,M,Killed on duty,2024-02-20,2024-02-20,צפון רצועת עזה,צפון רצועת עזה
-2311,Matan,Elmaliach,,,מתן,אלמליח,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44139,"מחסום א-זעיים, ליד מעלה אדומים",,,,2024-02-22,2024-02-22,"מחסום א-זעיים, ליד מעלה אדומים",
+2311,Matan,Elmaliach,,,מתן,אלמליח,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44139,"מחסום א-זעיים, ליד מעלה אדומים",,,,2024-02-22,2024-02-22,מעלה אדומים; מחסום א-זעיים,
 2312,Eyal,Shuminov,,,אייל,שומינוב,,,https://www.idf.il/נופלים/חללי-המלחמה/אייל-שומינוב/,צפון רצועת עזה,idf,M,Killed on duty,2024-02-24,2024-02-24,צפון רצועת עזה,צפון רצועת עזה
 2313,Narya,Belete,,,נריה,בלטה,,,https://www.idf.il/נופלים/חללי-המלחמה/נריה-בלטה/,דרום רצועת עזה,idf,M,Killed on duty,2024-02-24,2024-02-24,דרום רצועת עזה,דרום רצועת עזה
 2314,Ido,Zrihen,Eli,,עידו,זריהן,אלי,,https://www.idf.il/נופלים/חללי-המלחמה/עידו-זריהן/,דרום רצועת עזה,idf,M,Killed on duty,2024-02-24,2024-02-24,דרום רצועת עזה,דרום רצועת עזה
@@ -1689,9 +1689,9 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2327,Uri,Moyal,,,אורי,מויאל,,,https://www.idf.il/נופלים/חללי-המלחמה/אורי-מויאל/,צומת בית קמה,idf,M,Killed on duty,2024-03-14,2024-03-14,צומת בית קמה,צומת בית קמה
 2328,Matan,Vinogradov,,,מתן,וינוגרדוב,,,https://www.idf.il/נופלים/חללי-המלחמה/מתן-וינוגרדוב/,צפון רצועת עזה,idf,M,Killed on duty,2024-03-18,2024-03-18,צפון רצועת עזה,צפון רצועת עזה
 2329,Warrant,Haion,,,סבסטיאן,איון,,,https://www.idf.il/נופלים/חללי-המלחמה/סבסטיאן-איון/,צפון רצועת עזה,idf,M,Killed on duty,2024-03-19,2024-03-19,צפון רצועת עזה,צפון רצועת עזה
-2330,Sergeant,Garfinkel,,,עילי,גרפינקל,דוד,,https://www.idf.il/נופלים/חללי-המלחמה/עילי-דוד-גרפינקל/,"ליד צומת הפרסה, אזור רמאללה",idf,M,Killed on duty,2024-03-22,2024-03-22,"ליד צומת הפרסה, אזור רמאללה","ליד צומת הפרסה, אזור רמאללה"
+2330,Sergeant,Garfinkel,,,עילי,גרפינקל,דוד,,https://www.idf.il/נופלים/חללי-המלחמה/עילי-דוד-גרפינקל/,"ליד צומת הפרסה, אזור רמאללה",idf,M,Killed on duty,2024-03-22,2024-03-22,רמאללה; ליד צומת הפרסה,רמאללה; ליד צומת הפרסה
 2331,Lior,Raviv,,,ליאור,רביב,,,https://www.idf.il/נופלים/חללי-המלחמה/ליאור-רביב/,צפון רצועת עזה,idf,M,Killed on duty,2024-03-23,2024-03-23,צפון רצועת עזה,צפון רצועת עזה
-2332,Zaher ,Bashara,,,זאהר,בשארה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44146,"מפעל ""אלון מוצרי נייר"", קריית שמונה",,,,2024-03-27,2024-03-27,"מפעל ""אלון מוצרי נייר"", קריית שמונה",
+2332,Zaher ,Bashara,,,זאהר,בשארה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44146,"מפעל ""אלון מוצרי נייר"", קריית שמונה",,,,2024-03-27,2024-03-27,קריית שמונה; מפעל אלון מוצרי נייר,
 2333,Nisim,Kachlon,,,ניסים,כחלון,,,https://www.idf.il/נופלים/חללי-המלחמה/ניסים-כחלון/,דרום רצועת עזה,idf,M,Killed on duty,2024-03-27,2024-03-27,דרום רצועת עזה,דרום רצועת עזה
 2334,Sergeant,Kudriashov,,,אלון,קודריאשוב,,,https://www.idf.il/נופלים/חללי-המלחמה/אלון-קודריאשוב/,דרום רצועת עזה,idf,M,Killed on duty,2024-03-29,2024-03-29,דרום רצועת עזה,דרום רצועת עזה
 2335,sivan,wail,,,סיון,ווייל,,,https://www.idf.il/נופלים/חללי-המלחמה/סיון-ווייל/,דרום רצועת עזה,idf,M,Killed on duty,2024-03-29,2024-03-31,דרום רצועת עזה,דרום רצועת עזה
@@ -1713,7 +1713,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2351,Dan,Kamkagi,,,דן,קמחג׳י,,,https://www.idf.il/נופלים/חללי-המלחמה/נחמן-נתן-הרץ/,אזור מטולה,idf,M,Killed on duty,2024-05-06,2024-05-06,אזור מטולה,אזור מטולה
 2352,Nahman,Hertz,Natan,,נחמן,הרץ,נתן,,https://www.idf.il/נופלים/חללי-המלחמה/דן-קמחג-י/,אזור מטולה,idf,M,Killed on duty,2024-05-06,2024-05-06,אזור מטולה,אזור מטולה
 2353,Yitav,Halevi,Lev,,ייטב,הלוי,לב,,https://lezichram.police.gov.il/main/nofel/42195,טול כרם,,,,2024-05-04,2024-05-08,טול כרם,
-2354,Haim,Sabach,,,חיים,סבח,,,https://www.idf.il/נופלים/חללי-המלחמה/חיים-סבח/,"מוצב תורמוס, מלכיה",idf,M,Killed on duty,2024-05-08,2024-05-08,"מוצב תורמוס, מלכיה","מוצב תורמוס, מלכיה"
+2354,Haim,Sabach,,,חיים,סבח,,,https://www.idf.il/נופלים/חללי-המלחמה/חיים-סבח/,"מוצב תורמוס, מלכיה",idf,M,Killed on duty,2024-05-08,2024-05-08,מלכיה; מוצב תורמוס,מלכיה; מוצב תורמוס
 2355,Itay,Livny,,,איתי,לבני,,,https://www.idf.il/נופלים/חללי-המלחמה/איתי-לבני/,צפון רצועת עזה,idf,M,Killed on duty,2024-05-10,2024-05-10,צפון רצועת עזה,צפון רצועת עזה
 2356,Yosef,Dassa,,,יוסף,דסה,,,https://www.idf.il/נופלים/חללי-המלחמה/יוסף-דסה/,צפון רצועת עזה,idf,M,Killed on duty,2024-05-10,2024-05-10,צפון רצועת עזה,צפון רצועת עזה
 2357,Ermiyas,Mekuriyaw,,,ארמיאס,מקוריאו,,,https://www.idf.il/נופלים/חללי-המלחמה/ארמיאס-מקוריאו/,צפון רצועת עזה,idf,M,Killed on duty,2024-05-10,2024-05-10,צפון רצועת עזה,צפון רצועת עזה
