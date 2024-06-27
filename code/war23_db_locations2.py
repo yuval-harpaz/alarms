@@ -41,6 +41,59 @@ for ii in iidf:
     df.at[ii, 'מקום המוות'] = df['Event location'][ii]
 df.to_csv('/home/innereye/Documents/db_tmp.csv', index=False)
 ##
+strings = df.values[:, 1:9].astype(str)
+strings[strings == 'nan'] = ''
+for ii in range(len(df)):
+    names = ['','']
+    for lang in [0, 1]:
+        conc = f'{strings[ii,lang*4+1]}, ' \
+               f'{strings[ii,lang*4+0]}' \
+               f' {strings[ii,lang*4+2]}' \
+               f' ({strings[ii,lang*4+3]})'.replace(' ()', '')
+        names[lang] = conc
+    df.at[ii, 'שם באנגלית'] = names[0]
+    df.at[ii, 'שם בעברית'] = names[1]
+
+##
+btl = pd.read_excel('/home/innereye/Documents/btl_yael_netzer.xlsx')
+ibtl = np.where(df['הנצחה'].str.contains('laad.btl'))[0]
+for ii in ibtl:
+    if type(df['הנצחה'][ii]) == str:
+        id = int(df['הנצחה'][ii].split('?ID=')[-1])
+        row = np.where(btl['Column 1'] == id)[0]
+        if len(row) == 1:
+            row = row[0]
+            bd = str(btl['BirthDate'][row])
+            if bd != 'nan':
+                df.at[ii, 'birth date'] = bd
+
+##
+map = pd.read_csv('data/oct_7_9.csv')
+df = pd.read_csv('data/oct7database.csv')
+pid = df['pid'].values
+for ii in range(len(map)):
+    row = np.where(pid == map['pid'][ii])[0]
+    if len(row) == 1:
+        if (map['location'][ii] != df['מקום האירוע'][row[0]]) |\
+                (map['location'][ii] != df['מקום המוות'][row[0]]):
+            map.at[ii, 'db_event'] = df['מקום האירוע'][row[0]]
+            map.at[ii, 'db_death'] = df['מקום המוות'][row[0]]
+map.to_csv('/home/innereye/Documents/compare.csv', index=False)
+
+map = pd.read_csv('/home/innereye/Documents/compare.csv')
+setem = (map['location'] == 'פסטיבל נובה') & (map['db_event'].str.contains('נובה;')) & (map['db_death'] == 'פסטיבל נובה')
+for ii in np.where(setem)[0]:
+    map.at[ii, 'location'] = map['db_event'][ii]
+    map.at[ii, 'db_death'] = map['db_event'][ii]
+map.to_csv('/home/innereye/Documents/compare.csv', index=False)
+
+comp = pd.read_csv('/home/innereye/Documents/compare.csv')
+map = pd.read_csv('data/oct_7_9.csv')
+for ii in range(len(map)):
+    if map['location'][ii] != comp['location'][ii].split(';')[0]:
+        print(f"{ii} {comp['fullName'][ii]} {comp['location'][ii]}")
+
+    ##
 # pid = map7['pid'].values
 # for ii in range(len(df)):
 #     row = np.where(pid == df['pid'][ii])[0]

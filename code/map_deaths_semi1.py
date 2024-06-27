@@ -126,7 +126,8 @@ names = pd.read_csv('data/oct_7_9.csv')
 #     for uu in replace:
 #         names.loc[names['location'].str.contains(uu[0]), 'location'] = uu[-1]  # -1 allows for pairs, search term + what to change into
 #     return df
-
+names['location'] = names['location'].str.replace('אשקלון; בי"ח ברזילי', 'אשקלון (בי"ח ברזילי)')
+names['location'] = [x.split(';')[0] for x in names['location']]
 names = group_locs(names)
 center = [coo['lat'].mean(), coo['long'].mean()]
 ##
