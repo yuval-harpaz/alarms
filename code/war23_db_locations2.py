@@ -93,7 +93,22 @@ for ii in range(len(map)):
     if map['location'][ii] != comp['location'][ii].split(';')[0]:
         print(f"{ii} {comp['fullName'][ii]} {comp['location'][ii]}")
 
-    ##
+##
+comp = pd.read_csv('/home/innereye/Documents/compare.csv')
+map = pd.read_csv('data/oct_7_9.csv')
+all(comp['location'] == map['location'])
+df = pd.read_csv('data/oct7database.csv')
+idx = np.where(~comp['db_event'].isnull())[0]
+pid = df['pid'].values
+for ii in idx:
+    row = np.where(pid == map['pid'][ii])[0]
+    if len(row) == 1:
+        df.at[row[0], 'מקום האירוע1'] = comp['db_event'][ii]
+        df.at[row[0], 'מקום המוות1'] = comp['db_event'][ii]
+        df.at[row[0], 'מפה1'] = comp['location'][ii]
+
+df.to_csv('/home/innereye/Documents/fixed.csv', index=False)
+##
 # pid = map7['pid'].values
 # for ii in range(len(df)):
 #     row = np.where(pid == df['pid'][ii])[0]

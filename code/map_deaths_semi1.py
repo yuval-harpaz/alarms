@@ -118,15 +118,11 @@ if os.path.isdir(local):
 coo = pd.read_csv('data/deaths_by_loc.csv')
 # names = pd.read_excel('data/deaths_by_loc.xlsx', 'names_by_id')
 names = pd.read_csv('data/oct_7_9.csv')
-# pairs of search phrase+replacement. When one is given, search for contains(phrase) and replace with phrase
-# def group_locs(df):
-#     replace = [['בכניסה לעלומים'], ['ביה"ח שיפא'], ['מערבית לצומת גמה', 'צומת גמה'], ['סמוך לצומת גמה', 'צומת גמה'], ['מיגונית בצומת גמה', 'צומת גמה'],
-#                ['צומת בארי'], ['מיגונית בצומת רעים', 'צומת רעים'], ['סמוך לצומת רעים', 'צומת רעים'], ['חאן יונס'],['מיגונית חניון רעים', 'פסטיבל נובה'],
-#                ['רצועת עזה', 'רצועת עזה, לא פורסם מיקום מדוייק'], ['דיר אל בלח'], ['מיגונית מפלסים','סמוך למפלסים']]  #
-#     for uu in replace:
-#         names.loc[names['location'].str.contains(uu[0]), 'location'] = uu[-1]  # -1 allows for pairs, search term + what to change into
-#     return df
+
 names['location'] = names['location'].str.replace('אשקלון; בי"ח ברזילי', 'אשקלון (בי"ח ברזילי)')
+ishifa = np.where(names['location'].str.contains('שיפא'))[0]
+for iss in ishifa:
+    names.at[iss, 'location'] = 'ביה"ח שיפא'
 names['location'] = [x.split(';')[0] for x in names['location']]
 names = group_locs(names)
 center = [coo['lat'].mean(), coo['long'].mean()]
