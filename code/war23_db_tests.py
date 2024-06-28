@@ -99,7 +99,7 @@ class TestDuplicates(unittest.TestCase):
 class TestOmissions(unittest.TestCase):
     def not_dropped(self):
         pid = data['pid'].values
-        nd = [x for x in omi['pid'] if x in pid]
+        nd = [x for x in omi['duplicate'] if x in pid]
         n_not_dropped = len(nd)
         if n_not_dropped > 0:
             print(f'Not omitted!!!! {nd}'.replace('[', '').replace(']', ''))
@@ -107,7 +107,7 @@ class TestOmissions(unittest.TestCase):
 
     def dropped(self):
         pid = data['pid'].values
-        pid_okay = omi['duplicate'][~omi['duplicate'].isnull()].values
+        pid_okay = omi['pid'][~omi['duplicate'].isnull()].values
         dpd = [x for x in pid_okay if x not in pid]
         n_dropped = len(dpd)
         if n_dropped > 0:
@@ -116,7 +116,7 @@ class TestOmissions(unittest.TestCase):
 
     def all_acounted(self):
             pid = data['pid'].values
-            pid_all = np.unique(list(omi['pid']) + list(pid))
+            pid_all = np.unique(list(omi['duplicate'][~omi['duplicate'].isnull()]) + list(omi['pid'][omi['duplicate'].isnull()]) + list(pid))
             try:
                 json = pd.read_json('https://service-f5qeuerhaa-ey.a.run.app/api/individuals')
             except:
