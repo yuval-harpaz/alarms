@@ -4,7 +4,7 @@ import os
 from pyvirtualdisplay import Display
 import time
 import numpy as np
-
+import numpy as np
 local = '/home/innereye/alarms/'
 
 
@@ -16,11 +16,14 @@ csv = 'data/deaths_idf.csv'
 only_new = False
 # if only_new:
 dfprev = pd.read_csv('data/deaths_idf.csv')
-#     id = []
-#     for x in range(len(dfprev)):
-#         id.append('|'.join([dfprev['name'][x], str(dfprev['age'][x]), str(dfprev['from'][x]).replace('nan','')]))
-#     id = np.array(id)
-
+dfdb = pd.read_csv('data/oct7database.csv')
+nopage = np.where(dfprev['webpage'].isnull())[0]
+for ii in nopage:
+    row = np.where(dfdb['pid'].values == dfprev['pid'][ii])[0]
+    if len(row) == 1:
+        url = dfdb['הנצחה'][row[0]]
+        dfprev.at[ii, 'webpage'] = url
+dfprev.to_csv('data/deaths_idf.csv', index=False)
 # dfprev = pd.read_csv(csv)
 ##
 # def get_deaths():
