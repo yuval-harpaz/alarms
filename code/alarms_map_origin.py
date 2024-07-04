@@ -25,7 +25,8 @@ def guess_origin(df_toguess):
     origin = df_toguess['origin'].values
     origin[toguess] = 'Gaza'
     origin[lebanon] = 'Lebanon'
-    origin[syria] = 'Syria'
+    # origin[syria] = 'Syria'
+    origin[syria] = 'Lebanon'  # Golan hit by Lebanon nowadays
     origin[yemen] = 'Yemen'
     df_toguess['origin'] = origin
     return df_toguess
