@@ -781,7 +781,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 953,Osher,Vaknin,,,אושר,וקנין,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43812,Nova,Exact location,M,Murdered,2023-10-07,2023-10-07,מיגונית בצומת גמה (דרום),מיגונית בצומת גמה (דרום)
 954,Bruna,Valeanu,,,ברונה,ולאנו פונטס,ברכה,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43811,Nova,Estimated location,F,Murdered,2023-10-07,2023-10-07,פסטיבל נובה,פסטיבל נובה
 955,Laurie,Vardi,,,לורי,ורדי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43815,מיגונית בכניסה לעלומים,Exact location,F,Murdered,2023-10-07,2023-10-07,מיגונית בכניסה לעלומים,מיגונית בכניסה לעלומים
-956,Yulia,Vakser,,,יוליה,ווקסר,,,https://lezichram.police.gov.il/main/nofel/42179,פסטיבל נובה; אמבולנס,Exact location,F,Killed on duty,2023-10-07,2023-10-07,פסטיבל נובה; אמבולנס,פסטיבל נובה; אמבולנס
+956,Yulia,Vakser Daunov,,,יוליה,ווקסר דאונוב,,,https://lezichram.police.gov.il/main/nofel/42179,פסטיבל נובה; אמבולנס,Exact location,F,Killed on duty,2023-10-07,2023-10-07,פסטיבל נובה; אמבולנס,פסטיבל נובה; אמבולנס
 957,Karin,Vernikov,,,קרין,ורניקוב,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43816,Nova,Approximate location,F,Murdered,2023-10-07,2023-10-07,בכניסה לעלומים,בכניסה לעלומים
 958,Simon,Vigdergauz,,,סיימון,ויגדרגאוז,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43809,Nova,Exact location,M,Murdered,2023-10-07,2023-10-07,סמוך למפלסים,סמוך למפלסים
 959,Danielle,Waldman,,,דניאל,וולדמן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43808,Nova,Exact location,F,Murdered,2023-10-07,2023-10-07,סמוך לצומת גמה,סמוך לצומת גמה
@@ -1104,7 +1104,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 1453,Lior,Atias Hadad,,,ליאור,אטיאס חדד,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43829,Nova,Estimated location,F,Murdered,2023-10-07,2023-10-07,פסטיבל נובה,פסטיבל נובה
 1454,Raz,Mizrahi,,,רז,מזרחי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44088,Nova; Be'eri Bomb Shelter,Exact location,F,Murdered,2023-10-07,2023-10-07,מיגונית בצומת בארי,מיגונית בצומת בארי
 1455,Noa,Farage,,,נועה,פרג׳,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43945,Nova; Re'im Bomb Shelter (East),Exact location,F,Murdered,2023-10-07,2023-10-07,מיגונית בצומת רעים (מזרח),מיגונית בצומת רעים (מזרח)
-1456,Ella,Hamoi,,,אלה,חמוי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44046,Nova,Exact location,F,Murdered,2023-10-07,2023-10-07,פסטיבל נובה,פסטיבל נובה
+1456,Ella,Hamoi,,Lola,אלה,חמוי,,לולה,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44046,Nova,Exact location,F,Murdered,2023-10-07,2023-10-07,פסטיבל נובה,פסטיבל נובה
 1457,Dan,Damri,,,דן,דמרי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43796,Nova,Exact location,M,Murdered,2023-10-07,2023-10-07,צומת מבטחים,צומת מבטחים
 1458,Almog,Sarusi,,,אלמוג,סרוסי,,,,Nova,Exact location,M,Kidnapped,2023-10-07,,פסטיבל נובה,
 1459,Mor,Shkuri,,,מור,שקורי,,,https://lezichram.police.gov.il/main/nofel/42134,Sderot Police Station,General vicinity,F,Killed on duty,2023-10-07,2023-10-07,שדרות; תחנת משטרה,שדרות; תחנת משטרה
