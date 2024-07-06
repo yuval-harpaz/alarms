@@ -1,3 +1,13 @@
+"""
+collect event coordinates per person.
+1. take personal coordinets from database
+2. take from oct7map (maybe only Lahav)
+3. take from oct_7_9
+4. take from idf
+5. take from haarets+
+
+"""
+# TODO: make a list of kidnap locations in kidnapped.csv
 import pandas as pd
 import os
 import numpy as np
@@ -16,6 +26,7 @@ rename = group_locs(map)
 map = pd.read_csv('data/oct_7_9.csv')
 dfdb = pd.read_csv('data/oct7database.csv')
 # cref = pd.read_csv('data/crossref.csv')
+
 ##
 subloc = {'232 Blocked Road': [31.399963, 34.474210],
           'Alumim Bomb Shelter (West)': [31.450412, 34.516401],
@@ -41,8 +52,8 @@ sublocheb = {'אשקלון; בי"ח ברזילי': [31.6632444309682, 34.5578359
              'מיגונית בצומת גמה (צפון)': [31.381336, 34.447480],
              'מיגונית בצומת רעים (מזרח)': [31.389740, 34.459447],
              'מיגונית בצומת רעים (מערב)': [31.389781, 34.458059],
-             'סמוך למיגונית בצומת גמה (דרום)':[31.380216626100477, 34.44733662392307],
-             'סמוך למיגונית בצומת גמה (צפון)':[31.381307046724753, 34.44754169695219],
+             'סמוך למיגונית בצומת גמה (דרום)': [31.380216626100477, 34.44733662392307],
+             'סמוך למיגונית בצומת גמה (צפון)': [31.381307046724753, 34.44754169695219],
              'עזה; ביה"ח שיפא': [31.399963, 34.474210],
              'עזה; מבנה סמוך לביה"ח שיפא': [31.399963, 34.474210],
              'עזה; מסגד סמוך לביה"ח שיפא': [31.399963, 34.474210],
@@ -52,26 +63,51 @@ sublocheb = {'אשקלון; בי"ח ברזילי': [31.6632444309682, 34.5578359
              'פסטיבל נובה; גשר נחל גרר': [31.400212, 34.474301],
              'פסטיבל נובה; חסימה בכביש 232': [31.399963, 34.474210],
              'פסטיבל נובה; מכולות צהובות': [31.398628, 34.470782],
-             'שדרות; אוטובוס הגמלאים':[31.52677040015094, 34.60108324482743],
-             'שדרות; תחנת משטרה':[31.52249812718559, 34.59202432204493]}
+             'שדרות; אוטובוס הגמלאים': [31.52677040015094, 34.60108324482743],
+             'שדרות; תחנת משטרה': [31.52249812718559, 34.59202432204493]}
 
 maploc = pd.read_csv('data/deaths_by_loc.csv')
 
 ##
 pids = dfdb['pid'].values
-locations = pd.DataFrame(columns=['pid', 'loc', 'coo', 'oct7map_loc', 'oct7map_coo'])
+locations = pd.DataFrame(columns=['pid', 'name', 'event type', 'event loc', 'event coo', 'death loc', 'death coo',
+                                  'oct7map loc', 'oct7map coo', 'oct7map source', 'change'])
 locations['pid'] = pids
 for ii in range(len(pids)):
     pid = pids[ii]
+    dbevent = dfdb['מקום האירוע'][ii]
+    dbdeath = dfdb['מקום המוות'][ii]
+    dbtype = dfdb['Status'][ii]
+    kidnapped = ('idnap' in dbtype) | ('captivity' in dbtype)
     row = np.where(map['pid'] == pid)[0]
     if len(row) == 1:
-        mloc = map['location'][row[0]]
-        dbevent = dfdb['מקום האירוע'][ii]
-        dbdeath = dfdb['מקום המוות'][ii]
-        if mloc != dbevent and mloc == dbdeath:
-            locname = dbevent
+        row = row[0]
+        name = (dfdb['שם פרטי'][ii]+';'+str(dfdb['שם נוסף'][ii])+';'+dfdb['שם משפחה'][ii]).replace('nan', '').replace(';;', ' ').replace(';', ' ')
+        locations.at[ii, 'name'] = name
+        mloc = map['location'][row]
+        if kidnapped:
+            locations.at[ii, 'death loc'] = mloc
+            if map['date'][row] == '07.10.2023':
+                locations.at[ii, 'event type'] = 'kidnapped (body)'
+            elif 'urvivor' in dfdb['Status'][ii]:
+                locations.at[ii, 'event type'] = 'kidnapped (released)'
+            elif str(map['date'][row]) != 'nan':
+                locations.at[ii, 'event type'] = 'kidnapped (murdered in captivity)'
+
+            else:
+                 locations.at[ii, 'event type'] = 'kidnapped'
         else:
-            locname = mloc
+            if mloc in sublocheb.keys():
+
+        # if mloc != dbevent and mloc == dbdeath:
+        #     locname = dbevent
+        # else:
+        #     locname = mloc
+        if kidnapped:
+            pass
+        else:
+            locations.at[ii, 'name'] = name
+            if dbevent ==
         iloc = np.where(maploc['name'] == locname)[0]
         if len(iloc) == 0:
             print(f'{ii} {locname}')
