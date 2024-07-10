@@ -76,6 +76,8 @@ try:
                     urlp = 'https://www.idf.il' + personal
                     browser.get(urlp)
                     htmlp = browser.page_source
+                    if 'אין מה לראות כאן' in htmlp:
+                        urlp = np.nan
                     htmlp = htmlp[htmlp.index("small"):]
                     if name+',' in htmlp:
                         htmlp = htmlp[htmlp.index(name+','):]
@@ -139,7 +141,7 @@ try:
                     if only_new and ('|'.join([name, str(age), str(fro)]) in id or name in id[-1]):
                         goon = False
                     else:
-                        data.append([date, name, rank, unit, gender, age, fro, story, np.nan])
+                        data.append([date, name, rank, unit, gender, age, fro, story, urlp])
             if len(data) == prev:  # new page with no names
                 goon = False
             else:

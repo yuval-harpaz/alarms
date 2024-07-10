@@ -21,6 +21,7 @@ nopage = np.where(dfprev['webpage'].isnull())[0]
 for ii in nopage:
     row = np.where(dfdb['pid'].values == dfprev['pid'][ii])[0]
     if len(row) == 1:
+        print(ii)
         url = dfdb['הנצחה'][row[0]]
         dfprev.at[ii, 'webpage'] = url
 dfprev.to_csv('data/deaths_idf.csv', index=False)
@@ -37,7 +38,7 @@ eng = []
 goon = True
 page = 0
 for page in range(1, 100):
-    prev = len(data)
+    # prev = len(data)
     url = 'https://www.idf.il/%D7%A0%D7%95%D7%A4%D7%9C%D7%99%D7%9D/%D7%97%D7%9C%D7%9C%D7%99-%D7%94%D7%9E%D7%9C%D7%97%D7%9E%D7%94/?page='+str(page)
     browser.get(url)
     time.sleep(0.1)
