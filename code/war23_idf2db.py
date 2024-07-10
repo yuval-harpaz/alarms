@@ -1,17 +1,12 @@
 import pandas as pd
-# from selenium import webdriver
 import os
-# from pyvirtualdisplay import Display
-# import time
-# import numpy as np
 import numpy as np
+import re
 local = '/home/innereye/alarms/'
-
-
 if os.path.isdir(local):
     os.chdir(local)
     local = True
-##
+## load data and run sanity checks
 # csv = 'data/deaths_idf.csv'
 only_new = False
 # if only_new:
@@ -29,13 +24,65 @@ for ii in np.where([x in idf['pid'].values for x in db['pid'].values])[0]:
         raise Exception('different webpages for pid ' + str(db['pid'][ii]))
 
 inew = np.where([x not in db['הנצחה'].values for x in idf['webpage'].values])[0]
-# nopage = np.where(db['הנצחה'].isnull().values & [x in idf['pid'].values for x in db['pid'].values])[0]
 for ii in inew:
     url = idf['webpage'][ii]
     if url in db['הנצחה'].values:
         raise Exception(f'url already in db : {url}')
-    dfprev.at[ii, 'webpage'] = url
-# dfprev.to_csv('data/deaths_idf.csv', index=False)
+##
+db = pd.read_csv('data/oct7database.csv')
+ranks = ['sergeant', 'sergent', 'captain', 'lieutenant', 'major', 'colonel',
+         'chief warrant officer', 'warrant officer', 'corporal']
+for ii in inew:
+    idb = len(db)
+    db.at[idb, 'pid'] = np.max(db['pid']+1)
+    db.at[idb, 'Status'] = 'killed on duty'
+    db.at[idb, 'Gender'] = idf['gender'][ii]
+    db.at[idb, 'הנצחה'] = idf['webpage'][ii]
+    nameheb = idf['name'][ii].split(' ')
+    db.at[idb, 'שם פרטי'] = nameheb[0]
+    db.at[idb, 'שם משפחה'] = nameheb[-1]
+    if len(nameheb) > 2:
+        db.at[idb, 'שם נוסף'] = ' '.join(nameheb[1:-1])
+    story = idf['story'][ii]
+    if 'פצע' in story or 'נפטר' in story:
+        same_day = False
+    else:
+        same_day = True
+    db.at[idb, 'Death date'] = idf['death_date'][ii]
+    if same_day:
+        db.at[idb, 'Event date'] = idf['death_date'][ii]
+    if 'רצוע' in story:
+        if re.search(r'מרכז.רצוע', story, re.UNICODE):
+            db.at[idb, 'מקום האירוע'] = 'מרכז רצועת עזה'
+        elif re.search(r'דרום.רצוע', story, re.UNICODE):
+            db.at[idb, 'מקום האירוע'] = 'דרום רצועת עזה'
+        elif re.search(r'צפון.רצוע', story, re.UNICODE):
+            db.at[idb, 'מקום האירוע'] = 'צפון רצועת עזה'
+        db.at[idb, 'Event location class'] = 'idf'
+        db.at[idb, 'Event location'] = db['מקום האירוע'][idb]
+        if same_day:
+            db.at[idb, 'מקום המוות'] = db['מקום האירוע'][idb]
+    en = idf['eng'][ii]
+    name = ''
+    if type(en) == str:
+        if '(res.)' in en:
+            name = en[en.index('(res.)') + 6:].strip()
+        elif 'class' in en.lower():
+            name = en[en.lower().index('class') + 5:].strip()
+        else:
+            rank = [x for x in ranks if x in en.lower()]
+            if len(rank) > 0:
+                name = en[en.lower().index(rank[0]) + len(rank[0]):].strip()
+            else:
+                print(en)
+    if len(name) > 0:
+        name = name.split(' ')
+        db.at[idb, 'first name'] = name[0]
+        db.at[idb, 'last name'] = name[-1]
+        if len(name) > 2:
+            db.at[idb, 'middle name'] = ' '.join(name[1:-1])
+
+db.to_csv('data/tmp_oct7database.csv', index=False)
 ##
 # csv = 'data/deaths_idf.csv'
 # only_new = False
