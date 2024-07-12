@@ -82,7 +82,7 @@ for ii in inew:
         if len(name) > 2:
             db.at[idb, 'middle name'] = ' '.join(name[1:-1])
 
-db.to_csv('data/tmp_oct7database.csv', index=False)
+db.to_csv('data/oct7database.csv', index=False)
 ##
 # csv = 'data/deaths_idf.csv'
 # only_new = False
