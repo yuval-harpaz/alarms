@@ -67,7 +67,7 @@ try:
                         date[1] = str(month).zfill(2)
                         date = '-'.join(date[::-1])
                     else:
-                        date=''
+                        date = ''
                     rank = seg[seg.index("small")+7:]
                     rank = rank[:rank.index('<')]
                     name = seg.split('\n')[2].strip()
@@ -76,6 +76,13 @@ try:
                     urlp = 'https://www.idf.il' + personal
                     browser.get(urlp)
                     htmlp = browser.page_source
+                    if 'z"l' in htmlp:
+                        htmle = htmlp[htmlp.index("small"):]
+                        htmle = htmle[:htmle.index('z"l')]
+                        en = htmle[::-1]
+                        en = en[:en.index('>')][::-1].strip()
+                    else:
+                        en = np.nan
                     if 'אין מה לראות כאן' in htmlp:
                         urlp = np.nan
                     htmlp = htmlp[htmlp.index("small"):]
@@ -90,7 +97,7 @@ try:
                             htmlp = htmlp[htmlp.index(name[name.index(')')+1:] + ','):]
                         elif name+' מ' in htmlp:
                             htmlp = htmlp[htmlp.index(name+' מ'):]
-                            htmlp = htmlp.replace(name+' מ',name+','+' מ')
+                            htmlp = htmlp.replace(name+' מ', name+','+' מ')
                         elif name+"'," in htmlp:
                             htmlp = htmlp[htmlp.index(name+"',"):]
                         elif name+' ז"ל'+',' in htmlp:
@@ -102,7 +109,6 @@ try:
                             os.system(f'echo "war23_idf_mem_all.py: {name}+, not in htmlp" >> code/errors.log')
                             htmlp = htmlp[:htmlp.index('בנופל')]
                             htmlp = name+htmlp.split(name)[-1]
-
                     if 'מדרגת' in htmlp:
                         raised = htmlp[htmlp.index('מדרגת')-7:]
                         raised = ' '+raised.split('<br><br>')[0].replace('>', '')
@@ -141,16 +147,17 @@ try:
                     if only_new and ('|'.join([name, str(age), str(fro)]) in id or name in id[-1]):
                         goon = False
                     else:
-                        data.append([date, name, rank, unit, gender, age, fro, story, urlp])
+                        data.append([date, name, rank, unit, gender, age, fro, story, np.nan, urlp, en])
             if len(data) == prev:  # new page with no names
                 goon = False
-            else:
-                print(len(data))
+            # else:
+            #     print(len(data))
         browser.close()
     print(f'new IDF deaths: {len(data)}')
     ##
     if len(data) > 0:
-        df = pd.DataFrame(data, columns=['death_date', 'name', 'rank', 'unit', 'gender', 'age', 'from','story', 'pid'])
+        df = pd.DataFrame(data, columns=['death_date', 'name', 'rank', 'unit', 'gender', 'age', 'from','story', 'pid',
+                                         'webpage', 'eng'])
         df = df.iloc[::-1]
         df = pd.concat([dfprev, df])
         df.to_csv(csv, index=False)
