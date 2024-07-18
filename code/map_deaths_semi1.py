@@ -161,7 +161,7 @@ for icat in range(4):
 # add text for sig places
 idx = list(range(20))
 
-idx = idx + [np.where(coo['name'] == 'בבירור')[0][0]]
+# idx = idx + [np.where(coo['name'] == 'בבירור')[0][0]]
 opacity = 0.55
 row_len = 7
 font_size = 2
