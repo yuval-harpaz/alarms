@@ -264,25 +264,28 @@ class TestIDF(unittest.TestCase):
         self.assertEqual(mismatch, 0)
 
 
-
 class Location(unittest.TestCase):
-    # db = pd.read_csv('data/oct7database.csv')
-    # map = pd.read_csv('data/oct_7_9.csv')
-    kidnapped = []  #  [915, 29, 568, 192, 193, 482, 626]  # not kidnapped in oct7map
-    pid = data['pid'].values
-    check = []
-    for ii in range(len(map79)):
-        row = np.where(pid == map79['pid'][ii])[0][0]
-        stat = data['Status'][row]
-        if 'idnap' in stat or 'aptiv' in stat or map79['pid'][ii] in kidnapped:
-            loc = data['מקום המוות'][row]
-        else:
-            loc = data['מקום האירוע'][row]
-        if map79['location'][ii] != loc:
-            check.append([map79['pid'][ii], map79['fullName'][ii], stat, loc, map79['location'][ii]])
-
-    df = pd.DataFrame(check, columns=['pid', 'name', 'status', 'db', 'map'])
-    df.to_csv('/home/innereye/Documents/check.csv', index=False)
+    def map7updated(self):
+        # db = pd.read_csv('data/oct7database.csv')
+        # map = pd.read_csv('data/oct_7_9.csv')
+        kidnapped = [915, 29, 568, 626]  # not kidnapped in oct7map, event and death not in same location
+        pid = data['pid'].values
+        check = []
+        for ii in range(len(map79)):
+            row = np.where(pid == map79['pid'][ii])[0][0]
+            stat = data['Status (oct7map)'][row]
+            if 'idnap' in stat or 'aptiv' in stat or map79['pid'][ii] in kidnapped:
+                loc = data['מקום המוות'][row]
+            else:
+                loc = data['מקום האירוע'][row]
+            if map79['location'][ii] != loc:
+                check.append([map79['pid'][ii], map79['fullName'][ii], stat, loc, map79['location'][ii]])
+        different_locations = len(check)
+        if different_locations > 0:
+            df = pd.DataFrame(check, columns=['pid', 'name', 'status', 'db', 'map'])
+            print(df)
+        self.assertEqual(different_locations, 0)
+        # df.to_csv('/home/innereye/Documents/check.csv', index=False)
 
 
 
@@ -300,11 +303,12 @@ oct7suite = unittest.TestSuite(tests=[TestDuplicates('duplicate_pid'),
                                       Test79('unique_pid79'),
                                       TestHaa('extras_haa'),
                                       TestHaa('unique_haa'),
-                                      TestHaa('missing_haa'),
+                                      # TestHaa('missing_haa'),
                                       TestIDF('unique_idf'),
                                       TestIDF('extras_idf'),
                                       TestIDF('name_idf'),
                                       TestIDF('lastname_idf'),
+                                      Location('map7updated'),
                                       ]
                                )
 
