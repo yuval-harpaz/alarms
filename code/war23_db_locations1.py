@@ -6,7 +6,10 @@ local = '/home/innereye/alarms/'
 if os.path.isdir(local):
     os.chdir(local)
     local = True
-map7 = pd.read_json('https://service-f5qeuerhaa-ey.a.run.app/api/individuals')
+    file = open('.txt')
+    url = file.read().split('\n')[0]
+    file.close()
+map7 = pd.read_json(url)
 ## first from json
 df = pd.read_csv('data/oct7database.csv')
 pid = map7['pid'].values

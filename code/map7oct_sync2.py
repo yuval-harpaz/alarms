@@ -9,9 +9,11 @@ local = '/home/innereye/alarms/'
 islocal = False
 if os.path.isdir(local):
     os.chdir(local)
-    islocal = True
-
-map7 = pd.read_json('https://service-f5qeuerhaa-ey.a.run.app/api/individuals')
+    local = True
+    file = open('.txt')
+    url = file.read().split('\n')[0]
+    file.close()
+map7 = pd.read_json(url)
 # nameh = map7['hebrew_name'].values
 namee = map7['name'].values  # [(map7['status'].values == 'Murdered') | (map7['status'].values == 'Killed on duty')]
 map = pd.read_csv('data/oct_7_9.csv')
@@ -30,7 +32,7 @@ map['oct7map_pid'] = map['oct7map_pid'].values.astype(int)
 map.to_excel('/home/innereye/Documents/pid.xlsx', index=False)
 
 ##
-map7 = pd.read_json('https://service-f5qeuerhaa-ey.a.run.app/api/individuals')
+map7 = pd.read_json(url)
 map = pd.read_csv('data/oct_7_9.csv')
 cref = pd.read_csv('data/crossref.csv')
 locs = pd.DataFrame(cref['oct_7_9_fullName'])

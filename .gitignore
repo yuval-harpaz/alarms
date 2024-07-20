@@ -7,3 +7,4 @@ oath.txt
 *.orig
 data/deaths_manual.xlsx
 geckodriver*
+.txt

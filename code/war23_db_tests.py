@@ -9,7 +9,11 @@ local = '/home/innereye/alarms/'
 islocal = False
 if os.path.isdir(local):
     os.chdir(local)
-    islocal = True
+    local = True
+    file = open('.txt')
+    url = file.read().split('\n')[0]
+    file.close()
+map7 = pd.read_json(url)
 
 # data = pd.read_csv('/home/innereye/Documents/oct7database - Data.csv')
 data = pd.read_csv('data/oct7database.csv')
@@ -118,7 +122,7 @@ class TestOmissions(unittest.TestCase):
             pid = data['pid'].values
             pid_all = np.unique(list(omi['duplicate'][~omi['duplicate'].isnull()]) + list(omi['pid'][omi['duplicate'].isnull()]) + list(pid))
             try:
-                json = pd.read_json('https://service-f5qeuerhaa-ey.a.run.app/api/individuals')
+                json = pd.read_json(url)
             except:
                 raise Exception('no internet?')
             pid_json = json['pid'].values
@@ -258,6 +262,27 @@ class TestIDF(unittest.TestCase):
         if mismatch > 0:
             print(f"idf name doesn't match !!!! {pid_mismatch}".replace('[', '').replace(']', ''))
         self.assertEqual(mismatch, 0)
+
+
+
+class Location(unittest.TestCase):
+    # db = pd.read_csv('data/oct7database.csv')
+    # map = pd.read_csv('data/oct_7_9.csv')
+    kidnapped = []  #  [915, 29, 568, 192, 193, 482, 626]  # not kidnapped in oct7map
+    pid = data['pid'].values
+    check = []
+    for ii in range(len(map79)):
+        row = np.where(pid == map79['pid'][ii])[0][0]
+        stat = data['Status'][row]
+        if 'idnap' in stat or 'aptiv' in stat or map79['pid'][ii] in kidnapped:
+            loc = data['מקום המוות'][row]
+        else:
+            loc = data['מקום האירוע'][row]
+        if map79['location'][ii] != loc:
+            check.append([map79['pid'][ii], map79['fullName'][ii], stat, loc, map79['location'][ii]])
+
+    df = pd.DataFrame(check, columns=['pid', 'name', 'status', 'db', 'map'])
+    df.to_csv('/home/innereye/Documents/check.csv', index=False)
 
 
 

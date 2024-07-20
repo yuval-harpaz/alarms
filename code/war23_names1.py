@@ -11,7 +11,7 @@ if os.path.isdir(local):
     os.chdir(local)
     islocal = True
 ##
-# map7 = pd.read_json('https://service-f5qeuerhaa-ey.a.run.app/api/individuals')
+
 # map = pd.read_csv('data/oct_7_9.csv')
 cref = pd.read_csv('data/crossref.csv')
 # locs = pd.DataFrame(cref['oct_7_9_fullName'])

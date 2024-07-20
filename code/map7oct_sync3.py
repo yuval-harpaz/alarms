@@ -9,8 +9,11 @@ local = '/home/innereye/alarms/'
 islocal = False
 if os.path.isdir(local):
     os.chdir(local)
-    islocal = True
-map7 = pd.read_json('https://service-f5qeuerhaa-ey.a.run.app/api/individuals')
+    local = True
+    file = open('.txt')
+    url = file.read().split('\n')[0]
+    file.close()
+map7 = pd.read_json(url)
 map = pd.read_csv('data/oct_7_9.csv')
 cref = pd.read_csv('data/crossref.csv')
 locs = pd.DataFrame(cref['oct_7_9_fullName'])

@@ -9,10 +9,13 @@ local = '/home/innereye/alarms/'
 islocal = False
 if os.path.isdir(local):
     os.chdir(local)
-    islocal = True
+    local = True
+    file = open('.txt')
+    url = file.read().split('\n')[0]
+    file.close()
+map7 = pd.read_json(url)
 
 names = pd.read_excel('data/deaths_by_loc.xlsx', 'export')
-map7 = pd.read_json('https://service-f5qeuerhaa-ey.a.run.app/api/individuals')
 nameh = map7['hebrew_name'].values
 ##
 noheb = []

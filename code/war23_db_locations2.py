@@ -6,7 +6,7 @@ local = '/home/innereye/alarms/'
 if os.path.isdir(local):
     os.chdir(local)
     local = True
-# map7 = pd.read_json('https://service-f5qeuerhaa-ey.a.run.app/api/individuals')
+
 ##
 df = pd.read_csv('data/oct7database.csv')
 coo = pd.read_csv('data/deaths_by_loc.csv')
