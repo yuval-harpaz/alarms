@@ -2,8 +2,12 @@ import pandas as pd
 import numpy as np
 
 db = pd.read_excel('~/Documents/oct7database.xlsx', 'Data')
+first_days = np.array([str(x)[:10] for x in db['Event date'].values]) < '2023-10-10'
+db = db[first_days]
+db = db.reset_index(drop=True)
 residence = db['residence'].values
 evloc = np.array([str(x).split(';')[0] for x in db['מקום האירוע'].values])
+
 keep = []
 for ii in range(len(db)):
     name = db['שם משפחה'][ii]
@@ -11,7 +15,6 @@ for ii in range(len(db)):
     matches = False
     candidates = np.where((residence == db['residence'][ii]) | (evloc == db['מקום האירוע'][ii]))[0]
     for jj in candidates:
-        # if jj != ii:
         if jj not in keep and jj != ii:
             compare = db['שם משפחה'][jj]
             keepit = False
@@ -22,15 +25,9 @@ for ii in range(len(db)):
                 compare = [x for x in compare.replace('-', ' ').split(' ') if len(x) > 2]
                 if len(compare):
                     for comp in compare:
-                        # cond = (len(compare) == 1 | len(comp) > 2) and (comp in name)
-                        # if (len(compare) == 1) | len(comp) > 2:
-                        #     try:
-                        #         idx = name.index(comp)
                         if comp in namesp:
                             keepit = True
                             matches = True
-                            # except:
-                            #     pass
             if keepit:
                 if matches and ii not in keep:
                     keep.append(ii)
