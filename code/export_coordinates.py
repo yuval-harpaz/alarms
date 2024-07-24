@@ -1,13 +1,3 @@
-# """
-# collect event coordinates per person.
-# 1. take personal coordinets from database
-# 2. take from oct7map (maybe only Lahav)
-# 3. take from oct_7_9
-# 4. take from idf
-# 5. take from haarets+
-#
-# """
-# TODO: make a list of kidnap locations in kidnapped.csv
 """
 first run war23_idf2db.py
 then war23_map2db.py

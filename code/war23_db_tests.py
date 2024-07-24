@@ -273,7 +273,7 @@ class Location(unittest.TestCase):
         check = []
         for ii in range(len(map79)):
             row = np.where(pid == map79['pid'][ii])[0][0]
-            stat = data['Status (oct7map)'][row]
+            stat = str(data['Status (oct7map)'][row])
             if 'idnap' in stat or 'aptiv' in stat or map79['pid'][ii] in kidnapped:
                 loc = data['מקום המוות'][row]
             else:
