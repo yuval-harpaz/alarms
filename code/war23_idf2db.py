@@ -68,8 +68,8 @@ if len(inew):
                 db.at[idb, 'מקום האירוע'] = 'דרום רצועת עזה'
             elif re.search(r'צפון.רצוע', story, re.UNICODE):
                 db.at[idb, 'מקום האירוע'] = 'צפון רצועת עזה'
-            db.at[idb, 'Event location class'] = 'idf'
-            db.at[idb, 'Event location'] = db['מקום האירוע'][idb]
+            db.at[idb, 'Event location class (oct7map)'] = 'idf'
+            db.at[idb, 'Event location (oct7map)'] = db['מקום האירוע'][idb]
             if same_day:
                 db.at[idb, 'מקום המוות'] = db['מקום האירוע'][idb]
         en = idf['eng'][ii]
