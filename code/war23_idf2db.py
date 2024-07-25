@@ -7,7 +7,6 @@ if os.path.isdir(local):
     os.chdir(local)
     local = True
 ## load data and run sanity checks
-# csv = 'data/deaths_idf.csv'
 only_new = False
 # if only_new:
 idf = pd.read_csv('data/deaths_idf.csv')
@@ -34,12 +33,22 @@ if len(inew):
     ranks = ['sergeant', 'sergent', 'captain', 'lieutenant', 'major', 'colonel',
              'chief warrant officer', 'warrant officer', 'corporal']
     for ii in inew:
-        idb = len(db)
-        db.at[idb, 'pid'] = np.max(db['pid']+1)
+        nameheb = idf['name'][ii].split(' ')
+        already = np.where((db['שם פרטי'] == nameheb[0]) & (db['שם משפחה'] == nameheb[-1]))[0]
+        if len(already) == 1:
+            idb = already[0]
+            pid = db['pid'][idb]
+            print(idf['name'][ii] + ' same as ' + db['שם פרטי'][idb] + ' ' + db['שם משפחה'][idb]+'?')
+            resp = input('confirm: y/!y')
+            if resp != 'y':
+                raise Exception('complete DB from IDF manually')
+        else:
+            idb = len(db)
+            pid = np.max(db['pid']+1)
+            db.at[idb, 'pid'] = pid
         db.at[idb, 'Status'] = 'killed on duty'
         db.at[idb, 'Gender'] = idf['gender'][ii]
         db.at[idb, 'הנצחה'] = idf['webpage'][ii]
-        nameheb = idf['name'][ii].split(' ')
         db.at[idb, 'שם פרטי'] = nameheb[0]
         db.at[idb, 'שם משפחה'] = nameheb[-1]
         if len(nameheb) > 2:
@@ -82,8 +91,9 @@ if len(inew):
             db.at[idb, 'last name'] = name[-1]
             if len(name) > 2:
                 db.at[idb, 'middle name'] = ' '.join(name[1:-1])
-
+        idf.at[ii, 'pid'] = pid
     db.to_csv('data/oct7database.csv', index=False)
+    idf.to_csv('data/deaths_idf.csv', index=False)
 ##
 haa = pd.read_csv('data/deaths_haaretz+.csv')
 ismiss = np.where(haa['pid'].isnull() & (haa['status'] == 'חייל'))[0]
