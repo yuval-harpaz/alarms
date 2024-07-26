@@ -46,7 +46,7 @@ if len(inew):
             idb = len(db)
             pid = np.max(db['pid']+1)
             db.at[idb, 'pid'] = pid
-        db.at[idb, 'Status'] = 'killed on duty'
+        db.at[idb, 'Status (oct7map)'] = 'killed on duty'
         db.at[idb, 'Gender'] = idf['gender'][ii]
         db.at[idb, 'הנצחה'] = idf['webpage'][ii]
         db.at[idb, 'שם פרטי'] = nameheb[0]
