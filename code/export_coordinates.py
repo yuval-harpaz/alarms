@@ -81,7 +81,7 @@ for ii in range(len(pids)):
     dbevent = db['מקום האירוע'][ii]
     dbdeath = db['מקום המוות'][ii]
     dbtype = str(db['Status (oct7map)'][ii])
-    kidnapped = ('idnap' in dbtype) | ('captivity' in dbtype) | pid in [915, 29, 568, 626]
+    kidnapped = ('idnap' in dbtype) | ('captivity' in dbtype) | pid in [915, 29, 568, 626, 1068, 1730]  # injured and died at different places
     name = (db['שם פרטי'][ii] + ';' +
             str(db['שם נוסף'][ii]) + ';' +
             db['שם משפחה'][ii]
