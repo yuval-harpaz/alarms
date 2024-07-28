@@ -3,7 +3,7 @@ first run war23_idf2db.py
 then war23_map2db.py
 test with war23_db_tests.py
 push
-download database as excel to ~/Documents/oct7database.xlsx
+refresh and download database as excel to ~/Documents/oct7database.xlsx
 
 The code should make 3 columns of locations. oct7map, db by place name, and db coordinates. Check for large differences
 """
@@ -142,6 +142,14 @@ for ii in range(len(pids)):
         locations.at[ii, 'oct7map source'] = map7['location_source'][row]
         if map7['geotag'][row]:
             locations.at[ii, 'oct7map coo'] = map7['geotag'][row]
+        elif map7['sublocation'][row] in subloc.keys():
+            coo7 = subloc[map7['sublocation'][row]]
+            locations.at[ii, 'oct7map coo'] = coo7
+        else:
+            locrow = np.where(maploc['oct7map'].values == map7['location'][row])[0]
+            if len(locrow):
+                coo7 = f"{maploc['lat'][locrow[0]]}, {maploc['long'][locrow[0]]}"
+                locations.at[ii, 'oct7map coo'] = coo7
     if str(db['event_coordinates'][ii])[:2] == '31':
         locations.at[ii, 'db personal coo'] = db['event_coordinates'][ii]
 locations.to_csv('~/Documents/locations.csv', index=False)
