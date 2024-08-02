@@ -82,7 +82,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 97,Eric,kraunik,,,אריה,קראוניק,,אריק,https://www.idf.il/נופלים/חללי-המלחמה/אריה-אריק-קראוניק/,Be'eri,General vicinity,Murdered,M,2023-10-07,2023-10-07,בארי,בארי
 98,Eitan,Levy,,,איתן,לוי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44113,Be'eri,General vicinity,Murdered in captivity,M,2023-10-07,2023-10-07,אנדרטת חץ שחור,אנדרטת חץ שחור
 99,Ronnie,Levy,,,רוני,לוי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43625,Be'eri,General vicinity,Murdered,M,2023-10-07,2023-10-07,בארי,בארי
-100,Alex,Lobanov,,,אלכס,לובנוב,,,,Nova,General vicinity,Kidnapped,M,2023-10-07,,פסטיבל נובה,
+100,Alex,Lobanov,,,אלכס,לובנוב,,,,Nova,General vicinity,Kidnapped,M,2023-10-07,,יער בארי,
 101,Igor,Lusev,,,איגור,לוסב,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43626,Be'eri,General vicinity,Murdered,M,2023-10-07,2023-10-07,בארי,בארי
 102,Marina,Lusev,,,מרינה,לוסב,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43627,Be'eri,General vicinity,Murdered,F,2023-10-07,2023-10-07,בארי,בארי
 103,Amit,Mann,,,עמית,מן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43631,Be'eri,General vicinity,Murdered,F,2023-10-07,2023-10-07,בארי,בארי
@@ -1810,3 +1810,4 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2451,Nathem,Saeb,Fakher,,נַאדֶ'ם,סַאעַבּ, פַאחֶ'ר,,,,,Murdered,M,2024-07-27,2024-07-27,מג'דל שמס ,מג'דל שמס 
 2452,Guevara,Ibrahim ,Ibrahim,,ג'יפארא ,אבראהים,אבראהים ,,,,,Murdered,M,2024-07-27,2024-07-27,מג'דל שמס ,מג'דל שמס 
 2453,Yonatan,Greenblatt,Aharon,,יונתן,גרינבלט,אהרן,,https://www.idf.il/נופלים/חללי-המלחמה/יונתן-אהרן-גרינבלט/,דרום רצועת עזה,idf,killed on duty,M,2024-07-20,2024-07-27,דרום רצועת עזה,
+2454,Nir,Popko,,,ניר,פופקו,,,,,,,M,2024-07-30,2024-07-30,הגושרים,הגושרים

@@ -51,9 +51,9 @@ for ii in range(len(size)):
 df.to_csv('~/Documents/families.csv', index=False)
 
 
-
-
-
+##
+ptn = df['partners'][~df['partners'].isnull()].values.astype(int)
+ptn
 
 
 
