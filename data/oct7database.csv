@@ -45,7 +45,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 57,Galit,Carbone,,,גלית,מייזנר קרבונה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43650,Be'eri,General vicinity,Murdered,F,66,בארי,,2023-10-07,2023-10-07,בארי,בארי
 58,David,Carol,,,דוד,קרול,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43651,Be'eri,General vicinity,Murdered,M,72,בארי,,2023-10-07,2023-10-07,בארי,בארי
 59,Elhanan,Clemanzon,Meir,,אלחנן,קלמנזון,מאיר,,https://www.idf.il/נופלים/חללי-המלחמה/אלחנן-מאיר-קלמנזון/,Be'eri,General vicinity,Killed on duty,M,41,עתניאל,,2023-10-07,2023-10-07,בארי,בארי
-60,Mila,Cohen,,,מילה,כהן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43620,Be'eri,General vicinity,Murdered,F,שנה,בארי,,2023-10-07,2023-10-07,בארי,בארי
+60,Mila,Cohen,,,מילה,כהן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43620,Be'eri,General vicinity,Murdered,F,0,בארי,,2023-10-07,2023-10-07,בארי,בארי
 61,Pessy,Cohen,,,פסיה,כהן,,פסי,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43622,Be'eri,General vicinity,Murdered,F,68,בארי,,2023-10-07,2023-10-07,בארי; ארוע בני ערובה,בארי; ארוע בני ערובה
 62,Yona,Cohen,,,יונה,כהן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43621,Be'eri,General vicinity,Murdered,F,73,בארי,,2023-10-07,2023-10-07,בארי,בארי
 63,Yitzhak,Cozin,,,יצחק,קוזין,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43644,Be'eri,General vicinity,Murdered,M,72,בארי,,2023-10-07,2023-10-07,בארי,בארי
@@ -1377,7 +1377,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2011,Ilay,Ben Muha,Noam ,,עילי,בן מוחה,נועם,,https://www.idf.il/נופלים/חללי-המלחמה/עילי-נועם-בן-מוחה/,Kisufim Base,oct_7_9,Killed on duty,M,20,אשדוד,,2023-10-07,2023-10-07,מוצב כיסופים,מוצב כיסופים
 2012,Ori,Shani,Mordechay,,אורי,שני,מרדכי,,https://www.idf.il/נופלים/חללי-המלחמה/אורי-מרדכי-שני/,Kisufim Base,oct_7_9,Killed on duty,M,22,קריית ארבע,,2023-10-07,2023-10-07,מוצב כיסופים,מוצב כיסופים
 2013,Majed,Ibrahim,,,מאג׳ד,אברהים,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44011,Abu Gosh,oct_7_9,,M,19,אבו גוש,,2023-10-09,2023-10-09,אבו גוש,אבו גוש
-2014,Naama,Abu Qrenat,,,נעאמה,אבו קרינאת,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44048,Magen jct,oct_7_9,,F,שנה,אבו קרינאת,,2023-10-07,2023-10-07,צומת מגן,צומת מגן
+2014,Naama,Abu Qrenat,,,נעאמה,אבו קרינאת,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44048,Magen jct,oct_7_9,,F,0,אבו קרינאת,,2023-10-07,2023-10-07,צומת מגן,צומת מגן
 2015,Natalia,Demidova,,,נטליה,דמידובה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44062,Sderot,oct_7_9,,F,39,אוקראינה,,2023-10-07,2023-10-07,שדרות,שדרות
 2016,Niv,Ayos,,,ניב,איוס,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44005,Friendly fire near Nitzan,oct_7_9,,M,25,ירושלים,,2023-10-07,2023-10-07,ירי בשוגג ליד צומת ניצן,ירי בשוגג ליד צומת ניצן
 2017,Dor,Sade,,,דור,שדה,,,https://www.idf.il/נופלים/חללי-המלחמה/דור-שדה/,Kfar Aza,oct_7_9,Killed on duty,M,22,ערוגות,,2023-10-09,2023-10-09,כפר עזה,כפר עזה
