@@ -287,47 +287,85 @@ class Location(unittest.TestCase):
         self.assertEqual(different_locations, 0)
         # df.to_csv('/home/innereye/Documents/check.csv', index=False)
 
+##
+rel = pd.read_csv('data/victims_relationship.csv')
+pid_rel = rel['pid'].values
+
+
+class Relations(unittest.TestCase):
+    def mutual_partners(self):
+        mut = rel['partners'].values
+        bads = []
+        for kk in np.where(~np.isnan(mut))[0]:
+            row = np.where(rel['pid'].values == mut[kk])[0][0]
+            if mut[row] != pid_rel[kk]:
+                print(f'relations bad partner: expected {pid_rel[row]} to be a partner of {pid_rel[kk]}')
+                bads.append(kk)
+        n_bads = len(bads)
+        self.assertEqual(n_bads, 0)
+
+    def mutual_siblings(self):
+        mut = rel['siblings'].values
+        bads = []
+        for kk in range(len(mut)):
+            if type(mut[kk]) == str:
+                others = [int(x) for x in mut[kk].split(';')]
+                for isib in range(len(others)):
+                    row = np.where(rel['pid'].values == others[isib])[0][0]
+                    if str(pid_rel[kk]) not in mut[row]:
+                        print(f'relations bad siblings: expected {pid_rel[row]} to be a sibling of {pid_rel[kk]}')
+                        bads.append(kk)
+        n_bads = len(bads)
+        self.assertEqual(n_bads, 0)
 
 
 ##
-oct7db_results = unittest.TestResult()
-oct7suite = unittest.TestSuite(tests=[TestDuplicates('duplicate_pid'),
-                                      TestDuplicates('duplicate_heb'),
-                                      TestDuplicates('duplicate_eng'),
-                                      TestDuplicates('duplicate_url'),
-                                      TestDuplicates('rank_name'),
-                                      TestOmissions('not_dropped'),
-                                      TestOmissions('dropped'),
-                                      TestOmissions('all_acounted'),
-                                      Test79('extras79'),
-                                      Test79('unique_pid79'),
-                                      TestHaa('extras_haa'),
-                                      TestHaa('unique_haa'),
-                                      # TestHaa('missing_haa'),
-                                      TestIDF('unique_idf'),
-                                      TestIDF('extras_idf'),
-                                      TestIDF('name_idf'),
-                                      TestIDF('lastname_idf'),
-                                      Location('map7updated'),
-                                      ]
-                               )
-
-oct7suite.run(oct7db_results)
-print('XXXXXXXXXXXXXXXXXXXXXXXX')
-print('N tests failed = '+str(len(oct7db_results.failures))+'/'+str(oct7db_results.testsRun))  #+\
-      # ' including '+str(len(oct7db_results.expectedFailures))+' expected failures')
-print('N tests with bugs = '+str(len(oct7db_results.errors))+'/'+str(oct7db_results.testsRun))
-if len(oct7db_results.failures) > 0:
-    print('failed:')
-    for fl in oct7db_results.failures:
-        for msg in fl:
-            print(msg)
-if len(oct7db_results.errors) > 0:
-    print('Errors:')
-    print('-------')
-    for err in oct7db_results.errors:
-        for msg in err:
-            print(msg)
-print('XXXXXXXXXXXXXXXXXXXXXXXX')
+if __name__ == '__main__':
+    args = sys.argv
+    oct7db_results = unittest.TestResult()
+    if len(args) == 1:
+        oct7suite = unittest.TestSuite(tests=[TestDuplicates('duplicate_pid'),
+                                              TestDuplicates('duplicate_heb'),
+                                              TestDuplicates('duplicate_eng'),
+                                              TestDuplicates('duplicate_url'),
+                                              TestDuplicates('rank_name'),
+                                              TestOmissions('not_dropped'),
+                                              TestOmissions('dropped'),
+                                              TestOmissions('all_acounted'),
+                                              Test79('extras79'),
+                                              Test79('unique_pid79'),
+                                              TestHaa('extras_haa'),
+                                              TestHaa('unique_haa'),
+                                              # TestHaa('missing_haa'),
+                                              TestIDF('unique_idf'),
+                                              TestIDF('extras_idf'),
+                                              TestIDF('name_idf'),
+                                              TestIDF('lastname_idf'),
+                                              Location('map7updated'),
+                                              ]
+                                       )
+    elif args[1][0] == 'r':
+        oct7db_results = unittest.TestResult()
+        oct7suite = unittest.TestSuite(tests=[Relations('mutual_partners'),
+                                              Relations('mutual_siblings')])
+    else:
+        raise Exception('unrecognized options')
+    oct7suite.run(oct7db_results)
+    print('XXXXXXXXXXXXXXXXXXXXXXXX')
+    print('N tests failed = '+str(len(oct7db_results.failures))+'/'+str(oct7db_results.testsRun))  #+\
+          # ' including '+str(len(oct7db_results.expectedFailures))+' expected failures')
+    print('N tests with bugs = '+str(len(oct7db_results.errors))+'/'+str(oct7db_results.testsRun))
+    if len(oct7db_results.failures) > 0:
+        print('failed:')
+        for fl in oct7db_results.failures:
+            for msg in fl:
+                print(msg)
+    if len(oct7db_results.errors) > 0:
+        print('Errors:')
+        print('-------')
+        for err in oct7db_results.errors:
+            for msg in err:
+                print(msg)
+    print('XXXXXXXXXXXXXXXXXXXXXXXX')
 
 ##
