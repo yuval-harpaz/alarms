@@ -1,4 +1,4 @@
-pid,name,first name,last name,residence,event location,event date,status (oct7map),partners,siblings,parents to,children of,grdparents,gddchildren,other,comment,group
+pid,name,first name,last name,residence,event location,event date,status (oct7map),partners,siblings,parents to,children of,grdparents,grdchildren,other,comment,group
 27,נועם סלוטקי,נועם,סלוטקי,ירושלים,עלומים,2023-10-07,Killed on duty,,28,,,,,,,1
 28,ישי סלוטקי,ישי,סלוטקי,באר שבע,עלומים,2023-10-07,Killed on duty,,27,,,,,,,1
 33,נועם אביגדורי,נועם,אביגדורי,הוד השרון,בארי,2023-10-07,Kidnap survivor,,,,34,,,36;130;125;126;127;128;95;96,,2
@@ -21,7 +21,7 @@ pid,name,first name,last name,residence,event location,event date,status (oct7ma
 52,יסמין בירה,יסמין,בירה,בארי,בארי,2023-10-07,Murdered,48,,49;50,,,,51,,7
 54,גיל בויום,גיל,בויום,בארי,בארי,2023-10-07,Killed on duty,,,55,,,,,,8
 55,ענבר בויום,ענבר,בויום,בארי,צומת שער הנגב,2023-10-07,Murdered,,,,54,,,,,8
-60,מילה כהן,מילה,כהן,בארי,בארי,2023-10-07,Murdered,,,,140,62,,,,9
+60,מילה כהן,מילה,כהן,בארי,בארי,2023-10-07,Murdered,,,,140,,62,,,9
 61,פסיה כהן,פסיה,כהן,בארי,בארי,2023-10-07,Murdered,,131,,,,,132;133,,10
 62,יונה כהן,יונה,כהן,בארי,בארי,2023-10-07,Murdered,,,140,,60,,,,9
 140,אוהד כהן,אוהד,כהן,בארי,בארי,2023-10-07,Murdered,,,60,62,,,,,9
@@ -326,7 +326,7 @@ pid,name,first name,last name,residence,event location,event date,status (oct7ma
 2031,ג׳יאנה ליו,ג׳יאנה,ליו,סין,דרומית לגבים,2023-10-07,,,,,,,,,,0
 2032,זהיגו ליו,זהיגו,ליו,סין,דרומית לגבים,2023-10-07,,,,,,,,,,0
 327,אופיר ליבשטיין,,,,,,,,,326,,,,1365;301,,31
-326,ניצן ליבשטיין,,,,,,,,,,327,1365,,301,,31
+326,ניצן ליבשטיין,,,,,,,,,,327,,1365,301,,31
 393,אתי זק בן יעיש,,,,,,,394,,395,,,,,,42
 624,אירנה טאטי,,,,,,,,,627,,625,,626;555,,58
 1349,מירב טל,,,,,,,644,,,,,,640;641,,73

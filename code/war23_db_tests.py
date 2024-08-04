@@ -312,13 +312,72 @@ class Relations(unittest.TestCase):
                 others = [int(x) for x in mut[kk].split(';')]
                 for isib in range(len(others)):
                     row = np.where(rel['pid'].values == others[isib])[0][0]
-                    if str(pid_rel[kk]) not in mut[row]:
+                    if str(pid_rel[kk]) not in str(mut[row]):
                         print(f'relations bad siblings: expected {pid_rel[row]} to be a sibling of {pid_rel[kk]}')
                         bads.append(kk)
         n_bads = len(bads)
         self.assertEqual(n_bads, 0)
 
 
+    def mutual_parents(self):
+        mut0 = rel['parents to'].values
+        mut1 = rel['children of'].values
+        bads = []
+        for kk in range(len(mut0)):
+            if type(mut0[kk]) == str:
+                others = [int(x) for x in mut0[kk].split(';')]  # kids
+                for iother in range(len(others)):
+                    row = np.where(rel['pid'].values == others[iother])[0][0]
+                    if str(pid_rel[kk]) not in str(mut1[row]):
+                        print(f'relations bad parents: expected {pid_rel[row]} to be a child of {pid_rel[kk]}')
+                        bads.append(kk)
+        n_bads = len(bads)
+        self.assertEqual(n_bads, 0)
+
+    def mutual_children(self):
+        mut1 = rel['parents to'].values
+        mut0 = rel['children of'].values
+        bads = []
+        for kk in range(len(mut0)):
+            if type(mut0[kk]) == str:
+                others = [int(x) for x in mut0[kk].split(';')]  # parents
+                for iother in range(len(others)):
+                    row = np.where(rel['pid'].values == others[iother])[0][0]
+                    if str(pid_rel[kk]) not in str(mut1[row]):
+                        print(f'relations bad children: expected {pid_rel[row]} to be a parent of {pid_rel[kk]}')
+                        bads.append(kk)
+        n_bads = len(bads)
+        self.assertEqual(n_bads, 0)
+
+    def mutual_gparents(self):
+        mut0 = rel['grdparents'].values
+        mut1 = rel['grdchildren'].values
+        bads = []
+        for kk in range(len(mut0)):
+            if type(mut0[kk]) == str:
+                others = [int(x) for x in mut0[kk].split(';')]  # kids
+                for iother in range(len(others)):
+                    row = np.where(rel['pid'].values == others[iother])[0][0]
+                    if str(pid_rel[kk]) not in str(mut1[row]):
+                        print(f'relations bad grand parents: expected {pid_rel[row]} to be a grandchild of {pid_rel[kk]}')
+                        bads.append(kk)
+        n_bads = len(bads)
+        self.assertEqual(n_bads, 0)
+
+    def mutual_gchildren(self):
+        mut1 = rel['grdparents'].values
+        mut0 = rel['grdchildren'].values
+        bads = []
+        for kk in range(len(mut0)):
+            if type(mut0[kk]) == str:
+                others = [int(x) for x in mut0[kk].split(';')]  # parents
+                for iother in range(len(others)):
+                    row = np.where(rel['pid'].values == others[iother])[0][0]
+                    if str(pid_rel[kk]) not in str(mut1[row]):
+                        print(f'relations bad grand children: expected {pid_rel[row]} to be a grandparent of {pid_rel[kk]}')
+                        bads.append(kk)
+        n_bads = len(bads)
+        self.assertEqual(n_bads, 0)
 ##
 if __name__ == '__main__':
     args = sys.argv
@@ -347,6 +406,10 @@ if __name__ == '__main__':
     elif args[1][0] == 'r':
         oct7db_results = unittest.TestResult()
         oct7suite = unittest.TestSuite(tests=[Relations('mutual_partners'),
+                                              Relations('mutual_parents'),
+                                              Relations('mutual_children'),
+                                              Relations('mutual_gparents'),
+                                              Relations('mutual_gchildren'),
                                               Relations('mutual_siblings')])
     else:
         raise Exception('unrecognized options')
