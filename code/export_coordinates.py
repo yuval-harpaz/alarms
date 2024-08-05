@@ -1,6 +1,6 @@
 """
 first run war23_idf2db.py
-consider using war23_map2db.py if something changed in oct_7_9.csv
+run war23_map2db.py to update data from oct7map
 test with war23_db_tests.py
 push
 refresh and download database as excel to ~/Documents/oct7database.xlsx
