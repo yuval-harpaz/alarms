@@ -1052,3 +1052,33 @@ Stacktrace:
 #22 0x556ba1d2448c <unknown>
 #23 0x7fcd12094ac3 <unknown>
 
+war23_haaretz_deaths.py empty list
+war23_idf_mem_all.py failed
+Message: timeout: Timed out receiving message from renderer: 300.000
+  (Session info: chrome=127.0.6533.88)
+Stacktrace:
+#0 0x557bdc7f971a <unknown>
+#1 0x557bdc4ca640 <unknown>
+#2 0x557bdc4b25a3 <unknown>
+#3 0x557bdc4b2292 <unknown>
+#4 0x557bdc4b05ac <unknown>
+#5 0x557bdc4b0a9f <unknown>
+#6 0x557bdc4c060b <unknown>
+#7 0x557bdc4d69a4 <unknown>
+#8 0x557bdc4dc03b <unknown>
+#9 0x557bdc4b11ae <unknown>
+#10 0x557bdc4d67fb <unknown>
+#11 0x557bdc55af4f <unknown>
+#12 0x557bdc53c683 <unknown>
+#13 0x557bdc50cd71 <unknown>
+#14 0x557bdc50d7de <unknown>
+#15 0x557bdc7c12ab <unknown>
+#16 0x557bdc7c5242 <unknown>
+#17 0x557bdc7ae665 <unknown>
+#18 0x557bdc7c5dd2 <unknown>
+#19 0x557bdc7932af <unknown>
+#20 0x557bdc7e8eb8 <unknown>
+#21 0x557bdc7e9090 <unknown>
+#22 0x557bdc7f84ec <unknown>
+#23 0x7f5abe294ac3 <unknown>
+
