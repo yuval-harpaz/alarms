@@ -122,3 +122,26 @@ for ii in rep:
     if str(db['Party'][ii]) == 'nan':
         db.at[ii, 'Party'] = 'Nova'
 
+##
+db = pd.read_csv('data/oct7database.csv')
+map = pd.read_csv('data/oct_7_9.csv')
+keys = ['אזרחים', 'אזרחים זרים', 'כבאות והצלה', 'כיתות כוננות','מגן דוד אדום',
+        'משטרה', "משטרה (מיל')", 'צה"ל', 'צה"ל (מיל\')', 'שב"כ']
+vals = ['אזרח', 'אזרח', 'כבאי', 'כיתת כוננות', 'מד"א',
+        'שוטר', 'שוטר', 'חייל', 'חייל', 'שב"כ']
+reform = dict(zip(keys, vals))
+
+for ii in range(len(map)):
+    role = reform[map['citizenGroup'][ii]]
+    row = np.where(db['pid'] == map['pid'][ii])[0][0]
+    db.at[row, 'Role'] = role
+
+for ii in range(len(db)):
+    if db['pid'][ii] not in map['pid'].values and '.idf.' in str(db['הנצחה'][ii]):
+        db.at[ii, 'Role'] = 'חייל'
+    # if role[-1] == 'מד"א':
+    #     try:
+    #         print(str(ii) + ' ' + str(db['pid'][row]) + '    ' + db["הנצחה"][row][:20])
+    #     except:
+    #         print(str(ii) + ' ' + str(db['pid'][row]) + '    ' + str(db["הנצחה"][row]))
+
