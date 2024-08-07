@@ -69,3 +69,37 @@ db = pd.read_csv('data/oct7database.csv')
 zar = np.where(db['Country'] != 'ישראל')[0]
 for ii in zar:
     db.at[ii, 'Residence'] = db['מקום האירוע'][ii]
+##
+ikidn = [x for x in range(len(db)) if db['pid'][x] in kidn['pid'].values]
+for ii in range(len(db)):
+    if ii in ikidn:
+        krow = np.where(kidn['pid'].values == db['pid'][ii])[0][0]
+        if str(db['Death date'][ii]) == 'nan':
+            stat = 'kidnapped'
+        else:
+            if str(db['Death date'][ii])[:10] == '2023-10-07':
+                if db['מקום המוות'][ii] == db['מקום האירוע'][ii]:
+                    stat = 'killed; kidnapped'
+                else:
+                    stat = 'kidnapped; killed'
+            else:
+                stat = 'kidnapped; killed'
+        if kidn['condition'][krow] == 'שוחרר':
+            if db['pid'][ii] in [680, 809, 785, 969, 1357, 658, 654]:
+                stat = stat + '; rescued'
+            else:
+                stat = stat + '; released'
+        elif kidn['condition'][krow] == 'הוחזר':
+            stat = stat + '; retrieved'
+    else:
+        stat = 'killed'
+    db.at[ii, 'Status'] = stat
+##
+party = {'nan': np.nan, 'פסטיבל נובה': 'Nova', 'מסיבת פסיידאק': 'Psyduck', 'מידברן': np.nan}
+for ii in range(len(db)):
+    if db['pid'][ii] in map['pid'].values:
+        mrow = np.where(map['pid'].values == db['pid'][ii])[0][0]
+        db.at[ii, 'Party'] = party[str(map['comment'][mrow])]
+    else:
+        db.at[ii, 'Party'] = np.nan
+

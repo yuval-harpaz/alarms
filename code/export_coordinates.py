@@ -29,7 +29,7 @@ map = group_locs(map)
 # map = pd.read_csv('data/oct_7_9.csv')
 db = pd.read_excel('~/Documents/oct7database.xlsx', 'Data')
 # cref = pd.read_csv('data/crossref.csv')
-
+kidn = pd.read_csv('data/kidnapped.csv')
 ##
 subloc = {'232 Blocked Road': [31.399963, 34.474210],
           'Alumim Bomb Shelter (West)': [31.450412, 34.516401],
@@ -50,8 +50,8 @@ sublocheb = {'אשקלון; בי"ח ברזילי': [31.6632444309682, 34.5578359
              'יד מרדכי - נתיב העשרה; קבוצת ריצה': [31.57576149845013, 34.55275119619444],
              'כביש רעים – אורים (צפון)': [31.3830878311482, 34.4552414506731],
              'מטעים של בארי (מגורי עובדים)': [31.4054968725694, 34.4537661162609],
-             'מיגונית בצומת גמה (דרום)': [31.380127,34.447162],
-             'מיגונית בצומת גמה (מערב)': [31.380127, 34.447162],
+             'מיגונית בצומת גמה (דרום)': [31.380127, 34.447162],
+             'מיגונית בצומת גמה (מערב)': [31.380940, 34.446617],
              'מיגונית בצומת גמה (צפון)': [31.381336, 34.447480],
              'מיגונית בצומת רעים (מזרח)': [31.389740, 34.459447],
              'מיגונית בצומת רעים (מערב)': [31.389781, 34.458059],
@@ -87,7 +87,9 @@ for ii in range(len(pids)):
     dbevent = db['מקום האירוע'][ii]
     dbdeath = db['מקום המוות'][ii]
     dbtype = str(db['Status (oct7map)'][ii])
-    kidnapped = ('idnap' in dbtype) | ('captivity' in dbtype) | pid in [915, 29, 568, 626, 1068, 1730, 139]  # injured and died at different places
+    kidnapped = pid in kidn['pid'].values
+    askidnapped = kidnapped | pid in [915, 29, 568, 626, 1068, 1730, 139]  # injured and died at different places
+
     name = (db['שם פרטי'][ii] + ';' +
             str(db['שם נוסף'][ii]) + ';' +
             db['שם משפחה'][ii]
@@ -99,16 +101,15 @@ for ii in range(len(pids)):
     locations.at[ii, 'name'] = name
     loc79 = db['מקום המוות'][ii]
     locations.at[ii, 'death loc'] = loc79
+    if ii == 610:
+        print('debug')
     if loc79 and str(loc79) != 'nan':
-        if ';' in loc79:
-            if loc79 in sublocheb.keys():
-                coo = sublocheb[loc79]
-                coo = f"{coo[0]}, {coo[1]}"
-                locations.at[ii, 'death coo'] = coo
-            else:
-                print(f'no coo for {loc79}')
-                if loc79 == "ג'נין; מחנה הפליטים":
-                    print('x')
+        if loc79 in sublocheb.keys():
+            coo = sublocheb[loc79]
+            coo = f"{coo[0]}, {coo[1]}"
+            locations.at[ii, 'death coo'] = coo
+        # elif ';' in loc79 and loc79 not in sublocheb.keys():
+        #     print(f'no coo for {loc79}')
         else:
             li = np.where(maploc['name'] == loc79)[0]
             if len(li):
@@ -117,11 +118,10 @@ for ii in range(len(pids)):
     loc79 = db['מקום האירוע'][ii]
     locations.at[ii, 'event loc'] = loc79
     if loc79 and str(loc79) != 'nan':
-        if ';' in loc79:
-            if loc79 in sublocheb.keys():
-                coo = sublocheb[loc79]
-                coo = f"{coo[0]}, {coo[1]}"
-                locations.at[ii, 'event coo'] = coo
+        if loc79 in sublocheb.keys():
+            coo = sublocheb[loc79]
+            coo = f"{coo[0]}, {coo[1]}"
+            locations.at[ii, 'event coo'] = coo
         else:
             li = np.where(maploc['name'] == loc79)[0]
             if len(li):
