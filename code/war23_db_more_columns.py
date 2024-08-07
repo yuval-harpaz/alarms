@@ -103,3 +103,22 @@ for ii in range(len(db)):
     else:
         db.at[ii, 'Party'] = np.nan
 
+##
+dbl = pd.read_excel('~/Documents/oct7database.xlsx', 'Data')
+sus = np.zeros(len(dbl), bool)
+for ii in range(len(dbl)):
+    if db['מקום האירוע'][ii] == 'פסטיבל נובה' and str(dbl['event_coordinates'][ii])[:2] != '31':
+        if str(db['מקום המוות'][ii]) != 'nan':
+            sus[ii] = True
+dbs = dbl[sus]
+dbs.to_excel('~/Documents/sus.xlsx', index=False)
+##
+db = pd.read_csv('data/oct7database.csv')
+kidn = pd.read_csv('data/kidnapped.csv')
+ikidn = [x for x in range(len(db)) if db['pid'][x] in kidn['pid'].values]
+nova = np.where(db['Event location (oct7map)'] == 'Nova')[0]
+rep = [x for x in nova if x in ikidn]
+for ii in rep:
+    if str(db['Party'][ii]) == 'nan':
+        db.at[ii, 'Party'] = 'Nova'
+
