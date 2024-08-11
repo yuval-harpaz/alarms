@@ -46,3 +46,15 @@ for ii in range(len(base)):
 db.to_csv('~/Documents/tmp_oct7database.csv', index=False)
 map.to_csv('data/oct_7_9.csv', index=False)
 
+##
+db = pd.read_excel('~/Documents/oct7database.xlsx', 'Data')
+coo = pd.read_csv('~/Documents/מוצב נחל עוז קואו.csv', header=None)
+# cref = pd.read_csv('data/crossref.csv')
+# map = pd.read_csv('data/oct_7_9.csv')
+for ii in range(len(base)):
+    pid = base['pid'][ii]
+    dbrow = np.where(db['pid'].values == pid)[0][0]
+    latlon = coo[1].values[coo[0] == base['מקום במוצב'][ii]][0]
+    db.at[dbrow, 'event_coordinates'] = latlon
+
+db.to_csv('~/Documents/tmp_oct7database.csv', index=False)
