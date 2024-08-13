@@ -7,7 +7,7 @@ if os.path.isdir(local):
     os.chdir(local)
     local = True
 ## load data and run sanity checks
-only_new = False
+# only_new = False
 # if only_new:
 idf = pd.read_csv('data/deaths_idf.csv')
 missing = np.sum(idf['webpage'].isnull())
@@ -29,7 +29,7 @@ if len(inew):
         url = idf['webpage'][ii]
         if url in db['הנצחה'].values:
             raise Exception(f'url already in db : {url}')
-    db = pd.read_csv('data/oct7database.csv')
+    # db = pd.read_csv('data/oct7database.csv')
     ranks = ['sergeant', 'sergent', 'captain', 'lieutenant', 'major', 'colonel',
              'chief warrant officer', 'warrant officer', 'corporal']
     for ii in inew:
@@ -46,11 +46,14 @@ if len(inew):
             idb = len(db)
             pid = np.max(db['pid']+1)
             db.at[idb, 'pid'] = pid
-        db.at[idb, 'Status (oct7map)'] = 'killed on duty'
+        db.at[idb, 'Status'] = 'killed'
+        db.at[idb, 'Country'] = 'ישראל'
         db.at[idb, 'Gender'] = idf['gender'][ii]
         db.at[idb, 'הנצחה'] = idf['webpage'][ii]
         db.at[idb, 'שם פרטי'] = nameheb[0]
         db.at[idb, 'שם משפחה'] = nameheb[-1]
+        db.at[idb, 'Residence'] = idf['from'][ii]
+        db.at[idb, 'Age'] = idf['age'][ii]
         if len(nameheb) > 2:
             db.at[idb, 'שם נוסף'] = ' '.join(nameheb[1:-1])
         story = idf['story'][ii]
@@ -61,6 +64,10 @@ if len(inew):
         db.at[idb, 'Death date'] = idf['death_date'][ii]
         if same_day:
             db.at[idb, 'Event date'] = idf['death_date'][ii]
+        if 'כוננות' in story and 'כיתת' in story:
+            db.at[idb, 'Role'] = 'כיתת כוננות'
+        else:
+            db.at[idb, 'Role'] = 'חייל'
         if 'רצוע' in story:
             if re.search(r'מרכז.רצוע', story, re.UNICODE):
                 db.at[idb, 'מקום האירוע'] = 'מרכז רצועת עזה'
