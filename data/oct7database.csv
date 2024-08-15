@@ -317,8 +317,8 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 396,Saar,Margolis,,,סער,מרגוליס,,,https://www.idf.il/נופלים/חללי-המלחמה/סער-מרגוליס/,Kissufim,General vicinity,Killed on duty,M,37,כיסופים,ישראל,כיתת כוננות,,killed,2023-10-07,2023-10-07,כיסופים,כיסופים
 397,Amit,Peled,,,עמית,פלד,,,https://www.idf.il/נופלים/חללי-המלחמה/עמית-פלד/,Kissufim,General vicinity,Killed on duty,M,21,חיפה,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב כיסופים,מוצב כיסופים
 398,Raz,Peretz,,,רז,פרץ,,רז,https://www.idf.il/נופלים/חללי-המלחמה/רז-פרץ/,Kissufim,General vicinity,Killed on duty,M,24,עפולה,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב כיסופים,מוצב כיסופים
-399,Avraham,Fleisher,,Avi,אברהם,פליישר,,אבי,https://www.idf.il/נופלים/חללי-המלחמה/אברהם-פליישר/,Magen,General vicinity,Killed on duty,M,63,מגן,ישראל,כיתת כוננות,,killed,2023-10-07,2023-10-07,מגן,מגן
-400,Ofir,Yaron,Mordechai,,אופיר,ירון,מרדכי,,https://www.idf.il/נופלים/חללי-המלחמה/אופיר-מרדכי-ירון/,Magen,General vicinity,Killed on duty,M,51,מגן,ישראל,כיתת כוננות,,killed,2023-10-07,2023-10-07,צומת מעון,צומת מעון
+399,Avraham,Fleisher,,Avi,אברהם,פליישר,,אבי,https://www.idf.il/נופלים/חללי-המלחמה/אברהם-פליישר/,Magen,General vicinity,Killed on duty,M,63,מגן,ישראל,כיתת כוננות,,killed,2023-10-07,2023-10-07,מגן,
+400,Ofir,Yaron,Mordechai,,אופיר,ירון,מרדכי,,https://www.idf.il/נופלים/חללי-המלחמה/אופיר-מרדכי-ירון/,Magen,General vicinity,Killed on duty,M,51,מגן,ישראל,כיתת כוננות,,killed,2023-10-07,2023-10-07,צומת מועצה אזורית אשכול,צומת מועצה אזורית אשכול
 401,Lion,Bar,,,ליאון,בר בן מוחה,,,https://www.idf.il/נופלים/חללי-המלחמה/ליאון-בר-בן-מוחה/,Gaza Envelope; Gama Junction Bomb Shelter (West),Exact location,Killed on duty,M,53,גדרה,ישראל,חייל,,killed,2023-10-08,2023-10-08,אנדרטת חץ שחור,אנדרטת חץ שחור
 402,Ron,Benjamin,,,רון,בנימין,,,,Gaza Envelope; Mefalsim Bend,Approximate location,Murdered in captivity,M,59,רחובות,ישראל,אזרח,,killed; kidnapped; retrieved,2023-10-07,2023-10-07,סמוך למפלסים,סמוך למפלסים
 403,Tal,Maman,,,טל,ממן,,,https://www.idf.il/נופלים/חללי-המלחמה/טל-ממן/,Mivtahim,General vicinity,Killed on duty,M,38,מבטחים,ישראל,כיתת כוננות,,killed,2023-10-07,2023-10-07,מבטחים,מבטחים
@@ -815,7 +815,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 988,Michael,Lizmi,,,מיכאל,ליזמי,,,https://lezichram.police.gov.il/main/nofel/42132,Ofakim,Exact location,Killed on duty,M,28,אופקים,ישראל,שוטר,,killed,2023-10-07,2023-10-07,אופקים,אופקים
 990,Eliad,Ohayon,,,אליעד,אוחיון,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43434,Ofakim,Exact location,Murdered,M,23,אופקים,ישראל,אזרח,,killed,2023-10-07,2023-10-07,אופקים,אופקים
 991,Moshe,Ohayon,,,משה,אוחיון,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43433,Ofakim,Exact location,Murdered,M,52,אופקים,ישראל,אזרח,,killed,2023-10-07,2023-10-07,אופקים,אופקים
-992,Binyamin,Rahamim,,,בנימין,רחמים,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43467,Ofakim,Exact location,Murdered,M,52,אופקים,ישראל,אזרח,,killed,2023-10-07,2023-10-07,אופקים,אופקים
+992,Binyamin,Rahamim,,,בנימין,רחמים,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43467,Ofakim,Exact location,Murdered,M,52,אופקים,ישראל,אזרח,,killed,2023-10-07,2023-10-07,צומת קרית חינוך מרחבים,צומת קרית חינוך מרחבים
 993,Nehorai,Said,,,נהוראי,סעיד,,,https://www.idf.il/נופלים/חללי-המלחמה/נהוראי-סעיד/,Ofakim,Exact location,Killed on duty,M,21,אופקים,ישראל,חייל,,killed,2023-10-07,2023-10-07,אופקים,אופקים
 994,Rom,Shlomi,,,רום,שלומי,,,https://www.idf.il/נופלים/חללי-המלחמה/רום-שלומי/,Re'im Base,General vicinity,Killed on duty,M,23,גנות,ישראל,חייל,,killed,2023-10-07,2023-10-07,מחנה רעים,מחנה רעים
 995,Barta,Shmeyev Levi,,,ברטה,שמיאייב לוי,בטסיין,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43439,The pensioners bus in Sderot,General vicinity,Murdered,F,56,אופקים,ישראל,אזרח,,killed,2023-10-07,2023-10-07,שדרות; אוטובוס הגמלאים,שדרות; אוטובוס הגמלאים
@@ -1351,7 +1351,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 1716,Avi,Zidon,,,אבי,צידון,,,https://lezichram.police.gov.il/main/nofel/42130,Pri Gan,General vicinity,Killed on duty,M,50,יבול,ישראל,שוטר,,killed,2023-10-07,2023-10-07,פרי גן,פרי גן
 1717,Reuven,Vizman,,,ראובן,ויזמן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43447,Ofakim,Exact location,Murdered,M,57,אופקים,ישראל,אזרח,,killed,2023-10-07,2023-10-07,אופקים,אופקים
 1718,Avraham,Hatuel,,Avi,אברהם,חטואל,,אבי,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43451,Ofakim,Exact location,Murdered,M,52,אופקים,ישראל,אזרח,,killed,2023-10-07,2023-10-07,אופקים,אופקים
-1719,Michael,Ostrovsky,,,מיכאל,אוסטרובסקי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43435,Magen,Exact location,Murdered,M,77,אופקים,ישראל,אזרח,,killed,2023-10-07,2023-10-07,מגן,מגן
+1719,Michael,Ostrovsky,,,מיכאל,אוסטרובסקי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43435,Magen,Exact location,Murdered,M,77,אופקים,ישראל,אזרח,,killed,2023-10-07,2023-10-07,צומת מגן,צומת מגן
 1720,Zoya,Jambacov,,,זויה,ג׳נבקוב,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43443,Ofakim,Exact location,Murdered,F,45,אופקים,ישראל,אזרח,,killed,2023-10-07,2023-10-07,אופקים,אופקים
 1721,Yelizabeta,Kostitzin,,,יליזבטה,קוסטיצין,,ליליה,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43465,Ofakim,Exact location,Murdered,F,78,אופקים,ישראל,אזרח,,killed,2023-10-07,2023-10-07,אופקים,אופקים
 1722,Emma,Poliakov,,,אמה,פוליאקוב,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43460,Ofakim,Exact location,Murdered,F,83,אופקים,ישראל,אזרח,,killed,2023-10-07,2023-10-07,אופקים,אופקים
