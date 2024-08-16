@@ -1,10 +1,10 @@
 import pandas as pd
 import numpy as np
 import datetime
-db = pd.read_excel('~/Documents/oct7database.xlsx', 'Data')
+# db = pd.read_excel('~/Documents/oct7database.xlsx', 'Data')
 # idf = pd.read_csv('data/deaths_idf.csv')
 # map = pd.read_csv('data/oct_7_9.csv')
-btl = pd.read_excel('~/Documents/btl_yael_netzer.xlsx')
+
 # kidn = pd.read_csv('data/kidnapped.csv')
 def get_idx(x, vec):
     i = np.where(vec == x)[0]
@@ -22,11 +22,13 @@ def intize(m):
         m = int(m)
     return m
 
-pids = db['pid'].values
-bid = btl['BTL_ID'].values
+
 theday = datetime.date(2023, 10, 7)
 ##
+btl = pd.read_excel('~/Documents/btl_yael_netzer.xlsx')
 db = pd.read_csv('data/oct7database.csv')
+pids = db['pid'].values
+bid = btl['BTL_ID'].values
 skip = [2014, 60, 619]
 missing = []
 naming = pd.DataFrame(columns=['pid', 'db', 'btl', 'page'])
@@ -42,7 +44,7 @@ for ii in range(len(pids)):
                 else:
                     age = intize(btl['Age'][row])
                 existing = str(intize(db['Age'][ii]))
-                if existing != str(age):
+                if existing != str(age) and str(age) != 'nan':
                     db.at[ii, 'Age'] = int(age)
                     print(f"{ii} {pids[ii]} {db['first name'][ii]} {db['last name'][ii]} {existing} vs {age}")
                 first = str(btl['FirstName'][row]).replace("'", '׳')
