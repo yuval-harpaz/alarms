@@ -37,7 +37,7 @@ for ii in range(len(pids)):
         if type(db['הנצחה'][ii]) == str and 'laad' in db['הנצחה'][ii]:
             id = int(db['הנצחה'][ii].split('ID=')[-1])
             row = get_idx(id, bid)
-            if row:
+            if row is not None:
                 born = btl['BirthDate'][row]
                 if type(born) == datetime.datetime:
                     age = theday.year - born.year - ((theday.month, theday.day) < (born.month, born.day))
