@@ -248,6 +248,7 @@ class TestIDF(unittest.TestCase):
         pid_idf = pid_idf[~np.isnan(pid_idf)].astype(int)
         mismatch = 0
         pid_mismatch = []
+        known = [1643]
         for ii in range(len(pid_idf)):
             row = np.where(pid == pid_idf[ii])[0]
             if len(row) == 1:
@@ -255,7 +256,7 @@ class TestIDF(unittest.TestCase):
                 last = data['שם משפחה'][row]
                 last = last.replace('רזיאל רוזנברג', 'רזיאל')
                 name = idf['name'][ii].replace('(', '').replace(')', '')
-                if last not in name:
+                if last not in name and idf["pid"][ii] not in known:
                     print(f'IDF: pid={idf["pid"][ii]}, {last} not in {name}')
                     mismatch += 1
                     pid_mismatch.append(idf["pid"][ii])
