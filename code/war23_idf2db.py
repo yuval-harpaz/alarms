@@ -16,6 +16,7 @@ if missing:
 wpu = np.unique(idf['webpage'])
 if len(wpu) < len(idf):
     raise Exception('idf webpage not usinque')
+add = pd.read_csv('data/oct7database_additional.csv')
 db = pd.read_csv('data/oct7database.csv')
 for ii in np.where([x in idf['pid'].values for x in db['pid'].values])[0]:
     row = np.where(idf['pid'].values == db['pid'][ii])[0][0]
@@ -44,7 +45,7 @@ if len(inew):
                 raise Exception('complete DB from IDF manually')
         else:
             idb = len(db)
-            pid = np.max(db['pid']+1)
+            pid = np.max(list(db['pid'])+list(add['pid'])) + 1
             db.at[idb, 'pid'] = pid
         db.at[idb, 'Status'] = 'killed'
         db.at[idb, 'Country'] = 'ישראל'
