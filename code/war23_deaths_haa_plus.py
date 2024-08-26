@@ -18,6 +18,9 @@ idf = pd.read_csv('data/deaths_idf.csv')
 df = pd.read_csv('data/deaths_haaretz+.csv')
 ##
 last_name = df['name'][len(df)-1]
+ipar = [i for i in range(len(last_name)) if last_name[i] == ')']
+if len(ipar) > 0:
+    last_name = last_name[ipar[-1]+1:].strip()
 where_last = np.where(haa['name'].str.contains(last_name))[0]
 if len(where_last) == 0:
     print('haa+ waiting for '+last_name)
