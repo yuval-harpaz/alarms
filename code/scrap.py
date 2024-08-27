@@ -12,8 +12,9 @@ if os.path.isdir(local):
 
 
 db = pd.read_csv('data/oct7database.csv')
-party = np.where(~db['Party'].isnull())[0]
-for ii in range(len(ka)):
-    row = np.where(db['pid'].values == ka['pid'][ii])[0][0]
-    if str(ka['visit'][ii]) != 'nan':
-        db.at[row, 'event_coordinates'] = ka['visit'][ii]
+changes = pd.read_csv('~/Documents/changes.csv')
+ich = np.where(changes['fixed'].str.lower() == 'v')[0]
+for ii in ich:
+    row = np.where(db['pid'].values == changes['pid'][ii])[0][0]
+    db.at[row, 'Role'] = changes['Role'][ii]
+db.to_csv('data/oct7database.csv', index=False)
