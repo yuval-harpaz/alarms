@@ -71,7 +71,8 @@ class TestDuplicates(unittest.TestCase):
         pid = data['pid'].values
         names = []
         for ii in range(len(data)):
-            names.append(data['first name'][ii] + ' ' + data['last name'][ii])
+            if data['first name'][ii] != '??':
+                names.append(data['first name'][ii] + ' ' + data['last name'][ii])
         names = np.array(names)
         dup_eng = duplicates(pid, names)
         dup_names = np.unique(dup_eng['name'])
