@@ -167,6 +167,7 @@ row_len = 7
 font_size = 2
 colors = ["#ff0000", "#808000", '#2255ff', '#FFA500']
 isparty = names['comment'] == 'פסטיבל נובה'
+isnova =  names['location'] == 'פסטיבל נובה'
 isduck = names['comment'] == 'מסיבת פסיידאק'
 
 for lang in ['heb', 'eng']:
@@ -395,9 +396,9 @@ for lang in ['heb', 'eng']:
             html_txt1 = f'<div style="font-size: 10pt; color:gray">{loc_lang} ({tot})</div>'
             if loc == 'פסטיבל נובה':
                 if lang == 'heb':
-                    html_txt1 += f'<div style="font-size:7pt; color:gray">כולל הנמלטים למיגוניות ולקיבוצים: {np.sum(isparty)}</div>'
+                    html_txt1 += f'<div style="font-size:7pt; color:gray">כולל הנמלטים למיגוניות ולקיבוצים: {np.sum(isparty | isnova)}</div>'
                 else:
-                    html_txt1 += f'<div style="font-size:7pt; color:gray">including escapees to shelters and kibbutzim: {np.sum(isparty)}</div>'
+                    html_txt1 += f'<div style="font-size:7pt; color:gray">including escapees to shelters and kibbutzim: {np.sum(isparty | isnova)}</div>'
             folium.map.Marker(
                 latlong,
                 icon=DivIcon(
