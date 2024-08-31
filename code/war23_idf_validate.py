@@ -31,18 +31,51 @@ browser = webdriver.Firefox()
 ##
 df = pd.read_csv('data/deaths_idf.csv')
 # with Display() as disp:
-
-for ii in range(len(df)):
+start = 354
+bugs = ''
+for ii in range(start, len(df)):
+    print(ii)
     browser.get(df['webpage'][ii])
     htmlp = browser.page_source
-    if df['name'][ii] not in htmlp:
+    if df['name'][ii] not in htmlp.replace("'", "׳"):
         pattern = 'title itemprop="name"'
         jj = htmlp.index(pattern)
         name = htmlp[jj+len(pattern)+1:]
+        name = htmlp[jj+len(pattern)+1:]
         name = name[:name.index(' |')]
-        raise Exception(name)
-    else:
-        print(ii)
+        message = f'{df["name"][ii]} ({df["pid"][ii]}) should be {name}'
+        print(message)
+        bugs = bugs + message + '\n'
+    gen = df['gender'][ii].replace('M', 'בן ').replace('F', 'בת ')
+    if gen+str(df['age'][ii]) not in htmlp:
+        pattern = gen+"\d{2}"
+        results = re.search(pattern, htmlp)
+        if results is None:
+            if ii in [355]:
+                pass
+            else:
+                message = f'no age for {df["webpage"][ii].split("/")[-2]} ({df["pid"][ii]})'
+                print(message)
+                bugs = bugs + message + '\n'
+        else:
+            age = htmlp[results.span()[0]+3:results.span()[0]+5]
+            message = f'age for {name} ({df["pid"][ii]}) should be {age}'
+            print(message)
+            bugs = bugs + message + '\n'
+
+    redate = re.search('\(\d{2} [^\d]+ \d{4}\)', htmlp)
+    if redate:
+        iyear = redate.start()
+        date = htmlp[redate.start()+1:redate.end()-1]
+        date = date.split(' ')
+        month = [x for x in range(12) if date[1][1:] in month_heb[x]][0]+1
+        date[1] = str(month).zfill(2)
+        date = '-'.join(date[::-1])
+        if df['death_date'][ii] != date:
+            message = f'date for {df["webpage"][ii].split("/")[-2]} ({df["pid"][ii]}) should be {date}'
+            print(message)
+            bugs = bugs + message + '\n'
+
 ##
     # if 'z"l' in htmlp:
     #     htmle = htmlp[htmlp.index("small"):]
