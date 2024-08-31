@@ -81,10 +81,46 @@ for ii in range(len(df)):
     if "'" in name:
         df.at[ii, 'name'] = name.replace("'","׳")
 df.to_csv('data/deaths_idf.csv', index=False)
+##  TODO: make sure names ages and dates are okay in DB, also נרצח כאזרח
+db = pd.read_csv('data/oct7database.csv')
+pids = db['pid'].values
+for ii in range(len(df)):
+    pid = df['pid'][ii]
+    row = np.where(pids == pid)[0][0]
+    if db['Age'][row] != df['age'][ii]:
+        db.at[row, 'Age'] = df['age'][ii]
+    if db['Death date'][row] != df['death_date'][ii]:
+        if db['Death date'][row] == db['Event date'][row]:
+            db.at[row, 'Event date'] = df['death_date'][ii]
+        # else:
+        #     print(f'check dates for {pid}')
+        db.at[row, 'Death date'] = df['death_date'][ii]
+    first = db['שם פרטי'][row]
+    if ' ' not in first and first != df['name'][ii].split(' ')[0]:
+        print(f'{pid} {first}')
+        # db.at[row, 'Age'] = df['age'][ii]
+    last = db['שם משפחה'][row]
+    if "'" in last:
+        last = last.replace("'", "׳")
+        db.at[row, 'שם משפחה'] = last
+    if ' ' not in last and last != df['name'][ii].split(' ')[-1]:
+        if pid not in [1643]: # ריבלין
+            print(f'{pid} {last}')
+db.to_csv('data/oct7database.csv', index=False)
+
 ##
 db = pd.read_csv('data/oct7database.csv')
-for ii in range(db)
+front = pd.read_csv('data/front.csv')
+cit = np.where(front['front'] == 'נרצח כאזרח')[0]
+for ii in cit:
+    pid = df['pid'][ii]
+    row = np.where(pids == pid)[0][0]
+    role = db['Role'][row]
+    if role != 'אזרח' and 'kidnapped' not in db['Status'][row] and pid not in [2064]:
+        print(pid)
+        db.at[row, 'Role'] = 'אזרח'
 ##
+            ##
     # if 'z"l' in htmlp:
     #     htmle = htmlp[htmlp.index("small"):]
     #     htmle = htmle[:htmle.index('z"l')]
