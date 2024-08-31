@@ -31,7 +31,7 @@ browser = webdriver.Firefox()
 ##
 df = pd.read_csv('data/deaths_idf.csv')
 # with Display() as disp:
-start = 354
+start = 0
 bugs = ''
 for ii in range(start, len(df)):
     print(ii)
@@ -75,7 +75,8 @@ for ii in range(start, len(df)):
             message = f'date for {df["webpage"][ii].split("/")[-2]} ({df["pid"][ii]}) should be {date}'
             print(message)
             bugs = bugs + message + '\n'
-
+##
+            
 ##
     # if 'z"l' in htmlp:
     #     htmle = htmlp[htmlp.index("small"):]
