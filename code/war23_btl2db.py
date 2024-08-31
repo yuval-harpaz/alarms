@@ -80,6 +80,42 @@ for ii in range(len(btl)):
 dfe = btl[extra]
 dfe.to_excel('~/Documents/btl_extra.xlsx', index=False)
 ##
+db = pd.read_csv('data/oct7database.csv')
+bugs = ''
+for ii in range(len(pids)):
+    if db['pid'][ii] not in skip:
+        if type(db['הנצחה'][ii]) == str and 'laad' in db['הנצחה'][ii]:
+            id = int(db['הנצחה'][ii].split('ID=')[-1])
+            row = get_idx(id, bid)
+            if row:
+                if type(btl['EventDate'][row]) == str and db['Event date'][ii] != str(btl['EventDate'][row]):
+                    print(str(db['Event date'][ii])+' '+btl['EventDate'][row])
+                date = btl['DeathDate'][row]
+                if type(date) == datetime.datetime:
+                    date = date.strftime('%Y-%m-%d')
+                else:
+                    date = str(date)
+                    if len(date) > 4:
+                        date = '-'.join([x.zfill(2) for x in date.split('-')])
+                # if len(date) > 10:
+                #     date = date[:10]
+                datedb = db['Death date'][ii]
+                if date != 'NaT' and datedb != date:
+                    message = f'death date for {db["שם פרטי"][ii]} {db["שם משפחה"][ii]} ({db["pid"][ii]}) should be {date}'
+                    print(message)
+                    bugs = bugs + message +'\n'
+                    # print(str(ii) + ' ' + str(db['pid'][ii]) + ' ' + datedb + ' ' + date)
+                    # if date[:4] == '2023' and datedb[:4] == '2024' and date[4:] == datedb[4:]:
+                    #     if db['Event date'][ii] == db['Death date'][ii]:
+                    #         print(str(db['pid'][ii]) + ' ' + db['last name'][ii]+' '+date)
+                    #     else:
+                    #         print('no can fix')
+                    # else:
+                    #     pass
+                        # print(str(ii)+' '+str(db['pid'][ii])+' '+datedb+' '+date)
+
+
+##
 #         else:
 #             age.append(np.nan)
 #     elif pid[ii] in map['pid'].values:
