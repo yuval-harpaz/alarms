@@ -82,6 +82,8 @@ for ii in range(len(df)):
         df.at[ii, 'name'] = name.replace("'","׳")
 df.to_csv('data/deaths_idf.csv', index=False)
 ##
+
+##
     # if 'z"l' in htmlp:
     #     htmle = htmlp[htmlp.index("small"):]
     #     htmle = htmle[:htmle.index('z"l')]
