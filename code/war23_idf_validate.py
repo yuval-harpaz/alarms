@@ -82,7 +82,8 @@ for ii in range(len(df)):
         df.at[ii, 'name'] = name.replace("'","׳")
 df.to_csv('data/deaths_idf.csv', index=False)
 ##
-
+db = pd.read_csv('data/oct7database.csv')
+for ii in range(db)
 ##
     # if 'z"l' in htmlp:
     #     htmle = htmlp[htmlp.index("small"):]

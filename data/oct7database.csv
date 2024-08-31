@@ -29,7 +29,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 41,Maayan,Bar,,,מעין,בר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43596,Be'eri,Approximate location,Murdered,F,65,בארי,ישראל,אזרח,,killed,2023-10-07,2023-10-07,בארי,בארי
 42,Yuval,Bar,,,יובל,בר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43595,Be'eri,Approximate location,Murdered,M,65,בארי,ישראל,אזרח,,killed,2023-10-07,2023-10-07,בארי,בארי
 43,Yoram,Bar-sinai,,,יורם,בר סיני,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43597,Be'eri,General vicinity,Murdered,M,75,בארי,ישראל,אזרח,,killed,2023-10-07,2023-10-07,בארי,בארי
-44,Idan,Baruch,,,עידן,ברוך,,,https://www.idf.il/נופלים/חללי-המלחמה/עידן-ברוך/,Be'eri,General vicinity,Killed on duty,M,20,בארי,ישראל,חייל,,killed,2023-10-07,2023-10-07,בארי,בארי
+44,Idan,Baruch,,,עידן,ברוך,,,https://www.idf.il/נופלים/חללי-המלחמה/עידן-ברוך/,Be'eri,General vicinity,Killed on duty,M,20,בארי,ישראל,אזרח,,killed,2023-10-07,2023-10-07,בארי,בארי
 45,Ohad,Ben Ami,,,אוהד,בן עמי,,,,Be'eri,General vicinity,Kidnapped,M,55,בארי,ישראל,,,kidnapped,2023-10-07,,בארי,
 46,Raz,Ben Ami,,,רז,בן עמי,,,,Be'eri,General vicinity,Kidnap survivor,F,57,בארי,ישראל,,,kidnapped; released,2023-10-07,,בארי,
 47,Chava,Ben Ami,,,חוה,בן עמי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43594,Be'eri; Hostage Situation in Be'eri,Exact location,Murdered,F,78,בארי,ישראל,אזרח,,killed,2023-10-07,2023-10-07,בארי; ארוע בני ערובה,
@@ -251,7 +251,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 304,Chen,Goldstein Almog,,,חן,גולדשטיין אלמוג,,,,Kfar Aza,Exact location,Kidnap survivor,F,48,כפר עזה,ישראל,,,kidnapped; released,2023-10-07,,כפר עזה,
 305,Gal,Goldstein Almog,,,אלמוג,גולדשטיין אלמוג,,,,Kfar Aza,Exact location,Kidnap survivor,M,11,כפר עזה,ישראל,,,kidnapped; released,2023-10-07,,כפר עזה,
 306,Tal,Goldstein Almog,,,טל,גולדשטיין אלמוג,,,,Kfar Aza,Exact location,Kidnap survivor,M,9,כפר עזה,ישראל,,,kidnapped; released,2023-10-07,,כפר עזה,
-307,Yam,Goldstein Almog,,,ים,גולדשטיין אלמוג,,,https://www.idf.il/נופלים/חללי-המלחמה/ים-גולדשטיין-אלמוג/,Kfar Aza,Exact location,Murdered,F,20,כפר עזה,ישראל,חייל,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה
+307,Yam,Goldstein Almog,,,ים,גולדשטיין אלמוג,,,https://www.idf.il/נופלים/חללי-המלחמה/ים-גולדשטיין-אלמוג/,Kfar Aza,Exact location,Murdered,F,20,כפר עזה,ישראל,אזרח,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה
 308,Nadav,Goldstein Almog,,,נדב,גולדשטיין אלמוג,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43488,Kfar Aza,Exact location,Murdered,M,48,כפר עזה,ישראל,אזרח,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה
 309,Tal,Grushka,,,טל,גרושקה,,,https://www.idf.il/נופלים/חללי-המלחמה/טל-גרושקה/,Kfar Aza,General vicinity,Killed on duty,M,25,כפר סבא,ישראל,חייל,,killed,2023-10-07,2023-10-07,כביש מפלסים - כפר עזה,כביש מפלסים - כפר עזה
 310,Yotam,Haim,,,יותם,חיים,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44119,Kfar Aza,Exact location,Murdered in captivity,M,28,כפר עזה,ישראל,אזרח,,kidnapped; killed; retrieved,2023-10-07,2023-12-15,כפר עזה,ירי בשוגג בשג'אעיה
