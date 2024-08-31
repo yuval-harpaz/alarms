@@ -76,7 +76,11 @@ for ii in range(start, len(df)):
             print(message)
             bugs = bugs + message + '\n'
 ##
-            
+for ii in range(len(df)):
+    name = df['name'][ii]
+    if "'" in name:
+        df.at[ii, 'name'] = name.replace("'","׳")
+df.to_csv('data/deaths_idf.csv', index=False)
 ##
     # if 'z"l' in htmlp:
     #     htmle = htmlp[htmlp.index("small"):]
