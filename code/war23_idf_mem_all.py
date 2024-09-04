@@ -28,11 +28,7 @@ if only_new:
 # try:
 try:
     with Display() as disp:
-        try:
-            browser = webdriver.Chrome()
-        except:
-            print('no chrome? trying firefox')
-            browser = webdriver.Firefox()
+        browser = webdriver.Firefox()
         already = 0
         data = []
         goon = True
