@@ -56,7 +56,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 69,Chen,Even,,,חן,אבן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43575,Be'eri,General vicinity,Murdered,M,46,בארי,ישראל,אזרח,,killed,2023-10-07,2023-10-07,בארי,בארי
 70,Ido,Even,,,עידו,אבן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43578,Be'eri,General vicinity,Murdered,M,14,בארי,ישראל,אזרח,,killed,2023-10-07,2023-10-07,בארי,בארי
 71,Rinat,Segev Even,,,רינת,שגב אבן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43576,Be'eri,General vicinity,Murdered,F,44,בארי,ישראל,אזרח,,killed,2023-10-07,2023-10-07,בארי,בארי
-72,Tchelet,Fishbein,,,תכלת,פישביין זערור,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43640,Be'eri,General vicinity,Murdered,F,18,אשדוד,ישראל,אזרח,,killed,2023-10-07,2023-10-07,בארי,בארי
+72,Tchelet,Za'arur Fishbein,,,תכלת,זערור פישביין,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43640,Be'eri,General vicinity,Murdered,F,18,אשדוד,ישראל,אזרח,,killed,2023-10-07,2023-10-07,בארי,בארי
 73,Marcel,Frailich,,,מרסל,פרייליך קפלון,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43642,Be'eri,General vicinity,Murdered,F,64,בארי,ישראל,אזרח,,killed,2023-10-07,2023-10-07,בארי,בארי
 74,Carmel,Gat,,,כרמל,גת,,,,Be'eri,General vicinity,Murdered in captivity,F,39,בארי,ישראל,אזרח,,kidnapped; killed; retrieved,2023-10-07,2024-08,בארי,רפיח
 75,Kinneret,Gat,,,כנרת,גת,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43601,Be'eri,General vicinity,Murdered,F,68,בארי,ישראל,אזרח,,killed,2023-10-07,2023-10-07,בארי,בארי
@@ -119,7 +119,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 136,Orit,Svirski,,,אורית,סבירסקי סלע,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43635,Be'eri,General vicinity,Murdered,F,70,בארי,ישראל,אזרח,,killed,2023-10-07,2023-10-07,בארי,בארי
 137,Raffi,Svirski,,,רפי,סבירסקי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43634,Be'eri,General vicinity,Murdered,M,71,בארי,ישראל,אזרח,,killed,2023-10-07,2023-10-07,בארי,בארי
 138,Benjamin,Trakeniski,,,בנימין,טרקינסקי,,בנג׳י,https://www.idf.il/נופלים/חללי-המלחמה/בנימין-בנג-י-טרקינסקי/,Be'eri,General vicinity,Killed on duty,M,32,תל אביב,ישראל,חייל,,killed,2023-10-08,2023-10-08,בארי,בארי
-139,Ofir,Tasta,,,אופיר,טסטה,,,https://www.idf.il/נופלים/חללי-המלחמה/אופיר-טסטה/,Re'im,Approximate location,Killed on duty,M,21,ירושלים,ישראל,חייל,,killed,2023-10-07,2023-10-07,עמדה 91,פסטיבל נובה
+139,Ofir,Testa,,,אופיר,טסטה,,,https://www.idf.il/נופלים/חללי-המלחמה/אופיר-טסטה/,Re'im,Approximate location,Killed on duty,M,21,ירושלים,ישראל,חייל,,killed,2023-10-07,2023-10-07,עמדה 91,פסטיבל נובה
 140,Ohad,Cohen,,,אוהד,כהן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43619,Be'eri,General vicinity,Murdered,M,43,בארי,ישראל,אזרח,,killed,2023-10-07,2023-10-07,בארי,בארי
 141,Yonat,Or,,,יונת,אור,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43581,Be'eri,General vicinity,Murdered,F,50,בארי,ישראל,אזרח,,killed,2023-10-07,2023-10-07,בארי,בארי
 142,Shalom,Alon,Orel,,שלום,אלון,אוראל,,https://lezichram.police.gov.il/main/nofel/42170,Be'eri,General vicinity,Murdered,M,23,קריית אתא,ישראל,שוטר,,killed,2023-10-07,2023-10-07,בארי,בארי
@@ -144,7 +144,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 187,Shachar,Zemach,,,שחר,צמח,,,https://www.idf.il/נופלים/חללי-המלחמה/שחר-צמח/,Be'eri,General vicinity,Killed on duty,M,39,בארי,ישראל,כיתת כוננות,,killed,2023-10-07,2023-10-07,בארי,בארי
 188,Chaim,Zohar,,,חיים,זוהר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43613,Be'eri,General vicinity,Murdered,M,72,בארי,ישראל,אזרח,,killed,2023-10-07,2023-10-07,בארי,בארי
 192,Nik,Beizer,,,ניק,בייזר,,,https://www.idf.il/נופלים/חללי-המלחמה/רון-שרמן/,COGAT Base,General vicinity,Murdered in captivity,M,19,באר שבע,ישראל,חייל,,kidnapped; killed; retrieved,2023-10-07,2023-11-10,מעבר ארז,ג'באליה
-193,Ron,Scherman,,,רון,שרמן,,,https://www.idf.il/נופלים/חללי-המלחמה/ניק-בייזר/,COGAT Base,General vicinity,Murdered in captivity,M,19,להבים,ישראל,חייל,,kidnapped; killed; retrieved,2023-10-07,2023-11-10,מעבר ארז,ג'באליה
+193,Ron,Sherman,,,רון,שרמן,,,https://www.idf.il/נופלים/חללי-המלחמה/ניק-בייזר/,COGAT Base,General vicinity,Murdered in captivity,M,19,להבים,ישראל,חייל,,kidnapped; killed; retrieved,2023-10-07,2023-11-10,מעבר ארז,ג'באליה
 196,Matanya,Alster,,,מתניה,אלסטר,,,https://www.idf.il/נופלים/חללי-המלחמה/מתניה-אלסטר/,Northern Border,General vicinity,Killed on duty,M,23,שדה אילן,ישראל,חייל,,killed,2023-10-11,2023-10-11,ערב אל ערמשה,ערב אל ערמשה
 195,Omer,Balva,,,עומר,בלוה,,,https://www.idf.il/נופלים/חללי-המלחמה/עומר-בלוה/,Netu'a,General vicinity,Killed on duty,M,22,הרצליה,ישראל,חייל,,killed,2023-10-20,2023-10-20,מוצב בירנית,מוצב בירנית
 197,Gilad,Molco,,,גלעד,מולכו,,,https://www.idf.il/נופלים/חללי-המלחמה/גלעד-מולכו/,Adamit,General vicinity,Killed on duty,M,33,תל אביב,ישראל,חייל,,killed,2023-10-09,2023-10-09,סמוך לאדמית,סמוך לאדמית
@@ -159,7 +159,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 207,Tamir,Nimrodi,,,תמיר,נמרודי,,,,Erez Checkpoint,General vicinity,Kidnapped,M,19,נירית,ישראל,,,kidnapped,2023-10-07,,מעבר ארז,
 208,Meir,Abragil,,,מאיר,אברג׳ל,,,https://lezichram.police.gov.il/main/nofel/42136,Sderot Police Station,Exact location,Killed on duty,M,55,שדרות,ישראל,שוטר,,killed,2023-10-07,2023-10-07,שדרות; תחנת משטרה,שדרות; תחנת משטרה
 209,Adir,Abudi,,,אדיר,עבודי,,,https://www.idf.il/נופלים/חללי-המלחמה/אדיר-עבודי/,Zikim Base,General vicinity,Killed on duty,M,23,מודיעין מכבים רעות,ישראל,חייל,,killed,2023-10-07,2023-10-07,מחנה זיקים,מחנה זיקים
-210,Neriya,Negri,Aharon,,נריה,נגרי,אהרון,,https://www.idf.il/נופלים/חללי-המלחמה/נריה-אהרון-נגרי/,Zikim Base,General vicinity,Killed on duty,M,18,טלמון,ישראל,חייל,,killed,2023-10-07,2023-10-07,מחנה זיקים,מחנה זיקים
+210,Neriya,Nagari,Aharon,,נריה,נגרי,אהרון,,https://www.idf.il/נופלים/חללי-המלחמה/נריה-אהרון-נגרי/,Zikim Base,General vicinity,Killed on duty,M,18,טלמון,ישראל,חייל,,killed,2023-10-07,2023-10-07,מחנה זיקים,מחנה זיקים
 211,Or,Avital,Menashe,,אור,אביטל,מנשה,,https://www.idf.il/נופלים/חללי-המלחמה/אור-אביטל/,Nahal Oz Base,Exact location,Killed on duty,M,20,מרום גולן,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב נחל עוז; טנק א,מוצב נחל עוז; טנק א
 212,Itamar,Ayash,,,איתמר,עיש,,,https://www.idf.il/נופלים/חללי-המלחמה/איתמר-עיש/,Urim Base,General vicinity,Killed on duty,M,19,קריית גת,ישראל,חייל,,killed,2023-10-07,2023-10-07,מחנה אורים,מחנה אורים
 213,Guy,Bazak,,,גיא,בזק,,,https://www.idf.il/נופלים/חללי-המלחמה/גיא-בזק/,Kissufim,General vicinity,Killed on duty,M,19,כוכב יאיר,ישראל,חייל,,killed,2023-10-07,2023-10-07,כיסופים,כיסופים
@@ -167,19 +167,19 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 215,Neria,Ben-David,,,נריה,בן דוד,,,https://www.idf.il/נופלים/חללי-המלחמה/נריה-בן-דוד/,Be'eri,General vicinity,Killed on duty,M,22,חיפה,ישראל,חייל,,killed,2023-10-08,2023-10-08,בארי,בארי
 216,Daniel,Bezgodov,,,דניאל,בזגודוב,,,https://www.idf.il/נופלים/חללי-המלחמה/דניאל-בזגודוב/,Sufa,General vicinity,Killed on duty,M,22,עפולה,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב סופה,מוצב סופה
 217,Shir,Biton,,,שיר,ביטון,,,https://www.idf.il/נופלים/חללי-המלחמה/שיר-ביטון/,Nahal Oz,Exact location,Killed on duty,F,19,אשדוד,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב נחל עוז; מגורים,מוצב נחל עוז; מגורים
-218,Chen,Buchris,,,חן,בוכריס,,,https://www.idf.il/נופלים/חללי-המלחמה/אור-יוסף-רן/,Nahal Oz,General vicinity,Killed on duty,M,26,אשדוד,ישראל,חייל,,killed,2023-10-07,2023-10-07,כביש סעד - נחל עוז,כביש סעד - נחל עוז
+218,Chen,Bouchris,,,חן,בוכריס,,,https://www.idf.il/נופלים/חללי-המלחמה/אור-יוסף-רן/,Nahal Oz,General vicinity,Killed on duty,M,26,אשדוד,ישראל,חייל,,killed,2023-10-07,2023-10-07,כביש סעד - נחל עוז,כביש סעד - נחל עוז
 219,Ohad,Cohen,,,אהד,כהן,,בודי,https://www.idf.il/נופלים/חללי-המלחמה/אהד-כהן/,Be'eri,General vicinity,Killed on duty,M,20,עידן,ישראל,חייל,,killed,2023-10-07,2023-10-07,בארי,בארי
-220,Ofir,Davidyan,,,אופיר,דוידיאן,,,https://www.idf.il/נופלים/חללי-המלחמה/אופיר-דוידיאן/,Urim Base,General vicinity,Killed on duty,F,18,פטיש,ישראל,חייל,,killed,2023-10-07,2023-10-07,מחנה אורים,מחנה אורים
+220,Ofir,Davidiyan,,,אופיר,דוידיאן,,,https://www.idf.il/נופלים/חללי-המלחמה/אופיר-דוידיאן/,Urim Base,General vicinity,Killed on duty,F,18,פטיש,ישראל,חייל,,killed,2023-10-07,2023-10-07,מחנה אורים,מחנה אורים
 221,Nahman,Dekel,,,נחמן,דקל,,,https://www.idf.il/נופלים/חללי-המלחמה/נחמן-דקל/,Sufa Base,General vicinity,Killed on duty,M,20,עמנואל,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב סופה,מוצב סופה
-222,Maro,Elem,,,מארו,אלם,,,https://www.idf.il/נופלים/חללי-המלחמה/מארו-אלם/,Nirim,General vicinity,Killed on duty,M,20,אשקלון,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב הבית הלבן,מוצב הבית הלבן
-223,Naveh,Lax,Eliezer,,נוה,לקס,אלעזר,,https://www.idf.il/נופלים/חללי-המלחמה/נוה-אלעזר-לקס/,Be'eri,Approximate location,Killed on duty,M,21,לוד,ישראל,חייל,,killed,2023-10-07,2023-10-07,בארי,בארי
-224,Or,Esto,,,אור,אסתו,,,https://www.idf.il/נופלים/חללי-המלחמה/אור-אסתו/,Kissufim Base,General vicinity,Killed on duty,M,21,באר שבע,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב כיסופים,מוצב כיסופים
+222,Maru,Alem,,,מארו,אלם,,,https://www.idf.il/נופלים/חללי-המלחמה/מארו-אלם/,Nirim,General vicinity,Killed on duty,M,20,אשקלון,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב הבית הלבן,מוצב הבית הלבן
+223,Nave,Lax,Elazar,,נוה,לקס,אלעזר,,https://www.idf.il/נופלים/חללי-המלחמה/נוה-אלעזר-לקס/,Be'eri,Approximate location,Killed on duty,M,21,לוד,ישראל,חייל,,killed,2023-10-07,2023-10-07,בארי,בארי
+224,Or,Esatu,,,אור,אסתו,,,https://www.idf.il/נופלים/חללי-המלחמה/אור-אסתו/,Kissufim Base,General vicinity,Killed on duty,M,21,באר שבע,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב כיסופים,מוצב כיסופים
 225,Amir,Fisher,,,אמיר,פישר,,,https://www.idf.il/נופלים/חללי-המלחמה/יואב-מלייב/,Kfar Aza,General vicinity,Killed on duty,M,22,תל אביב,ישראל,חייל,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה
 226,Yuval,Gabay,,,יובל,גבאי,,,https://www.idf.il/נופלים/חללי-המלחמה/יובל-גבאי/,West Bank,Approximate location,Killed on duty,M,35,רחובות,ישראל,חייל,,killed,2023-10-07,2023-10-07,מזרחית למחנה עופר,מזרחית למחנה עופר
-227,Benyamin,Yona,Gabriel,,בנימין,יונה,גבריאל,,https://www.idf.il/נופלים/חללי-המלחמה/בנימין-גבריאל-יונה/,Urim Base,Approximate location,Killed on duty,M,19,ירושלים,ישראל,חייל,,killed,2023-10-07,2023-10-07,כביש רעים - אורים (צפון),כביש רעים - אורים (צפון)
-228,Ilay,Gamzo,,,אילי,גמזו,,,https://www.idf.il/נופלים/חללי-המלחמה/אילי-גמזו/,Netiv HaAsara; Running Group Attack,Exact location,Killed on duty,M,20,אשדוד,ישראל,חייל,,killed,2023-10-07,2023-10-07,יד מרדכי - נתיב העשרה; קבוצת ריצה,יד מרדכי - נתיב העשרה; קבוצת ריצה
-229,Yonatan,Golan,,,יונתן,גולן,,,https://www.idf.il/נופלים/חללי-המלחמה/יונתן-גולן/,Nahal Oz Base,Exact location,Killed on duty,M,21,יהוד מונוסון,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב נחל עוז; טנק א,מוצב נחל עוז; טנק א
-230,Amit,Gueta,,,עמית,גואטה,,,https://www.idf.il/נופלים/חללי-המלחמה/עמית-גואטה/,Gaza Envelope; Sha'ar HaNegev Junction,Exact location,Killed on duty,M,21,רחובות,ישראל,חייל,,killed,2023-10-07,2023-10-07,צומת שער הנגב,צומת שער הנגב
+227,Benyamin,Yona,Gavriel,,בנימין,יונה,גבריאל,,https://www.idf.il/נופלים/חללי-המלחמה/בנימין-גבריאל-יונה/,Urim Base,Approximate location,Killed on duty,M,19,ירושלים,ישראל,חייל,,killed,2023-10-07,2023-10-07,כביש רעים - אורים (צפון),כביש רעים - אורים (צפון)
+228,Ilay,Gamzu,,,אילי,גמזו,,,https://www.idf.il/נופלים/חללי-המלחמה/אילי-גמזו/,Netiv HaAsara; Running Group Attack,Exact location,Killed on duty,M,20,אשדוד,ישראל,חייל,,killed,2023-10-07,2023-10-07,יד מרדכי - נתיב העשרה; קבוצת ריצה,יד מרדכי - נתיב העשרה; קבוצת ריצה
+229,Yonatan,Golan,,Yoni,יונתן,גולן,,יוני,https://www.idf.il/נופלים/חללי-המלחמה/יונתן-גולן/,Nahal Oz Base,Exact location,Killed on duty,M,21,יהוד מונוסון,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב נחל עוז; טנק א,מוצב נחל עוז; טנק א
+230,Amit,Guetta,,,עמית,גואטה,,,https://www.idf.il/נופלים/חללי-המלחמה/עמית-גואטה/,Gaza Envelope; Sha'ar HaNegev Junction,Exact location,Killed on duty,M,21,רחובות,ישראל,חייל,,killed,2023-10-07,2023-10-07,צומת שער הנגב,צומת שער הנגב
 231,Yonatan,Gutin,,,יונתן,גוטין,,,https://www.idf.il/נופלים/חללי-המלחמה/יונתן-גוטין/,Be'eri,General vicinity,Killed on duty,M,20,מודיעין מכבים רעות,ישראל,חייל,,killed,2023-10-07,2023-10-07,בארי,בארי
 232,Ido,Harush,,,עידו,הרוש,,,https://www.idf.il/נופלים/חללי-המלחמה/עידו-הרוש/,Zikim Base,General vicinity,Killed on duty,M,21,מצפה רמון,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב יפתח,מוצב יפתח
 233,Avraham,Henkin,,,אברהם,הנקין,,,https://lezichram.police.gov.il/main/nofel/42158,Gaza Envelope; Sha'ar HaNegev Junction,Approximate location,Killed on duty,M,38,אלון,ישראל,שוטר,,killed,2023-10-07,2023-10-07,צומת שער הנגב,צומת שער הנגב
