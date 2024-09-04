@@ -18,10 +18,15 @@ if len(wpu) < len(idf):
     raise Exception('idf webpage not usinque')
 add = pd.read_csv('data/oct7database_additional.csv')
 db = pd.read_csv('data/oct7database.csv')
+debug = False
 for ii in np.where([x in idf['pid'].values for x in db['pid'].values])[0]:
     row = np.where(idf['pid'].values == db['pid'][ii])[0][0]
     if db['הנצחה'][ii] != idf['webpage'][row]:
-        raise Exception('different webpages for pid ' + str(db['pid'][ii]))
+        if debug:
+            # db.at[ii, 'הנצחה'] = idf['webpage'][row]
+            print('different webpages for pid ' + str(db['pid'][ii]))
+        else:
+            raise Exception('different webpages for pid ' + str(db['pid'][ii]))
 
 inew = np.where([x not in db['הנצחה'].values for x in idf['webpage'].values])[0]
 ##
