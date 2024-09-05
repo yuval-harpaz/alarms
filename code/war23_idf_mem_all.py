@@ -156,6 +156,14 @@ try:
                                          'webpage', 'eng'])
         df = df.iloc[::-1]
         df = pd.concat([dfprev, df])
+        bads = df["story"].str.findall(r'&.{4};')
+        if any(bads):
+            ibad = [x for x in range(len(bads)) if len(bads.values[x]) > 0]
+            for jbad in ibad:
+                if list(np.unique(bads[jbad])) == ['&nbsp;']:
+                    df.at[jbad, 'story'] = df['story'][jbad].replace('&nbsp;', ' ')
+                else:
+                    raise Exception('got to replace &xxx; with something')
         df.to_csv(csv, index=False)
         if len(df) == tot:
             pass
