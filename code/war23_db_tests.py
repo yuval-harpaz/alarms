@@ -135,8 +135,17 @@ class TestOmissions(unittest.TestCase):
 
 
 map79 = pd.read_csv('data/oct_7_9.csv')
-
-
+pid79 = map79['pid'].values
+# for kidnapped death loc / date is given in oct 7 9 instead of event
+as_kidnapped = [568, 626, 915]
+event_or_death = []
+for ii in range(len(map79)):
+    row = np.where(data['pid'].values == map79['pid'][ii])[0][0]
+    eod = 'event'
+    if 'idnapp' in data['Status'][row] or map79['pid'][ii] in as_kidnapped:
+        eod = 'death'
+    event_or_death.append(eod)
+dayfirst = '.' in map79['date'][0]
 class Test79(unittest.TestCase):
     def extras79(self):
         pid = data['pid'].values
@@ -147,12 +156,42 @@ class Test79(unittest.TestCase):
         self.assertEqual(n_extra, 0)
 
     def unique_pid79(self):
-        pid79 = map79['pid'].values
         len_unique = len(pid79) - len(np.unique(pid79))
         if len_unique > 0:
             dup79 = np.unique([x for x in pid79 if np.sum(pid79 == x) > 1])
             print(f'OCT_7_9 PID Not Unique!!!! {dup79}'.replace('[', '').replace(']', ''))
         self.assertEqual(len_unique, 0)
+
+    def loc79(self):
+        pid = data['pid'].values
+        n_issues = 0
+        for ii in range(len(map79)):
+            row = np.where(pid == map79['pid'][ii])[0][0]
+            if event_or_death[ii] == 'death':
+                loc = data['מקום המוות'][row]
+            else:
+                loc = data['מקום האירוע'][row]
+            if loc != map79['location'][ii]:
+                n_issues += 1
+                print(f"OCT_7_9 location for {map79['eng'][ii]} ({map79['pid'][ii]}) is {map79['location'][ii]}, not {loc}")
+        self.assertEqual(n_issues, 0)
+
+    def date79(self):
+        wounded = [901, 1704, 1707, 1733]
+        pid = data['pid'].values
+        n_issues = 0
+        for ii in range(len(map79)):
+            row = np.where(pid == map79['pid'][ii])[0][0]
+            if event_or_death[ii] == 'death':
+                date = data['Death date'][row]
+            else:
+                date = data['Event date'][row]
+            date = pd.to_datetime(date)
+            date79 = pd.to_datetime(map79['date'][ii], dayfirst=dayfirst)
+            if date != date79 and data['pid'][row] not in wounded:
+                n_issues += 1
+                print(f"OCT_7_9 date for {map79['eng'][ii]} ({map79['pid'][ii]}) is {map79['date'][ii]}, not {date}")
+        self.assertEqual(n_issues, 0)
 
 
 haa = pd.read_csv('data/deaths_haaretz+.csv')
@@ -395,6 +434,8 @@ if __name__ == '__main__':
                                               TestOmissions('all_acounted'),
                                               Test79('extras79'),
                                               Test79('unique_pid79'),
+                                              Test79('loc79'),
+                                              Test79('date79'),
                                               TestHaa('extras_haa'),
                                               TestHaa('unique_haa'),
                                               # TestHaa('missing_haa'),
