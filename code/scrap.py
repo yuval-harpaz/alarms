@@ -12,14 +12,14 @@ if os.path.isdir(local):
 
 
 db = pd.read_csv('data/oct7database.csv')
-did = db['pid'].values[db['Status'].str.contains('killed') & db['מקום האירוע'].str.contains('פסטיבל נובה')]
-map = df = pd.read_csv('data/oct_7_9.csv')
-mid = map['pid'].values[map['location'].str.contains('פסטיבל נובה')]
-idif = [id for id in mid if id not in did]  # guy iluz 775
-idif0 = [id for id in did if id not in mid]  # ofir testa 139
-# changes = pd.read_csv('~/Documents/changes.csv')
-# ich = np.where(changes['fixed'].str.lower() == 'v')[0]
-# for ii in ich:
-#     row = np.where(db['pid'].values == changes['pid'][ii])[0][0]
-#     db.at[row, 'Role'] = changes['Role'][ii]
-# db.to_csv('data/oct7database.csv', index=False)
+prev = pd.read_csv('~/Documents/oct7database.csv')
+dbn = db.to_numpy()
+prevn = prev.to_numpy()
+
+for ii in range(len(db)):
+    changes = False
+    for jj in range(len(db.columns)):
+        if str(dbn[ii, jj]) != str(prevn[ii, jj]):
+            print(' '.join(dbn[ii, 0:3].astype(str)), end=': ')
+            print(f"{db.columns[jj]} {prevn[ii,jj]} >> {dbn[ii,jj]}")
+
