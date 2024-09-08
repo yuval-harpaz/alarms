@@ -10,7 +10,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 20,Ananda,Shah,,,אנאנד,סאה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43310,Alumim,General vicinity,Murdered,M,,עלומים,נפאל,אזרח,,killed,2023-10-07,2023-10-07,עלומים,עלומים
 21,Rajesh,Swarnakar,Kumar,,רג׳ש,סווארנקר,קומאר,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43311,Alumim,General vicinity,Murdered,M,,עלומים,נפאל,אזרח,,killed,2023-10-07,2023-10-07,עלומים,עלומים
 22,Bhandari,Prabesh,,,פראבש,בהנדרי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43314,Alumim,General vicinity,Murdered,M,,עלומים,נפאל,אזרח,,killed,2023-10-07,2023-10-07,עלומים,עלומים
-23,Ran,Gvili,,,רן,גואילי,,,https://lezichram.police.gov.il/main/nofel/42188,Alumim,General vicinity,Killed on duty,M,24,מיתר,ישראל,שוטר,,killed; kidnapped,2023-10-07,2023-10-07,עלומים,עלומים
+23,Ran,Gvili,,Rani,רן,גואילי,,רני,https://lezichram.police.gov.il/main/nofel/42188,Alumim,General vicinity,Killed on duty,M,24,מיתר,ישראל,שוטר,,killed; kidnapped,2023-10-07,2023-10-07,עלומים,עלומים
 26,Nitay,Amar,,,ניתאי,עמאר,,,https://www.idf.il/נופלים/חללי-המלחמה/ניתאי-עמאר/,Re'im Base,General vicinity,Killed on duty,M,22,עלומים,ישראל,חייל,,killed,2023-10-07,2023-10-07,צומת גמה,צומת גמה
 27,Noam,Slotki,,,נועם,סלוטקי,,,https://www.idf.il/נופלים/חללי-המלחמה/נועם-סלוטקי/,Alumim,General vicinity,Killed on duty,M,31,ירושלים,ישראל,חייל,,killed,2023-10-07,2023-10-07,עלומים,עלומים
 28,Yishai,Slotki,,,ישי,סלוטקי,,,https://www.idf.il/נופלים/חללי-המלחמה/ישי-סלוטקי/,Alumim,General vicinity,Killed on duty,M,24,באר שבע,ישראל,חייל,,killed,2023-10-07,2023-10-07,עלומים,עלומים
@@ -947,7 +947,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 1288,Sahar,Saudin,,,סהר,סעודין,,,https://www.idf.il/נופלים/חללי-המלחמה/סהר-סעודין/,Gaza Envelope; Be'eri Bomb Shelter,Exact location,Killed on duty,F,21,ראש העין,ישראל,חייל,,killed,2023-10-07,2023-10-07,סמוך לצומת רעים,סמוך לצומת רעים
 1289,Segev,Schwartz,,,שגב,שוורץ,,,https://www.idf.il/נופלים/חללי-המלחמה/שגב-שוורץ/,Sufa Base,General vicinity,Killed on duty,M,20,בית שאן,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב סופה,מוצב סופה
 1290,Mordechai,Shamir,,Moti,מרדכי,שמיר,,מוטי,https://www.idf.il/נופלים/חללי-המלחמה/מרדכי-שמיר/,Re'im,General vicinity,Killed on duty,M,29,חוות יאיר,ישראל,חייל,,killed,2023-10-07,2023-10-07,רעים,רעים
-1291,Shir,Shlomo,,,שיר,שלמה,,,https://www.idf.il/נופלים/חללי-המלחמה/שיר-שלמה/,Urim Base,General vicinity,Killed on duty,F,19,נתניה,ישראל,חייל,,killed,2023-10-07,2023-10-07,מחנה אורים,מחנה אורים
+1291,Shir,Shlomo,,sharshura,שיר,שלמה,,שרשורה,https://www.idf.il/נופלים/חללי-המלחמה/שיר-שלמה/,Urim Base,General vicinity,Killed on duty,F,19,נתניה,ישראל,חייל,,killed,2023-10-07,2023-10-07,מחנה אורים,מחנה אורים
 1293,Dekel,Swisa,,,דקל,סויסה,,,https://www.idf.il/נופלים/חללי-המלחמה/דקל-סויסה/,Paga Post,General vicinity,Killed on duty,M,23,בר-גיורא,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב פגה,מוצב פגה
 1294,Tashgar,Taka,Binyamin,,טשגר,טקה,בנימין,,https://www.idf.il/נופלים/חללי-המלחמה/טשגר-טקה/,Nahal Oz Base,General vicinity,Killed on duty,M,21,ירושלים,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב כיסופים,מוצב כיסופים
 1295,Bar,Yancolov,,,בר,יענקלוב,,,https://www.idf.il/נופלים/חללי-המלחמה/בר-יענקלוב/,Kissufim,General vicinity,Killed on duty,M,19,כרמיאל,ישראל,חייל,,killed,2023-10-07,2023-10-07,כיסופים,כיסופים
