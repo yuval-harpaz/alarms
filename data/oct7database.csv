@@ -562,7 +562,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 690,Yohai,Azulay,,,יוחאי,אזולאי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43692,Nova,General vicinity,Murdered,M,28,חולון,ישראל,אזרח,Nova,killed,2023-10-07,2023-10-07,פסטיבל נובה,פסטיבל נובה
 691,Yehuda,Bacher,,,יהודה,בכר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43737,Nova,Approximate location,Murdered,M,24,ביתר עלית,ישראל,אזרח,Nova,killed,2023-10-07,2023-10-07,בין נובה לרעים,בין נובה לרעים
 692,Din,Bar,Nehoray,,דין,בר,נהוראי,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43752,Nova; Re'im Bomb Shelter (East),Exact location,Murdered,M,27,אחוזת ברק,ישראל,אזרח,Nova,killed,2023-10-07,2023-10-07,מיגונית בכניסה לרעים (מזרח),מיגונית בכניסה לרעים (מזרח)
-693,Shoham,Bar,,,שהם,בר,,,https://www.idf.il/נופלים/חללי-המלחמה/שוהם-בר/,Nova; Re'im Bomb Shelter (East),Exact location,Murdered,M,21,אחוזת ברק,ישראל,אזרח,Nova,killed,2023-10-07,2023-10-07,מיגונית בכניסה לרעים (מזרח),מיגונית בכניסה לרעים (מזרח)
+693,Shoham,Bar,,,שוהם,בר,,,https://www.idf.il/נופלים/חללי-המלחמה/שוהם-בר/,Nova; Re'im Bomb Shelter (East),Exact location,Murdered,M,21,אחוזת ברק,ישראל,אזרח,Nova,killed,2023-10-07,2023-10-07,מיגונית בכניסה לרעים (מזרח),מיגונית בכניסה לרעים (מזרח)
 695,Yuval,Bar-On,,,יובל,בר-און,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43754,Nova,Exact location,Murdered,F,25,כפר יונה,ישראל,אזרח,Nova,killed,2023-10-07,2023-10-07,סמוך למיגונית בצומת גמה (דרום),סמוך למיגונית בצומת גמה (דרום)
 697,Ilai,Baram,Yaacov Raphael,,עילי,ברעם,יעקב רפאל,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43764,Nova,Exact location,Murdered,M,27,רמת גן,ישראל,אזרח,Nova,killed,2023-10-07,2023-10-07,דרומית לגבים,דרומית לגבים
 698,Liron,Barda,,,לירון,ברדה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43757,Nova,Exact location,Murdered,F,26,שערי תקווה,ישראל,אזרח,Nova,killed,2023-10-07,2023-10-07,פסטיבל נובה,פסטיבל נובה
@@ -1837,3 +1837,6 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2501,Arik,Eliahu,,,אריק,אליהו,,,,,,,M,37,קריית גת,ישראל,שוטר,,killed,2024-09-01,2024-09-01,תרקומיא,
 2502,Roni,Shakuri,,,רוני,שקורי,,,,,,,M,61,שדרות,ישראל,שוטר,,killed,2024-09-01,2024-09-01,תרקומיא,
 2503,Hadas,Brantz,,,הדס,ברנץ,,,,,,,F,53,שדה משה,ישראל,שוטר,,killed,2024-09-01,2024-09-01,תרקומיא,
+2505,??,??,,,יורי,בירנבאום,,,,,,,M,65,נעמ״ה,,אזרח,,killed,2024-09-08,,,
+2506,??,??,,,יוחנן,שחורי,,,,,,,M,61,מעלה אפרים,,אזרח,,killed,2024-09-08,,,
+2507,??,??,,,אדריאן,פודסמסר,,,,,,,M,,אריאל,,אזרח,,killed,2024-08-09,,,
