@@ -1402,7 +1402,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2040,Maxim,Rizkov,,,מקסים,ריז׳קוב,,,https://lezichram.police.gov.il/main/nofel/42181,,,,,,באר שבע,ישראל,,,killed,2023-10-19,2023-10-19,טול כרם; מחנה הפליטים נור א־שמס,טול כרם; מחנה הפליטים נור א־שמס
 2041,Hagai,Efrat,,,חגי,אפרת,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44013,Egypt Terror attack,General vicinity,Murdered,,83,ראשון לציון,ישראל,,,killed,2023-10-08,2023-10-19,"אלכסנדריה, מצרים","אלכסנדריה, מצרים"
 2042,Tamir,Barak,,,תמיר,ברק,,,https://www.idf.il/נופלים/חללי-המלחמה/תמיר-ברק/,,idf,Killed on duty,M,19,ניר אליהו,ישראל,חייל,,killed,2023-10-22,2023-10-22,צפון רצועת עזה,צפון רצועת עזה
-2043,Tamar,Torpiashvili,,,תמר,טורפיאשוילי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44034,,,,,9,אשדוד,ישראל,,,killed,2023-10-27,2023-10-27,אשדוד,אשדוד
+2043,Tamar,Torpiashvili,,,תמר,טורפיאשוילי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44034,,,,,9,אשדוד,ישראל,אזרח,,killed,2023-10-20,2023-10-27,אשדוד,אשדוד
 2044,Yinon,Fleishman,,,ינון,פליישמן,,,https://www.idf.il/נופלים/חללי-המלחמה/ינון-פליישמן/,,idf,Killed on duty,M,31,ירושלים,ישראל,חייל,,killed,2023-10-29,2023-10-29,ליד ראש הנקרה,ליד ראש הנקרה
 2045,Israel,Meidan,,,מידן,ישראל,,,https://www.idf.il/נופלים/חללי-המלחמה/מידן-ישראל/,,idf,Killed on duty,M,35,ירחיב,ישראל,חייל,,killed,2023-10-25,2023-10-25,,
 2046,Roei,Wolf,,,רועי,וולף,,,https://www.idf.il/נופלים/חללי-המלחמה/רועי-וולף/,,idf,Killed on duty,M,20,רמת גן,ישראל,חייל,,killed,2023-10-31,2023-10-31,צפון רצועת עזה,צפון רצועת עזה
@@ -1438,7 +1438,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2076,Yehonatan,Maimon,,,יהונתן,מימון,,,https://www.idf.il/נופלים/חללי-המלחמה/יהונתן-מימון/,,idf,Killed on duty,M,20,אופקים,ישראל,חייל,,killed,2023-11-04,2023-11-04,צפון רצועת עזה,צפון רצועת עזה
 2077,Naaran,Eshchar,,,נערן,אשחר,,,https://www.idf.il/נופלים/חללי-המלחמה/נערן-אשחר/,,idf,Killed on duty,M,33,שדמות מחולה,ישראל,חייל,,killed,2023-10-29,2023-11-05,תאונה מבצעית בגבול הצפון,תאונה מבצעית בגבול הצפון
 2078,Shahar,Mivtach,Cohen,,שחר,מבטח,כהן,,https://www.idf.il/נופלים/חללי-המלחמה/שחר-כהן-מבטח/,,idf,Killed on duty,M,22,כרמיאל,ישראל,חייל,,killed,2023-11-05,2023-11-05,צפון רצועת עזה,צפון רצועת עזה
-2079,Ross,Lubin,Elisheva Rose Ida,,רוס,לובין,אלישבע רוז איידה,,https://lezichram.police.gov.il/main/nofel/42182,,,,,,סעד,ישראל,,,killed,2024-11-06,2024-11-06,ירושלים; העיר העתיקה תחנת שלם,ירושלים; העיר העתיקה תחנת שלם
+2079,Ross,Lubin,Elisheva Rose Ida,,רוז איידה,לובין,רות אלישבע,,https://lezichram.police.gov.il/main/nofel/42182,,,,F,20,סעד,ישראל,שוטר,,killed,2024-11-06,2024-11-06,ירושלים; העיר העתיקה תחנת שלם,ירושלים; העיר העתיקה תחנת שלם
 2080,Yaacov,Ozeri,,,יעקב,עוזרי,,,https://www.idf.il/נופלים/חללי-המלחמה/יעקב-עוזרי/,,idf,Killed on duty,M,28,כפר שמאי,ישראל,חייל,,killed,2023-11-07,2023-11-07,צפון רצועת עזה,צפון רצועת עזה
 2081,Jonathan,Chazor,,,יונתן,חצור,,,https://www.idf.il/נופלים/חללי-המלחמה/יונתן-חצור/,,idf,Killed on duty,M,22,קציר,ישראל,חייל,,killed,2023-11-07,2023-11-07,צפון רצועת עזה,צפון רצועת עזה
 2082,Meir,Moyal,,,מאיר,מויאל,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44078,,,,,55,קריית שמונה,ישראל,,,killed,2023-11-08,2023-11-08,"מוצב שושן, ליד קיבוץ יפתח","מוצב שושן, ליד קיבוץ יפתח"
