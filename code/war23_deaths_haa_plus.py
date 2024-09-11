@@ -31,17 +31,21 @@ else:
         new.reset_index(inplace=True, drop=True)
         mil = r'\([^)]*מיל[^)]*\)'
         for ii in range(len(new)):
-            if new['status'][ii] == 'שוטר':
+            if str(new['status'][ii]) == 'שוטר':
                 rank = new['name'][ii].split(' ')[0]
                 name = ' '.join(new['name'][ii].split(' ')[1:])
-            elif new['status'][ii] == 'חייל':
+            elif str(new['status'][ii]) == 'חייל':
                 nm = new['name'][ii]
                 if re.search(mil, nm):
                     rank = nm[:nm.index(')')+1]
                     name = nm[nm.index(')')+2:]
                 else:
-                    rank = nm.split(' ')[0]
-                    name = ' '.join(new['name'][ii].split(' ')[1:])
+                    if len(nm.split(' ')) > 2:
+                        rank = nm.split(' ')[0]
+                        name = ' '.join(new['name'][ii].split(' ')[1:])
+                    else:
+                        name = nm
+                        rank = np.nan
             else:
                 name = new['name'][ii]
                 rank = np.nan
@@ -55,7 +59,7 @@ else:
             status = new['status'][ii]
             idf_row = np.nan
             death_date = ''
-            if status == 'חייל':
+            if str(status) == 'חייל':
                 idf_row = np.where(idf['name'].str.contains(name))[0]
                 if len(idf_row) == 1:
                     idf_row = idf_row[0] + 2
@@ -75,7 +79,7 @@ else:
             # idf_row = df['idf_row'][ii]
             if type(idf_row) == str:
                 idf_row = float(idf_row)
-            if new['status'][ii] == 'חייל' and np.isnan(idf_row):
+            if str(new['status'][ii]) == 'חייל' and np.isnan(idf_row):
                 comment += 'לא חלל; '
             elif new['status'][ii] != 'חייל' and ~np.isnan(idf_row):
                 comment += 'חלל; '
@@ -117,14 +121,14 @@ df = pd.read_csv('data/deaths_haaretz+.csv')
 idf = pd.read_csv('data/deaths_idf.csv')
 yearly = pd.read_csv('data/deaths_by_year.csv')
 isidf = ~df['idf_row'].isnull().values
-row = df['idf_row'].values[isidf]
-if len(row) > len(np.unique(row)):
-    n = np.unique([x for x in row if len(np.where(row == x)[0]) > 1])
-    print('duplicates!' + str(n))
-rng = np.arange(2, len(idf)+2)
-missing = [x for x in rng if x not in row]
-if len(missing) > 0:
-    print('missing idf row: '+str(missing)[1:-1])
+# row = df['idf_row'].values[isidf]
+# if len(row) > len(np.unique(row)):
+#     n = np.unique([x for x in row if len(np.where(row == x)[0]) > 1])
+#     print('duplicates!' + str(n))
+# rng = np.arange(2, len(idf)+2)
+# missing = [x for x in rng if x not in row]
+# if len(missing) > 0:
+#     print('missing idf row: '+str(missing)[1:-1])
 year = df['death_date'].values.astype(str)
 for ii in range(len(year)):
     yy = year[ii]
