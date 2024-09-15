@@ -22,3 +22,17 @@ for ii in np.where(~data['event_coordinates'].isnull())[0]:
             if loc7 == loc and data['Event location class (oct7map)'][ii] == 'General vicinity':
                 data.at[ii, 'revise'] = 'X'
 data.to_csv('~/Documents/revise.csv', index=False)
+##
+data = pd.read_excel('~/Documents/oct7database.xlsx', 'Data')
+revise = pd.read_excel('~/Documents/revise (1).xlsx')
+bads = [x for x in range(len(revise)) if 'elete' in str(revise["Sagi's suggestion"][x])]
+for ii in bads:
+    row = np.where(data['pid'].values == revise['pid'][ii])[0]
+    if len(row) == 1:
+        row = row[0]
+    else:
+        raise Exception('bad row')
+    if row == 189:
+        raise Exception('bad')
+    data.at[row, 'event_coordinates'] = np.nan
+data.to_csv('~/Documents/revised.csv', index=False)
