@@ -1,0 +1,37 @@
+import pandas as pd
+import os
+# import Levenshtein
+import numpy as np
+import re
+
+
+local = '/home/innereye/alarms/'
+if os.path.isdir(local):
+    os.chdir(local)
+    local = True
+##
+
+
+def db2map(save=True):
+    db = pd.read_csv('data/oct7database.csv')
+    map = pd.read_csv('data/oct_7_9.csv')
+    kidnapped = [915, 29, 568, 192, 193, 482, 626]  # not kidnapped in oct7map
+    pid = db['pid'].values
+    changes = False
+    for ii in range(len(map)):
+        row = np.where(pid == map['pid'][ii])[0][0]
+        stat = db['Status'][row]
+        if 'idnap' in stat or 'aptiv' in stat or map['pid'][ii] in kidnapped:
+            loc = db['מקום המוות'][row]
+        else:
+            loc = db['מקום האירוע'][row]
+        if map['location'][ii] != loc:
+            print([map['pid'][ii], map['fullName'][ii], stat, loc, map['location'][ii]])
+            map.at[ii, 'location'] = loc
+            changes = True
+    if save and changes:
+        map.to_csv('data/oct_7_9.csv', index=False)
+        print('saved to oct_7_9')
+    else:
+        return map
+
