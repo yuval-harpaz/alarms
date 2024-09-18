@@ -51,11 +51,14 @@ def update_coord(latest=None, coord_file='data/coord.csv'):
     # lat_long = [[], []]
     if len(missing) > 0:
         for miss in missing:
-            lat, long = get_coordinates(miss)
+            lat, long = get_coordinates_zofar(miss)
+            if lat == 0:
+                lat, long = get_coordinates(miss)
             coo.loc[len(coo)+1] = [miss, lat, long]
         coo.sort_values('loc', inplace=True)
         coo.to_csv(coord_file, sep=',', index=False)
     bad = np.where((coo['lat'] == 31.046051) & (coo['long'] == 34.851612))[0]
+    bad = list(bad) + list(np.where(coo['long'] < 30)[0])
     if len(bad) > 0:
         print(f'fixing {len(bad)} locations')
         for bd in bad:
