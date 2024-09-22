@@ -28,6 +28,7 @@ jobs:
     - name: run rocket alarms script
       env:
           OAuth: ${{ secrets.GOOMAP }}
+          cities_url: ${{ secrets.CITIES }}
       run: |
         python code/alarms3.py
         python code/alarms_map_origin.py
@@ -35,6 +36,7 @@ jobs:
     - name: run rocket 7 days script
       env:
           OAuth: ${{ secrets.GOOMAP }}
+          cities_url: ${{ secrets.CITIES }}
       run: |
         python code/alarms_week.py
     - name: check news
