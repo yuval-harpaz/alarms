@@ -244,7 +244,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 297,Tal,Cohen,,,טל,כהן,,,https://www.idf.il/נופלים/חללי-המלחמה/טל-כהן/,Kfar Aza,Exact location,Killed on duty,M,30,גני טל,ישראל,חייל,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה
 298,Naomi,Dgani,,,נעמי,דגני,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43492,Kfar Aza,Exact location,Murdered,F,80,כפר עזה,ישראל,אזרח,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה
 299,Tal,Eilon,,,טל,אילון,,,https://www.idf.il/נופלים/חללי-המלחמה/טל-אילון/,Kfar Aza,Exact location,Killed on duty,M,46,כפר עזה,ישראל,כיתת כוננות,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה
-300,Sivan,Elkabets,,,סיון,אלקבץ,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43477,Kfar Aza,Exact location,Murdered,F,23,כפר עזה,ישראל,אזרח,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה
+300,Sivan,Elkabets,,,,אלקבץ,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43477,Kfar Aza,Exact location,Murdered,F,23,כפר עזה,ישראל,אזרח,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה
 301,Neta,Epstein,,,נטע,אפשטיין,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43480,Kfar Aza,Exact location,Murdered,M,21,כפר עזה,ישראל,אזרח,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה
 302,Cynthia,Flash,Tamar,,תמר ,פלש,סינדי,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43513,Kfar Aza,Exact location,Murdered,F,67,כפר עזה,ישראל,אזרח,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה
 303,Agam,Goldstein Almog,,,אגם,גולדשטיין אלמוג,,,,Kfar Aza,Exact location,Kidnap survivor,F,17,כפר עזה,ישראל,,,kidnapped; released,2023-10-07,,כפר עזה,
@@ -356,7 +356,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 461,Shirat-Yam,Amar,,,שירת ים,עמר,,שיקותי,https://www.idf.il/נופלים/חללי-המלחמה/שירת-ים-עמר/,Nahal Oz Base,Exact location,Killed on duty,F,18,קריית אונו,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב נחל עוז; מיגונית בנות,מוצב נחל עוז; מיגונית בנות
 462,Karina,Ariev,,,קרינה,ארייב,,,,Nahal Oz Base,Exact location,Kidnapped,F,19,ירושלים,ישראל,,,kidnapped,2023-10-07,,מוצב נחל עוז; מיגונית בנות,
 463,Shai,Ashram,,,שי,אשרם,,,https://www.idf.il/נופלים/חללי-המלחמה/שי-אשרם/,Nahal Oz Base,Exact location,Killed on duty,F,19,רחובות,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב נחל עוז; מיגונית בנות,מוצב נחל עוז; מיגונית בנות
-464,Sivan,Asraf,Simcha,,סיון,אסראף,שמחה,,https://www.idf.il/נופלים/חללי-המלחמה/סיון-שמחה-אסראף/,Nahal Oz Base,Exact location,Killed on duty,F,20,אשקלון,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב נחל עוז; מיגונית בנות,מוצב נחל עוז; מיגונית בנות
+464,Sivan,Asraf,Simcha,,,אסראף,שמחה,,https://www.idf.il/נופלים/חללי-המלחמה/-שמחה-אסראף/,Nahal Oz Base,Exact location,Killed on duty,F,20,אשקלון,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב נחל עוז; מיגונית בנות,מוצב נחל עוז; מיגונית בנות
 465,Neta,Bar Am,,,נטע,בר עם,,,https://www.idf.il/נופלים/חללי-המלחמה/נטע-בר-עם/,Nahal Oz Base,Exact location,Killed on duty,F,21,חדרה,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב נחל עוז; בלונאים,מוצב נחל עוז; בלונאים
 466,Ilai,Bar-Sadeh,,,עילי,בר שדה,,,https://www.idf.il/נופלים/חללי-המלחמה/עילי-בר-שדה/,Zikim Base,General vicinity,Killed on duty,M,19,רמת גן,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב יפתח,מוצב יפתח
 467,Tomer,Barak,,,תומר,ברק,,,https://www.idf.il/נופלים/חללי-המלחמה/תומר-ברק/,Paga Post,General vicinity,Killed on duty,M,20,פתח תקווה,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב פגה,מוצב פגה
@@ -1553,7 +1553,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2193,Yarin,Gahali,,,ירין,גהלי,,,https://www.idf.il/נופלים/חללי-המלחמה/ירין-גהלי/,,idf,Killed on duty,M,22,רחובות,ישראל,חייל,,killed,2023-12-18,2023-12-18,דרום רצועת עזה,דרום רצועת עזה
 2194,Daniel,Ben Harosh,Yacov,,דניאל,הרוש,יעקב בן,,https://www.idf.il/נופלים/חללי-המלחמה/דניאל-יעקב-בן-הרוש/,,idf,Killed on duty,M,31,אלון,ישראל,חייל,,killed,2023-12-18,2023-12-18,צפון רצועת עזה,צפון רצועת עזה
 2195,Maoz,Fenigstein,,,מעוז,פניגשטיין,,,https://www.idf.il/נופלים/חללי-המלחמה/מעוז-פניגשטיין/,,idf,Killed on duty,M,25,סוסיא,ישראל,חייל,,killed,2023-12-19,2023-12-19,צפון רצועת עזה,צפון רצועת עזה
-2196,Lior,Sivan,,,ליאור,סיון,,,https://www.idf.il/נופלים/חללי-המלחמה/ליאור-סיון/,,idf,Killed on duty,M,32,בית שמש,ישראל,חייל,,killed,2023-12-19,2023-12-19,דרום רצועת עזה,דרום רצועת עזה
+2196,Lior,Sivan,David,Liorito,ליאור,סיון,דוד,ליאוריטו,https://www.idf.il/נופלים/חללי-המלחמה/ליאור-סיון/,,idf,Killed on duty,M,32,בית שמש,ישראל,חייל,,killed,2023-12-19,2023-12-19,דרום רצועת עזה,דרום רצועת עזה
 2197,Uriel,Cohen,,,אוריאל,כהן,,,https://www.idf.il/נופלים/חללי-המלחמה/אוריאל-כהן/,,idf,Killed on duty,M,33,צור הדסה,ישראל,חייל,,killed,2023-12-19,2023-12-19,דרום רצועת עזה,דרום רצועת עזה
 2198,Lavi,Ghasi,,,לביא,גיהסי,,,https://www.idf.il/נופלים/חללי-המלחמה/לביא-גיהסי/,,idf,Killed on duty,M,19,חשמונאים,ישראל,חייל,,killed,2023-12-20,2023-12-20,צפון רצועת עזה,צפון רצועת עזה
 2199,Yaacov,Elian,,,יעקב,איליאן,,,https://www.idf.il/נופלים/חללי-המלחמה/יעקב-איליאן/,,idf,Killed on duty,M,20,רמת גן,ישראל,חייל,,killed,2023-12-20,2023-12-20,צפון רצועת עזה,צפון רצועת עזה
