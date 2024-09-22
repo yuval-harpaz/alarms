@@ -137,7 +137,7 @@ class TestOmissions(unittest.TestCase):
 map79 = pd.read_csv('data/oct_7_9.csv')
 pid79 = map79['pid'].values
 # for kidnapped death loc / date is given in oct 7 9 instead of event
-as_kidnapped = [568, 581, 626, 915]
+as_kidnapped = [568, 581, 626, 915, 1432]
 event_or_death = []
 for ii in range(len(map79)):
     row = np.where(data['pid'].values == map79['pid'][ii])[0][0]
@@ -309,7 +309,7 @@ class Location(unittest.TestCase):
     def map7updated(self):
         # db = pd.read_csv('data/oct7database.csv')
         # map = pd.read_csv('data/oct_7_9.csv')
-        kidnapped = [915, 29, 568, 626, 139, 581]  # not kidnapped in oct7map, event and death not in same location
+        kidnapped = [915, 29, 568, 626, 139, 581, 1432]  # not kidnapped in oct7map, event and death not in same location
         pid = data['pid'].values
         check = []
         for ii in range(len(map79)):
