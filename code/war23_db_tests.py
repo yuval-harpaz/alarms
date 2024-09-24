@@ -13,6 +13,8 @@ if os.path.isdir(local):
     file = open('.txt')
     url = file.read().split('\n')[0]
     file.close()
+else:
+    url = os.environ['oct7map']
 map7 = pd.read_json(url)
 
 # data = pd.read_csv('/home/innereye/Documents/oct7database - Data.csv')
