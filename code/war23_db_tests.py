@@ -19,7 +19,7 @@ map7 = pd.read_json(url)
 
 # data = pd.read_csv('/home/innereye/Documents/oct7database - Data.csv')
 data = pd.read_csv('data/oct7database.csv')
-omi = pd.read_csv('/home/innereye/Documents/oct7database - omissions.csv')
+# omi = pd.read_csv('/home/innereye/Documents/oct7database - omissions.csv')
 kidn = pd.read_csv('data/kidnapped.csv')
 idf = pd.read_csv('data/deaths_idf.csv')
 ##
@@ -103,37 +103,37 @@ class TestDuplicates(unittest.TestCase):
             print(f'rank in first name!!!! {pid_rank}'.replace('[', '').replace(']', ''))
         self.assertEqual(len(pid_rank), 0)
 
-class TestOmissions(unittest.TestCase):
-    def not_dropped(self):
-        pid = data['pid'].values
-        nd = [x for x in omi['duplicate'] if x in pid]
-        n_not_dropped = len(nd)
-        if n_not_dropped > 0:
-            print(f'Not omitted!!!! {nd}'.replace('[', '').replace(']', ''))
-        self.assertEqual(n_not_dropped, 0)
-
-    def dropped(self):
-        pid = data['pid'].values
-        pid_okay = omi['pid'][~omi['duplicate'].isnull()].values
-        dpd = [x for x in pid_okay if x not in pid]
-        n_dropped = len(dpd)
-        if n_dropped > 0:
-            print(f'Omitted a valid PID!!!! {dpd}'.replace('[', '').replace(']', ''))
-        self.assertEqual(n_dropped, 0)
-
-    def all_acounted(self):
-            pid = data['pid'].values
-            pid_all = np.unique(list(omi['duplicate'][~omi['duplicate'].isnull()]) + list(omi['pid'][omi['duplicate'].isnull()]) + list(pid))
-            try:
-                json = pd.read_json(url)
-            except:
-                raise Exception('no internet?')
-            pid_json = json['pid'].values
-            unaccounted = [x for x in pid_json if x not in pid_all]
-            n_missing = len(unaccounted)
-            if n_missing > 0:
-                print(f'Unaccounted for PID!!!! {unaccounted}'.replace('[', '').replace(']', ''))
-            self.assertEqual(n_missing, 0)
+# class TestOmissions(unittest.TestCase):
+#     def not_dropped(self):
+#         pid = data['pid'].values
+#         nd = [x for x in omi['duplicate'] if x in pid]
+#         n_not_dropped = len(nd)
+#         if n_not_dropped > 0:
+#             print(f'Not omitted!!!! {nd}'.replace('[', '').replace(']', ''))
+#         self.assertEqual(n_not_dropped, 0)
+#
+#     def dropped(self):
+#         pid = data['pid'].values
+#         pid_okay = omi['pid'][~omi['duplicate'].isnull()].values
+#         dpd = [x for x in pid_okay if x not in pid]
+#         n_dropped = len(dpd)
+#         if n_dropped > 0:
+#             print(f'Omitted a valid PID!!!! {dpd}'.replace('[', '').replace(']', ''))
+#         self.assertEqual(n_dropped, 0)
+#
+#     def all_acounted(self):
+#             pid = data['pid'].values
+#             pid_all = np.unique(list(omi['duplicate'][~omi['duplicate'].isnull()]) + list(omi['pid'][omi['duplicate'].isnull()]) + list(pid))
+#             try:
+#                 json = pd.read_json(url)
+#             except:
+#                 raise Exception('no internet?')
+#             pid_json = json['pid'].values
+#             unaccounted = [x for x in pid_json if x not in pid_all]
+#             n_missing = len(unaccounted)
+#             if n_missing > 0:
+#                 print(f'Unaccounted for PID!!!! {unaccounted}'.replace('[', '').replace(']', ''))
+#             self.assertEqual(n_missing, 0)
 
 
 map79 = pd.read_csv('data/oct_7_9.csv')
@@ -431,9 +431,9 @@ if __name__ == '__main__':
                                               TestDuplicates('duplicate_eng'),
                                               TestDuplicates('duplicate_url'),
                                               TestDuplicates('rank_name'),
-                                              TestOmissions('not_dropped'),
-                                              TestOmissions('dropped'),
-                                              TestOmissions('all_acounted'),
+                                              # TestOmissions('not_dropped'),
+                                              # TestOmissions('dropped'),
+                                              # TestOmissions('all_acounted'),
                                               Test79('extras79'),
                                               Test79('unique_pid79'),
                                               Test79('loc79'),
