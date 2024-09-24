@@ -169,12 +169,15 @@ colors = ["#ff0000", "#808000", '#2255ff', '#FFA500']
 isparty = names['comment'] == 'פסטיבל נובה'
 isnova =  names['location'] == 'פסטיבל נובה'
 isduck = names['comment'] == 'מסיבת פסיידאק'
-
+cat_lang_heb = ["אזרחים וכיתות כוננות", "חיילים", "שוטרים וכוחות הצלה", "ירי רקטי"]
+cat_lang_eng = ['Civilians and emergency teams', 'Soldiers', 'Police and rescue teams', 'Rockets']
+##
+set_table = True
 for lang in ['heb', 'eng']:
     if lang == 'heb':
-        cat_lang = ["אזרחים וכיתות כוננות", "חיילים", "שוטרים וכוחות הצלה", "ירי רקטי"]
+        cat_lang = cat_lang_heb
     else:
-        cat_lang = ['Civilians and emergency teams', 'Soldiers', 'Police and rescue teams', 'Rockets']
+        cat_lang = cat_lang_eng
     for imap in [0, 1]:
         n_loc = []
         # legend
@@ -267,6 +270,9 @@ for lang in ['heb', 'eng']:
                 r = np.sum(isloc & cat[3])
                 c = nall - s - p - r
                 ns = [c, s, p, r]
+                if set_table:
+                    for jj in range(4):
+                        coo.at[iloc, cat_lang_eng[jj]] = ns[jj]
                 radius = (nall / np.pi) ** 0.5
                 start = [0, int(np.round(360*c/nall)), int(np.round(360*(c+s)/nall)), int(np.round(360*(c+s+p)/nall))]
                 end = [start[1], start[2], start[3], 360]
@@ -332,6 +338,8 @@ for lang in ['heb', 'eng']:
                         tip = tip + '<br>' + name_string
                         if loc == 'עמיעוז':
                             tip = tip.replace('<br>', '<br>נחבלה בדרך לממ\"ד - ')
+                        if set_table:
+                            coo.at[iloc, 'CSPR'[icat]+'tip'] = tip
                         if onlyone:
                             folium.Circle(location=[lat, long],
                                                 tooltip=tip,
@@ -353,7 +361,7 @@ for lang in ['heb', 'eng']:
                                 startAngle=start[icat],  # Start angle (0 to 360 degrees)
                                 stopAngle=end[icat]  # Stop angle (0 to 360 degrees)
                             ).add_to(map)
-
+        set_table = False
         for iloc in idx:
             loc = coo["name"][iloc]
             if lang == 'heb':
@@ -449,6 +457,10 @@ for lang in ['heb', 'eng']:
             f.write(txt)
         del map
 coo['total'] = n_loc
-coo.sort_values('total', inplace=True, ascending=False)
+##
+# coo.sort_values(['total', 'name'], inplace=True, ascending=[False, True])
+coo = coo.sort_values(['total', 'name'], inplace=False, ascending=[False, True])
+coo.to_excel('~/Documents/map_data.xlsx')
+coo = coo[coo.columns[:6]]
 coo.to_csv('data/deaths_by_loc.csv', index=False)
 print('done map semi1')
