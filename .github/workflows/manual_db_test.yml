@@ -19,5 +19,7 @@ jobs:
       run: |
         pip install -r requirements_rockets.txt
     - name: run idf deaths
+      env:
+          oct7map: ${{ secrets.OCT7MAP }}
       run: |
         python code/war23_db_tests.py
