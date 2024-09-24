@@ -2,8 +2,8 @@
 name: DB tests
 on:
   workflow_dispatch:
-  branches:
-    - master
+  #branches:
+  # - master
 permissions: write-all
 jobs:
   alarms-fig:
