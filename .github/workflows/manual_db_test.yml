@@ -1,0 +1,23 @@
+# manual war update
+name: DB tests
+on:
+  workflow_dispatch:
+  branches:
+    - master
+permissions: write-all
+jobs:
+  alarms-fig:
+    runs-on: ubuntu-latest
+    environment: rockets
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+    - name: Install dependencies
+      run: |
+        pip install -r requirements_rockets.txt
+    - name: run idf deaths
+      run: |
+        python code/war23_db_tests.py
