@@ -18,7 +18,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements_rockets.txt
-    - name: run idf deaths
+    - name: run tests
       env:
           oct7map: ${{ secrets.OCT7MAP }}
       run: |
