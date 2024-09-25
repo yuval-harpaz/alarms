@@ -241,7 +241,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 294,Hadar,Berdichesky,,,הדר,ברדיצ׳סקי רוזנפלד,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43485,Kfar Aza,Exact location,Murdered,F,30,כפר עזה,ישראל,אזרח,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה
 295,Itay,Berdichesky,,,איתי,ברדיצ׳סקי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43484,Kfar Aza,Exact location,Murdered,M,30,כפר עזה,ישראל,אזרח,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה
 296,Shachaf,Bergstein,,,שחף,ברגשטיין,,,https://www.idf.il/נופלים/חללי-המלחמה/שחף-ברגשטיין/,Kfar Aza,Exact location,Killed on duty,M,33,כפר עזה,ישראל,כיתת כוננות,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה
-297,Tal,Cohen,,,טל,כהן,,,https://www.idf.il/נופלים/חללי-המלחמה/טל-כהן/,Kfar Aza,Exact location,Killed on duty,M,30,גני טל,ישראל,חייל,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה
+297,Tal,Cohen,,Talco,טל,כהן,,טלכו,https://www.idf.il/נופלים/חללי-המלחמה/טל-כהן/,Kfar Aza,Exact location,Killed on duty,M,30,גני טל,ישראל,חייל,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה
 298,Naomi,Dgani,,,נעמי,דגני,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43492,Kfar Aza,Exact location,Murdered,F,80,כפר עזה,ישראל,אזרח,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה
 299,Tal,Eilon,,,טל,אילון,,,https://www.idf.il/נופלים/חללי-המלחמה/טל-אילון/,Kfar Aza,Exact location,Killed on duty,M,46,כפר עזה,ישראל,כיתת כוננות,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה
 300,Sivan,Elkabets,,,סיון,אלקבץ,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43477,Kfar Aza,Exact location,Murdered,F,23,כפר עזה,ישראל,אזרח,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה
@@ -1207,7 +1207,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 1562,Arik,Marciano,Yehuda,,אריק,מרציאנו,יהודה,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43425,Sderot,General vicinity,Killed on duty,M,50,קריית גת,ישראל,כבאי,,killed,2023-10-07,2023-10-07,שדרות,שדרות
 1563,Izhar,Hajbi,,,יזהר,חג׳בי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43386,Yakhini,General vicinity,Murdered,M,66,יכיני,ישראל,אזרח,,killed,2023-10-07,2023-10-07,יכיני,יכיני
 1564,Elitzur,Hajbi,Tzuriel,,אליצור,חג׳בי,צוריאל,צורי,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43384,Yakhini,General vicinity,Murdered,M,60,יכיני,ישראל,אזרח,,killed,2023-10-07,2023-10-07,יכיני,יכיני
-1565,Eliyahu,Harush,Michael,,אליהו,הרוש,מיכאל,,https://lezichram.police.gov.il/main/nofel/42149,Sderot Police Station,Exact location,Killed on duty,M,28,פתח תקווה,ישראל,שוטר,,killed,2023-10-07,2023-10-07,שדרות; תחנת משטרה,שדרות; תחנת משטרה
+1565,Eliyahu,Harush,Michael,Elico,אליהו,הרוש,מיכאל,אליקו,https://lezichram.police.gov.il/main/nofel/42149,Sderot Police Station,Exact location,Killed on duty,M,28,פתח תקווה,ישראל,שוטר,,killed,2023-10-07,2023-10-07,שדרות; תחנת משטרה,שדרות; תחנת משטרה
 1566,Shmuel,Gulima,,,סמצאו,גולימה,שמואל,,https://lezichram.police.gov.il/main/nofel/42180,Sderot Police Station,Exact location,Killed on duty,M,48,קריית גת,ישראל,שוטר,,killed,2023-10-07,2023-10-07,שדרות; תחנת משטרה,שדרות; תחנת משטרה
 1567,Hana,Ben-Artzi,,,חנה,בן ארצי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43273,Kfar Aviv,General vicinity,Murdered,F,,כפר אביב,ישראל,אזרח,,killed,2023-10-07,2023-10-07,כפר אביב,כפר אביב
 1568,Shalev,Gal,,,שלו,גל,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43779,Nova; Mefalsim Bend,Exact location,Murdered,M,25,אחוזת ברק,ישראל,אזרח,Nova,killed,2023-10-07,2023-10-07,סמוך למפלסים,סמוך למפלסים
@@ -1488,7 +1488,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2128,Hanna,Ifergan,,,חנה,איפרגן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44095,,,,,67,ירושלים,ישראל,,,killed,2023-11-30,2023-11-30,כביש 1 בכניסה לירושלים,כביש 1 בכניסה לירושלים
 2129,Livia,Dickman,,,לביה,דיקמן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44096,,,,,24,ירושלים,ישראל,,,killed,2023-11-30,2023-11-30,כביש 1 בכניסה לירושלים,כביש 1 בכניסה לירושלים
 2130,Yuval,Kastelmann,Doron,,יובל,קסטלמן,דורון,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44098,,,,,37,מבשרת ציון,ישראל,,,killed,2023-11-30,2023-11-30,כביש 1 בכניסה לירושלים,כביש 1 בכניסה לירושלים
-2131,Aschalwu,Sama,,,אסצ׳אלו,סמה,,,https://www.idf.il/נופלים/חללי-המלחמה/אסצ-אלו-סמה/,,idf,Killed on duty,M,20,פתח תקווה,ישראל,חייל,,killed,2024-11-14,2023-12-02,צפון רצועת עזה,צפון רצועת עזה
+2131,Aschalwu,Sama,,Asi,אסצ׳אלו,סמה,,אסי,https://www.idf.il/נופלים/חללי-המלחמה/אסצ-אלו-סמה/,,idf,Killed on duty,M,20,פתח תקווה,ישראל,חייל,,killed,2024-11-14,2023-12-02,צפון רצועת עזה,צפון רצועת עזה
 2132,Or,Brandes,,,אור,ברנדס,,,https://www.idf.il/נופלים/חללי-המלחמה/אור-ברנדס/,,idf,Killed on duty,M,25,שוהם,ישראל,חייל,,killed,2023-12-02,2023-12-02,מרכז רצועת עזה,מרכז רצועת עזה
 2133,Neriya,Shaer,,,נריה,שאער,,,https://www.idf.il/נופלים/חללי-המלחמה/נריה-שאער/,,idf,Killed on duty,M,36,יבנה,ישראל,חייל,,killed,2023-12-03,2023-12-03,צפון רצועת עזה,צפון רצועת עזה
 2134,Ben,Zussman,,,בן,זוסמן,,,https://www.idf.il/נופלים/חללי-המלחמה/בן-זוסמן/,,idf,Killed on duty,M,22,ירושלים,ישראל,חייל,,killed,2023-12-03,2023-12-03,צפון רצועת עזה,צפון רצועת עזה
@@ -1825,7 +1825,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2488,Nitai,Metodi,,,ניתאי,מיטודי,,,https://www.idf.il/נופלים/חללי-המלחמה/ניתאי-מיטודי/,מרכז רצועת עזה,idf,,M,23,אשקלון,ישראל,חייל,,killed,2024-08-23,2024-08-23,מרכז רצועת עזה,מרכז רצועת עזה
 2489,Yaniv,Oren,Itzhak,,יניב,אורן,יצחק,,https://www.idf.il/נופלים/חללי-המלחמה/יניב-יצחק-אורן/,מרכז רצועת עזה,idf,,M,35,עין גדי,ישראל,חייל,,killed,2024-08-23,2024-08-23,מרכז רצועת עזה,מרכז רצועת עזה
 2490,Amit,Tsadikov,,,עמית,צדיקוב,,,https://www.idf.il/נופלים/חללי-המלחמה/עמית-צדיקוב/,דרום רצועת עזה,idf,,M,20,בית דגן,ישראל,חייל,,killed,2024-08-24,2024-08-24,דרום רצועת עזה,דרום רצועת עזה
-2491,David,shitrit,moshe ben,,דוד,שיטרית,משה בן,,https://www.idf.il/נופלים/חללי-המלחמה/דוד-משה-בן-שיטרית/,,,,M,21,גבע בנימין,ישראל,חייל,,killed,2024-08-25,2024-08-25,בים מול חופי נהריה ועכו,"נהריה; בי""ח גליל"
+2491,David,Ben Shitrit,Moshe,Fuad,דוד,בן שיטרית,משה,פואד,https://www.idf.il/נופלים/חללי-המלחמה/דוד-משה-בן-שיטרית/,,,,M,21,גבע בנימין,ישראל,חייל,,killed,2024-08-25,2024-08-25,בים מול חופי נהריה ועכו,"נהריה; בי""ח גליל"
 2492,Shlomo,Hazut,Yehonatan,,שלמה,חזוט,יהונתן,,https://www.idf.il/נופלים/חללי-המלחמה/שלמה-יהונתן-חזוט/,מרכז רצועת עזה,idf,,M,36,אשדוד,ישראל,חייל,,killed,2024-08-25,2024-08-25,מרכז רצועת עזה,מרכז רצועת עזה
 2493,Jonathan,Deutsch,,,יהונתן,דויטש,,,,,,,M,23,בית שאן,ישראל,אזרח,,killed,2024-08-11,2024-08-11,סמוך לצומת מכולה,סמוך לצומת מכולה
 2494,Amit,Friedman,,,עמית,פרידמן,,,https://www.idf.il/נופלים/חללי-המלחמה/עמית-פרידמן/,,idf,,M,19,אור יהודה,ישראל,חייל,,killed,2024-08-27,2024-08-27,דרום רצועת עזה,
