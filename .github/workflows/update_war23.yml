@@ -7,7 +7,7 @@ permissions: write-all
   # contents: read
 
 jobs:
-  alarms-fig:
+  wartime-updates:
     runs-on: ubuntu-latest
     environment: rockets
     steps:
@@ -34,6 +34,7 @@ jobs:
         python -W ignore code/war23_distance_coord.py
         python -W ignore code/war23_distance.py
         python -W ignore code/alarms_week.py
+        python -W ignore code/alarms23_monthly.py
     - name: run war media
       run: |
         python -W ignore code/war23_ynetlist.py
