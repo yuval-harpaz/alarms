@@ -34,8 +34,16 @@ def update_coord(latest=None, coord_file='data/coord.csv'):
             lat = cities['cities'][city_name]['lat']
             long = cities['cities'][city_name]['lng']
         else:
-            lat = 0
-            long = 0
+            cities_list = list(cities['cities'].keys())
+            partof = [x for x in range(len(cities_list)) if city_name in cities_list[x]]
+            partof = [x for x in partof if city_name in [y.strip() for y in cities_list[x].split(',')]]
+            if len(partof) == 1:
+                full_name = cities_list[partof[0]]
+                lat = cities['cities'][full_name]['lat']
+                long = cities['cities'][full_name]['lng']
+            else:
+                lat = 0
+                long = 0
         return lat, long
 
     coo = pd.read_csv(coord_file)
@@ -62,7 +70,8 @@ def update_coord(latest=None, coord_file='data/coord.csv'):
     if len(bad) > 0:
         print(f'fixing {len(bad)} locations')
         for bd in bad:
-            lat, long = get_coordinates_zofar(coo['loc'][bd])
+            lc = coo['loc'][bd]
+            lat, long = get_coordinates_zofar(lc)
             if lat == 0:
                 lat, long = get_coordinates(coo['loc'][bd])
             coo.loc[bd] = [coo['loc'][bd], lat, long]
@@ -71,3 +80,5 @@ def update_coord(latest=None, coord_file='data/coord.csv'):
     print('BAD COORDINATES:')
     print(list(coo['loc'][coo['lat'] == 0]))
 
+if __name__ == '__main__':
+    update_coord()
