@@ -8,3 +8,8 @@ oath.txt
 data/deaths_manual.xlsx
 geckodriver*
 .txt
+.spyproject
+.spyproject/*
+.spyproject/*/*
+.spyproject/*/*/*
+
