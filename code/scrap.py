@@ -2,24 +2,21 @@ import pandas as pd
 import os
 import numpy as np
 import sys
-sys.path.append('code')
-from map_deaths_name_search import group_locs
-local = '/home/innereye/alarms/'
-islocal = False
-if os.path.isdir(local):
-    os.chdir(local)
-    local = True
+# sys.path.append('code')
 
 
 db = pd.read_csv('data/oct7database.csv')
-prev = pd.read_csv('~/Documents/oct7database.csv')
-dbn = db.to_numpy()
-prevn = prev.to_numpy()
-
+map79 = pd.read_csv('data/oct_7_9.csv')
+young = np.where((db['Age'] < 19) & db['Status'].str.contains('killed'))[0]
+pids = db['pid'].values[young]
 for ii in range(len(db)):
-    changes = False
-    for jj in range(len(db.columns)):
-        if str(dbn[ii, jj]) != str(prevn[ii, jj]):
-            print(' '.join(dbn[ii, 0:3].astype(str)), end=': ')
-            print(f"{db.columns[jj]} {prevn[ii,jj]} >> {dbn[ii,jj]}")
+    row = np.where(map79['pid'].values == pids[ii])[0]
+    if len(row) == 0:
+        print(f"not found: {db['שם פרטי'][young[ii]]} {db['שם משפחה'][young[ii]]}")
+    else:
+        age0 = db['Age'][young[ii]]
+        age1 = map79['age'][row[0]]
+        if age0 != age1:
+            print(f"age issue for {pids[ii]} {map79['fullName'][row[0]]}")
+            
 
