@@ -1,0 +1,74 @@
+import pandas as pd
+import os
+import numpy as np
+import sys
+import folium
+import requests
+
+local = '/home/innereye/alarms/'
+islocal = False
+df = pd.read_excel('~/Documents/טבלת אקסל סופית של כלבים שנרצחו ב7.10 נכון ל 6.10.24.xlsx')
+coo = pd.read_csv('data/coord.csv')
+locs = df['שם יישוב'].values
+keep = []
+for ii in range(len(coo)):
+    if coo['loc'][ii] in locs:
+        keep.append(True)
+    else:
+        keep.append(False)
+coo = coo[keep]
+# df = pd.read_csv('data/deaths.csv')
+
+# locs = [x.replace('קיבוץ ','').replace('מושב ','').replace('קריית','קרית') for x in df['from'] if type(x) == str]
+# # locs = [x for x in df['from'].replace('קיבוץ', '').replace('מושב', '').strip() if type(x) == str]
+locu = np.unique(locs)
+# coo = pd.read_csv('data/coord_deaths.csv')
+center = [coo['lat'].mean(), coo['long'].mean()]
+##
+map = folium.Map(location=center, zoom_start=10)#, tiles='openstreetmap')
+# folium.TileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png',
+#                  attr='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors').add_to(map)
+# folium.TileLayer('openstreetmap').add_to(map)
+folium.TileLayer('cartodbpositron').add_to(map)
+now = np.datetime64('now', 'ns')
+nowisr = pd.to_datetime(now, utc=True, unit='s').astimezone(tz='Israel')
+nowstr = str(nowisr)[:16].replace('T', ' ')
+title_html = f'''
+             <h3 align="center" style="font-size:16px"><b>7-Oct-23 killed or missing dogs, by place of incident. data table <a href="https://ynet-projects.webflow.io/news/attackingaza" target="_blank">ynet</a>
+             . last checked: {nowstr}</b></h3>
+             '''
+map.get_root().html.add_child(folium.Element(title_html))
+# locs = np.array(locs)
+size = np.zeros(len(locu), int)
+
+for iloc in range(len(locu)):
+    row_coo = coo['loc'] == locu[iloc]
+    if np.sum(row_coo) == 1:
+        size[iloc] = np.sum(locs == locu[iloc])
+        lat = float(coo['lat'].values[row_coo][0])
+        long = float(coo['long'].values[row_coo][0])
+        tip = f'{locu[iloc]}  {size[iloc]}<br>'
+        rows_dogs = np.where(locs == locu[iloc])[0]
+        for row_dog in rows_dogs:
+            tip += f"{df['שם הכלב'][row_dog]} ({df['שם משפחה'][row_dog]})<br>"
+        tip = tip[:-4]
+        radius = (size[iloc]/np.pi)**0.5
+        folium.Circle(location=[lat, long],
+                            tooltip=tip,
+                            radius=float(np.max([radius*750, 1])),
+                            fill=True,
+                            fill_color='#ff0000',
+                            color='#ff0000',
+                            opacity=0,
+                            fill_opacity=0.5
+                            ).add_to(map)
+    else:
+        print('cannot find coord for '+locu[iloc])
+fname = "/home/innereye/Documents/dogs.html"
+map.save(fname)
+with open(fname) as f:
+    txt = f.read()
+txt = txt.replace('<div>', '<div dir="rtl">')
+with open(fname, 'w') as f:
+    f.write(txt)
+print('done, one more thing')
