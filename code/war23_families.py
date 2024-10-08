@@ -1,21 +1,11 @@
-# sudo apt-get install exiftool
-# pip install pyexiftool
 import os
-# import exiftool
-# from glob import glob
 import numpy as np
 import pandas as pd
 local = '/home/innereye/alarms/'
 if os.path.isdir(local):
     os.chdir(local)
     local = True
-# os.chdir('/home/innereye/Videos')
-# # f = open('road1.mp4', 'rb')
-# # tags = exiftool.process_file(f)
-# # ffmpeg -i road1.mp4 -f ffmetadata road1.txt
-# # mediainfo road1.mp4
-# # exiftool -ExtractEmbedded road1.mp4
-##
+
 df = pd.read_csv('data/victims_relationship.csv')
 vals = df.values[:, 8:15].astype(str)
 vals[vals == 'nan'] = ''

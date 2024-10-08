@@ -1,3 +1,4 @@
+"""Find groups of family members."""
 import os
 import numpy as np
 import pandas as pd
@@ -7,7 +8,9 @@ if os.path.isdir(local):
     local = True
 
 df = pd.read_csv('data/victims_relationship.csv')
-vals = df.values[:, 8:15].astype(str)
+val0 = np.where(df.columns == 'partners')[0][0]
+val1 = np.where(df.columns == 'other')[0][0]
+vals = df.values[:, val0:val1+1].astype(str)
 vals[vals == 'nan'] = ''
 relatives = []
 size = []
@@ -15,7 +18,7 @@ for ii in range(vals.shape[0]):
     rel = []
     for jj in range(vals.shape[1]):
         rel.extend(vals[ii, jj].split(';'))
-    rel = [int(x) for x in rel if len(x) > 0]
+    rel = [int(float(x)) for x in rel if len(x) > 0]
     relatives.append(rel)
     size.append(len(rel))
 ##
@@ -39,11 +42,29 @@ for ii in range(len(size)):
                 group[ii] = grp1[0]
     df['group'] = group
 df.to_csv('~/Documents/families.csv', index=False)
-
-
+## Complete data
+df = pd.read_csv('~/Documents/families.csv')
+val0 = np.where(df.columns == 'partners')[0][0]
+db = pd.read_csv('data/oct7database.csv')
+dbcolumns = ['Residence', 'מקום האירוע', 'Event date', 'Status']
+dfcolumns = ['residence', 'event location', 'event date', 'status']
+for ii in range(len(df)):
+    row = np.where(db['pid'].values == df['pid'][ii])[0][0]
+    eng_name = f"{db['first name'][row]} {db['last name'][row]}"
+    if df['eng name'][ii] != eng_name:
+        df.at[ii, 'eng name'] = eng_name
+    name = f"{db['שם פרטי'][row]} {db['שם משפחה'][row]}"
+    if df['name'][ii] != name:
+        df.at[ii, 'name'] = name
+    for icol, col in enumerate(dbcolumns):
+        if df[dfcolumns[icol]][ii] != db[col][row]:
+            df.at[ii, dfcolumns[icol]] = db[col][row]
+df.to_csv('~/Documents/families.csv', index=False)
+df.to_excel('~/Documents/families.xlsx', index=False)
 ##
-ptn = df['partners'][~df['partners'].isnull()].values.astype(int)
-ptn
+df.to_csv('data/victims_relationship.csv', index=False)
+# ptn = df['partners'][~df['partners'].isnull()].values.astype(int)
+# ptn
 
 
 
