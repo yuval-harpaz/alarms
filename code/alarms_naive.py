@@ -23,3 +23,10 @@ for loc in locs:
     if loc not in coo['loc'].values:
         print(loc)
 ##
+df = pd.read_csv('data/alarms.csv')
+df = df[df['time'] > '2023-10-07']
+df = df.reset_index(drop=True)
+
+for loc in locs:
+    if loc not in df['cities'].values:
+        print(loc)
