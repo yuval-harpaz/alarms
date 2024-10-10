@@ -202,7 +202,10 @@ for lang in ['heb', 'eng']:
             title_html = f'''
                          <h3 dir="rtl" align="center" style="font-size:16px"><b>מקום מותם של {len(cat[0])} הנרצחים והנופלים במתקפת חמאס על ישראל בין 7-9.10.2023.</b>{other},{change_lang}</h3>
                          <h4 dir="rtl" align="center" style="font-size:12px">
-                         נערך על ידי שגיא אור ו<a href="https://twitter.com/yuvharpaz" target="_blank">יובל הרפז</a> (אנא שלחו תיקונים והערות). 
+                         נערך על ידי 
+                         <a href="https://www.facebook.com/sagi.or" target="_blank">שגיא אור</a>, 
+                         <a href="https://x.com/Keren_ym" target="_blank">קרן ילין-מור</a>
+                         ו<a href="https://twitter.com/yuvharpaz" target="_blank">יובל הרפז</a> (אנא שלחו תיקונים והערות). 
                          קישור <a href={table} target="_blank"> לנתונים </a> במסמך גוגל 
                           . כללנו אנשים שנפצעו או נחטפו במתקפה, ומתו או נרצחו מאז.  עדכון אחרון: {nowstr}</h4>             
                          '''
@@ -216,7 +219,10 @@ for lang in ['heb', 'eng']:
             title_html = f'''
                          <h3 dir="rtl" align="center" style="font-size:16px"><b>Death locations of {len(cat[0])} murdered and fallen during the Hamas attack on Israel between 7-9.10.2023.</b>{other},{change_lang}</h3>
                          <h4 dir="rtl" align="center" style="font-size:12px">
-                         Edited by Sagi Or and <a href="https://twitter.com/yuvharpaz" target="_blank">Yuval Harpaz</a>. 
+                         Edited by 
+                         <a href="https://www.facebook.com/sagi.or" target="_blank">Sagi Or</a>, 
+                         <a href="https://x.com/Keren_ym" target="_blank">Keren Yalin-Mor</a>
+                          and <a href="https://twitter.com/yuvharpaz" target="_blank">Yuval Harpaz</a>. 
                          <a href={table} target="_blank"> The data </a> in a google sheet 
                          . We included people who were kidnapped or injured in the attack, and died or were murdered later.  Last update: {nowstr}</h4>             
                          '''
