@@ -22,6 +22,7 @@ for ii in range(vals.shape[0]):
     relatives.append(rel)
     size.append(len(rel))
 ##
+group_prev = df['group'].values
 group = np.zeros(len(size), int)
 cur = 0
 for ii in range(len(size)):
@@ -40,7 +41,9 @@ for ii in range(len(size)):
             else:
                 group[imember] = grp1[0]
                 group[ii] = grp1[0]
-    df['group'] = group
+    if group[ii] != group_prev[ii]:
+        print(f" not same for {ii}")
+df['group'] = group
 df.to_csv('~/Documents/families.csv', index=False)
 ## Complete data
 df = pd.read_csv('~/Documents/families.csv')

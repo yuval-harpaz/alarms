@@ -58,6 +58,28 @@ for icol, col in enumerate(columns):
     together.at[icol, 'kidnapped'] = kidnapped
 together.to_excel('~/Documents/victims_together.xlsx', index=False)
 
+##  check victims after oct 7
+df = pd.read_csv('data/victims_relationship.csv')
+later = df[df['event date'].values > '2023-10-07']
+later = later.reset_index(drop=True)
+for ii in range(len(later)):
+    pids = []
+    for col in columns:
+        pid = str(later[col][ii])
+        if pid != 'nan':
+            pids.extend([int(float(x)) for x in pid.split(';')])
+            if pids[-1] not in later['pid'].values:
+                row = np.where(df['pid'] == pids[-1])[0][0]
+                later.loc[len(later)] = df.loc[row]
+                print(f"{later['name'][ii]} & {df['name'][row]}")
+later = later.sort_values(['group','event date','name'], ignore_index=True)
+later.to_excel('~/Documents/after_oct7.xlsx', index=False)
+    
+        
+        
+    pids = [int(float(x)) for x in str(subgroup[col][ii]).split(';')]
+##
+
 import openpyxl
 from openpyxl import load_workbook
 from openpyxl.comments import Comment
