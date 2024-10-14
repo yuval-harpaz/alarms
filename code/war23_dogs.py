@@ -38,8 +38,17 @@ now = np.datetime64('now', 'ns')
 nowisr = pd.to_datetime(now, utc=True, unit='s').astimezone(tz='Israel')
 nowstr = str(nowisr)[:16].replace('T', ' ')
 title_html = f'''
-             <h3 align="center" style="font-size:16px"><b>כלבים שמתו בשבעה באוק' או שנעדרים מאז.  <a href="https://docs.google.com/spreadsheets/d/1jOXg2FVlNapTrSAbRdUyqwaEik-sjz1PU8pGeSR-wMQ/edit?usp=sharing" target="_blank">טבלת נתונים</a>
-             </b></h3>
+             <h3 align="center" style="font-size:20px">
+             כלבים שנרצחו בשבעה באוק' או שנעדרים מאז.
+             
+               <a href="https://docs.google.com/spreadsheets/d/1jOXg2FVlNapTrSAbRdUyqwaEik-sjz1PU8pGeSR-wMQ/edit?usp=sharing" target="_blank">            
+             טבלת נתונים
+             </a>
+             <br>
+            <h3 align="center" style="font-size:12px">
+            כל היודע מידע נוסף על כלבים שנרצחו או נעדרים בשל אירועי ה-7/10, מתבקש לפנות לתמי בר-יוסף 
+            <a href="mailto:tammybj@gmail.com" target="_blank">במייל</a> או באתר <a href="https://www.humandogreaserch.org/">המרכז לחקר יחסי אדם וכלב בישראל ובשואה</c>
+             </a></h3>
              '''
 map.get_root().html.add_child(folium.Element(title_html))
 # locs = np.array(locs)
