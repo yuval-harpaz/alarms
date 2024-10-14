@@ -6,10 +6,11 @@ import folium
 import requests
 
 local = '/home/innereye/alarms/'
-islocal = False
+os.chdir(local)
+# islocal = False
 # fn = 'טבלת אקסל סופית מצומצמת של כלבים שנרצחו ב7.10 לדר הרפז נכון ל 6.10.24.xlsx'
 fn = 'data/dogs.csv'
-df = pd.read_excel(fn)
+df = pd.read_csv(fn)
 # df = pd.read_excel('~/Documents/טבלת אקסל סופית של כלבים שנרצחו ב7.10 נכון ל 6.10.24.xlsx')
 coo = pd.read_csv('data/coord.csv')
 locs = df['שם יישוב'].values
@@ -37,8 +38,8 @@ now = np.datetime64('now', 'ns')
 nowisr = pd.to_datetime(now, utc=True, unit='s').astimezone(tz='Israel')
 nowstr = str(nowisr)[:16].replace('T', ' ')
 title_html = f'''
-             <h3 align="center" style="font-size:16px"><b>7-Oct-23 killed or missing dogs, by place of incident. data table <a href="https://ynet-projects.webflow.io/news/attackingaza" target="_blank">ynet</a>
-             . last checked: {nowstr}</b></h3>
+             <h3 align="center" style="font-size:16px"><b>כלבים שמתו בשבעה באוק' או שנעדרים מאז.  <a href="https://docs.google.com/spreadsheets/d/1jOXg2FVlNapTrSAbRdUyqwaEik-sjz1PU8pGeSR-wMQ/edit?usp=sharing" target="_blank">טבלת נתונים</a>
+             </b></h3>
              '''
 map.get_root().html.add_child(folium.Element(title_html))
 # locs = np.array(locs)
@@ -53,7 +54,7 @@ for iloc in range(len(locu)):
         tip = f'{locu[iloc]}  {size[iloc]}<br>'
         rows_dogs = np.where(locs == locu[iloc])[0]
         for row_dog in rows_dogs:
-            tip += f"{df['שם הכלב'][row_dog]} ({df['שם משפחה'][row_dog]})<br>"
+            tip += f"{df['שם הכלב'][row_dog]}, {df['גיל'][row_dog]}, ({df['שם משפחה'][row_dog]})<br>"
         tip = tip[:-4]
         radius = (size[iloc]/np.pi)**0.5
         folium.Circle(location=[lat, long],
@@ -67,7 +68,7 @@ for iloc in range(len(locu)):
                             ).add_to(map)
     else:
         print('cannot find coord for '+locu[iloc])
-fname = "/home/innereye/Documents/dogs.html"
+fname = "docs/dogs.html"
 map.save(fname)
 with open(fname) as f:
     txt = f.read()
