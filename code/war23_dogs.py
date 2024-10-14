@@ -75,4 +75,4 @@ with open(fname) as f:
 txt = txt.replace('<div>', '<div dir="rtl">')
 with open(fname, 'w') as f:
     f.write(txt)
-print('done, one more thing')
+print('done dogs')

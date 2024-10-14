@@ -1,3 +1,4 @@
+"""Scrape data from IDF memorial site"""
 import pandas as pd
 from selenium import webdriver
 import os
@@ -156,11 +157,12 @@ try:
                                          'webpage', 'eng'])
         df = df.iloc[::-1]
         df = pd.concat([dfprev, df])
+        df = df.reset_index(drop=True)
         bads = df["story"].str.findall(r'&.{4};')
         if any(bads):
             ibad = [x for x in range(len(bads)) if len(bads.values[x]) > 0]
             for jbad in ibad:
-                if list(np.unique(bads[jbad])) == ['&nbsp;']:
+                if list(np.unique(bads.values[jbad])) == ['&nbsp;']:
                     df.at[jbad, 'story'] = df['story'][jbad].replace('&nbsp;', ' ')
                 else:
                     raise Exception('got to replace &xxx; with something')
