@@ -12,6 +12,9 @@ if os.path.isdir(local):
 ##
 haa = pd.read_csv('data/deaths_haaretz.csv').iloc[::-1]
 haa.reset_index(inplace=True, drop=True)
+bad = np.where(haa['name'].str.contains('גניז'))[0]
+if len(bad) == 1:
+    haa.at[bad[0], 'name'] = haa['name'][bad[0]].replace('גניזט', 'גניזת')
 # ynet = pd.read_csv('data/ynetlist.csv')
 # ynet['מקום מגורים'] = ynet['מקום מגורים'].str.replace('\xa0',' ')
 idf = pd.read_csv('data/deaths_idf.csv')
