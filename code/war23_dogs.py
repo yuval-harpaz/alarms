@@ -7,7 +7,10 @@ import requests
 
 local = '/home/innereye/alarms/'
 islocal = False
-df = pd.read_excel('~/Documents/טבלת אקסל סופית של כלבים שנרצחו ב7.10 נכון ל 6.10.24.xlsx')
+# fn = 'טבלת אקסל סופית מצומצמת של כלבים שנרצחו ב7.10 לדר הרפז נכון ל 6.10.24.xlsx'
+fn = 'data/dogs.csv'
+df = pd.read_excel(fn)
+# df = pd.read_excel('~/Documents/טבלת אקסל סופית של כלבים שנרצחו ב7.10 נכון ל 6.10.24.xlsx')
 coo = pd.read_csv('data/coord.csv')
 locs = df['שם יישוב'].values
 keep = []
