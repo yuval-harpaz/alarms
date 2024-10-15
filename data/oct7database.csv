@@ -1789,11 +1789,11 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2430,Tal,Lahat,,,טל,להט,,,https://www.idf.il/נופלים/חללי-המלחמה/טל-להט,,idf,killed on duty,M,21,כפר סבא,ישראל,חייל,,killed,2024-07-09,2024-07-09,מרכז רצועת עזה,מרכז רצועת עזה
 2431,Valeri,Chefonov,,,ולרי,צ׳פונוב,,,https://www.idf.il/נופלים/חללי-המלחמה/ולרי-צ-פונוב/,,,killed on duty,M,33,נתניה,ישראל,חייל,,killed,2024-07-11,2024-07-11,כברי,כברי
 2432,Arnon,Zmora,,,ארנון,זמורה,,,https://lezichram.police.gov.il/main/nofel/42196,,,killed on duty,M,37,שדה דוד,ישראל,שוטר,,killed,2024-06-08,2024-06-08,מרכז רצועת עזה; נוסייראת,מרכז רצועת עזה; נוסייראת
-2433,Amnon,Muchtar,,,אמנון,מוכתר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44173,,,Murdered,M,66,,ישראל,אזרח,,killed,2024-06-22,2024-06-22,קלקיליה,קלקיליה
+2433,Amnon,Muchtar,,,אמנון,מוכתר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44173,,,Murdered,M,66,פתח תקווה,ישראל,אזרח,,killed,2024-06-22,2024-06-22,קלקיליה,קלקיליה
 2434,Noa,Baranes,,,נועה,ברנס,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44175,,,Murdered,F,45,אורטל,ישראל,אזרח,,killed,2024-07-09,2024-07-09,סמוך למחנה יצחק (נפח),סמוך למחנה יצחק (נפח)
 2435,Nir,Baranes,,,ניר,ברנס,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44174,,,Murdered,M,45,אורטל,ישראל,אזרח,,killed,2024-07-09,2024-07-09,סמוך למחנה יצחק (נפח),סמוך למחנה יצחק (נפח)
 2436,Efraim,Ben Amram,,,אפרים,בן עמרם,,,https://www.idf.il/נופלים/חללי-המלחמה/אפרים-בן-עמרם/,,,killed on duty,M,25,יסוד המעלה,ישראל,חייל,,killed,2024-06-30,2024-07-18,בסיס באיזור מרום גולן,בסיס באיזור מרום גולן
-2437,Yevgeny,Ferder,,,יבגני,פרדר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44176,,,Murdered,M,49,,ישראל,אזרח,,killed,2024-07-19,2024-07-19,תל אביב; סמוך לבית אל על,תל אביב; סמוך לבית אל על
+2437,Yevgeny,Ferder,,,יבגני,פרדר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44176,,,Murdered,M,49,תל אביב,ישראל,אזרח,,killed,2024-07-19,2024-07-19,תל אביב; סמוך לבית אל על,תל אביב; סמוך לבית אל על
 2438,Ariel,Topaz,,,אריאל,טופז,,,https://www.idf.il/נופלים/חללי-המלחמה/אריאל-טופז/,,,killed on duty,M,24,פרדס חנה,ישראל,חייל,,killed,2024-07-14,2024-07-24,צומת ניר צבי,בית החולים שמיר אסף הרופא
 2439,Noam,Douek,,,נועם,דואק,,,https://www.idf.il/נופלים/חללי-המלחמה/נועם-דואק/,,,killed on duty,M,19,קרית מוצקין,ישראל,חייל,,killed,2024-07-25,2024-07-25,דרום רצועת עזה,דרום רצועת עזה
 2440,Moti,Rave,,,מוטי,רווה,,,https://www.idf.il/נופלים/חללי-המלחמה/מוטי-רווה/,דרום רצועת עזה,idf,killed on duty,M,37,שני,ישראל,חייל,,killed,2024-07-25,2024-07-25,דרום רצועת עזה,דרום רצועת עזה
@@ -1808,9 +1808,9 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2449,Naji ,Alhalabi,Taher,,נַאגִ'י,חַלַבִּי, טַאהֶר,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44186,,,Murdered,M,10,מג'דל שמס,ישראל,אזרח,,killed,2024-07-27,2024-07-27,מג'דל שמס ,מג'דל שמס 
 2450,Milad,Alsha’ar,Muadad,,מִילַאר,שַׁאעֶר,מועדאד,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44180,,,Murdered,M,10,מג'דל שמס,ישראל,אזרח,,killed,2024-07-27,2024-07-27,מג'דל שמס ,מג'דל שמס 
 2451,Nathem,Saeb,Fakher,,נַאז'ם,סעב,פח'ר,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44189,,,Murdered,M,15,עין קיניא,ישראל,אזרח,,killed,2024-07-27,2024-07-27,מג'דל שמס ,מג'דל שמס 
-2452,Guevara,Ibrahim ,Ibrahim,,ג'יבארה,אבראהים,אבראהים ,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44190,,,Murdered,M,10,,ישראל,אזרח,,killed,2024-07-27,2024-07-27,מג'דל שמס ,מג'דל שמס 
+2452,Guevara,Ibrahim ,Ibrahim,,ג'יבארה,אבראהים,אבראהים ,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44190,,,Murdered,M,10,מג'דל שמס,ישראל,אזרח,,killed,2024-07-27,2024-07-27,מג'דל שמס ,מג'דל שמס 
 2453,Yonatan,Greenblatt,Aharon,,יונתן,גרינבלט,אהרן,,https://www.idf.il/נופלים/חללי-המלחמה/יונתן-אהרן-גרינבלט/,דרום רצועת עזה,idf,killed on duty,M,21,בית שמש,ישראל,חייל,,killed,2024-07-20,2024-07-27,דרום רצועת עזה,
-2454,Nir,Popko,,,ניר,פופקו,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44191,,,,M,28,,ישראל,אזרח,,killed,2024-07-30,2024-07-30,הגושרים,הגושרים
+2454,Nir,Popko,,,ניר,פופקו,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44191,,,,M,28,הגושרים,ישראל,אזרח,,killed,2024-07-30,2024-07-30,הגושרים,הגושרים
 2455,Omer,Ginzburg,,,עומר,גינזבורג,,,https://www.idf.il/נופלים/חללי-המלחמה/עומר-גינזבורג/,דרום רצועת עזה,idf,,M,19,קרית טבעון,ישראל,חייל,,killed,2024-08-11,2024-08-11,דרום רצועת עזה,דרום רצועת עזה
 2456,Amar,Mansour,,,עמאר,מנסור,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44127,,,,M,34,בית חנינא,ישראל,אזרח,,killed,2024-01-07,2024-01-07,צומת המשטרה הבריטית,צומת המשטרה הבריטית
 2457,Lara,Tanus,,,לארא,טנוס,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44154,,,,F,42,ירושלים,ישראל,אזרח,,killed,2024-01-07,2024-01-24,צומת המשטרה הבריטית,"בי""ח הדסה הר הצופים"
