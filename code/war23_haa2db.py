@@ -29,7 +29,7 @@ if len(ihaa) > 0:
             dist[jj] = max(Levenshtein.distance(db['שם פרטי'][idb[jj]], name.split(' ')[0]),
                        Levenshtein.distance(db['שם משפחה'][idb[jj]], name.split(' ')[-1]))
         cand = np.where(dist == min(dist))[0]
-        if len(cand) == 1 and dist[cand[0]] < 3:
+        if len(cand) == 1 and dist[cand[0]] < 2:
             print(name+' >>> '+db['שם פרטי'][idb[cand[0]]]+' '+db['שם משפחה'][idb[cand[0]]])
             haa.at[ii, 'pid'] = db['pid'][idb[cand[0]]]
             tosave = True
