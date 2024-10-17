@@ -41,7 +41,24 @@ try:
     # df = df.iloc[order]
     # df = df.sort_values('גיל', ignore_index=True)
     # df.at[np.where(df['גיל'] == '000')[0][0], 'גיל'] = '10 חודשים'
+    
     df.to_csv('data/ynetlist.csv', index=False)
+    db = pd.read_csv('data/oct7database.csv')
+    added = False
+    for iy in np.where(df['pid'].isnull())[0]:
+        indb = db['שם פרטי'].str.replace('׳',"'").str.contains(df['שם פרטי'][iy]) & \
+               db['שם משפחה'].replace('׳',"'").str.contains(df['שם משפחה'][iy]) & \
+               db['Residence'].str.contains(df['מקום מגורים'][iy])
+        indb = np.where(indb)[0]
+        if len(indb == 1):
+            pid = db['pid'][indb[0]]
+            if pid not in df['pid'].values:
+                df.at[iy, 'pid'] = pid
+                print(f'added pid {pid} to ynet')
+                added = True
+    if added:
+        df.to_csv('data/ynetlist.csv', index=False)
+    print('done ynet')
     # browser.close()
 except Exception as e:
     print('war23_ynetlist.py failed')
