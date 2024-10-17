@@ -7,6 +7,7 @@ import pandas as pd
 import requests
 import os
 import numpy as np
+prev = pd.read_csv('data/ynetlist.csv')
 try:
     local = '/home/innereye/alarms/'
     if os.path.isdir(local):
@@ -19,7 +20,7 @@ try:
     # browser = webdriver.Chrome()
     # browser.get(url)
     # html = browser.page_source
-    html = html.replace('&nbsp', ' ')
+    html = html.replace('&nbsp', ' ').replace('\xa0', ' ')
     data = eval(html[html.index('[[['):html.index(']]]')+3])[0]
     df = pd.DataFrame(data[1:], columns=data[0])
     # df.at[np.where(df['גיל'] == '10 חודשים')[0][0], 'גיל'] = '000'
@@ -31,8 +32,13 @@ try:
             val[ii] = 0
         else:
             val[ii] = int(df['גיל'][ii])
-    order = np.argsort(val)
-    df = df.iloc[order]
+    if df['שם פרטי'][0] == 'שמיל' and \
+       df['שם פרטי'][len(prev)-1] == prev['שם פרטי'][len(prev)-1]:
+        df['pid'] = np.nan
+        for jj in range(len(prev)):
+            df.at[jj, 'pid'] = prev['pid'][jj]
+    # order = np.argsort(val)
+    # df = df.iloc[order]
     # df = df.sort_values('גיל', ignore_index=True)
     # df.at[np.where(df['גיל'] == '000')[0][0], 'גיל'] = '10 חודשים'
     df.to_csv('data/ynetlist.csv', index=False)

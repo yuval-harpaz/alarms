@@ -6,7 +6,6 @@ try:
     if os.path.isdir(local):
         os.chdir(local)
         local = True
-    # dfprev = pd.read_csv('data/ynetlist.csv')
     url = 'https://www.haaretz.co.il/news/2023-10-12/ty-article-magazine/0000018b-1367-dcc2-a99b-17779a0a0000'
     r = requests.get(url)
     html = r.text
