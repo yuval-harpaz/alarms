@@ -35,7 +35,9 @@ try:
     ## find new lines
     prev_str = [';'.join(x).replace('nan','').replace('.0;',';') for x in prev.values[:, :-1].astype(str)]
     df_str = [';'.join(x).replace('nan','').replace('.0;',';') for x in df.values.astype(str)]
-    if prev_str != df_str:
+    if prev_str == df_str:
+        df = prev
+    else:
         df['pid'] = np.nan
         # some changes in new ynet list
         df_str = np.array(df_str)
@@ -44,16 +46,7 @@ try:
             prev_row = np.where(prev_str == df_str[ii])[0]
             if len(prev_row) == 1:
                 df.at[ii, 'pid'] = prev['pid'][prev_row[0]]
-                
-        # if df['שם פרטי'][0] == 'שמיל' and \
-        #    df['שם פרטי'][len(prev)-1] == prev['שם פרטי'][len(prev)-1]:
-            # df['pid'] = np.nan
-            # for jj in range(len(prev)):
-            #     df.at[jj, 'pid'] = prev['pid'][jj]
-        # order = np.argsort(val)
-        # df = df.iloc[order]
-        # df = df.sort_values('גיל', ignore_index=True)
-        # df.at[np.where(df['גיל'] == '000')[0][0], 'גיל'] = '10 חודשים'
+        print('updated ynetlist')
         df.to_csv('data/ynetlist.csv', index=False)
     db = pd.read_csv('data/oct7database.csv')
     added = False
@@ -69,6 +62,7 @@ try:
                 print(f'added pid {pid} to ynet')
                 added = True
     if added:
+        print('found PIDs for ynetlist')
         df.to_csv('data/ynetlist.csv', index=False)
     print('done ynet')
     # browser.close()
