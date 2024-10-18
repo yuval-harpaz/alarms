@@ -53,7 +53,7 @@ try:
                  (type(re.search(r'נפל בקרב.+רצוע', st)) == re.Match):
                 ff = 'עזה'
             elif 'לבנון' in yy or 'לבנון' in st:
-                ff = 'לבנון'
+                ff = 'דרום לבנון'
             elif 'נרצח' in yy or 'נרצח' in st:
                 ff = 'נרצח כאזרח'
             elif idf['death_date'][ii] > '2023-10-30' and ('הרצועה' in st or 'רצועת עזה' in st):
