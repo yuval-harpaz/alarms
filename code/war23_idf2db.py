@@ -187,9 +187,9 @@ def goover():
 
 ##
 if __name__ == '__main__':
-    # sane()
-    # add_new()
-    # haa()
+    sane()
+    add_new()
+    haa()
     argv = sys.argv
     if len(argv) > 1 and argv[1] == '-a':
         print('checking previous')
