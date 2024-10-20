@@ -85,6 +85,7 @@ html = html + tail_html
 opfn = 'docs/lebanon_alarms_by_latitude.html'
 with open(opfn, 'w') as f:
     f.write(html)
+print('done latitude')
 ##
 # edges = [0, 7, 15, 30, 50, 300]
 # n_lines = len(edges)
