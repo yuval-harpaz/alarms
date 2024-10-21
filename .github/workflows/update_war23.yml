@@ -35,6 +35,7 @@ jobs:
         python -W ignore code/war23_distance.py
         python -W ignore code/alarms_week.py
         python -W ignore code/alarms23_monthly.py
+        python -W ignore code/war23_latitude.py
     - name: run war media
       run: |
         python -W ignore code/war23_ynetlist.py
