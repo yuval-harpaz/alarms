@@ -7,7 +7,6 @@ if os.path.isdir(local):
     os.chdir(local)
     local = True
 
-
 db = pd.read_csv('data/oct7database.csv')
 ## N victims per group
 df = pd.read_csv('data/victims_relationship.csv')
@@ -74,29 +73,6 @@ for ii in range(len(later)):
                 print(f"{later['name'][ii]} & {df['name'][row]}")
 later = later.sort_values(['group','event date','name'], ignore_index=True)
 later.to_excel('~/Documents/after_oct7.xlsx', index=False)
-    
-        
-        
-    pids = [int(float(x)) for x in str(subgroup[col][ii]).split(';')]
+# pids = [int(float(x)) for x in str(subgroup[col][ii]).split(';')]
 ##
 
-import openpyxl
-from openpyxl import load_workbook
-from openpyxl.comments import Comment
-
-# excel_file = 'sample.xlsx' 
-# wb = load_workbook(excel_file, data_only = True)
-# sh = wb['Sheet1']
-# # iterate through excel and display data
-# for i in range(1, sh.max_row+1):
-#     for j in range(1, sh.max_column+1):
-#         ## check if the background is yellow
-#         if sh.cell(row=i, column=j).fill.start_color.index == 'FFFFFF00':
-#             sh.cell(row=i, column=j).comment = Comment("This is a balance account", "author name")
-# wb.save('commented_sample.xlsx')
-
-
-# dfn.at[ii, 'name'] = name
-# dfn.at[ii, 'victims'] = np.sum(df['group'] == group[ii])
-# dfn.at[ii, 'killed'] = killed
-# dfn.at[ii, 'kidnapped'] = kidnapped

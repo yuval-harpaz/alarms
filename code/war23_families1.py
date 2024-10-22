@@ -62,8 +62,10 @@ for ii in range(len(df)):
     for icol, col in enumerate(dbcolumns):
         if df[dfcolumns[icol]][ii] != db[col][row]:
             df.at[ii, dfcolumns[icol]] = db[col][row]
+df.sort_values(['group', 'name'], inplace=True, ignore_index=True)
 df.to_csv('~/Documents/families.csv', index=False)
 df.to_excel('~/Documents/families.xlsx', index=False)
+
 ##
 df.to_csv('data/victims_relationship.csv', index=False)
 # ptn = df['partners'][~df['partners'].isnull()].values.astype(int)

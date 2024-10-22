@@ -30,3 +30,17 @@ df = df.reset_index(drop=True)
 for loc in locs:
     if loc not in df['cities'].values:
         print(loc)
+##
+alarms = pd.read_csv('data/alarms.csv')
+alarms = alarms[alarms['time'] > '2023-10-07 00:00:00']
+count = pd.DataFrame(columns=['loc', 'count'])
+row = -1
+for loc in np.unique(alarms['cities']):
+    row += 1
+    c = np.sum(alarms['cities'] == loc)
+    count.at[row, 'loc'] = loc
+    count.at[row, 'count'] = c
+
+count = count.sort_values(['count', 'loc'], ignore_index=True)
+count.to_excel('~/Documents/alarm_count.xlsx', index=False)
+
