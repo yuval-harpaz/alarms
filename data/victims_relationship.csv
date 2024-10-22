@@ -332,7 +332,7 @@ pid,eng name,name,residence,event location,event date,status,partners,siblings,p
 1349,Meirav Tal,מירב טל,ניר עוז,ניר עוז,2023-10-07,kidnapped; released,644,,,,,,640;641,,72
 654,Louis Har,לואיס הר,אורים,ניר יצחק,2023-10-07,kidnapped; rescued,657,,,,,,655;656;658,,74
 665,Channa Peri,חנה פרי,נירים,נירים,2023-10-07,kidnapped; released,,,666;667,,,,,,76
-608,Chaim Peri,חיים פרי,ניר עוז,ניר עוז,2023-10-07,kidnapped; killed; retrieved,,,,,,,563;631,,121
+608,Chaim Peri,חיים פרי,ניר עוז,ניר עוז,2023-10-07,kidnapped; killed; retrieved,,,,,,,563,,121
 827,Alina Palhati,אלינה פלחטי,בית שאן,פסטיבל נובה; אמבולנס,2023-10-07,killed,743,,,,,,,,81
 969,Shlomi Ziv,שלומי זיו,אלקוש,פסטיבל נובה,2023-10-07,kidnapped; rescued,,,,,,,742,,82
 749,Nir Forti,ניר פורטי,עומר,פסטיבל נובה,2023-10-07,killed,836,,,,,,,,89
@@ -480,3 +480,4 @@ pid,eng name,name,residence,event location,event date,status,partners,siblings,p
 2550,,,,,,,2549,,,,,,,,
 2554,,,,,,,,,,,,,2499,,
 2499,,,,,,,,,,,,,2554,,
+563,,,,,,,,,,,,,608,,
