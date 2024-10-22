@@ -55,7 +55,7 @@ pid,eng name,name,residence,event location,event date,status,partners,siblings,p
 119,Lianne Sharabi,ליאן שרעבי,בארי,בארי,2023-10-07,killed,118,,120;121,,,,122,,21
 120,Noya Sharabi,נויה שרעבי,בארי,בארי,2023-10-07,killed,,121,,119;118,,,122,,21
 121,Yahel Sharabi,יהל שרעבי,בארי,בארי,2023-10-07,killed,,120,,119;118,,,122,,21
-122,Yossi Sharabi,יוסי שרעבי,בארי,בארי,2023-10-07,kidnapped; killed,,118,,,,,119;120;121,,21
+122,Yossi Sharabi,יוסי שרעבי,בארי,בארי,2023-10-07,kidnapped; killed,,118,,,,,119;120;121;67,,21
 125,Adi Shoham,עדי שוהם,מעלה צביה,בארי,2023-10-07,kidnapped; released,128,,126;127,36;130,,,33;34;95;96;424;425,,2
 126,Yahel Shoham,יהל שוהם,מעלה צביה,בארי,2023-10-07,kidnapped; released,,127,,125;128,,36;130,33;34;95;96;424;425,,2
 127,Nave Shoham,נווה שוהם,מעלה צביה,בארי,2023-10-07,kidnapped; released,,126,,125;128,,36;130,33;34;95;96;424;425,,2
@@ -333,8 +333,6 @@ pid,eng name,name,residence,event location,event date,status,partners,siblings,p
 654,Louis Har,לואיס הר,אורים,ניר יצחק,2023-10-07,kidnapped; rescued,657,,,,,,655;656;658,,74
 665,Channa Peri,חנה פרי,נירים,נירים,2023-10-07,kidnapped; released,,,666;667,,,,,,76
 608,Chaim Peri,חיים פרי,ניר עוז,ניר עוז,2023-10-07,kidnapped; killed; retrieved,,,,,,,563;631,,121
-563,Daniel Darlington,דניאל דרלינגטון,ניר עוז,ניר עוז,2023-10-07,killed,631,,,,,,608,,121
-631,Caroline Bohl,קרולין בוהל,ניר עוז,ניר עוז,2023-10-07,killed,563,,,,,,608,,121
 827,Alina Palhati,אלינה פלחטי,בית שאן,פסטיבל נובה; אמבולנס,2023-10-07,killed,743,,,,,,,,81
 969,Shlomi Ziv,שלומי זיו,אלקוש,פסטיבל נובה,2023-10-07,kidnapped; rescued,,,,,,,742,,82
 749,Nir Forti,ניר פורטי,עומר,פסטיבל נובה,2023-10-07,killed,836,,,,,,,,89
@@ -477,3 +475,6 @@ pid,eng name,name,residence,event location,event date,status,partners,siblings,p
 549,Rebecca Ben-Horin,רבקה בן חורין,ניר עוז,ניר עוז,2023-10-07,killed,630,,,,,,,,140
 2057,Pdaya Mark,פדיה מרק,עתניאל,צפון רצועת עזה,2023-10-31,killed,,,,,,,59,בני דודים,180
 59,Elhanan Clemanzon,אלחנן קלמנזון,עתניאל,בארי,2023-10-08,killed,,,,,,,2057,בני דודים,180
+67,,,,,,,,,,,,,122,,
+2549,,,,,,,2550,,,,,,,,
+2550,,,,,,,2549,,,,,,,,
