@@ -16,6 +16,7 @@ if os.path.isdir(local):
 csv = 'data/victims_relationship.csv'
 excel = '/home/innereye/Documents/victims_relationship.xlsx'
 df = pd.read_csv(csv)
+dfn = df.copy()
 df.to_excel(excel, index=False)
 wb = load_workbook(excel, data_only = True)
 sh = wb['Sheet1']
@@ -30,7 +31,11 @@ for icol in range(7,14):
                 comment += df['name'][id_row]+'; '
             comment = comment[:-2]
             sh.cell(row=row+2, column=icol+1).comment = Comment(comment, author='script')
+            dfn.at[row, dfn.columns[icol]] = comment
 wb.save('/home/innereye/Documents/oct7kin.xlsx')
+dfn.to_csv('~/Documents/oct7kin.csv', index=False)
+
+
 ##
 # group = np.unique(df['group'])
 # dfn = pd.DataFrame(group, columns=['group'])
