@@ -76,7 +76,19 @@ for ii in np.where(~ynet['pid'].isnull())[0]:
     if str(ynet['מידע על המוות'][ii]) != 'nan' and str(df['ynet story'][row]) == 'nan':
         df.at[row, 'ynet story'] = ynet['מידע על המוות'][ii]
         print(f"added ynet story to {ynet['שם פרטי'][ii]} {ynet['שם משפחה'][ii]} {ynet['מידע על המוות'][ii]}")
-##
-df.to_csv('~/Documents/stories.csv', index=False)
-    
-    
+    df.at[row, 'ynet category'] = ynet['סיווג'][ii]
+## IDF
+idf = pd.read_csv('data/deaths_idf.csv')
+front = pd.read_csv('data/front.csv')
+for ii in range(len(idf)):
+    pid = idf['pid'][ii]
+    dbrow = np.where(df['pid'] == pid)[0][0]
+    df.at[dbrow, 'idf story'] = idf['story'][ii]
+    if str(df['ynet story'][dbrow]) != 'nan':
+        front.at[ii, 'ynet'] = df['ynet story'][dbrow]
+        # if str(df['idf story'][dbrow]) == 'nan':
+        #     print(f"adding idf story to {df['שם פרטי'][dbrow]} {df['שם משפחה'][dbrow]} {idf['story'][ii]}")
+front.to_csv('data/front.csv', index=False)
+df.to_csv('data/stories.csv', index=False)
+
+

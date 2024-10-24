@@ -7,12 +7,13 @@ import pandas as pd
 import requests
 import os
 import numpy as np
-prev = pd.read_csv('data/ynetlist.csv')
+
 try:
     local = '/home/innereye/alarms/'
     if os.path.isdir(local):
         os.chdir(local)
         local = True
+    prev = pd.read_csv('data/ynetlist.csv')
     # dfprev = pd.read_csv('data/ynetlist.csv')
     url = 'https://atlas.jifo.co/api/connectors/9c8936a5-bd30-4d68-9715-7280389e094c'
     r = requests.get(url)

@@ -13,7 +13,10 @@ haa1 = pd.read_csv('data/deaths_haaretz+.csv')
 haak = pd.read_csv('data/kidnapped_haaretz.csv')
 db = pd.read_csv('data/oct7database.csv')
 columns = ['pid', 'שם פרטי','שם נוסף' ,'כינוי' ,'שם משפחה']
-df = pd.DataFrame(columns=columns)
+# df = pd.DataFrame(columns=columns)
+df = pd.read_csv('data/stories.csv')
+if not all(df['pid'] == db['pid'][:len(df)]):
+    raise Exception('PID are not the same for DB and Stories')
 for col in columns:
     df[col] = db[col]
 
@@ -44,8 +47,12 @@ for ii in np.where(~haa1['pid'].isnull())[0]:
                     print('stories failed for haarwtz')
                     break
         row = np.where(db['pid'].values == haa1['pid'][ii])[0][0]
-        df.at[row, 'haaretz name'] = name0
-        df.at[row, 'haaretz story'] = story0
+        if name0 != df['haaretz name'][row]:
+            print(f"changed haaretz name from {df['haaretz name'][row]} to {name0}")
+            df.at[row, 'haaretz name'] = name0
+        if len(str(story0)) > len(str(df['haaretz story'][row])):
+            print(f"changed haaretz story from {df['haaretz story'][row]} to {story0}")
+            df.at[row, 'haaretz story'] = story0
 ## kidnapped
 for ii in np.where(db['Status'].str.contains('kidnapped'))[0]:
     row = np.where(haak['name'].str.contains(db['שם פרטי'][ii]) & haak['name'].str.contains(db['שם משפחה'][ii]))[0]
@@ -55,7 +62,6 @@ for ii in np.where(db['Status'].str.contains('kidnapped'))[0]:
         already = str(df['haaretz story'][ii]) + '; '
         already = already.replace('nan; ', '')
         df.at[ii, 'haaretz name'] = haak['name'][row[0]]
-        kidnapped_story = haak['story'][row[0]]
         kidnapped_story = kidnapped_story.replace('nan', '')
         df.at[ii, 'haaretz story'] = already + kidnapped_story
         
