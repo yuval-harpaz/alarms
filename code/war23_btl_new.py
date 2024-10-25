@@ -25,11 +25,12 @@ ID = ID + [int(id.split('.aspx?ID=')[-1]) for id in add['הנצחה'].values if 
 maxID = np.max(ID)
 minID = np.min(ID)
 # bad = [43753]
-bad = [44144, 44172, 44200]
+bad = [44144, 44172, 44200, 44210]
 browser = webdriver.Chrome()
 difs = []
 count = -1
 new = pd.DataFrame(columns=['name', 'pid', 'webpage'])
+print(f"btl {minID} to {maxID+200}")
 for id in range(minID, maxID+200):
     if id in ID:
         if count > -1:
@@ -47,7 +48,7 @@ for id in range(minID, maxID+200):
         name = name.replace('\n', '').replace('\t', '').replace('\r', '').strip()
         if len(name[name.index('title>')+6:name.index('</title>')].strip()) > 0:
             name = name[6:name.index('ז  ל')-1].strip()
-            print(f"{id} {name}")
+            print(f"\n{id} {name}")
             pid = np.nan
             fst_lst = name.split('  ')
             if len(fst_lst) == 2:
@@ -55,8 +56,16 @@ for id in range(minID, maxID+200):
                 if len(row) == 1:
                     pid = db['pid'][row[0]]
                     db.at[row[0], 'הנצחה'] = url+str(id)
-            new.loc[len(new)] = [name, pid, url+str(id)]
-new.to_csv('~/Documents/btl_new.csv', index=False)
+            if id not in bad:
+                new.loc[len(new)] = [name, pid, url+str(id)]
+    # print('test')
+    # print(id, end="")
+    print(f"{id} / {maxID+200-1}", end='\r')
+print(f"{id} / {maxID+200-1}")
+if len(new) > 0:
+    print('check ~/Documents/btl_new.csv')
+    new.to_csv('~/Documents/btl_new.csv', index=False)
+    print(new)
 db.to_csv('data/oct7database.csv', index=False)
 ##
 #             if 'במות' in html:
