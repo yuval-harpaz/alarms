@@ -6,6 +6,12 @@ import Levenshtein
 import requests
 import os
 import numpy as np
+
+local = '/home/innereye/alarms/'
+# islocal = False
+if os.path.isdir(local):
+    os.chdir(local)
+    local = True
 ynet = pd.read_csv('data/ynetlist.csv')
 haa0 = pd.read_csv('data/deaths_haaretz.csv')[::-1]
 haa0.reset_index(drop=True, inplace=True)
