@@ -1,9 +1,7 @@
-'''
-collect ynet and haaretz stories
-'''
+"""collect ynet and haaretz stories."""
 import pandas as pd
 import Levenshtein
-import requests
+# import requests
 import os
 import numpy as np
 
@@ -18,7 +16,7 @@ haa0.reset_index(drop=True, inplace=True)
 haa1 = pd.read_csv('data/deaths_haaretz+.csv')
 haak = pd.read_csv('data/kidnapped_haaretz.csv')
 db = pd.read_csv('data/oct7database.csv')
-columns = ['pid', 'שם פרטי','שם נוסף' ,'כינוי' ,'שם משפחה']
+columns = ['pid', 'שם פרטי' ,'שם נוסף' ,'כינוי' ,'שם משפחה']
 # df = pd.DataFrame(columns=columns)
 df = pd.read_csv('data/stories.csv')
 if not all(df['pid'] == db['pid'][:len(df)]):
