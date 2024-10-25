@@ -29,7 +29,10 @@ if only_new:
 # try:
 try:
     with Display() as disp:
-        browser = webdriver.Firefox()
+        try:
+            browser = webdriver.Firefox()
+        except:
+            browser = webdriver.Chrome()
         already = 0
         data = []
         goon = True
@@ -149,7 +152,8 @@ try:
                 goon = False
             # else:
             #     print(len(data))
-        browser.close()
+        # browser.close()
+        browser.quit()
     print(f'new IDF deaths: {len(data)}')
     ##
     if len(data) > 0:
