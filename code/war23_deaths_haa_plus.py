@@ -78,12 +78,15 @@ else:
             comment = ''
             print(ii)
             # idf_row = df['idf_row'][ii]
-            if type(idf_row) == str:
-                idf_row = float(idf_row)
-            if str(new['status'][ii]) == 'חייל' and np.isnan(idf_row):
-                comment += 'לא חלל; '
-            elif new['status'][ii] != 'חייל' and ~np.isnan(idf_row):
-                comment += 'חלל; '
+            if type(idf_row) == np.ndarray:  # missing from idf data
+                idf_row = np.nan
+            else:
+                if type(idf_row) == str:
+                    idf_row = float(idf_row)
+                if str(new['status'][ii]) == 'חייל' and np.isnan(idf_row):
+                    comment += 'לא חלל; '
+                elif new['status'][ii] != 'חייל' and ~np.isnan(idf_row):
+                    comment += 'חלל; '
             konan = False
             if ~np.isnan(idf_row):
                 idf_name = idf['name'][idf_row - 2]
