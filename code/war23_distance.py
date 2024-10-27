@@ -18,7 +18,7 @@ try:
     drone_date = np.array([x[:10] for x in drone_time])
     dfwar = dfwar[dfwar['threat'] == 0]
     dfwar = dfwar[dfwar['time'] >= '2023-10-07 00:00:00']
-    dfleb = dfwar[dfwar['origin']  == 'Lebanon']
+    dfleb = dfwar[dfwar['origin'] == 'Lebanon']
     dfleb = dfleb.reset_index(drop=True)
     dateleb = np.array([d[:10] for d in dfleb['time']])
     dfwar = dfwar[dfwar['origin'] == 'Gaza']
