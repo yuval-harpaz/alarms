@@ -19,47 +19,59 @@ map_pid = map79['pid'].values
 story = pd.read_csv('data/stories.csv')
 story_pid = story['pid'].values
 db = pd.read_csv('data/oct7database.csv')
-for ii in range(len(db)):
-    if db['pid'][ii] in map_pid:
-        if '' in 
-        db.at[ii, 'סיבת המוות'] = 'Gaza'
-    elif db['pid'][ii] in idf_pid:
-        row = np.where(idf_pid == db['pid'][ii])[0][0]
-        frt = front['front'][row]
-        if 'עזה' in frt:
-            db.at[ii, 'front'] = 'Gaza'
-        elif frt == 'צפון' or 'לבנון' in frt:
-            db.at[ii, 'front'] = 'North'
-        elif frt == 'עורף':
-            db.at[ii, 'front'] = 'Home'
-        elif frt == 'יו"ש':
-            db.at[ii, 'front'] = 'West Bank'
-        elif frt == 'תאונה':
-            db.at[ii, 'front'] = 'Accident'
-        elif frt == 'נרצח כאזרח':
-            db.at[ii, 'front'] = 'Other'
-        else:
-            raise Exception(f"not supposed to be {frt}")
-    elif 'kidnapped' in db['Status'][ii]:
-        db.at[ii, 'front'] = 'Gaza'
-    else:
-        db.at[ii, 'front'] = 'Other'
-db.to_csv('data/oct7database.csv', index=False)
-##
-db = pd.read_csv('data/oct7database.csv')
-ynet = pd.read_csv('data/ynetlist.csv')
-ynet_pid = ynet['pid'].values
-for ii in range(len(db)):
-    if db['pid'][ii] in ynet_pid:
-        row = np.where(ynet_pid == db['pid'][ii])[0][0]
-        yft = ynet['סיווג'][row]
-        if type(yft) == str:
-            if 'כה ביו' in yft:
-                if db['front'][ii] != 'West Bank':
-                    print(f"{ynet['שם פרטי'][row]} {ynet['שם משפחה'][row]} pid {db['pid'][ii]} should be West Bank")
-            if 'צפון' in yft:
-                if db['front'][ii] != 'North':
-                    print(f"{ynet['שם פרטי'][row]} {ynet['שם משפחה'][row]} pid {db['pid'][ii]} should be North")
-            if 'עזה' in yft:
-                if db['front'][ii] != 'Gaza':
-                    print(f"{ynet['שם פרטי'][row]} {ynet['שם משפחה'][row]} pid {db['pid'][ii]} should be Gaza")
+if 'סיבת המוות' not in db.columns:
+    db['סיבת המוות'] = np.nan
+idx = np.where(db['סיבת המוות'].isnull())[0]
+if len(idx) == 0:
+    print('cause of death column is full')
+else:
+    for ii in idx:
+        if db['pid'][ii] in map_pid:
+            row = np.where(map_pid == db['pid'][ii])[0][0]
+            if 'ירי רקטי' in map79['location'][row]:
+                db.at[ii, 'סיבת המוות'] = 'רקטה; תלול מסלול'
+                continue
+
+        if db['pid'][ii] in story_pid:
+            sty = ';'.join(story.values[ii,:].astype(str))
+            if 'מיירט' in sty:
+                db.at[ii, 'סיבת המוות'] = 'מיירט'
+                continue
+            elif 'כטב' in sty:
+                db.at[ii, 'סיבת המוות'] = 'כטב"מ'
+                continue
+            elif 'רקט' in sty:
+                if 'נ"ט' in sty:
+                    db.at[ii, 'סיבת המוות'] = 'רקטה; כינון ישיר'
+                    continue
+                elif 'טרקטורים' in sty:
+                    pass
+                else:
+                    db.at[ii, 'סיבת המוות'] = 'רקטה; תלול מסלול'
+                    continue
+            elif 'דריסה' in sty or 'נדרס' in sty:
+                db.at[ii, 'סיבת המוות'] = 'דריסה'
+                continue
+            elif 'פיגוע' in sty:
+                if 'פיגוע ירי' in sty or 'פיגוע הירי' in sty or 'יריות' in sty:
+                    db.at[ii, 'סיבת המוות'] = 'פיגוע ירי'
+                    continue
+                elif 'פיגוע דקירה' in sty:
+                    db.at[ii, 'סיבת המוות'] = 'פיגוע דקירה'
+                    continue
+                else:
+                    db.at[ii, 'סיבת המוות'] = 'פיגוע'
+                    continue
+            elif 'ירי צלף' in sty:
+                db.at[ii, 'סיבת המוות'] = 'צלף'
+                continue
+            elif 'פצמ' in sty:
+                db.at[ii, 'סיבת המוות'] = 'פצמ"ר'
+                continue
+        if db['Role'][ii] == 'אזרח' and db['Event date'][ii] > '2023-10-07':
+            db.at[ii, 'סיבת המוות'] = '???'
+
+
+story['סיבת המוות'] = db['סיבת המוות']
+story.to_csv('~/Documents/stories.csv', index=False)
+
