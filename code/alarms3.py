@@ -4,29 +4,25 @@ import folium
 import pandas as pd
 import numpy as np
 import os
-# from datetime import datetime, timedelta
 import plotly.express as px
 import sys
 import re
-
-# from bs4 import BeautifulSoup
-# from selenium import webdriver
-# dr = webdriver.Chrome()
-# # dr.get("https://www.mobile.de/?lang=en")
-# dr.get("https://api.tzevaadom.co.il/alerts-history")
-# https://www.tzevaadom.co.il/static/cities.json
 
 local = '/home/innereye/alarms/'
 islocal = False
 if os.path.isdir(local):
     os.chdir(local)
     islocal = True
-
+if islocal:
+    with open('.txt') as f:
+        hist_url = f.readlines()[1][:-1]
+else:
+    hist_url = os.environ['cities_url']
 coo = pd.read_csv('data/coord.csv')
 prev = pd.read_csv('data/alarms.csv')
 last_alarm = pd.to_datetime(prev['time'][len(prev)-1])
 last_alarm = last_alarm.tz_localize('Israel')
-tzeva = requests.get('https://api.tzevaadom.co.il/alerts-history')
+tzeva = requests.get(hist_url)
 # print(tzeva.text[:100])
 if tzeva.text[:5] == '[{"id':
     tzeva = tzeva.json()

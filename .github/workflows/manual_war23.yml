@@ -29,6 +29,7 @@ jobs:
       env:
           OAuth: ${{ secrets.GOOMAP }}
           cities_url: ${{ secrets.CITIES }}
+          hist_url: ${{ secrets.HIST }}
       run: |
         python code/alarms3.py
         python code/alarms_map_origin.py
@@ -37,6 +38,7 @@ jobs:
       env:
           OAuth: ${{ secrets.GOOMAP }}
           cities_url: ${{ secrets.CITIES }}
+          hist_url: ${{ secrets.HIST }}
       run: |
         python code/alarms_week.py
     - name: check news
