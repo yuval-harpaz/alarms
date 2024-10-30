@@ -17,7 +17,7 @@ if islocal:
     with open('.txt') as f:
         hist_url = f.readlines()[1][:-1]
 else:
-    hist_url = os.environ['cities_url']
+    hist_url = os.environ['hist_url']
 coo = pd.read_csv('data/coord.csv')
 prev = pd.read_csv('data/alarms.csv')
 last_alarm = pd.to_datetime(prev['time'][len(prev)-1])
