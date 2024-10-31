@@ -19,7 +19,7 @@ if os.path.isdir(local):
     # import tzevaadom
 # history_hebrew = tzevaadom.alerts_history(language="he", get_from="month")
 prev = pd.read_csv('data/alarms_from_2019.csv')
-tzeva = requests.get('https://api.tzevaadom.co.il/alerts-history').json()
+tzeva = requests.get(url).json()
 df = pd.DataFrame(tzeva)
 df = df.explode('alerts')
 df1 = pd.DataFrame(list(df['alerts']))
@@ -236,7 +236,6 @@ if islocal or news:
 # googlemaps = pd.read_json('https://maps.googleapis.com/maps/api/geocode/json?address='+location[0]+'&key='+oath+'&language=iw')
 # getakeythere = 'https://www.npmjs.com/package/googleapis'
 # oref_python = 'https://github.com/SgtTepper/RedAlert/blob/main/OrefAlerts.ipynb'
-# tzevaadom = 'https://api.tzevaadom.co.il/alerts-history'
 #
 # update = pd.read_csv('https://eq.gsi.gov.il/en/earthquake/files/last30_event.csv')
 #

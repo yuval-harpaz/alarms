@@ -215,7 +215,7 @@ if islocal or news:
 # googlemaps = pd.read_json('https://maps.googleapis.com/maps/api/geocode/json?address='+location[0]+'&key='+oath+'&language=iw')
 # getakeythere = 'https://www.npmjs.com/package/googleapis'
 # oref_python = 'https://github.com/SgtTepper/RedAlert/blob/main/OrefAlerts.ipynb'
-# tzevaadom = 'https://api.tzevaadom.co.il/alerts-history'
+
 #
 # update = pd.read_csv('https://eq.gsi.gov.il/en/earthquake/files/last30_event.csv')
 #

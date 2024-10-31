@@ -5,7 +5,7 @@ dt = cellfun(@(x, y) [x,' ',y], tt.date, tt.time,'UniformOutput',false);
 time = cellfun(@(x) datetime(x,'InputFormat','dd.MM.yyyy HH:mm:ss'), dt);
 % timeSec = datetime(join([tt.date,tt.time],' '),'Format','dd.MM.yyyy HH:mm:ss');
 
-% txt = urlread('https://api.tzevaadom.co.il/alerts-history');
+
 % json = jsondecode(txt);
 % tzime = [];
 % lzoc = {};

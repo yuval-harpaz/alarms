@@ -1,77 +1,129 @@
-"""check cause of death (rockets etc)."""
-import pandas as pd
-# import Levenshtein
-# import requests
-import os
-import numpy as np
+"""collect Telegram messages for IDF."""
 
+from telethon import TelegramClient
+import telethon.sync
+import os
+import asyncio
 local = '/home/innereye/alarms/'
-# islocal = False
 if os.path.isdir(local):
     os.chdir(local)
-    local = True
-
-# idf = pd.read_csv('data/deaths_idf.csv')
-# idf_pid = idf['pid'].values
-# front = pd.read_csv('data/front.csv')
-map79 = pd.read_csv('data/oct_7_9.csv')
-map_pid = map79['pid'].values
-story = pd.read_csv('data/stories.csv')
-story_pid = story['pid'].values
-db = pd.read_csv('data/oct7database.csv')
-if 'סיבת המוות' not in db.columns:
-    db['סיבת המוות'] = np.nan
-idx = np.where(db['סיבת המוות'].isnull())[0]
-if len(idx) == 0:
-    print('cause of death column is full')
+    # with open('/home/innereye/alarms/oath.txt') as f:
+    #     oauth = f.readlines()[0][:-1]
+    with open('.txt') as f:
+        lines = f.readlines()
 else:
-    for ii in idx:
-        if db['pid'][ii] in map_pid:
-            row = np.where(map_pid == db['pid'][ii])[0][0]
-            if 'ירי רקטי' in map79['location'][row]:
-                db.at[ii, 'סיבת המוות'] = 'רקטה; תלול מסלול'
-                continue
+    oauth = os.environ['OAuth']
+    cities_url = os.environ['cities_url']
 
-        if db['pid'][ii] in story_pid:
-            sty = ';'.join(story.values[ii,:].astype(str))
-            if 'מיירט' in sty:
-                db.at[ii, 'סיבת המוות'] = 'מיירט'
-                continue
-            elif 'כטב' in sty:
-                db.at[ii, 'סיבת המוות'] = 'כטב"מ'
-                continue
-            elif 'רקט' in sty:
-                if 'נ"ט' in sty:
-                    db.at[ii, 'סיבת המוות'] = 'רקטה; כינון ישיר'
-                    continue
-                elif 'טרקטורים' in sty:
-                    pass
-                else:
-                    db.at[ii, 'סיבת המוות'] = 'רקטה; תלול מסלול'
-                    continue
-            elif 'דריסה' in sty or 'נדרס' in sty:
-                db.at[ii, 'סיבת המוות'] = 'דריסה'
-                continue
-            elif 'פיגוע' in sty:
-                if 'פיגוע ירי' in sty or 'פיגוע הירי' in sty or 'יריות' in sty:
-                    db.at[ii, 'סיבת המוות'] = 'פיגוע ירי'
-                    continue
-                elif 'פיגוע דקירה' in sty:
-                    db.at[ii, 'סיבת המוות'] = 'פיגוע דקירה'
-                    continue
-                else:
-                    db.at[ii, 'סיבת המוות'] = 'פיגוע'
-                    continue
-            elif 'ירי צלף' in sty:
-                db.at[ii, 'סיבת המוות'] = 'צלף'
-                continue
-            elif 'פצמ' in sty:
-                db.at[ii, 'סיבת המוות'] = 'פצמ"ר'
-                continue
-        if db['Role'][ii] == 'אזרח' and db['Event date'][ii] > '2023-10-07':
-            db.at[ii, 'סיבת המוות'] = '???'
+api_id = lines[3][:-1]
+api_hash = lines[4][:-1]
+phone_number = lines[5][:-1]
+channel_username ='idf_telegram'
 
 
-story['סיבת המוות'] = db['סיבת המוות']
-story.to_csv('~/Documents/stories.csv', index=False)
+client = TelegramClient('get_idf', api_id, api_hash)
 
+client.connect()
+
+async for message in client.iter_messages('me'):
+    print((await client.get_me()).first_name)
+
+loop = asyncio.get_event_loop()
+
+
+loop.run_until_complete(my_async_def())
+
+
+
+
+
+
+
+
+
+
+
+from telethon import TelegramClient, events, sync
+from telethon.tl.functions.messages import GetHistoryRequest
+import os
+local = '/home/innereye/alarms/'
+if os.path.isdir(local):
+    os.chdir(local)
+    # with open('/home/innereye/alarms/oath.txt') as f:
+    #     oauth = f.readlines()[0][:-1]
+    with open('.txt') as f:
+        lines = f.readlines()
+else:
+    oauth = os.environ['OAuth']
+    cities_url = os.environ['cities_url']
+
+api_id = lines[3][:-1]
+api_hash = lines[4][:-1]
+phone_number = lines[5][:-1]
+channel_username ='idf_telegram'
+# client = TelegramClient('get_idf', api_id, api_hash)
+# client.start()
+
+# messages = client.get_messages('idf_telegram')
+
+
+client = TelegramClient('get_idf',
+                        int(api_id),
+                        api_hash)
+assert client.connect()
+# if not client.is_user_authorized():
+#     client.send_code_request(phone_number)
+#     me = client.sign_in(phone_number, input('Enter code: '))
+
+channel_entity=client.get_entity(channel_username)
+posts = client(GetHistoryRequest(
+    peer=channel_username,
+    limit=100,
+    offset_date=None,
+    offset_id=0,
+    max_id=0,
+    min_id=0,
+    add_offset=0,
+    hash=0))
+
+
+for message in client.get_messages(channel_username, limit=10):
+    print(message.message)
+
+async def fetch_messages(limit=None):
+    # Connect to the client
+    await client.start(phone_number)
+    # Get the target chat (you can use chat ID or username)
+    chat = await client.get_entity('idf_telegram')
+    # Open a file to save messages
+    with open('tmp.txt', 'w', encoding='utf-8') as f:
+        # Iterate through all messages in the chat
+        async for message in client.iter_messages(chat, limit):
+            if message.text:  # Check if it's a text message
+                f.write(message.text + '\n')
+
+# Run the fetch messages function
+with client:
+    client.loop.run_until_complete(fetch_messages(10))
+
+
+##
+async def fetch_messages():
+    # Use "async with" to connect the client properly in async context
+    async with TelegramClient('session_name', api_id, api_hash) as client:
+        # Start the client
+        await client.start(phone_number)
+        
+        # Get the target chat (you can use chat ID or username)
+        chat = await client.get_entity(chat_name)
+
+        # Open a file to save messages
+        with open('messages.txt', 'w', encoding='utf-8') as f:
+            # Iterate through all messages in the chat
+            async for message in client.iter_messages(chat, limit=None):
+                if message.text:  # Check if it's a text message
+                    f.write(message.text + '\n')
+
+# Run the fetch_messages function
+import asyncio
+asyncio.run(fetch_messages())

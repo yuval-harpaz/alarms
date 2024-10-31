@@ -8,7 +8,7 @@ import os
 oref = 'https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&fromDate=01.01.2020&toDate=26.02.2023&mode=0'
 getakeythere = 'https://www.npmjs.com/package/googleapis'
 oref_python = 'https://github.com/SgtTepper/RedAlert/blob/main/OrefAlerts.ipynb'
-tzevaadom = 'https://api.tzevaadom.co.il/alerts-history'
+tzevaadom = url
 
 update = pd.read_csv('https://eq.gsi.gov.il/en/earthquake/files/last30_event.csv')
 

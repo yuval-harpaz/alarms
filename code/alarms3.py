@@ -15,7 +15,7 @@ if os.path.isdir(local):
     islocal = True
 if islocal:
     with open('.txt') as f:
-        hist_url = f.readlines()[1][:-1]
+        hist_url = f.readlines()[2][:-1]
 else:
     hist_url = os.environ['hist_url']
 coo = pd.read_csv('data/coord.csv')
