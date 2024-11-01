@@ -14,7 +14,10 @@ for ii in range(len(df)):
     name = df['Hebrew Name'][ii]
     row = np.where(np.array([x in name for x in first]) & np.array([x in name for x in last]))[0]
     if len(row) == 1:
-        pass
+        row = row[0]
+        cause = df['Reason of Death'][ii]
+        if
     else:
         print('missing '+name)
+
 
