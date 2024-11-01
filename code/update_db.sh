@@ -4,6 +4,7 @@ python war23_idf2db.py
 python war23_map2db.py
 python war23_haa2db.py
 python war23_db_front.py
+python war23_front2db.py
 while test $# != 0
 do
     case "$1" in

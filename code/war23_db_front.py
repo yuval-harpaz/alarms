@@ -1,4 +1,4 @@
-"""collect ynet and haaretz stories."""
+"""Set front for DB based on IDF front (Lebanon + North >> North etc)."""
 import pandas as pd
 # import Levenshtein
 # import requests
