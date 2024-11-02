@@ -14,13 +14,14 @@ if os.path.isdir(local):
 start_date = '2024-06-01'
 dfwar = pd.read_csv('data/alarms.csv')
 lebdrone = dfwar[(dfwar['threat'] == 5) & (dfwar['origin'] == 'Lebanon')]
-lebdrone.loc[:, 'datetime'] = pd.to_datetime(lebdrone['time'])
-lebdrone['time_diff'] = lebdrone['datetime'].diff().dt.total_seconds()/60
-drone_time = lebdrone['time'][lebdrone['time_diff'] > 2].values
-drone_date = np.array([x[:10] for x in drone_time])
+lebdrone = lebdrone[lebdrone['time'] >= start_date+' 00:00:00']
+# lebdrone.loc[:, 'datetime'] = pd.to_datetime(lebdrone['time'])
+# lebdrone['time_diff'] = lebdrone['datetime'].diff().dt.total_seconds()/60
+# drone_time = lebdrone['time'][lebdrone['time_diff'] > 2].values
+# drone_date = np.array([x[:10] for x in drone_time])
 dfwar = dfwar[dfwar['threat'] == 0]
 dfwar = dfwar[dfwar['time'] >= start_date+' 00:00:00']
-dfleb = dfwar[dfwar['origin']  == 'Lebanon']
+dfleb = dfwar[dfwar['origin'] == 'Lebanon']
 dfleb = dfleb.reset_index(drop=True)
 dateleb = np.array([d[:10] for d in dfleb['time']])
 # dfwar = dfwar[dfwar['origin'] == 'Gaza']
@@ -43,17 +44,27 @@ coo = pd.read_csv('data/coord.csv')
 time = pd.to_datetime(dfleb['time']).values
 lats = dict(zip(list(coo['loc']), list(coo['lat'])))
 lat = [lats[l] for l in dfleb['cities'].values]
+dronetime = pd.to_datetime(lebdrone['time']).values
+dronelat = [lats[l] for l in lebdrone['cities'].values]
 layout = go.Layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
 colors = ["#028a0f", "#000000", "#ad001d", "#ff2800", "#ff7900", "#fcd12a"][::-1]
 ##
 fig = go.Figure(layout=layout)
 fig.add_trace(go.Scatter(x=time, y=lat,
-              name='All rockets',
+              name='רקטות',
               mode='markers',
               line=dict(color=colors[-1]),
               marker=dict(
                   size=5,
                   color=colors[-1],  # set color equal to a variable
+              )))
+fig.add_trace(go.Scatter(x=dronetime, y=dronelat,
+              name='כלי טיס',
+              mode='markers',
+              line=dict(color=colors[2]),
+              marker=dict(
+                  size=5,
+                  color=colors[2],  # set color equal to a variable
               )))
 ann = [['תל אביב', 32.0852999],['חדרה', 32.4352],['חיפה', 32.80263],['נהריה', 33.0085],['ק. שמונה', 33.2079]]
 fig.update_layout(
@@ -62,7 +73,7 @@ fig.update_layout(
         size=18,  # Set the font size here
         color="RebeccaPurple"
     ),
-    title="אזעקות לירי רקטי מלבנון, לפי תאריך וקו רוחב",
+    title="אזעקות לירי רקטי וכלי טיס מלבנון, לפי זמן וקו רוחב",
     xaxis_title="זמן",
     yaxis_title="קו רוחב")
 for a in ann:
