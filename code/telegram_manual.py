@@ -48,7 +48,7 @@ if len(last) != 1:
 df_extra = df1[last[0]+1:]
 # df1 = df1[df1['date'] > '2023-10-07']
 df = pd.concat([df0, df_extra], ignore_index=True)
-df1.to_excel('~/Documents/tsahal_cg.xlsx', index=False)
+df.to_csv('data/idf_telegram_oct23.csv', index=False)
 fa = df1[df1['text'].str.contains('שווא')]
 fa.to_csv('~/Documents/fa.csv', index=False)
 ##
