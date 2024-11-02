@@ -66,7 +66,7 @@ if len(new) > 0:
     prev = prev.drop_duplicates(keep='first', ignore_index=True)
     if len(prev) < with_duplicates:
         print(f'{with_duplicates-len(prev)} duplicates')
-    prev = prev.sort_values('time', ignore_index=True)
+    prev = prev.sort_values(['time', 'id', 'cities'], ignore_index=True)
     prev.to_csv('data/alarms.csv', index=False, sep=',')
 
     news = True
