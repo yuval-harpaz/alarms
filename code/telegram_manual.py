@@ -34,10 +34,11 @@ for message in data['messages']:
         else:
             text = message['text']
         text = text.replace('דובר צה״ל:', '').replace('דובר צה"ל:', '').strip()
-        messages.append({
-            'date': message['date'].replace('T', ' '),
-            'text': text
-        })
+        if len(text) > 0:
+            messages.append({
+                'date': message['date'].replace('T', ' '),
+                'text': text
+            })
 
 # Create a DataFrame and export it to Excel
 df0 = pd.read_csv('data/idf_telegram_oct23.csv')
@@ -49,7 +50,9 @@ df_extra = df1[last[0]+1:]
 # df1 = df1[df1['date'] > '2023-10-07']
 df = pd.concat([df0, df_extra], ignore_index=True)
 df.to_csv('data/idf_telegram_oct23.csv', index=False)
-fa = df1[df1['text'].str.contains('שווא')]
+df = df[df['text'].isnull()]
+fa = df[df['text'].str.contains('שווא')]
+
 fa.to_csv('~/Documents/fa.csv', index=False)
 ##
 fa = pd.read_csv('~/Documents/fa.csv')
