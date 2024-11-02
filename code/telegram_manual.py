@@ -52,21 +52,20 @@ df = pd.concat([df0, df_extra], ignore_index=True)
 df.to_csv('data/idf_telegram_oct23.csv', index=False)
 df = df[df['text'].isnull()]
 fa = df[df['text'].str.contains('שווא')]
-
-fa.to_csv('~/Documents/fa.csv', index=False)
+fa.to_csv('~/Documents/idf_fa.csv', index=False)
 ##
-fa = pd.read_csv('~/Documents/fa.csv')
-alarms = pd.read_csv('data/alarms.csv')
-ii = len(fa)-1
-text = fa['text'][ii]
-date = fa['date'][ii]
-until = np.where(alarms['time'] < date)[0][-1]
+# fa = pd.read_csv('~/Documents/fa.csv')
+# alarms = pd.read_csv('data/alarms.csv')
+# ii = len(fa)-1
+# text = fa['text'][ii]
+# date = fa['date'][ii]
+# until = np.where(alarms['time'] < date)[0][-1]
 
-for ii in range(len(fa)):
-    text = fa['text'][ii]
-    date = fa['date'][ii]
-    until = np.where(alarms['time'] < date)[0][-1]
-    if alarms['origin'][until] == 'FA':
-        print('knew it')
-    else:
-        print(f"missed {ii}")
+# for ii in range(len(fa)):
+#     text = fa['text'][ii]
+#     date = fa['date'][ii]
+#     until = np.where(alarms['time'] < date)[0][-1]
+#     if alarms['origin'][until] == 'FA':
+#         print('knew it')
+#     else:
+#         print(f"missed {ii}")
