@@ -20,13 +20,13 @@ def guess_origin(df_toguess):
     row_lat = np.array([coo['lat'][coo['loc'] == x].values[0] for x in df_toguess['cities'].values])
     row_long = np.array([coo['long'][coo['loc'] == x].values[0] for x in df_toguess['cities'].values])
     syria = toguess & (row_long > 35.63) & (row_lat < 33.1)
-    lebanon = toguess & (row_lat > 32.21)
+    lebanon = toguess & (row_lat > 31.854)
     yemen = toguess & (row_lat < 30)
     origin = df_toguess['origin'].values
     origin[toguess] = 'Gaza'
     origin[lebanon] = 'Lebanon'
     # origin[syria] = 'Syria'
-    origin[syria] = 'Lebanon'  # Golan hit by Lebanon nowadays
+    origin[syria] = 'Iraq'  # Golan hit by Lebanon nowadays
     origin[yemen] = 'Yemen'
     df_toguess['origin'] = origin
     return df_toguess
