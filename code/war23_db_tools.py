@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-# import Levenshtein
+import sys
 import numpy as np
 import re
 
@@ -23,7 +23,7 @@ def db2map(save=True, what='loc'):
     """
     db = pd.read_csv('data/oct7database.csv')
     map = pd.read_csv('data/oct_7_9.csv')
-    kidnapped = [915, 29, 568, 192, 193, 482, 626]  # not kidnapped in oct7map
+    kidnapped = [915, 29, 568, 192, 193, 482, 626, 581, 1432]  # not kidnapped in oct7map
     pid = db['pid'].values
     changes = False
     if what in ['all', 'loc']:
@@ -57,3 +57,12 @@ def db2map(save=True, what='loc'):
     else:
         return map
 
+
+if __name__ == '__main__':
+    args = sys.argv
+    if len(args) == 1:
+        print('use --db2map, no other tools yet')
+    elif args[1] == '--db2map':
+        db2map(save=True, what='loc')
+    else:
+        raise ValueError(f"unknown input argument {args[1]}")

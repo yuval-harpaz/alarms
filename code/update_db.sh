@@ -2,6 +2,7 @@
 cd ~/alarms/code
 python war23_idf2db.py
 python war23_map2db.py
+python war23_db_tools.py --db2map
 python war23_haa2db.py
 python war23_db_front.py
 python war23_front2db.py
