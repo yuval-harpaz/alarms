@@ -87,3 +87,7 @@ txt = txt.replace('<div>', '<div dir="rtl">')
 with open(fname, 'w') as f:
     f.write(txt)
 print('done dogs')
+json = map.to_json()
+fname = '/home/innereye/Documents/test.json'
+with open(fname, 'w') as f:
+    f.write(json)
