@@ -13,4 +13,5 @@ tmp*
 .spyproject/*
 .spyproject/*/*
 .spyproject/*/*/*
+caltopo.ini
 
