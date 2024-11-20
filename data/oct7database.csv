@@ -1831,8 +1831,8 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2494,Amit,Friedman,,,עמית,פרידמן,,,https://www.idf.il/נופלים/חללי-המלחמה/עמית-פרידמן/,,idf,,M,19,אור יהודה,ישראל,חייל,,killed,2024-08-27,2024-08-27,דרום רצועת עזה,,Gaza,
 2495,Yohay,Glam,Hay,,יוחאי,גלאם,חי,,https://www.idf.il/נופלים/חללי-המלחמה/יוחאי-חי-גלאם/,מרכז רצועת עזה,idf,,M,32,נתניה,ישראל,חייל,,killed,2024-08-28,2024-08-28,מרכז רצועת עזה,מרכז רצועת עזה,Gaza,צלף
 2496,Rinat,Daniv,,,רינה,דניב,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44192,,,,F,66,חולון,ישראל,אזרח,,killed,2024-08-04,2024-08-04,חולון,חולון,Home,פיגוע דקירה
-2497,Avraham,Soumichi,,,אברהם,סומיכי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44193,,,,M,77,חולון,ישראל,אזרח,,killed,2024-08-04,,חולון,חולון,Home,פיגוע דקירה
-2498,Michael,Samara,,,מיכאיל,סמארה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44198,,,,M,27,כפר יאסיף,ישראל,אזרח,,killed,2024-08-06,,נהריה,,North,מיירט
+2497,Avraham,Soumichi,,,אברהם,סומיכי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44193,,,,M,77,חולון,ישראל,אזרח,,killed,2024-08-04,2024-08-04,חולון,חולון,Home,פיגוע דקירה
+2498,Michael,Samara,,,מיכאיל,סמארה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44198,,,,M,27,כפר יאסיף,ישראל,אזרח,,killed,2024-08-06,2024-08-09,נהריה,,North,מיירט
 2499,Navon,Elkana,,,אלקנה,נבון,,,https://www.idf.il/נופלים/חללי-המלחמה/אלקנה-נבון/,,,,M,20,פתח תקווה,ישראל,חייל,,killed,2024-08-31,2024-08-31,ג’נין; מחנה הפליטים,ג’נין; מחנה הפליטים,West Bank,
 2501,Arik,Ben Eliahu,,,אריק,בן אליהו,,,https://lezichram.police.gov.il/main/nofel/42202,,,,M,37,קריית גת,ישראל,שוטר,,killed,2024-09-01,2024-09-01,תרקומיא,,West Bank,פיגוע
 2502,Roni,Shakuri,,,רוני,שקורי,,,https://lezichram.police.gov.il/main/nofel/42200,,,,M,61,שדרות,ישראל,שוטר,,killed,2024-09-01,2024-09-01,תרקומיא,,West Bank,פיגוע
@@ -1849,10 +1849,10 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2515,Dotan,Shimon,,,דותן,שמעון,,,https://www.idf.il/נופלים/חללי-המלחמה/דותן-שמעון/,דרום רצועת עזה,idf,,M,21,אלעזר,ישראל,חייל,,killed,2024-09-17,2024-09-17,דרום רצועת עזה,דרום רצועת עזה,Gaza,מטען
 2516,Nael,Fwarsy,,,נאיל,פוארסה,,,https://www.idf.il/נופלים/חללי-המלחמה/נאיל-פוארסה/,,,,M,43,מגאר,ישראל,חייל,,killed,2024-09-19,2024-09-19,יערה,,North,"כטב""מ"
 2517,Tomer,Keren,,,תומר,קרן,,,https://www.idf.il/נופלים/חללי-המלחמה/תומר-קרן/,,,,M,20,חיפה,ישראל,חייל,,killed,2024-09-19,2024-09-19,רכס רמים,,North,
-2524,Shahar,Goldman,,,שחר,גולדמן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44216,,,,F,30,לוד,ישראל,אזרח,,killed,2024-10-01,,יפו,,Home,פיגוע ירי
-2525,Inbar,Segev Vigder,,,ענבר,ויגדר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44219,,,,F,33,יפו,ישראל,אזרח,,killed,2024-10-01,,יפו,,Home,פיגוע ירי
-2526,Revital,Bronstein,,,רויטל,ברונשטיין,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44215,,,,F,24,בת ים,ישראל,אזרח,,killed,2024-10-01,,יפו,,Home,פיגוע ירי
-2527,Ilia,Nozadze,,,איליה,נוזאדזה,,,,,,,M,42,גיאורגיה,גיאורגיה,אזרח,,killed,2024-10-01,,יפו,,Home,פיגוע ירי
+2524,Shahar,Goldman,,,שחר,גולדמן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44216,,,,F,30,לוד,ישראל,אזרח,,killed,2024-10-01,2024-10-01,יפו,,Home,פיגוע ירי
+2525,Inbar,Segev Vigder,,,ענבר,ויגדר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44219,,,,F,33,יפו,ישראל,אזרח,,killed,2024-10-01,2024-10-01,יפו,,Home,פיגוע ירי
+2526,Revital,Bronstein,,,רויטל,ברונשטיין,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44215,,,,F,24,בת ים,ישראל,אזרח,,killed,2024-10-01,2024-10-01,יפו,,Home,פיגוע ירי
+2527,Ilia,Nozadze,,,איליה,נוזאדזה,,,https://www.gov.il/en/pages/ilia-nozadze,,,,M,42,גיאורגיה,גיאורגיה,אזרח,,killed,2024-10-01,2024-10-01,יפו,,Home,פיגוע ירי
 2528,Eitan,Oster,Itzhak,,איתן,אוסטר,יצחק,,https://www.idf.il/נופלים/חללי-המלחמה/איתן-יצחק-אוסטר/,,,,M,22,מודיעין-מכבים-רעות,ישראל,חייל,,killed,2024-10-02,2024-10-02,דרום לבנון,,North,
 2529,Or,Mantzur,,,אור,מנצור,,,https://www.idf.il/נופלים/חללי-המלחמה/אור-מנצור/,,,,M,21,בית אריה,ישראל,חייל,,killed,2024-10-02,2024-10-02,דרום לבנון,,North,
 2530,Almken,Terefe,,,עלמקאן,טרפה,,,https://www.idf.il/נופלים/חללי-המלחמה/עלמקאן-טרפה/,,,,M,21,ירושלים,ישראל,חייל,,killed,2024-10-02,2024-10-02,דרום לבנון,,North,
@@ -1862,19 +1862,19 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2534,Harel,Etinger,,,הראל,אטינגר,,,https://www.idf.il/נופלים/חללי-המלחמה/הראל-אטינגר/,,,,M,23,עלי,ישראל,חייל,,killed,2024-10-02,2024-10-02,דרום לבנון,,North,
 2535,Nazar,Itkin,,,נזר,איטקין,,,https://www.idf.il/נופלים/חללי-המלחמה/נזר-איטקין/,,,,M,21,קרית אתא,ישראל,חייל,,killed,2024-10-02,2024-10-02,דרום לבנון,,North,
 2536,Nadia,Sokolenco,,,נדיה,סוקולנקו,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44217,,,,F,40,יפו,ישראל,אזרח,,killed,2024-10-01,2024-10-02,יפו,,Home,פיגוע ירי
-2537,Jonas,Chrosis,,,יונאס,קרוסיס,,יונה,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44218,,,,M,26,יוון,יוון,אזרח,,killed,2024-10-01,,יפו,,Home,פיגוע ירי
+2537,Jonas,Chrosis,,,יונאס,קרוסיס,,יונה,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44218,,,,M,26,יוון,יוון,אזרח,,killed,2024-10-01,2024-10-01,יפו,,Home,פיגוע ירי
 2538,Ben,Falach,Zion,,בן,פלח,ציון,,https://www.idf.il/נופלים/חללי-המלחמה/בן-ציון-פלח/,,,,M,21,ניצני עוז,ישראל,חייל,,killed,2024-10-02,2024-10-02,דרום לבנון,,North,
 2539,Tal,Dror,,,טל,דרור,,,https://www.idf.il/נופלים/חללי-המלחמה/טל-דרור/,,,,M,19,ירושלים,ישראל,חייל,,killed,2024-10-03,2024-10-03,מוצב בצפון הגולן,,North,"כטב""מ"
 2540,Daniel,Sofer,Aviv Haim,,דניאל,סופר,אביב חיים,,https://www.idf.il/נופלים/חללי-המלחמה/דניאל-אביב-חיים-סופר/,,,,M,19,אשקלון,ישראל,חייל,,killed,2024-10-03,2024-10-03,מוצב בצפון הגולן,,North,"כטב""מ"
 2541,Nir,Hadad,,,ניר,חדד,,,https://www.idf.il/נופלים/חללי-המלחמה/ניר-חדד/,צפון רצועת עזה,idf,,M,28,פתח תקווה,ישראל,חייל,,killed,2024-06-15,2024-10-06,צפון רצועת עזה,,Gaza,מטען
 2542,Shira,Suslik,Chaya,,שירה,סוסליק,חיה,,https://lezichram.police.gov.il/main/nofel/42203,,,,F,19,באר שבע,ישראל,שוטר,,killed,2024-10-06,2024-10-06,באר שבע; תחנה מרכזית,,Home,פיגוע ירי
-2543,Victor,Green,Shimshon,,ויקטור,גרין,שמשון,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44221,,,,M,33,יפו,ישראל,אזרח,,killed,2024-10-01,,יפו,,Home,פיגוע ירי
+2543,Victor,Green,Shimshon,,ויקטור,גרין,שמשון,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44221,,,,M,33,יפו,ישראל,אזרח,,killed,2024-10-01,2024-10-01,יפו,,Home,פיגוע ירי
 2544,Etay,Azulay,,,איתי,אזולאי,,,https://www.idf.il/נופלים/חללי-המלחמה/איתי-אזולאי/,,,,M,25,אורנית,ישראל,חייל,,killed,2024-10-06,2024-10-06,גבול לבנון,גבול לבנון,North,
 2545,Aviv,Magen,,,אביב,מגן,,,https://www.idf.il/נופלים/חללי-המלחמה/אביב-מגן/,,,,M,43,חירות,ישראל,חייל,,killed,2024-10-07,2024-10-07,גבול לבנון,"בי""ח רמב""ם",North,
 2546,Noam,Abdu,Israel,,נועם,עבדו,ישראל,,https://www.idf.il/נופלים/חללי-המלחמה/נועם-ישראל-עבדו/,צפון רצועת עזה,idf,,M,20,קדימה צורן,ישראל,חייל,,killed,2024-10-07,2024-10-07,צפון רצועת עזה,צפון רצועת עזה,Gaza,
 2548,Ronny,Ganizate,,,רוני,גניזת,,,https://www.idf.il/נופלים/חללי-המלחמה/רוני-גניזת/,,,,M,36,גבעת שמואל,ישראל,חייל,,killed,2024-10-09,2024-10-09,דרום לבנון,,North,
-2549,Revital,Yehud,,,רויטל,יהוד,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44223,,,,F,45,קריית שמונה,ישראל,אזרח,,killed,2024-10-09,,קריית שמונה,קריית שמונה,North,רקטה
-2550,Dvir,Sharvit,,,דביר,שרביט,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44224,,,,M,43,קריית שמונה,ישראל,אזרח,,killed,2024-10-09,,קריית שמונה,קריית שמונה,North,רקטה
+2549,Revital,Yehud,,,רויטל,יהוד,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44223,,,,F,45,קריית שמונה,ישראל,אזרח,,killed,2024-10-09,2024-10-09,קריית שמונה,קריית שמונה,North,רקטה
+2550,Dvir,Sharvit,,,דביר,שרביט,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44224,,,,M,43,קריית שמונה,ישראל,אזרח,,killed,2024-10-09,2024-10-09,קריית שמונה,קריית שמונה,North,רקטה
 2551,Ori,Borenstein,Moshe,,אורי,בורנשטיין,משה,,https://www.idf.il/נופלים/חללי-המלחמה/אורי-משה-בורנשטיין/,צפון רצועת עזה,idf,,M,32,מורשת,ישראל,חייל,,killed,2024-10-10,2024-10-10,צפון רצועת עזה,צפון רצועת עזה,Gaza,מטען
 2552,Netanel,Hershkovitz,,,נתנאל,הרשקוביץ,,,https://www.idf.il/נופלים/חללי-המלחמה/נתנאל-הרשקוביץ-1/,צפון רצועת עזה,idf,,M,37,ירושלים,ישראל,חייל,,killed,2024-10-10,2024-10-10,צפון רצועת עזה,צפון רצועת עזה,Gaza,מטען
 2553,Marantz,Matityahu,Tzvi,,צבי,מרנץ,מתתיהו,,https://www.idf.il/נופלים/חללי-המלחמה/צבי-מתתיהו-מרנץ/,צפון רצועת עזה,idf,,M,32,ני אדם,ישראל,חייל,,killed,2024-10-10,2024-10-10,צפון רצועת עזה,צפון רצועת עזה,Gaza,מטען
@@ -1884,7 +1884,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2557,Yosef,Hieb,,,יוסף,הייב,,,https://www.idf.il/נופלים/חללי-המלחמה/יוסף-הייב/,,,,M,19,טובא זנגריה,ישראל,חייל,,killed,2024-10-13,2024-10-13,"בא""ח גולני",,North,"כטב""מ"
 2558,Amitai,Alon,,,אמיתי,אלון,,,https://www.idf.il/נופלים/חללי-המלחמה/אמיתי-אלון/,,,,M,19,רמות נפתלי,ישראל,חייל,,killed,2024-10-13,2024-10-13,"בא""ח גולני",,North,"כטב""מ"
 2559,Koren,Bitan,,,קורן,ביתן,,,https://www.idf.il/נופלים/חללי-המלחמה/קורן-ביתן/,דרום רצועת עזה,idf,,M,19,ראש העין,ישראל,חייל,,killed,2024-10-14,2024-10-14,דרום רצועת עזה,דרום רצועת עזה,Gaza,
-2560,Raphael,Fishoff,Mordechai,,רפאל,פישהוף,מרדכי,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44225,,,,M,35,חדרה,ישראל,אזרח,,killed,2024-10-10,,חדרה,,Home,פיגוע דקירה
+2560,Raphael,Fishoff,Mordechai,,רפאל,פישהוף,מרדכי,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44225,,,,M,35,חדרה,ישראל,אזרח,,killed,2024-10-09,2024-10-10,חדרה,,Home,פיגוע דקירה
 2561,Nisan,Meerum,,,ניסן,מירם,,,,,,,M,42,יראון,תאילנד,אזרח,,killed,2024-10-11,2024-10-11,סמוך ליראון,סמוך ליראון,North,נפל
 2562,Adir,Kadosh,,,אדיר,קדוש,,,https://lezichram.police.gov.il/main/nofel/42205,,,,M,33,תל אביב-יפו,ישראל,שוטר,,killed,2024-10-15,2024-10-15,מחלף יבנה,מחלף יבנה,Home,פיגוע ירי
 2563,Yehudah,Yahalom,Dror,,יהודה,יהלום,דרור,,https://www.idf.il/נופלים/חללי-המלחמה/יהודה-דרור-יהלום/,,,,M,21,חברון,ישראל,חייל,,killed,2024-10-16,2024-10-16,דרום לבנון,,North,
