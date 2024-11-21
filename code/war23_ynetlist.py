@@ -52,8 +52,8 @@ try:
     db = pd.read_csv('data/oct7database.csv')
     added = False
     for iy in np.where(df['pid'].isnull())[0]:
-        indb = db['שם פרטי'].str.replace('׳',"'").str.contains(df['שם פרטי'][iy]) & \
-               db['שם משפחה'].replace('׳',"'").str.contains(df['שם משפחה'][iy]) & \
+        indb = db['שם פרטי'].str.replace('׳',"'").str.contains(str(df['שם פרטי'][iy])) & \
+               db['שם משפחה'].replace('׳',"'").str.contains(str(df['שם משפחה'][iy])) & \
                db['Residence'].str.contains(df['מקום מגורים'][iy])
         indb = np.where(indb)[0]
         if len(indb == 1):
