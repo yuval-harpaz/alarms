@@ -21,6 +21,12 @@ try:
     dfleb = dfwar[dfwar['origin'] == 'Lebanon']
     dfleb = dfleb.reset_index(drop=True)
     dateleb = np.array([d[:10] for d in dfleb['time']])
+    dfiran = dfwar[dfwar['origin'] == 'Iran']
+    dfiran = dfiran.reset_index(drop=True)
+    timeiranu = np.unique(dfiran['time'].values)
+    dateiran = np.array([d[:10] for d in timeiranu])
+    xiran = np.unique(dateiran)
+    yiran = [np.sum(dateiran == x) for x in xiran]
     dfwar = dfwar[dfwar['origin'] == 'Gaza']
     dfwar = dfwar.reset_index(drop=True)
     daterange = pd.date_range(start='2023-10-07', end=datetime.today().strftime('%Y-%m-%d'), freq='D')
@@ -66,7 +72,6 @@ try:
         df[(str(edges[irange])+'-'+str(edges[irange+1])).replace('-300', '+')] = hist[irange, :]
     df['Lebanon'] = hist[-2, :]
     df['Lebanon_drone'] = hist[-1, :]
-
     ##
     now = np.datetime64('now', 'ns')
     now = np.datetime64('now', 'ns')
@@ -93,6 +98,14 @@ try:
                               size=5,
                               color=colors[column],  # set color equal to a variable
                           )))
+        fig.add_trace(go.Scatter(x=xiran, y=yiran,
+                      name='Iran',
+                      mode='markers',
+                      line=dict(color=colors[column]),
+                      marker=dict(
+                          size=7,
+                          color='#000000',  # set color equal to a variable
+                      )))
         for column in range(n_lines):
             name = df.columns[column+1]
             y = df[name].values.copy()
@@ -109,7 +122,7 @@ try:
                               color=colors[column],  # set color equal to a variable
                           )))
         fig.update_layout(
-            title="Rockets alarms by date and distance from Gaza, and Rockets alarms from Lebanon (all distances)",
+            title="Rockets alarms by date and distance from Gaza,<br> and Rockets alarms from Lebanon and Iran (all distances)",
             xaxis_title="Time",
             yaxis_title="N alarm events")
         fig.update_xaxes(showline=False, linewidth=1, linecolor='lightgray', gridcolor='black')
@@ -120,7 +133,7 @@ try:
         fig.update_yaxes(showgrid=True, gridwidth=1, zerolinecolor='lightgray', gridcolor='lightgray', side='left',
                          type=ytype)  # type='log'  range=(0, 3)
         # fig.update_yaxes(showline=True, linewidth=2, linecolor='black', gridcolor='black')
-        for leg in range(n_lines, n_lines*2):
+        for leg in range(n_lines+1, n_lines*2+1):
             fig['data'][leg]['showlegend'] = False
         # fig['data'][0]['showlegend'] = False
         # fig.update_layout(showlegend=False)
