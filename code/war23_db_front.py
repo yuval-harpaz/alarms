@@ -28,7 +28,9 @@ else:
         elif db['pid'][ii] in idf_pid:
             row = np.where(idf_pid == db['pid'][ii])[0][0]
             frt = front['front'][row]
-            if 'עזה' in frt:
+            if str(frt) == 'nan':
+                db.at[ii, 'front'] = 'Other'
+            elif 'עזה' in frt:
                 db.at[ii, 'front'] = 'Gaza'
             elif frt == 'צפון' or 'לבנון' in frt:
                 db.at[ii, 'front'] = 'North'
