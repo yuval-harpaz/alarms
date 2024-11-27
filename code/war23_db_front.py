@@ -53,8 +53,9 @@ else:
     db = pd.read_csv('data/oct7database.csv')
     ynet = pd.read_csv('data/ynetlist.csv')
     ynet_pid = ynet['pid'].values
+    ignore = [2035, 2106]
     for ii in range(len(db)):
-        if db['pid'][ii] in ynet_pid:
+        if db['pid'][ii] in ynet_pid and db['pid'][ii] not in ignore:
             row = np.where(ynet_pid == db['pid'][ii])[0][0]
             yft = ynet['סיווג'][row]
             if type(yft) == str:
