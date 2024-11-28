@@ -72,6 +72,22 @@ for iskilled in [1, 0]:
 path = '/home/innereye/Documents/maps/test1.kml'
 kml.save(path=path)
 
+
+##
+from pyproj import Transformer
+transformer = Transformer.from_crs("EPSG:4326", "EPSG:2039", always_xy=True)
+df = pd.read_csv('/home/innereye/Documents/sderot_latlon.csv')
+for ii in range(len(df)):
+    lat = df['latitude'][ii]
+    lon = df['longitude'][ii]
+    x, y = transformer.transform(lon, lat)
+    df.at[ii, 'x'] = int(x)
+    df.at[ii, 'y'] = int(y)
+df['x'] = df['x']. astype(int)
+df['y'] = df['y']. astype(int)
+df.to_csv('/home/innereye/Documents/sderot_xy.csv', index=False)
+
+# print(f"ITM Coordinates: X = {x}, Y = {y}")
 # json = kml2geojson.convert(path)
 # st, js = kml2geojson.convert(path, style_type='leaflet')
 
