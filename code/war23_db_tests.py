@@ -103,37 +103,7 @@ class TestDuplicates(unittest.TestCase):
             print(f'rank in first name!!!! {pid_rank}'.replace('[', '').replace(']', ''))
         self.assertEqual(len(pid_rank), 0)
 
-# class TestOmissions(unittest.TestCase):
-#     def not_dropped(self):
-#         pid = data['pid'].values
-#         nd = [x for x in omi['duplicate'] if x in pid]
-#         n_not_dropped = len(nd)
-#         if n_not_dropped > 0:
-#             print(f'Not omitted!!!! {nd}'.replace('[', '').replace(']', ''))
-#         self.assertEqual(n_not_dropped, 0)
-#
-#     def dropped(self):
-#         pid = data['pid'].values
-#         pid_okay = omi['pid'][~omi['duplicate'].isnull()].values
-#         dpd = [x for x in pid_okay if x not in pid]
-#         n_dropped = len(dpd)
-#         if n_dropped > 0:
-#             print(f'Omitted a valid PID!!!! {dpd}'.replace('[', '').replace(']', ''))
-#         self.assertEqual(n_dropped, 0)
-#
-#     def all_acounted(self):
-#             pid = data['pid'].values
-#             pid_all = np.unique(list(omi['duplicate'][~omi['duplicate'].isnull()]) + list(omi['pid'][omi['duplicate'].isnull()]) + list(pid))
-#             try:
-#                 json = pd.read_json(url)
-#             except:
-#                 raise Exception('no internet?')
-#             pid_json = json['pid'].values
-#             unaccounted = [x for x in pid_json if x not in pid_all]
-#             n_missing = len(unaccounted)
-#             if n_missing > 0:
-#                 print(f'Unaccounted for PID!!!! {unaccounted}'.replace('[', '').replace(']', ''))
-#             self.assertEqual(n_missing, 0)
+
 
 
 map79 = pd.read_csv('data/oct_7_9.csv')
@@ -229,9 +199,6 @@ class TestHaa(unittest.TestCase):
         if n_extra > 0:
             print(f'pid not in haaretz+!!!! {missing}'.replace('[', '').replace(']', ''))
         self.assertEqual(n_extra, 0)
-
-
-
     def unique_haa(self):
         pid_haa = haa['pid'].values
         pid_haa = pid_haa[~np.isnan(pid_haa)]
@@ -421,6 +388,34 @@ class Relations(unittest.TestCase):
                         bads.append(kk)
         n_bads = len(bads)
         self.assertEqual(n_bads, 0)
+
+def collect_issues(pid_a, pid_b):
+    issues = []
+    for ida in pid_a:
+        if ida not in pid_b:
+            issues.append(ida)
+    for idb in pid_b:
+        if idb not in pid_a:
+            issues.append(idb)
+    names = ''
+    if len(issues) > 0:
+        for pid in issues:
+            nm = data['שם פרטי'][data['pid'] == pid].values[0] + ' '+ \
+                 data['שם משפחה'][data['pid'] == pid].values[0]
+            names += nm + '; '
+        names = names[:-2]
+    return issues, names
+
+
+class TestKidnapped(unittest.TestCase):
+    def alive(self):
+        pid_kid = kidn['pid'].values[kidn['condition'] == "חטוף"]
+        pid_db = data['pid'].values[data['Status'] == "kidnapped"]
+        issues, names = collect_issues(pid_kid, pid_db)
+        if len(names) > 0:
+            print(f"kidnapped alive mismatch: {issues} {names}")
+        self.assertEqual(names, '')
+
 ##
 if __name__ == '__main__':
     args = sys.argv
@@ -446,6 +441,7 @@ if __name__ == '__main__':
                                               TestIDF('name_idf'),
                                               TestIDF('lastname_idf'),
                                               Location('map7updated'),
+                                              TestKidnapped('alive'),
                                               ]
                                        )
     elif args[1][0] == 'r':
