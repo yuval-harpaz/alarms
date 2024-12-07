@@ -10,6 +10,8 @@ if os.path.isdir(local):
     url = file.read().split('\n')[0]
     file.close()
 map7 = pd.read_json(url)
+if len(map7) == 0:
+    raise Exception('Failed to read oct7map data')
 db = pd.read_csv('data/oct7database.csv')
 pid = map7['pid'].values
 ##
