@@ -278,7 +278,7 @@ class Location(unittest.TestCase):
     def map7updated(self):
         # db = pd.read_csv('data/oct7database.csv')
         # map = pd.read_csv('data/oct_7_9.csv')
-        kidnapped = [915, 29, 568, 626, 139, 581, 1432]  # not kidnapped in oct7map, event and death not in same location
+        kidnapped = [915, 29, 568, 626, 139, 581, 1432, 135]  # not kidnapped in oct7map, event and death not in same location
         pid = data['pid'].values
         check = []
         for ii in range(len(map79)):
