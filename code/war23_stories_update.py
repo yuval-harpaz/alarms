@@ -74,13 +74,19 @@ for ii in np.where(db['Status'].str.contains('kidnapped'))[0]:
             print(f"added kidnapped story for {haak['name'][row[0]]} {kidnapped_story}")
 
 ## ynet
+skip = [1371]  # pid in ynet but not in DB (maybe additional)
 for ii in np.where(~ynet['pid'].isnull())[0]:
-    row = np.where(db['pid'].values == ynet['pid'][ii])[0][0]
-    df.at[row, 'ynet name'] = f"{ynet['שם פרטי'][ii]} {ynet['שם משפחה'][ii]}"
-    if str(ynet['מידע על המוות'][ii]) != 'nan' and str(df['ynet story'][row]) == 'nan':
-        df.at[row, 'ynet story'] = ynet['מידע על המוות'][ii]
-        print(f"added ynet story to {ynet['שם פרטי'][ii]} {ynet['שם משפחה'][ii]} {ynet['מידע על המוות'][ii]}")
-    df.at[row, 'ynet category'] = ynet['סיווג'][ii]
+    row = np.where(db['pid'].values == ynet['pid'][ii])[0]
+    if len(row) == 0:
+        if ynet['pid'][ii] not in skip:
+            raise Exception(f"{ynet['pid'][ii]} in ynet but not in DB")
+    else:
+        row = row[0]
+        df.at[row, 'ynet name'] = f"{ynet['שם פרטי'][ii]} {ynet['שם משפחה'][ii]}"
+        if str(ynet['מידע על המוות'][ii]) != 'nan' and str(df['ynet story'][row]) == 'nan':
+            df.at[row, 'ynet story'] = ynet['מידע על המוות'][ii]
+            print(f"added ynet story to {ynet['שם פרטי'][ii]} {ynet['שם משפחה'][ii]} {ynet['מידע על המוות'][ii]}")
+        df.at[row, 'ynet category'] = ynet['סיווג'][ii]
 ## IDF
 idf = pd.read_csv('data/deaths_idf.csv')
 front = pd.read_csv('data/front.csv')
