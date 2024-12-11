@@ -389,6 +389,24 @@ class Relations(unittest.TestCase):
         n_bads = len(bads)
         self.assertEqual(n_bads, 0)
 
+    def no_row(self):
+        pid = []
+        all_pids = rel.values[:,7:14]
+        all_pids = all_pids.flatten()
+        for cell in all_pids:
+            if str(cell) != 'nan':
+                if type(cell) == float:
+                    pid.append(str(int(cell)))
+                else:
+                    pid.extend(cell.split(';'))
+        pid = np.unique(pid).astype('int64')
+        extras = [x for x in pid if x not in pid_rel]
+        if len(extras) > 0:
+            print(f"extra PID as relative with no row of its own {extras}")
+        self.assertEqual(extras, [])
+
+
+
 def collect_issues(pid_a, pid_b):
     issues = []
     for ida in pid_a:
@@ -451,6 +469,7 @@ if __name__ == '__main__':
                                               Relations('mutual_children'),
                                               Relations('mutual_gparents'),
                                               Relations('mutual_gchildren'),
+                                              Relations('no_row'),
                                               Relations('mutual_siblings')])
     else:
         raise Exception('unrecognized options')
