@@ -1,4 +1,8 @@
-"""Find groups of family members."""
+"""Find groups of family members.
+
+run this code (war23_families1.py), then war23_families_summary.py then then
+war23_families_comments.py. then python code/war23_db_tests.py r.
+"""
 import os
 import numpy as np
 import pandas as pd
