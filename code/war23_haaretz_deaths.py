@@ -9,6 +9,7 @@ try:
     url = 'https://www.haaretz.co.il/news/2023-10-12/ty-article-magazine/0000018b-1367-dcc2-a99b-17779a0a0000'
     r = requests.get(url)
     html = r.text
+    html = html.replace('u003e', '>')
     segs = html.split('war-victims-card filterd')
     segs = segs[1:]
 
@@ -16,10 +17,11 @@ try:
     # condition = 'חטוף'
     data = []
     for iseg in range(len(segs)):
-        seg = segs[iseg]
+        seg = segs[iseg].replace('\\', '')
         comp = seg.split('|')
         if '">' not in comp[3]:
             break
+
         status = seg[seg.index('data-sort')+11]
         name_age = comp[0][comp[0].index('data-filter')+13:]
         name = name_age.split(',')[0].strip()
