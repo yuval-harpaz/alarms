@@ -23,10 +23,10 @@
                     zoomButtons:true
                 });
         });
-        function showExample(){
+        function showPoints(){
         //Create data object
         var data = {  
-                    wkts: ['POINT(196062.48 621458.39)', 'POINT(200000.48 600000.39)', 'POINT(25000.48 650000.39)' ],
+                    wkts: ['POINT(161757.00 601815.00)', 'POINT(200000.48 600000.39)', 'POINT(25000.48 650000.39)' ],
                     names: ['p1','p2','p3'],  
                     geometryType: govmap.geometryType.POINT,  
                     defaultSymbol:  
@@ -54,7 +54,8 @@
             {  
               console.log(response.data);
             });
-    }
+        }
+        showPoints()
    </script>
  </head>
  <body>
