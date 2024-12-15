@@ -26,7 +26,7 @@
         function showPoints(){
         //Create data object
         var data = {  
-                    wkts: ['POINT(161757.00 601815.00)', 'POINT(200000.48 600000.39)', 'POINT(25000.48 650000.39)' ],
+                    wkts: ['POINT(161757.00 601815.00)', 'POINT(601815.00 161757.00)', 'POINT(25000.48 650000.39)' ],
                     names: ['p1','p2','p3'],  
                     geometryType: govmap.geometryType.POINT,  
                     defaultSymbol:  
@@ -38,7 +38,7 @@
                     symbols: [  
                         {url:'http://www.creatingonline.com/webmaster/free_bullets/goldbullet1.gif',  width:15, height:15},  
                         {url:'http://www.creatingonline.com/webmaster/free_bullets/blackbullet1.gif',  width:15, height:15},  
-                        {url: 'http://www.creatingonline.com/webmaster/free_bullets/greenbullet1.gif', width: 15, height: 15 }  
+                        {url: 'http://www.creatingonline.com/webmaster/free_bullets/greenbullet1.gif', width: 15, height: 15}  
                     ],  
                     clearExisting: true,  
                     data: {  
@@ -49,10 +49,12 @@
                                   'L-538,00.html'],  
                         bubbleUrl: 'https://www.ynet.co.il/home/0,7340,' 
                     }  
-                };  
+                };
+            console.log('now0')
             govmap.displayGeometries(data).then(function (response)  
             {  
               console.log(response.data);
+              console.log('now1')
             });
         }
         console.log('Going To')
