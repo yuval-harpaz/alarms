@@ -21,6 +21,9 @@
                     level: 6,
                     center: {x: 160777, y: 601906},
                     zoomButtons:true
+                }).then(function () {
+                    console.log("Map initialized successfully");
+                    showPoints();
                 });
         });
         function showPoints(){
@@ -64,10 +67,5 @@
  </head>
  <body>
     <div id="map" style="width:600px;height:600px"></div>
-    <script>
-        console.log('before')
-        showPoints()
-        console.log('after')
-    </script>
  <body>
  </html>
