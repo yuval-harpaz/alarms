@@ -61,8 +61,6 @@
             console.log('Displaying points...');
             govmap.displayGeometries(data).then(function (response) {  
                 console.log('Points displayed:', response.data);
-            }).catch(function (error) {
-                console.error('Error displaying points:', error);
             });
         }
     </script>
