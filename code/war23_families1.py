@@ -71,9 +71,21 @@ df.to_csv('~/Documents/families.csv', index=False)
 df.to_excel('~/Documents/families.xlsx', index=False)
 
 ##
+
 df.to_csv('data/victims_relationship.csv', index=False)
 # ptn = df['partners'][~df['partners'].isnull()].values.astype(int)
 # ptn
-
-
+df = pd.read_csv('data/victims_relationship.csv')
+db = pd.read_csv('data/oct7database.csv')
+df_heb = df.copy()
+df_eng = df.copy()
+for ii in range(len(df)):
+    row = np.where(db['pid'].values == df['pid'][ii])[0][0]
+    eng_name = f"{db['first name'][row]} {db['last name'][row]}"
+    name = f"{db['שם פרטי'][row]} {db['שם משפחה'][row]}"
+    if df['name'][ii] != name:
+        df.at[ii, 'name'] = name
+    for icol, col in enumerate(dbcolumns):
+        if df[dfcolumns[icol]][ii] != db[col][row]:
+            df.at[ii, dfcolumns[icol]] = db[col][row]
 
