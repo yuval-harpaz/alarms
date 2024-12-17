@@ -73,19 +73,42 @@ df.to_excel('~/Documents/families.xlsx', index=False)
 ##
 
 df.to_csv('data/victims_relationship.csv', index=False)
+##
 # ptn = df['partners'][~df['partners'].isnull()].values.astype(int)
 # ptn
 df = pd.read_csv('data/victims_relationship.csv')
 db = pd.read_csv('data/oct7database.csv')
+pid = df['pid'].values
+nameh = []
+namee = []
+for ii in range(len(df)):
+    row = np.where(db['pid'].values == df['pid'][ii])[0][0]
+    namee.append(f"{db['first name'][row]} {db['last name'][row]}")
+    nameh.append(f"{db['שם פרטי'][row]} {db['שם משפחה'][row]}")
 df_heb = df.copy()
 df_eng = df.copy()
 for ii in range(len(df)):
-    row = np.where(db['pid'].values == df['pid'][ii])[0][0]
-    eng_name = f"{db['first name'][row]} {db['last name'][row]}"
-    name = f"{db['שם פרטי'][row]} {db['שם משפחה'][row]}"
-    if df['name'][ii] != name:
-        df.at[ii, 'name'] = name
-    for icol, col in enumerate(dbcolumns):
-        if df[dfcolumns[icol]][ii] != db[col][row]:
-            df.at[ii, dfcolumns[icol]] = db[col][row]
+    for col in df.columns[7:14]:
+        rel = str(df[col][ii])
+        if rel != 'nan':
+            rel = [int(float(x.strip())) for x in rel.split(';')]
+            print(rel)
+            oph = ''
+            ope = ''
+            for irel in range(len(rel)):
+                r = rel[irel]
+                rrow = np.where(pid == r)[0]
+                if len(rrow) != 1:
+                    raise ValueError('should be one row for '+str(r))
+                rrow = rrow[0]
+                oph = oph + nameh[rrow] + '; '
+                ope = ope + namee[rrow] + '; '
+            oph = oph[:-2]
+            ope = ope[:-2]
+            df_heb.at[ii, col] = oph
+            df_eng.at[ii, col] = ope
+cols = ['pid', 'שם באנגלית', 'שם', 'מגורים', 'מקום האירוע', 'תאריך האירוע', 'סטטוס', 'בני זוג', 'אחים', 'הורים של', 'ילדים של', 'סבים של', 'נכדים של', 'קרבה אחרת', 'הערות', 'קבוצה']
+df_heb.columns = cols
+df_heb.to_excel('~/Documents/families_heb.xlsx', index=False)
+df_eng.to_excel('~/Documents/families_eng.xlsx', index=False)
 
