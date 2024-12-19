@@ -118,7 +118,7 @@ if os.path.isdir(local):
 coo = pd.read_csv('data/deaths_by_loc.csv')
 # names = pd.read_excel('data/deaths_by_loc.xlsx', 'names_by_id')
 names = pd.read_csv('data/oct_7_9.csv')
-
+names['location'] = names['location'].str.replace('מוצב סופה; אנדרטת נירים דנגור','אנדרטת נירים דנגור')
 # names['location'] = names['location'].str.replace('אשקלון; בי"ח ברזילי', 'אשקלון (בי"ח ברזילי)')
 # ishifa = np.where(names['location'].str.contains('שיפא'))[0]
 # for iss in ishifa:
