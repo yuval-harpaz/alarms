@@ -3,7 +3,8 @@ import pandas as pd
 import numpy as np
 import geojson
 
-dba = pd.read_excel('/home/innereye/Downloads/alumim.xlsx')
+mapname = 'Alumim'
+dba = pd.read_excel(f'/home/innereye/Documents/Map/{mapname}.xlsx')
 events = np.array([x.split(';')[0] for x in dba['Status'].values])
 geojson_features = []
 coos = []
@@ -42,12 +43,12 @@ center = np.mean(coos, 0)
 geojson_data = geojson.FeatureCollection(geojson_features)
 
 # Define the output path
-geojson_path = '/home/innereye/Documents/Map/alumim.geojson'
+geojson_path = f'/home/innereye/Documents/Map/{mapname}.geojson'
 
 # Save to a GeoJSON file
 with open(geojson_path, 'w') as f:
     geojson.dump(geojson_data, f)
-
+print(f"GeoJSON file created: {geojson_path}")
 
 with open(geojson_path, 'r') as f:
     data = f.read()
@@ -58,6 +59,9 @@ before = html[:html.index("var geojsonData = {")]
 after = html[html.index("var Killed = L.layerGroup()"):]
 optxt = before + "var geojsonData = " + data + "\n" + after
 optxt = optxt.replace("center: [31.425145, 34.48899],", f"center: [{center[1]}, {center[0]}],")
-with open('/home/innereye/Documents/Map/Alumim.html', 'w') as f:
+optxt = optxt.replace("Foreign", mapname)
+mapfile = f'/home/innereye/Documents/Map/{mapname}.html'
+with open(mapfile, 'w') as f:
     f.write(optxt)
-print(f"GeoJSON file created: {geojson_path}")
+
+print(f"map created: {mapfile}")
