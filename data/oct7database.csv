@@ -1376,7 +1376,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2011,Ilay,Ben Muha,Noam ,,עילי,בן מוחה,נועם,,https://www.idf.il/נופלים/חללי-המלחמה/עילי-נועם-בן-מוחה/,Kissufim Base,Exact location,Killed on duty,M,20,אשדוד,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב כיסופים,מוצב כיסופים,Gaza,
 2012,Ori,Shani,Mordechay,,אורי,שני,מרדכי,,https://www.idf.il/נופלים/חללי-המלחמה/אורי-מרדכי-שני/,Kissufim Base,Exact location,Killed on duty,M,22,קריית ארבע,ישראל,חייל,,killed,2023-10-07,2023-10-07,מוצב כיסופים,מוצב כיסופים,Gaza,
 2013,Majed,Ibrahim,,,מאג׳ד,אברהים,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44011,Abu Gosh,oct_7_9,,M,19,אבו גוש,ישראל,אזרח,,killed,2023-10-09,2023-10-14,אבו גוש,אבו גוש,Gaza,רקטה
-2014,Naama,Abu Qrenat,,,נעאמה,אבו ראשד,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44048,Magen,Exact location,Murdered,F,0,אבו קרינאת,ישראל,אזרח,,killed,2023-10-07,2023-10-07,צומת מגן,צומת מגן,Gaza,
+2014,Naama,Abu Qrenat,,,נעאמה,אבו ראשד,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44048,Magen,Exact location,Murdered,F,0,אבו קרינאת,ישראל,אזרח,,killed,2023-10-07,2023-10-07,סמוך למחנה רעים,סמוך למחנה רעים,Gaza,
 2015,Natalia,Demidova,,,נטליה,דמידובה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44062,Sderot,General vicinity,Murdered,F,39,אוקראינה,אוקראינה,אזרח,,killed,2023-10-07,2023-10-07,שדרות,שדרות,Gaza,
 2016,Niv,Ayos,,,ניב,איוס,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44005,Friendly fire near Nitzan,oct_7_9,,M,25,ירושלים,ישראל,אזרח,,killed,2023-10-08,2023-10-08,ירי בשוגג ליד צומת ניצן,ירי בשוגג ליד צומת ניצן,Gaza,ירי בשוגג
 2017,Dor,Sade,,,דור,שדה,,,https://www.idf.il/נופלים/חללי-המלחמה/דור-שדה/,Kfar Aza,Exact location,Killed on duty,M,22,ערוגות,ישראל,חייל,,killed,2023-10-09,2023-10-09,כפר עזה,כפר עזה,Gaza,
@@ -1986,3 +1986,5 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2668,Ilay,Atedgi,Gavriel,,איליי,אטדגי,גבריאל,,https://www.idf.il/נופלים/חללי-המלחמה/איליי-גבריאל-אטדגי/,,idf,,M,22,קרית מוצקין,ישראל,חייל,,killed,2024-12-23,2024-12-23,צפון רצועת עזה,צפון רצועת עזה,Gaza,
 2669,Netanel,Pessach,,,נתנאל,פסח,,,https://www.idf.il/נופלים/חללי-המלחמה/נתנאל-פסח/,,idf,,M,21,אלעזר,ישראל,חייל,,killed,2024-12-23,2024-12-23,צפון רצועת עזה,צפון רצועת עזה,Gaza,
 2670,Hillel,Diener,,,הלל,דינר,,,https://www.idf.il/נופלים/חללי-המלחמה/הלל-דינר/,,idf,,M,21,טלמון,ישראל,חייל,,killed,2024-12-23,2024-12-23,צפון רצועת עזה,צפון רצועת עזה,Gaza,
+2671,Hod,Shriebman,,,הוד,שרייבמן,,,https://www.idf.il/נופלים/חללי-המלחמה/הוד-שרייבמן/,,idf,,M,27,צופית,ישראל,חייל,,killed,2024-12-26,2024-12-26,צפון רצועת עזה,צפון רצועת עזה,Gaza,
+2672,Amit,Levi,,,עמית,לוי,,,https://www.idf.il/נופלים/חללי-המלחמה/עמית-לוי/,,idf,,M,35,שומריה,ישראל,חייל,,killed,2024-12-26,2024-12-26,מרכז רצועת עזה,מרכז רצועת עזה,Gaza,
