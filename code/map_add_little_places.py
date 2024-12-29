@@ -21,3 +21,23 @@ db = pd.read_csv('~/Documents/oct7database - Data3.csv')
 migu = np.unique(db['מקום האירוע'].values[db['מקום האירוע'].str.contains('מיגוני') == True])
 migu = pd.DataFrame(migu, columns=['name'])
 migu.to_csv('~/Documents/migu.csv', index=False)
+##
+migu = pd.read_csv('~/Documents/migu.csv', sep=',')
+db = pd.read_csv('~/Documents/oct7database - Data4.csv')
+migu = migu[~migu['lat'].isnull()]
+migu = migu.reset_index(drop=True)
+for ii in range(len(migu)):
+    rows = np.where(db['מקום האירוע'].values == migu['name'][ii])[0]
+    expected = np.array([migu['lat'][ii], migu['lon'][ii]])
+    print(migu['name'][ii])
+    for row in rows:
+        current = str(db['event_coordinates'][row])
+        if current == 'nan':
+            print(f"nan for pid {db['pid'][row]}")
+        else:
+            current = np.array(current.split(', ')).astype(float)
+            if np.max(np.abs(expected-current)) > 0.0000000001:
+                print(f"unexpected for pid {db['pid'][row]}")
+
+
+
