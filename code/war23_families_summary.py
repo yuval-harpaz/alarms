@@ -74,5 +74,22 @@ for ii in range(len(later)):
 later = later.sort_values(['group','event date','name'], ignore_index=True)
 later.to_excel('~/Documents/after_oct7.xlsx', index=False)
 # pids = [int(float(x)) for x in str(subgroup[col][ii]).split(';')]
-##
-
+## Nova
+group = np.unique(df['group'])
+include = np.zeros(len(group), bool)
+for igr, gr in enumerate(group):
+    members = np.where(df['group'].values == gr)[0]
+    for mem in members:
+        pid = df['pid'][mem]
+        row = np.where(db['pid'].values == pid)[0][0]
+        if str(db['Party'][row]) != 'nan':
+            include[igr] = True
+party = pd.DataFrame(columns=list(list(df.columns))+['party'])
+for igr in np.where(include)[0]:
+    members = np.where(df['group'].values == group[igr])[0]
+    for mem in members:
+        pid = df['pid'][mem]
+        row = np.where(db['pid'].values == pid)[0][0]
+        newrow = list(df.values[mem,:]) + [db['Party'][row]]
+        party.loc[len(party)] = newrow
+party.to_excel('~/Documents/party_family.xlsx')
