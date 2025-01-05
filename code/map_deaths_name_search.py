@@ -2,6 +2,7 @@ import numpy as np
 
 def group_locs(df):
     df['location'] = df['location'].str.replace('אשקלון; בי"ח ברזילי', 'אשקלון (בי"ח ברזילי)')
+    df['location'] = df['location'].str.replace('מש"א ארז; מטווח 5', 'מטווח 5 מש"א ארז')
     ishifa = np.where(df['location'].str.contains('שיפא'))[0]
     for iss in ishifa:
         df.at[iss, 'location'] = 'ביה"ח שיפא'
