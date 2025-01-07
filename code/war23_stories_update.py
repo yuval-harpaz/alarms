@@ -49,8 +49,9 @@ for ii in np.where(~haa1['pid'].isnull())[0]:
                     name0 = ' '.join(haa0['name'][ii-shift].split(' ')[-parts:])
                     story0 = haa0['story'][ii-shift]
                 else:
-                    print('stories failed for haarwtz')
-                    break
+                    print(f"stories haaretz: cannot find {name1}")
+                    shift += 1
+                    continue
         row = np.where(db['pid'].values == haa1['pid'][ii])[0][0]
         if name0 != df['haaretz name'][row]:
             print(f"changed haaretz name from {df['haaretz name'][row]} to {name0}")
