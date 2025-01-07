@@ -25,14 +25,15 @@ try:
         status = seg[seg.index('data-sort')+11]
         name_age = comp[0][comp[0].index('data-filter')+13:]
         name = name_age.split(',')[0].strip()
-        if ',' in name_age:
-            age = name_age.split(',')[1].strip()
-        else:
-            age = ''
-        fro = comp[1].strip()
-        # comp2 = comp[2].strip()
-        story = comp[3][:comp[3].index('">')].strip()
-        data.append([name, age, fro, status, story])
+        if len(name) > 0:
+            if ',' in name_age:
+                age = name_age.split(',')[1].strip()
+            else:
+                age = ''
+            fro = comp[1].strip()
+            # comp2 = comp[2].strip()
+            story = comp[3][:comp[3].index('">')].strip()
+            data.append([name, age, fro, status, story])
     df = pd.DataFrame(data, columns=['name', 'age', 'from', 'status', 'story'])
     df['story'] = df['story'].str.replace('<br>', '\n')
     df['story'] = df['story'].str.strip()

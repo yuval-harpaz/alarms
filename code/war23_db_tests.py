@@ -257,7 +257,7 @@ class TestIDF(unittest.TestCase):
         pid_idf = pid_idf[~np.isnan(pid_idf)].astype(int)
         mismatch = 0
         pid_mismatch = []
-        known = [1643, 1266]
+        known = [1643, 1266, 287]
         for ii in range(len(pid_idf)):
             row = np.where(pid == pid_idf[ii])[0]
             if len(row) == 1:
