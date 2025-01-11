@@ -19,14 +19,15 @@ def guess_origin(df_toguess):
     toguess = df_toguess['origin'].isnull().values & okcat
     row_lat = np.array([coo['lat'][coo['loc'] == x].values[0] for x in df_toguess['cities'].values])
     row_long = np.array([coo['long'][coo['loc'] == x].values[0] for x in df_toguess['cities'].values])
-    syria = toguess & (row_long > 35.63) & (row_lat < 33.1)
-    lebanon = toguess & (row_lat > 31.854)
+    # syria = toguess & (row_long > 35.63) & (row_lat < 33.1)
+    lebanon = toguess & (row_lat > 32.5)
     yemen = toguess & (row_lat < 30)
+    gaza = toguess & (row_lat < 31.7) & (row_long < 34.7)
     origin = df_toguess['origin'].values
-    origin[toguess] = 'Gaza'
+    origin[gaza] = 'Gaza'
     origin[lebanon] = 'Lebanon'
     # origin[syria] = 'Syria'
-    origin[syria] = 'Iraq'  # Golan hit by Lebanon nowadays
+    # origin[syria] = 'Iraq'  # Golan hit by Lebanon nowadays
     origin[yemen] = 'Yemen'
     df_toguess['origin'] = origin
     return df_toguess
@@ -59,6 +60,11 @@ for drones in [True, False]:
                  via <a href="https://www.tzevaadom.co.il/" target="_blank">צבע אדום</a>. last checked: {nowstr}</b></h3>
                  '''
     gnames = origu
+    inan = np.where(gnames == 'nan')[0]
+    if len(inan) == 1:
+        gnames = list(gnames)
+        gnames.pop(inan[0])
+        gnames = np.array(gnames)
     # co = [[0.8, 0.2, 0.2], [0.2, 0.8, 0.2], [0.2, 0.2, 0.8], [0, 0, 0], [0.75, 0.75, 0.25], [0.82, 0.5, 0.35],
     #       [1.0, 0.25, 0.25]]
     co = [[0.8, 0.8, 1], [0.8, 0.2, 0.2], [0, 0, 0], [1, 0.4, 0], [0.2, 0.2, 0.8], [0.2, 0.8, 0.2], [0.4, 0.25, 0.12], [0.9, 0.5, 0.9]]
@@ -81,7 +87,7 @@ for drones in [True, False]:
     #     folium.TileLayer(tile).add_to(map)
     map.get_root().html.add_child(folium.Element(title_html))
 
-    for igroup in range(len(origu)):
+    for igroup in range(len(gnames)):
         # idx = (yyyy == year)
         dt = gnames[igroup]
         idx = origin == origu[igroup]
@@ -119,4 +125,4 @@ for drones in [True, False]:
     html = html[:idx[1]] + html[idx[1]:].replace(osmde, 'openstreetmap.de')
     with open(html_name, 'w') as fid:
         fid.write(html)
-print('done')
+print('done map origin')
