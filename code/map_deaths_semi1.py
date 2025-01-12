@@ -124,7 +124,8 @@ names['location'] = names['location'].str.replace('מוצב סופה; אנדרט
 # for iss in ishifa:
 #     names.at[iss, 'location'] = 'ביה"ח שיפא'
 # names['location'] = [x.split(';')[0] for x in names['location']]
-names = group_locs(names)
+split_nova = True
+names = group_locs(names, split_nova=split_nova)
 center = [coo['lat'].mean(), coo['long'].mean()]
 ##
 table = 'https://docs.google.com/spreadsheets/d/1bImioxD69gmyYhOsggcgCj1EK8Dxp8n25jwGS80GWSY/edit?usp=sharing'
@@ -256,10 +257,11 @@ for lang in ['heb', 'eng']:
                           opacity=0,
                           fill_opacity=opacity
                           ).add_to(map)
+        polygons = ['כביש 232 סמוך לנובה']
         for iloc in range(len(coo)):
+            loc = coo["name"][iloc]
             lat = float(coo['lat'][iloc])
             long = float(coo['long'][iloc])
-            loc = coo["name"][iloc]
             if lang == 'heb':
                 loc_lang = loc
             else:
@@ -346,7 +348,27 @@ for lang in ['heb', 'eng']:
                             tip = tip.replace('<br>', '<br>נחבלה בדרך לממ\"ד - ')
                         if set_table:
                             coo.at[iloc, 'CSPR'[icat]+'tip'] = tip
-                        if onlyone:
+                        if loc in polygons:
+                            locations = [
+                                            [31.395639, 34.470334],
+                                            [31.395436, 34.470533],
+                                            [31.396305, 34.471662],
+                                            [31.398098, 34.473006],
+                                            [31.398237, 34.472744],
+                                            [31.396567, 34.471556],
+                                            [31.395612, 34.470296]
+                                        ]
+                            folium.Polygon(
+                                locations=locations,
+                                color="black",
+                                weight=6,
+                                fill_color="black",
+                                fill_opacity=opacity,
+                                fill=True,
+                                # popup="Tokyo, Japan",
+                                tooltip=tip,
+                            ).add_to(map)
+                        elif onlyone:
                             folium.Circle(location=[lat, long],
                                                 tooltip=tip,
                                                 radius=float(np.max([radius*300, 1])),

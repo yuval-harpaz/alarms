@@ -1,15 +1,19 @@
 import numpy as np
 
-def group_locs(df):
+
+def group_locs(df, split_nova=False):
     df['location'] = df['location'].str.replace('אשקלון; בי"ח ברזילי', 'אשקלון (בי"ח ברזילי)')
     df['location'] = df['location'].str.replace('מש"א ארז; מטווח 5', 'מטווח 5 מש"א ארז')
     ishifa = np.where(df['location'].str.contains('שיפא'))[0]
     for iss in ishifa:
         df.at[iss, 'location'] = 'ביה"ח שיפא'
+    if split_nova:
+        df['location'] = df['location'].str.replace('פסטיבל נובה; כביש 232', 'כביש 232 סמוך לנובה')
     df['location'] = [x.split(';')[0] for x in df['location']]
     replace = [['בכניסה לעלומים'], ['ביה"ח שיפא'], ['מערבית לצומת גמה', 'צומת גמה'], ['סמוך לצומת גמה', 'צומת גמה'], ['מיגונית בצומת גמה', 'צומת גמה'],
                ['צומת בארי'], ['מיגונית בכניסה לרעים', 'בכניסה לרעים'], ['סמוך לכניסה לרעים', 'בכניסה לרעים'], ['חאן יונס'],['מיגונית חניון רעים', 'פסטיבל נובה'],
                ['רצועת עזה', 'רצועת עזה, לא פורסם מיקום מדוייק'],['צומת רעים'], ['דיר אל בלח'], ['מיגונית מפלסים','סמוך למפלסים']]  #
+
     for uu in replace:
         df.loc[df['location'].str.contains(uu[0]), 'location'] = uu[-1]  # -1 allows for pairs, search term + what to change into
     return df
