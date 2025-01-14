@@ -4,8 +4,9 @@ import numpy as np
 import geojson
 from urllib import request
 import json
-
+import os
 ##
+os.chdir('/home/innereye/alarms')
 with open('.txt', 'r') as f:
     address = f.read().split('\n')[6]
 with request.urlopen(address) as url:
