@@ -243,7 +243,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 296,Shachaf,Bergstein,,,שחף,ברגשטיין,,,https://www.idf.il/נופלים/חללי-המלחמה/שחף-ברגשטיין/,Kfar Aza,Exact location,Killed on duty,M,33,כפר עזה,ישראל,כיתת כוננות,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה,Gaza,
 297,Tal,Cohen,,Talco,טל,כהן,,טלכו,https://www.idf.il/נופלים/חללי-המלחמה/טל-כהן/,Kfar Aza,Exact location,Killed on duty,M,30,גני טל,ישראל,חייל,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה,Gaza,
 298,Naomi,Dgani,,,נעמי,דגני,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43492,Kfar Aza,Exact location,Murdered,F,80,כפר עזה,ישראל,אזרח,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה,Gaza,
-299,Tal,Eilon,,,טל,אילון,,,https://www.idf.il/נופלים/חללי-המלחמה/טל-אילון/,Kfar Aza,Exact location,Killed on duty,M,46,כפר עזה,ישראל,כיתת כוננות,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה,Gaza,
+299,Tal,Eilon,,Talsky,טל,אילון,,טלסקי,https://www.idf.il/נופלים/חללי-המלחמה/טל-אילון/,Kfar Aza,Exact location,Killed on duty,M,46,כפר עזה,ישראל,כיתת כוננות,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה,Gaza,
 300,Sivan,Elkabets,,,סיון,אלקבץ,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43477,Kfar Aza,Exact location,Murdered,F,23,כפר עזה,ישראל,אזרח,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה,Gaza,
 301,Neta,Epstein,,,נטע,אפשטיין,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43480,Kfar Aza,Exact location,Murdered,M,21,כפר עזה,ישראל,אזרח,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה,Gaza,
 302,Cynthia,Flash,Tamar,,תמר,פלש,סינדי,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43513,Kfar Aza,Exact location,Murdered,F,67,כפר עזה,ישראל,אזרח,,killed,2023-10-07,2023-10-07,כפר עזה,כפר עזה,Gaza,
@@ -1692,7 +1692,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2333,Nisim,Kachlon,,,ניסים,כחלון,,,https://www.idf.il/נופלים/חללי-המלחמה/ניסים-כחלון/,,idf,Killed on duty,M,21,חדרה,ישראל,חייל,,killed,2024-03-27,2024-03-27,דרום רצועת עזה,דרום רצועת עזה,Gaza,ירי
 2334,Sergeant,Kudriashov,,Kudri,אלון,קודריאשוב,,קודרי,https://www.idf.il/נופלים/חללי-המלחמה/אלון-קודריאשוב/,,idf,Killed on duty,M,21,מודיעין,ישראל,חייל,,killed,2024-03-29,2024-03-29,דרום רצועת עזה,דרום רצועת עזה,Gaza,נ.ט.
 2335,sivan,wail,,,סיון,ווייל,,,https://www.idf.il/נופלים/חללי-המלחמה/סיון-ווייל/,,idf,Killed on duty,M,20,רעננה,ישראל,חייל,,killed,2024-03-29,2024-03-31,דרום רצועת עזה,דרום רצועת עזה,Gaza,נ.ט.
-2336,Nadav,Cohen,,,נדב,כהן,,,https://www.idf.il/נופלים/חללי-המלחמה/נדב-כהן/,,idf,Killed on duty,M,20,חיפה,ישראל,חייל,,killed,2024-03-31,2024-03-31,דרום רצועת עזה,דרום רצועת עזה,Gaza,נ.ט.
+2336,Nadav,Cohen,,Nadi,נדב,כהן,,נדי,https://www.idf.il/נופלים/חללי-המלחמה/נדב-כהן/,,idf,Killed on duty,M,20,חיפה,ישראל,חייל,,killed,2024-03-31,2024-03-31,דרום רצועת עזה,דרום רצועת עזה,Gaza,נ.ט.
 2337,Ido,Baruch,,,עידו,ברוך,,,https://www.idf.il/נופלים/חללי-המלחמה/עידו-ברוך/,,idf,Killed on duty,M,21,תל מונד,ישראל,חייל,,killed,2024-04-06,2024-04-06,דרום רצועת עזה,דרום רצועת עזה,Gaza,ירי
 2338,Amitai,Even Shoshan,,,אמיתי,אבן שושן,,,https://www.idf.il/נופלים/חללי-המלחמה/אמיתי-אבן-שושן/,,idf,Killed on duty,M,20,עזריאל,ישראל,חייל,,killed,2024-04-06,2024-04-06,דרום רצועת עזה,דרום רצועת עזה,Gaza,ירי
 2339,Reef,Harush,,,ריף,הרוש,,,https://www.idf.il/נופלים/חללי-המלחמה/ריף-הרוש/,,idf,Killed on duty,M,20,קיבוץ רמת דוד,ישראל,חייל,,killed,2024-04-06,2024-04-06,דרום רצועת עזה,דרום רצועת עזה,Gaza,ירי
