@@ -627,7 +627,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 759,Nitzan,Goldenberg,,,ניצן,גולדנברג,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43768,Nova,Approximate location,Murdered,M,28,נתניה,ישראל,אזרח,Nova,killed,2023-10-07,2023-10-07,מזרחית לכניסה לרעים,מזרחית לכניסה לרעים,Gaza,
 760,Tamar,Goldenberg,,,תמר,גולדנברג,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43769,Nova; Mefalsim Bend,Exact location,Murdered,F,23,ראשון לציון,ישראל,אזרח,Nova,killed,2023-10-07,2023-10-07,סמוך למפלסים,סמוך למפלסים,Gaza,
 761,Daniel,Goltman,,,דניאל,גולטמן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43770,Nova; Nova Bar,Exact location,Murdered,M,24,ראשון לציון,ישראל,אזרח,Nova,killed,2023-10-07,2023-10-07,פסטיבל נובה; בר צפוני,פסטיבל נובה; בר צפוני,Gaza,
-762,Romi,Gonen,,,רומי,גונן,,,,Nova,Exact location,Kidnapped,F,23,כפר ורדים,ישראל,אזרח,Nova,kidnapped,2023-10-07,,בכניסה לעלומים,,Gaza,
+762,Romi,Gonen,,,רומי,גונן,,,,Nova,Exact location,Kidnap survivor,F,23,כפר ורדים,ישראל,אזרח,Nova,kidnapped; released,2023-10-07,,בכניסה לעלומים,,Gaza,
 763,Victoria,Gorlov,,,ויקטוריה,גורלוב,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43775,Nova; Nova Ambulance,Exact location,Murdered,F,23,בת ים,ישראל,אזרח,Nova,killed,2023-10-07,2023-10-07,פסטיבל נובה; אמבולנס,פסטיבל נובה; אמבולנס,Gaza,
 764,Eden,Guez,,,עדן,גז,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43776,Nova; Mefalsim Bend,Exact location,Murdered,F,31,אשקלון,ישראל,אזרח,Nova,killed,2023-10-07,2023-10-07,סמוך למפלסים,סמוך למפלסים,Gaza,
 766,Tamar,Gutman,,,תמר,גוטמן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44090,Nova; Nahal Grar Bridge,Exact location,Murdered,F,27,כפר בן נון,ישראל,אזרח,Nova,killed,2023-10-07,2023-10-07,פסטיבל נובה; גשר נחל גרר,פסטיבל נובה; גשר נחל גרר,Gaza,
@@ -984,7 +984,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 1328,Omer,Shem Tov,,,עומר ,שם טוב,,,,Nova,Approximate location,Kidnapped,M,21,הרצליה,ישראל,אזרח,Nova,kidnapped,2023-10-07,,פסטיבל נובה,,Gaza,
 1329,Idan,Shtivi,,,עידן,שתיוי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44222,Nova,Approximate location,Murdered in captivity,M,28,תל אביב-יפו,ישראל,אזרח,Nova,killed; kidnapped,2023-10-07,2023-10-07,צפונית לצומת גמה,צפונית לצומת גמה,Gaza,
 1330,Vivian,Silver,,,ויויאן,סילבר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44073,Be'eri,General vicinity,Murdered,F,74,בארי,ישראל,אזרח,,killed,2023-10-07,2023-10-07,בארי; הזיתים,בארי; הזיתים,Gaza,
-1331,Doron,Steinbrecher,,,דורון,שטיינברכר,,,,Kfar Aza,Exact location,Kidnapped,F,30,כפר עזה,ישראל,אזרח,,kidnapped,2023-10-07,,כפר עזה,,Gaza,
+1331,Doron,Steinbrecher,,,דורון,שטיינברכר,,,,Kfar Aza,Exact location,Kidnap survivor,F,30,כפר עזה,ישראל,אזרח,,kidnapped; released,2023-10-07,,כפר עזה,,Gaza,
 1332,Dor,Toar,,,דור,תאר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44001,Nova; Nahal Grar Bridge,Exact location,Murdered,M,27,משמר איילון,ישראל,אזרח,Nova,killed,2023-10-07,2023-10-07,פסטיבל נובה; גשר נחל גרר,פסטיבל נובה; גשר נחל גרר,Gaza,
 1333,Ilan,Weiss,Shlomo,,אילן,וייס,שלמה,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44125,Be'eri,Approximate location,Murdered in captivity,M,55,בארי,ישראל,אזרח,,killed; kidnapped,2023-10-07,2023-10-07,בארי; הכרם,בארי; הכרם,Gaza,
 1334,Omer,Wenkert,,,עומר,ונקרט,,,,Nova,General vicinity,Kidnapped,M,22,גדרה,ישראל,אזרח,Nova,kidnapped,2023-10-07,,מיגונית בכניסה לרעים (מזרח),,Gaza,
@@ -1200,7 +1200,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 1556,Regev,Amar,,,רגב,אמר,,,https://www.idf.il/נופלים/חללי-המלחמה/רגב-אמר/,Kissufim,General vicinity,Killed on duty,M,20,שדה נחמיה,ישראל,חייל,,killed,2023-10-07,2023-10-07,כיסופים,כיסופים,Gaza,
 1557,Shahar,Ben Naim,,,שחר,בן נעים,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43746,Nova; Mefalsim Bend,Exact location,Murdered,M,42,צור משה,ישראל,אזרח,Nova,killed,2023-10-07,2023-10-07,כביש שער הנגב מפלסים,כביש שער הנגב מפלסים,Gaza,
 1558,Yulia,Chaben,,,יוליה,צ׳בן,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43370,Zikim Beach,General vicinity,Murdered,F,24,באר שבע,ישראל,אזרח,,killed,2023-10-07,2023-10-07,חוף זיקים,חוף זיקים,Gaza,
-1559,Emily,Damari,Tehila,,אמילי,דמארי,תהילה,,,Kfar Aza,Exact location,Kidnapped,F,27,כפר עזה,ישראל,אזרח,,kidnapped,2023-10-07,,כפר עזה,,Gaza,
+1559,Emily,Damari,Tehila,,אמילי,דמארי,תהילה,,,Kfar Aza,Exact location,Kidnap survivor,F,27,כפר עזה,ישראל,אזרח,,kidnapped; released,2023-10-07,,כפר עזה,,Gaza,
 1560,Avshalom,Peretz,Yair,Avshi,אבשלום,פרץ,יאיר,אבשי,https://lezichram.police.gov.il/main/nofel/42131,Gaza Envelope; Sha'ar HaNegev Junction,Exact location,Killed on duty,M,27,נתיבות,ישראל,שוטר,,killed,2023-10-07,2023-10-07,צומת שער הנגב,צומת שער הנגב,Gaza,נ.ט.
 1561,Yiftach,Gorny,,,יפתח,גורני,,,https://www.idf.il/נופלים/חללי-המלחמה/יפתח-גורני/,Kerem Shalom,Exact location,Killed on duty,M,51,באר מילכה,ישראל,חייל,,killed,2023-10-07,2023-10-07,בין יתד לאמיתי,בין יתד לאמיתי,Gaza,
 1562,Arik,Marciano,Yehuda,,אריק,מרציאנו,יהודה,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43425,Sderot,General vicinity,Killed on duty,M,50,קריית גת,ישראל,כבאי,,killed,2023-10-07,2023-10-07,שדרות,שדרות,Gaza,נ.ט.
