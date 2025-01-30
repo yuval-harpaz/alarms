@@ -1,9 +1,5 @@
 import pandas as pd
-import os
 import numpy as np
-import sys
-import requests
-import json
 from selenium import webdriver
 from time import sleep
 # sys.path.append('code')
@@ -33,6 +29,21 @@ for skip in range(0, 721, 20):
             part = seg[seg.index(col):]
             part = part[part.index(':true')+7:part.index('</span')]
             part = part.replace('<bdi>', '').replace(' 00:00:00</bdi>', '')
+            part = part.replace(',', ';').replace('</bdi>', '')
             df.at[row, col] = part
 
 df.to_csv('~/Documents/prisoners.csv', index=False)
+df.to_excel('~/Documents/prisoners.xlsx', index=False)
+
+##
+
+df1 = pd.read_csv('~/Documents/prisoners.csv')
+np.sum(df1['עבירות'].str.contains('רצח'))
+murder = np.array([x[:3] == 'רצח' or '; רצח' in x for x in df1['עבירות']])
+attempt = ['נסיון לרצח' in x for x in df1['עבירות']]
+attempt_only = np.array(attempt) & ~murder)
+age = np.array([int(x.split(';')[1]) for x in df1['מגדר, גיל, אזור מגורים']])
+sum(murder | attempt & (age < 18))
+convict = df1['עצור או שפוט'].values == 'שפוט'
+np.sum((age < 18) & ~convict & (murder | attempt))
+
