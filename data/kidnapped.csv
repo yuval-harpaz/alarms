@@ -117,14 +117,14 @@ name,first,last,gender,age,from,circum,condition,status,release_date,story,sourc
 אילנה גריצבסקי,אילנה,גריצבסקי,F,30,ניר עוז,,שוחרר,ישראלי,2023-11-30,נחטפה מביתה,,571
 אוריון הרננדס ראדו,אוריון,ראדו,M,30,מקסיקו,party,הוחזר,זר,,"נחטף מהמסיבה ברעים, בן זוגה של שני לוק שנרצחה",,1589
 דורון שטיינברכר,דורון,שטיינברכר,F,30,כפר עזה,,שוחרר,ישראלי,2025-01-19,"הקשר נותק איתה לאחר ששלחה הודעה קולית לחברותיה, בה היא נשמעת אומרת שהמחבלים תפסו אותה",,1331
-וואטצ'רה סריון,Watchara,Sriaoun,M,32,תאילנד,,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm,2383
+וואטצ'רה סריון,Watchara,Sriaoun,M,32,תאילנד,,שוחרר,זר,2025-01-30,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm,2383
 שירי ביבס,שירי,ביבס,F,32,ניר עוז,,חטוף,ישראלי,,נחטפה עם שני ילדיה הפעוטים,,553
 אלכס לובנוב,אלכס,לובנוב,M,32,אשקלון,party,הוחזר,ישראלי,,היה במסיבה ברעים,,100
 אורן גולדין,אורן,גולדין,M,33,ניר יצחק,,הוחזר,ישראלי,,אורן נחטף במצב לא ידוע בשבת השחורה ב-7 באוקטובר. לאחר יותר מחודש התבשרה משפחתו כי הוא נרצח וגופתו מוחזקת ככל הנראה בשבי חמאס,,652
 וויטון פומי Withoon Phumee,פומי,וויטון,M,33,תאילנד,,שוחרר,זר,2023-11-24,עבד בקיבוץ ניר עוז,https://www.nationthailand.com/world/middle-east-africa/40033196,1647
 אור לוי,אור,לוי,M,33,גבעתיים,party,חטוף,ישראלי,,היה במסיבה ברעים,,796
 דוד קוניו,דוד,קוניו,M,33,ניר עוז,,חטוף,ישראלי,,נחטף מביתו עם משפחתו,,587
-סטיאן סוונאקאם,Sathian,Suwannakham,M,34,תאילנד,,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm,2380
+סטיאן סוונאקאם,Sathian,Suwannakham,M,34,תאילנד,,שוחרר,זר,2025-01-30,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm,2380
 שרון אלוני קוניו,שרון,אלוני קוניו,F,34,ניר עוז,,שוחרר,ישראלי,2023-11-27,נחטפה מביתה עם משפחתה,,589
 אלקנה בוחבוט,אלקנה,בוחבוט,M,34,מבשרת ציון,party,חטוף,ישראלי,,היה במסיבה ברעים,,1054
 יגב בוכשטב,יגב,בוכשטב,M,34,נירים,,הוחזר,ישראלי,,נחטף מביתו עם אשתו רימון,,1347
@@ -228,12 +228,12 @@ name,first,last,gender,age,from,circum,condition,status,release_date,story,sourc
 יפה אדר,יפה,אדר,F,85,ניר עוז,,שוחרר,ישראלי,2023-11-24,נחטפה מביתה,,539
 שלמה מנצור,שלמה,מנצור,M,85,כיסופים,,חטוף,ישראלי,,נחטף מביתו,,1603
 אריה זלמנוביץ,אריה,זלמנוביץ,M,86,ניר עוז,,נרצח,ישראלי,,נחטף מביתו,https://www.nationthailand.com/world/middle-east-africa/40033196,648
-Surasak Rumnao,Sulasak,Lamnao,M,,תאילנד,,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm,2378
+Surasak Rumnao,Sulasak,Lamnao,M,,תאילנד,,שוחרר,זר,2025-01-30,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm,2378
 Sonthaya Oakkharasri,Sonthaya,Oakkharasri,M,30,תאילנד,,נרצח,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm,1734
 Natthapong Pinta,Nattapong,Pinta,M,35,תאילנד,,חטוף,זר,,,https://www.bbc.com/news/world-middle-east-67053011,2382
 Sudthisak Rinthalak,Sudthisak,Rinthalak,M,,תאילנד,,נרצח,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm,1735
-Bannawat Seathao,Bannawat,Saethao,M,,תאילנד,,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm,2381
-Pongsak Thenna,Pongsak,Thaenna,M,,תאילנד,,חטוף,זר,,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm,2379
+Bannawat Seathao,Bannawat,Saethao,M,,תאילנד,,שוחרר,זר,2025-01-30,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm,2381
+Pongsak Thenna,Pongsak,Thaenna,M,,תאילנד,,שוחרר,זר,2025-01-30,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-41aa470bb4b0b81027.htm,2379
 באנצ'ה קונגמאני Bancha Kongmanee,קונגמאני,באנצ'ה,M,,תאילנד,,שוחרר,זר,2023-11-24,,https://www.nationthailand.com/world/middle-east-africa/40033196,1649
 בודיי סינגהון Buddee Saengboon,סינגהון,בודיי,M,,תאילנד,,שוחרר,זר,2023-11-24,,https://www.nationthailand.com/world/middle-east-africa/40033196,1650
 הותאי ת'ונגסרי Uthai Thunsri,ת'ונגסרי,הותאי,M,,תאילנד,,שוחרר,זר,2023-11-24,,https://www.nationthailand.com/world/middle-east-africa/40033196,1651
