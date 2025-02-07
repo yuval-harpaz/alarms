@@ -79,5 +79,5 @@ for ii in np.where(~ynet['pid'].isnull())[0]:
         df.at[row, 'ynet story'] = ynet['מידע על המוות'][ii]
 ##
 df.to_csv('~/Documents/stories.csv', index=False)
-    
+
     
