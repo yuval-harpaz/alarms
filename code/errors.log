@@ -1068,3 +1068,6 @@ war23_idf_mem_all.py failed
 substring not found
 war23_idf_mem_all.py failed
 substring not found
+war23_ynetlist.py failed
+Error tokenizing data. C error: Expected 26 fields in line 882, saw 27
+
