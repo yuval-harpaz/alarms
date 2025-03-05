@@ -108,6 +108,6 @@ if __name__ == '__main__':
         field = 'מקום האירוע'
         criterion = sys.argv[1]
         comment = sys.argv[2]
-        mapname, coos = export_json(field=field, criterion='חולית', language='He')
+        mapname, coos = export_json(field=field, criterion=criterion, language='He')
         center = np.mean(coos, 0)
         json2map(mapname, center, comment)
