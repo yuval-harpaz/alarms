@@ -107,7 +107,7 @@ for ii in range(len(df)):
             ope = ope[:-2]
             df_heb.at[ii, col] = oph
             df_eng.at[ii, col] = ope
-cols = ['pid', 'שם באנגלית', 'שם', 'מגורים', 'מקום האירוע', 'תאריך האירוע', 'סטטוס', 'בני זוג', 'אחים', 'הורים של', 'ילדים של', 'סבים של', 'נכדים של', 'קרבה אחרת', 'הערות', 'קבוצה']
+cols = ['pid', 'שם באנגלית', 'שם', 'מגורים', 'מקום האירוע', 'תאריך האירוע', 'סטטוס', 'בני זוג', 'אחים', 'הורים של', 'ילדים של', 'סבים של', 'נכדים של', 'קרבה אחרת', 'קבוצה']
 df_heb.columns = cols
 df_heb.to_excel('~/Documents/families_heb.xlsx', index=False)
 df_eng.to_excel('~/Documents/families_eng.xlsx', index=False)
