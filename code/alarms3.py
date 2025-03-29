@@ -1,5 +1,5 @@
 import requests
-from matplotlib import colors
+from matplotlib import colors, colormaps
 import folium
 import pandas as pd
 import numpy as np
@@ -7,6 +7,7 @@ import os
 import plotly.express as px
 import sys
 import re
+from datetime import datetime
 
 local = '/home/innereye/alarms/'
 islocal = False
@@ -92,9 +93,10 @@ dif_sec = dif.astype('timedelta64[s]').astype(float)
 dif_days = dif_sec / 60 ** 2 / 24
 past_24h = dif_days <= 1
 past_7d = dif_days <= 7
+current_year = datetime.now().year
 n = []
 mmyy = []
-for year in range(2019, 2024):
+for year in range(2019, current_year + 1):
     for month in range(1, 13):
         idx = (yyyy == year) & (mm == month)
         n.append(len(np.unique(prev['id'][idx])))
@@ -113,9 +115,18 @@ title_html = f'''
              <h3 align="center" style="font-size:16px"><b>Rocket alarms in Israel since July 2019, data from <a href="https://www.oref.org.il" target="_blank">THE NATIONAL EMERGENCY PORTAL</a>
              via <a href="https://www.tzevaadom.co.il/" target="_blank">צבע אדום</a>. last checked: {nowstr}</b></h3>
              '''
-gnames = ['2019', '2020', '2021', '2022', '2023', '2024', '7 days', '24 h']
-co = [[0.8, 0.8, 0.8], [0.25, 0.25, 1.0], [0.25, 0.9, 0.8], [0.25, 1, 0.25], [0.75, 0.75, 0.25], [0.82, 0.5, 0.35],
-      [1.0, 0.25, 0.25], [0, 0, 0]]
+
+gnames = [str(year) for year in range(2019, current_year + 1)] + ['7 days', '24 h']
+# gnames = ['2019', '2020', '2021', '2022', '2023', '2024', '7 days', '24 h']
+# co = [[0.8, 0.8, 0.8], [0.25, 0.25, 1.0], [0.25, 0.9, 0.8], [0.25, 1, 0.25], [0.75, 0.75, 0.25], [0.82, 0.5, 0.35],
+#       [1.0, 0.25, 0.25], [0, 0, 0]]
+co = np.array(colormaps['tab20'].colors)
+idx = np.concatenate([np.arange(0, 20, 2), np.arange(1, 21, 2)])
+co = co[idx, :]
+ired = np.where(co[:, 0] == 0.8392156862745098)[0][0]
+red = co[ired, :]
+co = np.concatenate([co[:ired, :], co[ired+1:, :]])
+co = np.concatenate([co[:len(gnames)-2], [red, [0, 0, 0]]])
 chex = []
 for c in co:
     chex.append(colors.to_hex(c))
@@ -125,19 +136,20 @@ for ic, gn in enumerate(gnames):
     grp.append(folium.FeatureGroup(name=lgd_txt.format(txt=gn, col=chex[ic])))
 
 coo = pd.read_csv('data/coord.csv')
-center = [coo['lat'].mean(), coo['long'].mean()]
+center = [(coo['lat'].min() + coo['lat'].max())/2,
+          (coo['long'].min() + coo['long'].max())/2]
 ##
 map = folium.Map(location=center, zoom_start=7.5, tiles='cartodbpositron')
 # tiles = ['cartodbpositron', 'stamenterrain']
 # for tile in tiles:
 #     folium.TileLayer(tile).add_to(map)
 # folium.TileLayer('cartodbpositron').add_to(map)
-folium.TileLayer('openstreetmap').add_to(map)
-folium.TileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png',
-                 attr='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors').add_to(map)
+# folium.TileLayer('openstreetmap').add_to(map)
+# folium.TileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png',
+#                  attr='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors').add_to(map)
 map.get_root().html.add_child(folium.Element(title_html))
 
-for year in range(2019, 2025):
+for year in range(2019, current_year+1):
     idx = (yyyy == year)
     loc = np.asarray(prev['cities'][idx])
     locu = np.unique(loc)
@@ -188,11 +200,11 @@ for ig in range(len(gnames)):
 folium.map.LayerControl('topleft', collapsed=False).add_to(map)
 html_name = "docs/alarms_by_year.html"
 map.save(html_name)
-with open(html_name, 'r') as fid:
-    html = fid.read()
-osmde = 'https://tile.openstreetmap.de/{z}/{x}/{y}.png'  # 'openstreetmap.de'
-idx = [m.start() for m in re.finditer(osmde, html)]
-html = html[:idx[1]] + html[idx[1]:].replace(osmde, 'openstreetmap.de')
-with open(html_name, 'w') as fid:
-    fid.write(html)
+# with open(html_name, 'r') as fid:
+#     html = fid.read()
+# osmde = 'https://tile.openstreetmap.de/{z}/{x}/{y}.png'  # 'openstreetmap.de'
+# idx = [m.start() for m in re.finditer(osmde, html)]
+# html = html[:idx[1]] + html[idx[1]:].replace(osmde, 'openstreetmap.de')
+# with open(html_name, 'w') as fid:
+#     fid.write(html)
 print('done')
