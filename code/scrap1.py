@@ -15,3 +15,8 @@ candidates = oct7 & notathome & noparty & citizen & nores & nozikim
 np.unique(df['מקום האירוע'][candidates])
 select = df[candidates]
 select.to_csv('~/Downloads/party_candidates.csv', index=False)
+nomutzav = np.array(['מוצב' not in str(x) for x in df['מקום האירוע']])
+migunit = np.array(['מיגונ' in str(x) for x in df['מקום האירוע']])
+
+dfm = df[migunit & noparty]
+dfm.to_csv('~/Downloads/migunit.csv', index=False)
