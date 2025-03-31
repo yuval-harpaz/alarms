@@ -18,5 +18,9 @@ select.to_csv('~/Downloads/party_candidates.csv', index=False)
 nomutzav = np.array(['מוצב' not in str(x) for x in df['מקום האירוע']])
 migunit = np.array(['מיגונ' in str(x) for x in df['מקום האירוע']])
 
-dfm = df[migunit & noparty]
+dfm = df[migunit & noparty &nomutzav]
 dfm.to_csv('~/Downloads/migunit.csv', index=False)
+
+nova = np.array(['Nova' in str(x) for x in df['Event location (oct7map)']])
+
+dfn = df[nova & noparty]

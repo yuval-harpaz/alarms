@@ -15,7 +15,11 @@ if os.path.isdir(local):
     file.close()
 else:
     url = os.environ['oct7map']
-map7 = pd.read_json(url)
+try:
+    map7 = pd.read_json(url)
+except:
+    print('no internet?')
+
 
 # data = pd.read_csv('/home/innereye/Documents/oct7database - Data.csv')
 data = pd.read_csv('data/oct7database.csv')
@@ -165,6 +169,30 @@ class Test79(unittest.TestCase):
                 n_issues += 1
                 print(f"OCT_7_9 date for {map79['eng'][ii]} ({map79['pid'][ii]}) is {map79['date'][ii]}, not {date}")
         self.assertEqual(n_issues, 0)
+
+    def nova79(self):
+        pid = data['pid'].values
+        n_miss_db = 0
+        n_miss_79 = 0
+        total79 = 0
+        totaldb = 0
+        for ii in range(len(map79)):
+            row = np.where(pid == map79['pid'][ii])[0][0]
+            if 'נובה' in str(map79['comment'][ii]):
+                total79 += 1
+                if 'Nova' not in data['Party'][row]:
+                    n_miss_db += 1
+                    print('no nova in db Party for '+str(data['pid'][row]))
+            if 'Nova' in str(data['Party'][row]):
+                if 'killed' in data['Status'][row].lower():
+                    totaldb += 1
+                if 'נובה' not in str(map79['comment'][ii]):
+                    n_miss_79 += 1
+                    print('no nova in map_7_9 comment for '+str(data['pid'][row]))
+        self.assertEqual(n_miss_db, 0)
+        self.assertEqual(n_miss_db, 0)
+        self.assertEqual(total79, totaldb)
+
 
 
 haa = pd.read_csv('data/deaths_haaretz+.csv')
