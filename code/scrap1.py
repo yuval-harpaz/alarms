@@ -24,3 +24,7 @@ dfm.to_csv('~/Downloads/migunit.csv', index=False)
 nova = np.array(['Nova' in str(x) for x in df['Event location (oct7map)']])
 
 dfn = df[nova & noparty]
+
+kid = np.array(['kidnapped' in x.lower() for x in df['Status']])
+dfk = df[kid & nores & noparty & citizen]
+dfk.to_csv('~/Downloads/kidnapped.csv', index=False)
