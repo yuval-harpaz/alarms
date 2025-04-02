@@ -161,6 +161,8 @@ for icat in range(4):
 
 # add text for sig places
 idx = list(range(20))
+# exclude coo idx from text
+idx.pop(np.where(coo['name'] == "כביש 232 סמוך לנובה")[0][0])
 
 # idx = idx + [np.where(coo['name'] == 'בבירור')[0][0]]
 opacity = 0.55
