@@ -180,7 +180,7 @@ class Test79(unittest.TestCase):
             row = np.where(pid == map79['pid'][ii])[0][0]
             if 'נובה' in str(map79['comment'][ii]):
                 total79 += 1
-                if 'Nova' not in data['Party'][row]:
+                if 'Nova' not in str(data['Party'][row]):
                     n_miss_db += 1
                     print('no nova in db Party for '+str(data['pid'][row]))
             if 'Nova' in str(data['Party'][row]):
@@ -480,6 +480,7 @@ if __name__ == '__main__':
                                               Test79('unique_pid79'),
                                               Test79('loc79'),
                                               Test79('date79'),
+                                              Test79('nova79'),
                                               TestHaa('extras_haa'),
                                               TestHaa('unique_haa'),
                                               # TestHaa('missing_haa'),
