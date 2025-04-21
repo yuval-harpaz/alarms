@@ -1884,7 +1884,7 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2558,Amitai,Alon,,,אמיתי,אלון,,,https://www.idf.il/נופלים/חללי-המלחמה/אמיתי-אלון/,,,,M,19,רמות נפתלי,ישראל,חייל,,killed,2024-10-13,2024-10-13,"בא""ח גולני",,North,"כטב""מ"
 2559,Koren,Bitan,,,קורן,ביתן,,,https://www.idf.il/נופלים/חללי-המלחמה/קורן-ביתן/,דרום רצועת עזה,idf,,M,19,ראש העין,ישראל,חייל,,killed,2024-10-14,2024-10-14,דרום רצועת עזה,דרום רצועת עזה,Gaza,
 2560,Raphael,Fishoff,Mordechai,,רפאל,פישהוף,מרדכי,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44225,,,,M,35,חדרה,ישראל,אזרח,,killed,2024-10-09,2024-10-10,חדרה,,Home,פיגוע דקירה
-2561,Nisan,Meerum,,,ניסן,מירם,,,https://www.gov.il/en/pages/nisan-miram,,,,M,42,יראון,תאילנד,אזרח,,killed,2024-10-11,2024-10-11,סמוך ליראון,סמוך ליראון,North,נפל
+2561,Nisan,Meerum,,,ניסן,מירם,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44226,,,,M,42,יראון,תאילנד,אזרח,,killed,2024-10-11,2024-10-11,סמוך ליראון,סמוך ליראון,North,נפל
 2562,Adir,Kadosh,,,אדיר,קדוש,,,https://lezichram.police.gov.il/main/nofel/42205,,,,M,33,תל אביב-יפו,ישראל,שוטר,,killed,2024-10-15,2024-10-15,מחלף יבנה,מחלף יבנה,Home,פיגוע ירי
 2563,Yehudah,Yahalom,Dror,,יהודה,יהלום,דרור,,https://www.idf.il/נופלים/חללי-המלחמה/יהודה-דרור-יהלום/,,,,M,21,חברון,ישראל,חייל,,killed,2024-10-16,2024-10-16,דרום לבנון,,North,
 2564,Yakov,Hillel,,,יעקב,הלל,,,https://www.idf.il/נופלים/חללי-המלחמה/יעקב-הלל/,,,,M,21,ירושלים,ישראל,חייל,,killed,2024-10-16,2024-10-16,דרום לבנון,,North,
@@ -2021,5 +2021,5 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2705,Yaheli,Gur,,,יהלי,גור,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44267,,,,F,17,פרדס חנה כרכור,ישראל,אזרח,,killed,2025-02-27,2025-03-05,צומת כרכור,,Home,פיגוע דריסה
 2706,anonimus,anonimus,,,אנונימי,אנונימי,,,,,,,M,,,תאילנד,אזרח,,killed,2023-10-07,2023-10-07,עלומים,עלומים,Gaza,ירי בשוגג
 2707,Shneor,Kohen,Zalman,,שניאור,כהן,זלמן,,https://www.idf.il/נופלים/חללי-המלחמה/שניאור-זלמן-כהן/,,idf,,M,20,יצהר,ישראל,חייל,,killed,2024-11-02,2024-11-02,צפון רצועת עזה,צפון רצועת עזה,Gaza,פיצוץ רימון תקול
-2708,Moshe,Horn,,,משה,הורן,,מוסה,,,,,M,85,קיבוץ הזורע,ישראל,אזרח,,killed,2025-03-24,2025-03-24,צומת התשבי,צומת התשבי,Home,פיגוע ירי
+2708,Moshe,Horn,,,משה,הורן,,מוסה,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44269,,,,M,85,קיבוץ הזורע,ישראל,אזרח,,killed,2025-03-24,2025-03-24,צומת התשבי,צומת התשבי,Home,פיגוע ירי
 2709,G'haleb,Alnasasra,Sliman,,גאלב,נסאסרה,סלימאן אל,,https://www.idf.il/נופלים/חללי-המלחמה/גאלב-סלימאן-אל-נסאסרה/,,idf,,M,35,רהט,ישראל,חייל,,killed,2025-04-19,2025-04-19,צפון רצועת עזה,צפון רצועת עזה,Gaza,
