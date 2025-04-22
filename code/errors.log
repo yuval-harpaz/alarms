@@ -2767,3 +2767,5 @@ war23_ynetlist.py failed
 substring not found
 war23_idf_mem_all.py failed
 HTTPConnectionPool(host='localhost', port=41613): Read timed out. (read timeout=120)
+war23_ynetlist.py failed
+substring not found
