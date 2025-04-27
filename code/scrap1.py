@@ -1,30 +1,95 @@
-import pandas as pd
+from openai import OpenAI
 import os
-import numpy as np
-import sys
+import base64
+client = OpenAI(api_key=os.environ['GPTyuval'])
 
-df = pd.read_csv('data/oct7database.csv')
-notathome = [str(df['Residence'][x]) not in str(df['מקום האירוע'][x]) for x in range(len(df))]
-noparty = np.array(df['Party'].isnull())
-oct7 = df['Death date'].values == '2023-10-07'
-citizen = df['Role'].values == 'אזרח'
-res = np.unique(df['Residence'][~df['Residence'].isnull()])
-nores = np.array([str(x).split(';')[0] not in res for x in df['מקום האירוע'].values])
-nozikim = np.array(['זיקים' not in str(x) for x in df['מקום האירוע']])
-candidates = oct7 & notathome & noparty & citizen & nores & nozikim
-np.unique(df['מקום האירוע'][candidates])
-select = df[candidates]
-select.to_csv('~/Downloads/party_candidates.csv', index=False)
-nomutzav = np.array(['מוצב' not in str(x) for x in df['מקום האירוע']])
-migunit = np.array(['מיגונ' in str(x) for x in df['מקום האירוע']])
+# response = client.responses.create(
+#   model="gpt-4.1",
+#   input=[],
+#   text={
+#     "format": {
+#       "type": "text"
+#     }
+#   },
+#   reasoning={},
+#   tools=[],
+#   temperature=1,
+#   max_output_tokens=2048,
+#   top_p=1,
+#   store=True
+# )
 
-dfm = df[migunit & noparty &nomutzav]
-dfm.to_csv('~/Downloads/migunit.csv', index=False)
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[
+        {
+            "role": "user",
+            "content": [
+                {"type": "text", "text": "What’s in this image?"},
+                {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
+                        "detail": "high"
+                    },
+                },
+            ],
+        }
+    ],
+    max_tokens=300,
+)
+print(response.choices[0].message.content)
 
-nova = np.array(['Nova' in str(x) for x in df['Event location (oct7map)']])
+completion = client.chat.completions.create(
+  model="gpt-4o-mini",
+  messages=[
+    {"role": "system", "content": "You are a helpful assistant. Help me with my math homework!"}, # <-- This is the system message that provides context to the model
+    {"role": "user", "content": "Hello! Could you solve 2+2?"}  # <-- This is the user message for which the model will generate a response
+  ]
+)
 
-dfn = df[nova & noparty]
+print("Assistant: " + completion.choices[0].message.content)
 
-kid = np.array(['kidnapped' in x.lower() for x in df['Status']])
-dfk = df[kid & nores & noparty & citizen]
-dfk.to_csv('~/Downloads/kidnapped.csv', index=False)
+model = "gpt-4o"
+url = 'https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:sehcpqiv6horvxo5p4plxf3g/bafkreietlcabhothny5f4zqiux463evg4okekvji6446s6l33p36fed2ma@jpeg'
+response = client.chat.completions.create(
+    model=model,
+    messages=[
+        {
+            "role": "user",
+            "content": [
+                {"type": "text", "text": "Alt text for the image, JWST NIRCam picture of NGC 4214"},
+                {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": url,
+                        "detail": "high"
+                    },
+                },
+            ],
+        }
+    ],
+    max_tokens=300,
+)
+print(response.choices[0].message.content)
+
+
+with open("/home/innereye/Pictures/uranus.jpg", "rb") as image_file:
+    image_bytes = image_file.read()
+
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[
+        {"role": "user", "content": [
+            {"type": "text", "text": "What's in this image?"},
+            {
+                "type": "image_url",
+                "image_url": {
+                    "url": "data:image/jpeg;base64," + base64.b64encode(image_bytes).decode()
+                },
+            },
+        ]}
+    ],
+    max_tokens=300,
+)
+print(response.choices[0].message.content)
