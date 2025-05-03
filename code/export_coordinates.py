@@ -1,7 +1,9 @@
 """
-first run war23_idf2db.py
-run war23_map2db.py to update data from oct7map
-test with war23_db_tests.py
+1. go to oct7map api and see that the page is alive
+2. run ./update_db.sh or:
+    a. run war23_idf2db.py
+    b. run war23_map2db.py to update data from oct7map
+    c. test with war23_db_tests.py
 push
 refresh and download database as excel to ~/Documents/oct7database.xlsx
 run this code
