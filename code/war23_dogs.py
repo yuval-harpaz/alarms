@@ -60,7 +60,7 @@ title_html = f'''
              טבלת נתונים
              </a>
             <h3 align="center" style="font-size:12px">
-            בטבח נרצחו {killed} כלבים, {returned} נחטפו ושבו ויש {missing} נעדרים
+            בטבח נרצחו {killed} כלבים, {returned} נחטפו ושבו, ויש {missing} נעדרים
             <br>
             כל היודע מידע נוסף על כלבים שנרצחו או נעדרים בשל אירועי ה-7/10, מתבקש לפנות לתמי בר-יוסף 
             <a href="mailto:tammybj@gmail.com" target="_blank">במייל</a> או באתר <a href="https://www.humandogreaserch.org/">המרכז לחקר יחסי אדם וכלב בישראל ובשואה</c>
