@@ -117,6 +117,11 @@ for ii in range(len(pids)):
             if len(li):
                 coo = f"{maploc['lat'][li[0]]}, {maploc['long'][li[0]]}"
                 locations.at[ii, 'death coo'] = coo
+            else:
+                li = np.where(maploc['name'] == loc79.split(';')[0])[0]
+                if len(li):
+                    coo = f"{maploc['lat'][li[0]]}, {maploc['long'][li[0]]}"
+                    locations.at[ii, 'death coo'] = coo
     loc79 = db['מקום האירוע'][ii]
     locations.at[ii, 'event loc'] = loc79
     if loc79 and str(loc79) != 'nan':
@@ -129,6 +134,11 @@ for ii in range(len(pids)):
             if len(li):
                 coo = f"{maploc['lat'][li[0]]}, {maploc['long'][li[0]]}"
                 locations.at[ii, 'event coo'] = coo
+            else:
+                li = np.where(maploc['name'] == loc79.split(';')[0])[0]
+                if len(li):
+                    coo = f"{maploc['lat'][li[0]]}, {maploc['long'][li[0]]}"
+                    locations.at[ii, 'event coo'] = coo
     if kidnapped:
         if str(db['Death date'][ii])[:10] == '2023-10-07':
             if db['מקום המוות'][ii] == db['מקום האירוע'][ii]:
@@ -181,3 +191,10 @@ for ii in range(len(locations)):
         locations.at[ii, cols[0]] = geodif(ii, cols[1], cols[2])
 
 locations.to_csv('~/Documents/locations.csv', index=False)
+
+max_diff = np.max([locations['personal - map7'], locations['event loc - map7']], axis=0)
+locations['max diff'] = max_diff
+# max_order = np.argsort(-max_diff)
+# sorted_diff = locations.iloc[max_order]
+sorted_diff = locations.sort_values('max diff', ascending=False)
+sorted_diff.to_csv('~/Documents/sorted_diff.csv', index=False)
