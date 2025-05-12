@@ -3749,3 +3749,5 @@ war23_ynetlist.py failed
 substring not found
 war23_idf_dashboard.py failed
 'NoneType' object has no attribute 'start'
+war23_ynetlist.py failed
+substring not found
