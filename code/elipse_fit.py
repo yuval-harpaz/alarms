@@ -116,7 +116,7 @@ for ii in range(len(df0)):
     long = loc['long'][row]
     points[ii, :] = [long, lat]
 
-center, A = get_minimum_enclosing_ellipse(points, tolerance=1e-13)
+center, A = get_minimum_enclosing_ellipse(points, tolerance=1e-5)
 
 fig, ax = plt.subplots()
 ax.scatter(points[:, 0], points[:, 1], label='Points')
@@ -126,5 +126,6 @@ ax.set_aspect('equal')
 ax.legend()
 plt.title("Minimum Enclosing Ellipse")
 plt.grid(True)
+plt.axis('equal')
 plt.show()
 
