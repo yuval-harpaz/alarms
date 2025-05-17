@@ -11,3 +11,4 @@ pyvirtualdisplay
 geopy
 Levenshtein
 typing_extensions
+alphashape
