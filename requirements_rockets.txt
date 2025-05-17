@@ -13,3 +13,4 @@ Levenshtein
 typing_extensions
 alphashape
 scikit-learn
+opencv-python
