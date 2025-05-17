@@ -81,7 +81,7 @@ def fit_ellipse(points, plot=True):
     edge_points = np.array([pt for pt in points if boundary_shape.exterior.distance(Point(pt)) < threshold])
 
     filt, _ = filter_points_away_from_coast_fast(edge_points, coast, min_distance_km=4)
-    plt.plot(filt[:, 0], filt[:, 1], '.k')
+
     
     
     # Ensure points are in the right format: Nx1x2 array
@@ -89,6 +89,7 @@ def fit_ellipse(points, plot=True):
     
     ellipse = cv2.fitEllipse(filtered_points_cv)
     if plot:
+        plt.plot(filt[:, 0], filt[:, 1], '.k')
         # ellipse = (center(x,y), (major_axis, minor_axis), angle)
         
         # Draw original points
