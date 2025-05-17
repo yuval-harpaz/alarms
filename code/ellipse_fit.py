@@ -71,40 +71,61 @@ def fit_ellipse(points, plot=True):
     points = detect_main_cluster(points, eps_km=10, min_samples=10)
     if len(points) < 6:
         return None
-
-
     # points is a list of (x, y) tuples or numpy array
     alpha = 0.1  # Smaller alpha = tighter boundary; you may need to tune this
     boundary_shape = alphashape.alphashape(points, alpha)
     threshold = 0.03
     # Identify edge points
     edge_points = np.array([pt for pt in points if boundary_shape.exterior.distance(Point(pt)) < threshold])
-
     filt, _ = filter_points_away_from_coast_fast(edge_points, coast, min_distance_km=4)
-
-    
-    
     # Ensure points are in the right format: Nx1x2 array
     filtered_points_cv = filt.reshape(-1, 1, 2).astype(np.float32)
-    
     ellipse = cv2.fitEllipse(filtered_points_cv)
     if plot:
         plt.plot(filt[:, 0], filt[:, 1], '.k')
         # ellipse = (center(x,y), (major_axis, minor_axis), angle)
-        
         # Draw original points
         plt.scatter(points[:, 0], points[:, 1], s=10)
-        
         # Draw filtered edge
         plt.scatter(edge_points[:, 0], edge_points[:, 1], color='red')
-        
         # Draw ellipse
         ellipse_patch = Ellipse(xy=ellipse[0], width=ellipse[1][0], height=ellipse[1][1],                                angle=ellipse[2], edgecolor='blue', fc='None', lw=2)
         plt.gca().add_patch(ellipse_patch)
-        
         plt.axis('equal')
         plt.show()
     return ellipse
+
+
+def guess_yemen(df, loc):
+    """Guess alarm origin = Yemen by ellipse shape."""
+    ids = np.unique(df['id'][df['origin'].isnull()])
+    ids = ids[ids > 5300]
+    islarge = np.zeros(len(ids), bool)
+    for jj in range(len(ids)):
+        # for jj in [46]:
+        islarge[jj] = sum(df['id'] == ids[jj]) > 10
+    ids = ids[islarge]
+    if len(ids) == 0:
+        return df
+    else:
+        for jj in range(len(ids)):
+            id0 = ids[jj]
+            rows = np.where(df['id'] == id0)[0]
+            df0 = df.iloc[rows]
+            if len(df0) > 10:
+                df0 = df0.reset_index(drop=True)
+                points = np.zeros((len(df0), 2))
+                for ii in range(len(df0)):
+                    row = np.where(loc['loc'] == df0['cities'][ii])[0][0]
+                    lat = loc['lat'][row]
+                    long = loc['long'][row]
+                    points[ii, :] = [long, lat]
+                ellipse = fit_ellipse(points, plot=False)
+                if ellipse[1][0]*94.6 > 30 and ellipse[1][1]*111.2 > 60 and np.abs(ellipse[2]-37) < 10:
+                    for row in rows:
+                        df.at[row, 'origin'] = 'Yemen'
+        return df
+
 
 if __name__ == '__main__':
     df = pd.read_csv(path2data+'alarms.csv')

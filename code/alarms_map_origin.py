@@ -4,6 +4,7 @@ import folium
 import pandas as pd
 import numpy as np
 import os
+from ellipse_fit import guess_yemen
 
 
 
@@ -13,6 +14,7 @@ if os.path.isdir(local):
     os.chdir(local)
     islocal = True
 coo = pd.read_csv('data/coord.csv')
+
 def guess_origin(df_toguess):
     okcat = (df_toguess['description'].values == 'ירי רקטות וטילים') | \
             (df_toguess['description'].values == 'חדירת כלי טיס עוין')
@@ -34,6 +36,7 @@ def guess_origin(df_toguess):
 
 
 dfwar = pd.read_csv('data/alarms.csv')
+dfwar = guess_yemen(dfwar, coo)
 dfwar = guess_origin(dfwar)
 dfwar.to_csv('data/alarms.csv', index=False, sep=',')
 last_alarm = pd.to_datetime(dfwar['time'][len(dfwar)-1])
