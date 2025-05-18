@@ -15,8 +15,8 @@ from matplotlib.patches import Ellipse
 import cv2
 from geopy.distance import geodesic
 import os
-path2data = os.environ['HOME']+'/alarms/data/'
-coast = pd.read_csv(path2data+'israel_mediterranean_coast_0.5km.csv').values
+
+coast = pd.read_csv('data/israel_mediterranean_coast_0.5km.csv').values
 coast = np.array(coast)[:, ::-1]
 def filter_points_away_from_coast_fast(edge_points, coast, min_distance_km=0.3):
     lat_km = 111.2
@@ -128,6 +128,7 @@ def guess_yemen(df, loc):
 
 
 if __name__ == '__main__':
+    path2data = os.environ['HOME']+'/alarms/data/'
     df = pd.read_csv(path2data+'alarms.csv')
     loc = pd.read_csv(path2data+'coord.csv')
     df0 = df[df['id'] == 5343]
