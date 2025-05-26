@@ -24,7 +24,11 @@ def export_json(field='Country', criterion='not ישראל', language='heb'):
     if 'not ' in criterion:
         telda = True
         criterion = criterion.replace('not ', '')
-    index = db[field].values == criterion
+    if '*' in criterion:
+        index = db[field].str.contains(criterion.replace('*',''))
+        index = index.values == True
+    else:
+        index = db[field].values == criterion
     if telda:
         index = ~index
     if sum(index) == 0:
