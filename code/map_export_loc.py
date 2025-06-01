@@ -53,8 +53,12 @@ def export_json(field='Country', criterion='not ישראל', language='heb'):
         coo_string = np.array([f"{x[0]}, {x[1]}" for x in coo])
         # coo = np.array([x.split(', ')[::-1] for x in coo_string]).astype(float)
         coou_string = np.unique(coo_string)
+        if len(coo_string) == 0:
+            continue
         if coou_string[0] == '0.0, 0.0':
             coou_string = coou_string[1:]
+        if len(coo_string) == 0:
+            continue
         coou = np.array([x.split(', ') for x in coou_string]).astype(float)
         coos.extend(coou)
         for ii in range(len(coou)):
@@ -108,10 +112,26 @@ print('created functions')
 if __name__ == '__main__':
     if len(sys.argv) < 3:
         print('use: python map_export_loc.py LOCATION COMMENT')
+        print('or: python map_export_loc.py FIELD VALUE COMMENT')
+        print('you can use *VALUE or "not VALUE"')
+        dbg = False
+        if dbg:
+            field = 'Role'
+            criterion = 'שוטר'
+            comment = 'debug'
+        mapname, coos = export_json(field=field, criterion=criterion, language='He')
+        center = np.mean(coos, 0)
+        json2map(mapname, center, comment)
     else:
-        field = 'מקום האירוע'
-        criterion = sys.argv[1]
-        comment = sys.argv[2]
+        if len(sys.argv) == 3:
+            field = 'מקום האירוע'
+            criterion = sys.argv[1]
+            comment = sys.argv[2]
+        else:
+            field = sys.argv[1]
+            criterion = sys.argv[2]
+            comment = sys.argv[3]
+
         mapname, coos = export_json(field=field, criterion=criterion, language='He')
         center = np.mean(coos, 0)
         json2map(mapname, center, comment)
