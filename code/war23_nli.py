@@ -25,6 +25,11 @@ url = 'https://www.nli.org.il/he/search?projectName=NLI#&q=any,contains,FIRST%20
 # nli['nli_id'] = np.nan
 # nli['harpaz_id'] = np.nan
 nli = pd.read_csv('data/nli.csv')
+for ii in range(len(nli)):
+    if nli['nli_id'].isna().values[ii]:
+        nli.at[ii, 'nli_id'] = ''
+    else:
+        nli.at[ii, 'nli_id'] = str(int(nli['nli_id'].values[ii]))
 first = nli['first'].values
 last = nli['last'].values
 pid = nli['pid'].values
