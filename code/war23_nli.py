@@ -13,36 +13,46 @@ if os.path.isdir(local):
 # dfprev = pd.read_csv('data/ynetlist.csv')
 # url = 'https://laad.btl.gov.il/Web/He/TerrorVictims/Default.aspx?'+\
 #       'lastName=&firstName=&fatherName=&motherName=&place=&year=2023&month=10&day=7&yearHeb=&monthHeb=&dayHeb=&region=&period=&grave='
-
-url = 'https://www.nli.org.il/he/search?projectName=NLI#&q=any,contains,FIRST%20LAST&bulkSize=30&index=0&sort=rank&t=authorities&mode=basic'
+url = 'https://www.nli.org.il/he/search?projectName=NLI#&q=any,contains,FIRST%20LAST&bulkSize=30&index=0&sort=rank&multiFacets=facet_local18,include,2023,1|,|facet_local18,include,2024,1|,|facet_local18,include,2025,1&t=authorities'
+# url = 'https://www.nli.org.il/he/search?projectName=NLI#&q=any,contains,FIRST%20LAST&bulkSize=30&index=0&sort=rank&multiFacets=facet_local18,include,2023,1|,|facet_local18,include,2024,1&t=authorities'
+# url = 'https://www.nli.org.il/he/search?projectName=NLI#&q=any,contains,FIRST%20LAST&bulkSize=30&index=0&sort=rank&t=authorities&mode=basic'
 #
 db = pd.read_csv('data/oct7database.csv')
 
-# nli = pd.DataFrame(columns=['pid', 'first', 'last', 'nli_id', 'harpaz_id', 'candidates'])
-# nli['pid'] = pid
-# nli['first'] = first
-# nli['last'] = last
-# nli['nli_id'] = np.nan
-# nli['harpaz_id'] = np.nan
-nli = pd.read_csv('data/nli.csv')
-for ii in range(len(nli)):
-    if nli['nli_id'].isna().values[ii]:
-        nli.at[ii, 'nli_id'] = ''
-    else:
-        nli.at[ii, 'nli_id'] = str(int(nli['nli_id'].values[ii]))
+nli = pd.DataFrame(columns=['pid', 'first', 'last', 'nli_id', 'harpaz_id', 'candidates'])
+pid = db['pid'].values
+first = db['שם פרטי'].str.strip().values
+last = db['שם משפחה'].str.strip().values
+first_en = db['first name'].str.strip().values
+last_en = db['last name'].str.strip().values
+nli['pid'] = pid
+nli['first'] = first
+nli['last'] = last
+nli['nli_id'] = ''
+nli['harpaz_id'] = ''
+# nli = pd.read_csv('data/nli.csv')
 
-for ii in range(len(nli)):
-    if not nli['nli_id'].isna().values[ii]:
-        nli.at[ii, 'nli_id'] = str(nli['candidates'].values[ii]).split(';')[0]
-first = nli['first'].values
-last = nli['last'].values
-pid = nli['pid'].values
-# not_yet = range(np.where(~nli['candidates'].isna())[0][-1], len(first))
+
+# not_yet = np.zeros(len(first), dtype=bool)
+# for ii in range(len(nli)):
+#     if nli['nli_id'].isna().values[ii] or nli['nli_id'].values[ii] == 'nan':
+#         nli.at[ii, 'nli_id'] = ''
+#         not_yet[ii] = True
+#     else:
+#         nli.at[ii, 'nli_id'] = str(int(nli['nli_id'].values[ii]))
+#         not_yet[ii] = False
+
+# # for ii in range(len(nli)):
+# #     if not nli['nli_id'].isna().values[ii]:
+# #         nli.at[ii, 'nli_id'] = str(nli['candidates'].values[ii]).split(';')[0]
+
+# # not_yet = range(np.where(~nli['candidates'].isna())[0][-1], len(first))
+# not_yet = np.where(not_yet)[0]
 marker = 'authorities/'
 browser = webdriver.Chrome()
 browser.get('https://www.nli.org.il/he')
 ip = input('Press Enter to continue...')
-for ii in range(len(first)):  # [427] not_yet:
+for ii in range(len(first)):  # [427] :
     browser.get(url.replace('FIRST', first[ii]).replace('LAST', last[ii]))
     time.sleep(0.5)
     html = browser.page_source
