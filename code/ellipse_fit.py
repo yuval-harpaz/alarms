@@ -121,6 +121,8 @@ def guess_yemen(df, loc):
                     long = loc['long'][row]
                     points[ii, :] = [long, lat]
                 ellipse = fit_ellipse(points, plot=False)
+                if ellipse is None:
+                    continue
                 if ellipse[1][0]*94.6 > 30 and ellipse[1][1]*111.2 > 60 and np.abs(ellipse[2]-37) < 10:
                     for row in rows:
                         df.at[row, 'origin'] = 'Yemen'
