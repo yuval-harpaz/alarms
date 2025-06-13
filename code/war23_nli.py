@@ -16,7 +16,7 @@ if os.path.isdir(local):
 
 url = 'https://www.nli.org.il/he/search?projectName=NLI#&q=any,contains,FIRST%20LAST&bulkSize=30&index=0&sort=rank&t=authorities&mode=basic'
 #
-# db = pd.read_csv('data/oct7database.csv')
+db = pd.read_csv('data/oct7database.csv')
 
 # nli = pd.DataFrame(columns=['pid', 'first', 'last', 'nli_id', 'harpaz_id', 'candidates'])
 # nli['pid'] = pid
@@ -30,19 +30,23 @@ for ii in range(len(nli)):
         nli.at[ii, 'nli_id'] = ''
     else:
         nli.at[ii, 'nli_id'] = str(int(nli['nli_id'].values[ii]))
+
+for ii in range(len(nli)):
+    if not nli['nli_id'].isna().values[ii]:
+        nli.at[ii, 'nli_id'] = str(nli['candidates'].values[ii]).split(';')[0]
 first = nli['first'].values
 last = nli['last'].values
 pid = nli['pid'].values
-not_yet = range(np.where(~nli['candidates'].isna())[0][-1], len(first))
+# not_yet = range(np.where(~nli['candidates'].isna())[0][-1], len(first))
 marker = 'authorities/'
 browser = webdriver.Chrome()
 browser.get('https://www.nli.org.il/he')
 ip = input('Press Enter to continue...')
-for ii in not_yet:  #  range(len(first)):  # [427]
+for ii in range(len(first)):  # [427] not_yet:
     browser.get(url.replace('FIRST', first[ii]).replace('LAST', last[ii]))
     time.sleep(0.5)
     html = browser.page_source
-    nli_id = None
+    nli_id = ''
     harpaz_id = None
     candidates = []
     if 'אישיות' in html:
@@ -63,16 +67,21 @@ for ii in not_yet:  #  range(len(first)):  # [427]
                 if first[ii] in htmlp and last[ii] in htmlp:
                     idxp = htmlp.index(last[ii])
                     name = htmlp[idxp:].split('<')[0].strip()
-                    if first[ii] and last[ii] in name:
+                    isHe = first[ii] in name and last[ii] in name
+                    isEn = db['first name'].values[ii] in name and db['last name'].values[ii] in name
+                    if isHe or isEn:
                         nli_id = candidate
                         if 'Harpaz_ID' in htmlp:
                             harpaz_id = htmlp.split('Harpaz_ID')[1].split('"')[2][1:]
                             harpaz_id = harpaz_id[:harpaz_id.index('<')]
                         break
+    if len(nli_id) == 0 and len(candidates) == 1:
+        nli_id = candidates[0]
     if len(candidates) == 0:
-        cand = None
+        cand = ''
     else:
         cand = str(candidates)[2:-2].replace("' '", ';')
+        cand = cand.replace('\n ', ';')
         nli.at[ii, 'nli_id'] = nli_id
         nli.at[ii, 'harpaz_id'] = harpaz_id
         nli.at[ii, 'candidates'] = cand
