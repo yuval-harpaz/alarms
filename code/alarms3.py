@@ -136,8 +136,7 @@ for ic, gn in enumerate(gnames):
     grp.append(folium.FeatureGroup(name=lgd_txt.format(txt=gn, col=chex[ic])))
 
 coo = pd.read_csv('data/coord.csv')
-center = [(coo['lat'].min() + coo['lat'].max())/2,
-          (coo['long'].min() + coo['long'].max())/2]
+center = [31.41745, 35.06155]
 ##
 map = folium.Map(location=center, zoom_start=7.5, tiles='cartodbpositron')
 # tiles = ['cartodbpositron', 'stamenterrain']
