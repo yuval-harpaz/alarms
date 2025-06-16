@@ -81,19 +81,30 @@ Promise.all([
 
   // Group counts by place and front
   const counts = {};
-
+  const missingLocations = new Set();
   victims.forEach(row => {
     if (row['סיבת המוות'] !== 'רקטה') return;
 
-    const place = row['מקום האירוע']?.trim();
+    let place = row['מקום האירוע']?.split(';')[0]?.trim();
     const front = row['front']?.trim();
 
-    if (!place || !front || !coordMap[place]) return;
-
+    if (!place || !front) return;
+    if (!coordMap[place]) {
+      missingLocations.add(place);
+      return;
+    }
     const key = `${place}__${front}`;
     counts[key] = (counts[key] || 0) + 1;
   });
-
+  console.warn('Missing coordinates for the following places:');
+  [...missingLocations].forEach(loc => console.warn(loc));
+  let totalDisplayed = 0;
+  Object.entries(counts).forEach(([key, count]) => {
+    const [place, front] = key.split('__');
+    if (place === 'דרום לבנון') return;  // Exclude South Lebanon
+    totalDisplayed += count;
+  });
+  console.log('🧮 Total rocket cases displayed (excluding South Lebanon):', totalDisplayed);
   // Draw map
   Object.entries(counts).forEach(([key, count]) => {
     const [place, front] = key.split('__');
