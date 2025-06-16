@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>Rocket Victims Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet and UI Styles -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+
+  <style>
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+<script>
+const map = L.map('map').setView([31.5, 34.75], 8);
+
+// Tile layer
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap contributors'
+}).addTo(map);
+
+// Color by front
+const frontColors = {
+  'Gaza': 'red',
+  'Iran': 'black',
+  'North': 'green',
+  'Yemen': 'brown'
+};
+
+// Load both CSVs
+Promise.all([
+  fetch('https://raw.githubusercontent.com/yuval-harpaz/alarms/master/data/oct7database.csv').then(r => r.text()),
+  fetch('https://raw.githubusercontent.com/yuval-harpaz/alarms/master/data/coord.csv').then(r => r.text()),
+  fetch('https://raw.githubusercontent.com/yuval-harpaz/alarms/master/data/coord_deaths.csv').then(r => r.text())
+]).then(([victimsCsv, coordCsv, coordDeathsCsv]) => {
+  const victims = Papa.parse(victimsCsv, { header: true, skipEmptyLines: true }).data;
+  const coords1 = Papa.parse(coordCsv, { header: true, skipEmptyLines: true }).data;
+  const coords2 = Papa.parse(coordDeathsCsv, { header: true, skipEmptyLines: true }).data;
+
+  // Build a merged coordMap with coord.csv taking priority
+  const coordMap = {};
+  coords2.forEach(row => {
+    const loc = row.loc?.trim();
+    if (loc) {
+      coordMap[loc] = {
+        lat: parseFloat(row.lat),
+        lng: parseFloat(row.long)
+      };
+    }
+  });
+  coords1.forEach(row => {
+    const loc = row.loc?.trim();
+    if (loc && loc == 'אבו קרינאת') {
+      coordMap[loc] = {
+        lat: 31.264096522856367,
+        lng: 35.00647214289169
+      };
+    } else {
+      coordMap[loc] = {
+        lat: parseFloat(row.lat),
+        lng: parseFloat(row.long)
+      };
+    }
+  });
+
+  // Group counts by place and front
+  const counts = {};
+
+  victims.forEach(row => {
+    if (row['סיבת המוות'] !== 'רקטה') return;
+
+    const place = row['מקום האירוע']?.trim();
+    const front = row['front']?.trim();
+
+    if (!place || !front || !coordMap[place]) return;
+
+    const key = `${place}__${front}`;
+    counts[key] = (counts[key] || 0) + 1;
+  });
+
+  // Draw map
+  Object.entries(counts).forEach(([key, count]) => {
+    const [place, front] = key.split('__');
+    const coord = coordMap[place];
+    const color = frontColors[front] || 'gray';
+
+    L.circleMarker([coord.lat, coord.lng], {
+      radius: 4 + count,
+      fillColor: color,
+      color: color,
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.7
+    }).addTo(map).bindPopup(`${place} (${front})<br>מס' הרוגים: ${count}`);
+  });
+});
+</script>
+
+</body>
+</html>
