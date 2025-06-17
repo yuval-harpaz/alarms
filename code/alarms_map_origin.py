@@ -4,7 +4,7 @@ import folium
 import pandas as pd
 import numpy as np
 import os
-from ellipse_fit import guess_yemen
+from ellipse_fit import guess_yemen, guess_iran
 
 
 
@@ -37,6 +37,7 @@ def guess_origin(df_toguess):
 
 dfwar = pd.read_csv('data/alarms.csv')
 dfwar = guess_yemen(dfwar, coo)
+dfwar = guess_iran(dfwar)
 dfwar = guess_origin(dfwar)
 dfwar.to_csv('data/alarms.csv', index=False, sep=',')
 last_alarm = pd.to_datetime(dfwar['time'][len(dfwar)-1])

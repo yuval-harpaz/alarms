@@ -128,6 +128,28 @@ def guess_yemen(df, loc):
                         df.at[row, 'origin'] = 'Yemen'
         return df
 
+def guess_iran(df):
+    """Guess alarm origin = Iran by N alarms."""
+    ids = np.unique(df['id'][df['origin'].isnull()])
+    ids = ids[ids > 5300]
+    islarge = np.zeros(len(ids), bool)
+    isdrone = np.zeros(len(ids), bool)
+    for jj in range(len(ids)):
+        if df['description'][df['id'] == ids[jj]].values[0] == 'חדירת כלי טיס עוין':
+            isdrone[jj] = True
+        elif df['description'][df['id'] == ids[jj]].values[0] == 'ירי רקטות וטילים':
+            islarge[jj] = sum(df['id'] == ids[jj]) > 30
+    ids = ids[islarge | isdrone]
+    if len(ids) == 0:
+        return df
+    else:
+        for jj in range(len(ids)):
+            id0 = ids[jj]
+            rows = np.where(df['id'] == id0)[0]
+            for row in rows:
+                df.at[row, 'origin'] = 'Iran'
+        return df
+
 
 if __name__ == '__main__':
     path2data = os.environ['HOME']+'/alarms/data/'
