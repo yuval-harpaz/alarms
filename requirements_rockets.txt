@@ -6,6 +6,7 @@ plotly
 openpyxl
 requests==2.28.1
 selenium
+webdriver_manager
 xvfbwrapper
 pyvirtualdisplay
 geopy
