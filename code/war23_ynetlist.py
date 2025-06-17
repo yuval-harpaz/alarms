@@ -3,7 +3,7 @@ read the table from ynet https://www.ynet.co.il/news/category/51693
 NOTE - info is from the media, not formal and not validated, use with care
 '''
 import pandas as pd
-# from selenium import webdriver
+from selenium import webdriver
 import requests
 import os
 import numpy as np
@@ -15,7 +15,9 @@ try:
         local = True
     prev = pd.read_csv('data/ynetlist.csv')
     # dfprev = pd.read_csv('data/ynetlist.csv')
-    url = 'https://atlas.jifo.co/api/connectors/9c8936a5-bd30-4d68-9715-7280389e094c'
+    # url = 'https://atlas.jifo.co/api/connectors/9c8936a5-bd30-4d68-9715-7280389e094c'
+    # url = 'https://www.ynet.co.il/news/category/51693'
+    url = "https://e.infogram.com/e7de0f19-b7b4-4a33-b23e-5037fde484d1?src=embed"
     r = requests.get(url)
     html = r.text
     # browser = webdriver.Chrome()

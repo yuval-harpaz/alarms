@@ -14,4 +14,5 @@ tmp*
 .spyproject/*/*
 .spyproject/*/*/*
 caltopo.ini
+.vscode
 
