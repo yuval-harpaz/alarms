@@ -64,7 +64,7 @@ class TestDuplicates(unittest.TestCase):
         names = np.array(names)
         dup_heb = duplicates(pid, names)
         dup_names = np.unique(dup_heb['name'])
-        okay_dup = np.sort(['אור מזרחי', 'דניאל כהן', 'עמית כהן', 'רותם לוי', 'לידור לוי', 'יקיר לוי', 'עמית לוי', 'נדב כהן'])
+        okay_dup = np.sort(['אור מזרחי', 'דניאל כהן', 'עמית כהן', 'רותם לוי', 'לידור לוי', 'יקיר לוי', 'עמית לוי', 'נדב כהן', 'אברהם כהן'])
         duplicates_length = len(dup_names)
         bad_name = [x for x in dup_names if x not in okay_dup]
         if duplicates_length != len(okay_dup):
