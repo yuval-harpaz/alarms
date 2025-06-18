@@ -34,6 +34,12 @@ const map = L.map('map').setView([31.5, 34.75], 8);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap contributors'
 }).addTo(map);
+// Mapbox with Hebrew language setting
+// L.tileLayer('https://{s}.govmap.gov.il/arcgis/rest/services/BaseMaps/MapHebrew/MapServer/tile/{z}/{y}/{x}', {
+//     subdomains: ['services1', 'services2', 'services3'],
+//     attribution: '© GovMap',
+//     maxZoom: 18
+// }).addTo(map);
 
 // Color by front
 const frontColors = {
@@ -104,13 +110,34 @@ Promise.all([
     if (place === 'דרום לבנון') return;  // Exclude South Lebanon
     totalDisplayed += count;
   });
-  console.log('🧮 Total rocket cases displayed (excluding South Lebanon):', totalDisplayed);
-  // Draw map
   Object.entries(counts).forEach(([key, count]) => {
     const [place, front] = key.split('__');
     const coord = coordMap[place];
     const color = frontColors[front] || 'gray';
+    
+    // Find all victims at this location
+    const locationVictims = victims.filter(row => {
+      return row['סיבת המוות'] === 'רקטה' && 
+            row['מקום האירוע']?.split(';')[0]?.trim() === place &&
+            row['front']?.trim() === front;
+    });
+    
+    // Build tooltip content with RTL direction
+    let popupContent = `<div dir="rtl" style="text-align: right; font-size: 1.3em;">
+      ${place} (${front})<br>מס' הרוגים: ${count}<hr style="margin: 5px 0;">`;
 
+    // Add victim names
+    locationVictims.forEach(victim => {
+      const firstName = victim['שם פרטי'] || '';
+      const lastName = victim['שם משפחה'] || '';
+      if (firstName || lastName) {
+        popupContent += `${firstName} ${lastName}<br>`;
+      }
+    });
+    
+    // Close the RTL div
+    popupContent += '</div>';
+    
     L.circleMarker([coord.lat, coord.lng], {
       radius: 4 + count,
       fillColor: color,
@@ -118,7 +145,7 @@ Promise.all([
       weight: 1,
       opacity: 1,
       fillOpacity: 0.7
-    }).addTo(map).bindPopup(`${place} (${front})<br>מס' הרוגים: ${count}`);
+    }).addTo(map).bindPopup(popupContent);
   });
 });
 </script>
