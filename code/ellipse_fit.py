@@ -139,6 +139,8 @@ def guess_iran(df):
             isdrone[jj] = True
         elif df['description'][df['id'] == ids[jj]].values[0] == 'ירי רקטות וטילים':
             islarge[jj] = sum(df['id'] == ids[jj]) > 30
+            if df['cities'][df['id'] == ids[jj]].values[0] == 'ברחבי הארץ':
+                islarge[jj] = True
     ids = ids[islarge | isdrone]
     if len(ids) == 0:
         return df
