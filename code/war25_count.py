@@ -3,16 +3,25 @@ import numpy as np
 import os
 import requests
 import matplotlib.pyplot as plt
-with open('/home/innereye/alarms/.txt') as f:
-    cities_url = f.readlines()[1][:-1]
-cities = requests.get(cities_url).json()
-n_cities = len(cities['cities'].keys())
+# with open('/home/innereye/alarms/.txt') as f:
+#     cities_url = f.readlines()[1][:-1]
+# cities = requests.get(cities_url).json()
+# plac = []
+# for p in cities['cities'].keys():
+#     plac.extend(p.split(', '))
+# n_cities = len(plac)
+n_cities = 1436
 df = pd.read_csv('data/alarms.csv')
 df = df[df['time'].values > '2025-06-13']
+# n_allover = len(np.unique(df['cities']))
 orig = np.unique(df['origin'])
+print('From Friday, June 13, 2025:')
 for o in orig:
-    print(f"{o}: {np.sum(df['origin'] == o)}")
-iran = df[df['origin'] != 'Yemen']
+    n = np.sum(df['origin'] == o)
+    if o == 'Iran':
+        n = n - np.sum(df['cities'] == 'ברחבי הארץ') + n_cities * np.sum(df['cities'] == 'ברחבי הארץ')
+    print(f"{o}: {n}")
+iran = df[df['origin'] == 'Iran']
 allover = np.sum(iran['cities'] == 'ברחבי הארץ')
 
 print('Iran:')
@@ -24,14 +33,13 @@ for des in np.unique(iran['description']):
 
 df = pd.read_csv('data/alarms.csv')
 df = df[df['time'] > '2023-10-07']
-n_allover = len(np.unique(df['cities']))
 country = ['Gaza','Lebanon','Yemen','Iran']
 count = []
 for ii in range(4):
     icountry = np.where(df['origin'].values == country[ii])[0]
     df_country = df.iloc[icountry]
     allover = sum(df_country['cities'] == 'ברחבי הארץ')
-    count.append(len(df_country) - allover + allover * n_allover)
+    count.append(len(df_country) - allover + allover * n_cities)
 
 plt.figure()
 # Set up grid first with lower zorder
@@ -68,7 +76,7 @@ for ii in range(4):
     count.append(len(diff) + 1)  # +1 to count the first event
     # if allover:
     #     print(f"Allover: {allover} events in {country[ii]}")
-    avg.append(int(np.round((len(time) + allover * n_allover - allover) / count[ii])))  # Average event size
+    avg.append(int(np.round((len(time) + allover * n_cities - allover) / count[ii])))  # Average event size
     print(f"{country[ii]}: {count[ii]} events, avg size: {avg[ii]}")
     # plt.subplot(2, 2, ii+1)
     # h = plt.hist(diff, bins=100, color=['r','g','brown','k'][ii], zorder=3)
