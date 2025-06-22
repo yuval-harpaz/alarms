@@ -47,7 +47,10 @@ if len(new) > 0:
         citiesc = df1['cities'][n]
         x = []
         for cit in citiesc:
-            x.extend(cit.split(', '))
+            if cit == 'חיפה - כרמל, הדר ועיר תחתית':
+                x.append('חיפה - כרמל, הדר ועיר תחתית')
+            else:
+                x.extend(cit.split(', '))
         citiesc = np.unique(x)
         idc = id[n]
         dtc = dt[n].replace(tzinfo=None)
