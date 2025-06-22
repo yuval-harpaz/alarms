@@ -87,6 +87,10 @@ for city in discontinued1:
          if df_sum[col][row] == '0':
              df_sum.at[row, col] = ''
     #  df_sum.loc[df_sum['cities'] == city, df_sum.columns[1:]] = ''
+allover = np.sum(df['cities'] == 'ברחבי הארץ')
+nona = np.where(df_sum['2025-06-13'].values != "")[0]
+for icity in nona:
+    df_sum.at[icity, '2025-06-13'] = str(int(df_sum.at[icity, '2025-06-13']) + allover)
 df_sum.to_csv('data/alarms_sum.csv', index=False)
 
 df = df[df['time'].values > '2025-06-13']
