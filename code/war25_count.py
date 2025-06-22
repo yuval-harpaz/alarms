@@ -3,15 +3,75 @@ import numpy as np
 import os
 import requests
 import matplotlib.pyplot as plt
-# with open('/home/innereye/alarms/.txt') as f:
-#     cities_url = f.readlines()[1][:-1]
-# cities = requests.get(cities_url).json()
-# plac = []
-# for p in cities['cities'].keys():
-#     plac.extend(p.split(', '))
-# n_cities = len(plac)
-n_cities = 1436
+import json
+# How many cities make up "ברחבי הארץ"?
+with open('/home/innereye/alarms/.txt') as f:
+    cities_url = f.readlines()[1][:-1]
+cities = requests.get(cities_url).json()
+plac = []
+for p in cities['cities'].keys():
+    plac.extend(p.split(', '))
+n_cities = len(plac)
+if n_cities != 1436:
+    print(f"Warning: Expected 1436 cities, found {n_cities} in the dataset.")
+# Read the alarms data
 df = pd.read_csv('data/alarms.csv')
+# check names mismatch
+prev_missing = json.load(open('data/missing_cities.json', 'r'))
+ignore = ['ברחבי הארץ']
+df_names = df[df['time'] > '2023-10-07']
+missing = []
+alternative = []
+discontinued = []
+for city in np.unique(df_names['cities']):
+    if city[0] == "'":
+        city = city[1:]+"'"
+    if city not in plac and city not in prev_missing.keys() and city not in ignore:
+        alternative.append('')
+        if city.replace('-', ' ') in plac:
+            alternative[-1] = city.replace('-', ' ')
+        elif city.replace('-', ' - ') in plac:
+            alternative[-1] = city.replace('-', ' - ')
+        else:
+            discontinued.append(city)
+            print(f"City '{city}' is discontinued or not found in the cities dataset.")
+        missing.append(city)
+
+missing_dict = prev_missing.copy()
+if len(missing) > 0:
+    for city, alt in zip(missing, alternative):
+        missing_dict[city] = alt
+    # # make dict with missing cities, with keys for missing and alternative names or '' for values
+    # missing_dict = {city: alt for city, alt in zip(missing, alternative)}
+    # write missing_dict to a json file
+    with open('data/missing_cities.json', 'w') as f:
+        json.dump(missing_dict, f, ensure_ascii=False, indent=4)
+        print(f"Missing cities: {missing}")
+
+df_fixed = df.copy()
+for city in missing_dict.keys():
+    if city in df_fixed['cities'].values:
+        if missing_dict[city] != '':
+            df_fixed.loc[df_fixed['cities'] == city, 'cities'] = missing_dict[city]
+    else:
+        raise Exception(f"City '{city}' not found in the alarms data.")
+df_fixed['cities'] = df_fixed['cities'].str.replace(' והפזורה', '')
+# create a df with count of alarms from the beginning, from oct 7 2023 and from jun 13 2025
+df_sum = pd.DataFrame(columns=['cities', df['time'][0][:10], '2023-10-07', '2025-06-13'])
+names_unique = np.unique(df_fixed['cities'])
+names_unique = list(names_unique)
+_ = names_unique.pop(names_unique.index('ברחבי הארץ'))  # Remove 'ברחבי הארץ' from the list
+# print(names_unique[313:317])
+print('counting, takes time')
+for icity, city in enumerate(names_unique):
+    if city[0] == "'":
+        city = city[1:]+"'"
+    for date in df_sum.columns[1:]:
+        count = np.sum((df_fixed['cities'] == city) & (df_fixed['time'].values > date))
+        df_sum.at[icity, date] = count
+df_sum['cities'] = names_unique
+df_sum.to_csv('~/Documents/sum.csv', index=False)
+
 df = df[df['time'].values > '2025-06-13']
 # n_allover = len(np.unique(df['cities']))
 orig = np.unique(df['origin'])
