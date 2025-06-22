@@ -73,9 +73,9 @@ for icity, city in enumerate(names_unique):
         count = np.sum((df_fixed['cities'] == city) & (df_fixed['time'].values > date))
         df_sum.at[icity, date] = count
 df_sum['cities'] = names_unique
-df_sum.to_csv('~/Documents/sum.csv', index=False)
+df_sum.to_csv('data/alarms_sum.csv', index=False)
 # find empty alternatives in missing_dict and replace corresponding zeros with "" in df_sum
-df_sum = pd.read_csv('~/Documents/sum.csv')
+df_sum = pd.read_csv('data/alarms_sum.csv')
 df_sum = df_sum.astype(str)
 discontinued1 = []
 for city in missing_dict.keys():
@@ -87,7 +87,7 @@ for city in discontinued1:
          if df_sum[col][row] == '0':
              df_sum.at[row, col] = ''
     #  df_sum.loc[df_sum['cities'] == city, df_sum.columns[1:]] = ''
-df_sum.to_csv('~/Documents/sum.csv', index=False)
+df_sum.to_csv('data/alarms_sum.csv', index=False)
 
 df = df[df['time'].values > '2025-06-13']
 # n_allover = len(np.unique(df['cities']))
