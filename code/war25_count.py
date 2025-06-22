@@ -10,10 +10,13 @@ with open('/home/innereye/alarms/.txt') as f:
 cities = requests.get(cities_url).json()
 plac = []
 for p in cities['cities'].keys():
-    plac.extend(p.split(', '))
+    if p == 'חיפה - כרמל, הדר ועיר תחתית':
+        plac.append('חיפה - כרמל, הדר ועיר תחתית')
+    else:
+        plac.extend(p.split(', '))
 n_cities = len(plac)
-if n_cities != 1436:
-    print(f"Warning: Expected 1436 cities, found {n_cities} in the dataset.")
+if n_cities != 1435:
+    print(f"Warning: Expected 1435 cities, found {n_cities} in the dataset.")
 # Read the alarms data
 df = pd.read_csv('data/alarms.csv')
 # check names mismatch
@@ -70,6 +73,20 @@ for icity, city in enumerate(names_unique):
         count = np.sum((df_fixed['cities'] == city) & (df_fixed['time'].values > date))
         df_sum.at[icity, date] = count
 df_sum['cities'] = names_unique
+df_sum.to_csv('~/Documents/sum.csv', index=False)
+# find empty alternatives in missing_dict and replace corresponding zeros with "" in df_sum
+df_sum = pd.read_csv('~/Documents/sum.csv')
+df_sum = df_sum.astype(str)
+discontinued1 = []
+for city in missing_dict.keys():
+    if missing_dict[city] == '':
+        discontinued1.append(city)
+for city in discontinued1:
+     row = np.where(df_sum['cities'].values == city)[0][0]
+     for col in df_sum.columns[1:]:
+         if df_sum[col][row] == '0':
+             df_sum.at[row, col] = ''
+    #  df_sum.loc[df_sum['cities'] == city, df_sum.columns[1:]] = ''
 df_sum.to_csv('~/Documents/sum.csv', index=False)
 
 df = df[df['time'].values > '2025-06-13']
