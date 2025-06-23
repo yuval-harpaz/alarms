@@ -1,7 +1,7 @@
 """Find groups of family members.
 
 run this code (war23_families1.py), then war23_families_summary.py then then
-war23_families_comments.py. then python code/war23_db_tests.py r.
+war23_families_comment.py. then python code/war23_db_tests.py r.
 """
 import os
 import numpy as np
