@@ -90,92 +90,93 @@ for city in discontinued1:
 allover = np.sum(df['cities'] == 'ברחבי הארץ')
 nona = np.where(df_sum['2025-06-13'].values != "")[0]
 for icity in nona:
-    df_sum.at[icity, '2025-06-13'] = str(int(df_sum.at[icity, '2025-06-13']) + allover)
+    for col in df_sum.columns[1:]:
+        df_sum.at[icity, col] = str(int(df_sum.at[icity, col]) + allover)
 df_sum.to_csv('data/alarms_sum.csv', index=False)
+if os.path.isdir('/home/innereye/alarms'):
+    df = df[df['time'].values > '2025-06-13']
+    # n_allover = len(np.unique(df['cities']))
+    orig = np.unique(df['origin'])
+    print('From Friday, June 13, 2025:')
+    for o in orig:
+        n = np.sum(df['origin'] == o)
+        if o == 'Iran':
+            n = n - np.sum(df['cities'] == 'ברחבי הארץ') + n_cities * np.sum(df['cities'] == 'ברחבי הארץ')
+        print(f"{o}: {n}")
+    iran = df[df['origin'] == 'Iran']
+    allover = np.sum(iran['cities'] == 'ברחבי הארץ')
 
-df = df[df['time'].values > '2025-06-13']
-# n_allover = len(np.unique(df['cities']))
-orig = np.unique(df['origin'])
-print('From Friday, June 13, 2025:')
-for o in orig:
-    n = np.sum(df['origin'] == o)
-    if o == 'Iran':
-        n = n - np.sum(df['cities'] == 'ברחבי הארץ') + n_cities * np.sum(df['cities'] == 'ברחבי הארץ')
-    print(f"{o}: {n}")
-iran = df[df['origin'] == 'Iran']
-allover = np.sum(iran['cities'] == 'ברחבי הארץ')
+    print('Iran:')
+    for des in np.unique(iran['description']):
+        n = np.sum(iran['description'] == des)
+        if "רקטות" in des:
+            n = n - allover + allover * n_cities
+        print(f"{des}: {n}")
 
-print('Iran:')
-for des in np.unique(iran['description']):
-    n = np.sum(iran['description'] == des)
-    if "רקטות" in des:
-        n = n - allover + allover * n_cities
-    print(f"{des}: {n}")
+    df = pd.read_csv('data/alarms.csv')
+    df = df[df['time'] > '2023-10-07']
+    country = ['Gaza','Lebanon','Yemen','Iran']
+    count = []
+    for ii in range(4):
+        icountry = np.where(df['origin'].values == country[ii])[0]
+        df_country = df.iloc[icountry]
+        allover = sum(df_country['cities'] == 'ברחבי הארץ')
+        count.append(len(df_country) - allover + allover * n_cities)
 
-df = pd.read_csv('data/alarms.csv')
-df = df[df['time'] > '2023-10-07']
-country = ['Gaza','Lebanon','Yemen','Iran']
-count = []
-for ii in range(4):
-    icountry = np.where(df['origin'].values == country[ii])[0]
-    df_country = df.iloc[icountry]
-    allover = sum(df_country['cities'] == 'ברחבי הארץ')
-    count.append(len(df_country) - allover + allover * n_cities)
+    plt.figure()
+    # Set up grid first with lower zorder
+    plt.grid(axis='y', zorder=0)
+    # Draw bars with higher zorder to appear in front
+    for ii in range(4):
+        plt.bar(ii, count[ii], 0.667, color=['r','g','brown','k'][ii], zorder=3)
+    for ii in range(4):
+        formatted_count = f"{count[ii]:,}"
+        plt.text(ii, 1000, formatted_count, ha='center', va='bottom', color='w')
+    plt.xticks(range(4), country)
+    plt.ylabel('Number of Alarms')
+    plt.title('Alarms by Origin')
+    plt.tight_layout()
+    plt.show(block=True)
 
-plt.figure()
-# Set up grid first with lower zorder
-plt.grid(axis='y', zorder=0)
-# Draw bars with higher zorder to appear in front
-for ii in range(4):
-    plt.bar(ii, count[ii], 0.667, color=['r','g','brown','k'][ii], zorder=3)
-for ii in range(4):
-    formatted_count = f"{count[ii]:,}"
-    plt.text(ii, 1000, formatted_count, ha='center', va='bottom', color='w')
-plt.xticks(range(4), country)
-plt.ylabel('Number of Alarms')
-plt.title('Alarms by Origin')
-plt.tight_layout()
-plt.show(block=True)
-
-# check how many alarm events there where by grouping unique times
-df = pd.read_csv('data/alarms.csv')
-df = df[df['time'] > '2023-10-07']
-df = df[df['description'] == 'ירי רקטות וטילים']
-country = ['Gaza','Lebanon','Yemen','Iran']
-distance = 15 # minutes
-count = []
-avg = []
-# plt.figure()
-for ii in range(4):
-    icountry = np.where(df['origin'].values == country[ii])[0]
-    df_country = df.iloc[icountry]
-    time = pd.to_datetime(df_country['time'], format='%Y-%m-%d %H:%M:%S')
-    diff = time.diff().dropna()
-    diff = diff.dt.total_seconds().values / 60  # Convert to minutes
-    diff = diff[diff > distance]
-    allover = sum(df_country['cities'] == 'ברחבי הארץ')
-    count.append(len(diff) + 1)  # +1 to count the first event
-    # if allover:
-    #     print(f"Allover: {allover} events in {country[ii]}")
-    avg.append(int(np.round((len(time) + allover * n_cities - allover) / count[ii])))  # Average event size
-    print(f"{country[ii]}: {count[ii]} events, avg size: {avg[ii]}")
-    # plt.subplot(2, 2, ii+1)
-    # h = plt.hist(diff, bins=100, color=['r','g','brown','k'][ii], zorder=3)
-    # plt.title(country[ii])
+    # check how many alarm events there where by grouping unique times
+    df = pd.read_csv('data/alarms.csv')
+    df = df[df['time'] > '2023-10-07']
+    df = df[df['description'] == 'ירי רקטות וטילים']
+    country = ['Gaza','Lebanon','Yemen','Iran']
+    distance = 15 # minutes
+    count = []
+    avg = []
+    # plt.figure()
+    for ii in range(4):
+        icountry = np.where(df['origin'].values == country[ii])[0]
+        df_country = df.iloc[icountry]
+        time = pd.to_datetime(df_country['time'], format='%Y-%m-%d %H:%M:%S')
+        diff = time.diff().dropna()
+        diff = diff.dt.total_seconds().values / 60  # Convert to minutes
+        diff = diff[diff > distance]
+        allover = sum(df_country['cities'] == 'ברחבי הארץ')
+        count.append(len(diff) + 1)  # +1 to count the first event
+        # if allover:
+        #     print(f"Allover: {allover} events in {country[ii]}")
+        avg.append(int(np.round((len(time) + allover * n_cities - allover) / count[ii])))  # Average event size
+        print(f"{country[ii]}: {count[ii]} events, avg size: {avg[ii]}")
+        # plt.subplot(2, 2, ii+1)
+        # h = plt.hist(diff, bins=100, color=['r','g','brown','k'][ii], zorder=3)
+        # plt.title(country[ii])
 
 
 
-plt.figure()
-# Set up grid first with lower zorder
-plt.grid(axis='y', zorder=0)
-# Draw bars with higher zorder to appear in front
-for ii in range(4):
-    plt.bar(ii, count[ii], 0.667, color=['r','g','brown','k'][ii], zorder=3)
-for ii in range(4):
-    formatted_count = f"{count[ii]:,}"
-    plt.text(ii, 150, formatted_count, ha='center', va='bottom', color='k')
-plt.xticks(range(4), country)
-plt.ylabel('Number of Events')
-plt.title(f'Alarm Events (>{distance}min quiet) by Origin')
-plt.tight_layout()
-plt.show(block=True)
+    plt.figure()
+    # Set up grid first with lower zorder
+    plt.grid(axis='y', zorder=0)
+    # Draw bars with higher zorder to appear in front
+    for ii in range(4):
+        plt.bar(ii, count[ii], 0.667, color=['r','g','brown','k'][ii], zorder=3)
+    for ii in range(4):
+        formatted_count = f"{count[ii]:,}"
+        plt.text(ii, 150, formatted_count, ha='center', va='bottom', color='k')
+    plt.xticks(range(4), country)
+    plt.ylabel('Number of Events')
+    plt.title(f'Alarm Events (>{distance}min quiet) by Origin')
+    plt.tight_layout()
+    plt.show(block=True)
