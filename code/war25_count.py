@@ -19,6 +19,13 @@ if n_cities != 1435:
     print(f"Warning: Expected 1435 cities, found {n_cities} in the dataset.")
 # Read the alarms data
 df = pd.read_csv('data/alarms.csv')
+empty = df['time'][df['origin'].isnull() & ((df['threat'] == 0) | (df['threat'] == 5))]
+if len(empty) > 0:
+    empty = np.unique([e[:10] for e in empty])
+    print('missing origin at:')
+    print(empty)
+    raise Exception('empty origin')
+
 # check names mismatch
 prev_missing = json.load(open('data/missing_cities.json', 'r'))
 ignore = ['ברחבי הארץ']
@@ -93,6 +100,7 @@ for icity in nona:
     for col in df_sum.columns[1:]:
         df_sum.at[icity, col] = str(int(df_sum.at[icity, col]) + allover)
 df_sum.to_csv('data/alarms_sum.csv', index=False)
+
 if os.path.isdir('/home/innereye/alarms'):
     df = df[df['time'].values > '2025-06-13']
     # n_allover = len(np.unique(df['cities']))
