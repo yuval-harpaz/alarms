@@ -504,3 +504,8 @@ pid,eng name,name,residence,event location,event date,status,partners,siblings,p
 2762,Konstantin Totvich,קונסטנטין טוטביץ',בת ים,בת ים,2025-06-15,killed,,,,,,2759,2760;2761;2763,187
 2765,Dasi Belo,דסי בלו,פתח תקווה,פתח תקווה,2025-06-16,killed,2764.0,,,,,,,188
 2764,Yaakov Belo,יעקב בלו,פתח תקווה,פתח תקווה,2025-06-16,killed,2765.0,,,,,,,188
+2776,,,,,,killed,2778,,,2779,,,,
+2778,,,,,,killed,2776,,,,,,2779,
+2779,,,,,,killed,,,2776,,,,2778,
+1555,,,,,,killed,,,,,,,2781,
+2781,,,,,,killed,,,,,,,1555,
