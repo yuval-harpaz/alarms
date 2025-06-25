@@ -1,9 +1,9 @@
 pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם נוסף,כינוי,הנצחה,Event location (oct7map),Event location class (oct7map),Status (oct7map),Gender,Age,Residence,Country,Role,Party,Status,Event date,Death date,מקום האירוע,מקום המוות,front,סיבת המוות,link
 2458,,,,,יוסף,נגר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44195,,,,M,0,שדרות,ישראל,אזרח,,died,,2023-12-16,שדרות,,,,
-2459,,,,,סטיבן,מרכוס,לואיס,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44196,,,,M,62,עלומים,ישראל,אזרח,,died,2023-10-07,2023-12-10,עלומים,,,,
-2460,,,,,ישראל,דקר חדד,,דקי,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44133,,,,M,55,קרית גת,ישראל,אזרח,,died,2023-10-09,2023-10-09,קרית גת,,,,
-2461,,,,,פרג’י,מימוני,אפרים,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44143,,,,M,,קרית גת,ישראל,אזרח,,died,,2023-10-10,קרית גת,,,,
-2462,,,,,שלי,כראדי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44151,,,,F,,אשדוד,ישראל,אזרח,,died,,2023-10-20,אשדוד,,,,
+2459,,,,,סטיבן,מרכוס,לואיס,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44196,,,,M,62,עלומים,ישראל,אזרח,,died,2023-10-07,2023-12-10,עלומים,עלומים,Gaza,אירוע לבבי,https://www.israelhayom.co.il/news/local/article/16416398
+2460,,,,,ישראל,דקר חדד,,דקי,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44133,,,,M,55,קרית גת,ישראל,אזרח,,died,2023-10-09,2023-10-09,קרית גת,,,אירוע לבבי,
+2461,,,,,פרג’י,מימוני,אפרים,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44143,,,,M,,קרית גת,ישראל,אזרח,,died,,2023-10-10,קרית גת,,,אירוע לבבי,https://www.facebook.com/story.php?story_fbid=10160154594217104&id=626592103&rdid=cbO6YVOB06f8SUBM
+2462,,,,,שלי,כראדי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44151,,,,F,,אשדוד,ישראל,אזרח,,died,,2023-10-20,אשדוד,,,אזעקה; אירוע לבבי,
 2463,,,,,דוד,אדרי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44155,,,,M,68,אופקים,ישראל,אזרח,,hostage; died,2023-10-07,2024-02-26,אופקים,,,,
 2464,,,,,יורי,לוין,,,,,,,M,,כפר עזה,ישראל,אזרח,,kidnapped; escaped,2023-10-07,,כפר עזה,,,,https://www.youtube.com/watch?v=wQAKNiNeEss
 2465,,,,,טארק,אבו עראר,,,,,,,M,,ערערה,ישראל,רופא,,hostage,2023-10-07,,צומת שער הנגב,,,,https://www.israelhayom.co.il/news/local/article/14701421
@@ -31,17 +31,16 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2523,,,,,שחר,עידן,,,,,,,M,9,נחל עוז,ישראל,אזרח,,hostage,2023-10-07,,נחל עוז,,,,
 2597,,,,,אילה,אברהם,,,,,,,F,56,בית אריה,ישראל,אזרח,,kidnapped; rescued,2023-10-07,,יכיני,,,,https://www.ynet.co.il/news/article/yokra14106296
 2598,,,,,שני,לוין,,,,,,,F,,,ישראל,אזרח,,kidnapped; rescued,2023-10-07,,יכיני,,,,https://www.ynet.co.il/news/article/yokra14106296
-2599,,,,,יהודה,שפירא,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44209,,,,M,,אשקלון,ישראל,אזרח,,,2023-12-10,,אשקלון,,,,
-2600,,,,,נועם,יחיאל,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44214,,,,M,,אחיעזר,ישראל,אזרח,,died,2024-09-22,,כביש 77 סמוך לרמת ישי,כביש 77 סמוך לרמת ישי,,,https://www.ynet.co.il/news/article/bymx00lapa
-2654,,,,,ליובוב,לבדב,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44246,,,,F,81,בית העמק,ישראל,אזרח,,died,2024-10-26,,בית העמק,בית העמק,,,https://mta.org.il/uploads/n/1730274797.1902.pdf
-2655,,,,,שיראל,גולן,שרה,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44247,,,,F,21,פורת,ישראל,אזרח,,died,2023-10-07,2024-10-20,פסטיבל נובה,פורת,,,https://main.knesset.gov.il/news/pressreleases/pages/press11112024x.aspx
+2600,,,,,נועם,יחיאל,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44214,,,,M,,אחיעזר,ישראל,אזרח,,died,2024-09-22,,כביש 77 סמוך לרמת ישי,כביש 77 סמוך לרמת ישי,North,אזעקה; תאונה,https://www.ynet.co.il/news/article/bymx00lapa
+2654,,,,,ליובוב,לבדב,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44246,,,,F,81,בית העמק,ישראל,אזרח,,died,2024-10-26,,בית העמק,בית העמק,North,אזעקה; חבלה,https://mta.org.il/uploads/n/1730274797.1902.pdf
+2655,,,,,שיראל,גולן,שרה,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44247,,,,F,21,פורת,ישראל,אזרח,,died,2023-10-07,2024-10-20,פסטיבל נובה,פורת,Gaza,התאבדות,https://main.knesset.gov.il/news/pressreleases/pages/press11112024x.aspx
 1371,Duvdevani,Giora,,,גיורא,דובדבני,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43380,Talmei Yosef,General vicinity,Murdered,M,81,תלמי יוסף,ישראל,אזרח,,died,2023-10-10,2023-10-10,אילת,אילת,Gaza,אירוע לבבי,
 2667,Iris,Openshtein,,,איריס,אופנשטיין,,,,,,,F,,,ישראל,אזרח,,hostage; released,2023-10-07,,פסטיבל נובה; סמוך למכולות הצהובות,,,,https://www.facebook.com/story.php?story_fbid=8283502245065625&id=100002177949136&rdid=PD0ZJkfVx6NU26BC
 2710,,,,,חיה,מישאלי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44268,,,,F,75,,ישראל,אזרח,,died,,2024-09-04,,,,,
 2714,Alziadna,Salem,,,סאלם,אלזיאדנה,,,,Rahat,,,M,,רהט,ישראל,אזרח,,hostage,2023-10-07,,חולית,,,,
 2715,Kunwong,Withawat,,,קונוונג,וויטאוואט,,,,,,,M,,,תאילנד,אזרח,,hostage,2023-10-07,,חולית,,,,
-2728,,,,,ניסים,זרקה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44060,,,,M,68,עפולה,ישראל,אזרח,,died,2024-10-01,2024-10-01,עפולה,עפולה,Iran,,https://www.ynet.co.il/health/article/b10d089rc
-2729,,,,,לימור,חדד,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44087,,,,F,56,גדרה,ישראל,אזרח,,died,2023-11-20,2023-11-20,צומת גינתון,"בי""ח אסף הרופא",Gaza,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-81e43b75f31fb81026.htm
+2728,,,,,ניסים,זרקה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44060,,,,M,68,עפולה,ישראל,אזרח,,died,2024-10-01,2024-10-01,עפולה,עפולה,Iran,אזעקה; אירוע לבבי,https://www.ynet.co.il/health/article/b10d089rc
+2729,,,,,לימור,חדד,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44087,,,,F,56,גדרה,ישראל,אזרח,,died,2023-11-20,2023-11-20,צומת גינתון,"בי""ח אסף הרופא",Gaza,אזעקה; מפרצת,https://www.mako.co.il/news-military/6361323ddea5a810/Article-81e43b75f31fb81026.htm
 2730,Sommanas,Moolchot,,,סומאנאס,מולצ’וט,,,,,,,M,,,תאילנד,אזרח,,kidnapped; rescued,2023-10-07,,מפלסים,,Gaza,,https://www.haaretz.co.il/news/magazine/2024-05-24/ty-article-magazine/.premium/0000018f-a53a-d8a2-a3cf-a5bb6bb50000
 2731,Prabchandee,Tin,,,פרבצ’נדה,טין,,,,,,,M,43,,תאילנד,אזרח,,kidnapped; rescued,2023-10-07,,מפלסים,,Gaza,,https://www.haaretz.co.il/news/magazine/2024-05-24/ty-article-magazine/.premium/0000018f-a53a-d8a2-a3cf-a5bb6bb50000
 2732,Homkajon,Kraichit,,,הומקג’ון,קראיצ’יט,,,,,,,M,,,תאילנד,אזרח,,kidnapped; rescued,2023-10-07,,מפלסים,,Gaza,,https://www.haaretz.co.il/news/magazine/2024-05-24/ty-article-magazine/.premium/0000018f-a53a-d8a2-a3cf-a5bb6bb50000
@@ -49,5 +48,6 @@ pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם
 2734,Kaewchin,Saranyu,,,קאווצ’ין,סראניו,,,,,,,M,36,,תאילנד,אזרח,,kidnapped; rescued,2023-10-07,,מפלסים,,Gaza,,https://www.haaretz.co.il/news/magazine/2024-05-24/ty-article-magazine/.premium/0000018f-a53a-d8a2-a3cf-a5bb6bb50000
 2735,Chanaaene,Oatthawat,,,צ’אנאנה,אוטאוואט,,,,,,,M,,,תאילנד,אזרח,,kidnapped; rescued,2023-10-07,,מפלסים,,Gaza,,https://www.haaretz.co.il/news/magazine/2024-05-24/ty-article-magazine/.premium/0000018f-a53a-d8a2-a3cf-a5bb6bb50000
 2736,Wirawat,Thunnok,,,וויראוואט,טונוק,,,,,,,M,,,תאילנד,אזרח,,kidnapped; rescued,2023-10-07,,מפלסים,,Gaza,,https://www.haaretz.co.il/news/magazine/2024-05-24/ty-article-magazine/.premium/0000018f-a53a-d8a2-a3cf-a5bb6bb50000
-2777,,,,,ילנה,זדובסקי,,,,,,,F,51,כרמיאל,ישראל,אזרח,,died,2025-06-20,2025-06-20,כרמיאל,כרמיאל,Iran,אירוע לבבי,https://www.ynet.co.il/news/article/bk9jzgq4xx
-2043,Tamar,Torpiashvili,,,תמר,טורפיאשוילי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44034,,,,F,9,אשדוד,ישראל,אזרח,,died,2023-10-20,2023-10-27,אשדוד,אשדוד,Other,אירוע לבבי,https://www.ynet.co.il/news/article/s1i6bacna
+2777,,,,,ילנה,זדובסקי,,,,,,,F,51,כרמיאל,ישראל,אזרח,,died,2025-06-20,2025-06-20,כרמיאל,כרמיאל,Iran,אזעקה; אירוע לבבי,https://www.ynet.co.il/news/article/bk9jzgq4xx
+2043,Tamar,Torpiashvili,,,תמר,טורפיאשוילי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44034,,,,F,9,אשדוד,ישראל,אזרח,,died,2023-10-20,2023-10-27,אשדוד,אשדוד,Gaza,אזעקה; אירוע לבבי,https://www.ynet.co.il/news/article/s1i6bacna
+2787,,,,,עבדאללה,בחאש,,,,,,,M,14,קלנסווה,ישראל,אזרח,,died,2025-06-19,2025-06-19,מחלף נחשונים,מחלף נחשונים,Iran,אזעקה; תאונה,https://www.ynet.co.il/news/article/hkv1c5nnlg

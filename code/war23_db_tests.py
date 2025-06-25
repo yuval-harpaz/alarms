@@ -26,6 +26,7 @@ data = pd.read_csv('data/oct7database.csv')
 # omi = pd.read_csv('/home/innereye/Documents/oct7database - omissions.csv')
 kidn = pd.read_csv('data/kidnapped.csv')
 idf = pd.read_csv('data/deaths_idf.csv')
+adit = pd.read_csv('data/oct7database_additional.csv')
 ##
 ''' TODO
 check that middle names and nicknames are present for both languages
@@ -55,7 +56,15 @@ class TestDuplicates(unittest.TestCase):
         if duplicates_length > 0:
             print(f'PID Duplicates!!!! {np.unique(dup_pid["pid"])}'.replace('[', '').replace(']', ''))
         self.assertEqual(duplicates_length, 0)
-
+    
+    def duplicate_additionals(self):
+        pid = np.array(list(data['pid']) + list(adit['pid']))
+        dup_pid = duplicates(pid, pid)
+        duplicates_length = len(dup_pid)
+        if duplicates_length > 0:
+            print(f'Additionals Duplicates!!!! {np.unique(dup_pid["pid"])}'.replace('[', '').replace(']', ''))
+        self.assertEqual(duplicates_length, 0)
+    
     def duplicate_heb(self):
         pid = data['pid'].values
         names = []
@@ -202,6 +211,7 @@ class TestHaa(unittest.TestCase):
         ext = [x for x in haa['pid'] if x not in pid]
         ext = np.array(ext)
         ext = np.unique(ext[~np.isnan(ext)]).astype(int)
+        ext = [x for x in ext if x not in adit['pid'].values]  # not in DB but in additionals
         n_extra = len(ext)
         if n_extra > 0:
             print(f'haaretz+ PID Not in DB!!!! {ext}'.replace('[', '').replace(']', ''))
@@ -473,9 +483,7 @@ if __name__ == '__main__':
                                               TestDuplicates('duplicate_eng'),
                                               TestDuplicates('duplicate_url'),
                                               TestDuplicates('rank_name'),
-                                              # TestOmissions('not_dropped'),
-                                              # TestOmissions('dropped'),
-                                              # TestOmissions('all_acounted'),
+                                              TestDuplicates('duplicate_additionals'),
                                               Test79('extras79'),
                                               Test79('unique_pid79'),
                                               Test79('loc79'),
@@ -483,7 +491,6 @@ if __name__ == '__main__':
                                               Test79('nova79'),
                                               TestHaa('extras_haa'),
                                               TestHaa('unique_haa'),
-                                              # TestHaa('missing_haa'),
                                               TestIDF('unique_idf'),
                                               TestIDF('extras_idf'),
                                               TestIDF('name_idf'),
