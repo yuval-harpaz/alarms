@@ -121,6 +121,8 @@ class TestDuplicates(unittest.TestCase):
 
 
 map79 = pd.read_csv('data/oct_7_9.csv')
+map79 = map79[map79['pid'] != 1420]  # zivz ovitz is in additionals
+map79 = map79.reset_index(drop=True)
 pid79 = map79['pid'].values
 # for kidnapped death loc / date is given in oct 7 9 instead of event
 as_kidnapped = [568, 581, 626, 915, 1432]
