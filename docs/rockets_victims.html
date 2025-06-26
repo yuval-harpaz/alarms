@@ -31,10 +31,23 @@
 const map = L.map('map').setView([31.5, 34.75], 8);
 
 // Tile layer
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '© OpenStreetMap contributors'
-}).addTo(map);
+L.tileLayer(
+  "https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
+  {
+    attribution: "© Esri, HERE, Garmin, FAO, NOAA, USGS",
+    maxZoom: 19
+  }
+).addTo(map);
 
+// Hebrew label overlay
+L.tileLayer(
+  "https://services.arcgisonline.com/ArcGIS/rest/services/World_Hebrew_Labels/MapServer/tile/{z}/{y}/{x}",
+  {
+    attribution: "© Esri",
+    maxZoom: 19,
+    opacity: 1.0
+  }
+).addTo(map);
 // Color by front
 const frontColors = {
   'Gaza': 'red',
