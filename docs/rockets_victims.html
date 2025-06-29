@@ -18,10 +18,52 @@
       height: 100vh;
       width: 100%;
     }
+    #floating-title {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.85);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 1.4em;
+      font-weight: 500;
+      box-shadow: 0 0 4px rgba(0,0,0,0.2);
+      z-index: 1000;
+      direction: rtl;
+      text-align: center;
+    }
+
+    #floating-title a {
+      display: block;
+      font-size: 0.7em;
+      color: #007bff;
+      text-decoration: none;
+      margin-top: 2px;
+    }
+
+    #floating-title a:hover {
+      text-decoration: underline;
+    }
+    .legend {
+      background: white;
+      padding: 8px 12px;
+      font-size: 1.5em;
+      line-height: 1.6;
+      border-radius: 6px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+    .legend span {
+      font-weight: bold;
+    }
+    
   </style>
 </head>
 <body>
-
+<div id="floating-title">
+  מפת ההרוגים מירי רקטות וטילים<br>
+  <a href="https://oct7database.com" target="_blank">oct7database.com</a>
+</div>
 <div id="map"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
@@ -97,19 +139,24 @@ Promise.all([
   // ---------------  ROCKET VICTIMS (original data)  -----------------
   const counts = {};
   const missingLocations = new Set();
-
+  const frontTotals = {
+    'Gaza': 0,
+    'Iran': 0,
+    'North': 0,
+    'Yemen': 0
+  };
   victims.forEach(row => {
     if (row['סיבת המוות'] !== 'רקטה') return; // Only rocket casualties
-
     const place = row['מקום האירוע']?.split(';')[0]?.trim();
     const front = row['front']?.trim();
+    frontTotals[front]++
     if (!place || !front) return;
     if (!coordMap[place]) { missingLocations.add(place); return; }
-
     const key = `${place}__${front}`;
     counts[key] = (counts[key] || 0) + 1;
   });
-
+  const sirenTotal = additional.filter(row => /;?אזעקה/.test(row['סיבת המוות'] || '')).length;
+  const interceptTotal = victims.filter(row => row['סיבת המוות']?.trim() === 'מיירט').length;
   // Draw grouped rockets markers (skip South Lebanon)
   Object.entries(counts).forEach(([key, count]) => {
     const [place, front] = key.split('__');
@@ -135,7 +182,7 @@ Promise.all([
     popup += '</div>';
 
     L.circleMarker([coord.lat, coord.lng], {
-      radius: 4 + count,
+      radius: 3 + count,
       fillColor: color,
       color: color,
       weight: 1,
@@ -165,9 +212,9 @@ Promise.all([
     }).addTo(map).bindPopup(popup);
   });
 
-  // ---------------  SIREN‑RELATED CASUALTIES (yellow markers)  ---------------
+  // ---------------  SIREN‑RELATED CASUALTIES (orange markers)  ---------------
   const sirenCases = additional.filter(row => /;?אזעקה/.test(row['סיבת המוות'] || ''));
-  console.log(sirenCases)
+  // console.log(sirenCases)
   sirenCases.forEach(row => {
     let place = row['מקום האירוע']?.split(';')[0]?.trim();
     if (!place) return;
@@ -188,8 +235,8 @@ Promise.all([
 
     L.circleMarker([coordMap[place].lat, coordMap[place].lng], {
       radius: 6,
-      fillColor: 'yellow',
-      color: 'yellow',
+      fillColor: 'orange',
+      color: 'orange',
       weight: 1,
       opacity: 1,
       fillOpacity: 0.7
@@ -201,7 +248,25 @@ Promise.all([
     console.warn('Missing coordinates for the following places:');
     [...missingLocations].forEach(loc => console.warn(loc));
   }
+  const legend = L.control({ position: 'topleft' });
+  legend.onAdd = function (map) {
+    const div = L.DomUtil.create('div', 'legend');
+    div.innerHTML = `
+      <div dir="rtl" style="text-align: right;">
+        <span style="color: red;">● עזה (${frontTotals['Gaza']})</span><br>
+        <span style="color: green;">● לבנון (${frontTotals['North']})</span><br>
+        <span style="color: black;">● איראן (${frontTotals['Iran']})</span><br>
+        <span style="color: brown;">● תימן (${frontTotals['Yemen']})</span><br>
+        <span style="color: blue;">● מיירט (${interceptTotal})</span><br>
+        <span style="color: orange;">● אזעקה (${sirenTotal})</span>
+      </div>
+    `;
+    return div;
+  };
+
+legend.addTo(map);
 });
+
 </script>
 
 </body>
