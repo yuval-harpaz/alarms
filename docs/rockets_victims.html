@@ -143,6 +143,27 @@ Promise.all([
       fillOpacity: 0.7
     }).addTo(map).bindPopup(popup);
   });
+  // ---------------  INTERCEPTOR-RELATED CASUALTIES (blue markers) ---------------
+  const interceptCases = victims.filter(row => row['סיבת המוות']?.trim() === 'מיירט');
+  interceptCases.forEach(row => {
+    let place = row['מקום האירוע']?.split(';')[0]?.trim();
+    if (!place) return;
+    if (!coordMap[place]) { missingLocations.add(place); return; }
+
+    const fullName = `${(row['שם פרטי'] || '')} ${(row['שם משפחה'] || '')}`.trim();
+
+    const popup = `<div dir="rtl" style="text-align: right; font-size: 1.3em;">
+      ${place}<br>${fullName}</div>`;
+
+    L.circleMarker([coordMap[place].lat, coordMap[place].lng], {
+      radius: 6,
+      fillColor: 'blue',
+      color: 'blue',
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.7
+    }).addTo(map).bindPopup(popup);
+  });
 
   // ---------------  SIREN‑RELATED CASUALTIES (yellow markers)  ---------------
   const sirenCases = additional.filter(row => /;?אזעקה/.test(row['סיבת המוות'] || ''));

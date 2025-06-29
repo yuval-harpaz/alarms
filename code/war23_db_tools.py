@@ -25,9 +25,12 @@ def db2map(save=True, what='loc'):
     map = pd.read_csv('data/oct_7_9.csv')
     kidnapped = [915, 29, 568, 192, 193, 482, 626, 581, 1432]  # not kidnapped in oct7map
     pid = db['pid'].values
+    ignore = [1420]
     changes = False
     if what in ['all', 'loc']:
         for ii in range(len(map)):
+            if map['pid'][ii] in ignore:
+                continue
             row = np.where(pid == map['pid'][ii])[0][0]
             stat = db['Status'][row]
             if 'idnap' in stat or 'aptiv' in stat or map['pid'][ii] in kidnapped:
