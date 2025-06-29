@@ -193,7 +193,9 @@ Promise.all([
   // ---------------  INTERCEPTOR-RELATED CASUALTIES (blue markers) ---------------
   const interceptCases = victims.filter(row => row['סיבת המוות']?.trim() === 'מיירט');
   interceptCases.forEach(row => {
-    let place = row['מקום האירוע']?.split(';')[0]?.trim();
+    // let place = row['מקום האירוע']?.split(';')[0]?.trim();
+    let place = row['מקום האירוע'].trim();
+    console.log(place)
     if (!place) return;
     if (!coordMap[place]) { missingLocations.add(place); return; }
 
