@@ -212,7 +212,7 @@ Promise.all([
   interceptCases.forEach(row => {
     // let place = row['מקום האירוע']?.split(';')[0]?.trim(); no split to capture Ninja Park
     let place = row['מקום האירוע'].trim();
-    console.log(place)
+    // console.log(place)
     if (!place) return;
     if (!coordMap[place]) { missingLocations.add(place); return; }
 
