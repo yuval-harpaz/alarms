@@ -53,6 +53,11 @@
       border-radius: 6px;
       box-shadow: 0 0 5px rgba(0,0,0,0.3);
     }
+    @media (max-width: 600px) {
+      .legend {
+        font-size: 1.8em;
+      }
+    }
     .legend span {
       font-weight: bold;
     }
@@ -76,6 +81,9 @@
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
 <script>
+function isMobile() {
+  return /Mobi|Android/i.test(navigator.userAgent);
+}
 const map = L.map('map').setView([31.5, 34.75], 8);
 // Tile layer
 L.tileLayer('https://cdnil.govmap.gov.il/xyz/heb/{z}/{x}/{y}.png', {
@@ -147,7 +155,7 @@ Promise.all([
   // ---------------  ROCKET VICTIMS (original data)  -----------------
   const counts = {};
   const missingLocations = new Set();
-  const basic_size = 3
+  const basic_size = isMobile() ? 6 : 3;
   const frontTotals = {
     'Gaza': 0,
     'Iran': 0,
@@ -180,8 +188,8 @@ Promise.all([
       v['מקום האירוע']?.split(';')[0]?.trim() === place &&
       v['front']?.trim() === front
     ));
-
-    let popup = `<div dir="rtl" style="text-align: right; font-size: 1.3em;">
+    const popupFontSize = isMobile() ? '1.6em' : '1.3em';
+    let popup = `<div dir="rtl" style="text-align: right; font-size: ${popupFontSize};">
       ${place} (${front})<br>מס' הרוגים: ${count}<hr style="margin: 5px 0;">`;
     locationVictims.forEach(v => {
       const fn = v['שם פרטי'] || '';
