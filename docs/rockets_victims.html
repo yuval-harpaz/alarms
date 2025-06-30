@@ -147,6 +147,7 @@ Promise.all([
   // ---------------  ROCKET VICTIMS (original data)  -----------------
   const counts = {};
   const missingLocations = new Set();
+  const basic_size = 3
   const frontTotals = {
     'Gaza': 0,
     'Iran': 0,
@@ -190,7 +191,7 @@ Promise.all([
     popup += '</div>';
 
     L.circleMarker([coord.lat, coord.lng], {
-      radius: 3 + count,
+      radius: basic_size + count,
       fillColor: color,
       color: color,
       weight: 1,
@@ -213,7 +214,7 @@ Promise.all([
       ${place}<br>${fullName}</div>`;
 
     L.circleMarker([coordMap[place].lat, coordMap[place].lng], {
-      radius: 6,
+      radius: basic_size,
       fillColor: 'blue',
       color: 'blue',
       weight: 1,
@@ -244,7 +245,7 @@ Promise.all([
       ${place}<br>${fullName}</div>`;
 
     L.circleMarker([coordMap[place].lat, coordMap[place].lng], {
-      radius: 6,
+      radius: basic_size,
       fillColor: 'orange',
       color: 'orange',
       weight: 1,
