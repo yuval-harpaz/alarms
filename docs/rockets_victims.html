@@ -56,6 +56,12 @@
     .legend span {
       font-weight: bold;
     }
+    .leaflet-control-attribution {
+      background: transparent !important;
+      font-size: 14px; /* Optional: make it larger */
+      color: black;    /* Optional: change text color for contrast */
+      text-shadow: 0 0 3px white; /* Optional: improve readability on complex tiles */
+    }
     
   </style>
 </head>
@@ -71,25 +77,27 @@
 
 <script>
 const map = L.map('map').setView([31.5, 34.75], 8);
-
 // Tile layer
-L.tileLayer(
-  "https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
-  {
-    attribution: "© Esri, HERE, Garmin, FAO, NOAA, USGS",
-    maxZoom: 19
-  }
-).addTo(map);
-
-// Hebrew label overlay
-L.tileLayer(
-  "https://services.arcgisonline.com/ArcGIS/rest/services/World_Hebrew_Labels/MapServer/tile/{z}/{y}/{x}",
-  {
-    attribution: "© Esri",
-    maxZoom: 19,
-    opacity: 1.0
-  }
-).addTo(map);
+L.tileLayer('https://cdnil.govmap.gov.il/xyz/heb/{z}/{x}/{y}.png', {
+  attribution: '© המרכז למיפוי ישראל www.govmap.gov.il'}).addTo(map);
+  
+//L.tileLayer(
+//  "https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
+//  {
+//    attribution: "© Esri, HERE, Garmin, FAO, NOAA, USGS",
+//    maxZoom: 19
+//  }
+//).addTo(map);
+//
+//// Hebrew label overlay
+//L.tileLayer(
+//  "https://services.arcgisonline.com/ArcGIS/rest/services/World_Hebrew_Labels/MapServer/tile/{z}/{y}/{x}",
+//  {
+//    attribution: "© Esri",
+//    maxZoom: 19,
+//    opacity: 1.0
+//  }
+//).addTo(map);
 // Color by front
 const frontColors = {
   'Gaza': 'red',
