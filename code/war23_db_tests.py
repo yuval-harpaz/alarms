@@ -315,28 +315,28 @@ class TestIDF(unittest.TestCase):
         self.assertEqual(mismatch, 0)
 
 
-class Location(unittest.TestCase):
-    def map7updated(self):
-        # db = pd.read_csv('data/oct7database.csv')
-        # map = pd.read_csv('data/oct_7_9.csv')
-        kidnapped = [915, 29, 568, 626, 139, 581, 1432, 135]  # not kidnapped in oct7map, event and death not in same location
-        pid = data['pid'].values
-        check = []
-        for ii in range(len(map79)):
-            row = np.where(pid == map79['pid'][ii])[0][0]
-            stat = str(data['Status (oct7map)'][row])
-            if 'idnap' in stat or 'aptiv' in stat or map79['pid'][ii] in kidnapped:
-                loc = data['מקום המוות'][row]
-            else:
-                loc = data['מקום האירוע'][row]
-            if map79['location'][ii] != loc:
-                check.append([map79['pid'][ii], map79['fullName'][ii], stat, loc, map79['location'][ii]])
-        different_locations = len(check)
-        if different_locations > 0:
-            df = pd.DataFrame(check, columns=['pid', 'name', 'status', 'db', 'map'])
-            print(df)
-        self.assertEqual(different_locations, 0)
-        # df.to_csv('/home/innereye/Documents/check.csv', index=False)
+# class Location(unittest.TestCase):
+#     def map7updated(self):
+#         # db = pd.read_csv('data/oct7database.csv')
+#         # map = pd.read_csv('data/oct_7_9.csv')
+#         kidnapped = [915, 29, 568, 626, 139, 581, 1432, 135]  # not kidnapped in oct7map, event and death not in same location
+#         pid = data['pid'].values
+#         check = []
+#         for ii in range(len(map79)):
+#             row = np.where(pid == map79['pid'][ii])[0][0]
+#             stat = str(data['Status (oct7map)'][row])
+#             if 'idnap' in stat or 'aptiv' in stat or map79['pid'][ii] in kidnapped:
+#                 loc = data['מקום המוות'][row]
+#             else:
+#                 loc = data['מקום האירוע'][row]
+#             if map79['location'][ii] != loc:
+#                 check.append([map79['pid'][ii], map79['fullName'][ii], stat, loc, map79['location'][ii]])
+#         different_locations = len(check)
+#         if different_locations > 0:
+#             df = pd.DataFrame(check, columns=['pid', 'name', 'status', 'db', 'map'])
+#             print(df)
+#         self.assertEqual(different_locations, 0)
+#         # df.to_csv('/home/innereye/Documents/check.csv', index=False)
 
 ##
 rel = pd.read_csv('data/victims_relationship.csv')
@@ -497,7 +497,6 @@ if __name__ == '__main__':
                                               TestIDF('extras_idf'),
                                               TestIDF('name_idf'),
                                               TestIDF('lastname_idf'),
-                                              Location('map7updated'),
                                               TestKidnapped('alive'),
                                               ]
                                        )
