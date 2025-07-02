@@ -104,7 +104,7 @@ def add_new():
                     db.at[idb, 'מקום האירוע'] = 'צפון רצועת עזה'
                 elif 'דרום לבנון' in story:
                     db.at[idb, 'מקום האירוע'] = 'דרום לבנון'
-                db.at[idb, 'Event location class (oct7map)'] = 'idf'
+                # db.at[idb, 'Event location class (oct7map)'] = 'idf'
                 # db.at[idb, 'Event location (oct7map)'] = db['מקום האירוע'][idb]
                 if same_day:
                     db.at[idb, 'מקום המוות'] = db['מקום האירוע'][idb]
