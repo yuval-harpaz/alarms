@@ -17,7 +17,7 @@ front = pd.read_csv('data/front.csv')
 map79 = pd.read_csv('data/oct_7_9.csv')
 map_pid = map79['pid'].values
 
-db = pd.read_csv('data/oct7database.csv')
+db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
 idx = np.where(db['front'].isnull())[0]
 if len(idx) == 0:
     print('front column full')
@@ -50,7 +50,7 @@ else:
             db.at[ii, 'front'] = 'Other'
     db.to_csv('data/oct7database.csv', index=False)
     ## verify against ynet
-    db = pd.read_csv('data/oct7database.csv')
+    db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
     ynet = pd.read_csv('data/ynetlist.csv')
     ynet_pid = ynet['pid'].values
     ignore = [2035, 2106]

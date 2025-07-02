@@ -12,7 +12,7 @@ if os.path.isdir(local):
 # if only_new:
 idf = pd.read_csv('data/deaths_idf.csv')
 add = pd.read_csv('data/oct7database_additional.csv')
-db = pd.read_csv('data/oct7database.csv')
+db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
 inew = np.where([x not in db['הנצחה'].values for x in idf['webpage'].values])[0]
 
 

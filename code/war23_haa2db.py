@@ -9,7 +9,7 @@ if os.path.isdir(local):
     os.chdir(local)
     local = True
 
-db = pd.read_csv('data/oct7database.csv')
+db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
 
 # ynet = pd.read_csv('data/ynetlist.csv')
 # ynet['מקום מגורים'] = ynet['מקום מגורים'].str.replace('\xa0',' ')
@@ -39,7 +39,7 @@ if len(ihaa) > 0:
         haa.to_csv('data/deaths_haaretz+.csv', index=False)
         print('saved data/deaths_haaretz+.csv')
 ##
-db = pd.read_csv('data/oct7database.csv')
+db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
 haa = pd.read_csv('data/deaths_haaretz+.csv')
 ihaa = np.where(haa['pid'].isnull())[0]
 if len(ihaa) > 0:

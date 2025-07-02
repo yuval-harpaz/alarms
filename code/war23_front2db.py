@@ -8,7 +8,7 @@ if os.path.isdir(local):
     local = True
 idf = pd.read_csv('data/deaths_idf.csv')
 front = pd.read_csv('data/front.csv')
-db = pd.read_csv('data/oct7database.csv')
+db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
 idfid = idf['pid'].values
 missing = np.where(db['מקום האירוע'].isnull() &
                    np.array([id in idfid for id in db['pid']]))[0]

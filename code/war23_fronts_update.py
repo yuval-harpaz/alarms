@@ -8,6 +8,7 @@ import os
 # import re
 local = '/home/innereye/alarms/'
 # islocal = False
+do_ynet = False
 try:
     if os.path.isdir(local):
         os.chdir(local)
@@ -31,21 +32,25 @@ try:
 
     changed = False
     if len(idf) >= to_fill:
-        ynet = pd.read_csv('data/ynetlist.csv')
-        yd = []
-        for iy in range(len(ynet)):
-            yd.append('|'.join([str(ynet[ynet.columns[5]][iy]).replace('nan','') + ' ' + str(ynet[ynet.columns[6]][iy]).replace('nan',''),
-                           str(ynet['גיל'][iy]), str(ynet['מקום מגורים'][iy])]))
+        if do_ynet:
+            ynet = pd.read_csv('data/ynetlist.csv')
+            yd = []
+            for iy in range(len(ynet)):
+                yd.append('|'.join([str(ynet[ynet.columns[5]][iy]).replace('nan','') + ' ' + str(ynet[ynet.columns[6]][iy]).replace('nan',''),
+                            str(ynet['גיל'][iy]), str(ynet['מקום מגורים'][iy])]))
         otef = '|'.join(['זיקים', 'נתיב העשרה', 'כפר עזה', 'נחל עוז', 'שדרות', 'בארי', 'כיסופים', 'מפלסים'])
         for ii in range(to_fill, len(idf)):
             st = idf['story'][ii]
             yy = ''
             ff = ''
             id = '|'.join([idf['name'][ii], str(idf['age'][ii]), str(idf['from'][ii])])
-            distance = [Levenshtein.distance(id, x) for x in yd]
-            if min(distance) < 3:
-                yrow = np.argmin(distance)
-                yy = ynet['מידע על המוות'][yrow]
+            if do_ynet:
+                distance = [Levenshtein.distance(id, x) for x in yd]
+                if min(distance) < 3:
+                    yrow = np.argmin(distance)
+                    yy = ynet['מידע על המוות'][yrow]
+            else:
+                yy = ''
             if (type(re.search(otef, yy)) == re.Match) or \
                 (type(re.search(otef, st)) == re.Match):
                 ff = 'עוטף עזה'
