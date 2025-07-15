@@ -60,12 +60,53 @@ def db2map(save=True, what='loc'):
     else:
         return map
 
+def fix_nli():
+    """
+    fix the 'הספריה הלאומית' column in oct7database.csv
+    :return: None
+    """
+    db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
+    if db['הספריה הלאומית'].str.contains('E+').any():
+        print('converting scientific notation to string')
+        correct = pd.read_excel('~/Documents/NLI.xlsx', 'manual', dtype={'nli_id': str})
+        correct = correct[:np.where(correct['pid'] == 119)[0][0]+1]
+        for ii in range(len(correct)):
+            if str(db['הספריה הלאומית'][ii]) == 'nan':
+                db.at[ii, 'הספריה הלאומית'] = ""
+            else:
+                nli_value = str(correct['nli_id'][ii])
+                if nli_value != 'nan':
+                    # Add quotes around the NLI ID
+                    db.at[ii, 'הספריה הלאומית'] = f'"{nli_value}"'
+                else:
+                    db.at[ii, 'הספריה הלאומית'] = ""
+        
+        # Save with quotes
+        db.to_csv('data/oct7database.csv', index=False)
+        
+        # Fix the triple quotes by reading as text and replacing
+        with open('data/oct7database.csv', 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        # Replace triple quotes with single quotes
+        content = content.replace('"""', '"')
+        
+        with open('data/oct7database.csv', 'w', encoding='utf-8') as f:
+            f.write(content)
+     
+        print('Fixed triple quotes in CSV file')
+    else:
+        print('no E+ in NLI column, nothing to fix')
+
+
 
 if __name__ == '__main__':
     args = sys.argv
     if len(args) == 1:
-        print('use --db2map, no other tools yet')
+        print('use --db2map or --fix_nli, no other tools yet')
     elif args[1] == '--db2map':
         db2map(save=True, what='loc')
+    elif args[1] == '--fix_nli':
+        fix_nli()
     else:
         raise ValueError(f"unknown input argument {args[1]}")
