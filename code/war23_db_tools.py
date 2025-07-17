@@ -65,10 +65,17 @@ def fix_nli():
     fix the 'הספריה הלאומית' column in oct7database.csv
     :return: None
     """
+    with open('data/oct7database.csv', 'r', encoding='utf-8') as f:
+        content0 = f.read()
+    first = content0.index('987012802875705171')
+    isquote = False
+    if content0[first-1] == '"':
+        isquote = True
     db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
     if '"' in db['שם פרטי'].values[0]:
         raise ValueError('Too many quotes in the file, please fix manually')
     converted = False
+    quoted = False
     if db['הספריה הלאומית'].str.contains('E+').any():
         print('converting scientific notation to string')
         correct = pd.read_excel('~/Documents/NLI.xlsx', 'manual', dtype={'nli_id': str})
@@ -85,26 +92,22 @@ def fix_nli():
                     db.at[ii, 'הספריה הלאומית'] = ""
         converted  = True
         # Save with quotes
-    quoted = False
-    if '"' not in db['הספריה הלאומית'].values[0]:
-        print('adding quotes to NLI IDs')
+    elif not isquote:
         db['הספריה הלאומית'] = '"' + db['הספריה הלאומית'].astype(str) + '"'
         quoted = True
     if converted or quoted:
         db.to_csv('data/oct7database.csv', index=False)
-        
         # Fix the triple quotes by reading as text and replacing
         with open('data/oct7database.csv', 'r', encoding='utf-8') as f:
             content = f.read()
-        
         # Replace triple quotes with single quotes
         content = content.replace('"""', '"')
         content = content.replace('"nan"', '')
-        
         with open('data/oct7database.csv', 'w', encoding='utf-8') as f:
             f.write(content)
-     
         print('Fixed triple quotes in CSV file')
+    else:
+        print('No changes made to the NLI column')
     
 
 
