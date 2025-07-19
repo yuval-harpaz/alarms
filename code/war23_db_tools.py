@@ -96,17 +96,20 @@ def fix_nli():
     elif not isquote:
         db['הספריה הלאומית'] = '"' + db['הספריה הלאומית'].astype(str) + '"'
         db.to_csv('data/oct7database.csv', index=False)
+    
         # Fix the triple quotes by reading as text and replacing
-        with open('data/oct7database.csv', 'r', encoding='utf-8') as f:
-            content = f.read()
-        # Replace triple quotes with single quotes
-        content = content.replace('"""', '"')
+    with open('data/oct7database.csv', 'r', encoding='utf-8') as f:
+        content = f.read()
         content = content.replace('"nan"', '')
         with open('data/oct7database.csv', 'w', encoding='utf-8') as f:
             f.write(content)
-        print('Fixed triple quotes in CSV file')
-    else:
-        print('No changes made to the NLI column')
+    if '"""' in content:
+        while '"""' in content:
+            # Replace triple quotes with single quotes
+            content = content.replace('"""', '"')
+        with open('data/oct7database.csv', 'w', encoding='utf-8') as f:
+            f.write(content)
+            print('Fixed triple quotes in CSV file')
     
 
 def fill_nli():
