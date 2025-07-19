@@ -10,10 +10,11 @@ do
     case "$1" in
     -s) echo "stories" ; python war23_stories_update.py ;;
     -b) python war23_btl_new.py ;;
+    -n) python war23_db_tools.py --fill_nli
     -a) echo "not implemented yet" ;;
     esac
     shift
 done
-python war23_db_tests.py
-python scrap.py
 python war23_db_tools.py --fix_nli
+python war23_db_tests.py
+

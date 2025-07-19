@@ -74,28 +74,27 @@ def fix_nli():
     db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
     if '"' in db['שם פרטי'].values[0]:
         raise ValueError('Too many quotes in the file, please fix manually')
-    converted = False
-    quoted = False
+    # converted = False
+    # quoted = False
     if db['הספריה הלאומית'].str.contains('E+').any():
-        print('converting scientific notation to string')
-        correct = pd.read_excel('~/Documents/NLI.xlsx', 'manual', dtype={'nli_id': str})
-        correct = correct[:np.where(correct['pid'] == 119)[0][0]+1]
-        for ii in range(len(correct)):
-            if str(db['הספריה הלאומית'][ii]) == 'nan':
-                db.at[ii, 'הספריה הלאומית'] = ""
-            else:
-                nli_value = str(correct['nli_id'][ii])
-                if nli_value != 'nan':
-                    # Add quotes around the NLI ID
-                    db.at[ii, 'הספריה הלאומית'] = f'"{nli_value}"'
-                else:
-                    db.at[ii, 'הספריה הלאומית'] = ""
-        converted  = True
+        raise ValueError('There are E+ NLI, revert to previous version')
+        # print('converting scientific notation to string')
+        # correct = pd.read_excel('~/Documents/NLI.xlsx', 'manual', dtype={'nli_id': str})
+        # correct = correct[:np.where(correct['pid'] == 119)[0][0]+1]
+        # for ii in range(len(correct)):
+        #     if str(db['הספריה הלאומית'][ii]) == 'nan':
+        #         db.at[ii, 'הספריה הלאומית'] = ""
+        #     else:
+        #         nli_value = str(correct['nli_id'][ii])
+        #         if nli_value != 'nan':
+        #             # Add quotes around the NLI ID
+        #             db.at[ii, 'הספריה הלאומית'] = f'"{nli_value}"'
+        #         else:
+        #             db.at[ii, 'הספריה הלאומית'] = ""
+        # converted  = True
         # Save with quotes
     elif not isquote:
         db['הספריה הלאומית'] = '"' + db['הספריה הלאומית'].astype(str) + '"'
-        quoted = True
-    if converted or quoted:
         db.to_csv('data/oct7database.csv', index=False)
         # Fix the triple quotes by reading as text and replacing
         with open('data/oct7database.csv', 'r', encoding='utf-8') as f:
@@ -110,7 +109,56 @@ def fix_nli():
         print('No changes made to the NLI column')
     
 
-
+def fill_nli():
+    """
+    fill nli from NLI 4 oct7database - manual.csv.
+    first download from https://docs.google.com/spreadsheets/d/1-f2JeU3BjIuP8-wBPZm2mCR172HJQKCuNuGao4AnHKg/edit?gid=25742010#gid=25742010
+    """
+    uptodate = pd.read_csv('~/Documents/NLI 4 oct7database - manual.csv', dtype={'NLI': str})
+    db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
+    # check pid are the same
+    min_len = min([len(db), len(uptodate)])
+    if np.mean(db['pid'].values[:min_len] == uptodate['pid'].values[:min_len]) != 1:
+        first_unequal = np.where(db['pid'].values[:min_len] != uptodate['pid'].values[:min_len])[0][0]
+        print('pid issues, first one for pid ' + str(db['pid'].values[first_unequal]) + ' at index ')
+        raise ValueError('pid mismatch between oct7database.csv and NLI 4 oct7database - manual.csv')
+    # check differences
+    only_db = []
+    only_update = []
+    mismatch = []
+    for ii in range(min([len(db), len(uptodate)])):
+        if str(db['הספריה הלאומית'][ii]) != 'nan' and str(uptodate['NLI'].values[ii]) == 'nan':
+            print(f"pid {db['pid'][ii]} has NLI ID only in db")
+            only_db.append(db['pid'][ii])
+        elif str(db['הספריה הלאומית'][ii]) == 'nan' and str(uptodate['NLI'].values[ii]) != 'nan':
+            # print(f"pid {db['pid'][ii]} has NLI ID only in uptodate")
+            only_update.append(db['pid'][ii])
+        elif str(db['הספריה הלאומית'][ii]) != str(uptodate['NLI'].values[ii]):
+            print(f"pid {db['pid'][ii]} has different NLI ID in db: {db['הספריה הלאומית'][ii]} vs {uptodate['NLI'].values[ii]}")
+            mismatch.append(db['pid'][ii])
+    #alert issues
+    if len(only_db) > 0:
+        print('The following PIDs have NLI IDs only in oct7database.csv:')
+        print(only_db)
+    if len(mismatch) > 0:
+        print('The following PIDs have different NLI IDs in oct7database.csv and NLI 4 oct7database - manual.csv:')
+        print(mismatch)
+    if len(only_update) > 0:
+        print(f'There are {len(only_update)} to update')
+    if len(only_db) > 0 and len(only_update) > 0:
+        raise ValueError('Resolve issues before update')
+    elif len(only_update) > 0:
+        for jj, pid in enumerate(only_update):
+            row = np.where(db['pid'].values == pid)[0][0]
+            nli_value = uptodate['NLI'].values[row]
+            if str(nli_value) == 'nan':
+                raise ValueError(f"pid {pid} has nan NLI value in uptodate")
+            else:
+                db.at[row, 'הספריה הלאומית'] = f'"{nli_value}"'
+        db.to_csv('data/oct7database.csv', index=False)
+    else:
+        print ('No updates needed, all NLI IDs are up to date')
+        # fix_nli()
 
 if __name__ == '__main__':
     args = sys.argv
@@ -120,5 +168,8 @@ if __name__ == '__main__':
         db2map(save=True, what='loc')
     elif args[1] == '--fix_nli':
         fix_nli()
+        # raise DeprecationWarning('use --fill_nli instead')
+    elif args[1] == '--fill_nli':
+        fill_nli()
     else:
         raise ValueError(f"unknown input argument {args[1]}")
