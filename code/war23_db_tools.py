@@ -2,7 +2,7 @@ import pandas as pd
 import os
 import sys
 import numpy as np
-import re
+# import re
 
 
 local = '/home/innereye/alarms/'
@@ -65,18 +65,25 @@ def fix_nli():
     fix the 'הספריה הלאומית' column in oct7database.csv
     :return: None
     """
+    db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
     with open('data/oct7database.csv', 'r', encoding='utf-8') as f:
         content0 = f.read()
+    if content0[0] == '"':
+        db.to_csv('data/oct7database.csv', index=False)
+        db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
+        with open('data/oct7database.csv', 'r', encoding='utf-8') as f:
+            content0 = f.read()
+
     first = content0.index('987012802875705171')
     isquote = False
     if content0[first-1] == '"':
         isquote = True
-    db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
+    
     if '"' in db['שם פרטי'].values[0]:
         raise ValueError('Too many quotes in the file, please fix manually')
     # converted = False
     # quoted = False
-    if db['הספריה הלאומית'].str.contains('E+').any():
+    if db['הספריה הלאומית'].str.lower().str.contains('e+').any():
         raise ValueError('There are E+ NLI, revert to previous version')
         # print('converting scientific notation to string')
         # correct = pd.read_excel('~/Documents/NLI.xlsx', 'manual', dtype={'nli_id': str})
@@ -137,8 +144,11 @@ def fill_nli():
             # print(f"pid {db['pid'][ii]} has NLI ID only in uptodate")
             only_update.append(db['pid'][ii])
         elif str(db['הספריה הלאומית'][ii]) != str(uptodate['NLI'].values[ii]):
-            print(f"pid {db['pid'][ii]} has different NLI ID in db: {db['הספריה הלאומית'][ii]} vs {uptodate['NLI'].values[ii]}")
-            mismatch.append(db['pid'][ii])
+            if 'e+' in str(db['הספריה הלאומית'][ii]).lower():
+                only_update.append(db['pid'][ii])
+            else:
+                print(f"pid {db['pid'][ii]} has different NLI ID in db: {db['הספריה הלאומית'][ii]} vs {uptodate['NLI'].values[ii]}")
+                mismatch.append(db['pid'][ii])
     #alert issues
     if len(only_db) > 0:
         print('The following PIDs have NLI IDs only in oct7database.csv:')
@@ -162,6 +172,35 @@ def fill_nli():
     else:
         print ('No updates needed, all NLI IDs are up to date')
         # fix_nli()
+
+
+def eng_loc(heb_empties=True):
+    """
+    convert to English the location names in oct7database based on deaths_by_loc
+    """
+    db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
+    loc = pd.read_csv('data/deaths_by_loc.csv')
+    converter = pd.read_csv('~/Documents/sublocation_converter.csv')
+    #dict from df
+    conv = dict(zip(converter['sublocation db'], converter['sublocation']))
+    def convert_columns(input_col='מקום האירוע', output_col='Event location'):
+        for ii in range(len(db)):
+            heb = str(db[input_col][ii])
+            if heb != 'nan':
+                if heb in loc['name'].values:
+                    eng = loc['eng'][loc['name'] == heb].values[0]
+                    db.at[ii, output_col] = eng
+                elif heb in conv.keys():
+                    eng = conv[heb]
+                    db.at[ii, output_col] = eng
+                elif heb_empties:
+                    db.at[ii, output_col] = heb
+    convert_columns()
+    convert_columns(input_col='מקום המוות', output_col='Death location')
+    db.to_csv('data/oct7database.csv', index=False)
+    return db
+    
+
 
 if __name__ == '__main__':
     args = sys.argv
