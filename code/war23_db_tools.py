@@ -124,7 +124,7 @@ def fill_nli():
     fill nli from NLI 4 oct7database - manual.csv.
     first download from https://docs.google.com/spreadsheets/d/1-f2JeU3BjIuP8-wBPZm2mCR172HJQKCuNuGao4AnHKg/edit?gid=25742010#gid=25742010
     """
-    uptodate = pd.read_csv('~/Documents/NLI 4 oct7database - manual.csv', dtype={'NLI': str})
+    uptodate = pd.read_csv('~/Documents/NLI 4 oct7database - manual.csv', dtype={'הספריה הלאומית': str})
     db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
     # check pid are the same
     min_len = min([len(db), len(uptodate)])
@@ -137,17 +137,17 @@ def fill_nli():
     only_update = []
     mismatch = []
     for ii in range(min([len(db), len(uptodate)])):
-        if str(db['הספריה הלאומית'][ii]) != 'nan' and str(uptodate['NLI'].values[ii]) == 'nan':
+        if str(db['הספריה הלאומית'][ii]) != 'nan' and str(uptodate['הספריה הלאומית'].values[ii]) == 'nan':
             print(f"pid {db['pid'][ii]} has NLI ID only in db")
             only_db.append(db['pid'][ii])
-        elif str(db['הספריה הלאומית'][ii]) == 'nan' and str(uptodate['NLI'].values[ii]) != 'nan':
+        elif str(db['הספריה הלאומית'][ii]) == 'nan' and str(uptodate['הספריה הלאומית'].values[ii]) != 'nan':
             # print(f"pid {db['pid'][ii]} has NLI ID only in uptodate")
             only_update.append(db['pid'][ii])
-        elif str(db['הספריה הלאומית'][ii]) != str(uptodate['NLI'].values[ii]):
+        elif str(db['הספריה הלאומית'][ii]) != str(uptodate['הספריה הלאומית'].values[ii]):
             if 'e+' in str(db['הספריה הלאומית'][ii]).lower():
                 only_update.append(db['pid'][ii])
             else:
-                print(f"pid {db['pid'][ii]} has different NLI ID in db: {db['הספריה הלאומית'][ii]} vs {uptodate['NLI'].values[ii]}")
+                print(f"pid {db['pid'][ii]} has different NLI ID in db: {db['הספריה הלאומית'][ii]} vs {uptodate['הספריה הלאומית'].values[ii]}")
                 mismatch.append(db['pid'][ii])
     #alert issues
     if len(only_db) > 0:
@@ -163,7 +163,7 @@ def fill_nli():
     elif len(only_update) > 0:
         for jj, pid in enumerate(only_update):
             row = np.where(db['pid'].values == pid)[0][0]
-            nli_value = uptodate['NLI'].values[row]
+            nli_value = uptodate['הספריה הלאומית'].values[row]
             if str(nli_value) == 'nan':
                 raise ValueError(f"pid {pid} has nan NLI value in uptodate")
             else:
