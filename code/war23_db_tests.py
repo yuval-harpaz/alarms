@@ -42,6 +42,9 @@ def duplicates(pid, names):
         if len(row) == 1:
             dup.loc[len(dup)] = [ii, pid[row[0]], names[ii]]
         elif len(row) > 1:
+            if names[ii] in ['עמית כהן', 'Amit Cohen']:
+                dup.loc[len(dup)] = [ii, pid[row[0]], names[ii]]
+                continue
             raise Exception('more than 2 '+names[ii])
     return dup
 
