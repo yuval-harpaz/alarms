@@ -22,7 +22,7 @@ except:
 
 
 # data = pd.read_csv('/home/innereye/Documents/oct7database - Data.csv')
-data = pd.read_csv('data/oct7database.csv')
+data = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
 # omi = pd.read_csv('/home/innereye/Documents/oct7database - omissions.csv')
 kidn = pd.read_csv('data/kidnapped.csv')
 idf = pd.read_csv('data/deaths_idf.csv')
@@ -119,6 +119,16 @@ class TestDuplicates(unittest.TestCase):
         if len(pid_rank) > 0:
             print(f'rank in first name!!!! {pid_rank}'.replace('[', '').replace(']', ''))
         self.assertEqual(len(pid_rank), 0)
+    
+    def duplicate_nli(self):
+        pid = data['pid'].values
+        nli = data['הספריה הלאומית'].values
+        dup_nli = duplicates(pid, nli)
+        dupu = np.unique(dup_nli['name'])
+        duplicates_length = len(dupu)
+        if duplicates_length > 0:
+            print(f'{duplicates_length} NLI Duplicates!!!! {dupu}')
+        self.assertEqual(duplicates_length, 0)
 
 
 
@@ -489,6 +499,7 @@ if __name__ == '__main__':
                                               TestDuplicates('duplicate_url'),
                                               TestDuplicates('rank_name'),
                                               TestDuplicates('duplicate_additionals'),
+                                              TestDuplicates('duplicate_nli'),
                                               Test79('extras79'),
                                               Test79('unique_pid79'),
                                               Test79('loc79'),
