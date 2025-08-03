@@ -118,21 +118,20 @@ def fix_nli():
             f.write(content)
             print('Fixed triple quotes in CSV file')
     
-
-def fill_nli():
+def compare_nli(compare_to='~/Documents/NLI 4 oct7database - manual.csv'):
     """
-    fill nli from NLI 4 oct7database - manual.csv.
-    first download from https://docs.google.com/spreadsheets/d/1-f2JeU3BjIuP8-wBPZm2mCR172HJQKCuNuGao4AnHKg/edit?gid=25742010#gid=25742010
+    compare the NLI IDs in oct7database.csv and NLI 4 oct7database - manual.csv
+    :param compare_to: str
+        path to the NLI 4 oct7database - manual.csv file
+    :return: list of PIDs that are only in db, only in update, and mismatched
     """
-    uptodate = pd.read_csv('~/Documents/NLI 4 oct7database - manual.csv', dtype={'הספריה הלאומית': str})
+    uptodate = pd.read_csv(compare_to, dtype={'הספריה הלאומית': str})
     db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
-    # check pid are the same
     min_len = min([len(db), len(uptodate)])
     if np.mean(db['pid'].values[:min_len] == uptodate['pid'].values[:min_len]) != 1:
         first_unequal = np.where(db['pid'].values[:min_len] != uptodate['pid'].values[:min_len])[0][0]
         print('pid issues, first one for pid ' + str(db['pid'].values[first_unequal]) + ' at index ')
         raise ValueError('pid mismatch between oct7database.csv and NLI 4 oct7database - manual.csv')
-    # check differences
     only_db = []
     only_update = []
     mismatch = []
@@ -149,6 +148,41 @@ def fill_nli():
             else:
                 print(f"pid {db['pid'][ii]} has different NLI ID in db: {db['הספריה הלאומית'][ii]} vs {uptodate['הספריה הלאומית'].values[ii]}")
                 mismatch.append(db['pid'][ii])
+    return only_db, only_update, mismatch
+
+
+
+def fill_nli():
+    """
+    fill nli from NLI 4 oct7database - manual.csv.
+    first download from https://docs.google.com/spreadsheets/d/1-f2JeU3BjIuP8-wBPZm2mCR172HJQKCuNuGao4AnHKg/edit?gid=25742010#gid=25742010
+    """
+    uptodate = pd.read_csv('~/Documents/NLI 4 oct7database - manual.csv', dtype={'הספריה הלאומית': str})
+    db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
+    # check pid are the same
+    # min_len = min([len(db), len(uptodate)])
+    # if np.mean(db['pid'].values[:min_len] == uptodate['pid'].values[:min_len]) != 1:
+    #     first_unequal = np.where(db['pid'].values[:min_len] != uptodate['pid'].values[:min_len])[0][0]
+    #     print('pid issues, first one for pid ' + str(db['pid'].values[first_unequal]) + ' at index ')
+    #     raise ValueError('pid mismatch between oct7database.csv and NLI 4 oct7database - manual.csv')
+    # # check differences
+    # only_db = []
+    # only_update = []
+    # mismatch = []
+    # for ii in range(min([len(db), len(uptodate)])):
+    #     if str(db['הספריה הלאומית'][ii]) != 'nan' and str(uptodate['הספריה הלאומית'].values[ii]) == 'nan':
+    #         print(f"pid {db['pid'][ii]} has NLI ID only in db")
+    #         only_db.append(db['pid'][ii])
+    #     elif str(db['הספריה הלאומית'][ii]) == 'nan' and str(uptodate['הספריה הלאומית'].values[ii]) != 'nan':
+    #         # print(f"pid {db['pid'][ii]} has NLI ID only in uptodate")
+    #         only_update.append(db['pid'][ii])
+    #     elif str(db['הספריה הלאומית'][ii]) != str(uptodate['הספריה הלאומית'].values[ii]):
+    #         if 'e+' in str(db['הספריה הלאומית'][ii]).lower():
+    #             only_update.append(db['pid'][ii])
+    #         else:
+    #             print(f"pid {db['pid'][ii]} has different NLI ID in db: {db['הספריה הלאומית'][ii]} vs {uptodate['הספריה הלאומית'].values[ii]}")
+    #             mismatch.append(db['pid'][ii])
+    only_db, only_update, mismatch = compare_nli()
     #alert issues
     if len(only_db) > 0:
         print('The following PIDs have NLI IDs only in oct7database.csv:')

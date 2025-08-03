@@ -4,7 +4,7 @@ import numpy as np
 import unittest
 import sys
 sys.path.append('code')
-
+from war23_db_tools import compare_nli
 local = '/home/innereye/alarms/'
 islocal = False
 if os.path.isdir(local):
@@ -34,6 +34,37 @@ check that all parts of a name are present in the corresponding url
 '''
 
 
+##
+with open('data/oct7database.csv', 'r', encoding='utf-8') as f:
+    db_txt = f.read()
+class TestNLI(unittest.TestCase):
+    def all_quotes(self):
+        if db_txt[0] == '"':
+            print('first pid starts with "')
+        self.assertNotEqual(db_txt[0], '"')
+    def quoted_nli(self):
+        before_first_nli = db_txt[db_txt.index('9870128028757')-1]
+        if before_first_nli != '"':
+            print('first nli should start with "')
+        self.assertEqual(before_first_nli, '"')
+
+    def nli_update(self):
+        only_db, only_update, mismatch = compare_nli()
+        if len(only_db) > 0:
+            print('The following PIDs have NLI IDs only in oct7database.csv:')
+            print(only_db)
+        self.assertEqual(len(only_db), 0)
+        if len(only_update) > 0:
+            print('The following PIDs have NLI IDs only in NLI 4 oct7database - manual.csv:')
+            print(only_update)
+        self.assertEqual(len(only_update), 0)
+        if len(mismatch) > 0:
+            print('The following PIDs have mismatched NLI IDs:')
+            print(mismatch)
+        self.assertEqual(len(mismatch), 0)
+
+
+
 def duplicates(pid, names):
     dup = pd.DataFrame(columns=['idx', 'pid', 'name'])
     for ii in range(len(names)):
@@ -47,6 +78,7 @@ def duplicates(pid, names):
                 continue
             raise Exception('more than 2 '+names[ii])
     return dup
+
 
 
 ##
@@ -512,6 +544,9 @@ if __name__ == '__main__':
                                               TestIDF('name_idf'),
                                               TestIDF('lastname_idf'),
                                               TestKidnapped('alive'),
+                                              TestNLI('all_quotes'),
+                                              TestNLI('quoted_nli'),
+                                              TestNLI('nli_update'),
                                               ]
                                        )
     elif args[1][0] == 'r':
