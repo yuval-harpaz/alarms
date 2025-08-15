@@ -179,7 +179,7 @@ pid,eng name,name,residence,event location,event date,status,partners,siblings,p
 542,Mika Engel,מיקה אנגל,ניר עוז,ניר עוז,2023-10-07,kidnapped; released,,544,,543;545,,,,53
 545,Karina Engel-Bert,קרינה אנגל-ברט,ניר עוז,ניר עוז,2023-10-07,kidnapped; released,543.0,,542;544,,,,,53
 543,Ronen Engel,רונן אנגל,ניר עוז,ניר עוז,2023-10-07,killed; kidnapped,545.0,,542;544,,,,,53
-546,Aviv Azili,אביב אצילי,ניר עוז,ניר עוז,2023-10-07,killed,547.0,,,,,,,54
+546,Aviv Azili,אביב אצילי,ניר עוז,ניר עוז,2023-10-07,killed; kidnapped; retrieved,547.0,,,,,,,54
 547,Liat Atzili,ליאת אצילי,ניר עוז,ניר עוז,2023-10-07,kidnapped; released,546.0,,,,,,,54
 551,Ariel Bibas,אריאל ביבס,ניר עוז,ניר עוז,2023-10-07,kidnapped; killed; returned,,552,,553;554,,615;616,,55
 616,Yossi Silberman,יוסי סילברמן,ניר עוז,ניר עוז,2023-10-07,killed,615.0,,553,,551;552,,554,55
@@ -272,7 +272,7 @@ pid,eng name,name,residence,event location,event date,status,partners,siblings,p
 806,Norelle Manzuri,נורל מנצורי,רמת השרון,מיגונית בכניסה לרעים (מזרח),2023-10-07,killed,720.0,807,,,,,,84
 720,Amit Cohen,עמית כהן,הוד השרון,מיגונית בכניסה לרעים (מזרח),2023-10-07,killed,806.0,,,,,,,84
 807,Roya Manzuri,רויה מנצורי,רמת השרון,מיגונית בכניסה לרעים (מזרח),2023-10-07,killed,,806,,,,,,84
-823,Aryeh Perez,אריה פרץ,קריית חיים,פסטיבל נובה; אמבולנס,2023-10-07,killed,,,825,,,,,85
+823,Arik Perez,אריק פרץ,קריית חיים,פסטיבל נובה; אמבולנס,2023-10-07,killed,,,825,,,,,85
 825,Ruth Perez,רות פרץ,קריית חיים,פסטיבל נובה; אמבולנס,2023-10-07,killed,,,,823,,,,85
 1593,Eli Rafael Refai,אלי רפאל רפאי,יבנה,צומת שער הנגב,2023-10-07,killed,,833,,,,,805,86
 805,Shahar Mantzur,שחר מנצור,שוהם,סמוך למפלסים,2023-10-07,killed,833.0,,,,,,1593,86
@@ -369,7 +369,7 @@ pid,eng name,name,residence,event location,event date,status,partners,siblings,p
 1458,Almog Sarusi,אלמוג סרוסי,רעננה,סמוך לתל גמה,2023-10-07,kidnapped; killed; retrieved,758.0,,,,,,,126
 758,Shahar Gindi,שחר גינדי,חולון,סמוך לתל גמה,2023-10-07,killed,1458.0,,,,,,,126
 882,Lilia Gurevich-Vasilkovsky,ליליה גורביץ׳-וסילקובסקי,עומר,פסטיבל נובה,2023-10-07,killed,871.0,,,,,,,127
-871,Shlomo Sividia,שלמה סבידיה,גני תקווה,פסטיבל נובה,2023-10-07,killed,882.0,,,,,,,127
+871,Shlomi Sividia,שלומי סבידיה,גני תקווה,פסטיבל נובה,2023-10-07,killed,882.0,,,,,,,127
 818,Avinathan Or,אבינתן אור,תל אביב-יפו,מערבית לחורבת גררית,2023-10-07,kidnapped,680.0,,,,,,,128
 680,Noa Argamani,נועה ארגמני,באר שבע,מערבית לחורבת גררית,2023-10-07,kidnapped; rescued,818.0,,,,,,,128
 312,Naor Hassidim,נאור חסידים,אשדוד,כפר עזה,2023-10-07,killed,300.0,,,,,,,129
@@ -424,7 +424,7 @@ pid,eng name,name,residence,event location,event date,status,partners,siblings,p
 850,Karin Schwartzman,קארין שוורצמן,חולון,מיגונית בכניסה לרעים (מערב),2023-10-07,killed,922.0,,,,,,,151
 1589,Orión Hernández Radoux,אוריון הרננדז-ראדו,מקסיקו,עיקול מפלסים,2023-10-07,killed; kidnapped; retrieved,801.0,,,,,,,152
 801,Shani Louk,שני לוק,שריגים,עיקול מפלסים,2023-10-07,killed; kidnapped; retrieved,1589.0,,,,,,,152
-891,Gavriel Azulay,גבריאל אזולאי,קריית מלאכי,בכניסה לעלומים,2023-10-07,killed,1523.0,,,,,,,153
+891,Gavriel Azulay,גבריאל אזולאי,קריית מלאכי,כביש עלומים - בארי,2023-10-07,killed,1523.0,,,,,,,153
 1523,Karla Stelzer Mendes,קרלה סטלזר מנדס,קריית מלאכי,כביש עלומים - בארי,2023-10-07,killed,891.0,,,,,,,153
 761,Daniel Goltman,דניאל גולטמן,ראשון לציון,פסטיבל נובה; בר צפוני,2023-10-07,killed,826.0,,,,,,,154
 826,Daniela Petrenko,דניאלה פטרנקו,חיפה,פסטיבל נובה; בר צפוני,2023-10-07,killed,761.0,,,,,,,154
@@ -504,8 +504,8 @@ pid,eng name,name,residence,event location,event date,status,partners,siblings,p
 2762,Konstantin Totvich,קונסטנטין טוטביץ',בת ים,בת ים,2025-06-15,killed,,,,,,2759,2760;2761;2763,187
 2765,Dasi Belo,דסי בלו,פתח תקווה,פתח תקווה,2025-06-16,killed,2764.0,,,,,,,188
 2764,Yaakov Belo,יעקב בלו,פתח תקווה,פתח תקווה,2025-06-16,killed,2765.0,,,,,,,188
-2776,,,,,,killed,2778,,,2779,,,,
-2778,,,,,,killed,2776,,,,,,2779,
-2779,,,,,,killed,,,2776,,,,2778,
-1555,,,,,,killed,,,,,,,2781,
-2781,,,,,,killed,,,,,,,1555,
+2776,Eitan Zacks,איתן זקס,באר שבע,באר שבע,2025-06-24,killed,2778.0,,,2779,,,,189
+2779,Michal Zacks,מיכל זקס,באר שבע,באר שבע,2025-06-24,killed,,,2776,,,,2778,189
+2778,Noa Boguslavsky,נועה בוגוסלבסקי,ערד,באר שבע,2025-06-24,killed,2776.0,,,,,,2779,189
+2781,Niv Radia,ניב רדיע,אליכין,דרום רצועת עזה,2025-06-24,killed,,,,,,,1555,190
+1555,Omri Peretz,עמרי פרץ,אליכין,כיסופים,2023-10-07,killed,,,,,,,2781,190
