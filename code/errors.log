@@ -29,3 +29,7 @@ war23_ynetlist.py failed
 substring not found
 war23_idf_mem_all.py failed
 substring not found
+war23_haaretz_deaths.py failed
+HTTPSConnectionPool(host='www.haaretz.co.il', port=443): Max retries exceeded with url: /news/2023-10-12/ty-article-magazine/0000018b-1367-dcc2-a99b-17779a0a0000 (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7fdfa87969b0>, 'Connection to www.haaretz.co.il timed out. (connect timeout=None)'))
+war23_haaretz_kidnapped.py failed
+HTTPSConnectionPool(host='www.haaretz.co.il', port=443): Max retries exceeded with url: /news/2023-11-23/ty-article-magazine/0000018b-4196-d242-abef-53b654760000 (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7fe37471e9e0>, 'Connection to www.haaretz.co.il timed out. (connect timeout=None)'))
