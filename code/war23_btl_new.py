@@ -16,7 +16,7 @@ if os.path.isdir(local):
 
 url = 'https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID='
 ##
-db = pd.read_csv('data/oct7database.csv')
+db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
 first = db['שם פרטי'].values
 last = db['שם משפחה'].values
 add = pd.read_csv('data/oct7database_additional.csv')
