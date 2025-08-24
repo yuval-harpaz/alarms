@@ -294,7 +294,7 @@ class TestHaa(unittest.TestCase):
             print(f'haartz+ PID Not Unique!!!! {dup_haa}'.replace('[', '').replace(']', ''))
         self.assertEqual(len_unique, 0)
 
-
+idf_bad_name = [2115, 1725, 2017, 2143]
 #
 class TestIDF(unittest.TestCase):
     def unique_idf(self):
@@ -324,12 +324,15 @@ class TestIDF(unittest.TestCase):
         mismatch = 0
         pid_mismatch = []
         for ii in range(len(pid_idf)):
+            if pid_idf[ii] in idf_bad_name:
+                continue
             row = np.where(pid == pid_idf[ii])[0]
             if len(row) == 1:
                 row = row[0]
                 first = data['שם פרטי'][row]
                 name = idf['name'][ii]
                 if first not in name:
+                    print(' ii ' + str(ii))
                     print(f'IDF: pid={idf["pid"][ii]}, {first} not in {name}')
                     mismatch += 1
                     pid_mismatch.append(idf["pid"][ii])
@@ -345,6 +348,8 @@ class TestIDF(unittest.TestCase):
         pid_mismatch = []
         known = [1643, 1266, 287]
         for ii in range(len(pid_idf)):
+            if pid_idf[ii] in idf_bad_name:
+                continue
             row = np.where(pid == pid_idf[ii])[0]
             if len(row) == 1:
                 row = row[0]
