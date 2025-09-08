@@ -31,7 +31,9 @@ for ii in range(len(db)):
         row_nli = len(nli)-1
     else:
         row_nli = row_nli[0]
-    if str(db['הספריה הלאומית'][ii]) != 'nan':
+    if str(db['הספריה הלאומית'][ii]) == 'nan':
+        nli.at[ii, 'issues'] = 'No ID'
+    else:
         id_nli = db['הספריה הלאומית'][ii]
         if str(nli['nli_id'][row_nli]) == 'nan':
             nli.at[row_nli, 'nli_id'] = id_nli
@@ -44,7 +46,8 @@ input_resp = input('shearch existing? (y/n): ')
 if input_resp == 'y':
     id_to_scan = db['pid'][db['הספריה הלאומית'].notna()].values
 else:
-    id_to_scan = nli['pid'][nli['first_nli'].isna()].values
+    id_to_scan = nli['pid'][nli['first_nli'].isna() & nli['nli_id'].notna()].values
+
 rows = [i for i in range(len(nli)) if nli['pid'][i] in id_to_scan]
 pattern = 'item_collections'
 # chrome_options = uc.ChromeOptions()
@@ -55,6 +58,7 @@ browser = uc.Chrome()
 browser.get('https://www.nli.org.il/he')  # manually confirm not a bot
 ip = input('Press Enter to continue...')
 for ii in rows:  # [427] :
+    print('pid', nli['pid'][ii])
     db_row = np.where(db['pid'] == nli['pid'][ii])[0][0]
     personal = 'https://www.nli.org.il/he/authorities/'+nli['nli_id'][ii]
     browser.get(personal)
@@ -82,30 +86,39 @@ for ii in rows:  # [427] :
                 nli.at[ii, 'first_nli'] = first
                 distance = min([distance, min([Levenshtein.distance(first, n.strip()) for n in name_db.split(',')])])
                 if len(names) > 2:
-                    nli.at[ii, 'year'] = names[2]
+                    nli.at[ii, 'years'] = names[2]
             if distance > 0:
                 issues = 'Name mismatch'
             if 'harpaz_id' in htmlp.lower():
                 harpaz_id = htmlp.lower().split('harpaz_id')[1].split('"')[2][1:]
                 harpaz_id = harpaz_id[:harpaz_id.index('<')]
                 if harpaz_id.isnumeric():
-                    
-                    if int(harpaz_id) != nli['pid'][ii]:
+                    harpaz_id = int(harpaz_id)
+                    if harpaz_id != nli['pid'][ii]:
                         issues = issues + '; Wrong Harpaz ID'
                 else:
-                    harpaz_id = ''
+                    harpaz_id = np.nan
                     issues = issues + '; Harpaz ID not numeric'
             else:
-                harpaz_id = ''
+                harpaz_id = np.nan
                 issues = issues + '; No Harpaz ID'
             nli.at[ii, 'issues'] = issues
             nli.at[ii, 'harpaz_id'] = harpaz_id
             nli.to_csv('~/Documents/nli.csv', index=False)
 browser.quit()
 
-# ##
-# nli = pd.read_csv('~/Documents/nli.csv', dtype={'issues': str})
-# for ii in range(len(nli)):
+##
+nli = pd.read_csv('~/Documents/nli.csv', dtype={'nli_id': str, 'issues': str})
+for ii in range(len(nli)):
+    last = str(nli['last_nli'][ii])
+    is_eng = re.search(r'[a-zA-Z]', last)
+    if is_eng is not None and last != 'nan':
+        nli.at[ii, 'issues'] = nli['issues'][ii].replace('Name mismatch', 'English name')
+    if str(nli['issues'][ii])[0] == ';':
+        nli.at[ii, 'issues'] = nli['issues'][ii].replace(';', '').strip()
+nli.to_csv('~/Documents/nli.csv', index=False)
+
+
 #     # seperate first last and years if in first
 #     first = str(nli['first_nli'][ii])
 #     if first == 'nan':
