@@ -91,7 +91,7 @@ else:
             if ~np.isnan(idf_row):
                 idf_name = idf['name'][idf_row - 2]
                 if idf_name.split(' ')[0] not in new['name'][ii]:
-                    raise Exception(f'{idf_name.split(" ")[0]} not in {df["name"][ii]}')
+                    raise Exception(f'{idf_name.split(" ")[0]} not in {new["name"][ii]}')
                 idf_story = idf['story'][idf_row - 2]
                 if 'כוננות' in idf_story or 'רבש' in idf_story:
                     konan = True
