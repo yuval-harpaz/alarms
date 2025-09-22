@@ -36,3 +36,4 @@ HTTPSConnectionPool(host='www.haaretz.co.il', port=443): Max retries exceeded wi
 war23_haaretz_deaths.py empty list
 war23_haaretz_deaths.py failed
 ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))
+war23_haaretz_deaths.py empty list
