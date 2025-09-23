@@ -11,13 +11,17 @@ from datetime import datetime
 os.chdir('/home/innereye/alarms')
 with open('.txt', 'r') as f:
     address = f.read().split('\n')[6]
-with request.urlopen(address) as url:
-    data = json.load(url)
-pid = np.array([x['properties']['pid'] for x in data['features']])
-db = pd.read_csv('data/oct7database.csv')
 
+db = pd.read_csv('data/oct7database.csv')
+area = pd.read_csv('data/coord_area.csv')
+coo = area['points'][0]
+lon = [float(c.split(', ')[1]) for c in coo.split(';')]
+lat = [float(c.split(', ')[0]) for c in coo.split(';')]
 print('done prep')
 def export_json(field='Country', criterion='not ישראל', language='heb'):
+    with request.urlopen(address) as url:
+        data = json.load(url)
+    pid = np.array([x['properties']['pid'] for x in data['features']])
     mapname = field + '_' + criterion
     mapname = mapname.replace(' ', '_')
     telda = False
@@ -110,28 +114,34 @@ def json2map(mapname, center, comment=None):
     print(f"map created: {mapfile}")
 print('created functions')
 if __name__ == '__main__':
-    if len(sys.argv) < 3:
+    if len(sys.argv) == 1:
         print('use: python map_export_loc.py LOCATION COMMENT')
         print('or: python map_export_loc.py FIELD VALUE COMMENT')
         print('you can use *VALUE or "not VALUE"')
-        dbg = False
-        if dbg:
-            field = 'Role'
-            criterion = 'שוטר'
-            comment = 'debug'
-        mapname, coos = export_json(field=field, criterion=criterion, language='He')
-        center = np.mean(coos, 0)
-        json2map(mapname, center, comment)
-    else:
-        if len(sys.argv) == 3:
-            field = 'מקום האירוע'
-            criterion = sys.argv[1]
-            comment = sys.argv[2]
+        sys.exit()
+        # dbg = False
+        # if dbg:
+        #     field = 'Role'
+        #     criterion = 'שוטר'
+        #     comment = 'debug'
+        #     mapname, coos = export_json(field=field, criterion=criterion, language='He')
+        #     center = np.mean(coos, 0)
+        #     json2map(mapname, center, comment)
+    elif len(sys.argv) == 2:
+        if sys.argv[1][0] == 'p':
+            print('polygons')
+            sys.exit()
         else:
-            field = sys.argv[1]
-            criterion = sys.argv[2]
-            comment = sys.argv[3]
-
-        mapname, coos = export_json(field=field, criterion=criterion, language='He')
-        center = np.mean(coos, 0)
-        json2map(mapname, center, comment)
+            print(f'option {sys.argv[1]} unknown')
+            sys.exit()
+    elif len(sys.argv) == 3:
+        field = 'מקום האירוע'
+        criterion = sys.argv[1]
+        comment = sys.argv[2]
+    elif len(sys.argv) == 4:
+        field = sys.argv[1]
+        criterion = sys.argv[2]
+        comment = sys.argv[3]
+    mapname, coos = export_json(field=field, criterion=criterion, language='He')
+    center = np.mean(coos, 0)
+    json2map(mapname, center, comment)
