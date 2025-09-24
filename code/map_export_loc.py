@@ -14,30 +14,37 @@ with open('.txt', 'r') as f:
 
 db = pd.read_csv('data/oct7database.csv')
 area = pd.read_csv('data/coord_area.csv')
-coo = area['points'][0]
-lon = [float(c.split(', ')[1]) for c in coo.split(';')]
-lat = [float(c.split(', ')[0]) for c in coo.split(';')]
+# coo = area['points'][0]
+# lon = [float(c.split(', ')[1]) for c in coo.split(';')]
+# lat = [float(c.split(', ')[0]) for c in coo.split(';')]
 print('done prep')
-def export_json(field='Country', criterion='not ישראל', language='heb'):
+def export_json(field='Country', criterion='not ישראל', language='heb', polygonize=False):
     with request.urlopen(address) as url:
         data = json.load(url)
     pid = np.array([x['properties']['pid'] for x in data['features']])
-    mapname = field + '_' + criterion
-    mapname = mapname.replace(' ', '_')
-    telda = False
-    if 'not ' in criterion:
-        telda = True
-        criterion = criterion.replace('not ', '')
-    if '*' in criterion:
-        index = db[field].str.contains(criterion.replace('*',''))
-        index = index.values == True
+    if polygonize:
+        # Perform polygonization here
+        mapname = 'Oct7_event_locations'
+        valid_polygons = np.unique(area['loc'][area['points'].notna()].values)
+        selected = db[~(db['מקום האירוע'].isin(valid_polygons))]
+        to_polygonize = db[db['מקום האירוע'].isin(valid_polygons)]
     else:
-        index = db[field].values == criterion
-    if telda:
-        index = ~index
-    if sum(index) == 0:
-        raise Exception('no cases passed criterion')
-    selected = db[index]
+        mapname = field + '_' + criterion
+        mapname = mapname.replace(' ', '_')
+        telda = False
+        if 'not ' in criterion:
+            telda = True
+            criterion = criterion.replace('not ', '')
+        if '*' in criterion:
+            index = db[field].str.contains(criterion.replace('*',''))
+            index = index.values == True
+        else:
+            index = db[field].values == criterion
+        if telda:
+            index = ~index
+        if sum(index) == 0:
+            raise Exception('no cases passed criterion')
+        selected = db[index]
 
     events = np.array([x.split(';')[0] for x in selected['Status'].values])
     geojson_features = []
@@ -83,6 +90,41 @@ def export_json(field='Country', criterion='not ישראל', language='heb'):
                 geometry=geojson.Point(list(coou[ii]))
             )
             geojson_features.append(feature)
+    if polygonize:
+        to_polygonize = to_polygonize.reset_index(drop=True)
+        for loc in valid_polygons:
+            place_name = loc
+            rows = np.where(to_polygonize['מקום האירוע'].values == loc)[0]
+            killed = ''
+            kidnapped = ''
+            for row in rows:
+                status = to_polygonize['Status'].values[row].split(';')[0].strip()
+                if status == 'killed':
+                    killed = killed + f"{to_polygonize['שם פרטי'][row]} {to_polygonize['שם משפחה'][row]}" + ", "
+                elif status == 'kidnapped':
+                    kidnapped = kidnapped + f"{to_polygonize['שם פרטי'][row]} {to_polygonize['שם משפחה'][row]}" + ", "
+                else:
+                    raise Exception(f"unknown status {status}")
+            if len(killed) == 0:
+                details = kidnapped[:-2]
+            elif len(kidnapped) == 0:
+                details = killed[:-2]
+            else:
+                details = f"נהרגו: {killed[:-2]}<br>נחטפו: {kidnapped[:-2]}"
+            locrow = np.where(area['loc'].values == loc)[0][0]
+            coo = area['points'].values[locrow]
+            lon = [float(c.split(', ')[1]) for c in coo.split(';')]
+            lat = [float(c.split(', ')[0]) for c in coo.split(';')]
+            polygon_coords = [[lon[ii], lat[ii]] for ii in range(len(lon))]
+            properties = {
+                "place_name": place_name,
+                "details": details,
+            }
+            feature = geojson.Feature(
+                properties=properties,
+                geometry=geojson.Polygon([polygon_coords])
+            )
+            geojson_features.append(feature)
     geojson_data = geojson.FeatureCollection(geojson_features)
     geojson_path = f'/home/innereye/Documents/Map/{mapname}.geojson'
     # Save to a GeoJSON file
@@ -100,8 +142,12 @@ def json2map(mapname, center, comment=None):
         comment = str(datetime.now())
     with open('/home/innereye/Documents/Map/'+mapname+'.geojson', 'r') as f:
         data = f.read()
-    with open('/home/innereye/Documents/Map/tmp2.html', 'r') as f:
-        html = f.read()
+    if comment == 'public map':  # polygons to anonymize
+        with open('/home/innereye/Documents/Map/tmp2p.html', 'r') as f:
+            html = f.read()
+    else:
+        with open('/home/innereye/Documents/Map/tmp2.html', 'r') as f:
+            html = f.read()
     before = html[:html.index("var geojsonData = {")]
     after = html[html.index("var Killed = L.layerGroup()"):]
     optxt = before + "var geojsonData = " + data + "\n" + after
@@ -130,6 +176,9 @@ if __name__ == '__main__':
     elif len(sys.argv) == 2:
         if sys.argv[1][0] == 'p':
             print('polygons')
+            mapname, coos = export_json(polygonize=True)
+            center = np.median(coos, 0)
+            json2map(mapname, center, 'public map')
             sys.exit()
         else:
             print(f'option {sys.argv[1]} unknown')
