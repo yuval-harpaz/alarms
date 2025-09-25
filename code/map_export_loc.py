@@ -84,6 +84,7 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
             properties = {
                 "name": name,
                 "event": event,
+                "place_name": df['מקום האירוע'].values[rows[0]]
             }
             feature = geojson.Feature(
                 properties=properties,
