@@ -148,8 +148,19 @@ def json2map(mapname, center, comment=None):
     else:
         with open('/home/innereye/Documents/Map/tmp2.html', 'r') as f:
             html = f.read()
+    # if 'Polygon' in data:
+    #     first_poly = data.index('Polygon')
+    #     data_poly = data[first_poly-42:]
+    #     data = data[: first_poly-44]
+    # else:
+    #     first_poly = None
+
+        
     before = html[:html.index("var geojsonData = {")]
-    after = html[html.index("var Killed = L.layerGroup()"):]
+    if 'Polygon' in data:
+        after = html[html.index("var Areas = L.layerGroup()"):]
+    else:
+        after = html[html.index("var Killed = L.layerGroup()"):]
     optxt = before + "var geojsonData = " + data + "\n" + after
     optxt = optxt.replace("center: [31.425145, 34.48899],", f"center: [{center[1]}, {center[0]}],")
     optxt = optxt.replace("Foreign", mapname)
