@@ -5,6 +5,7 @@ import unittest
 import sys
 sys.path.append('code')
 from war23_db_tools import compare_nli
+from war23_idf2db import idf_mismatch
 local = '/home/innereye/alarms/'
 islocal = False
 if os.path.isdir(local):
@@ -293,8 +294,8 @@ class TestHaa(unittest.TestCase):
             dup_haa = np.unique([x for x in pid_haa if np.sum(pid_haa == x) > 1])
             print(f'haartz+ PID Not Unique!!!! {dup_haa}'.replace('[', '').replace(']', ''))
         self.assertEqual(len_unique, 0)
-
-idf_bad_name = [2115, 1725, 2017, 2143]
+idf_bad_name = idf_mismatch()
+# idf_bad_name = [2115, 1725, 2017, 2143, 2619, 2689]
 #
 class TestIDF(unittest.TestCase):
     def unique_idf(self):

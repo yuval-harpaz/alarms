@@ -114,8 +114,8 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
                 details = f"נהרגו: {killed[:-2]}<br>נחטפו: {kidnapped[:-2]}"
             locrow = np.where(area['loc'].values == loc)[0][0]
             coo = area['points'].values[locrow]
-            lon = [float(c.split(', ')[1]) for c in coo.split(';')]
-            lat = [float(c.split(', ')[0]) for c in coo.split(';')]
+            lon = [float(c.strip().split(',')[1].strip()) for c in coo.split(';')]
+            lat = [float(c.strip().split(',')[0].strip()) for c in coo.split(';')]
             polygon_coords = [[lon[ii], lat[ii]] for ii in range(len(lon))]
             properties = {
                 "place_name": place_name,

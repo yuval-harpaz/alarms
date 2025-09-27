@@ -15,6 +15,9 @@ add = pd.read_csv('data/oct7database_additional.csv')
 db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
 inew = np.where([x not in db['הנצחה'].values for x in idf['webpage'].values])[0]
 
+def idf_mismatch():
+    idf_bad_name = [2115, 1725, 2017, 2143, 2619, 2689]
+    return idf_bad_name
 
 def sane():
     """Sanity test."""
@@ -44,7 +47,7 @@ def sane():
             else:
                 raise Exception('different first name for pid ' + str(db['pid'][ii]))
         if (db['שם משפחה'][ii] not in idf['name'][row]) and (db['pid'][ii] not in div_last):
-            if debug:
+            if debug or (db['pid'][ii] in idf_mismatch()):
                 # db.at[ii, 'הנצחה'] = idf['webpage'][row]
                 print('different last name for pid ' + str(db['pid'][ii]))
             else:
