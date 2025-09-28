@@ -13,10 +13,8 @@ with open('.txt', 'r') as f:
     address = f.read().split('\n')[6]
 
 db = pd.read_csv('data/oct7database.csv')
-area = pd.read_csv('data/coord_area.csv')
-# coo = area['points'][0]
-# lon = [float(c.split(', ')[1]) for c in coo.split(';')]
-# lat = [float(c.split(', ')[0]) for c in coo.split(';')]
+# area = pd.read_csv('data/coord_area.csv')
+area = pd.read_csv('data/coord_area.tsv', sep='\t', header=None)
 print('done prep')
 def export_json(field='Country', criterion='not ישראל', language='heb', polygonize=False):
     with request.urlopen(address) as url:
@@ -25,7 +23,7 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
     if polygonize:
         # Perform polygonization here
         mapname = 'Oct7_event_locations'
-        valid_polygons = np.unique(area['loc'][area['points'].notna()].values)
+        valid_polygons = np.unique(area[0][area[1].notna()].values)
         selected = db[~(db['מקום האירוע'].isin(valid_polygons))]
         to_polygonize = db[db['מקום האירוע'].isin(valid_polygons)]
     else:
@@ -112,10 +110,10 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
                 details = killed[:-2]
             else:
                 details = f"נהרגו: {killed[:-2]}<br>נחטפו: {kidnapped[:-2]}"
-            locrow = np.where(area['loc'].values == loc)[0][0]
-            coo = area['points'].values[locrow]
-            lon = [float(c.strip().split(',')[1].strip()) for c in coo.split(';')]
-            lat = [float(c.strip().split(',')[0].strip()) for c in coo.split(';')]
+            locrow = np.where(area[0].values == loc)[0][0]
+            coo = area.iloc[locrow].values[1:]
+            lon = [float(c.split(',')[1]) for c in coo]
+            lat = [float(c.split(',')[0]) for c in coo]
             polygon_coords = [[lon[ii], lat[ii]] for ii in range(len(lon))]
             properties = {
                 "place_name": place_name,
