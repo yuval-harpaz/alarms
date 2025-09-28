@@ -15,10 +15,11 @@ with open('.txt', 'r') as f:
 db = pd.read_csv('data/oct7database.csv')
 # area = pd.read_csv('data/coord_area.csv')
 area = pd.read_csv('data/coord_area.tsv', sep='\t', header=None)
-print('done prep')
 def export_json(field='Country', criterion='not ישראל', language='heb', polygonize=False):
+    print('reading data... ', end='')
     with request.urlopen(address) as url:
         data = json.load(url)
+    print('done')
     pid = np.array([x['properties']['pid'] for x in data['features']])
     if polygonize:
         # Perform polygonization here
@@ -112,6 +113,7 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
                 details = f"נהרגו: {killed[:-2]}<br>נחטפו: {kidnapped[:-2]}"
             locrow = np.where(area[0].values == loc)[0][0]
             coo = area.iloc[locrow].values[1:]
+            coo = [c for c in coo if type(c) == str and len(c) > 5]
             lon = [float(c.split(',')[1]) for c in coo]
             lat = [float(c.split(',')[0]) for c in coo]
             polygon_coords = [[lon[ii], lat[ii]] for ii in range(len(lon))]
