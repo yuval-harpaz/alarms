@@ -24,7 +24,8 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
     if polygonize:
         # Perform polygonization here
         mapname = 'Oct7_event_locations'
-        valid_polygons = np.unique(area[0][area[1].notna()].values)
+        #take polygons with coordinates but without a link
+        valid_polygons = sorted(area[0][area[3].notna() & area[2].isna()].values)
         selected = db[~(db['מקום האירוע'].isin(valid_polygons))]
         to_polygonize = db[db['מקום האירוע'].isin(valid_polygons)]
     else:
@@ -80,10 +81,20 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
                 else:
                     name = name + f"{df['שם פרטי'][row]} {df['שם משפחה'][row]}" + "<br>"
             name = name[:-4]
+            place_name = df['מקום האירוע'].values[rows[0]]
+            locrow = np.where(area[0].values == place_name)[0]
+            if len(locrow) == 1 and type(area[0][locrow[0]]) == str:
+                link = area.iloc[locrow[0], 2]
+                link_text = area.iloc[locrow[0], 1]
+            else:
+                link = ''
+                link_text = '' 
             properties = {
                 "name": name,
                 "event": event,
-                "place_name": df['מקום האירוע'].values[rows[0]]
+                "place_name": place_name,
+                "link": link,
+                "link_text": link_text,
             }
             feature = geojson.Feature(
                 properties=properties,
@@ -112,7 +123,7 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
             else:
                 details = f"נהרגו: {killed[:-2]}<br>נחטפו: {kidnapped[:-2]}"
             locrow = np.where(area[0].values == loc)[0][0]
-            coo = area.iloc[locrow].values[1:]
+            coo = area.iloc[locrow].values[3:]
             coo = [c for c in coo if type(c) == str and len(c) > 5]
             lon = [float(c.split(',')[1]) for c in coo]
             lat = [float(c.split(',')[0]) for c in coo]
