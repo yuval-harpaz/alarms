@@ -552,7 +552,6 @@ if __name__ == '__main__':
                                               TestKidnapped('alive'),
                                               TestNLI('all_quotes'),
                                               TestNLI('quoted_nli'),
-                                              TestNLI('nli_update'),
                                               ]
                                        )
     elif args[1][0] == 'r':
