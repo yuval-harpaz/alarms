@@ -7,6 +7,7 @@ import json
 import os
 import sys
 from datetime import datetime
+website = os.environ['WEBSITE']
 ##
 os.chdir('/home/innereye/alarms')
 with open('.txt', 'r') as f:
@@ -23,7 +24,7 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
     pid = np.array([x['properties']['pid'] for x in data['features']])
     if polygonize:
         # Perform polygonization here
-        mapname = 'Oct7_event_locations'
+        mapname = 'locations'
         #take polygons with coordinates but without a link
         valid_polygons = sorted(area[0][area[3].notna() & area[2].isna()].values)
         selected = db[~(db['מקום האירוע'].isin(valid_polygons))]
@@ -138,7 +139,7 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
             )
             geojson_features.append(feature)
     geojson_data = geojson.FeatureCollection(geojson_features)
-    geojson_path = f'/home/innereye/Documents/Map/{mapname}.geojson'
+    geojson_path = f'{website}{mapname}.geojson'
     # Save to a GeoJSON file
     with open(geojson_path, 'w') as f:
         geojson.dump(geojson_data, f)
@@ -152,10 +153,10 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
 def json2map(mapname, center, comment=None):
     if comment is None:
         comment = str(datetime.now())
-    with open('/home/innereye/Documents/Map/'+mapname+'.geojson', 'r') as f:
+    with open(website+mapname+'.geojson', 'r') as f:
         data = f.read()
     if comment == 'public map':  # polygons to anonymize
-        with open('/home/innereye/Documents/Map/tmp2p.html', 'r') as f:
+        with open(website+'tmp2p.html', 'r') as f:
             html = f.read()
     else:
         with open('/home/innereye/Documents/Map/tmp2.html', 'r') as f:
@@ -178,6 +179,8 @@ def json2map(mapname, center, comment=None):
     optxt = optxt.replace("Foreign", mapname)
     optxt = optxt.replace('<!-- comment -->', f"<!-- {comment} -->")
     mapfile = f'/home/innereye/Documents/Map/{mapname}.html'
+    if 'Polygon' in data:
+        mapfile = f'{website}{mapname}.html'
     with open(mapfile, 'w') as f:
         f.write(optxt)
     print(f"map created: {mapfile}")
