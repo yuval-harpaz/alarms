@@ -16,19 +16,21 @@ with open('.txt', 'r') as f:
 db = pd.read_csv('data/oct7database.csv')
 # area = pd.read_csv('data/coord_area.csv')
 area = pd.read_csv('data/coord_area.tsv', sep='\t', header=None)
-def export_json(field='Country', criterion='not ישראל', language='heb', polygonize=False):
+def export_json(field='Country', criterion='not ישראל', language='heb', polygonize=False, exclude_from='2023-10-10'):
     print('reading data... ', end='')
     with request.urlopen(address) as url:
         data = json.load(url)
     print('done')
+    if exclude_from is not None:
+        db_filtered = db[db['Event date'].values < exclude_from]
     pid = np.array([x['properties']['pid'] for x in data['features']])
     if polygonize:
         # Perform polygonization here
         mapname = 'locations'
         #take polygons with coordinates but without a link
         valid_polygons = sorted(area[0][area[3].notna() & area[2].isna()].values)
-        selected = db[~(db['מקום האירוע'].isin(valid_polygons))]
-        to_polygonize = db[db['מקום האירוע'].isin(valid_polygons)]
+        selected = db_filtered[~(db_filtered['מקום האירוע'].isin(valid_polygons))]
+        to_polygonize = db_filtered[db_filtered['מקום האירוע'].isin(valid_polygons)]
     else:
         mapname = field + '_' + criterion
         mapname = mapname.replace(' ', '_')
@@ -45,7 +47,7 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
             index = ~index
         if sum(index) == 0:
             raise Exception('no cases passed criterion')
-        selected = db[index]
+        selected = db_filtered[index]
 
     events = np.array([x.split(';')[0] for x in selected['Status'].values])
     geojson_features = []

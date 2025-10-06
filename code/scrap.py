@@ -1,14 +1,13 @@
 import pandas as pd
-import numpy as np
+import numpy as np   
 import os
 
-areas = pd.read_csv('data/coord_area.csv')
-areas_tab = pd.read_csv('data/polygons.tsv', sep='\t', header=None, index_col=None)
-for ii in range(len(areas)):
-    next_row = len(areas_tab)
-    new = areas.loc[ii].values
-    new = [new[0]] + [n.strip() for n in new[1].split(';')]
-    until = len(new)
-    for jj in range(until):
-        areas_tab.at[next_row, jj] = new[jj]
-areas_tab.to_csv('data/coord_area.tsv', sep='\t', header=None, index=None)
+miss = pd.read_csv('~/Documents/oct7database - no coord.csv')
+miss.sort_values('שם משפחה', inplace=True)
+txt = ''
+for ii in range(len(miss)):
+    txt += f"{miss.iloc[ii]['שם משפחה']} {miss.iloc[ii]['שם פרטי']} {miss.iloc[ii]['שם נוסף']}, "
+print(txt)
+txt = txt.replace(' nan,', ',')
+with open('/home/innereye/Documents/missing.txt', 'w') as f:
+    f.write(txt)
