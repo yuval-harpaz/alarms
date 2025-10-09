@@ -513,3 +513,5 @@ pid,eng name,name,residence,event location,event date,status,partners,siblings,p
 1466,Alim Abdallah,עלים עבדאללה,יאנוח-ג'ת,אדמית,2023-10-09,killed,,,,,,,2809,191
 2645,Ze’ev Erlich,זאב ארליך,עפרה,דרום לבנון,2024-11-20,killed,,,,,,,296,192
 296,Shachaf Bergstein,שחף ברגשטיין,כפר עזה,כפר עזה; שכונה צפונית,2023-10-07,killed,,,,,,,2645,192
+1149,,,,,2023-10-07,killed,,,1150,,,,,193
+1150,,,,,2023-10-07,killed,,,1149,,,,,193
