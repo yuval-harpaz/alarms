@@ -3,14 +3,18 @@ read the table from ynet https://www.ynet.co.il/news/category/51693
 NOTE - info is from the media, not formal and not validated, use with care
 '''
 print('ynetlist is buggy, got to restore data/ynetlist.csv from backup')
-if False:
+import os
+local = '/home/innereye/alarms/'
+if os.path.isdir(local):
+    os.chdir(local)
+    local = True
+if local:
     import pandas as pd
     from selenium import webdriver
     from webdriver_manager.chrome import ChromeDriverManager
     from selenium.webdriver.chrome.options import Options
     import time
     import requests
-    import os
     import numpy as np
     import re
     import json
@@ -18,10 +22,7 @@ if False:
 
 
     try:
-        local = '/home/innereye/alarms/'
-        if os.path.isdir(local):
-            os.chdir(local)
-            local = True
+
         prev = pd.read_csv('data/ynetlist.csv')
         # dfprev = pd.read_csv('data/ynetlist.csv')
         # url = 'https://atlas.jifo.co/api/connectors/9c8936a5-bd30-4d68-9715-7280389e094c'
