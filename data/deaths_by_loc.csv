@@ -40,6 +40,7 @@ name,lat,long,total,eng,oct7map
 סמוך לתל גמה,31.386097,34.448958,6,Near Tel Gamma,
 שער ניר עוז,31.313068873547,34.4032941896611,6,Nir Oz gate,
 מבטחים,31.240774,34.406755,5,Mivtahim,
+"רצועת עזה, לא פורסם מיקום מדוייק",31.471132,34.423084,5,"Gaza Strip, exact location not published",
 אבו קרינאת,31.2645372452125,35.0071586552229,4,Abu Qreinat,
 אנדרטת נירים דנגור,31.2392208313646,34.3381917307547,4,Nirim Dangor Memorial,
 בין ניר עוז לגבול,31.301722,34.373883,4,Between Nir Oz and the border,
@@ -71,7 +72,6 @@ name,lat,long,total,eng,oct7map
 סופה,31.238309,34.341987,3,Kibbutz Sufa,Sufa
 סמוך למחנה רעים,31.36234802117,34.450322508515,3,Near Re’im Base,
 פרי גן,31.222015,34.355936,3,Pri Gan,Pri Gan
-"רצועת עזה, לא פורסם מיקום מדוייק",31.471132,34.423084,3,"Gaza Strip, exact location not published",
 אנטנה מדרום לכיסופים,31.3691664094582,34.396045501945,2,Antenna south of Kisufim,
 דרומית מערבית לניר עוז,31.3070907,34.4040262,2,South west of Nir Oz,
 ירי בשוגג בצומת אבשלום,31.2234392812093,34.3273073598079,2,Friendly fire at Avshalom jct,

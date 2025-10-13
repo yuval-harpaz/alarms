@@ -23,7 +23,7 @@ def db2map(save=True, what='loc'):
     """
     db = pd.read_csv('data/oct7database.csv')
     map = pd.read_csv('data/oct_7_9.csv')
-    kidnapped = [915, 29, 568, 192, 193, 482, 626, 581, 1432]  # not kidnapped in oct7map
+    kidnapped = [915, 29, 568, 192, 193, 482, 626, 581, 1432, 19, 207]  # not kidnapped in oct7map
     pid = db['pid'].values
     ignore = [1420]
     changes = False
