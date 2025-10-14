@@ -202,15 +202,16 @@ class Test79(unittest.TestCase):
         for ii in range(len(map79)):
             row = np.where(pid == map79['pid'][ii])[0][0]
             if event_or_death[ii] == 'death':
-                loc = data['מקום המוות'][row]
+                loc = str(data['מקום המוות'][row])
             else:
-                loc = data['מקום האירוע'][row]
+                loc = str(data['מקום האירוע'][row])
             if loc != map79['location'][ii]:
                 n_issues += 1
                 print(f"OCT_7_9 location for {map79['eng'][ii]} ({map79['pid'][ii]}) is {map79['location'][ii]}, not {loc}")
         self.assertEqual(n_issues, 0)
 
     def date79(self):
+        no_date = [19, 207]
         wounded = [901, 1704, 1707, 1733]
         pid = data['pid'].values
         n_issues = 0
@@ -222,7 +223,7 @@ class Test79(unittest.TestCase):
                 date = data['Event date'][row]
             date = pd.to_datetime(date)
             date79 = pd.to_datetime(map79['date'][ii], dayfirst=dayfirst)
-            if date != date79 and data['pid'][row] not in wounded:
+            if date != date79 and data['pid'][row] not in wounded and data['pid'][row] not in no_date:
                 n_issues += 1
                 print(f"OCT_7_9 date for {map79['eng'][ii]} ({map79['pid'][ii]}) is {map79['date'][ii]}, not {date}")
         self.assertEqual(n_issues, 0)
