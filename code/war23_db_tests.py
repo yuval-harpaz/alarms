@@ -526,6 +526,13 @@ class TestKidnapped(unittest.TestCase):
         if len(names) > 0:
             print(f"kidnapped alive mismatch: {issues} {names}")
         self.assertEqual(names, '')
+    def returned(self):
+        pid_kid = kidn['pid'].values[kidn['condition'] == "הוחזר"]
+        pid_db = data['pid'].values[data['Status'].str.contains('returned') | data['Status'].str.contains('retrieved')]
+        issues, names = collect_issues(pid_kid, pid_db)
+        if len(names) > 0:
+            print(f"kidnapped returned mismatch: {issues} {names}")
+        self.assertEqual(names, '')
 
 ##
 if __name__ == '__main__':
@@ -551,6 +558,7 @@ if __name__ == '__main__':
                                               TestIDF('name_idf'),
                                               TestIDF('lastname_idf'),
                                               TestKidnapped('alive'),
+                                              TestKidnapped('returned'),
                                               TestNLI('all_quotes'),
                                               TestNLI('quoted_nli'),
                                               ]
