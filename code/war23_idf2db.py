@@ -47,8 +47,9 @@ def sane():
             else:
                 raise Exception('different first name for pid ' + str(db['pid'][ii]))
         if (db['שם משפחה'][ii] not in idf['name'][row]) and (db['pid'][ii] not in div_last):
-            if debug or (db['pid'][ii] in idf_mismatch()):
-                # db.at[ii, 'הנצחה'] = idf['webpage'][row]
+            if db['pid'][ii] in idf_mismatch():
+                pass
+            elif debug:
                 print('different last name for pid ' + str(db['pid'][ii]))
             else:
                 raise Exception('different last name for pid ' + str(db['pid'][ii]))
