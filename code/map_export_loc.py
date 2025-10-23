@@ -23,6 +23,8 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
     print('done')
     if exclude_from is not None:
         db_filtered = db[db['Event date'].values < exclude_from]
+    else:
+        db_filtered = db
     pid = np.array([x['properties']['pid'] for x in data['features']])
     if polygonize:
         # Perform polygonization here
@@ -39,10 +41,10 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
             telda = True
             criterion = criterion.replace('not ', '')
         if '*' in criterion:
-            index = db[field].str.contains(criterion.replace('*',''))
+            index = db_filtered[field].str.contains(criterion.replace('*',''))
             index = index.values == True
         else:
-            index = db[field].values == criterion
+            index = db_filtered[field].values == criterion
         if telda:
             index = ~index
         if sum(index) == 0:
@@ -192,15 +194,16 @@ if __name__ == '__main__':
         print('use: python map_export_loc.py LOCATION COMMENT')
         print('or: python map_export_loc.py FIELD VALUE COMMENT')
         print('you can use *VALUE or "not VALUE"')
+        
+        dbg = True
+        if dbg:
+            field = 'מקום האירוע'
+            criterion = 'עלומים'
+            comment = 'debug'
+            mapname, coos = export_json(field=field, criterion=criterion, language='He')
+            center = np.mean(coos, 0)
+            json2map(mapname, center, comment)
         sys.exit()
-        # dbg = False
-        # if dbg:
-        #     field = 'Role'
-        #     criterion = 'שוטר'
-        #     comment = 'debug'
-        #     mapname, coos = export_json(field=field, criterion=criterion, language='He')
-        #     center = np.mean(coos, 0)
-        #     json2map(mapname, center, comment)
     elif len(sys.argv) == 2:
         if sys.argv[1][0] == 'p':
             print('polygons')
@@ -215,10 +218,27 @@ if __name__ == '__main__':
         field = 'מקום האירוע'
         criterion = sys.argv[1]
         comment = sys.argv[2]
+        language = 'He'
     elif len(sys.argv) == 4:
+        if sys.argv[3].lower() in ['en', 'english']:
+            field = 'מקום האירוע'
+            criterion = sys.argv[1]
+            comment = sys.argv[2]
+            language = 'En'
+        else:
+            field = sys.argv[1]
+            criterion = sys.argv[2]
+            comment = sys.argv[3]
+            language = 'He'
+    elif len(sys.argv) == 5:
         field = sys.argv[1]
         criterion = sys.argv[2]
         comment = sys.argv[3]
-    mapname, coos = export_json(field=field, criterion=criterion, language='He')
+        language = 'En' if sys.argv[4].lower() in ['en', 'english'] else 'He'
+    else:
+        print('Too many arguments')
+        sys.exit()
+    
+    mapname, coos = export_json(field=field, criterion=criterion, language=language)
     center = np.mean(coos, 0)
     json2map(mapname, center, comment)
