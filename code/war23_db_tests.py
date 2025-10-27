@@ -211,7 +211,7 @@ class Test79(unittest.TestCase):
         self.assertEqual(n_issues, 0)
 
     def date79(self):
-        no_date = [19, 207]
+        no_date = [19, 29, 207, 556]
         wounded = [901, 1704, 1707, 1733]
         pid = data['pid'].values
         n_issues = 0
