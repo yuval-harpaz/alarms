@@ -1010,3 +1010,5 @@ war23_ynetlist.py failed
 name 'Service' is not defined
 war23_idf_mem_all.py failed
 substring not found
+war23_ynetlist.py failed
+name 'Service' is not defined
