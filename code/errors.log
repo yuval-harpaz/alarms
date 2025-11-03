@@ -1066,3 +1066,42 @@ war23_ynetlist.py failed
 name 'Service' is not defined
 war23_ynetlist.py failed
 name 'Service' is not defined
+war23_ynetlist.py failed
+name 'Service' is not defined
+war23_ynetlist.py failed
+name 'Service' is not defined
+war23_ynetlist.py failed
+name 'Service' is not defined
+war23_ynetlist.py failed
+name 'Service' is not defined
+war23_ynetlist.py failed
+name 'Service' is not defined
+war23_ynetlist.py failed
+name 'Service' is not defined
+war23_idf_mem_all.py failed
+Message: Reached error page: about:neterror?e=netTimeout&u=https%3A//www.idf.il/%25D7%25A0%25D7%2595%25D7%25A4%25D7%259C%25D7%2599%25D7%259D/%25D7%2597%25D7%259C%25D7%259C%25D7%2599-%25D7%2594%25D7%259E%25D7%259C%25D7%2597%25D7%259E%25D7%2594/%3Fpage%3D1&c=UTF-8&d=The%20server%20at%20www.idf.il%20is%20taking%20too%20long%20to%20respond.
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:202:5
+UnknownError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:961:5
+checkReadyState@chrome://remote/content/marionette/navigate.sys.mjs:59:24
+onNavigation@chrome://remote/content/marionette/navigate.sys.mjs:348:39
+emit@resource://gre/modules/EventEmitter.sys.mjs:156:19
+receiveMessage@chrome://remote/content/marionette/actors/MarionetteEventsParent.sys.mjs:33:25
+
+war23_ynetlist.py failed
+name 'Service' is not defined
+war23_ynetlist.py failed
+name 'Service' is not defined
+war23_ynetlist.py failed
+name 'Service' is not defined
+war23_ynetlist.py failed
+name 'Service' is not defined
+war23_ynetlist.py failed
+name 'Service' is not defined
+war23_ynetlist.py failed
+name 'Service' is not defined
+war23_ynetlist.py failed
+name 'Service' is not defined
+war23_ynetlist.py failed
+name 'Service' is not defined
