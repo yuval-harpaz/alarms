@@ -1089,3 +1089,5 @@ onNavigation@chrome://remote/content/marionette/navigate.sys.mjs:348:39
 emit@resource://gre/modules/EventEmitter.sys.mjs:156:19
 receiveMessage@chrome://remote/content/marionette/actors/MarionetteEventsParent.sys.mjs:33:25
 
+war23_ynetlist.py failed
+name 'Service' is not defined
