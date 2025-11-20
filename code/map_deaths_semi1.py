@@ -119,6 +119,7 @@ coo = pd.read_csv('data/deaths_by_loc.csv')
 # names = pd.read_excel('data/deaths_by_loc.xlsx', 'names_by_id')
 names = pd.read_csv('data/oct_7_9.csv')
 names['location'] = names['location'].str.replace('מוצב סופה; אנדרטת נירים דנגור','אנדרטת נירים דנגור')
+names['location']
 # names['location'] = names['location'].str.replace('אשקלון; בי"ח ברזילי', 'אשקלון (בי"ח ברזילי)')
 # ishifa = np.where(names['location'].str.contains('שיפא'))[0]
 # for iss in ishifa:
@@ -126,6 +127,8 @@ names['location'] = names['location'].str.replace('מוצב סופה; אנדרט
 # names['location'] = [x.split(';')[0] for x in names['location']]
 split_nova = True
 names = group_locs(names, split_nova=split_nova)
+bipin = np.where(names['pid'].values == 19)[0][0]
+names.at[bipin, 'location'] = 'ביה"ח שיפא'
 center = [coo['lat'].mean(), coo['long'].mean()]
 ##
 table = 'https://docs.google.com/spreadsheets/d/1bImioxD69gmyYhOsggcgCj1EK8Dxp8n25jwGS80GWSY/edit?usp=sharing'
@@ -140,6 +143,9 @@ for lc in locu:
         dupcoo.append(lc)
 if len(missing) > 0:
     raise Exception('missing coordinates for :'+str(missing))
+for ii in range(len(names)):
+    if names['location'][ii] == 'עזה':
+        print(ii)
 if len(dupcoo) > 0:
     raise Exception('duplicate coordinates for :'+str(dupcoo))
 # Look for identical names
