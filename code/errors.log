@@ -2020,3 +2020,5 @@ onPacket/<@chrome://remote/content/marionette/server.sys.mjs:262:20
 onPacket@chrome://remote/content/marionette/server.sys.mjs:263:9
 _onJSONObjectReady/<@chrome://remote/content/marionette/transport.sys.mjs:494:20
 
+war23_ynetlist.py failed
+name 'Service' is not defined
