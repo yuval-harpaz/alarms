@@ -91,6 +91,10 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
             if len(locrow) == 1 and type(area[0][locrow[0]]) == str:
                 link = area.iloc[locrow[0], 2]
                 link_text = area.iloc[locrow[0], 1]
+                if str(link) == 'nan':
+                    link = ''
+                    link_text = ''
+
             else:
                 link = ''
                 link_text = '' 
@@ -105,7 +109,8 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
                 properties=properties,
                 geometry=geojson.Point(list(coou[ii]))
             )
-            geojson_features.append(feature)
+            if name:  # Check if name is not empty
+                geojson_features.append(feature)
     if polygonize:
         to_polygonize = to_polygonize.reset_index(drop=True)
         for loc in valid_polygons:
@@ -197,8 +202,8 @@ if __name__ == '__main__':
         
         dbg = True
         if dbg:
-            field = 'מקום האירוע'
-            criterion = 'עלומים'
+            field = 'Role'
+            criterion = 'שוטר'
             comment = 'debug'
             mapname, coos = export_json(field=field, criterion=criterion, language='He')
             center = np.mean(coos, 0)
@@ -238,7 +243,7 @@ if __name__ == '__main__':
     else:
         print('Too many arguments')
         sys.exit()
-    
+    print(f'exporting map for {field} {criterion} in {language} with comment "{comment}"')
     mapname, coos = export_json(field=field, criterion=criterion, language=language)
     center = np.mean(coos, 0)
     json2map(mapname, center, comment)
