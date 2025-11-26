@@ -26,7 +26,6 @@ jobs:
           hist_url: ${{ secrets.HIST }}
       run: |
         python -W ignore code/alarms3.py
-        python -W ignore code/alarms_origin.py
     - name: check news
       run: |
         git config --global user.name "actions"
