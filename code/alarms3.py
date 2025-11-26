@@ -83,35 +83,35 @@ from alarms_coord import update_coord
 update_coord()
 
 
-prev = prev[prev['threat'] == 0]
-prev = prev.reset_index(drop=True)
-yyyy = np.array([int(str(date)[:4]) for date in prev['time']])
-mm = np.array([int(str(date)[5:7]) for date in prev['time']])
-now = np.datetime64('now', 'ns')
-nowisr = pd.to_datetime(now, utc=True, unit='s').astimezone(tz='Israel')
-nowstr = str(nowisr)[:16].replace('T', ' ')
-dt = pd.to_datetime(prev['time']).to_numpy()
-dif = np.datetime64(nowstr) - dt
-dif_sec = dif.astype('timedelta64[s]').astype(float)
-dif_days = dif_sec / 60 ** 2 / 24
-past_24h = dif_days <= 1
-past_7d = dif_days <= 7
-current_year = datetime.now().year
-n = []
-mmyy = []
-for year in range(2019, current_year + 1):
-    for month in range(1, 13):
-        idx = (yyyy == year) & (mm == month)
-        n.append(len(np.unique(prev['id'][idx])))
-        mmyy.append(str(month)+'.'+str(year))
+# prev = prev[prev['threat'] == 0]
+# prev = prev.reset_index(drop=True)
+# yyyy = np.array([int(str(date)[:4]) for date in prev['time']])
+# mm = np.array([int(str(date)[5:7]) for date in prev['time']])
+# now = np.datetime64('now', 'ns')
+# nowisr = pd.to_datetime(now, utc=True, unit='s').astimezone(tz='Israel')
+# nowstr = str(nowisr)[:16].replace('T', ' ')
+# dt = pd.to_datetime(prev['time']).to_numpy()
+# dif = np.datetime64(nowstr) - dt
+# dif_sec = dif.astype('timedelta64[s]').astype(float)
+# dif_days = dif_sec / 60 ** 2 / 24
+# past_24h = dif_days <= 1
+# past_7d = dif_days <= 7
+# current_year = datetime.now().year
+# n = []
+# mmyy = []
+# for year in range(2019, current_year + 1):
+#     for month in range(1, 13):
+#         idx = (yyyy == year) & (mm == month)
+#         n.append(len(np.unique(prev['id'][idx])))
+#         mmyy.append(str(month)+'.'+str(year))
 
 
-fig = px.bar(x=mmyy, y=n, log_y=True)
-# fig = px.bar(prev, y=n, x='date',log_y=True)
-html = fig.to_html()
-file = open('docs/rockets_timeline.html', 'w')
-a = file.write(html)
-file.close()
+# fig = px.bar(x=mmyy, y=n, log_y=True)
+# # fig = px.bar(prev, y=n, x='date',log_y=True)
+# html = fig.to_html()
+# file = open('docs/rockets_timeline.html', 'w')
+# a = file.write(html)
+# file.close()
 ##
 # Make map
 title_html = f'''
