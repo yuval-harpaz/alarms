@@ -83,20 +83,20 @@ from alarms_coord import update_coord
 update_coord()
 
 
-# prev = prev[prev['threat'] == 0]
-# prev = prev.reset_index(drop=True)
-# yyyy = np.array([int(str(date)[:4]) for date in prev['time']])
-# mm = np.array([int(str(date)[5:7]) for date in prev['time']])
+prev = prev[prev['threat'] == 0]
+prev = prev.reset_index(drop=True)
+yyyy = np.array([int(str(date)[:4]) for date in prev['time']])
+mm = np.array([int(str(date)[5:7]) for date in prev['time']])
 now = np.datetime64('now', 'ns')
 nowisr = pd.to_datetime(now, utc=True, unit='s').astimezone(tz='Israel')
 nowstr = str(nowisr)[:16].replace('T', ' ')
-# dt = pd.to_datetime(prev['time']).to_numpy()
-# dif = np.datetime64(nowstr) - dt
-# dif_sec = dif.astype('timedelta64[s]').astype(float)
-# dif_days = dif_sec / 60 ** 2 / 24
-# past_24h = dif_days <= 1
-# past_7d = dif_days <= 7
-# current_year = datetime.now().year
+dt = pd.to_datetime(prev['time']).to_numpy()
+dif = np.datetime64(nowstr) - dt
+dif_sec = dif.astype('timedelta64[s]').astype(float)
+dif_days = dif_sec / 60 ** 2 / 24
+past_24h = dif_days <= 1
+past_7d = dif_days <= 7
+current_year = datetime.now().year
 # n = []
 # mmyy = []
 # for year in range(2019, current_year + 1):
