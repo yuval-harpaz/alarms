@@ -7,7 +7,7 @@ permissions: write-all
   # contents: read
 
 jobs:
-  wartime-updates-25:
+  alarms-updates-25:
     runs-on: ubuntu-latest
     environment: rockets
     steps:
