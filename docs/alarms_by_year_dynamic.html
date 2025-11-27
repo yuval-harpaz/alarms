@@ -30,8 +30,12 @@
     <div id="map"></div>
     <script>
         const GITHUB_RAW = 'https://raw.githubusercontent.com/yuval-harpaz/alarms/refs/heads/master/';
-        const COLOR_PALETTE = [
-            "#cccccc", "#4063d8", "#389826", "#9558b2", "#cb3e3e", "#ffb300", "#fb9b06", "#000000"
+        // Use tab20-like palette, last 7 days = red, last 24h = black
+        const TAB20 = [
+            "#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a",
+            "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94",
+            "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d",
+            "#17becf", "#9edae5"
         ];
         const YEAR_START = 2019;
         let currentYear = new Date().getFullYear();
@@ -40,7 +44,10 @@
         gnames.push('7 days', '24 h');
 
         function getColor(idx) {
-            return COLOR_PALETTE[idx % COLOR_PALETTE.length];
+            // Last 7 days: red, last 24h: black
+            if (idx === gnames.length - 2) return "#d62728"; // red
+            if (idx === gnames.length - 1) return "#000000"; // black
+            return TAB20[idx % TAB20.length];
         }
 
         async function fetchCSV(filename) {
@@ -54,7 +61,7 @@
                 });
             });
         }
-
+        
         function parseDate(str) {
             // Handles both ISO and 'YYYY-MM-DD HH:MM:SS' formats
             if (!str) return null;
@@ -65,15 +72,16 @@
             const coord = await fetchCSV('data/coord.csv');
             const alarms = await fetchCSV('data/alarms.csv');
             const center = [31.41745, 35.06155];
-
+            const last_datetime = alarms[alarms.length - 2].time;
+            console.log("Last row:", alarms[alarms.length - 2]);
             const map = L.map('map').setView(center, 7.5);
             L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
                 attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
             }).addTo(map);
-
+            console.log("Last datetime:", last_datetime);
             document.getElementById('title').innerHTML =
                 `<b>Rocket alarms in Israel since July 2019, data from <a href="https://www.oref.org.il" target="_blank">THE NATIONAL EMERGENCY PORTAL</a>
-                via <a href="https://www.tzevaadom.co.il/" target="_blank">צבע אדום</a>. Last checked: ${new Date().toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem' })}</b>`;
+                via <a href="https://www.tzevaadom.co.il/" target="_blank">צבע אדום</a>. Last alarm: ${last_datetime}</b>`;
 
             // Prepare alarm data
             alarms.forEach(a => { a.dateObj = parseDate(a.time); });
@@ -152,11 +160,20 @@
                 });
             });
 
-            // Add layers and control
-            Object.entries(layers).forEach(([name, layer]) => {
-                layer.addTo(map);
+            // Add layers and control with colored labels
+            const overlays = {};
+            gnames.forEach((gn, idx) => {
+                const color = getColor(idx);
+                overlays[`<span style="color:${color};">${gn}</span>`] = layers[gn];
+                // Show all layers by default
+                layers[gn].addTo(map);
             });
-            L.control.layers(null, layers, { collapsed: false, position: 'topleft' }).addTo(map);
+
+            L.control.layers(
+                null,
+                overlays,
+                { collapsed: false, position: 'topleft' }
+            ).addTo(map);
 
             // If no markers, show a message
             if (markerCount === 0) {
