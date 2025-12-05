@@ -28,3 +28,13 @@ for columns in [['מקום האירוע','Event location'], ['מקום המוו�
             issues.loc[len(issues)] = [columns[0], he[ii], '|'.join(en), len(en)]
 issues.to_csv('~/Documents/location_translation_issues.csv', index=False)
 
+
+##
+dictionary = pd.read_csv('~/Documents/location_translation.csv')
+keep = dictionary['field'].values == 'מקום האירוע'
+for ii in np.where(~keep)[0]:
+    if dictionary['Hebrew'][ii] not in dictionary['Hebrew'][keep].values:
+        keep[ii] = True
+        print(f"Adding {dictionary['Hebrew'][ii][::-1]}")
+dictionary = dictionary[keep]
+dictionary.to_csv('data/location_dictionary.csv', index=False)
