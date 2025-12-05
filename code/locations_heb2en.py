@@ -53,4 +53,4 @@ for col in [['מקום האירוע','Event location'], ['מקום המוות','
             index = np.where(heb == hebu[ii])[0]
             for jj in index:
                 db.at[jj, col[1]] = en
-            
+db.to_csv('data/oct7database.csv', index=False)        
