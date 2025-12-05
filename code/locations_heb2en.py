@@ -38,3 +38,19 @@ for ii in np.where(~keep)[0]:
         print(f"Adding {dictionary['Hebrew'][ii][::-1]}")
 dictionary = dictionary[keep]
 dictionary.to_csv('data/location_dictionary.csv', index=False)
+
+## make sure english names fit the dictionary
+dictionary = pd.read_csv('data/location_dictionary.csv')
+db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
+for col in [['מקום האירוע','Event location'], ['מקום המוות','Death location']]:
+    heb = db[col[0]].astype(str).values
+    hebu = np.unique(heb)
+    for ii in range(len(hebu)):
+        if hebu[ii] not in dictionary['Hebrew'].values:
+            print(f"Missing {hebu[ii][::-1]} in dictionary")
+        else:
+            en = dictionary['English'][dictionary['Hebrew'].values == hebu[ii]].values[0]
+            index = np.where(heb == hebu[ii])[0]
+            for jj in index:
+                db.at[jj, col[1]] = en
+            
