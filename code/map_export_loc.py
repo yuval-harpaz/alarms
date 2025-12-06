@@ -80,12 +80,15 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
         for ii in range(len(coou)):
             rows = np.where(coo_string == coou_string[ii])[0]
             name = ''
+            pid = ''
             for row in rows:
+                pid = pid + f"{df['pid'][row]}" + ","
                 if language.lower()[:2] == 'en':
                     name = name + f"{df['first name'][row]} {df['last name'][row]}" + "<br>"
                 else:
                     name = name + f"{df['שם פרטי'][row]} {df['שם משפחה'][row]}" + "<br>"
             name = name[:-4]
+            pid = pid[:-1]
             place_name = df['מקום האירוע'].values[rows[0]]
             locrow = np.where(area[0].values == place_name)[0]
             if len(locrow) == 1 and type(area[0][locrow[0]]) == str:
@@ -104,6 +107,7 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
                 "place_name": place_name,
                 "link": link,
                 "link_text": link_text,
+                "pid": pid,
             }
             feature = geojson.Feature(
                 properties=properties,
