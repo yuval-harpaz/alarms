@@ -51,12 +51,14 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
             raise Exception('no cases passed criterion')
         selected = db_filtered[index]
 
-    events = np.array([x.split(';')[0] for x in selected['Status'].values])
+    events = np.array([x.split(';')[0].strip() for x in selected['Status'].values])
     geojson_features = []
     coos = []
+    print(f"Debug: Found {sum(events == 'killed')} killed and {sum(events == 'kidnapped')} kidnapped in selected data")
     for event in ['killed', 'kidnapped']:
         df = selected[events == event]
         df = df.reset_index(drop=True)
+        print(f"Debug: Processing {event}, found {len(df)} people")
         coo = np.zeros((len(df), 2))
         for jj in range(len(df)):
             item = np.where(pid == df['pid'][jj])[0]
@@ -69,26 +71,30 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
         coo_string = np.array([f"{x[0]}, {x[1]}" for x in coo])
         # coo = np.array([x.split(', ')[::-1] for x in coo_string]).astype(float)
         coou_string = np.unique(coo_string)
+        print(f"Debug: For {event}, unique coordinates: {coou_string[:5]}")
         if len(coo_string) == 0:
+            print(f"Debug: Skipping {event} - no coordinates")
             continue
         if coou_string[0] == '0.0, 0.0':
             coou_string = coou_string[1:]
-        if len(coo_string) == 0:
+            print(f"Debug: Removed 0.0, 0.0 coordinate for {event}")
+        if len(coou_string) == 0:
+            print(f"Debug: Skipping {event} - only had 0.0, 0.0 coordinates")
             continue
         coou = np.array([x.split(', ') for x in coou_string]).astype(float)
         coos.extend(coou)
         for ii in range(len(coou)):
             rows = np.where(coo_string == coou_string[ii])[0]
             name = ''
-            pid = ''
+            pid_str = ''
             for row in rows:
-                pid = pid + f"{df['pid'][row]}" + ","
+                pid_str = pid_str + f"{df['pid'][row]}" + ","
                 if language.lower()[:2] == 'en':
                     name = name + f"{df['first name'][row]} {df['last name'][row]}" + "<br>"
                 else:
                     name = name + f"{df['שם פרטי'][row]} {df['שם משפחה'][row]}" + "<br>"
             name = name[:-4]
-            pid = pid[:-1]
+            pid_str = pid_str[:-1]
             place_name = df['מקום האירוע'].values[rows[0]]
             locrow = np.where(area[0].values == place_name)[0]
             if len(locrow) == 1 and type(area[0][locrow[0]]) == str:
@@ -107,7 +113,7 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
                 "place_name": place_name,
                 "link": link,
                 "link_text": link_text,
-                "pid": pid,
+                "pid": pid_str,
             }
             feature = geojson.Feature(
                 properties=properties,
@@ -115,6 +121,8 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
             )
             if name:  # Check if name is not empty
                 geojson_features.append(feature)
+                print(f"Debug: Added {event} feature for {name[:30]}...")
+    print(f"Debug: Total geojson features created: {len(geojson_features)}")
     if polygonize:
         to_polygonize = to_polygonize.reset_index(drop=True)
         for loc in valid_polygons:
