@@ -130,14 +130,17 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
             rows = np.where(to_polygonize['מקום האירוע'].values == loc)[0]
             killed = ''
             kidnapped = ''
+            pid_list = ''
             for row in rows:
                 status = to_polygonize['Status'].values[row].split(';')[0].strip()
+                pid_list = pid_list + f"{to_polygonize['pid'][row]}" + ","
                 if status == 'killed':
                     killed = killed + f"{to_polygonize['שם פרטי'][row]} {to_polygonize['שם משפחה'][row]}" + ", "
                 elif status == 'kidnapped':
                     kidnapped = kidnapped + f"{to_polygonize['שם פרטי'][row]} {to_polygonize['שם משפחה'][row]}" + ", "
                 else:
                     raise Exception(f"unknown status {status}")
+            pid_list = pid_list[:-1]  # Remove trailing comma
             if len(killed) == 0:
                 details = kidnapped[:-2]
             elif len(kidnapped) == 0:
@@ -153,6 +156,7 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
             properties = {
                 "place_name": place_name,
                 "details": details,
+                "pid": pid_list,
             }
             feature = geojson.Feature(
                 properties=properties,
