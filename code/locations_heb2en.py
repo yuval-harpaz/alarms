@@ -88,4 +88,5 @@ for ii in not_yet:
     elif len(idx) == 0:
         dictionary.at[len_dict, 'Hebrew'] = residence[ii]
         dictionary.at[len_dict, 'English'] = ''
+dictionary.sort_values(by=['Hebrew'], inplace=True)
 dictionary.to_csv('~/Documents/location_dictionary.csv', index=False)
