@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import os
+import re
 
 
 local = '/home/innereye/alarms/'
@@ -53,4 +54,38 @@ for col in [['מקום האירוע','Event location'], ['מקום המוות','
             index = np.where(heb == hebu[ii])[0]
             for jj in index:
                 db.at[jj, col[1]] = en
-db.to_csv('data/oct7database.csv', index=False)        
+db.to_csv('data/oct7database.csv', index=False)
+
+##
+dictionary = pd.read_csv('data/location_dictionary.csv')
+db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
+# Read fallback translations from file
+fallback_file = os.path.expanduser('~/Documents/fallback')
+hebrew_list = []
+english_list = []
+with open(fallback_file, 'r', encoding='utf-8') as f:
+    for line in f:
+        # Match pattern like 'hebrew': 'english',
+        match = re.search(r"'([^']+)':\s*'([^']+)'", line)
+        if match:
+            hebrew_list.append(match.group(1))
+            english_list.append(match.group(2))
+hebrew_fallback = np.array(hebrew_list)
+english_fallback = np.array(english_list)
+residence = np.array(db['Residence'].astype(str).unique())
+not_yet = [r not in dictionary['Hebrew'].values for r in residence]
+not_yet = np.where(not_yet)[0]
+# already = db['Residence'].astype(str).isin(hebrew_fallback)
+# not_yet = np.where(~already)[0]
+for ii in not_yet:
+    if residence[ii] in dictionary['Hebrew'].values:
+        raise ValueError('should not happen') 
+    idx = np.where(hebrew_fallback == residence[ii])[0]
+    len_dict = len(dictionary)
+    if len(idx) == 1:
+        dictionary.at[len_dict, 'Hebrew'] = hebrew_fallback[idx[0]]
+        dictionary.at[len_dict, 'English'] = english_fallback[idx[0]]
+    elif len(idx) == 0:
+        dictionary.at[len_dict, 'Hebrew'] = residence[ii]
+        dictionary.at[len_dict, 'English'] = ''
+dictionary.to_csv('~/Documents/location_dictionary.csv', index=False)
