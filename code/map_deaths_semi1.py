@@ -214,7 +214,8 @@ for lang in ['heb', 'eng']:
                          נערך על ידי 
                          <a href="https://www.facebook.com/sagi.or" target="_blank">שגיא אור</a>, 
                          <a href="https://x.com/Keren_ym" target="_blank">קרן ילין-מור</a>
-                         ו<a href="https://twitter.com/yuvharpaz" target="_blank">יובל הרפז</a> (אנא שלחו תיקונים והערות). 
+                         ו<a href="https://twitter.com/yuvharpaz" target="_blank">יובל הרפז</a>. 
+                         <a href="https://oct7database.com" target="_blank">oct7database.com</a> (אנא שלחו תיקונים והערות). 
                          קישור <a href={table} target="_blank"> לנתונים </a> במסמך גוגל 
                           . כללנו אנשים שנפצעו או נחטפו במתקפה, ומתו או נרצחו מאז.  עדכון אחרון: {nowstr}</h4>             
                          '''
@@ -232,6 +233,7 @@ for lang in ['heb', 'eng']:
                          <a href="https://www.facebook.com/sagi.or" target="_blank">Sagi Or</a>, 
                          <a href="https://x.com/Keren_ym" target="_blank">Keren Yalin-Mor</a>
                           and <a href="https://twitter.com/yuvharpaz" target="_blank">Yuval Harpaz</a>. 
+                         <a href="https://oct7database.com" target="_blank">oct7database.com</a> (please send corrections and comments). 
                          <a href={table} target="_blank"> The data </a> in a google sheet 
                          . We included people who were kidnapped or injured in the attack, and died or were murdered later.  Last update: {nowstr}</h4>             
                          '''
@@ -483,6 +485,7 @@ for lang in ['heb', 'eng']:
         txt = txt.replace('בבירור', 'לא פורסם מיקום')
         # txt = txt.replace('אזרחים', 'אזרחים וכיתות כוננות')
         meta = '<head>\n' \
+               '    <link rel="icon" type="image/png" href="logo.png">\n' \
                '    <meta  name="author" content="Yuval Harpaz, Sagi Or">\n' \
                '    <meta  name="Description" content="A map showing where Israeli civillians and soldiers were murdered and fell in battle during the attack by Hamas, from Oct-7 to Oct-9 2023. ">\n' \
                '    <meta  name="keywords" content="map, massacre, Oct-7, 7.10, 7-10, Gaza, Nova Festival, party, Beeri, Oz' \
