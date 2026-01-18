@@ -17,6 +17,7 @@ if os.path.isdir(local):
     os.chdir(local)
 df = pd.read_csv('data/earthquakes.csv')
 df = df.merge(update, how='outer')
+df = df.drop_duplicates(subset=['epiid'], keep='last')
 df = df.sort_values('DateTime(UTC)', ignore_index=True)
 dt = pd.to_datetime(df['DateTime(UTC)']).to_numpy()
 mag4 = np.asarray([df['Md'], df['Mb'], df['Mw'], df['Mag']]).T
