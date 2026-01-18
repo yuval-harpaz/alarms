@@ -35,14 +35,39 @@
       z-index: 1000;
       text-align: center;
     }
+
+    #title-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 5px;
+    }
+
+    #lang-toggle {
+      padding: 5px 15px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    #lang-toggle:hover {
+      background: #0056b3;
+    }
   </style>
 </head>
 
 <body>
   <div id="floating-title">
-    Earthquakes in Israel since 2000<br>
-    Data from <a href="https://eq.gsi.gov.il/heb/earthquake/lastEarthquakes.php" target="_blank">THE GEOLOGICAL SURVEY
-      OF ISRAEL</a>
+    <div id="title-header">
+      <div id="main-title"></div>
+      <button id="lang-toggle" onclick="toggleLanguage()">English</button>
+    </div>
+    <div id="title-rest"></div>
   </div>
   <div id="map"></div>
 
@@ -50,13 +75,27 @@
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
   <script>
+    let currentLang = 'he';
+    let layerControl;
+    let lastQuakeTime = null;
+
     const map = L.map('map').setView([31.5, 34.75], 7.5);
 
-    // GovMap Tiles
-    L.tileLayer('https://cdnil.govmap.gov.il/xyz/heb/{z}/{x}/{y}.png', {
+    // GovMap Tiles (Hebrew)
+    const govmapTiles = L.tileLayer('https://cdnil.govmap.gov.il/xyz/heb/{z}/{x}/{y}.png', {
       maxZoom: 16,
       attribution: '© המרכז למיפוי ישראל www.govmap.gov.il'
-    }).addTo(map);
+    });
+
+    // CartoDB Tiles (English)
+    const cartodbTiles = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+      subdomains: 'abcd',
+      maxZoom: 19
+    });
+
+    // Start with Hebrew tiles
+    govmapTiles.addTo(map);
 
     // Define overlapping layers for legend toggle
     const layers = {
@@ -86,16 +125,80 @@
     // Add all layers to map by default
     Object.values(layers).forEach(l => l.addTo(map));
 
-    // Create overlays object with colored labels
-    const overlays = {
-      '<span style="color: #000000;">one day</span>': layers['one day'],
-      '<span style="color: #FF0000;">one week</span>': layers['one week'],
-      '<span style="color: #FFBF80;">one month</span>': layers['one month'],
-      '<span style="color: #00FF80;">one year</span>': layers['one year'],
-      '<span style="color: #0000FF;">more than a year</span>': layers['more than a year']
+    // Language-specific text
+    const translations = {
+      he: {
+        title: 'רעידות אדמה בישראל מאז 2000',
+        source: 'נתונים מ<a href="https://eq.gsi.gov.il/heb/earthquake/lastEarthquakes.php" target="_blank">המכון הגיאולוגי</a>',
+        lastQuake: 'רעידה אחרונה',
+        oneDay: 'יום אחד',
+        oneWeek: 'שבוע אחד',
+        oneMonth: 'חודש אחד',
+        oneYear: 'שנה אחת',
+        moreThanYear: 'יותר משנה',
+        depth: 'עומק',
+        buttonText: 'English'
+      },
+      en: {
+        title: 'Earthquakes in Israel since 2000',
+        source: 'Data from <a href="https://eq.gsi.gov.il/heb/earthquake/lastEarthquakes.php" target="_blank">THE GEOLOGICAL SURVEY OF ISRAEL</a>',
+        lastQuake: 'last quake',
+        oneDay: 'one day',
+        oneWeek: 'one week',
+        oneMonth: 'one month',
+        oneYear: 'one year',
+        moreThanYear: 'more than a year',
+        depth: 'depth',
+        buttonText: 'עברית'
+      }
     };
 
-    L.control.layers(null, overlays, { collapsed: false, position: 'topleft' }).addTo(map);
+    function updateLanguage() {
+      const t = translations[currentLang];
+      
+      // Update title
+      document.getElementById('main-title').innerHTML = t.title;
+      let restHTML = t.source;
+      if (lastQuakeTime) {
+        const lastQuakeStr = lastQuakeTime.toISOString().substring(0, 16).replace('T', ' ');
+        restHTML += `<br>${t.lastQuake}: ${lastQuakeStr}`;
+      }
+      document.getElementById('title-rest').innerHTML = restHTML;
+      document.getElementById('lang-toggle').textContent = t.buttonText;
+
+      // Update layer control
+      if (layerControl) {
+        map.removeControl(layerControl);
+      }
+
+      const overlays = {
+        [`<span style="color: #000000;">${t.oneDay}</span>`]: layers['one day'],
+        [`<span style="color: #FF0000;">${t.oneWeek}</span>`]: layers['one week'],
+        [`<span style="color: #FFBF80;">${t.oneMonth}</span>`]: layers['one month'],
+        [`<span style="color: #00FF80;">${t.oneYear}</span>`]: layers['one year'],
+        [`<span style="color: #0000FF;">${t.moreThanYear}</span>`]: layers['more than a year']
+      };
+
+      layerControl = L.control.layers(null, overlays, { collapsed: false, position: 'topleft' }).addTo(map);
+    }
+
+    function toggleLanguage() {
+      currentLang = currentLang === 'he' ? 'en' : 'he';
+      
+      // Switch tiles
+      if (currentLang === 'he') {
+        map.removeLayer(cartodbTiles);
+        map.addLayer(govmapTiles);
+      } else {
+        map.removeLayer(govmapTiles);
+        map.addLayer(cartodbTiles);
+      }
+      
+      updateLanguage();
+    }
+
+    // Initialize with Hebrew
+    updateLanguage();
 
     // Load data
     Papa.parse('https://raw.githubusercontent.com/yuval-harpaz/alarms/refs/heads/master/data/earthquakes.csv', {
@@ -105,7 +208,6 @@
       skipEmptyLines: true,
       complete: function (results) {
         const now = new Date();
-        let lastQuakeTime = null;
         
         results.data.forEach(row => {
           if (!row.Lat || !row.Long) return;
@@ -142,13 +244,11 @@
           }).bindTooltip(tooltip).addTo(layers[group]);
         });
         
-        // Update title with last quake time
-        if (lastQuakeTime) {
-          const lastQuakeStr = lastQuakeTime.toISOString().substring(0, 16).replace('T', ' ');
-          document.getElementById('floating-title').innerHTML += `<br>last quake: ${lastQuakeStr}`;
-        }
+        // Update title with last quake time after data loads
+        updateLanguage();
       }
     });
+  </script>
   </script>
 </body>
 
