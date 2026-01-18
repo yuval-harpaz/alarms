@@ -45,18 +45,33 @@
     }
 
     #lang-toggle {
-      padding: 5px 15px;
+      padding: 3px 8px;
       background: #007bff;
       color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 3px;
       cursor: pointer;
-      font-size: 12px;
+      font-size: 10px;
       font-weight: bold;
     }
 
     #lang-toggle:hover {
       background: #0056b3;
+    }
+
+    #csv-link {
+      padding: 3px 8px;
+      background: #28a745;
+      color: white;
+      text-decoration: none;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: bold;
+      display: inline-block;
+    }
+
+    #csv-link:hover {
+      background: #218838;
     }
   </style>
 </head>
@@ -66,6 +81,7 @@
     <div id="title-header">
       <div id="main-title"></div>
       <button id="lang-toggle" onclick="toggleLanguage()">English</button>
+      <a id="csv-link" href="https://github.com/yuval-harpaz/alarms/blob/master/data/earthquakes.csv" target="_blank">CSV</a>
     </div>
     <div id="title-rest"></div>
   </div>
@@ -128,7 +144,7 @@
     // Language-specific text
     const translations = {
       he: {
-        title: 'רעידות אדמה בישראל מאז 2000',
+        title: 'רעידות אדמה שנרשמו בישראל מאז 2000',
         source: 'נתונים מ<a href="https://eq.gsi.gov.il/heb/earthquake/lastEarthquakes.php" target="_blank">המכון הגיאולוגי</a>',
         lastQuake: 'רעידה אחרונה',
         oneDay: 'יום אחד',
@@ -137,10 +153,10 @@
         oneYear: 'שנה אחת',
         moreThanYear: 'יותר משנה',
         depth: 'עומק',
-        buttonText: 'English'
+        buttonText: 'En'
       },
       en: {
-        title: 'Earthquakes in Israel since 2000',
+        title: 'Earthquakes recorded in Israel since 2000',
         source: 'Data from <a href="https://eq.gsi.gov.il/heb/earthquake/lastEarthquakes.php" target="_blank">THE GEOLOGICAL SURVEY OF ISRAEL</a>',
         lastQuake: 'last quake',
         oneDay: 'one day',
@@ -149,7 +165,7 @@
         oneYear: 'one year',
         moreThanYear: 'more than a year',
         depth: 'depth',
-        buttonText: 'עברית'
+        buttonText: 'עב'
       }
     };
 
