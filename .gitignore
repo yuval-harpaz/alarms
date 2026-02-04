@@ -16,4 +16,4 @@ tmp*
 caltopo.ini
 .vscode
 downloads
-
+.agent/
