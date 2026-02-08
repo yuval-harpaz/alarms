@@ -17,3 +17,5 @@ caltopo.ini
 .vscode
 downloads
 .agent/
+.github/skills
+.github/copilot-instructions.md
