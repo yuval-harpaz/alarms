@@ -9,7 +9,7 @@ import sys
 from datetime import datetime
 website = os.environ['WEBSITE']
 ##
-os.chdir('/home/innereye/alarms')
+os.chdir(os.environ['HOME'] + '/alarms')
 with open('.txt', 'r') as f:
     address = f.read().split('\n')[6]
 
@@ -184,7 +184,7 @@ def json2map(mapname, center, comment=None):
         with open(website+'tmp2p.html', 'r') as f:
             html = f.read()
     else:
-        with open('/home/innereye/Documents/Map/tmp2.html', 'r') as f:
+        with open(os.environ['HOME']+'/Documents/Map/tmp2.html', 'r') as f:
             html = f.read()
     # if 'Polygon' in data:
     #     first_poly = data.index('Polygon')
@@ -203,7 +203,7 @@ def json2map(mapname, center, comment=None):
     optxt = optxt.replace("center: [31.425145, 34.48899],", f"center: [{center[1]}, {center[0]}],")
     optxt = optxt.replace("Foreign", mapname)
     optxt = optxt.replace('<!-- comment -->', f"<!-- {comment} -->")
-    mapfile = f'/home/innereye/Documents/Map/{mapname}.html'
+    mapfile = f"{os.environ['HOME']}/Documents/Map/{mapname}.html"
     if 'Polygon' in data:
         mapfile = f'{website}{mapname}.html'
     with open(mapfile, 'w') as f:
