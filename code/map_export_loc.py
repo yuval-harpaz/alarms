@@ -88,7 +88,7 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
             name = ''
             pid_str = ''
             for row in rows:
-                pid_str = pid_str + f"{df['pid'][row]}" + ","
+                pid_str = pid_str + f"{int(df['pid'][row])}" + ","
                 if language.lower()[:2] == 'en':
                     name = name + f"{df['first name'][row]} {df['last name'][row]}" + "<br>"
                 else:
