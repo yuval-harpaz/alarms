@@ -5,7 +5,7 @@ import numpy as np
 # import re
 
 
-local = '/home/innereye/alarms/'
+local = '/home/yuval/alarms/'
 if os.path.isdir(local):
     os.chdir(local)
     local = True

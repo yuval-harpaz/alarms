@@ -2,7 +2,7 @@
 import pandas as pd
 import os
 import numpy as np
-local = '/home/innereye/alarms/'
+local = '/home/yuval/alarms/'
 if os.path.isdir(local):
     os.chdir(local)
     local = True

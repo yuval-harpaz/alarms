@@ -6,7 +6,7 @@ import numpy as np
 from selenium import webdriver
 import time
 
-local = '/home/innereye/alarms/'
+local = '/home/yuval/alarms/'
 if os.path.isdir(local):
     os.chdir(local)
     local = True

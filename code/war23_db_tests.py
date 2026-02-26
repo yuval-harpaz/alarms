@@ -6,7 +6,7 @@ import sys
 sys.path.append('code')
 from war23_db_tools import compare_nli
 from war23_idf2db import idf_mismatch
-local = '/home/innereye/alarms/'
+local = '/home/yuval/alarms/'
 islocal = False
 if os.path.isdir(local):
     os.chdir(local)
