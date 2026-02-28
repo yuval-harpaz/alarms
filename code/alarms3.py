@@ -60,6 +60,8 @@ if len(new) > 0:
             desc = 'ירי רקטות וטילים'
         elif threatc == 2:
             desc = 'חדירת מחבלים'
+        elif threatc == 3:
+            desc = 'רעידת אדמה'
         elif threatc == 5:
             desc = 'חדירת כלי טיס עוין'
         else:
