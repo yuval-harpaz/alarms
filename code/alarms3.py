@@ -9,7 +9,7 @@ import sys
 import re
 from datetime import datetime
 
-local = '/home/innereye/alarms/'
+local = '/home/yuval/alarms/'
 islocal = False
 if os.path.isdir(local):
     os.chdir(local)

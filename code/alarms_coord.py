@@ -5,12 +5,12 @@ import os
 
 
 def update_coord(latest=None, coord_file='data/coord.csv'):
-    local = '/home/innereye/alarms/'
+    local = '/home/yuval/alarms/'
     if os.path.isdir(local):
         os.chdir(local)
-        with open('/home/innereye/alarms/oath.txt') as f:
+        with open('/home/yuval/alarms/oath.txt') as f:
             oauth = f.readlines()[0][:-1]
-        with open('/home/innereye/alarms/.txt') as f:
+        with open('/home/yuval/alarms/.txt') as f:
             cities_url = f.readlines()[1][:-1]
     else:
         oauth = os.environ['OAuth']
