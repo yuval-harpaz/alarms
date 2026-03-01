@@ -6,7 +6,7 @@ from pyvirtualdisplay import Display
 import time
 import numpy as np
 import re
-local = '/home/innereye/alarms/'
+local = '/home/yuval/alarms/'
 
 month_heb = ['ינואר', 'פברואר', 'מרץ', 'אפריל',
              'מאי', 'יוני', 'יולי', 'אוגוסט',

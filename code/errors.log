@@ -2204,3 +2204,7 @@ war23_ynetlist.py failed
 name 'Service' is not defined
 war23_ynetlist.py failed
 name 'Service' is not defined
+war23_idf_mem_all.py failed
+[Errno 2] No such file or directory: 'Xvfb'
+war23_idf_mem_all.py failed
+[Errno 2] No such file or directory: 'Xvfb'
