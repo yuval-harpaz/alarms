@@ -27,6 +27,8 @@ if only_new:
 ##
 # def get_deaths():
 # try:
+with Display() as disp:
+    browser = webdriver.Firefox()
 try:
     with Display() as disp:
         try:
