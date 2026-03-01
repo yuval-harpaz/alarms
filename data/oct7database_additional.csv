@@ -1,84 +1,87 @@
-"pid","first name","last name","middle name","nickname","שם פרטי","שם משפחה","שם נוסף","כינוי","הנצחה","Event location (oct7map)","Event location class (oct7map)","Status (oct7map)","Gender","Age","Residence","Country","Role","Party","Status","Event date","Death date","מקום האירוע","מקום המוות","front","סיבת המוות","link"
-2458,,,,,"יוסף","נגר",,,"https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44195",,,,"M",0,"שדרות","ישראל","אזרח",,"died",,2023-12-16,"שדרות",,"Gaza",,
-2459,,,,,"סטיבן","מרכוס","לואיס",,"https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44196",,,,"M",62,"עלומים","ישראל","אזרח",,"died",2023-10-07,2023-12-10,"עלומים","עלומים","Gaza","אירוע לבבי","https://www.israelhayom.co.il/news/local/article/16416398"
-2460,,,,,"ישראל","דקר חדד",,"דקי","https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44133",,,,"M",55,"קרית גת","ישראל","אזרח",,"died",2023-10-09,2023-10-09,"קרית גת",,"Gaza","אירוע לבבי",
-2461,,,,,"פרג’י","מימוני","אפרים",,"https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44143",,,,"M",,"קרית גת","ישראל","אזרח",,"died",,2023-10-10,"קרית גת",,"Gaza","אירוע לבבי","https://www.facebook.com/story.php?story_fbid=10160154594217104&id=626592103&rdid=cbO6YVOB06f8SUBM"
-2462,,,,,"שלי","כראדי",,,"https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44151",,,,"F",,"אשדוד","ישראל","אזרח",,"died",,2023-10-20,"אשדוד",,"Gaza","אזעקה; אירוע לבבי",
-2463,,,,,"דוד","אדרי",,,"https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44155",,,,"M",68,"אופקים","ישראל","אזרח",,"hostage; rescued; died",2023-10-07,2024-02-26,"אופקים",,"Gaza",,
-2464,,,,,"יורי","לוין",,,,,,,"M",,"כפר עזה","ישראל","אזרח",,"kidnapped; escaped",2023-10-07,,"כפר עזה",,"Gaza",,"https://www.youtube.com/watch?v=wQAKNiNeEss"
-2465,,,,,"טארק","אבו עראר",,,,,,,"M",,"ערערה","ישראל","רופא",,"kidnapped; released",2023-10-07,,"צומת שער הנגב",,"Gaza",,"https://www.israelhayom.co.il/news/local/article/14701421"
-2466,,,,,"אביגיל","גאדג'",,,,,,,"F",,"כוכב יעקב","ישראל","אזרח","Nova","kidnapped; rescued",2023-10-07,,"בין נובה לרעים",,"Gaza",,"https://www.mako.co.il/news-israel/2023_q4/Article-8f2bafdfd12fb81027.htm"
-2467,,,,,"אביטל","אלדג'ם",,,,,,,"F",,"חולית","ישראל","אזרח",,"kidnapped; released",2023-10-07,,"חולית",,"Gaza",,"https://www.mako.co.il/news-military/6361323ddea5a810/Article-626fbf0bfe21b81027.htm"
-2468,,,,,"אשל","קפלון",,,,,,,"M",0,"חולית","ישראל","אזרח",,"kidnapped; released",2023-10-07,,"חולית",,"Gaza",,
-2469,,,,,"נגב","קפלון",,,,,,,"M",3,"חולית","ישראל","אזרח",,"kidnapped; released",2023-10-07,,"חולית",,"Gaza",,
-2476,,,,,"אלון","גת",,,,,,,"M",,"בארי","ישראל","אזרח",,"kidnapped; escaped",2023-10-07,,"בארי",,"Gaza",,
-2477,,,,,"גפן","רומן גת",,,,,,,"F",3,"בארי","ישראל","אזרח",,"kidnapped; escaped",2023-10-07,,"בארי",,"Gaza",,
-2478,,,,,"רחל","אדרי",,,,,,,"F",64,"אופקים","ישראל","אזרח",,"hostage; rescued",2023-10-07,,"אופקים",,"Gaza",,"https://he.wikipedia.org/wiki/%D7%A8%D7%97%D7%9C_%D7%90%D7%93%D7%A8%D7%99"
-2479,,,,,"בת שבע","יהלומי",,,,,,,"F",,"ניר עוז","ישראל","אזרח",,"kidnapped; escaped",2023-10-07,,"ניר עוז",,"Gaza",,"https://giborotbarzel.co.il/creations/%D7%99%D7%A6%D7%99%D7%A8%D7%95%D7%AA-400/"
-2480,,,,,"יעל","יהלומי",,,,,,,"F",10,"ניר עוז","ישראל","אזרח",,"kidnapped; escaped",2023-10-07,,"ניר עוז",,"Gaza",,
-2481,,,,,"פעוטה","יהלומי",,,,,,,"F",2,"ניר עוז","ישראל","אזרח",,"kidnapped; escaped",2023-10-07,,"ניר עוז",,"Gaza",,
-2482,,,,,"יסמין","פורת",,,,,,,"F",,"כברי","ישראל","אזרח",,"hostage; rescued",2023-10-07,,"בארי; אירוע בני ערובה בבית של פסי",,"Gaza",,
-2483,,,,,"הדס","דגן",,,,,,,"F",69,"בארי","ישראל","אזרח",,"hostage; rescued",2023-10-07,,"בארי; אירוע בני ערובה בבית של פסי",,"Gaza",,
-2484,,,,,"משה","רוזן","מרדכי","מוטי",,,,,"M",,"ניר יצחק","ישראל","אזרח",,"kidnapped; escaped",2023-10-07,,"ניר יצחק",,"Gaza",,"https://www.edut710.org/testimonies/diana-rozen-moshe-rosen-nir-yitzhak"
-2485,,,,,"דיאנה","רוזן",,,,,,,"F",73,"ניר יצחק","ישראל","אזרח",,"kidnapped; escaped",2023-10-07,,"ניר יצחק",,"Gaza",,
-2504,,,,,"מזל","מנצור",,,,,,,"F",,"כיסופים","ישראל","אזרח",,"kidnapped; escaped",2023-10-07,,"כיסופים",,"Gaza",,"https://www.lifestories2.info/2024/01/02/%D7%92%D7%91%D7%95%D7%A8%D7%AA-%D7%A1%D7%91%D7%AA%D7%90-%D7%9E%D7%96%D7%9C-%D7%A9%D7%A0%D7%9E%D7%9C%D7%98%D7%94-%D7%9E%D7%94%D7%9E%D7%97%D7%91%D7%9C%D7%99%D7%9D-%D7%9C%D7%9C%D7%90-%D7%A1%D7%91%D7%90/"
-2511,,,,,"נעמית","דקל חן",,,,,,,"F",63,"ניר עוז","ישראל","אזרח",,"kidnapped; rescued",2023-10-07,,"ניר עוז",,"Gaza",,"https://www.ynet.co.il/news/article/skuyf2mzt"
-2518,,,,,"לישי","לביא מירן",,,,,,,"F",,"נחל עוז","ישראל","אזרח",,"kidnapped; released",2023-10-07,,"נחל עוז",,"Gaza",,
-2519,,,,,"עלמא","מירן",,,,,,,"F",0,"נחל עוז","ישראל","אזרח",,"kidnapped; released",2023-10-07,,"נחל עוז",,"Gaza",,
-2520,,,,,"רוני","מירן",,,,,,,"F",2,"נחל עוז","ישראל","אזרח",,"kidnapped; released",2023-10-07,,"נחל עוז",,"Gaza",,
-2521,,,,,"גלי","עידן",,,,,,,"F",,"נחל עוז","ישראל","אזרח",,"kidnapped; released",2023-10-07,,"נחל עוז",,"Gaza",,"https://www.mako.co.il/news-israel/2023_q4/Article-c492f8253436b81027.htm"
-2522,,,,,"יעל","עידן",,,,,,,"F",11,"נחל עוז","ישראל","אזרח",,"kidnapped; released",2023-10-07,,"נחל עוז",,"Gaza",,
-2523,,,,,"שחר","עידן",,,,,,,"M",9,"נחל עוז","ישראל","אזרח",,"kidnapped; released",2023-10-07,,"נחל עוז",,"Gaza",,
-2597,,,,,"אילה","אברהם",,,,,,,"F",56,"בית אריה","ישראל","אזרח",,"kidnapped; rescued",2023-10-07,,"יכיני",,"Gaza",,"https://www.ynet.co.il/news/article/yokra14106296"
-2598,,,,,"שני","לוין",,,,,,,"F",,,"ישראל","אזרח",,"kidnapped; rescued",2023-10-07,,"יכיני",,"Gaza",,"https://www.ynet.co.il/news/article/yokra14106296"
-2600,,,,,"נועם","יחיאל",,,"https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44214",,,,"M",,"אחיעזר","ישראל","אזרח",,"died",2024-09-22,,"מחלף ישי","מחלף ישי","North","אזעקה; תאונה","https://www.ynet.co.il/news/article/bymx00lapa"
-2654,,,,,"ליובוב","לבדב",,,"https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44246",,,,"F",81,"בית העמק","ישראל","אזרח",,"died",2024-10-26,,"בית העמק","בית העמק","North","אזעקה; חבלה","https://mta.org.il/uploads/n/1730274797.1902.pdf"
-2655,,,,,"שיראל","גולן","שרה",,"https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44247",,,,"F",21,"פורת","ישראל","אזרח",,"died",2023-10-07,2024-10-20,"פסטיבל נובה","פורת","Gaza","התאבדות","https://main.knesset.gov.il/news/pressreleases/pages/press11112024x.aspx"
-1371,"Giora","Duvdevani",,,"גיורא","דובדבני",,,"https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43380","Talmei Yosef","General vicinity","Murdered","M",81,"תלמי יוסף","ישראל","אזרח",,"died",2023-10-10,2023-10-10,"אילת","אילת","Gaza","אירוע לבבי",
-2667,"Iris","Openshtein",,,"איריס","אופנשטיין",,,,,,,"F",,,"ישראל","אזרח",,"hostage; released",2023-10-07,,"פסטיבל נובה; סמוך למכולות הצהובות",,"Gaza",,"https://www.facebook.com/story.php?story_fbid=8283502245065625&id=100002177949136&rdid=PD0ZJkfVx6NU26BC"
-2710,,,,,"חיה","מישאלי",,,"https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44268",,,,"F",75,,"ישראל","אזרח",,"died",,2024-09-04,,,,,
-2714,"Salem","Alziadna",,,"סאלם","אלזיאדנה",,,,"Rahat",,,"M",,"רהט","ישראל","אזרח",,"hostage; released",2023-10-07,,"חולית",,"Gaza",,"https://www.710360.kan.org.il/holit/alziadana"
-2715,"Kunwong","Withawat",,,"קונוונג","וויטאוואט",,,,,,,"M",,,"תאילנד","אזרח",,"hostage; left for dead",2023-10-07,,"חולית",,"Gaza",,"https://edition.cnn.com/2023/10/30/asia/thailand-hamas-survivors-intl-hnk"
-2728,,,,,"ניסים","זרקה",,,"https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44060",,,,"M",68,"עפולה","ישראל","אזרח",,"died",2024-10-01,2024-10-01,"עפולה","עפולה","Iran","אזעקה; אירוע לבבי","https://www.ynet.co.il/health/article/b10d089rc"
-2729,,,,,"לימור","חדד",,,"https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44087",,,,"F",56,"גדרה","ישראל","אזרח",,"died",2023-11-20,2023-11-20,"צומת גינתון","בי""ח אסף הרופא","Gaza","אזעקה; מפרצת","https://www.mako.co.il/news-military/6361323ddea5a810/Article-81e43b75f31fb81026.htm"
-2730,"Sommanas","Moolchot",,,"סומאנאס","מולצ’וט",,,,,,,"M",,,"תאילנד","אזרח",,"kidnapped; rescued",2023-10-07,,"מפלסים",,"Gaza",,"https://www.haaretz.co.il/news/magazine/2024-05-24/ty-article-magazine/.premium/0000018f-a53a-d8a2-a3cf-a5bb6bb50000"
-2731,"Prabchandee","Tin",,,"פרבצ’נדה","טין",,,,,,,"M",43,,"תאילנד","אזרח",,"kidnapped; rescued",2023-10-07,,"מפלסים",,"Gaza",,"https://www.haaretz.co.il/news/magazine/2024-05-24/ty-article-magazine/.premium/0000018f-a53a-d8a2-a3cf-a5bb6bb50000"
-2732,"Homkajon","Kraichit",,,"הומקג’ון","קראיצ’יט",,,,,,,"M",,,"תאילנד","אזרח",,"kidnapped; rescued",2023-10-07,,"מפלסים",,"Gaza",,"https://www.haaretz.co.il/news/magazine/2024-05-24/ty-article-magazine/.premium/0000018f-a53a-d8a2-a3cf-a5bb6bb50000"
-2733,"Sichum","Teerayuth",,,"סיצ’ון","טראיוט",,,,,,,"M",32,,"תאילנד","אזרח",,"kidnapped; rescued",2023-10-07,,"מפלסים",,"Gaza",,"https://www.haaretz.co.il/news/magazine/2024-05-24/ty-article-magazine/.premium/0000018f-a53a-d8a2-a3cf-a5bb6bb50000"
-2734,"Kaewchin","Saranyu",,,"קאווצ’ין","סראניו",,,,,,,"M",36,,"תאילנד","אזרח",,"kidnapped; rescued",2023-10-07,,"מפלסים",,"Gaza",,"https://www.haaretz.co.il/news/magazine/2024-05-24/ty-article-magazine/.premium/0000018f-a53a-d8a2-a3cf-a5bb6bb50000"
-2735,"Chanaaene","Oatthawat",,,"צ’אנאנה","אוטאוואט",,,,,,,"M",,,"תאילנד","אזרח",,"kidnapped; rescued",2023-10-07,,"מפלסים",,"Gaza",,"https://www.haaretz.co.il/news/magazine/2024-05-24/ty-article-magazine/.premium/0000018f-a53a-d8a2-a3cf-a5bb6bb50000"
-2736,"Wirawat","Thunnok",,,"וויראוואט","טונוק",,,,,,,"M",,,"תאילנד","אזרח",,"kidnapped; rescued",2023-10-07,,"מפלסים",,"Gaza",,"https://www.haaretz.co.il/news/magazine/2024-05-24/ty-article-magazine/.premium/0000018f-a53a-d8a2-a3cf-a5bb6bb50000"
-2777,,,,,"ילנה","זדובסקי",,,,,,,"F",51,"כרמיאל","ישראל","אזרח",,"died",2025-06-20,2025-06-20,"כרמיאל","כרמיאל","Iran","אזעקה; אירוע לבבי","https://www.ynet.co.il/news/article/bk9jzgq4xx"
-2043,"Tamar","Torpiashvili",,,"תמר","טורפיאשוילי",,,"https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44034",,,,"F",9,"אשדוד","ישראל","אזרח",,"died",2023-10-20,2023-10-27,"אשדוד","אשדוד","Gaza","אזעקה; אירוע לבבי","https://www.ynet.co.il/news/article/s1i6bacna"
-2787,,,,,"עבדאללה","בחאש",,,,,,,"M",14,"קלנסווה","ישראל","אזרח",,"died",2025-06-19,2025-06-19,"מחלף נחשונים","מחלף נחשונים","Iran","אזעקה; תאונה","https://www.ynet.co.il/news/article/hkv1c5nnlg"
-1420,"Ziva","Ovitz","Colette",,"זיוה","אוביץ","קולט",,"https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43371","Ami'oz","General vicinity","Murdered","F",76,"עמיעוז","ישראל","אזרח",,"died",2023-10-07,2023-10-11,"עמיעוז","עמיעוז","Gaza","אזעקה; חבלה","https://x.com/GLZRadio/status/1749386435042406702"
-2833,"Rotem","Holin",,,"רותם","הולין",,,,,,,"F",45,"כפר עזה","ישראל","אזרח",,"hostage; released",2023-10-07,,"כפר עזה",,"Gaza",,"https://www.edut710.org/copy-of-testimonies/rotem-holin-kfar-aza"
-2834,"Yarden","Holin",,,"ירדן","הולין",,,,,,,"M",7,"כפר עזה","ישראל","אזרח",,"hostage; released",2023-10-07,,"כפר עזה",,"Gaza",,"https://www.edut710.org/copy-of-testimonies/rotem-holin-kfar-aza"
-2835,"Yuval","Holin",,,"יובל","הולין",,,,,,,"F",5,"כפר עזה","ישראל","אזרח",,"hostage; released",2023-10-07,,"כפר עזה",,"Gaza",,"https://www.edut710.org/copy-of-testimonies/rotem-holin-kfar-aza"
-2836,"Esther","Cunio",,,"אסתר","קוניו",,,,,,,"F",90,"ניר עוז","ישראל","אזרח",,"hostage; released",2023-10-07,,"ניר עוז",,"Gaza",,"https://www.mako.co.il/home-family-relationship/Article-e33a152d6991e81026.htm"
-2837,"May","Hayat",,,"מאי","חייט",,,,,,,"F",30,"תל אביב","ישראל","אזרח",,"kidnapped; released",2023-10-07,,"פסטיבל נובה",,"Gaza",,"https://www.ynet.co.il/news/article/bk11cgvbb6"
-2839,"Daria","Karp",,,"דריה","קרפ",,,,,,,"F",10,"רעים","ישראל","אזרח",,"hostage; released",2023-10-07,,"רעים",,"Gaza",,"https://www.idf.il/אתרי-יחידות/המחלקה-להיסטוריה/יסודות/יסודות-7/קרב-כיתת-הכוננות-של-קיבוץ-רעים"
-2840,"Lavie","Karp",,,"לביא","קרפ",,,,,,,"M",8,"רעים","ישראל","אזרח",,"hostage; released",2023-10-07,,"רעים",,"Gaza",,"https://www.idf.il/אתרי-יחידות/המחלקה-להיסטוריה/יסודות/יסודות-7/קרב-כיתת-הכוננות-של-קיבוץ-רעים"
-2841,"Adi","Efrat",,,"עדי","אפרת",,,,,,,"F",,"בארי","ישראל","אזרח",,"kidnapped; rescued",2023-10-07,,"בארי",,"Gaza",,"https://www.ynet.co.il/news/article/ryxr98zb6"
-2842,"Sandra","Cohen",,,"סנדרה","כהן",,,,,,,"F",,"בארי","ישראל","אזרח",,"kidnapped; rescued",2023-10-07,,"בארי",,"Gaza",,"https://www.instagram.com/p/C1FYaXnojzw/"
-2843,"Liam","Cohen",,,"ליאם","כהן",,,,,,,"M",9,"בארי","ישראל","אזרח",,"kidnapped; rescued",2023-10-07,,"בארי",,"Gaza",,"https://www.instagram.com/p/C1FYaXnojzw/"
-2844,"Dylan","Cohen",,,"דילן","כהן",,,,,,,"M",3,"בארי","ישראל","אזרח",,"kidnapped; rescued",2023-10-07,,"בארי",,"Gaza",,"https://www.instagram.com/p/C1FYaXnojzw/"
-2845,"Binyamin","Bleacher",,,"בנימין","בליצ’ר",,,,,,,"M",68,"ראשון לציון","ישראל","אזרח",,"died",2024-12-21,,"ראשון לציון",,"Yemen","אזעקה; אירוע לבבי","https://www.ynet.co.il/news/article/bj4uhw4bkg"
-2849,"Avia","Margolin",,,"אביה","מרגולין",,,,,,,"F",22,"נתניה","ישראל","אזרח",,"kidnapped; escaped",2023-10-07,,"פסטיבל נובה; קמפינג",,"Gaza",,"https://sfi.usc.edu/october7testimonies"
-2850,"Avishag",,,,"אבישג","?",,"שוגי",,,,,"F",21,,"ישראל","אזרח",,"kidnapped; rescued",2023-10-07,,"פסטיבל נובה; קמפינג",,"Gaza",,"https://sfi.usc.edu/october7testimonies"
-2851,"Tal","Shani",,,"טל","שני",,,,,,,"F",,"בארי","ישראל","אזרח",,"hostage; released",2023-10-07,,"בארי",,"Gaza",,"https://www.kan.org.il/content/kan-news/defense/626545/"
-2852,"sister1","Shani",,,"אמה","שני",,,,,,,"F",,"בארי","ישראל","אזרח",,"hostage; released",2023-10-07,,"בארי",,"Gaza",,"https://www.kan.org.il/content/kan-news/defense/626545/"
-2853,"sister2","Shani",,,"רני","שני",,,,,,,"F",,"בארי","ישראל","אזרח",,"hostage; released",2023-10-07,,"בארי",,"Gaza",,"https://www.kan.org.il/content/kan-news/defense/626545/"
-2856,,,,,"ציפורה","ביטון",,"ציפי","https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=45641",,,,"F",66,"כרמיאל","ישראל","אזרח",,"died",2025-06-19,2025-06-19,"כרמיאל","כרמיאל","Iran","אזעקה; אירוע לבבי","https://www.ynet.co.il/news/article/bk9jzgq4xx"
-2857,,,,,"עידה","אבו מטשה",,,"https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=45640",,,,"F",62,,"ישראל","אזרח",,"died",2024-10-01,2025-04-08,"אל ע’נאמי",,"Iran","אזעקה; תאונה",
-2860,,,,,"טובה","זהבי",,,,,,,"F",76,"ניר עוז","ישראל","אזרח",,"hostage; rescued",2023-10-07,,"ניר עוז",,"Gaza",,"https://nir-oz.org.il/family/tova-zahavi/"
-2861,,,,,"עמית","רוזנבאום",,,,,,,"F",,,"ישראל","אזרח",,"hostage; released",2023-10-07,,"מיגונית בכניסה לרעים (מערב)",,"Gaza",,"https://www.mako.co.il/news-military/6361323ddea5a810/Article-6314baa04172c81027.htm"
-2862,,,,,"גיא","ברדיצ’בסקי",,,,,,,"M",0,"כפר עזה","ישראל","אזרח",,"hostage; released",2023-10-07,,"כפר עזה; שכונה צפונית",,"Gaza",,"https://www.mako.co.il/news-israel/2023_q4/Article-cf9f497d5887b81027.htm"
-2863,,,,,"רועי","ברדיצ’בסקי",,,,,,,"M",0,"כפר עזה","ישראל","אזרח",,"hostage; released",2023-10-07,,"כפר עזה; שכונה צפונית",,"Gaza",,"https://www.mako.co.il/news-israel/2023_q4/Article-cf9f497d5887b81027.htm"
-2865,,,,,"קורן","תעסה",,,,,,,"M",12,"נתיב העשרה","ישראל","אזרח",,"hostage; released",2023-10-07,,"נתיב העשרה",,"Gaza",,"https://www.mako.co.il/news-israel/2024_q4/Article-c40057de0b06291027.htm"
-2866,,,,,"שי","תעסה",,,,,,,"M",6,"נתיב העשרה","ישראל","אזרח",,"hostage; released",2023-10-07,,"נתיב העשרה",,"Gaza",,"https://www.mako.co.il/news-israel/2024_q4/Article-c40057de0b06291027.htm"
-2867,"Daughter","Alziadna",,,"בת","אלזיאדנה",,,,"Rahat",,,"F",,"רהט","ישראל","אזרח",,"hostage; released",2023-10-07,,"חולית",,"Gaza",,"https://www.710360.kan.org.il/holit/alziadana"
-2868,"Sun 1","Alziadna",,,"בן 1","אלזיאדנה",,,,"Rahat",,,"M",,"רהט","ישראל","אזרח",,"hostage; released",2023-10-07,,"חולית",,"Gaza",,"https://www.710360.kan.org.il/holit/alziadana"
-2869,"Sun 2","Alziadna",,,"בן 2","אלזיאדנה",,,,"Rahat",,,"M",,"רהט","ישראל","אזרח",,"hostage; released",2023-10-07,,"חולית",,"Gaza",,"https://www.710360.kan.org.il/holit/alziadana"
-2870,,,,,"אנונימי","אנונימי",,,,,,,"M",,,"ישראל","אזרח",,"hostage; released",2023-10-07,,"צומת כיסופים",,"Gaza",,"https://geoconfirmed.org/7oct/b9622670-3a0b-4b5e-a42d-336c21597b1e"
-2871,,,,,"אנונימי1","אנונימי1",,,,,,,"M",,,"ישראל","אזרח",,"hostage; released",2023-10-07,,"פסטיבל נובה",,"Gaza",,"https://www.youtube.com/watch?v=y31PYw8H1RQ"
+pid,first name,last name,middle name,nickname,שם פרטי,שם משפחה,שם נוסף,כינוי,הנצחה,Event location (oct7map),Event location class (oct7map),Status (oct7map),Gender,Age,Residence,Country,Role,Party,Status,Event date,Death date,מקום האירוע,מקום המוות,front,סיבת המוות,link
+2458,,,,,יוסף,נגר,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44195,,,,M,0,שדרות,ישראל,אזרח,,died,,2023-12-16,שדרות,,Gaza,,
+2459,,,,,סטיבן,מרכוס,לואיס,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44196,,,,M,62,עלומים,ישראל,אזרח,,died,2023-10-07,2023-12-10,עלומים,עלומים,Gaza,אירוע לבבי,https://www.israelhayom.co.il/news/local/article/16416398
+2460,,,,,ישראל,דקר חדד,,דקי,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44133,,,,M,55,קרית גת,ישראל,אזרח,,died,2023-10-09,2023-10-09,קרית גת,,Gaza,אירוע לבבי,
+2461,,,,,פרג’י,מימוני,אפרים,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44143,,,,M,,קרית גת,ישראל,אזרח,,died,,2023-10-10,קרית גת,,Gaza,אירוע לבבי,https://www.facebook.com/story.php?story_fbid=10160154594217104&id=626592103&rdid=cbO6YVOB06f8SUBM
+2462,,,,,שלי,כראדי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44151,,,,F,,אשדוד,ישראל,אזרח,,died,,2023-10-20,אשדוד,,Gaza,אזעקה; אירוע לבבי,
+2463,,,,,דוד,אדרי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44155,,,,M,68,אופקים,ישראל,אזרח,,hostage; rescued; died,2023-10-07,2024-02-26,אופקים,,Gaza,,
+2464,,,,,יורי,לוין,,,,,,,M,,כפר עזה,ישראל,אזרח,,kidnapped; escaped,2023-10-07,,כפר עזה,,Gaza,,https://www.youtube.com/watch?v=wQAKNiNeEss
+2465,,,,,טארק,אבו עראר,,,,,,,M,,ערערה,ישראל,רופא,,kidnapped; released,2023-10-07,,צומת שער הנגב,,Gaza,,https://www.israelhayom.co.il/news/local/article/14701421
+2466,,,,,אביגיל,גאדג',,,,,,,F,,כוכב יעקב,ישראל,אזרח,Nova,kidnapped; rescued,2023-10-07,,בין נובה לרעים,,Gaza,,https://www.mako.co.il/news-israel/2023_q4/Article-8f2bafdfd12fb81027.htm
+2467,,,,,אביטל,אלדג'ם,,,,,,,F,,חולית,ישראל,אזרח,,kidnapped; released,2023-10-07,,חולית,,Gaza,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-626fbf0bfe21b81027.htm
+2468,,,,,אשל,קפלון,,,,,,,M,0,חולית,ישראל,אזרח,,kidnapped; released,2023-10-07,,חולית,,Gaza,,
+2469,,,,,נגב,קפלון,,,,,,,M,3,חולית,ישראל,אזרח,,kidnapped; released,2023-10-07,,חולית,,Gaza,,
+2476,,,,,אלון,גת,,,,,,,M,,בארי,ישראל,אזרח,,kidnapped; escaped,2023-10-07,,בארי,,Gaza,,
+2477,,,,,גפן,רומן גת,,,,,,,F,3,בארי,ישראל,אזרח,,kidnapped; escaped,2023-10-07,,בארי,,Gaza,,
+2478,,,,,רחל,אדרי,,,,,,,F,64,אופקים,ישראל,אזרח,,hostage; rescued,2023-10-07,,אופקים,,Gaza,,https://he.wikipedia.org/wiki/%D7%A8%D7%97%D7%9C_%D7%90%D7%93%D7%A8%D7%99
+2479,,,,,בת שבע,יהלומי,,,,,,,F,,ניר עוז,ישראל,אזרח,,kidnapped; escaped,2023-10-07,,ניר עוז,,Gaza,,https://giborotbarzel.co.il/creations/%D7%99%D7%A6%D7%99%D7%A8%D7%95%D7%AA-400/
+2480,,,,,יעל,יהלומי,,,,,,,F,10,ניר עוז,ישראל,אזרח,,kidnapped; escaped,2023-10-07,,ניר עוז,,Gaza,,
+2481,,,,,פעוטה,יהלומי,,,,,,,F,2,ניר עוז,ישראל,אזרח,,kidnapped; escaped,2023-10-07,,ניר עוז,,Gaza,,
+2482,,,,,יסמין,פורת,,,,,,,F,,כברי,ישראל,אזרח,,hostage; rescued,2023-10-07,,בארי; אירוע בני ערובה בבית של פסי,,Gaza,,
+2483,,,,,הדס,דגן,,,,,,,F,69,בארי,ישראל,אזרח,,hostage; rescued,2023-10-07,,בארי; אירוע בני ערובה בבית של פסי,,Gaza,,
+2484,,,,,משה,רוזן,מרדכי,מוטי,,,,,M,,ניר יצחק,ישראל,אזרח,,kidnapped; escaped,2023-10-07,,ניר יצחק,,Gaza,,https://www.edut710.org/testimonies/diana-rozen-moshe-rosen-nir-yitzhak
+2485,,,,,דיאנה,רוזן,,,,,,,F,73,ניר יצחק,ישראל,אזרח,,kidnapped; escaped,2023-10-07,,ניר יצחק,,Gaza,,
+2504,,,,,מזל,מנצור,,,,,,,F,,כיסופים,ישראל,אזרח,,kidnapped; escaped,2023-10-07,,כיסופים,,Gaza,,https://www.lifestories2.info/2024/01/02/%D7%92%D7%91%D7%95%D7%A8%D7%AA-%D7%A1%D7%91%D7%AA%D7%90-%D7%9E%D7%96%D7%9C-%D7%A9%D7%A0%D7%9E%D7%9C%D7%98%D7%94-%D7%9E%D7%94%D7%9E%D7%97%D7%91%D7%9C%D7%99%D7%9D-%D7%9C%D7%9C%D7%90-%D7%A1%D7%91%D7%90/
+2511,,,,,נעמית,דקל חן,,,,,,,F,63,ניר עוז,ישראל,אזרח,,kidnapped; rescued,2023-10-07,,ניר עוז,,Gaza,,https://www.ynet.co.il/news/article/skuyf2mzt
+2518,,,,,לישי,לביא מירן,,,,,,,F,,נחל עוז,ישראל,אזרח,,kidnapped; released,2023-10-07,,נחל עוז,,Gaza,,
+2519,,,,,עלמא,מירן,,,,,,,F,0,נחל עוז,ישראל,אזרח,,kidnapped; released,2023-10-07,,נחל עוז,,Gaza,,
+2520,,,,,רוני,מירן,,,,,,,F,2,נחל עוז,ישראל,אזרח,,kidnapped; released,2023-10-07,,נחל עוז,,Gaza,,
+2521,,,,,גלי,עידן,,,,,,,F,,נחל עוז,ישראל,אזרח,,kidnapped; released,2023-10-07,,נחל עוז,,Gaza,,https://www.mako.co.il/news-israel/2023_q4/Article-c492f8253436b81027.htm
+2522,,,,,יעל,עידן,,,,,,,F,11,נחל עוז,ישראל,אזרח,,kidnapped; released,2023-10-07,,נחל עוז,,Gaza,,
+2523,,,,,שחר,עידן,,,,,,,M,9,נחל עוז,ישראל,אזרח,,kidnapped; released,2023-10-07,,נחל עוז,,Gaza,,
+2597,,,,,אילה,אברהם,,,,,,,F,56,בית אריה,ישראל,אזרח,,kidnapped; rescued,2023-10-07,,יכיני,,Gaza,,https://www.ynet.co.il/news/article/yokra14106296
+2598,,,,,שני,לוין,,,,,,,F,,,ישראל,אזרח,,kidnapped; rescued,2023-10-07,,יכיני,,Gaza,,https://www.ynet.co.il/news/article/yokra14106296
+2600,,,,,נועם,יחיאל,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44214,,,,M,,אחיעזר,ישראל,אזרח,,died,2024-09-22,,מחלף ישי,מחלף ישי,North,אזעקה; תאונה,https://www.ynet.co.il/news/article/bymx00lapa
+2654,,,,,ליובוב,לבדב,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44246,,,,F,81,בית העמק,ישראל,אזרח,,died,2024-10-26,,בית העמק,בית העמק,North,אזעקה; חבלה,https://mta.org.il/uploads/n/1730274797.1902.pdf
+2655,,,,,שיראל,גולן,שרה,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44247,,,,F,21,פורת,ישראל,אזרח,,died,2023-10-07,2024-10-20,פסטיבל נובה,פורת,Gaza,התאבדות,https://main.knesset.gov.il/news/pressreleases/pages/press11112024x.aspx
+1371,Giora,Duvdevani,,,גיורא,דובדבני,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43380,Talmei Yosef,General vicinity,Murdered,M,81,תלמי יוסף,ישראל,אזרח,,died,2023-10-10,2023-10-10,אילת,אילת,Gaza,אירוע לבבי,
+2667,Iris,Openshtein,,,איריס,אופנשטיין,,,,,,,F,,,ישראל,אזרח,,hostage; released,2023-10-07,,פסטיבל נובה; סמוך למכולות הצהובות,,Gaza,,https://www.facebook.com/story.php?story_fbid=8283502245065625&id=100002177949136&rdid=PD0ZJkfVx6NU26BC
+2710,,,,,חיה,מישאלי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44268,,,,F,75,,ישראל,אזרח,,died,,2024-09-04,,,,,
+2714,Salem,Alziadna,,,סאלם,אלזיאדנה,,,,Rahat,,,M,,רהט,ישראל,אזרח,,hostage; released,2023-10-07,,חולית,,Gaza,,https://www.710360.kan.org.il/holit/alziadana
+2715,Kunwong,Withawat,,,קונוונג,וויטאוואט,,,,,,,M,,,תאילנד,אזרח,,hostage; left for dead,2023-10-07,,חולית,,Gaza,,https://edition.cnn.com/2023/10/30/asia/thailand-hamas-survivors-intl-hnk
+2728,,,,,ניסים,זרקה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44060,,,,M,68,עפולה,ישראל,אזרח,,died,2024-10-01,2024-10-01,עפולה,עפולה,Iran,אזעקה; אירוע לבבי,https://www.ynet.co.il/health/article/b10d089rc
+2729,,,,,לימור,חדד,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44087,,,,F,56,גדרה,ישראל,אזרח,,died,2023-11-20,2023-11-20,צומת גינתון,"בי""ח אסף הרופא",Gaza,אזעקה; מפרצת,https://www.mako.co.il/news-military/6361323ddea5a810/Article-81e43b75f31fb81026.htm
+2730,Sommanas,Moolchot,,,סומאנאס,מולצ’וט,,,,,,,M,,,תאילנד,אזרח,,kidnapped; rescued,2023-10-07,,מפלסים,,Gaza,,https://www.haaretz.co.il/news/magazine/2024-05-24/ty-article-magazine/.premium/0000018f-a53a-d8a2-a3cf-a5bb6bb50000
+2731,Prabchandee,Tin,,,פרבצ’נדה,טין,,,,,,,M,43,,תאילנד,אזרח,,kidnapped; rescued,2023-10-07,,מפלסים,,Gaza,,https://www.haaretz.co.il/news/magazine/2024-05-24/ty-article-magazine/.premium/0000018f-a53a-d8a2-a3cf-a5bb6bb50000
+2732,Homkajon,Kraichit,,,הומקג’ון,קראיצ’יט,,,,,,,M,,,תאילנד,אזרח,,kidnapped; rescued,2023-10-07,,מפלסים,,Gaza,,https://www.haaretz.co.il/news/magazine/2024-05-24/ty-article-magazine/.premium/0000018f-a53a-d8a2-a3cf-a5bb6bb50000
+2733,Sichum,Teerayuth,,,סיצ’ון,טראיוט,,,,,,,M,32,,תאילנד,אזרח,,kidnapped; rescued,2023-10-07,,מפלסים,,Gaza,,https://www.haaretz.co.il/news/magazine/2024-05-24/ty-article-magazine/.premium/0000018f-a53a-d8a2-a3cf-a5bb6bb50000
+2734,Kaewchin,Saranyu,,,קאווצ’ין,סראניו,,,,,,,M,36,,תאילנד,אזרח,,kidnapped; rescued,2023-10-07,,מפלסים,,Gaza,,https://www.haaretz.co.il/news/magazine/2024-05-24/ty-article-magazine/.premium/0000018f-a53a-d8a2-a3cf-a5bb6bb50000
+2735,Chanaaene,Oatthawat,,,צ’אנאנה,אוטאוואט,,,,,,,M,,,תאילנד,אזרח,,kidnapped; rescued,2023-10-07,,מפלסים,,Gaza,,https://www.haaretz.co.il/news/magazine/2024-05-24/ty-article-magazine/.premium/0000018f-a53a-d8a2-a3cf-a5bb6bb50000
+2736,Wirawat,Thunnok,,,וויראוואט,טונוק,,,,,,,M,,,תאילנד,אזרח,,kidnapped; rescued,2023-10-07,,מפלסים,,Gaza,,https://www.haaretz.co.il/news/magazine/2024-05-24/ty-article-magazine/.premium/0000018f-a53a-d8a2-a3cf-a5bb6bb50000
+2777,,,,,ילנה,זדובסקי,,,,,,,F,51,כרמיאל,ישראל,אזרח,,died,2025-06-20,2025-06-20,כרמיאל,כרמיאל,Iran,אזעקה; אירוע לבבי,https://www.ynet.co.il/news/article/bk9jzgq4xx
+2043,Tamar,Torpiashvili,,,תמר,טורפיאשוילי,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=44034,,,,F,9,אשדוד,ישראל,אזרח,,died,2023-10-20,2023-10-27,אשדוד,אשדוד,Gaza,אזעקה; אירוע לבבי,https://www.ynet.co.il/news/article/s1i6bacna
+2787,,,,,עבדאללה,בחאש,,,,,,,M,14,קלנסווה,ישראל,אזרח,,died,2025-06-19,2025-06-19,מחלף נחשונים,מחלף נחשונים,Iran,אזעקה; תאונה,https://www.ynet.co.il/news/article/hkv1c5nnlg
+1420,Ziva,Ovitz,Colette,,זיוה,אוביץ,קולט,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=43371,Ami'oz,General vicinity,Murdered,F,76,עמיעוז,ישראל,אזרח,,died,2023-10-07,2023-10-11,עמיעוז,עמיעוז,Gaza,אזעקה; חבלה,https://x.com/GLZRadio/status/1749386435042406702
+2833,Rotem,Holin,,,רותם,הולין,,,,,,,F,45,כפר עזה,ישראל,אזרח,,hostage; released,2023-10-07,,כפר עזה,,Gaza,,https://www.edut710.org/copy-of-testimonies/rotem-holin-kfar-aza
+2834,Yarden,Holin,,,ירדן,הולין,,,,,,,M,7,כפר עזה,ישראל,אזרח,,hostage; released,2023-10-07,,כפר עזה,,Gaza,,https://www.edut710.org/copy-of-testimonies/rotem-holin-kfar-aza
+2835,Yuval,Holin,,,יובל,הולין,,,,,,,F,5,כפר עזה,ישראל,אזרח,,hostage; released,2023-10-07,,כפר עזה,,Gaza,,https://www.edut710.org/copy-of-testimonies/rotem-holin-kfar-aza
+2836,Esther,Cunio,,,אסתר,קוניו,,,,,,,F,90,ניר עוז,ישראל,אזרח,,hostage; released,2023-10-07,,ניר עוז,,Gaza,,https://www.mako.co.il/home-family-relationship/Article-e33a152d6991e81026.htm
+2837,May,Hayat,,,מאי,חייט,,,,,,,F,30,תל אביב,ישראל,אזרח,,kidnapped; released,2023-10-07,,פסטיבל נובה,,Gaza,,https://www.ynet.co.il/news/article/bk11cgvbb6
+2839,Daria,Karp,,,דריה,קרפ,,,,,,,F,10,רעים,ישראל,אזרח,,hostage; released,2023-10-07,,רעים,,Gaza,,https://www.idf.il/אתרי-יחידות/המחלקה-להיסטוריה/יסודות/יסודות-7/קרב-כיתת-הכוננות-של-קיבוץ-רעים
+2840,Lavie,Karp,,,לביא,קרפ,,,,,,,M,8,רעים,ישראל,אזרח,,hostage; released,2023-10-07,,רעים,,Gaza,,https://www.idf.il/אתרי-יחידות/המחלקה-להיסטוריה/יסודות/יסודות-7/קרב-כיתת-הכוננות-של-קיבוץ-רעים
+2841,Adi,Efrat,,,עדי,אפרת,,,,,,,F,,בארי,ישראל,אזרח,,kidnapped; rescued,2023-10-07,,בארי,,Gaza,,https://www.ynet.co.il/news/article/ryxr98zb6
+2842,Sandra,Cohen,,,סנדרה,כהן,,,,,,,F,,בארי,ישראל,אזרח,,kidnapped; rescued,2023-10-07,,בארי,,Gaza,,https://www.instagram.com/p/C1FYaXnojzw/
+2843,Liam,Cohen,,,ליאם,כהן,,,,,,,M,9,בארי,ישראל,אזרח,,kidnapped; rescued,2023-10-07,,בארי,,Gaza,,https://www.instagram.com/p/C1FYaXnojzw/
+2844,Dylan,Cohen,,,דילן,כהן,,,,,,,M,3,בארי,ישראל,אזרח,,kidnapped; rescued,2023-10-07,,בארי,,Gaza,,https://www.instagram.com/p/C1FYaXnojzw/
+2845,Binyamin,Bleacher,,,בנימין,בליצ’ר,,,,,,,M,68,ראשון לציון,ישראל,אזרח,,died,2024-12-21,,ראשון לציון,,Yemen,אזעקה; אירוע לבבי,https://www.ynet.co.il/news/article/bj4uhw4bkg
+2849,Avia,Margolin,,,אביה,מרגולין,,,,,,,F,22,נתניה,ישראל,אזרח,,kidnapped; escaped,2023-10-07,,פסטיבל נובה; קמפינג,,Gaza,,https://sfi.usc.edu/october7testimonies
+2850,Avishag,,,,אבישג,?,,שוגי,,,,,F,21,,ישראל,אזרח,,kidnapped; rescued,2023-10-07,,פסטיבל נובה; קמפינג,,Gaza,,https://sfi.usc.edu/october7testimonies
+2851,Tal,Shani,,,טל,שני,,,,,,,F,,בארי,ישראל,אזרח,,hostage; released,2023-10-07,,בארי,,Gaza,,https://www.kan.org.il/content/kan-news/defense/626545/
+2852,sister1,Shani,,,אמה,שני,,,,,,,F,,בארי,ישראל,אזרח,,hostage; released,2023-10-07,,בארי,,Gaza,,https://www.kan.org.il/content/kan-news/defense/626545/
+2853,sister2,Shani,,,רני,שני,,,,,,,F,,בארי,ישראל,אזרח,,hostage; released,2023-10-07,,בארי,,Gaza,,https://www.kan.org.il/content/kan-news/defense/626545/
+2856,,,,,ציפורה,ביטון,,ציפי,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=45641,,,,F,66,כרמיאל,ישראל,אזרח,,died,2025-06-19,2025-06-19,כרמיאל,כרמיאל,Iran,אזעקה; אירוע לבבי,https://www.ynet.co.il/news/article/bk9jzgq4xx
+2857,,,,,עידה,אבו מטשה,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=45640,,,,F,62,,ישראל,אזרח,,died,2024-10-01,2025-04-08,אל ע’נאמי,,Iran,אזעקה; תאונה,
+2860,,,,,טובה,זהבי,,,,,,,F,76,ניר עוז,ישראל,אזרח,,hostage; rescued,2023-10-07,,ניר עוז,,Gaza,,https://nir-oz.org.il/family/tova-zahavi/
+2861,,,,,עמית,רוזנבאום,,,,,,,F,,,ישראל,אזרח,,hostage; released,2023-10-07,,מיגונית בכניסה לרעים (מערב),,Gaza,,https://www.mako.co.il/news-military/6361323ddea5a810/Article-6314baa04172c81027.htm
+2862,,,,,גיא,ברדיצ’בסקי,,,,,,,M,0,כפר עזה,ישראל,אזרח,,hostage; released,2023-10-07,,כפר עזה; שכונה צפונית,,Gaza,,https://www.mako.co.il/news-israel/2023_q4/Article-cf9f497d5887b81027.htm
+2863,,,,,רועי,ברדיצ’בסקי,,,,,,,M,0,כפר עזה,ישראל,אזרח,,hostage; released,2023-10-07,,כפר עזה; שכונה צפונית,,Gaza,,https://www.mako.co.il/news-israel/2023_q4/Article-cf9f497d5887b81027.htm
+2865,,,,,קורן,תעסה,,,,,,,M,12,נתיב העשרה,ישראל,אזרח,,hostage; released,2023-10-07,,נתיב העשרה,,Gaza,,https://www.mako.co.il/news-israel/2024_q4/Article-c40057de0b06291027.htm
+2866,,,,,שי,תעסה,,,,,,,M,6,נתיב העשרה,ישראל,אזרח,,hostage; released,2023-10-07,,נתיב העשרה,,Gaza,,https://www.mako.co.il/news-israel/2024_q4/Article-c40057de0b06291027.htm
+2867,Daughter,Alziadna,,,בת,אלזיאדנה,,,,Rahat,,,F,,רהט,ישראל,אזרח,,hostage; released,2023-10-07,,חולית,,Gaza,,https://www.710360.kan.org.il/holit/alziadana
+2868,Sun 1,Alziadna,,,בן 1,אלזיאדנה,,,,Rahat,,,M,,רהט,ישראל,אזרח,,hostage; released,2023-10-07,,חולית,,Gaza,,https://www.710360.kan.org.il/holit/alziadana
+2869,Sun 2,Alziadna,,,בן 2,אלזיאדנה,,,,Rahat,,,M,,רהט,ישראל,אזרח,,hostage; released,2023-10-07,,חולית,,Gaza,,https://www.710360.kan.org.il/holit/alziadana
+2870,,,,,אנונימי,אנונימי,,,,,,,M,,,ישראל,אזרח,,hostage; released,2023-10-07,,צומת כיסופים,,Gaza,,https://geoconfirmed.org/7oct/b9622670-3a0b-4b5e-a42d-336c21597b1e
+2871,,,,,אנונימי1,אנונימי1,,,,,,,M,,,ישראל,אזרח,,hostage; released,2023-10-07,,פסטיבל נובה,,Gaza,,https://www.youtube.com/watch?v=y31PYw8H1RQ
+2874,,,,,רועי,שלו,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=45651,,,,M,30,ניצני עוז,ישראל,אזרח,,died,2023-10-07,2025-10-10,פסטיבל נובה; כביש 232,סמוך לאודים,Gaza,התאבדות,https://www.mako.co.il/news-israel/2025_q4/Article-d1f6936909fc991026.htm
+2875,,,,,אליהו,שלוש,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=45663,,,,M,93,חיפה,ישראל,אזרח,,died,2025-06-24,2025-07-23,חיפה,,Iran,אזעקה; סיבה לא צויינה,
+2876,,,,,יצחק,בן סעדון,,,https://laad.btl.gov.il/Web/He/TerrorVictims/Page/Default.aspx?ID=45653,,,,M,78,תל אביב,ישראל,אזרח,,died,2023-10-27,2024-01-14,תל אביב,,Gaza,,
