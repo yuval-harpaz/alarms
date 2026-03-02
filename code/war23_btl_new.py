@@ -25,7 +25,7 @@ ID = ID + [int(id.split('.aspx?ID=')[-1]) for id in add['הנצחה'].values if 
 maxID = np.max(ID)
 minID = np.min(ID)
 # bad = [43753]
-bad = [44144, 44172, 44200, 44210, 44251, 44270, 44271, 44272, 45638, 45639]
+bad = [44144, 44172, 44200, 44210, 44251, 44270, 44271, 44272, 45638, 45639, 45655, 45657, 45662]
 browser = webdriver.Chrome()
 difs = []
 count = -1
