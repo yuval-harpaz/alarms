@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
+
 <head>
   <meta charset="UTF-8">
   <title>Rocket Victims</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon"      href="logo.png">
+  <link rel="icon" href="logo.png">
   <!-- Leaflet and UI Styles -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
-  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css" />
 
   <style>
     #map {
       height: 100vh;
       width: 100%;
     }
+
     #floating-title {
       position: absolute;
       top: 10px;
@@ -28,7 +32,7 @@
       border-radius: 6px;
       font-size: 1.4em;
       font-weight: 500;
-      box-shadow: 0 0 4px rgba(0,0,0,0.2);
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
       z-index: 1000;
       direction: rtl;
       text-align: center;
@@ -45,232 +49,280 @@
     #floating-title a:hover {
       text-decoration: underline;
     }
+
     .legend {
       background: white;
       padding: 8px 12px;
       font-size: 1.5em;
       line-height: 1.6;
       border-radius: 6px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     }
+
     @media (max-width: 600px) {
       .legend {
         font-size: 1.8em;
       }
     }
+
     .legend span {
       font-weight: bold;
     }
+
     .leaflet-control-attribution {
       background: transparent !important;
-      font-size: 14px; /* Optional: make it larger */
-      color: black;    /* Optional: change text color for contrast */
-      text-shadow: 0 0 3px white; /* Optional: improve readability on complex tiles */
+      font-size: 14px;
+      /* Optional: make it larger */
+      color: black;
+      /* Optional: change text color for contrast */
+      text-shadow: 0 0 3px white;
+      /* Optional: improve readability on complex tiles */
     }
-    
   </style>
 </head>
+
 <body>
-<div id="floating-title">
-  מפת ההרוגים מירי רקטות וטילים<br>
-  <a href="https://oct7database.com" target="_blank">oct7database.com</a>
-</div>
-<div id="map"></div>
+  <div id="floating-title">
+    מפת ההרוגים מירי רקטות וטילים<br>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+      <a href="https://oct7database.com" target="_blank"
+        style="display: inline-block; margin-top: 0;">oct7database.com</a>
+      <a href="#" onclick="downloadXLSX(); return false;" title="הורדת נתונים כ-XLSX"
+        style="display: inline-block; margin-top: 0; color: #28a745; font-size: 0.9em;">
+        <i class="fa-solid fa-file-excel"></i>
+      </a>
+    </div>
+  </div>
+  <div id="map"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
-<script>
-function isMobile() {
-  return /Mobi|Android/i.test(navigator.userAgent);
-}
-const map = L.map('map').setView([31.5, 34.75], 8);
-// Tile layer
-L.tileLayer('https://cdnil.govmap.gov.il/xyz/heb/{z}/{x}/{y}.png', {
-  attribution: '© המרכז למיפוי ישראל www.govmap.gov.il'}).addTo(map);
-  
-//L.tileLayer(
-//  "https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
-//  {
-//    attribution: "© Esri, HERE, Garmin, FAO, NOAA, USGS",
-//    maxZoom: 19
-//  }
-//).addTo(map);
-//
-//// Hebrew label overlay
-//L.tileLayer(
-//  "https://services.arcgisonline.com/ArcGIS/rest/services/World_Hebrew_Labels/MapServer/tile/{z}/{y}/{x}",
-//  {
-//    attribution: "© Esri",
-//    maxZoom: 19,
-//    opacity: 1.0
-//  }
-//).addTo(map);
-// Color by front
-const frontColors = {
-  'Gaza': 'red',
-  'Iran': 'black',
-  'North': 'green',
-  'Yemen': 'brown'
-};
-
-// ------------  MAIN DATA LOADING  -----------------
-Promise.all([
-  fetch('https://raw.githubusercontent.com/yuval-harpaz/alarms/master/data/oct7database.csv').then(r => r.text()),
-  fetch('https://raw.githubusercontent.com/yuval-harpaz/alarms/master/data/coord.csv').then(r => r.text()),
-  fetch('https://raw.githubusercontent.com/yuval-harpaz/alarms/master/data/coord_deaths.csv').then(r => r.text()),
-  // NEW – additional accidents related to siren alerts
-  fetch('https://raw.githubusercontent.com/yuval-harpaz/alarms/master/data/oct7database_additional.csv').then(r => r.text())
-]).then(([victimsCsv, coordCsv, coordDeathsCsv, additionalCsv]) => {
-  // ----------  PARSING  ------------
-  const victims    = Papa.parse(victimsCsv,    { header: true, skipEmptyLines: true }).data;
-  const coords1    = Papa.parse(coordCsv,      { header: true, skipEmptyLines: true }).data;
-  const coords2    = Papa.parse(coordDeathsCsv,{ header: true, skipEmptyLines: true }).data;
-  const additional = Papa.parse(additionalCsv, { header: true, skipEmptyLines: true }).data;
-
-  // ----------  BUILD COORD MAP (coord.csv overrides coord_deaths.csv)  --------
-  const coordMap = {};
-  coords2.forEach(row => {
-    const loc = row.loc?.trim();
-    if (loc) {
-      coordMap[loc] = {
-        lat: parseFloat(row.lat),
-        lng: parseFloat(row.long)
-      };
+  <script>
+    function isMobile() {
+      return /Mobi|Android/i.test(navigator.userAgent);
     }
-  });
-  coords1.forEach(row => {
-    const loc = row.loc?.trim();
-    if (!loc) return;
-    if (loc === 'אבו קרינאת') {
-      coordMap[loc] = { lat: 31.264096522856367, lng: 35.00647214289169 };
-    } else {
-      coordMap[loc] = {
-        lat: parseFloat(row.lat),
-        lng: parseFloat(row.long)
+    const map = L.map('map').setView([31.5, 34.75], 8);
+    // Tile layer
+    L.tileLayer('https://cdnil.govmap.gov.il/xyz/heb/{z}/{x}/{y}.png', {
+      attribution: '© המרכז למיפוי ישראל www.govmap.gov.il'
+    }).addTo(map);
+
+    //L.tileLayer(
+    //  "https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
+    //  {
+    //    attribution: "© Esri, HERE, Garmin, FAO, NOAA, USGS",
+    //    maxZoom: 19
+    //  }
+    //).addTo(map);
+    //
+    //// Hebrew label overlay
+    //L.tileLayer(
+    //  "https://services.arcgisonline.com/ArcGIS/rest/services/World_Hebrew_Labels/MapServer/tile/{z}/{y}/{x}",
+    //  {
+    //    attribution: "© Esri",
+    //    maxZoom: 19,
+    //    opacity: 1.0
+    //  }
+    //).addTo(map);
+    // Color by front
+    const frontColors = {
+      'Gaza': 'red',
+      'Iran': 'black',
+      'North': 'green',
+      'Yemen': 'brown'
+    };
+
+    // ------------  MAIN DATA LOADING  -----------------
+    Promise.all([
+      fetch('https://raw.githubusercontent.com/yuval-harpaz/alarms/master/data/oct7database.csv').then(r => r.text()),
+      fetch('https://raw.githubusercontent.com/yuval-harpaz/alarms/master/data/coord.csv').then(r => r.text()),
+      fetch('https://raw.githubusercontent.com/yuval-harpaz/alarms/master/data/coord_deaths.csv').then(r => r.text()),
+      // NEW – additional accidents related to siren alerts
+      fetch('https://raw.githubusercontent.com/yuval-harpaz/alarms/master/data/oct7database_additional.csv').then(r => r.text())
+    ]).then(([victimsCsv, coordCsv, coordDeathsCsv, additionalCsv]) => {
+      // ----------  PARSING  ------------
+      const victims = Papa.parse(victimsCsv, { header: true, skipEmptyLines: true }).data;
+      const coords1 = Papa.parse(coordCsv, { header: true, skipEmptyLines: true }).data;
+      const coords2 = Papa.parse(coordDeathsCsv, { header: true, skipEmptyLines: true }).data;
+      const additional = Papa.parse(additionalCsv, { header: true, skipEmptyLines: true }).data;
+
+      // ----------  XLSX DOWNLOAD LOGIC  ------------
+      window.downloadXLSX = function () {
+        const rocketVictims = victims.filter(v => v['סיבת המוות'] === 'רקטה');
+        const interceptorVictims = victims.filter(v => v['סיבת המוות'] === 'מיירט');
+        const sirenVictims = additional.filter(v => /;?אזעקה/.test(v['סיבת המוות'] || ''));
+
+        const allData = [...rocketVictims, ...interceptorVictims, ...sirenVictims];
+
+        const exportData = allData.map(v => {
+          const eventDate = v['Event date'] || v['Death date'] || '';
+          return {
+            'ID (pid)': v.pid || '',
+            'תאריך האירוע': eventDate,
+            'שם פרטי': v['שם פרטי'] || '',
+            'שם משפחה': v['שם משפחה'] || '',
+            'מקום האירוע': v['מקום האירוע'] || '',
+            'חזית': v['front'] || '',
+            'סיבת המוות': v['סיבת המוות'] || ''
+          };
+        }).sort((a, b) => (a['תאריך האירוע'] || '').localeCompare(b['תאריך האירוע'] || ''));
+
+        if (exportData.length === 0) {
+          alert('אין נתונים להורדה');
+          return;
+        }
+
+        const ws = XLSX.utils.json_to_sheet(exportData);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Rocket Victims Data");
+        XLSX.writeFile(wb, "rocket_victims_data.xlsx");
       };
-    }
-  });
 
-  // ---------------  ROCKET VICTIMS (original data)  -----------------
-  const counts = {};
-  const missingLocations = new Set();
-  const basic_size = isMobile() ? 6 : 3;
-  const frontTotals = {
-    'Gaza': 0,
-    'Iran': 0,
-    'North': 0,
-    'Yemen': 0
-  };
-  victims.forEach(row => {
-    if (row['סיבת המוות'] !== 'רקטה') return; // Only rocket casualties
-    const place = row['מקום האירוע']?.split(';')[0]?.trim();
-    const front = row['front']?.trim();
-    frontTotals[front]++
-    if (!place || !front) return;
-    if (!coordMap[place]) { missingLocations.add(place); return; }
-    const key = `${place}__${front}`;
-    counts[key] = (counts[key] || 0) + 1;
-  });
-  const sirenTotal = additional.filter(row => /;?אזעקה/.test(row['סיבת המוות'] || '')).length;
-  const interceptTotal = victims.filter(row => row['סיבת המוות']?.trim() === 'מיירט').length;
-  // Draw grouped rockets markers (skip South Lebanon)
-  Object.entries(counts).forEach(([key, count]) => {
-    const [place, front] = key.split('__');
-    if (place === 'דרום לבנון') return;  // Exclude South Lebanon
+      // ----------  BUILD COORD MAP (coord.csv overrides coord_deaths.csv)  --------
+      const coordMap = {};
+      coords2.forEach(row => {
+        const loc = row.loc?.trim();
+        if (loc) {
+          coordMap[loc] = {
+            lat: parseFloat(row.lat),
+            lng: parseFloat(row.long)
+          };
+        }
+      });
+      coords1.forEach(row => {
+        const loc = row.loc?.trim();
+        if (!loc) return;
+        if (loc === 'אבו קרינאת') {
+          coordMap[loc] = { lat: 31.264096522856367, lng: 35.00647214289169 };
+        } else {
+          coordMap[loc] = {
+            lat: parseFloat(row.lat),
+            lng: parseFloat(row.long)
+          };
+        }
+      });
 
-    const coord = coordMap[place];
-    const color = frontColors[front] || 'gray';
+      // ---------------  ROCKET VICTIMS (original data)  -----------------
+      const counts = {};
+      const missingLocations = new Set();
+      const basic_size = isMobile() ? 6 : 3;
+      const frontTotals = {
+        'Gaza': 0,
+        'Iran': 0,
+        'North': 0,
+        'Yemen': 0
+      };
+      victims.forEach(row => {
+        if (row['סיבת המוות'] !== 'רקטה') return; // Only rocket casualties
+        const place = row['מקום האירוע']?.split(';')[0]?.trim();
+        const front = row['front']?.trim();
+        frontTotals[front]++
+        if (!place || !front) return;
+        if (!coordMap[place]) { missingLocations.add(place); return; }
+        const key = `${place}__${front}`;
+        counts[key] = (counts[key] || 0) + 1;
+      });
+      const sirenTotal = additional.filter(row => /;?אזעקה/.test(row['סיבת המוות'] || '')).length;
+      const interceptTotal = victims.filter(row => row['סיבת המוות']?.trim() === 'מיירט').length;
+      // Draw grouped rockets markers (skip South Lebanon)
+      Object.entries(counts).forEach(([key, count]) => {
+        const [place, front] = key.split('__');
+        if (place === 'דרום לבנון') return;  // Exclude South Lebanon
 
-    // Victims popup
-    const locationVictims = victims.filter(v => (
-      v['סיבת המוות'] === 'רקטה' &&
-      v['מקום האירוע']?.split(';')[0]?.trim() === place &&
-      v['front']?.trim() === front
-    ));
-    const popupFontSize = isMobile() ? '1.6em' : '1.3em';
-    let popup = `<div dir="rtl" style="text-align: right; font-size: ${popupFontSize};">
+        const coord = coordMap[place];
+        const color = frontColors[front] || 'gray';
+
+        // Victims popup
+        const locationVictims = victims.filter(v => (
+          v['סיבת המוות'] === 'רקטה' &&
+          v['מקום האירוע']?.split(';')[0]?.trim() === place &&
+          v['front']?.trim() === front
+        ));
+        const popupFontSize = isMobile() ? '1.6em' : '1.3em';
+        let popup = `<div dir="rtl" style="text-align: right; font-size: ${popupFontSize};">
       ${place} (${front})<br>מס' הרוגים: ${count}<hr style="margin: 5px 0;">`;
-    locationVictims.forEach(v => {
-      const fn = v['שם פרטי'] || '';
-      const ln = v['שם משפחה'] || '';
-      if (fn || ln) popup += `${fn} ${ln}<br>`;
-    });
-    popup += '</div>';
+        locationVictims.forEach(v => {
+          const fn = v['שם פרטי'] || '';
+          const ln = v['שם משפחה'] || '';
+          if (fn || ln) popup += `${fn} ${ln}<br>`;
+        });
+        popup += '</div>';
 
-    L.circleMarker([coord.lat, coord.lng], {
-      radius: basic_size + count,
-      fillColor: color,
-      color: color,
-      weight: 1,
-      opacity: 1,
-      fillOpacity: 0.7
-    }).addTo(map).bindPopup(popup);
-  });
-  // ---------------  INTERCEPTOR-RELATED CASUALTIES (blue markers) ---------------
-  const interceptCases = victims.filter(row => row['סיבת המוות']?.trim() === 'מיירט');
-  interceptCases.forEach(row => {
-    // let place = row['מקום האירוע']?.split(';')[0]?.trim(); no split to capture Ninja Park
-    let place = row['מקום האירוע'].trim();
-    // console.log(place)
-    if (!place) return;
-    if (!coordMap[place]) { missingLocations.add(place); return; }
+        L.circleMarker([coord.lat, coord.lng], {
+          radius: basic_size + count,
+          fillColor: color,
+          color: color,
+          weight: 1,
+          opacity: 1,
+          fillOpacity: 0.7
+        }).addTo(map).bindPopup(popup);
+      });
+      // ---------------  INTERCEPTOR-RELATED CASUALTIES (blue markers) ---------------
+      const interceptCases = victims.filter(row => row['סיבת המוות']?.trim() === 'מיירט');
+      interceptCases.forEach(row => {
+        // let place = row['מקום האירוע']?.split(';')[0]?.trim(); no split to capture Ninja Park
+        let place = row['מקום האירוע'].trim();
+        // console.log(place)
+        if (!place) return;
+        if (!coordMap[place]) { missingLocations.add(place); return; }
 
-    const fullName = `${(row['שם פרטי'] || '')} ${(row['שם משפחה'] || '')}`.trim();
+        const fullName = `${(row['שם פרטי'] || '')} ${(row['שם משפחה'] || '')}`.trim();
 
-    const popup = `<div dir="rtl" style="text-align: right; font-size: 1.3em;">
+        const popup = `<div dir="rtl" style="text-align: right; font-size: 1.3em;">
       ${place}<br>${fullName}</div>`;
 
-    L.circleMarker([coordMap[place].lat, coordMap[place].lng], {
-      radius: basic_size,
-      fillColor: 'blue',
-      color: 'blue',
-      weight: 1,
-      opacity: 1,
-      fillOpacity: 0.7
-    }).addTo(map).bindPopup(popup);
-  });
+        L.circleMarker([coordMap[place].lat, coordMap[place].lng], {
+          radius: basic_size,
+          fillColor: 'blue',
+          color: 'blue',
+          weight: 1,
+          opacity: 1,
+          fillOpacity: 0.7
+        }).addTo(map).bindPopup(popup);
+      });
 
-  // ---------------  SIREN‑RELATED CASUALTIES (orange markers)  ---------------
-  const sirenCases = additional.filter(row => /;?אזעקה/.test(row['סיבת המוות'] || ''));
-  // console.log(sirenCases)
-  sirenCases.forEach(row => {
-    let place = row['מקום האירוע']?.split(';')[0]?.trim();
-    if (!place) return;
-    if (!coordMap[place]) { missingLocations.add(place); return; }
+      // ---------------  SIREN‑RELATED CASUALTIES (orange markers)  ---------------
+      const sirenCases = additional.filter(row => /;?אזעקה/.test(row['סיבת המוות'] || ''));
+      // console.log(sirenCases)
+      sirenCases.forEach(row => {
+        let place = row['מקום האירוע']?.split(';')[0]?.trim();
+        if (!place) return;
+        if (!coordMap[place]) { missingLocations.add(place); return; }
 
-    // Extract description that is **not** the word "אזעקה"
-    let desc = '';
-    const parts = (row['סיבת המוות'] || '').split(';').map(s => s.trim());
-    if (parts.length === 2) {
-      desc = parts[0] === 'אזעקה' ? parts[1] : (parts[1] === 'אזעקה' ? parts[0] : parts[1]);
-    }
+        // Extract description that is **not** the word "אזעקה"
+        let desc = '';
+        const parts = (row['סיבת המוות'] || '').split(';').map(s => s.trim());
+        if (parts.length === 2) {
+          desc = parts[0] === 'אזעקה' ? parts[1] : (parts[1] === 'אזעקה' ? parts[0] : parts[1]);
+        }
 
-    let fullName = `${(row['שם פרטי'] || '')} ${(row['שם משפחה'] || '')}`.trim();
-    if (desc) fullName += `, ${desc}`;
+        let fullName = `${(row['שם פרטי'] || '')} ${(row['שם משפחה'] || '')}`.trim();
+        if (desc) fullName += `, ${desc}`;
 
-    const popup = `<div dir="rtl" style="text-align: right; font-size: 1.3em;">
+        const popup = `<div dir="rtl" style="text-align: right; font-size: 1.3em;">
       ${place}<br>${fullName}</div>`;
 
-    L.circleMarker([coordMap[place].lat, coordMap[place].lng], {
-      radius: basic_size,
-      fillColor: 'orange',
-      color: 'orange',
-      weight: 1,
-      opacity: 1,
-      fillOpacity: 0.7
-    }).addTo(map).bindPopup(popup);
-  });
+        L.circleMarker([coordMap[place].lat, coordMap[place].lng], {
+          radius: basic_size,
+          fillColor: 'orange',
+          color: 'orange',
+          weight: 1,
+          opacity: 1,
+          fillOpacity: 0.7
+        }).addTo(map).bindPopup(popup);
+      });
 
-  // ---------------  REPORT MISSING LOCATIONS  ------------------
-  if (missingLocations.size) {
-    console.warn('Missing coordinates for the following places:');
-    [...missingLocations].forEach(loc => console.warn(loc));
-  }
-  const legend = L.control({ position: 'topleft' });
-  legend.onAdd = function (map) {
-    const div = L.DomUtil.create('div', 'legend');
-    div.innerHTML = `
+      // ---------------  REPORT MISSING LOCATIONS  ------------------
+      if (missingLocations.size) {
+        console.warn('Missing coordinates for the following places:');
+        [...missingLocations].forEach(loc => console.warn(loc));
+      }
+      const legend = L.control({ position: 'topleft' });
+      legend.onAdd = function (map) {
+        const div = L.DomUtil.create('div', 'legend');
+        div.innerHTML = `
       <div dir="rtl" style="text-align: right;">
         <span style="color: red;">● עזה (${frontTotals['Gaza']})</span><br>
         <span style="color: green;">● לבנון (${frontTotals['North']})</span><br>
@@ -280,13 +332,14 @@ Promise.all([
         <span style="color: orange;">● אזעקה (${sirenTotal})</span>
       </div>
     `;
-    return div;
-  };
+        return div;
+      };
 
-legend.addTo(map);
-});
+      legend.addTo(map);
+    });
 
-</script>
+  </script>
 
 </body>
+
 </html>
