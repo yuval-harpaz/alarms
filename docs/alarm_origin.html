@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Alarm Origin Tool</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="logo.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- Date overlay --- */
+        #date-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #date-box {
+            background: #1e1e2e;
+            color: #cdd6f4;
+            border-radius: 12px;
+            padding: 28px 36px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        #date-box h2 {
+            margin-bottom: 14px;
+            font-size: 1.3em;
+        }
+
+        #date-input {
+            font-size: 1.1em;
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid #585b70;
+            background: #313244;
+            color: #cdd6f4;
+            direction: ltr;
+        }
+
+        #date-ok {
+            margin-top: 14px;
+            padding: 8px 28px;
+            font-size: 1.05em;
+            border: none;
+            border-radius: 6px;
+            background: #89b4fa;
+            color: #1e1e2e;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        #date-ok:hover {
+            background: #74c7ec;
+        }
+
+        /* --- Sidebar --- */
+        #sidebar {
+            width: 480px;
+            min-width: 380px;
+            background: #1e1e2e;
+            color: #cdd6f4;
+            display: flex;
+            flex-direction: column;
+            border-left: 2px solid #313244;
+        }
+
+        #sidebar-header {
+            padding: 10px 14px;
+            background: #181825;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        #sidebar-header h3 {
+            font-size: 1.05em;
+            flex: 1;
+        }
+
+        #download-btn {
+            padding: 6px 18px;
+            border: none;
+            border-radius: 6px;
+            background: #a6e3a1;
+            color: #1e1e2e;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.95em;
+        }
+
+        #download-btn:hover {
+            background: #94e2d5;
+        }
+
+        #checklist-wrap {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        #checklist {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85em;
+        }
+
+        #checklist thead {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+
+        #checklist th {
+            background: #313244;
+            padding: 6px 6px;
+            text-align: right;
+            border-bottom: 2px solid #585b70;
+            white-space: nowrap;
+        }
+
+        #checklist td {
+            padding: 4px 6px;
+            border-bottom: 1px solid #313244;
+            vertical-align: middle;
+        }
+
+        #checklist .col-id {
+            width: 50px;
+            text-align: center;
+            direction: ltr;
+        }
+
+        #checklist .col-time {
+            width: 110px;
+            direction: ltr;
+            font-size: 0.9em;
+            white-space: nowrap;
+        }
+
+        #checklist .col-desc {
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        #checklist .col-chk {
+            width: 30px;
+            text-align: center;
+        }
+
+        #checklist .col-origin {
+            width: 100px;
+        }
+
+        #checklist input[type=checkbox] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        #checklist input.origin-input {
+            width: 100%;
+            background: #313244;
+            border: 1px solid #585b70;
+            color: #cdd6f4;
+            padding: 3px 5px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        #checklist input.origin-input:focus {
+            border-color: #89b4fa;
+            outline: none;
+        }
+
+        /* color swatch next to checkbox */
+        .color-dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            vertical-align: middle;
+            margin-left: 4px;
+        }
+
+        /* --- Map --- */
+        #map {
+            flex: 1;
+        }
+
+        .leaflet-control-attribution {
+            background: transparent !important;
+            font-size: 13px;
+            color: black;
+            text-shadow: 0 0 3px white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Date prompt overlay -->
+    <div id="date-overlay">
+        <div id="date-box">
+            <h2>בחר תאריך התחלה</h2>
+            <input type="date" id="date-input" value="2026-02-28">
+            <br>
+            <button id="date-ok">אישור</button>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div id="sidebar" style="display:none;">
+        <div id="sidebar-header">
+            <h3>אירועים</h3>
+            <button id="download-btn">⬇ הורד CSV</button>
+        </div>
+        <div id="checklist-wrap">
+            <table id="checklist">
+                <thead>
+                    <tr>
+                        <th class="col-id">ID</th>
+                        <th class="col-time">זמן</th>
+                        <th class="col-desc">תיאור</th>
+                        <th class="col-chk">☑</th>
+                        <th class="col-origin">מקור</th>
+                    </tr>
+                </thead>
+                <tbody id="checklist-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Map -->
+    <div id="map"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script>
+        // ─── Color palette (12 distinct colours) ───
+        const PALETTE = [
+            '#e6194b', '#3cb44b', '#4363d8', '#f58231', '#911eb4',
+            '#42d4f4', '#f032e6', '#bfef45', '#fabed4', '#469990',
+            '#dcbeff', '#ffe119'
+        ];
+
+        // ─── Map setup ───
+        const map = L.map('map').setView([31.5, 34.75], 8);
+        L.tileLayer('https://cdnil.govmap.gov.il/xyz/heb/{z}/{x}/{y}.png', {
+            attribution: '© המרכז למיפוי ישראל www.govmap.gov.il'
+        }).addTo(map);
+
+        // ─── Globals ───
+        let filteredRows = [];   // all rows from startDate onward (for download)
+        let coordMap = {};       // city -> {lat, lng}
+        let idData = [];         // [{id, time, description, rows:[...]}, ...] unique IDs in order
+        let markerGroups = {};   // id -> L.layerGroup
+
+        // ─── Date OK ───
+        document.getElementById('date-ok').addEventListener('click', () => {
+            const startDate = document.getElementById('date-input').value; // "YYYY-MM-DD"
+            document.getElementById('date-overlay').style.display = 'none';
+            document.getElementById('sidebar').style.display = 'flex';
+            loadData(startDate);
+        });
+        document.getElementById('date-input').addEventListener('keydown', e => {
+            if (e.key === 'Enter') document.getElementById('date-ok').click();
+        });
+
+        // ─── Load & process ───
+        function loadData(startDate) {
+            Promise.all([
+                fetch('https://raw.githubusercontent.com/yuval-harpaz/alarms/master/data/alarms.csv').then(r => r.text()),
+                fetch('https://raw.githubusercontent.com/yuval-harpaz/alarms/master/data/coord.csv').then(r => r.text())
+            ]).then(([alarmsCsv, coordCsv]) => {
+                // Parse coords
+                const coords = Papa.parse(coordCsv, { header: true, skipEmptyLines: true }).data;
+                coords.forEach(r => {
+                    const loc = r.loc?.trim();
+                    if (loc) coordMap[loc] = { lat: parseFloat(r.lat), lng: parseFloat(r.long) };
+                });
+
+                // Parse alarms & filter by date
+                const allAlarms = Papa.parse(alarmsCsv, { header: true, skipEmptyLines: true }).data;
+                filteredRows = allAlarms.filter(r => r.time && r.time >= startDate);
+
+                // Build unique IDs (preserve order of first occurrence)
+                const idMap = new Map(); // id -> {id, time, description, rows}
+                filteredRows.forEach(r => {
+                    const id = r.id;
+                    if (!idMap.has(id)) {
+                        idMap.set(id, {
+                            id,
+                            time: r.time,
+                            description: r.description || '',
+                            rows: []
+                        });
+                    }
+                    idMap.get(id).rows.push(r);
+                });
+                idData = Array.from(idMap.values());
+
+                buildChecklist();
+            });
+        }
+
+        // ─── Build checklist table ───
+        function buildChecklist() {
+            const tbody = document.getElementById('checklist-body');
+            tbody.innerHTML = '';
+
+            idData.forEach((item, idx) => {
+                const color = PALETTE[idx % PALETTE.length];
+                const tr = document.createElement('tr');
+
+                // ID
+                const tdId = document.createElement('td');
+                tdId.className = 'col-id';
+                tdId.textContent = item.id;
+                tr.appendChild(tdId);
+
+                // Time (first occurrence)
+                const tdTime = document.createElement('td');
+                tdTime.className = 'col-time';
+                // show "MM-DD HH:MM"
+                const t = item.time; // "YYYY-MM-DD HH:MM:SS"
+                tdTime.textContent = t ? t.substring(5, 16) : '';
+                tdTime.title = t;
+                tr.appendChild(tdTime);
+
+                // Description
+                const tdDesc = document.createElement('td');
+                tdDesc.className = 'col-desc';
+                tdDesc.textContent = item.description;
+                tdDesc.title = item.description;
+                tr.appendChild(tdDesc);
+
+                // Checkbox + color dot
+                const tdChk = document.createElement('td');
+                tdChk.className = 'col-chk';
+                const cb = document.createElement('input');
+                cb.type = 'checkbox';
+                cb.dataset.id = item.id;
+                cb.dataset.color = color;
+                cb.addEventListener('change', onCheckChange);
+                const dot = document.createElement('span');
+                dot.className = 'color-dot';
+                dot.style.background = color;
+                tdChk.appendChild(cb);
+                tdChk.appendChild(dot);
+                tr.appendChild(tdChk);
+
+                // Origin input
+                const tdOrigin = document.createElement('td');
+                tdOrigin.className = 'col-origin';
+                const inp = document.createElement('input');
+                inp.type = 'text';
+                inp.className = 'origin-input';
+                inp.dataset.id = item.id;
+                inp.dataset.idx = idx;
+                // Pre-fill with existing origin if any (from first row)
+                const existingOrigin = item.rows[0]?.origin || '';
+                if (existingOrigin) inp.value = existingOrigin;
+                inp.addEventListener('keydown', onOriginKey);
+                tdOrigin.appendChild(inp);
+                tr.appendChild(tdOrigin);
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        // ─── Enter in origin cell → move to next ───
+        function onOriginKey(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const idx = parseInt(e.target.dataset.idx);
+                const next = document.querySelector(`.origin-input[data-idx="${idx + 1}"]`);
+                if (next) next.focus();
+            }
+        }
+
+        // ─── Checkbox toggle → show/hide markers ───
+        function onCheckChange(e) {
+            const id = e.target.dataset.id;
+            const color = e.target.dataset.color;
+
+            if (e.target.checked) {
+                showMarkers(id, color);
+            } else {
+                hideMarkers(id);
+            }
+        }
+
+        function showMarkers(id, color) {
+            if (markerGroups[id]) { markerGroups[id].addTo(map); return; }
+            const item = idData.find(d => d.id === id);
+            if (!item) return;
+            const lg = L.layerGroup();
+            const seen = new Set();
+            item.rows.forEach(r => {
+                const city = r.cities?.trim();
+                if (!city || seen.has(city)) return;
+                seen.add(city);
+                const c = coordMap[city];
+                if (!c) return;
+                const popupText = `<div dir="rtl" style="text-align:right;font-size:1.2em;">
+          <b>${city}</b><br>${r.time}<br>${r.description || ''}</div>`;
+                L.circleMarker([c.lat, c.lng], {
+                    radius: 6, fillColor: color, color: color,
+                    weight: 1, opacity: 1, fillOpacity: 0.75
+                }).bindPopup(popupText).addTo(lg);
+            });
+            markerGroups[id] = lg;
+            lg.addTo(map);
+        }
+
+        function hideMarkers(id) {
+            if (markerGroups[id]) {
+                map.removeLayer(markerGroups[id]);
+            }
+        }
+
+        // ─── Download ───
+        document.getElementById('download-btn').addEventListener('click', () => {
+            // Collect user origins: id -> text
+            const originById = {};
+            document.querySelectorAll('.origin-input').forEach(inp => {
+                const v = inp.value.trim();
+                if (v) originById[inp.dataset.id] = v;
+            });
+
+            // Build output rows
+            const outRows = filteredRows.map(r => {
+                const o = originById[r.id] || r.origin || '';
+                return { ...r, origin: o };
+            });
+
+            // CSV string
+            const header = 'time,cities,threat,id,description,origin';
+            const lines = [header];
+            outRows.forEach(r => {
+                const cities = r.cities.includes(',') ? `"${r.cities}"` : r.cities;
+                lines.push(`${r.time},${cities},${r.threat},${r.id},${r.description || ''},${r.origin}`);
+            });
+            const csv = lines.join('\n');
+
+            // Trigger download
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'alarms_origin.csv';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+
+</html>
