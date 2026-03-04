@@ -46,7 +46,13 @@
             font-size: 1.3em;
         }
 
-        #date-input {
+        #date-box .sub {
+            font-size: 0.85em;
+            color: #a6adc8;
+            margin-bottom: 10px;
+        }
+
+        #start-input {
             font-size: 1.1em;
             padding: 6px 10px;
             border-radius: 6px;
@@ -54,6 +60,8 @@
             background: #313244;
             color: #cdd6f4;
             direction: ltr;
+            width: 200px;
+            text-align: center;
         }
 
         #date-ok {
@@ -74,8 +82,8 @@
 
         /* --- Sidebar --- */
         #sidebar {
-            width: 480px;
-            min-width: 380px;
+            width: 520px;
+            min-width: 400px;
             background: #1e1e2e;
             color: #cdd6f4;
             display: flex;
@@ -97,19 +105,31 @@
             flex: 1;
         }
 
-        #download-btn {
-            padding: 6px 18px;
+        .header-btn {
+            padding: 6px 14px;
             border: none;
             border-radius: 6px;
-            background: #a6e3a1;
-            color: #1e1e2e;
             font-weight: 600;
             cursor: pointer;
-            font-size: 0.95em;
+            font-size: 0.9em;
+        }
+
+        #download-btn {
+            background: #a6e3a1;
+            color: #1e1e2e;
         }
 
         #download-btn:hover {
             background: #94e2d5;
+        }
+
+        #clear-btn {
+            background: #f38ba8;
+            color: #1e1e2e;
+        }
+
+        #clear-btn:hover {
+            background: #eba0ac;
         }
 
         #checklist-wrap {
@@ -157,7 +177,7 @@
         }
 
         #checklist .col-desc {
-            max-width: 120px;
+            max-width: 130px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -193,7 +213,35 @@
             outline: none;
         }
 
-        /* color swatch next to checkbox */
+        #checklist input.origin-input.locked {
+            background: #45475a;
+            color: #a6adc8;
+            cursor: default;
+        }
+
+        /* autocomplete dropdown */
+        .autocomplete-list {
+            position: absolute;
+            z-index: 100;
+            background: #313244;
+            border: 1px solid #585b70;
+            border-radius: 4px;
+            max-height: 150px;
+            overflow-y: auto;
+            font-size: 0.9em;
+        }
+
+        .autocomplete-list div {
+            padding: 4px 8px;
+            cursor: pointer;
+            color: #cdd6f4;
+        }
+
+        .autocomplete-list div:hover,
+        .autocomplete-list div.selected {
+            background: #585b70;
+        }
+
         .color-dot {
             display: inline-block;
             width: 12px;
@@ -203,7 +251,6 @@
             margin-left: 4px;
         }
 
-        /* --- Map --- */
         #map {
             flex: 1;
         }
@@ -218,11 +265,12 @@
 </head>
 
 <body>
-    <!-- Date prompt overlay -->
+    <!-- Date / ID prompt overlay -->
     <div id="date-overlay">
         <div id="date-box">
-            <h2>בחר תאריך התחלה</h2>
-            <input type="date" id="date-input" value="2026-02-28">
+            <h2>בחר תאריך התחלה או מזהה</h2>
+            <div class="sub">תאריך (YYYY-MM-DD) או מספר ID</div>
+            <input type="text" id="start-input" value="2026-02-28" placeholder="2026-02-28 or 5770">
             <br>
             <button id="date-ok">אישור</button>
         </div>
@@ -232,7 +280,8 @@
     <div id="sidebar" style="display:none;">
         <div id="sidebar-header">
             <h3>אירועים</h3>
-            <button id="download-btn">⬇ הורד CSV</button>
+            <button id="clear-btn" class="header-btn">נקה ☐</button>
+            <button id="download-btn" class="header-btn">⬇ הורד CSV</button>
         </div>
         <div id="checklist-wrap">
             <table id="checklist">
@@ -250,80 +299,119 @@
         </div>
     </div>
 
-    <!-- Map -->
     <div id="map"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
     <script>
-        // ─── Color palette (12 distinct colours) ───
         const PALETTE = [
             '#e6194b', '#3cb44b', '#4363d8', '#f58231', '#911eb4',
             '#42d4f4', '#f032e6', '#bfef45', '#fabed4', '#469990',
             '#dcbeff', '#ffe119'
         ];
 
-        // ─── Map setup ───
         const map = L.map('map').setView([31.5, 34.75], 8);
         L.tileLayer('https://cdnil.govmap.gov.il/xyz/heb/{z}/{x}/{y}.png', {
             attribution: '© המרכז למיפוי ישראל www.govmap.gov.il'
         }).addTo(map);
 
-        // ─── Globals ───
-        let filteredRows = [];   // all rows from startDate onward (for download)
-        let coordMap = {};       // city -> {lat, lng}
-        let idData = [];         // [{id, time, description, rows:[...]}, ...] unique IDs in order
-        let markerGroups = {};   // id -> L.layerGroup
+        let filteredRows = [];
+        let coordMap = {};
+        let idData = [];       // [{id, desc, time, rows:[...]}, ...] — may have composite keys
+        let markerGroups = {};
+        let userOrigins = {};  // track newly typed origins for autocomplete
 
-        // ─── Date OK ───
+        // ─── Start button ───
         document.getElementById('date-ok').addEventListener('click', () => {
-            const startDate = document.getElementById('date-input').value; // "YYYY-MM-DD"
+            const val = document.getElementById('start-input').value.trim();
             document.getElementById('date-overlay').style.display = 'none';
             document.getElementById('sidebar').style.display = 'flex';
-            loadData(startDate);
+            loadData(val);
         });
-        document.getElementById('date-input').addEventListener('keydown', e => {
+        document.getElementById('start-input').addEventListener('keydown', e => {
             if (e.key === 'Enter') document.getElementById('date-ok').click();
         });
 
+        // ─── Clear all checkboxes ───
+        document.getElementById('clear-btn').addEventListener('click', () => {
+            document.querySelectorAll('#checklist input[type=checkbox]').forEach(cb => {
+                if (cb.checked) {
+                    cb.checked = false;
+                    hideMarkers(cb.dataset.key);
+                }
+            });
+        });
+
         // ─── Load & process ───
-        function loadData(startDate) {
+        function loadData(startVal) {
             Promise.all([
                 fetch('https://raw.githubusercontent.com/yuval-harpaz/alarms/master/data/alarms.csv').then(r => r.text()),
                 fetch('https://raw.githubusercontent.com/yuval-harpaz/alarms/master/data/coord.csv').then(r => r.text())
             ]).then(([alarmsCsv, coordCsv]) => {
                 // Parse coords
-                const coords = Papa.parse(coordCsv, { header: true, skipEmptyLines: true }).data;
-                coords.forEach(r => {
+                Papa.parse(coordCsv, { header: true, skipEmptyLines: true }).data.forEach(r => {
                     const loc = r.loc?.trim();
                     if (loc) coordMap[loc] = { lat: parseFloat(r.lat), lng: parseFloat(r.long) };
                 });
 
-                // Parse alarms & filter by date
+                // Parse alarms
                 const allAlarms = Papa.parse(alarmsCsv, { header: true, skipEmptyLines: true }).data;
-                filteredRows = allAlarms.filter(r => r.time && r.time >= startDate);
 
-                // Build unique IDs (preserve order of first occurrence)
-                const idMap = new Map(); // id -> {id, time, description, rows}
+                // Determine if input is an ID (integer) or a date
+                const isId = /^\d+$/.test(startVal);
+                if (isId) {
+                    // find first occurrence of this ID, then take everything from that row's time onward
+                    const startId = startVal;
+                    const idRow = allAlarms.find(r => r.id === startId);
+                    if (idRow) {
+                        const startTime = idRow.time;
+                        filteredRows = allAlarms.filter(r => r.time && r.time >= startTime);
+                    } else {
+                        filteredRows = [];
+                    }
+                } else {
+                    filteredRows = allAlarms.filter(r => r.time && r.time >= startVal);
+                }
+
+                // Build unique IDs — split IDs that have both rockets and drones
+                const idMap = new Map(); // composite key "id__desc" -> {...}
                 filteredRows.forEach(r => {
                     const id = r.id;
-                    if (!idMap.has(id)) {
-                        idMap.set(id, {
-                            id,
-                            time: r.time,
-                            description: r.description || '',
-                            rows: []
+                    const desc = (r.description || '').trim();
+                    const key = id + '__' + desc;
+                    if (!idMap.has(key)) {
+                        idMap.set(key, { id, desc, time: r.time, rows: [] });
+                    }
+                    idMap.get(key).rows.push(r);
+                });
+
+                // Now merge back: if an id has only one description, keep it as-is.
+                // If it has multiple descriptions, keep them as separate rows.
+                // Group by id to check
+                const byId = new Map();
+                for (const [key, val] of idMap) {
+                    if (!byId.has(val.id)) byId.set(val.id, []);
+                    byId.get(val.id).push({ key, ...val });
+                }
+
+                idData = [];
+                for (const [id, entries] of byId) {
+                    if (entries.length === 1) {
+                        const e = entries[0];
+                        idData.push({ key: e.key, id: e.id, desc: e.desc, time: e.time, rows: e.rows });
+                    } else {
+                        // multiple descriptions for same id — separate rows
+                        entries.forEach(e => {
+                            idData.push({ key: e.key, id: e.id, desc: e.desc, time: e.time, rows: e.rows });
                         });
                     }
-                    idMap.get(id).rows.push(r);
-                });
-                idData = Array.from(idMap.values());
+                }
 
                 buildChecklist();
             });
         }
 
-        // ─── Build checklist table ───
+        // ─── Build checklist ───
         function buildChecklist() {
             const tbody = document.getElementById('checklist-body');
             tbody.innerHTML = '';
@@ -338,11 +426,10 @@
                 tdId.textContent = item.id;
                 tr.appendChild(tdId);
 
-                // Time (first occurrence)
+                // Time
                 const tdTime = document.createElement('td');
                 tdTime.className = 'col-time';
-                // show "MM-DD HH:MM"
-                const t = item.time; // "YYYY-MM-DD HH:MM:SS"
+                const t = item.time;
                 tdTime.textContent = t ? t.substring(5, 16) : '';
                 tdTime.title = t;
                 tr.appendChild(tdTime);
@@ -350,8 +437,8 @@
                 // Description
                 const tdDesc = document.createElement('td');
                 tdDesc.className = 'col-desc';
-                tdDesc.textContent = item.description;
-                tdDesc.title = item.description;
+                tdDesc.textContent = item.desc;
+                tdDesc.title = item.desc;
                 tr.appendChild(tdDesc);
 
                 // Checkbox + color dot
@@ -359,7 +446,7 @@
                 tdChk.className = 'col-chk';
                 const cb = document.createElement('input');
                 cb.type = 'checkbox';
-                cb.dataset.id = item.id;
+                cb.dataset.key = item.key;
                 cb.dataset.color = color;
                 cb.addEventListener('change', onCheckChange);
                 const dot = document.createElement('span');
@@ -372,15 +459,29 @@
                 // Origin input
                 const tdOrigin = document.createElement('td');
                 tdOrigin.className = 'col-origin';
+                tdOrigin.style.position = 'relative';
                 const inp = document.createElement('input');
                 inp.type = 'text';
                 inp.className = 'origin-input';
+                inp.dataset.key = item.key;
                 inp.dataset.id = item.id;
                 inp.dataset.idx = idx;
-                // Pre-fill with existing origin if any (from first row)
-                const existingOrigin = item.rows[0]?.origin || '';
-                if (existingOrigin) inp.value = existingOrigin;
+
+                // Pre-fill with existing origin from CSV
+                const existingOrigin = (item.rows[0]?.origin || '').trim();
+                if (existingOrigin) {
+                    inp.value = existingOrigin;
+                    inp.readOnly = true;
+                    inp.classList.add('locked');
+                    inp.title = 'מקור קיים - נעול';
+                }
+
                 inp.addEventListener('keydown', onOriginKey);
+                inp.addEventListener('input', onOriginInput);
+                inp.addEventListener('blur', () => {
+                    // delay to allow click on autocomplete item
+                    setTimeout(() => removeAutocomplete(inp), 150);
+                });
                 tdOrigin.appendChild(inp);
                 tr.appendChild(tdOrigin);
 
@@ -388,31 +489,109 @@
             });
         }
 
-        // ─── Enter in origin cell → move to next ───
+        // ─── Enter in origin → autocomplete or move down ───
         function onOriginKey(e) {
+            if (e.target.readOnly) return;
+            const inp = e.target;
+
+            // Handle autocomplete navigation
+            const list = inp.parentElement.querySelector('.autocomplete-list');
+            if (list) {
+                const items = list.querySelectorAll('div');
+                const sel = list.querySelector('.selected');
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    if (!sel && items.length) { items[0].classList.add('selected'); }
+                    else if (sel && sel.nextElementSibling) {
+                        sel.classList.remove('selected');
+                        sel.nextElementSibling.classList.add('selected');
+                    }
+                    return;
+                }
+                if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    if (sel && sel.previousElementSibling) {
+                        sel.classList.remove('selected');
+                        sel.previousElementSibling.classList.add('selected');
+                    }
+                    return;
+                }
+                if (e.key === 'Enter' && sel) {
+                    e.preventDefault();
+                    inp.value = sel.textContent;
+                    trackOrigin(inp.value);
+                    removeAutocomplete(inp);
+                    moveToNextOrigin(inp);
+                    return;
+                }
+            }
+
             if (e.key === 'Enter') {
                 e.preventDefault();
-                const idx = parseInt(e.target.dataset.idx);
-                const next = document.querySelector(`.origin-input[data-idx="${idx + 1}"]`);
-                if (next) next.focus();
+                trackOrigin(inp.value);
+                removeAutocomplete(inp);
+                moveToNextOrigin(inp);
             }
         }
 
-        // ─── Checkbox toggle → show/hide markers ───
+        function moveToNextOrigin(inp) {
+            const idx = parseInt(inp.dataset.idx);
+            const next = document.querySelector(`.origin-input[data-idx="${idx + 1}"]`);
+            if (next) next.focus();
+        }
+
+        function trackOrigin(val) {
+            val = val.trim();
+            if (val && !userOrigins[val]) userOrigins[val] = true;
+        }
+
+        // ─── Autocomplete on input ───
+        function onOriginInput(e) {
+            const inp = e.target;
+            if (inp.readOnly) return;
+            const val = inp.value.trim().toLowerCase();
+            removeAutocomplete(inp);
+            if (!val) return;
+
+            const keys = Object.keys(userOrigins);
+            const matches = keys.filter(k => k.toLowerCase().startsWith(val) && k.toLowerCase() !== val);
+            if (!matches.length) return;
+
+            const list = document.createElement('div');
+            list.className = 'autocomplete-list';
+            matches.forEach(m => {
+                const d = document.createElement('div');
+                d.textContent = m;
+                d.addEventListener('mousedown', () => {
+                    inp.value = m;
+                    trackOrigin(m);
+                    removeAutocomplete(inp);
+                });
+                list.appendChild(d);
+            });
+            inp.parentElement.appendChild(list);
+            // Position below input
+            list.style.top = (inp.offsetTop + inp.offsetHeight) + 'px';
+            list.style.left = inp.offsetLeft + 'px';
+            list.style.width = inp.offsetWidth + 'px';
+        }
+
+        function removeAutocomplete(inp) {
+            const list = inp.parentElement.querySelector('.autocomplete-list');
+            if (list) list.remove();
+        }
+
+        // ─── Checkbox toggle ───
         function onCheckChange(e) {
-            const id = e.target.dataset.id;
+            const key = e.target.dataset.key;
             const color = e.target.dataset.color;
-
-            if (e.target.checked) {
-                showMarkers(id, color);
-            } else {
-                hideMarkers(id);
-            }
+            if (e.target.checked) showMarkers(key, color);
+            else hideMarkers(key);
         }
 
-        function showMarkers(id, color) {
-            if (markerGroups[id]) { markerGroups[id].addTo(map); return; }
-            const item = idData.find(d => d.id === id);
+        function showMarkers(key, color) {
+            if (markerGroups[key]) { markerGroups[key].addTo(map); return; }
+            const item = idData.find(d => d.key === key);
             if (!item) return;
             const lg = L.layerGroup();
             const seen = new Set();
@@ -429,23 +608,24 @@
                     weight: 1, opacity: 1, fillOpacity: 0.75
                 }).bindPopup(popupText).addTo(lg);
             });
-            markerGroups[id] = lg;
+            markerGroups[key] = lg;
             lg.addTo(map);
         }
 
-        function hideMarkers(id) {
-            if (markerGroups[id]) {
-                map.removeLayer(markerGroups[id]);
-            }
+        function hideMarkers(key) {
+            if (markerGroups[key]) map.removeLayer(markerGroups[key]);
         }
 
         // ─── Download ───
         document.getElementById('download-btn').addEventListener('click', () => {
-            // Collect user origins: id -> text
+            // Collect user origins: id -> text (use the first non-empty per id)
+            // For split IDs (same id, different desc), user may set different origins
+            // but for the CSV we need one origin per id. Collect by id.
             const originById = {};
             document.querySelectorAll('.origin-input').forEach(inp => {
                 const v = inp.value.trim();
-                if (v) originById[inp.dataset.id] = v;
+                const id = inp.dataset.id;
+                if (v && !originById[id]) originById[id] = v;
             });
 
             // Build output rows
@@ -454,7 +634,6 @@
                 return { ...r, origin: o };
             });
 
-            // CSV string
             const header = 'time,cities,threat,id,description,origin';
             const lines = [header];
             outRows.forEach(r => {
@@ -463,7 +642,6 @@
             });
             const csv = lines.join('\n');
 
-            // Trigger download
             const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
