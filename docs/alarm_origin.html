@@ -360,9 +360,10 @@
                 // Determine if input is an ID (integer) or a date
                 const isId = /^\d+$/.test(startVal);
                 if (isId) {
-                    // find first occurrence of this ID, then take everything from that row's time onward
+                    // find first occurrence of this ID (only in new system, after 2023-03-08)
+                    const ID_EPOCH = '2023-03-08 03:04:19';
                     const startId = startVal;
-                    const idRow = allAlarms.find(r => r.id === startId);
+                    const idRow = allAlarms.find(r => r.id === startId && r.time >= ID_EPOCH);
                     if (idRow) {
                         const startTime = idRow.time;
                         filteredRows = allAlarms.filter(r => r.time && r.time >= startTime);
