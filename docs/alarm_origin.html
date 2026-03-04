@@ -321,6 +321,38 @@
         let markerGroups = {};
         let userOrigins = {};  // track newly typed origins for autocomplete
 
+        // ─── Pre-fill start point ───
+        (function initStartPoint() {
+            fetch('https://raw.githubusercontent.com/yuval-harpaz/alarms/master/data/alarms.csv')
+                .then(r => r.text())
+                .then(csv => {
+                    const alarms = Papa.parse(csv, { header: true, skipEmptyLines: true }).data;
+                    let lastFilledIdx = -1;
+                    alarms.forEach((r, idx) => {
+                        if (r.origin && r.origin.trim()) {
+                            lastFilledIdx = idx;
+                        }
+                    });
+
+                    // Search for the first row after lastFilledIdx that has a different ID or is new
+                    let targetId = "2026-03-01"; // Fallback
+                    if (lastFilledIdx !== -1) {
+                        const lastFilledId = alarms[lastFilledIdx].id;
+                        // Find first index where ID changes or we reach end after lastFilledIdx
+                        let nextEmptyIdx = lastFilledIdx + 1;
+                        while (nextEmptyIdx < alarms.length && alarms[nextEmptyIdx].id === lastFilledId) {
+                            nextEmptyIdx++;
+                        }
+                        if (nextEmptyIdx < alarms.length) {
+                            targetId = alarms[nextEmptyIdx].id;
+                        }
+                    } else if (alarms.length > 0) {
+                        targetId = alarms[0].id;
+                    }
+                    document.getElementById('start-input').value = targetId;
+                });
+        })();
+
         // ─── Start button ───
         document.getElementById('date-ok').addEventListener('click', () => {
             const val = document.getElementById('start-input').value.trim();
@@ -493,6 +525,28 @@
 
                 tbody.appendChild(tr);
             });
+
+            focusDefaultOrigin();
+        }
+
+        // ─── Focus first empty after last filled ───
+        function focusDefaultOrigin() {
+            let lastFilledIdx = -1;
+            idData.forEach((item, idx) => {
+                const origins = [...new Set(item.rows.map(r => (r.origin || '').trim()).filter(Boolean))];
+                if (origins.length > 0) {
+                    lastFilledIdx = idx;
+                }
+            });
+
+            const targetIdx = lastFilledIdx + 1;
+            const targetInp = document.querySelector(`.origin-input[data-idx="${targetIdx}"]`) ||
+                document.querySelector(`.origin-input[data-idx="0"]`);
+
+            if (targetInp) {
+                targetInp.focus();
+                targetInp.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
         }
 
         // ─── Enter in origin → autocomplete or move down ───
