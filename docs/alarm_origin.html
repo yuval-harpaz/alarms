@@ -469,12 +469,17 @@
                 inp.dataset.idx = idx;
 
                 // Pre-fill with existing origin from CSV
-                const existingOrigin = (item.rows[0]?.origin || '').trim();
-                if (existingOrigin) {
-                    inp.value = existingOrigin;
+                const origins = [...new Set(item.rows.map(r => (r.origin || '').trim()).filter(Boolean))];
+                if (origins.length === 1) {
+                    inp.value = origins[0];
                     inp.readOnly = true;
                     inp.classList.add('locked');
                     inp.title = 'מקור קיים - נעול';
+                } else if (origins.length > 1) {
+                    inp.value = '';
+                    inp.readOnly = true;
+                    inp.classList.add('locked');
+                    inp.title = 'מקורות שונים: ' + origins.join(', ');
                 }
 
                 inp.addEventListener('keydown', onOriginKey);
