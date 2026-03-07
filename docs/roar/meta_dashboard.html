@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>War Data Dashboards | מרכז נתוני מלחמה</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: rgba(22, 27, 34, 0.8);
+            --card-border: rgba(48, 54, 61, 0.8);
+            --text-color: #c9d1d9;
+            --accent-color: #58a6ff;
+            --hover-bg: rgba(33, 38, 45, 0.9);
+            --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            backdrop-filter: blur(4px);
+            box-shadow: var(--shadow);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            background: var(--hover-bg);
+            border-color: var(--accent-color);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-logo {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px;
+        }
+
+        .card h2 {
+            margin: 0;
+            font-size: 1.3rem;
+            color: var(--accent-color);
+            line-height: 1.2;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            flex-grow: 1;
+            margin: 0.5rem 0 1.5rem 0;
+        }
+
+        .card .url {
+            font-size: 0.8rem;
+            opacity: 0.5;
+            word-break: break-all;
+            border-top: 1px solid var(--card-border);
+            padding-top: 1rem;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.6;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>War Data Dashboards</h1>
+        <div class="subtitle">ריכוז לוחות בקרה ונתוני מלחמה</div>
+    </header>
+
+    <main class="dashboard-grid" id="dashboardGrid">
+        <!-- Cards will be injected here -->
+    </main>
+
+    <footer>
+        &copy; 2026 War Data Central Hub
+    </footer>
+
+    <script>
+        // EDIT THIS LIST TO ADD/REMOVE DASHBOARDS
+        const dashboards = [
+            {
+                title: "פיקוד העורף",
+                description: "רשימת התרעות לפי זמן ומקום, כולל התרעות מקדימות והתרעות סיום אירוע.",
+                url: "https://www.oref.org.il/heb/alerts-history",
+                logo: "https://www.oref.org.il/media/0amf2re1/artboard-1-1.png"
+            },
+            {
+                title: "צופר - ניתוח התרעות",
+                description: "ניתוח היסטורי של התרעות צבע אדום בישראל, כולל מפות סטטיסטיות ופילוח לפי מיקום וזמן.",
+                url: "https://www.tzevaadom.co.il/historical/",
+                logo: "https://www.tzevaadom.co.il/static/images/icon.png"
+            },
+            {
+                title: "אזעקות לפי תקופה (מפת חום)",
+                description: "תצוגת מפת חום המראה את ריכוז ותדירות האזעקות לאורך זמן מתחילת המלחמה.",
+                url: "https://oct7database.com/heatmap_by_time.html",
+                logo: "https://oct7database.com/logo.png"
+            },
+            {
+                title: "התפלגות אזעקות לפי שעה ודקה",
+                description: "נתונים סטטיסטיים על התפלגות האזעקות לפי שעות היממה ודקות ספציפיות.",
+                url: "https://oct7database.com/alarms_distribution_min.html",
+                logo: "https://oct7database.com/logo.png"
+            },
+            {
+                title: "אזעקות במלחמת חרבות ברזל",
+                description: "מאגר נתונים אינטראקטיבי המאפשר סינון לפי תאריכים ומיקומים עם גרפי התפלגות.",
+                url: "https://app.simplerstory.com/story/xrDv58PbV?tw",
+                logo: "https://www.simplerstory.com/assets/simpler_logo_title.svg"
+            },
+            {
+                title: "?אפשר להתקלח",
+                description: "כלי הערכת סיכונים בזמן אמת המחשב את ההסתברות לאזעקה במהלך המקלחת.",
+                url: "https://canishower.com/",
+                logo: "https://canishower.com/favicon.ico"
+            }
+        ];
+
+        const grid = document.getElementById('dashboardGrid');
+
+        dashboards.forEach(dash => {
+            const card = document.createElement('a');
+            card.className = 'card';
+            card.href = dash.url;
+            card.target = '_blank';
+
+            card.innerHTML = `
+                <div>
+                    <div class="card-header">
+                        <img src="${dash.logo}" alt="Logo" class="card-logo" onerror="this.style.display='none'">
+                        <h2>${dash.title}</h2>
+                    </div>
+                    <p>${dash.description}</p>
+                </div>
+                <div class="url">${dash.url}</div>
+            `;
+
+            grid.appendChild(card);
+        });
+    </script>
+</body>
+
+</html>
