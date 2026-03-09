@@ -14,9 +14,9 @@ if os.path.isdir(local):
 
 def db2map(save=True, what='loc'):
     """
-    copy fields from oct7database.csv to oct_7_0.csv
+    copy fields from oct7database.csv to oct_7_9.csv
     :param save: bool
-        True for saving to oct_7_0.csv
+        True for saving to oct_7_9.csv
     :param what: str
         'all', 'date', 'loc'
     :return: df
@@ -117,7 +117,20 @@ def fix_nli():
         with open('data/oct7database.csv', 'w', encoding='utf-8') as f:
             f.write(content)
             print('Fixed triple quotes in CSV file')
-    
+
+
+def intize():
+    with open('data/oct7database.csv', 'r', encoding='utf-8') as f:
+        content = f.read()
+    if '.0,' in content:
+        content = content.replace('.0,', ',')
+        with open('data/oct7database.csv', 'w', encoding='utf-8') as f:
+            f.write(content)
+            print('Fixed .0, in CSV file')
+    else:
+        print('no .0, in CSV file')
+
+
 def compare_nli(compare_to='~/Documents/NLI 4 oct7database - manual.csv'):
     """
     compare the NLI IDs in oct7database.csv and NLI 4 oct7database - manual.csv
@@ -239,7 +252,7 @@ def eng_loc(heb_empties=True):
 if __name__ == '__main__':
     args = sys.argv
     if len(args) == 1:
-        print('use --db2map or --fix_nli, no other tools yet')
+        print('use --db2map or --fix_nli, --intize, no other tools yet')
     elif args[1] == '--db2map':
         db2map(save=True, what='loc')
     elif args[1] == '--fix_nli':
@@ -247,5 +260,7 @@ if __name__ == '__main__':
         # raise DeprecationWarning('use --fill_nli instead')
     elif args[1] == '--fill_nli':
         fill_nli()
+    elif args[1] == '--intize':
+        intize()
     else:
         raise ValueError(f"unknown input argument {args[1]}")

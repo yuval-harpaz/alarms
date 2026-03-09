@@ -6,7 +6,7 @@ import Levenshtein
 import re
 import os
 # import re
-local = '/home/innereye/alarms/'
+local = '/home/yuval/alarms/'
 # islocal = False
 do_ynet = False
 try:
