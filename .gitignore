@@ -21,3 +21,4 @@ downloads
 .github/copilot-instructions.md
 .venv
 docs/align_map.html
+alerts.log
