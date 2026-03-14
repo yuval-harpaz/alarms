@@ -3,7 +3,11 @@
 <body>
   <pre id="out">Loading...</pre>
   <script>
-    fetch("https://alarms25.yuvharpaz.workers.dev/api/stats/history?category=missiles&cityName=גדרה&startDate=2026-03-09T00:00:00Z&endDate=2026-03-10T23:59:59Z&sort=timestamp&order=asc&limit=100")
+    fetch("https://redalert.orielhaim.com/api/stats/history?category=missiles&cityName=גדרה&startDate=2026-03-09T00:00:00Z&endDate=2026-03-10T23:59:59Z&sort=timestamp&order=asc&limit=100", {
+      headers: {
+        "Authorization": "Bearer pb_YePmMLPbfcAwpWvcDVXBCgqNPUDphbGXHgYtxOOGovPgKOrhfDYxwbRqfPCmFlIw"
+      }
+    })
       .then(r => r.json())
       .then(data => document.getElementById("out").textContent = JSON.stringify(data, null, 2))
       .catch(err => document.getElementById("out").textContent = "Error: " + err);
