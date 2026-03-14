@@ -1,4 +1,5 @@
 import re
+from datetime import datetime, timedelta
 from matplotlib import colors
 import folium
 import pandas as pd
@@ -60,6 +61,39 @@ def clusterize(points, eps_km=10, min_samples=10):
         largest_cluster_label = unique[np.argmax(counts)]
         # Filter points belonging to the largest cluster
         return labels
+
+def guess_roar(from_time='2026-02-28', to_time=None, eps_km=15, min_samples=1):
+    if to_time is None:
+        # set to_time as a string representing the date of tomorrow
+        to_time = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
+    df = pd.read_csv(path2data + 'alarms.csv')
+    df = df[(df['time'].values < to_time) & (df['time'].values > from_time)]
+    df = df[df['threat'].isin([0, 5])]
+    df = df.reset_index(drop=True)
+    for threat in [0, 5]:
+        for id in df['id'].unique():
+            df0 = df[(df['id'] == id) & (df['threat'] == threat)]
+            points = np.zeros((len(df0), 2))
+            origins = []
+            threats = []
+            ids = []
+            for ii in range(len(df0)):
+                row = np.where(loc['loc'] == df0['cities'][ii])[0][0]
+                lat = loc['lat'][row]
+                long = loc['long'][row]
+                points[ii, :] = [long, lat]
+            labels = clusterize(points, eps_km=eps_km, min_samples=min_samples)
+            for idx in np.unique(labels):
+                ids.append(id)
+                threats.append(threat)
+                if np.min(points[labels == idx,0]) > 32.67 and np.sum(labels == idx) < 30:
+                    origins.append('Lebanon')
+                elif np.sum(labels == idx) > 30:
+                    origins.append('Iran')
+                elif np.sum(labels == idx) == 1 and df0['cities'].values[labels == idx] == 'חוות עדן':
+                    origins.append('Iran')
+                else:
+                    origins.append('')
 
 
 if __name__ == '__main__':
