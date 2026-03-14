@@ -4,11 +4,11 @@ import folium
 import pandas as pd
 import numpy as np
 import os
-from ellipse_fit import guess_yemen, guess_iran
+# from ellipse_fit import guess_yemen, guess_iran
+from sklearn.cluster import DBSCAN
+from matplotlib import pyplot as plt
 
-
-
-local = '/home/innereye/alarms/'
+local = '/home/yuval/alarms/'
 islocal = False
 if os.path.isdir(local):
     os.chdir(local)
@@ -34,13 +34,61 @@ def guess_origin(df_toguess):
     df_toguess['origin'] = origin
     return df_toguess
 
+def clusterize(points, eps_km=10, min_samples=10):
+        """
+        Identifies clusters using DBSCAN.
+        Parameters:
+            points: array of shape (N, 2) - lat/lon
+            eps_km: radius for clustering (in km)
+            min_samples: minimum points to form a dense region
+        Returns:
+            points
+        """
+        # Approximate lat/lon to km scale (around Israel)
+        lat_km = 111.2
+        lon_km = 94.6
+        scaled_points = np.copy(points)
+        scaled_points[:, 0] *= lat_km
+        scaled_points[:, 1] *= lon_km
+        # DBSCAN clustering
+        db = DBSCAN(eps=eps_km, min_samples=min_samples)
+        labels = db.fit_predict(scaled_points)
+        # Identify the largest cluster (excluding noise: label -1)
+        unique, counts = np.unique(labels[labels >= 0], return_counts=True)
+        if len(counts) == 0:
+            return np.empty((0, 2))  # No cluster found
+        largest_cluster_label = unique[np.argmax(counts)]
+        # Filter points belonging to the largest cluster
+        return labels
 
-dfwar = pd.read_csv('data/alarms.csv')
-dfwar = guess_yemen(dfwar, coo)
-dfwar = guess_iran(dfwar)
-dfwar = guess_origin(dfwar)
-dfwar.to_csv('data/alarms.csv', index=False, sep=',')
-# last_alarm = pd.to_datetime(dfwar['time'][len(dfwar)-1])
-# last_alarm = last_alarm.tz_localize('Israel')
 
-print('done origin')
+if __name__ == '__main__':
+    example_id = 6091
+    path2data = os.environ['HOME'] + '/alarms/data/'
+    df = pd.read_csv(path2data + 'alarms.csv')
+    loc = pd.read_csv(path2data + 'coord.csv')
+    df0 = df[(df['id'] == example_id) & (df['time'].values > '2026-02-28')]
+    df0 = df0.reset_index(drop = True)
+    points = np.zeros((len(df0), 2))
+    for ii in range(len(df0)):
+        row = np.where(loc['loc'] == df0['cities'][ii])[0][0]
+        lat = loc['lat'][row]
+        long = loc['long'][row]
+        points[ii, :] = [long, lat]
+    labels = clusterize(points, eps_km=15, min_samples=1)
+    for idx in np.unique(labels):
+         plt.plot(points[labels == idx, 0], points[labels == idx, 1], '.')
+
+
+
+
+#
+# dfwar = pd.read_csv('data/alarms.csv')
+# dfwar = guess_yemen(dfwar, coo)
+# dfwar = guess_iran(dfwar)
+# dfwar = guess_origin(dfwar)
+# dfwar.to_csv('data/alarms.csv', index=False, sep=',')
+# # last_alarm = pd.to_datetime(dfwar['time'][len(dfwar)-1])
+# # last_alarm = last_alarm.tz_localize('Israel')
+#
+# print('done origin')
