@@ -40,6 +40,7 @@ for idt in range(len(difs)):
     dfc.at[row, 'from_time'] = str(np.datetime_as_string(dt)).split('T')[1].split('.')[0]
     dfc.at[row, 'to_time'] = str(np.datetime_as_string(datetimes[end_idx-1])).split('T')[1].split('.')[0]
     dfc.at[row, 'n locations'] = len(np.unique(locations))
+    
     # if len(locations) != len(np.unique(locations)):
     #     print(dt)
 print(dfc)
