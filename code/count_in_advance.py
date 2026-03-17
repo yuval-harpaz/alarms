@@ -1,7 +1,8 @@
+import os
+
 import pandas as pd
 import numpy as np
-import io
-import requests
+
 
 url = 'https://raw.githubusercontent.com/dleshem/israel-alerts-data/main/israel-alerts.csv'
 # response = requests.get(url)
@@ -44,3 +45,19 @@ for idt in range(len(difs)):
 print(dfc)
 dfc.to_csv('~/Documents/iac.csv', index=False)
 
+dfc_cleaned = dfc[dfc['n locations'] > 50]
+import plotly.graph_objects as go
+medians = dfc_cleaned.groupby('date')['n locations'].median().reset_index()
+fig = go.Figure()
+fig.add_trace(go.Scatter(x=dfc['date'], y=dfc['n locations'], mode='markers', name='Data'))
+fig.add_trace(go.Bar(x=medians['date'], y=medians['n locations'], marker=dict(color='black'), name='Median'))
+fig.update_layout(
+    xaxis=dict(tickangle=90, dtick="D1"),
+    title={
+        'text': "מספר מיקומים להתרעה, לפי יום",
+        'x': 0.5,
+        'xanchor': 'center'
+    },
+    yaxis_title="מספר המקומות"
+)
+fig.write_html(os.environ['HOME'] + '/Documents/inadvance_locations.html')
