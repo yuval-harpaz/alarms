@@ -40,11 +40,11 @@ for idt in range(len(difs)):
     dfc.at[row, 'from_time'] = str(np.datetime_as_string(dt)).split('T')[1].split('.')[0]
     dfc.at[row, 'to_time'] = str(np.datetime_as_string(datetimes[end_idx-1])).split('T')[1].split('.')[0]
     dfc.at[row, 'n locations'] = len(np.unique(locations))
-    
+    dfc.at[row, 'locations'] = ';'.join(list(np.unique(locations)))
     # if len(locations) != len(np.unique(locations)):
     #     print(dt)
 print(dfc)
-dfc.to_csv('~/Documents/iac.csv', index=False)
+dfc.to_csv('~/Documents/iac.tsv', index=False, sep='\t')
 
 dfc_cleaned = dfc[dfc['n locations'] > 50]
 import plotly.graph_objects as go
@@ -62,3 +62,56 @@ fig.update_layout(
     yaxis_title="מספר המקומות"
 )
 fig.write_html(os.environ['HOME'] + '/Documents/inadvance_locations.html')
+
+## look for alarms from Iran not preceded by warning
+dfc = pd.read_csv('~/Documents/iac.tsv', sep='\t')
+dfa = pd.read_csv('https://github.com/yuval-harpaz/alarms/raw/refs/heads/master/data/alarms.csv')
+dfa = dfa[dfa['time'] > '2026-03-02']
+dfa = dfa[dfa['origin'] == 'Iran']
+dfa = dfa[dfa['threat'] == 0]
+dfa.reset_index(drop=True, inplace=True)
+timec = pd.to_datetime(dfc['date'] + ' ' + dfc['to_time'])
+timea = pd.to_datetime(dfa['time'])
+
+
+missed = np.zeros(len(dfa), int)
+last_warning = []
+for ii in range(len(missed)):
+    dfc_before = dfc[(timec < timea[ii]) & (timec > timea[ii] - np.timedelta64(15, 'm'))]
+    last_warning.append('')
+    if dfc_before['locations'].str.contains('ברחבי הארץ').any():
+        continue
+    if dfc_before['locations'].str.contains(dfa['cities'][ii]).any():
+        continue
+    if len(dfc_before) == 0:
+        last_warning[-1] = 'no warning'
+        missed[ii] = -1
+    else:
+        last_warning[-1] = dfc_before['date'].values[-1] + ' ' + dfc_before['to_time'].values[-1]
+        missed[ii] = dfc_before.index[-1]
+    print(f'{ii}/{len(missed)}', end='\r')
+
+np.sum(missed > 0)
+dates = np.unique(dfc['date'])
+sum_missed = []
+for idate in range(2, len(dates) - 1):
+    date = dates[idate]
+    idxa = (dfa['time'].values > date) & (dfa['time'].values < dates[idate + 1]) & (missed > 0)
+    sum_missed.append(np.sum(idxa))
+fig = go.Figure()
+fig.add_trace(go.Bar(x=dates[2:-1], y=sum_missed, marker=dict(color='black'), name='Sum'))
+fig.update_layout(
+    xaxis=dict(tickangle=90, dtick="D1"),
+    title={
+        'text': "התרעה מקדימה - מספר החטאות ליום",
+        'x': 0.5,
+        'xanchor': 'center'
+    },
+    yaxis_title="מספר המקומות"
+)
+fig.write_html(os.environ['HOME'] + '/Documents/count_missing.html')
+
+
+
+
+
