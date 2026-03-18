@@ -22,8 +22,8 @@ df14 = df14[df14['category_desc'].str.contains('בדקות הקרובות')]
 df14 = df14.reset_index(drop=True)
 datetimes = np.unique(df14['datetime'])
 #find differences larger than 60sec in datetimes
-difs = [0] + [int(i)+1 for i in np.where(np.diff(datetimes) > np.timedelta64(60, 's'))[0]]
-dfc = pd.DataFrame(columns=['date', 'from_time', 'to_time', 'n locations'])
+difs = [0] + [int(i)+1 for i in np.where(np.diff(datetimes) > np.timedelta64(10, 'm'))[0]]
+dfc = pd.DataFrame(columns=['rid', 'date', 'from_time', 'to_time', 'n locations'])
 for idt in range(len(difs)):
     start_idx = difs[idt]
     if idt == len(difs)-1:
@@ -34,10 +34,12 @@ for idt in range(len(difs)):
     for jdt in range(start_idx, end_idx):
         locations.extend(list(df14['data'][df14['datetime'] == datetimes[jdt]]))
     row = len(dfc)
+    dfc.at[row, 'rid'] = ';'.join(list(df14['rid'][start_idx:end_idx].values.astype(str)))
     dt = datetimes[start_idx]
     dfc.at[row, 'date'] = str(np.datetime_as_string(dt, unit='D'))
     dfc.at[row, 'from_time'] = str(np.datetime_as_string(dt)).split('T')[1].split('.')[0]
     dfc.at[row, 'to_time'] = str(np.datetime_as_string(datetimes[end_idx-1])).split('T')[1].split('.')[0]
+
     dfc.at[row, 'n locations'] = len(np.unique(locations))
     dfc.at[row, 'locations'] = ';'.join(list(np.unique(locations)))
     # if len(locations) != len(np.unique(locations)):
@@ -65,16 +67,75 @@ fig.write_html(os.environ['HOME'] + '/Documents/inadvance_locations.html')
 ## look for alarms from Iran not preceded by warning
 dfc = pd.read_csv('~/Documents/iac.tsv', sep='\t')
 dfa = pd.read_csv('https://github.com/yuval-harpaz/alarms/raw/refs/heads/master/data/alarms.csv')
-dfa = dfa[dfa['time'] > '2026-03-02']
+dfa = dfa[dfa['time'] > '2026-02-28']
 dfa = dfa[dfa['origin'] == 'Iran']
 dfa = dfa[dfa['threat'] == 0]
 dfa.reset_index(drop=True, inplace=True)
-timec = pd.to_datetime(dfc['date'] + ' ' + dfc['to_time'])
+timec = pd.to_datetime(dfc['date'] + ' ' + dfc['from_time'])
 timea = pd.to_datetime(dfa['time'])
-iran = dfa['origin'].values == 'Iran'
-for iw in range(len(dfs)):
+for iw in range(len(dfc)):
+    # find the id of the next alarm in dfa that has origin Iran
+    inext = np.where(timea > timec[iw])[0]
+    if len(inext) == 0:
+        print('no alarm after warning?')
+        continue
+    else:
+        # inext = inext[0]
+        if timea[inext[0]] - timec[iw] > np.timedelta64(25, 'm'):
+            print('too long wait')
+        else:
+            id = np.unique(dfa['id'].values[inext])
+            dfc.at[iw, 'tzofar id'] = ';'.join(id.astype(str))
+            # look for missing spots
+            loca = []
+            for d in id:
+                loca.extend(dfa['cities'][dfa['id'] == d].values)
+            loca = np.unique(loca)
+            missing = []
+            for loc in loca:
+                if loc not in dfc['locations'][iw] and dfc['locations'][iw] != 'ברחבי הארץ':
+                    missing.append(loc)
+            print(len(missing),'/',len(loca))
+            dfc.at[iw, 'missing'] = ';'.join(missing)
+dfc.to_csv('~/Documents/iac.tsv', index=False, sep='\t')
+
 
 # missed = np.zeros(len(dfa), int)
+# last_warning = []
+# for ii in range(len(missed)):
+#     dfc_before = dfc[(timec < timea[ii]) & (timec > timea[ii] - np.timedelta64(15, 'm'))]
+#     last_warning.append('')
+#     if dfc_before['locations'].str.contains('ברחבי הארץ').any():
+#         continue
+#     if dfc_before['locations'].str.contains(dfa['cities'][ii]).any():
+#         continue
+#     if len(dfc_before) == 0:
+#         last_warning[-1] = 'no warning'
+#         missed[ii] = -1
+#     else:
+#         last_warning[-1] = dfc_before['date'].values[-1] + ' ' + dfc_before['to_time'].values[-1]
+#         missed[ii] = dfc_before.index[-1]
+#     print(f'{ii}/{len(missed)}', end='\r')
+#
+# np.sum(missed > 0)
+# dates = np.unique(dfc['date'])
+# sum_missed = []
+# for idate in range(2, len(dates) - 1):
+#     date = dates[idate]
+#     idxa = (dfa['time'].values > date) & (dfa['time'].values < dates[idate + 1]) & (missed > 0)
+#     sum_missed.append(np.sum(idxa))
+# fig = go.Figure()
+# fig.add_trace(go.Bar(x=dates[2:-1], y=sum_missed, marker=dict(color='black'), name='Sum'))
+# fig.update_layout(
+#     xaxis=dict(tickangle=90, dtick="D1"),
+#     title={
+#         'text': "התרעה מקדימה - מספר החטאות ליום",
+#         'x': 0.5,
+#         'xanchor': 'center'
+#     },
+#     yaxis_title="מספר המקומות"
+# )
+# # missed = np.zeros(len(dfa), int)
 # last_warning = []
 # for ii in range(len(missed)):
 #     dfc_before = dfc[(timec < timea[ii]) & (timec > timea[ii] - np.timedelta64(15, 'm'))]
