@@ -1,5 +1,4 @@
 import os
-
 import pandas as pd
 import numpy as np
 
@@ -72,44 +71,45 @@ dfa = dfa[dfa['threat'] == 0]
 dfa.reset_index(drop=True, inplace=True)
 timec = pd.to_datetime(dfc['date'] + ' ' + dfc['to_time'])
 timea = pd.to_datetime(dfa['time'])
+iran = dfa['origin'].values == 'Iran'
+for iw in range(len(dfs)):
 
-
-missed = np.zeros(len(dfa), int)
-last_warning = []
-for ii in range(len(missed)):
-    dfc_before = dfc[(timec < timea[ii]) & (timec > timea[ii] - np.timedelta64(15, 'm'))]
-    last_warning.append('')
-    if dfc_before['locations'].str.contains('ברחבי הארץ').any():
-        continue
-    if dfc_before['locations'].str.contains(dfa['cities'][ii]).any():
-        continue
-    if len(dfc_before) == 0:
-        last_warning[-1] = 'no warning'
-        missed[ii] = -1
-    else:
-        last_warning[-1] = dfc_before['date'].values[-1] + ' ' + dfc_before['to_time'].values[-1]
-        missed[ii] = dfc_before.index[-1]
-    print(f'{ii}/{len(missed)}', end='\r')
-
-np.sum(missed > 0)
-dates = np.unique(dfc['date'])
-sum_missed = []
-for idate in range(2, len(dates) - 1):
-    date = dates[idate]
-    idxa = (dfa['time'].values > date) & (dfa['time'].values < dates[idate + 1]) & (missed > 0)
-    sum_missed.append(np.sum(idxa))
-fig = go.Figure()
-fig.add_trace(go.Bar(x=dates[2:-1], y=sum_missed, marker=dict(color='black'), name='Sum'))
-fig.update_layout(
-    xaxis=dict(tickangle=90, dtick="D1"),
-    title={
-        'text': "התרעה מקדימה - מספר החטאות ליום",
-        'x': 0.5,
-        'xanchor': 'center'
-    },
-    yaxis_title="מספר המקומות"
-)
-fig.write_html(os.environ['HOME'] + '/Documents/count_missing.html')
+# missed = np.zeros(len(dfa), int)
+# last_warning = []
+# for ii in range(len(missed)):
+#     dfc_before = dfc[(timec < timea[ii]) & (timec > timea[ii] - np.timedelta64(15, 'm'))]
+#     last_warning.append('')
+#     if dfc_before['locations'].str.contains('ברחבי הארץ').any():
+#         continue
+#     if dfc_before['locations'].str.contains(dfa['cities'][ii]).any():
+#         continue
+#     if len(dfc_before) == 0:
+#         last_warning[-1] = 'no warning'
+#         missed[ii] = -1
+#     else:
+#         last_warning[-1] = dfc_before['date'].values[-1] + ' ' + dfc_before['to_time'].values[-1]
+#         missed[ii] = dfc_before.index[-1]
+#     print(f'{ii}/{len(missed)}', end='\r')
+#
+# np.sum(missed > 0)
+# dates = np.unique(dfc['date'])
+# sum_missed = []
+# for idate in range(2, len(dates) - 1):
+#     date = dates[idate]
+#     idxa = (dfa['time'].values > date) & (dfa['time'].values < dates[idate + 1]) & (missed > 0)
+#     sum_missed.append(np.sum(idxa))
+# fig = go.Figure()
+# fig.add_trace(go.Bar(x=dates[2:-1], y=sum_missed, marker=dict(color='black'), name='Sum'))
+# fig.update_layout(
+#     xaxis=dict(tickangle=90, dtick="D1"),
+#     title={
+#         'text': "התרעה מקדימה - מספר החטאות ליום",
+#         'x': 0.5,
+#         'xanchor': 'center'
+#     },
+#     yaxis_title="מספר המקומות"
+# )
+# fig.write_html(os.environ['HOME'] + '/Documents/count_missing.html')
 
 
 
