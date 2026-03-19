@@ -75,7 +75,7 @@ timec = pd.to_datetime(dfc['date'] + ' ' + dfc['from_time'])
 timea = pd.to_datetime(dfa['time'])
 for iw in range(len(dfc)):
     # find the id of the next alarm in dfa that has origin Iran
-    inext = np.where(timea > timec[iw])[0]
+    inext = np.where((timea > timec[iw]) & (timea - timec[iw] < np.timedelta64(10, 'm')))[0]
     if len(inext) == 0:
         print('no alarm after warning?')
         continue
