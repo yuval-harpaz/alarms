@@ -43,11 +43,29 @@ for typ in ['missiles', 'newsFlash']:
         for jj in range(len(stats)):
             plt.text(jj, stats[measure][jj], str(stats[measure][jj]), ha='center')
 
-
-        # print(seconds)
-        # order = np.argsort(diffs)
-
-# dfa = pd.read_csv('https://github.com/yuval-harpaz/alarms/raw/refs/heads/master/data/alarms.csv')
+##
+dfa = pd.read_csv('https://github.com/yuval-harpaz/alarms/raw/refs/heads/master/data/alarms.csv')
+dfa = dfa[dfa['time'] > '2026-02-28']
+dfa = dfa[dfa['threat'] == 0]
+dfa.reset_index(drop=True, inplace=True)
+# timec = pd.to_datetime(dfc['date'] + ' ' + dfc['from_time'])
+timea = pd.to_datetime(dfa['time'])
+typ = 'missiles'
+for date in dates:
+    url = f"https://redalert.orielhaim.com/api/stats/history?category={typ}&startDate={date}T00:00:00Z&endDate={date}T23:59:59Z&sort=timestamp&order=asc&limit=100"
+    headers = {"Authorization": f"Bearer {key}"}
+    response = requests.get(url, headers=headers)
+    data = response.json()
+    dfr = pd.DataFrame(data['data'])
+    row = len(stats)
+    # stats.at[row, 'date'] = date
+    if len(dfr) == 0:
+        dfr['datetime'] = pd.to_datetime(dfr['timestamp'])
+        for ievent in range(len(dfr)):
+            event_time = dfr['datetime'][ievent]
+            for loc in dfr['cities'][ievent]:
+                name = loc['name']
+                rowa = np.where((dfa['cities'].values == name) and (np.abs(timea - event_time) < np.timedelta64(2, 'm')))[0]
 
 # key = os.environ['RedAlert']
 # command = f'curl "https://redalert.orielhaim.com/api/stats/history?category=missiles&startDate=2026-03-14T00:00:00Z&endDate=2026-03-14T23:59:59Z&sort=timestamp&order=asc&limit=100"   -H "Authorization: Bearer {key}" -o ~/Documents/today.json'
