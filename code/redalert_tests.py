@@ -43,7 +43,7 @@ for typ in ['missiles', 'newsFlash']:
         for jj in range(len(stats)):
             plt.text(jj, stats[measure][jj], str(stats[measure][jj]), ha='center')
 
-##
+##  matchin redalert to alarms.csv. did not finish because moed on to take ground truth from telegram
 dfa = pd.read_csv('https://github.com/yuval-harpaz/alarms/raw/refs/heads/master/data/alarms.csv')
 dfa = dfa[dfa['time'] > '2026-02-28']
 dfa = dfa[dfa['threat'] == 0]
