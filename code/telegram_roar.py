@@ -163,9 +163,12 @@ for idx, row in issues_loaded.iterrows():
     
     # If both neighbors are found, this confirms the issue is real
     confirmed = 'CONFIRMED' if (prev_rnd_match and next_rnd_match) else 'NOT_CONFIRMED'
-    
-    print(f"Message ID: {message_id} | Location: {example_location} | Neighbors: {neighbors_str} | {confirmed}")
-
+    if confirmed == 'NOT_CONFIRMED':
+        print(f"Message ID: {message_id} | Location: {example_location} | Neighbors: {neighbors_str} | {confirmed}")
+        issues_loaded.at[idx, 'confirmed'] = '?'
+    else:
+        issues_loaded.at[idx, 'confirmed'] = 'confirmed'
+issues_loaded.to_excel('~/RedAlert/issues_validated.xlsx', index=False, sheet_name='data')
 
 
 # # explore mmessages
