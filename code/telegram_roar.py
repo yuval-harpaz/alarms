@@ -135,25 +135,25 @@ for idx, row in issues_loaded.iterrows():
     if len(next_in_dfa) > 0:
         next_match = next_in_dfa.iloc[0]
     
-    # Check if previous match has a corresponding event in rnd with similar time and location
+    # Check if previous match has a corresponding event in rnd with similar time
     prev_rnd_match = False
     if prev_match is not None:
-        time_diff = np.abs(pd.to_datetime(prev_match['time']) - message_time)
-        if time_diff < np.timedelta64(60, 's'):  # within 60 seconds
-            # Try to find location match
-            if 'cities' in prev_match and example_location in str(prev_match['cities']):
-                prev_rnd_match = True
-    
-    # Check if next match has a corresponding event in rnd with similar time and location
+        prev_dfa_time = pd.to_datetime(prev_match['time'])
+        # Find events in rnd with similar time to prev_match
+        time_diffs = np.abs(rnd_with_time['datetime'] - prev_dfa_time)
+        if np.min(time_diffs) < np.timedelta64(10, 's'):  # within 10 seconds
+            prev_rnd_match = True
+
+    # Check if next match has a corresponding event in rnd with similar time
     next_rnd_match = False
     if next_match is not None:
-        time_diff = np.abs(pd.to_datetime(next_match['time']) - message_time)
-        if time_diff < np.timedelta64(60, 's'):  # within 60 seconds
-            # Try to find location match
-            if 'cities' in next_match and example_location in str(next_match['cities']):
-                next_rnd_match = True
-    
-    # Determine which neighboring events were found
+        next_dfa_time = pd.to_datetime(next_match['time'])
+        # Find events in rnd with similar time to next_match
+        time_diffs = np.abs(rnd_with_time['datetime'] - next_dfa_time)
+        if np.min(time_diffs) < np.timedelta64(10, 's'):  # within 10 seconds
+            next_rnd_match = True
+
+    # Determine which neighboring events were found in rnd
     neighbors_found = []
     if prev_rnd_match:
         neighbors_found.append('PREV')
@@ -161,7 +161,10 @@ for idx, row in issues_loaded.iterrows():
         neighbors_found.append('NEXT')
     neighbors_str = ', '.join(neighbors_found) if neighbors_found else 'NONE'
     
-    print(f"Message ID: {message_id} | Location: {example_location} | Neighbors: {neighbors_str}")
+    # If both neighbors are found, this confirms the issue is real
+    confirmed = 'CONFIRMED' if (prev_rnd_match and next_rnd_match) else 'NOT_CONFIRMED'
+    
+    print(f"Message ID: {message_id} | Location: {example_location} | Neighbors: {neighbors_str} | {confirmed}")
 
 
 
