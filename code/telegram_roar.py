@@ -58,9 +58,12 @@ for ii in range(len(messages)):
             iregion.append(jj)
     locations = []
     for jj in iregion:
-        # if messages[ii]['id'] == 22533:
-        #     print('debug')
         locations.append(messages[ii]['text'][jj+1].replace('(', '').strip())
+    for jj in range(len(messages[ii]['text'])):
+        msg = messages[ii]['text'][jj]
+        if type(msg) == str and '(' in msg:
+            locations.append(msg.replace('(', '').replace(')', '').strip())
+    locations = list(np.unique(locations))
     if len(locations) > 0:
         locations = ', '.join(locations)
     else:
