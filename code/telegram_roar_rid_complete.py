@@ -59,6 +59,17 @@ for ii in range(len(telegram)):
     if len(rid) > 0:
         telegram.at[ii, 'rid'] = '; '.join(rid.values.astype(str))
 telegram.to_csv('~/alarms/data/telegram_messages.csv', index=False)
+
+##
+telegram = pd.read_csv('~/alarms/data/telegram_messages.csv')
+dleshem = pd.read_csv('~/alarms/data/dleshem_roar.csv')
+imissed = np.where(dleshem['telegram_id'] == 0)[0]
+imissed = imissed[imissed > 100]
+imissed = imissed[imissed < 298800]
+ii = 0
+missed_locations = dleshem['data'][imissed[ii]]
+sus_message = telegram['locations'][telegram['message id'] == dleshem['telegram_id'][imissed[ii]-1]]
+
 #
 # print('now dleshem to telegram')
 # print('')
