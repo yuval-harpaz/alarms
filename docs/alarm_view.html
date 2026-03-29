@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>Alarm Viewer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg0: #0d0f14;
+            --bg1: #13161e;
+            --bg2: #1a1e28;
+            --bg3: #222737;
+            --border: #2e3448;
+            --accent: #e8b84b;
+            --accent2: #5bc8af;
+            --danger: #e05c5c;
+            --text: #c8cedf;
+            --text-dim: #6b7494;
+            --text-bright: #edf0f8;
+            --mono: 'Share Tech Mono', monospace;
+            --sans: 'Barlow Condensed', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--sans);
+            background: var(--bg0);
+            color: var(--text);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ── Date overlay ── */
+        #date-overlay {
+            position: fixed; inset: 0; z-index: 9999;
+            background: rgba(0,0,0,0.72);
+            display: flex; align-items: center; justify-content: center;
+        }
+        #date-box {
+            background: var(--bg1);
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--accent);
+            border-radius: 4px;
+            padding: 32px 40px; text-align: center;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.6);
+            min-width: 300px;
+        }
+        #date-box h2 {
+            font-family: var(--sans); font-weight: 700; font-size: 1.25em;
+            letter-spacing: 0.08em; text-transform: uppercase;
+            color: var(--accent); margin-bottom: 6px;
+        }
+        #date-box .sub {
+            font-family: var(--mono); font-size: 0.78em;
+            color: var(--text-dim); margin-bottom: 18px;
+        }
+        #start-input {
+            font-family: var(--mono); font-size: 1.1em;
+            padding: 8px 12px; border-radius: 3px;
+            border: 1px solid var(--border); background: var(--bg3);
+            color: var(--text-bright); direction: ltr;
+            width: 210px; text-align: center; outline: none;
+            transition: border-color 0.2s;
+        }
+        #start-input:focus { border-color: var(--accent); }
+        #date-ok {
+            display: block; margin: 16px auto 0;
+            padding: 9px 32px; font-family: var(--sans); font-weight: 700;
+            font-size: 1em; letter-spacing: 0.1em; text-transform: uppercase;
+            border: none; border-radius: 3px;
+            background: var(--accent); color: var(--bg0);
+            cursor: pointer; transition: background 0.15s;
+        }
+        #date-ok:hover { background: #f5ce72; }
+
+        /* ── Sidebar ── */
+        #sidebar {
+            width: 480px; min-width: 360px;
+            background: var(--bg1);
+            display: flex; flex-direction: column;
+            border-left: 1px solid var(--border);
+            overflow: hidden;
+        }
+        #sidebar-header {
+            padding: 10px 14px 8px;
+            background: var(--bg0);
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+        #sidebar-header-top {
+            display: flex; align-items: center; gap: 8px;
+            margin-bottom: 10px;
+        }
+        #sidebar-header-top h3 {
+            font-family: var(--sans); font-weight: 700; font-size: 1.1em;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            color: var(--accent); flex: 1;
+        }
+        .header-btn {
+            padding: 5px 14px; border: none; border-radius: 3px;
+            font-family: var(--sans); font-weight: 700; font-size: 0.85em;
+            letter-spacing: 0.07em; text-transform: uppercase;
+            cursor: pointer; transition: opacity 0.15s;
+        }
+        .header-btn:hover { opacity: 0.85; }
+        #download-btn { background: var(--accent2); color: var(--bg0); }
+        #clear-btn    { background: var(--danger);  color: #fff; }
+
+        /* ── Filters ── */
+        #filters {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 10px;
+            padding-bottom: 2px;
+        }
+        .filter-group { display: flex; flex-direction: column; gap: 3px; }
+        .filter-group.full-width { grid-column: 1 / -1; }
+
+        .filter-label {
+            font-family: var(--mono); font-size: 0.7em;
+            color: var(--text-dim); text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        /* Date row */
+        #filter-row-date {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .date-pair {
+            display: flex; align-items: center; gap: 5px; flex: 1;
+        }
+        .date-pair-label {
+            font-family: var(--mono); font-size: 0.72em;
+            color: var(--text-dim); white-space: nowrap;
+        }
+        .date-sep {
+            font-family: var(--mono); font-size: 0.75em;
+            color: var(--border); flex-shrink: 0;
+        }
+        /* native date picker styling */
+        input[type="date"].filter-input {
+            direction: ltr;
+            color-scheme: dark;
+        }
+        input[type="date"].filter-input::-webkit-calendar-picker-indicator {
+            filter: invert(0.6) sepia(1) saturate(3) hue-rotate(10deg);
+            cursor: pointer;
+        }
+        .filter-input {
+            font-family: var(--mono); font-size: 0.82em;
+            padding: 5px 8px; background: var(--bg3);
+            border: 1px solid var(--border); border-radius: 3px;
+            color: var(--text-bright); outline: none;
+            direction: ltr; transition: border-color 0.2s;
+            width: 100%;
+        }
+        .filter-input:focus { border-color: var(--accent); }
+
+        /* ── Multi-select dropdown ── */
+        .multi-select-wrap {
+            position: relative;
+        }
+        .multi-select-btn {
+            width: 100%;
+            font-family: var(--mono); font-size: 0.82em;
+            padding: 5px 8px;
+            background: var(--bg3); border: 1px solid var(--border);
+            border-radius: 3px; color: var(--text-bright);
+            text-align: right; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+            gap: 4px; outline: none;
+            transition: border-color 0.2s;
+            user-select: none;
+        }
+        .multi-select-btn:hover, .multi-select-btn.open { border-color: var(--accent); }
+        .multi-select-btn .arrow {
+            font-size: 0.7em; color: var(--text-dim); flex-shrink: 0; direction: ltr;
+        }
+        .multi-select-btn .summary {
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+            flex: 1; text-align: right;
+        }
+
+        .multi-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 3px);
+            right: 0; left: 0;
+            z-index: 500;
+            background: var(--bg2);
+            border: 1px solid var(--accent);
+            border-radius: 3px;
+            max-height: 180px;
+            overflow-y: auto;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+        }
+        .multi-dropdown.open { display: block; }
+        .multi-dropdown::-webkit-scrollbar { width: 5px; }
+        .multi-dropdown::-webkit-scrollbar-track { background: var(--bg2); }
+        .multi-dropdown::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 3px; }
+
+        .dropdown-search {
+            position: sticky; top: 0;
+            font-family: var(--mono); font-size: 0.78em;
+            padding: 5px 8px;
+            background: var(--bg2); border: none;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-bright); width: 100%; outline: none;
+            direction: rtl;
+        }
+        .dropdown-item {
+            display: flex; align-items: center; gap: 7px;
+            padding: 5px 8px; cursor: pointer;
+            font-family: var(--mono); font-size: 0.8em;
+            color: var(--text);
+            transition: background 0.1s;
+        }
+        .dropdown-item:hover { background: var(--bg3); }
+        .dropdown-item input[type=checkbox] {
+            width: 14px; height: 14px; cursor: pointer;
+            accent-color: var(--accent); flex-shrink: 0;
+        }
+        .dropdown-item .item-label {
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        }
+        .dropdown-ctrl {
+            display: flex; gap: 0;
+            border-top: 1px solid var(--border);
+            position: sticky; bottom: 0;
+        }
+        .dropdown-ctrl-btn {
+            flex: 1; padding: 4px 6px;
+            background: var(--bg3); border: none;
+            color: var(--text-dim); font-family: var(--mono); font-size: 0.72em;
+            cursor: pointer; transition: color 0.15s;
+        }
+        .dropdown-ctrl-btn:hover { color: var(--accent); }
+        .dropdown-ctrl-btn + .dropdown-ctrl-btn { border-right: 1px solid var(--border); }
+
+        #apply-btn {
+            grid-column: 1 / -1;
+            padding: 7px;
+            background: var(--bg3); border: 1px solid var(--accent);
+            border-radius: 3px; color: var(--accent);
+            font-family: var(--sans); font-weight: 700; font-size: 0.9em;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            cursor: pointer; transition: background 0.15s, color 0.15s;
+        }
+        #apply-btn:hover { background: var(--accent); color: var(--bg0); }
+
+        /* ── Table ── */
+        #checklist-wrap { flex: 1; overflow-y: auto; }
+        #checklist-wrap::-webkit-scrollbar { width: 6px; }
+        #checklist-wrap::-webkit-scrollbar-track { background: var(--bg1); }
+        #checklist-wrap::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 3px; }
+
+        #checklist { width: 100%; border-collapse: collapse; font-size: 0.82em; }
+        #checklist thead { position: sticky; top: 0; z-index: 2; }
+        #checklist th {
+            background: var(--bg2); padding: 6px 8px; text-align: right;
+            border-bottom: 2px solid var(--border);
+            font-family: var(--mono); font-size: 0.78em; font-weight: 400;
+            color: var(--text-dim); text-transform: uppercase;
+            letter-spacing: 0.05em; white-space: nowrap;
+        }
+        #checklist td {
+            padding: 5px 8px; border-bottom: 1px solid var(--border);
+            vertical-align: middle; font-family: var(--mono);
+        }
+        #checklist tr:hover td { background: var(--bg2); }
+
+        .col-id     { width: 55px; text-align: center; direction: ltr; color: var(--accent); }
+        .col-time   { width: 100px; direction: ltr; font-size: 0.9em; white-space: nowrap; color: var(--text-dim); }
+        .col-desc   { width: 80px; }
+        .col-origin { width: 80px; color: var(--accent2); }
+        .col-chk    { width: 34px; text-align: center; }
+        #checklist input[type=checkbox] { width: 16px; height: 16px; cursor: pointer; accent-color: var(--accent); }
+
+        .color-dot {
+            display: inline-block; width: 9px; height: 9px;
+            border-radius: 50%; vertical-align: middle;
+            margin-left: 3px; flex-shrink: 0;
+        }
+        .chk-cell { display: flex; align-items: center; justify-content: center; gap: 2px; }
+
+        #status-bar {
+            padding: 5px 14px; background: var(--bg0);
+            border-top: 1px solid var(--border);
+            font-family: var(--mono); font-size: 0.72em;
+            color: var(--text-dim); flex-shrink: 0;
+        }
+
+        /* ── Map ── */
+        #map { flex: 1; }
+        .leaflet-control-attribution {
+            background: rgba(13,15,20,0.7) !important;
+            font-size: 11px; color: #6b7494 !important;
+        }
+        .leaflet-popup-content-wrapper {
+            background: var(--bg2) !important; border: 1px solid var(--border) !important;
+            border-radius: 4px !important; box-shadow: 0 4px 16px rgba(0,0,0,0.5) !important;
+            color: var(--text) !important;
+        }
+        .leaflet-popup-tip { background: var(--bg2) !important; }
+        .leaflet-popup-content {
+            margin: 10px 14px !important; font-family: var(--mono) !important;
+            font-size: 0.82em !important; line-height: 1.7 !important;
+        }
+        .leaflet-container a.leaflet-popup-close-button { color: var(--text-dim) !important; }
+    </style>
+</head>
+<body>
+
+<!-- Date overlay -->
+<div id="date-overlay">
+    <div id="date-box">
+        <h2>Alarm Viewer</h2>
+        <div class="sub">תאריך התחלה (YYYY-MM-DD) או ID</div>
+        <input type="text" id="start-input" placeholder="2026-03-29">
+        <button id="date-ok">טען נתונים</button>
+    </div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar" style="display:none;">
+    <div id="sidebar-header">
+        <div id="sidebar-header-top">
+            <h3>אירועים</h3>
+            <button id="clear-btn" class="header-btn">נקה ☐</button>
+            <button id="download-btn" class="header-btn">⬇ CSV</button>
+        </div>
+        <div id="filters">
+            <!-- Date range -->
+            <div class="filter-group full-width">
+                <span class="filter-label">טווח תאריכים</span>
+                <div id="filter-row-date">
+                    <div class="date-pair">
+                        <input type="date" class="filter-input" id="f-date-from">
+                        <span class="date-pair-label">מ־</span>
+                    </div>
+                    <span class="date-sep">—</span>
+                    <div class="date-pair">
+                        <input type="date" class="filter-input" id="f-date-to">
+                        <span class="date-pair-label">עד</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Threat multi-select -->
+            <div class="filter-group">
+                <span class="filter-label">סוג איום</span>
+                <div class="multi-select-wrap" id="wrap-threat">
+                    <div class="multi-select-btn" id="btn-threat" tabindex="0">
+                        <span class="summary" id="summary-threat">הכל</span>
+                        <span class="arrow">▾</span>
+                    </div>
+                    <div class="multi-dropdown" id="drop-threat">
+                        <input type="text" class="dropdown-search" id="search-threat" placeholder="חיפוש...">
+                        <div id="items-threat"></div>
+                        <div class="dropdown-ctrl">
+                            <button class="dropdown-ctrl-btn" data-target="threat" data-action="all">בחר הכל</button>
+                            <button class="dropdown-ctrl-btn" data-target="threat" data-action="none">נקה</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Origin multi-select -->
+            <div class="filter-group">
+                <span class="filter-label">מקור</span>
+                <div class="multi-select-wrap" id="wrap-origin">
+                    <div class="multi-select-btn" id="btn-origin" tabindex="0">
+                        <span class="summary" id="summary-origin">הכל</span>
+                        <span class="arrow">▾</span>
+                    </div>
+                    <div class="multi-dropdown" id="drop-origin">
+                        <input type="text" class="dropdown-search" id="search-origin" placeholder="חיפוש...">
+                        <div id="items-origin"></div>
+                        <div class="dropdown-ctrl">
+                            <button class="dropdown-ctrl-btn" data-target="origin" data-action="all">בחר הכל</button>
+                            <button class="dropdown-ctrl-btn" data-target="origin" data-action="none">נקה</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="apply-btn">החל סינון ▶</button>
+        </div>
+    </div>
+
+    <div id="checklist-wrap">
+        <table id="checklist">
+            <thead>
+                <tr>
+                    <th class="col-id">ID</th>
+                    <th class="col-time">זמן</th>
+                    <th class="col-desc">איום</th>
+                    <th class="col-origin">מקור</th>
+                    <th class="col-chk">☑</th>
+                </tr>
+            </thead>
+            <tbody id="checklist-body"></tbody>
+        </table>
+    </div>
+
+    <div id="status-bar">טוען...</div>
+</div>
+
+<div id="map"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script>
+    const PALETTE = [
+        '#e6194b','#3cb44b','#4363d8','#f58231','#911eb4',
+        '#42d4f4','#f032e6','#bfef45','#fabed4','#469990',
+        '#dcbeff','#ffe119','#800000','#aaffc3','#808000',
+        '#ffd8b1','#000075','#a9a9a9'
+    ];
+
+    function todayStr() {
+        const d = new Date();
+        return [d.getFullYear(), String(d.getMonth()+1).padStart(2,'0'), String(d.getDate()).padStart(2,'0')].join('-');
+    }
+    document.getElementById('start-input').value = todayStr();
+
+    const map = L.map('map').setView([31.5, 34.75], 8);
+    L.tileLayer('https://cdnil.govmap.gov.il/xyz/heb/{z}/{x}/{y}.png', {
+        attribution: '© המרכז למיפוי ישראל'
+    }).addTo(map);
+
+    let parsedRows   = [];  // full CSV, never filtered by date
+    let allRows      = [];  // subset from startVal onward (updated on apply if date-from changes)
+    let coordMap     = {};
+    let viewData     = [];
+    let markerGroups = {};
+
+    // selected sets for multi-selects (null = all)
+    const selected = { threat: null, origin: null };
+
+    // ── overlay ──
+    document.getElementById('date-ok').addEventListener('click', () => {
+        const val = document.getElementById('start-input').value.trim();
+        document.getElementById('date-overlay').style.display = 'none';
+        document.getElementById('sidebar').style.display = 'flex';
+        loadData(val);
+    });
+    document.getElementById('start-input').addEventListener('keydown', e => {
+        if (e.key === 'Enter') document.getElementById('date-ok').click();
+    });
+
+    document.getElementById('clear-btn').addEventListener('click', () => {
+        document.querySelectorAll('#checklist input[type=checkbox]').forEach(cb => {
+            if (cb.checked) { cb.checked = false; hideMarkers(cb.dataset.key); }
+        });
+    });
+
+    document.getElementById('apply-btn').addEventListener('click', applyFiltersAndRebuild);
+
+    // ── Multi-select dropdown logic ──
+    function buildDropdown(type, values) {
+        const itemsEl = document.getElementById('items-' + type);
+        itemsEl.innerHTML = '';
+        values.forEach(val => {
+            const div = document.createElement('div');
+            div.className = 'dropdown-item';
+            div.dataset.value = val;
+            const cb = document.createElement('input');
+            cb.type = 'checkbox';
+            cb.checked = selected[type] === null || selected[type].has(val);
+            cb.addEventListener('change', () => {
+                if (selected[type] === null) {
+                    // was "all" — switch to explicit set of all except this one
+                    selected[type] = new Set(values);
+                    if (!cb.checked) selected[type].delete(val);
+                } else {
+                    if (cb.checked) selected[type].add(val);
+                    else selected[type].delete(val);
+                    // if all checked again, revert to null (= all)
+                    if (selected[type].size === values.length) selected[type] = null;
+                }
+                updateSummary(type, values);
+            });
+            const label = document.createElement('span');
+            label.className = 'item-label';
+            label.textContent = val || '(ללא)';
+            div.appendChild(cb);
+            div.appendChild(label);
+            // click on row toggles checkbox
+            div.addEventListener('click', e => { if (e.target !== cb) cb.click(); });
+            itemsEl.appendChild(div);
+        });
+        updateSummary(type, values);
+    }
+
+    function updateSummary(type, values) {
+        const el = document.getElementById('summary-' + type);
+        if (selected[type] === null || selected[type].size === (values || getAllValues(type)).length) {
+            el.textContent = 'הכל';
+        } else if (selected[type].size === 0) {
+            el.textContent = 'אף אחד';
+        } else {
+            el.textContent = Array.from(selected[type]).join(', ');
+        }
+    }
+
+    function getAllValues(type) {
+        return Array.from(document.getElementById('items-' + type).querySelectorAll('.dropdown-item'))
+            .map(d => d.dataset.value);
+    }
+
+    // Toggle dropdowns
+    ['threat','origin'].forEach(type => {
+        const btn  = document.getElementById('btn-'  + type);
+        const drop = document.getElementById('drop-' + type);
+        const search = document.getElementById('search-' + type);
+
+        btn.addEventListener('click', e => {
+            e.stopPropagation();
+            const isOpen = drop.classList.contains('open');
+            closeAllDropdowns();
+            if (!isOpen) {
+                drop.classList.add('open');
+                btn.classList.add('open');
+                search.value = '';
+                filterDropdownItems(type, '');
+                search.focus();
+            }
+        });
+
+        search.addEventListener('input', () => filterDropdownItems(type, search.value));
+        search.addEventListener('click', e => e.stopPropagation());
+        drop.addEventListener('click', e => e.stopPropagation());
+    });
+
+    // Ctrl buttons (select all / none)
+    document.querySelectorAll('.dropdown-ctrl-btn').forEach(btn => {
+        btn.addEventListener('click', e => {
+            e.stopPropagation();
+            const type   = btn.dataset.target;
+            const action = btn.dataset.action;
+            const values = getAllValues(type);
+            if (action === 'all') {
+                selected[type] = null;
+            } else {
+                selected[type] = new Set();
+            }
+            // update checkboxes
+            document.getElementById('items-' + type).querySelectorAll('input[type=checkbox]').forEach(cb => {
+                cb.checked = action === 'all';
+            });
+            updateSummary(type, values);
+        });
+    });
+
+    function filterDropdownItems(type, query) {
+        const q = query.trim().toLowerCase();
+        document.getElementById('items-' + type).querySelectorAll('.dropdown-item').forEach(d => {
+            d.style.display = (!q || d.dataset.value.toLowerCase().includes(q)) ? '' : 'none';
+        });
+    }
+
+    function closeAllDropdowns() {
+        document.querySelectorAll('.multi-dropdown').forEach(d => d.classList.remove('open'));
+        document.querySelectorAll('.multi-select-btn').forEach(b => b.classList.remove('open'));
+    }
+    document.addEventListener('click', closeAllDropdowns);
+
+    // ── Load ──
+    function loadData(startVal) {
+        setStatus('טוען נתונים...');
+        Promise.all([
+            fetch('https://raw.githubusercontent.com/yuval-harpaz/alarms/master/data/alarms.csv').then(r => r.text()),
+            fetch('https://raw.githubusercontent.com/yuval-harpaz/alarms/master/data/coord.csv').then(r => r.text())
+        ]).then(([alarmsCsv, coordCsv]) => {
+            Papa.parse(coordCsv, { header: true, skipEmptyLines: true }).data.forEach(r => {
+                const loc = r.loc?.trim();
+                if (loc) coordMap[loc] = { lat: parseFloat(r.lat), lng: parseFloat(r.long) };
+            });
+
+            const parsed = Papa.parse(alarmsCsv, { header: true, skipEmptyLines: true }).data;
+            parsedRows = parsed;  // keep full dataset
+
+            const isId = /^\d+$/.test(startVal);
+            let startTime = startVal;
+            if (isId) {
+                const ID_EPOCH = '2023-03-08 03:04:19';
+                const idRow = parsed.find(r => r.id === startVal && r.time >= ID_EPOCH);
+                startTime = idRow ? idRow.time : null;
+            }
+            allRows = startTime ? parsed.filter(r => r.time && r.time >= startTime) : [];
+
+            // seed date range
+            if (allRows.length) {
+                const times = allRows.map(r => r.time).filter(Boolean).sort();
+                document.getElementById('f-date-from').value = times[0].substring(0, 10);
+                document.getElementById('f-date-to').value   = times[times.length-1].substring(0, 10);
+            }
+
+            // populate multi-select dropdowns from unique values in data
+            const threats = [...new Set(allRows.map(r => (r.description||'').trim()))].filter(Boolean).sort();
+            const origins = [...new Set(allRows.map(r => (r.origin||'').trim()))].sort();
+            buildDropdown('threat', threats);
+            buildDropdown('origin', origins);
+
+            applyFiltersAndRebuild();
+        }).catch(err => {
+            console.error(err);
+            setStatus('שגיאה בטעינת הנתונים');
+        });
+    }
+
+    // ── Filter + aggregate ──
+    function applyFiltersAndRebuild() {
+        Object.keys(markerGroups).forEach(k => map.removeLayer(markerGroups[k]));
+        markerGroups = {};
+
+        const fFrom = (document.getElementById('f-date-from').value || '').trim();
+        const fTo   = (document.getElementById('f-date-to').value   || '').trim();
+
+        // Re-derive from full dataset so earlier dates always work
+        allRows = fFrom ? parsedRows.filter(r => r.time && r.time >= fFrom) : parsedRows;
+
+        const filtered = allRows.filter(r => {
+            const day    = (r.time        || '').substring(0, 10);
+            const threat = (r.description || '').trim();
+            const origin = (r.origin      || '').trim();
+            if (fTo && day > fTo) return false;
+            if (selected.threat !== null && !selected.threat.has(threat)) return false;
+            if (selected.origin !== null && !selected.origin.has(origin)) return false;
+            return true;
+        });
+
+        const keyMap = new Map();
+        filtered.forEach(r => {
+            const id     = (r.id          || '').trim();
+            const desc   = (r.description || '').trim();
+            const origin = (r.origin      || '').trim();
+            const key    = id + '__' + desc + '__' + origin;
+            if (!keyMap.has(key)) keyMap.set(key, { key, id, desc, origin, time: r.time, rows: [] });
+            keyMap.get(key).rows.push(r);
+        });
+
+        viewData = Array.from(keyMap.values());
+        buildChecklist();
+        setStatus(`${viewData.length} אירועים · ${filtered.length} שורות`);
+    }
+
+    // ── Build table ──
+    function buildChecklist() {
+        const tbody = document.getElementById('checklist-body');
+        tbody.innerHTML = '';
+        viewData.forEach((item, idx) => {
+            const color = PALETTE[idx % PALETTE.length];
+            const tr = document.createElement('tr');
+
+            const tdId = document.createElement('td');
+            tdId.className = 'col-id'; tdId.textContent = item.id;
+            tr.appendChild(tdId);
+
+            const tdTime = document.createElement('td');
+            tdTime.className = 'col-time';
+            tdTime.textContent = item.time ? item.time.substring(5, 16) : '';
+            tdTime.title = item.time || '';
+            tr.appendChild(tdTime);
+
+            const tdDesc = document.createElement('td');
+            tdDesc.className = 'col-desc'; tdDesc.textContent = item.desc; tdDesc.title = item.desc;
+            tr.appendChild(tdDesc);
+
+            const tdOrigin = document.createElement('td');
+            tdOrigin.className = 'col-origin'; tdOrigin.textContent = item.origin || '—';
+            tr.appendChild(tdOrigin);
+
+            const tdChk = document.createElement('td');
+            tdChk.className = 'col-chk';
+            const wrap = document.createElement('div');
+            wrap.className = 'chk-cell';
+            const dot = document.createElement('span');
+            dot.className = 'color-dot'; dot.style.background = color;
+            const cb = document.createElement('input');
+            cb.type = 'checkbox'; cb.dataset.key = item.key; cb.dataset.color = color;
+            cb.addEventListener('change', onCheckChange);
+            wrap.appendChild(dot); wrap.appendChild(cb);
+            tdChk.appendChild(wrap);
+            tr.appendChild(tdChk);
+
+            tbody.appendChild(tr);
+        });
+    }
+
+    // ── Markers ──
+    function onCheckChange(e) {
+        const key = e.target.dataset.key, color = e.target.dataset.color;
+        if (e.target.checked) showMarkers(key, color);
+        else hideMarkers(key);
+    }
+
+    function showMarkers(key, color) {
+        if (markerGroups[key]) { markerGroups[key].addTo(map); return; }
+        const item = viewData.find(d => d.key === key);
+        if (!item) return;
+        const lg = L.layerGroup();
+        const seen = new Set();
+        item.rows.forEach(r => {
+            const city = r.cities?.trim();
+            if (!city || seen.has(city)) return;
+            seen.add(city);
+            const c = coordMap[city];
+            if (!c) return;
+            const popup = `<div dir="rtl">
+                <b style="color:#e8b84b">${city}</b><br>
+                <span style="color:#6b7494">${r.time||''}</span><br>
+                ${r.description||''}${r.origin ? '<br><span style="color:#5bc8af">'+r.origin+'</span>' : ''}
+            </div>`;
+            L.circleMarker([c.lat, c.lng], {
+                radius: 6, fillColor: color,
+                stroke: false,          /* no border on circles */
+                fillOpacity: 0.85
+            }).bindPopup(popup).addTo(lg);
+        });
+        markerGroups[key] = lg;
+        lg.addTo(map);
+    }
+
+    function hideMarkers(key) {
+        if (markerGroups[key]) map.removeLayer(markerGroups[key]);
+    }
+
+    // ── Download reshaped CSV ──
+    document.getElementById('download-btn').addEventListener('click', () => {
+        const q = v => {
+            const s = String(v);
+            return (s.includes(',') || s.includes(';') || s.includes('"') || s.includes('\n'))
+                ? `"${s.replace(/"/g,'""')}"` : s;
+        };
+        const lines = ['id,time,threat,origin,cities'];
+        viewData.forEach(item => {
+            const citiesSet = new Set();
+            item.rows.forEach(r => {
+                (r.cities||'').split(',').forEach(c => { const t=c.trim(); if(t) citiesSet.add(t); });
+            });
+            lines.push([q(item.id), q(item.time||''), q(item.desc), q(item.origin), q(Array.from(citiesSet).join('; '))].join(','));
+        });
+        const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = 'alarms_view.csv'; a.click();
+        URL.revokeObjectURL(url);
+    });
+
+    function setStatus(msg) {
+        document.getElementById('status-bar').textContent = msg;
+    }
+</script>
+</body>
+</html>
