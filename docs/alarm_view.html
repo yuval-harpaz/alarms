@@ -206,7 +206,13 @@
         .multi-dropdown::-webkit-scrollbar { width: 5px; }
         .multi-dropdown::-webkit-scrollbar-track { background: var(--bg2); }
         .multi-dropdown::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 3px; }
+        .multi-select-btn {
+            min-width: 0;
+        }
 
+        .multi-select-btn .summary {
+            max-width: 100%;
+        }
         .dropdown-search {
             position: sticky; top: 0;
             font-family: var(--mono); font-size: 0.78em;
@@ -325,6 +331,7 @@
         <div id="sidebar-header-top">
             <h3>אירועים</h3>
             <button id="clear-btn" class="header-btn">נקה ☐</button>
+            <button id="show-all-btn" class="header-btn">הצג הכל ☑</button>
             <button id="download-btn" class="header-btn">⬇ CSV</button>
         </div>
         <div id="filters">
@@ -356,8 +363,8 @@
                         <input type="text" class="dropdown-search" id="search-threat" placeholder="חיפוש...">
                         <div id="items-threat"></div>
                         <div class="dropdown-ctrl">
-                            <button class="dropdown-ctrl-btn" data-target="threat" data-action="all">בחר הכל</button>
-                            <button class="dropdown-ctrl-btn" data-target="threat" data-action="none">נקה</button>
+                            <button class="dropdown-ctrl-btn" data-target="threat" data-action="all">☑הכל</button>
+                            <button class="dropdown-ctrl-btn" data-target="threat" data-action="none">☐נקה</button>
                         </div>
                     </div>
                 </div>
@@ -407,12 +414,8 @@
 <div id="map"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js">
-document.getElementById('sidebar').style.display = 'flex';
-loadData();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js">
-document.getElementById('sidebar').style.display = 'flex';
-loadData();
 </script>
 <script>
     const PALETTE = [
@@ -446,7 +449,14 @@ loadData();
             if (cb.checked) { cb.checked = false; hideMarkers(cb.dataset.key); }
         });
     });
-
+    document.getElementById('show-all-btn').addEventListener('click', () => {
+        document.querySelectorAll('#checklist input[type=checkbox]').forEach(cb => {
+            if (!cb.checked) {
+                cb.checked = true;
+                showMarkers(cb.dataset.key, cb.dataset.color);
+            }
+        });
+    });
     document.getElementById('apply-btn').addEventListener('click', applyFiltersAndRebuild);
 
     // ── Multi-select dropdown logic ──
@@ -487,12 +497,13 @@ loadData();
 
     function updateSummary(type, values) {
         const el = document.getElementById('summary-' + type);
+
         if (selected[type] === null || selected[type].size === (values || getAllValues(type)).length) {
             el.textContent = 'הכל';
         } else if (selected[type].size === 0) {
             el.textContent = 'אף אחד';
         } else {
-            el.textContent = Array.from(selected[type]).join(', ');
+            el.textContent = `${selected[type].size} נבחרו`;
         }
     }
 
@@ -509,6 +520,7 @@ loadData();
 
         btn.addEventListener('click', e => {
             e.stopPropagation();
+            e.preventDefault();
             const isOpen = drop.classList.contains('open');
             closeAllDropdowns();
             if (!isOpen) {
