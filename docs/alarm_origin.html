@@ -317,7 +317,7 @@
 
         let filteredRows = [];
         let coordMap = {};
-        let idData = [];       // [{id, desc, time, rows:[...]}, ...] — may have composite keys
+        let idData = [];       // [{key, id, desc, existingOrigin, time, rows:[...]}, ...]
         let markerGroups = {};
         let userOrigins = {};  // track newly typed origins for autocomplete
 
@@ -334,11 +334,9 @@
                         }
                     });
 
-                    // Search for the first row after lastFilledIdx that has a different ID or is new
                     let targetId = "2026-03-01"; // Fallback
                     if (lastFilledIdx !== -1) {
                         const lastFilledId = alarms[lastFilledIdx].id;
-                        // Find first index where ID changes or we reach end after lastFilledIdx
                         let nextEmptyIdx = lastFilledIdx + 1;
                         while (nextEmptyIdx < alarms.length && alarms[nextEmptyIdx].id === lastFilledId) {
                             nextEmptyIdx++;
@@ -392,7 +390,6 @@
                 // Determine if input is an ID (integer) or a date
                 const isId = /^\d+$/.test(startVal);
                 if (isId) {
-                    // find first occurrence of this ID (only in new system, after 2023-03-08)
                     const ID_EPOCH = '2023-03-08 03:04:19';
                     const startId = startVal;
                     const idRow = allAlarms.find(r => r.id === startId && r.time >= ID_EPOCH);
@@ -406,39 +403,28 @@
                     filteredRows = allAlarms.filter(r => r.time && r.time >= startVal);
                 }
 
-                // Build unique IDs — split IDs that have both rockets and drones
-                const idMap = new Map(); // composite key "id__desc" -> {...}
+                // ─── Build unique GUI rows ───
+                // Split by: id + description (threat type) + existing origin
+                // This handles three cases:
+                //   1. Same id, different description (missiles vs drones) → separate rows
+                //   2. Same id, same description, different pre-existing origin → separate rows
+                //   3. Same id, same description, no origin (or one origin) → single row
+                const keyMap = new Map(); // composite key → {id, desc, existingOrigin, time, rows}
                 filteredRows.forEach(r => {
                     const id = r.id;
                     const desc = (r.description || '').trim();
-                    const key = id + '__' + desc;
-                    if (!idMap.has(key)) {
-                        idMap.set(key, { id, desc, time: r.time, rows: [] });
+                    const origin = (r.origin || '').trim();
+                    const key = id + '__' + desc + '__' + origin;
+                    if (!keyMap.has(key)) {
+                        keyMap.set(key, { id, desc, existingOrigin: origin, time: r.time, rows: [] });
                     }
-                    idMap.get(key).rows.push(r);
+                    keyMap.get(key).rows.push(r);
                 });
 
-                // Now merge back: if an id has only one description, keep it as-is.
-                // If it has multiple descriptions, keep them as separate rows.
-                // Group by id to check
-                const byId = new Map();
-                for (const [key, val] of idMap) {
-                    if (!byId.has(val.id)) byId.set(val.id, []);
-                    byId.get(val.id).push({ key, ...val });
-                }
-
-                idData = [];
-                for (const [id, entries] of byId) {
-                    if (entries.length === 1) {
-                        const e = entries[0];
-                        idData.push({ key: e.key, id: e.id, desc: e.desc, time: e.time, rows: e.rows });
-                    } else {
-                        // multiple descriptions for same id — separate rows
-                        entries.forEach(e => {
-                            idData.push({ key: e.key, id: e.id, desc: e.desc, time: e.time, rows: e.rows });
-                        });
-                    }
-                }
+                idData = Array.from(keyMap.values()).map((val, i) => ({
+                    key: Array.from(keyMap.keys())[i],
+                    ...val
+                }));
 
                 buildChecklist();
             });
@@ -500,24 +486,18 @@
                 inp.dataset.id = item.id;
                 inp.dataset.idx = idx;
 
-                // Pre-fill with existing origin from CSV
-                const origins = [...new Set(item.rows.map(r => (r.origin || '').trim()).filter(Boolean))];
-                if (origins.length === 1) {
-                    inp.value = origins[0];
+                // Pre-fill: each GUI row corresponds to exactly one existingOrigin value
+                // (empty string, or a single origin) — no ambiguity by construction.
+                if (item.existingOrigin) {
+                    inp.value = item.existingOrigin;
                     inp.readOnly = true;
                     inp.classList.add('locked');
                     inp.title = 'מקור קיים - נעול';
-                } else if (origins.length > 1) {
-                    inp.value = '';
-                    inp.readOnly = true;
-                    inp.classList.add('locked');
-                    inp.title = 'מקורות שונים: ' + origins.join(', ');
                 }
 
                 inp.addEventListener('keydown', onOriginKey);
                 inp.addEventListener('input', onOriginInput);
                 inp.addEventListener('blur', () => {
-                    // delay to allow click on autocomplete item
                     setTimeout(() => removeAutocomplete(inp), 150);
                 });
                 tdOrigin.appendChild(inp);
@@ -533,8 +513,7 @@
         function focusDefaultOrigin() {
             let lastFilledIdx = -1;
             idData.forEach((item, idx) => {
-                const origins = [...new Set(item.rows.map(r => (r.origin || '').trim()).filter(Boolean))];
-                if (origins.length > 0) {
+                if (item.existingOrigin) {
                     lastFilledIdx = idx;
                 }
             });
@@ -554,7 +533,6 @@
             if (e.target.readOnly) return;
             const inp = e.target;
 
-            // Handle autocomplete navigation
             const list = inp.parentElement.querySelector('.autocomplete-list');
             if (list) {
                 const items = list.querySelectorAll('div');
@@ -630,7 +608,6 @@
                 list.appendChild(d);
             });
             inp.parentElement.appendChild(list);
-            // Position below input
             list.style.top = (inp.offsetTop + inp.offsetHeight) + 'px';
             list.style.left = inp.offsetLeft + 'px';
             list.style.width = inp.offsetWidth + 'px';
@@ -678,19 +655,22 @@
 
         // ─── Download ───
         document.getElementById('download-btn').addEventListener('click', () => {
-            // Collect user origins: id -> text (use the first non-empty per id)
-            // For split IDs (same id, different desc), user may set different origins
-            // but for the CSV we need one origin per id. Collect by id.
-            const originById = {};
+            // Collect user-entered origins keyed by the full composite key (id__desc__existingOrigin).
+            // This ensures that rows split by threat type or by pre-existing origin each get
+            // their own independently assigned origin, with no cross-contamination.
+            const originByKey = {};
             document.querySelectorAll('.origin-input').forEach(inp => {
                 const v = inp.value.trim();
-                const id = inp.dataset.id;
-                if (v && !originById[id]) originById[id] = v;
+                const key = inp.dataset.key;
+                if (v) originByKey[key] = v;
             });
 
-            // Build output rows
+            // For each raw CSV row, reconstruct its composite key and look up the assigned origin.
             const outRows = filteredRows.map(r => {
-                const o = originById[r.id] || r.origin || '';
+                const desc = (r.description || '').trim();
+                const existingOrigin = (r.origin || '').trim();
+                const key = r.id + '__' + desc + '__' + existingOrigin;
+                const o = originByKey[key] || existingOrigin || '';
                 return { ...r, origin: o };
             });
 
