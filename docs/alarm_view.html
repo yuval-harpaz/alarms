@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Alarm Viewer</title>
+    <link rel="icon" href="logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -318,16 +319,6 @@
 </head>
 <body>
 
-<!-- Date overlay -->
-<div id="date-overlay">
-    <div id="date-box">
-        <h2>Alarm Viewer</h2>
-        <div class="sub">תאריך התחלה (YYYY-MM-DD) או ID</div>
-        <input type="text" id="start-input" placeholder="2026-03-29">
-        <button id="date-ok">טען נתונים</button>
-    </div>
-</div>
-
 <!-- Sidebar -->
 <div id="sidebar" style="display:none;">
     <div id="sidebar-header">
@@ -415,8 +406,14 @@
 
 <div id="map"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js">
+document.getElementById('sidebar').style.display = 'flex';
+loadData();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js">
+document.getElementById('sidebar').style.display = 'flex';
+loadData();
+</script>
 <script>
     const PALETTE = [
         '#e6194b','#3cb44b','#4363d8','#f58231','#911eb4',
@@ -429,7 +426,6 @@
         const d = new Date();
         return [d.getFullYear(), String(d.getMonth()+1).padStart(2,'0'), String(d.getDate()).padStart(2,'0')].join('-');
     }
-    document.getElementById('start-input').value = todayStr();
 
     const map = L.map('map').setView([31.5, 34.75], 8);
     L.tileLayer('https://cdnil.govmap.gov.il/xyz/heb/{z}/{x}/{y}.png', {
@@ -444,17 +440,6 @@
 
     // selected sets for multi-selects (null = all)
     const selected = { threat: null, origin: null };
-
-    // ── overlay ──
-    document.getElementById('date-ok').addEventListener('click', () => {
-        const val = document.getElementById('start-input').value.trim();
-        document.getElementById('date-overlay').style.display = 'none';
-        document.getElementById('sidebar').style.display = 'flex';
-        loadData(val);
-    });
-    document.getElementById('start-input').addEventListener('keydown', e => {
-        if (e.key === 'Enter') document.getElementById('date-ok').click();
-    });
 
     document.getElementById('clear-btn').addEventListener('click', () => {
         document.querySelectorAll('#checklist input[type=checkbox]').forEach(cb => {
@@ -574,7 +559,7 @@
     document.addEventListener('click', closeAllDropdowns);
 
     // ── Load ──
-    function loadData(startVal) {
+    function loadData() {
         setStatus('טוען נתונים...');
         Promise.all([
             fetch('https://raw.githubusercontent.com/yuval-harpaz/alarms/master/data/alarms.csv').then(r => r.text()),
@@ -586,27 +571,22 @@
             });
 
             const parsed = Papa.parse(alarmsCsv, { header: true, skipEmptyLines: true }).data;
-            parsedRows = parsed;  // keep full dataset
+            parsedRows = parsed;
+            allRows = parsedRows;
 
-            const isId = /^\d+$/.test(startVal);
-            let startTime = startVal;
-            if (isId) {
-                const ID_EPOCH = '2023-03-08 03:04:19';
-                const idRow = parsed.find(r => r.id === startVal && r.time >= ID_EPOCH);
-                startTime = idRow ? idRow.time : null;
-            }
-            allRows = startTime ? parsed.filter(r => r.time && r.time >= startTime) : [];
+            allRows = parsedRows;
 
             // seed date range
-            if (allRows.length) {
-                const times = allRows.map(r => r.time).filter(Boolean).sort();
-                document.getElementById('f-date-from').value = times[0].substring(0, 10);
-                document.getElementById('f-date-to').value   = times[times.length-1].substring(0, 10);
+            if (parsedRows.length) {
+                const times = parsedRows.map(r => r.time).filter(Boolean).sort();
+                const lastDay = times[times.length - 1].substring(0, 10);
+                document.getElementById('f-date-from').value = lastDay;
+                document.getElementById('f-date-to').value   = lastDay;
             }
 
             // populate multi-select dropdowns from unique values in data
-            const threats = [...new Set(allRows.map(r => (r.description||'').trim()))].filter(Boolean).sort();
-            const origins = [...new Set(allRows.map(r => (r.origin||'').trim()))].sort();
+            const threats = [...new Set(parsedRows.map(r => (r.description||'').trim()))].filter(Boolean).sort();
+            const origins = [...new Set(parsedRows.map(r => (r.origin||'').trim()))].sort();
             buildDropdown('threat', threats);
             buildDropdown('origin', origins);
 
@@ -626,12 +606,13 @@
         const fTo   = (document.getElementById('f-date-to').value   || '').trim();
 
         // Re-derive from full dataset so earlier dates always work
-        allRows = fFrom ? parsedRows.filter(r => r.time && r.time >= fFrom) : parsedRows;
+        allRows = parsedRows;
 
         const filtered = allRows.filter(r => {
             const day    = (r.time        || '').substring(0, 10);
             const threat = (r.description || '').trim();
             const origin = (r.origin      || '').trim();
+            if (fFrom && day < fFrom) return false;
             if (fTo && day > fTo) return false;
             if (selected.threat !== null && !selected.threat.has(threat)) return false;
             if (selected.origin !== null && !selected.origin.has(origin)) return false;
@@ -759,6 +740,9 @@
     function setStatus(msg) {
         document.getElementById('status-bar').textContent = msg;
     }
+
+document.getElementById('sidebar').style.display = 'flex';
+loadData();
 </script>
 </body>
 </html>
