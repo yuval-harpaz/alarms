@@ -19,7 +19,7 @@
             --accent2: #5bc8af;
             --danger: #e05c5c;
             --text: #c8cedf;
-            --text-dim: #6b7494;
+            --text-dim: #8a94b5;
             --text-bright: #edf0f8;
             --mono: 'Share Tech Mono', monospace;
             --sans: 'Barlow Condensed', sans-serif;
@@ -124,7 +124,7 @@
 
         .filter-label {
             font-family: var(--mono); font-size: 0.7em;
-            color: var(--text-dim); text-transform: uppercase;
+            color: var(--text-bright); text-transform: uppercase;
             letter-spacing: 0.06em;
         }
 
@@ -226,7 +226,7 @@
             display: flex; align-items: center; gap: 7px;
             padding: 5px 8px; cursor: pointer;
             font-family: var(--mono); font-size: 0.8em;
-            color: var(--text);
+            color: var(--text-bright);
             transition: background 0.1s;
         }
         .dropdown-item:hover { background: var(--bg3); }
@@ -274,7 +274,7 @@
             background: var(--bg2); padding: 6px 8px; text-align: right;
             border-bottom: 2px solid var(--border);
             font-family: var(--mono); font-size: 0.78em; font-weight: 400;
-            color: var(--text-dim); text-transform: uppercase;
+            color: var(--text-bright); text-transform: uppercase;
             letter-spacing: 0.05em; white-space: nowrap;
         }
         #checklist td {
@@ -307,8 +307,13 @@
         /* ── Map ── */
         #map { flex: 1; }
         .leaflet-control-attribution {
-            background: rgba(13,15,20,0.7) !important;
-            font-size: 11px; color: #6b7494 !important;
+            background: rgba(13,15,20,0.85) !important;
+            font-size: 11px;
+            color: #c8cedf !important;   /* brighter */
+        }
+
+        .leaflet-control-attribution a {
+            color: #e8b84b !important;   /* accent for links */
         }
         .leaflet-popup-content-wrapper {
             background: var(--bg2) !important; border: 1px solid var(--border) !important;
