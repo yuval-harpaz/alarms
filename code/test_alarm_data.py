@@ -19,43 +19,42 @@ import sys
 MAX_ROWS_TELEGRAM = None  # None = no limit
 MAX_ROWS_DLESHEM = None   # None = no limit
 
+# Module-level data variables
+data_dir = Path.home() / 'alarms' / 'data'
+
+# Load CSV files
+telegram = pd.read_csv(data_dir / 'telegram_messages.csv')
+dleshem = pd.read_csv(data_dir / 'dleshem_roar.csv')
+
+# Apply row limits if specified
+if MAX_ROWS_TELEGRAM is not None:
+    telegram = telegram.iloc[:MAX_ROWS_TELEGRAM]
+if MAX_ROWS_DLESHEM is not None:
+    dleshem = dleshem.iloc[:MAX_ROWS_DLESHEM]
+
+# Handle potential NaN values
+telegram['rid'] = telegram['rid'].fillna(0).astype(str)
+dleshem['telegram_id'] = dleshem['telegram_id'].fillna(0).astype(int)
+dleshem['rid'] = dleshem['rid'].fillna(0).astype(str)
+
+# Create lookup dictionaries for faster access
+rid_to_telegram_row = {}
+for idx in range(len(telegram)):
+    row = telegram.iloc[idx]
+    rid_str = str(row['rid']).strip()
+    if rid_str and rid_str != '0':
+        # Handle multiple rids separated by semicolon
+        rids = [r.strip() for r in rid_str.split(';')]
+        for rid in rids:
+            if rid not in rid_to_telegram_row:
+                rid_to_telegram_row[rid] = []
+            rid_to_telegram_row[rid].append((idx, row))
+
+telegram_id_lookup = telegram.set_index('message id')
+
 
 class TestAlarmDataConsistency(unittest.TestCase):
     """Test suite for alarm data consistency"""
-    
-    @classmethod
-    def setUpClass(cls):
-        """Load data files once for all tests"""
-        data_dir = Path.home() / 'alarms' / 'data'
-        
-        # Load CSV files
-        cls.telegram = pd.read_csv(data_dir / 'telegram_messages.csv')
-        cls.dleshem = pd.read_csv(data_dir / 'dleshem_roar.csv')
-        
-        # Apply row limits if specified
-        if MAX_ROWS_TELEGRAM is not None:
-            cls.telegram = cls.telegram.iloc[:MAX_ROWS_TELEGRAM]
-        if MAX_ROWS_DLESHEM is not None:
-            cls.dleshem = cls.dleshem.iloc[:MAX_ROWS_DLESHEM]
-        
-        # Handle potential NaN values
-        cls.telegram['rid'] = cls.telegram['rid'].fillna(0).astype(str)
-        cls.dleshem['telegram_id'] = cls.dleshem['telegram_id'].fillna(0).astype(int)
-        cls.dleshem['rid'] = cls.dleshem['rid'].fillna(0).astype(str)
-        
-        # Create lookup dictionaries for faster access
-        cls.rid_to_telegram_row = {}
-        for idx, row in cls.telegram.iterrows():
-            rid_str = str(row['rid']).strip()
-            if rid_str and rid_str != '0':
-                # Handle multiple rids separated by semicolon
-                rids = [r.strip() for r in rid_str.split(';')]
-                for rid in rids:
-                    if rid not in cls.rid_to_telegram_row:
-                        cls.rid_to_telegram_row[rid] = []
-                    cls.rid_to_telegram_row[rid].append((idx, row))
-        
-        cls.telegram_id_lookup = cls.telegram.set_index('message id')
     
     def test_1_telegram_rid_references_valid_dleshem_locations(self):
         """
@@ -67,48 +66,39 @@ class TestAlarmDataConsistency(unittest.TestCase):
         - Verify that the location in dleshem is contained in telegram['locations']
         """
         failures = []
-        total_rows = len(self.telegram)
-        
-        for ii, (idx, row) in enumerate(self.telegram.iterrows()):
+        total_rows = len(telegram)
+        for ii in range(total_rows):
+            row = telegram.iloc[ii]
             print(f"\rTest 1 Progress: {ii}/{total_rows}", end='', flush=True)
-            
             rid_str = str(row['rid']).strip()
             if not rid_str or rid_str == '0':
                 continue
-            
             # Handle multiple rids separated by semicolon
             rids = [r.strip() for r in rid_str.split(';')]
             telegram_locations = str(row['locations']).split('; ')
             message_id = row['message id']
             
             for rid in rids:
-                if not rid or rid == '0':
-                    continue
-                
                 # Find corresponding entries in dleshem
-                dleshem_entries = self.dleshem[self.dleshem['rid'].astype(str) == rid]
+                dleshem_entries = dleshem[dleshem['rid'].astype(str) == rid]
                 
                 if len(dleshem_entries) == 0:
                     failures.append(
-                        f"Message ID {message_id}: rid {rid} not found in dleshem"
+                        f"{ii} Message ID {message_id}: rid {rid} not found in dleshem"
                     )
                     continue
                 
                 # Verify that at least one location from dleshem is in telegram
-                for _, dleshem_row in dleshem_entries.iterrows():
-                    dleshem_location = str(dleshem_row['data']).strip()
-                    location_found = any(
-                        dleshem_location in telegram_loc 
-                        or telegram_loc in dleshem_location
-                        for telegram_loc in telegram_locations
-                    )
+                for jj in range(len(dleshem_entries)):
+                    if not dleshem_entries['data'].values[jj] in telegram_locations:
+                        dleshem_locations = dleshem_entries['data'].values[jj].strip().split(',')
+                        for dloc in dleshem_locations:
+                            if dloc.strip() not in telegram_locations:
+                                failures.append(
+                                    f"{ii} Message ID {message_id}: rid {rid} with location '{dloc}' not found in telegram locations"
+                                )
                     
-                    if not location_found:
-                        failures.append(
-                            f"Message ID {message_id}: rid {rid} with location "
-                            f"'{dleshem_location}' not found in telegram locations "
-                            f"{telegram_locations}"
-                        )
+
         
         print(f"\rTest 1 Progress: {total_rows}/{total_rows} - Complete!")
         if failures:
@@ -128,9 +118,10 @@ class TestAlarmDataConsistency(unittest.TestCase):
         - Verify that the location in dleshem is contained in telegram['locations']
         """
         failures = []
-        total_rows = len(self.dleshem)
+        total_rows = len(dleshem)
         
-        for ii, (idx, dleshem_row) in enumerate(self.dleshem.iterrows()):
+        for ii in range(total_rows):
+            dleshem_row = dleshem.iloc[ii]
             print(f"\rTest 2 Progress: {ii}/{total_rows}", end='', flush=True)
             
             telegram_id = dleshem_row['telegram_id']
@@ -143,7 +134,7 @@ class TestAlarmDataConsistency(unittest.TestCase):
             
             # Find corresponding telegram row
             try:
-                telegram_row = self.telegram_id_lookup.loc[telegram_id]
+                telegram_row = telegram_id_lookup.loc[telegram_id]
                 telegram_locations = str(telegram_row['locations']).split('; ')
                 
                 # Verify that dleshem location is in telegram locations
@@ -155,14 +146,14 @@ class TestAlarmDataConsistency(unittest.TestCase):
                 
                 if not location_found:
                     failures.append(
-                        f"Dleshem row {idx}: telegram_id {telegram_id} with location "
+                        f"Dleshem row {ii}: telegram_id {telegram_id} with location "
                         f"'{dleshem_location}' not found in telegram locations "
                         f"{telegram_locations}"
                     )
             
             except KeyError:
                 failures.append(
-                    f"Dleshem row {idx}: telegram_id {telegram_id} not found in telegram"
+                    f"Dleshem row {ii}: telegram_id {telegram_id} not found in telegram"
                 )
         
         print(f"\rTest 2 Progress: {total_rows}/{total_rows} - Complete!")
@@ -183,7 +174,7 @@ class TestAlarmDataConsistency(unittest.TestCase):
         failures = []
         
         # Group dleshem by telegram_id
-        grouped = list(self.dleshem.groupby('telegram_id'))
+        grouped = list(dleshem.groupby('telegram_id'))
         total_groups = len(grouped)
         
         for ii, (telegram_id, group) in enumerate(grouped):
@@ -224,26 +215,26 @@ class TestAlarmDataConsistency(unittest.TestCase):
         
         # Telegram statistics
         print(f"\nTelegram Messages:")
-        print(f"  Total rows: {len(self.telegram)}")
-        print(f"  Rows with non-zero rid: {len(self.telegram[self.telegram['rid'] != '0'])}")
-        print(f"  Rows with zero rid: {len(self.telegram[self.telegram['rid'] == '0'])}")
+        print(f"  Total rows: {len(telegram)}")
+        print(f"  Rows with non-zero rid: {len(telegram[telegram['rid'] != '0'])}")
+        print(f"  Rows with zero rid: {len(telegram[telegram['rid'] == '0'])}")
         
         # Dleshem statistics
         print(f"\nDleshem Data:")
-        print(f"  Total rows: {len(self.dleshem)}")
-        non_zero_telegram_id = self.dleshem[self.dleshem['telegram_id'] != 0]
+        print(f"  Total rows: {len(dleshem)}")
+        non_zero_telegram_id = dleshem[dleshem['telegram_id'] != 0]
         print(f"  Rows with non-zero telegram_id: {len(non_zero_telegram_id)}")
-        print(f"  Rows with zero telegram_id: {len(self.dleshem[self.dleshem['telegram_id'] == 0])}")
+        print(f"  Rows with zero telegram_id: {len(dleshem[dleshem['telegram_id'] == 0])}")
         
         # Unique values
         print(f"\nUnique Values:")
-        print(f"  Unique telegram_id in dleshem: {self.dleshem['telegram_id'].nunique()}")
-        print(f"  Unique rid in telegram: {len(set(str(r).strip() for r in self.telegram['rid'].values if str(r).strip() != '0'))}")
-        print(f"  Unique rid in dleshem: {len(set(str(r).strip() for r in self.dleshem['rid'].values if str(r).strip() != '0'))}")
+        print(f"  Unique telegram_id in dleshem: {dleshem['telegram_id'].nunique()}")
+        print(f"  Unique rid in telegram: {len(set(str(r).strip() for r in telegram['rid'].values if str(r).strip() != '0'))}")
+        print(f"  Unique rid in dleshem: {len(set(str(r).strip() for r in dleshem['rid'].values if str(r).strip() != '0'))}")
         
         # Cross-reference
-        telegram_ids_in_dleshem = set(self.dleshem[self.dleshem['telegram_id'] != 0]['telegram_id'].unique())
-        message_ids_in_telegram = set(self.telegram['message id'].unique())
+        telegram_ids_in_dleshem = set(dleshem[dleshem['telegram_id'] != 0]['telegram_id'].unique())
+        message_ids_in_telegram = set(telegram['message id'].unique())
         valid_references = telegram_ids_in_dleshem & message_ids_in_telegram
         
         print(f"\nCross-reference:")
@@ -256,21 +247,12 @@ class TestAlarmDataConsistency(unittest.TestCase):
 class TestAlarmDataIssues(unittest.TestCase):
     """Additional tests to identify specific issues"""
     
-    @classmethod
-    def setUpClass(cls):
-        """Load data files once for all tests"""
-        data_dir = Path.home() / 'alarms' / 'data'
-        cls.telegram = pd.read_csv(data_dir / 'telegram_messages.csv')
-        cls.dleshem = pd.read_csv(data_dir / 'dleshem_roar.csv')
-        
-        cls.telegram['rid'] = cls.telegram['rid'].fillna(0).astype(str)
-        cls.dleshem['telegram_id'] = cls.dleshem['telegram_id'].fillna(0).astype(int)
-    
     def test_find_orphaned_rid_in_telegram(self):
         """Find telegram rows with rid that don't exist in dleshem"""
         orphaned = []
         
-        for idx, row in self.telegram.iterrows():
+        for ii in range(len(telegram)):
+            row = telegram.iloc[ii]
             rid_str = str(row['rid']).strip()
             if not rid_str or rid_str == '0':
                 continue
@@ -278,7 +260,7 @@ class TestAlarmDataIssues(unittest.TestCase):
             rids = [r.strip() for r in rid_str.split(';')]
             for rid in rids:
                 if rid and rid != '0':
-                    if len(self.dleshem[self.dleshem['rid'].astype(str) == rid]) == 0:
+                    if len(dleshem[dleshem['rid'].astype(str) == rid]) == 0:
                         orphaned.append({
                             'message_id': row['message id'],
                             'rid': rid,
@@ -296,13 +278,14 @@ class TestAlarmDataIssues(unittest.TestCase):
         """Find dleshem rows referencing non-existent telegram messages"""
         invalid = []
         
-        telegram_ids = set(self.telegram['message id'].unique())
+        telegram_ids = set(telegram['message id'].unique())
         
-        for idx, row in self.dleshem.iterrows():
+        for ii in range(len(dleshem)):
+            row = dleshem.iloc[ii]
             telegram_id = row['telegram_id']
             if telegram_id != 0 and pd.notna(telegram_id) and int(telegram_id) not in telegram_ids:
                 invalid.append({
-                    'dleshem_idx': idx,
+                    'ii': ii,
                     'telegram_id': telegram_id,
                     'location': row['data']
                 })
@@ -310,7 +293,7 @@ class TestAlarmDataIssues(unittest.TestCase):
         if invalid:
             print(f"\nFound {len(invalid)} invalid telegram_id references in dleshem:")
             for item in invalid[:5]:
-                print(f"  Row {item['dleshem_idx']}: telegram_id {item['telegram_id']} - {item['location']}")
+                print(f"  Row {item['ii']}: telegram_id {item['telegram_id']} - {item['location']}")
             if len(invalid) > 5:
                 print(f"  ... and {len(invalid) - 5} more")
 
