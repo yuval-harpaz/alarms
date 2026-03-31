@@ -337,7 +337,7 @@
             <h3>אירועים</h3>
             <button id="clear-btn" class="header-btn">נקה ☐</button>
             <button id="show-all-btn" class="header-btn">הצג הכל ☑</button>
-            <button id="download-btn" class="header-btn">⬇ CSV</button>
+            <button id="download-btn" class="header-btn">⬇ XLSX</button>
         </div>
         <div id="filters">
             <!-- Date range -->
@@ -422,6 +422,7 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js">
 </script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script>
     const PALETTE = [
         '#e6194b','#3cb44b','#4363d8','#f58231','#911eb4',
@@ -732,26 +733,20 @@
         if (markerGroups[key]) map.removeLayer(markerGroups[key]);
     }
 
-    // ── Download reshaped CSV ──
+    // ── Download reshaped XLSX ──
     document.getElementById('download-btn').addEventListener('click', () => {
-        const q = v => {
-            const s = String(v);
-            return (s.includes(',') || s.includes(';') || s.includes('"') || s.includes('\n'))
-                ? `"${s.replace(/"/g,'""')}"` : s;
-        };
-        const lines = ['id,time,threat,origin,cities'];
+        const rows = [['id', 'time', 'threat', 'origin', 'cities']];
         viewData.forEach(item => {
             const citiesSet = new Set();
             item.rows.forEach(r => {
                 (r.cities||'').split(',').forEach(c => { const t=c.trim(); if(t) citiesSet.add(t); });
             });
-            lines.push([q(item.id), q(item.time||''), q(item.desc), q(item.origin), q(Array.from(citiesSet).join('; '))].join(','));
+            rows.push([item.id, item.time||'', item.desc, item.origin, Array.from(citiesSet).join('; ')]);
         });
-        const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url; a.download = 'alarms_view.csv'; a.click();
-        URL.revokeObjectURL(url);
+        const ws = XLSX.utils.aoa_to_sheet(rows);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Alarms');
+        XLSX.writeFile(wb, 'alarms_view.xlsx');
     });
 
     function setStatus(msg) {
