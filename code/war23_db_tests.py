@@ -109,12 +109,12 @@ class TestDuplicates(unittest.TestCase):
         names = np.array(names)
         dup_heb = duplicates(pid, names)
         dup_names = np.unique(dup_heb['name'])
-        okay_dup = np.sort(['אור מזרחי', 'דניאל כהן', 'עמית כהן', 'רותם לוי', 'לידור לוי', 'יקיר לוי', 'עמית לוי', 'נדב כהן', 'אברהם כהן'])
+        okay_dup = np.sort(['אור מזרחי', 'דניאל כהן', 'עמית כהן', 'רותם לוי', 'לידור לוי', 'יקיר לוי', 'עמית לוי', 'נדב כהן', 'אברהם כהן', 'בן כהן'])
         duplicates_length = len(dup_names)
         bad_name = [x for x in dup_names if x not in okay_dup]
         if duplicates_length != len(okay_dup):
             print('Hebrew Name duplicates!!!!'+str(bad_name).replace('[', '').replace(']', ''))
-            dup_heb.to_csv('/home/innereye/Documents/dup.csv', index=False)
+            dup_heb.to_csv('/home/yuval/Documents/dup.csv', index=False)
             print(' See: Documents/dup.csv')
         self.assertEqual(duplicates_length, len(okay_dup))
 
@@ -128,12 +128,12 @@ class TestDuplicates(unittest.TestCase):
         dup_eng = duplicates(pid, names)
         dup_names = np.unique(dup_eng['name'])
         okay_dup = np.sort(['Or Mizrahi', 'Daniel Cohen', 'Amit Cohen', 'Ohad Cohen',
-                            'Nadav Cohen', 'Rotem Levi', 'Amit Levi', 'Avraham Cohen'])
+                            'Nadav Cohen', 'Rotem Levi', 'Amit Levi', 'Avraham Cohen', 'Ben Cohen'])
         duplicates_length = len(dup_names)
         bad_name = [x for x in dup_names if x not in okay_dup]
         if duplicates_length != len(okay_dup):
             print('English Name duplicates!!!!'+str(bad_name).replace('[', '').replace(']', ''))
-            dup_eng.to_csv('/home/innereye/Documents/dup_eng.csv', index=False)
+            dup_eng.to_csv('/home/yuval/Documents/dup_eng.csv', index=False)
             print(' See: Documents/dup_eng.csv')
         self.assertEqual(duplicates_length, len(okay_dup))
 
