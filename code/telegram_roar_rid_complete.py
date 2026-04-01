@@ -24,29 +24,48 @@ for jj in missing:
     near = np.abs(timet - timed[jj]) < np.timedelta64(10, 's')
     tomatch = dleshem['data'][jj]
     tomatch = tomatch.replace(',', ';')
-    contains_r = telegram['locations'].str.contains('; ' + tomatch)
-    contains_l = telegram['locations'].str.contains(tomatch + '; ')
-    equal = telegram['locations'] == tomatch
-    idxt = np.where((contains_r | contains_l | equal) & near)[0]
+    
+    # Check for exact location match (as a complete element in semicolon-separated list)
+    def has_exact_location(locs_str, target):
+        if pd.isna(locs_str):
+            return False
+        locs = [l.strip() for l in str(locs_str).split(';')]
+        return target in locs
+    
+    matches = telegram.apply(lambda row: has_exact_location(row['locations'], tomatch), axis=1)
+    idxt = np.where(matches & near)[0]
     if len(idxt) > 0:
         dleshem.at[jj, 'telegram_id'] = telegram['message id'][idxt[0]]
     else:
-        prev = np.where(telegram['locations'].str.contains(tomatch) & (timet < timed[jj]))[0][-1]
-        prev_time = timed[jj] - timet[prev]
-        next = np.where(telegram['locations'].str.contains(tomatch) & (timet > timed[jj]))[0][0]
-        next_time = timet[next] - timed[jj]
-        # print times in seconds
+        # For fallback matching, also use exact location matching
+        fallback_matches = telegram.apply(lambda row: has_exact_location(row['locations'], tomatch), axis=1)
+        prev_idx = np.where(fallback_matches & (timet < timed[jj]))[0]
+        next_idx = np.where(fallback_matches & (timet > timed[jj]))[0]
+        
+        if len(prev_idx) > 0:
+            prev = prev_idx[-1]
+            prev_time = timed[jj] - timet[prev]
+            if len(next_idx) > 0:
+                next = next_idx[0]
+                next_time = timet[next] - timed[jj]
+            else:
+                next_time = np.timedelta64(float('inf'), 's')
+        else:
+            prev_time = np.timedelta64(float('inf'), 's')
+            if len(next_idx) > 0:
+                next = next_idx[0]
+                next_time = timet[next] - timed[jj]
+            else:
+                next_time = np.timedelta64(float('inf'), 's')
 
         if prev_time < np.timedelta64(30, 's'):
             dleshem.at[jj, 'telegram_id'] = telegram['message id'][prev]
         elif next_time < np.timedelta64(30, 's'):
             dleshem.at[jj, 'telegram_id'] = telegram['message id'][next]
         else:
-            print(f"prev {prev_time.astype('timedelta64[s]')} sec before, next {next_time.astype('timedelta64[s]')} sec after")
+            if prev_time != np.timedelta64(float('inf'), 's'):
+                print(f"prev {prev_time.astype('timedelta64[s]')} sec before, next {next_time.astype('timedelta64[s]')} sec after")
             print('no match < 30 sec')
-        # for kk in np.where(near):
-        #     if tomatch in telegram['locations'][kk]:
-        #         print(kk)
     print(f'{jj}/{len(dleshem)}', end='\r')
 dleshem.to_csv('~/alarms/data/dleshem_roar.csv', index=False)
 ##

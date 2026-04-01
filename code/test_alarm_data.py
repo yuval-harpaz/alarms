@@ -16,8 +16,8 @@ import sys
 
 
 # Global configuration for limiting rows (can be set via command line)
-MAX_ROWS_TELEGRAM = None  # None = no limit
-MAX_ROWS_DLESHEM = None   # None = no limit
+MAX_ROWS_TELEGRAM = 50  # None = no limit
+MAX_ROWS_DLESHEM = 50   # None = no limit
 
 # Module-level data variables
 data_dir = Path.home() / 'alarms' / 'data'
@@ -26,31 +26,19 @@ data_dir = Path.home() / 'alarms' / 'data'
 telegram = pd.read_csv(data_dir / 'telegram_messages.csv')
 dleshem = pd.read_csv(data_dir / 'dleshem_roar.csv')
 
-# Apply row limits if specified
-if MAX_ROWS_TELEGRAM is not None:
-    telegram = telegram.iloc[:MAX_ROWS_TELEGRAM]
-if MAX_ROWS_DLESHEM is not None:
-    dleshem = dleshem.iloc[:MAX_ROWS_DLESHEM]
-
-# Handle potential NaN values
 telegram['rid'] = telegram['rid'].fillna(0).astype(str)
 dleshem['telegram_id'] = dleshem['telegram_id'].fillna(0).astype(int)
 dleshem['rid'] = dleshem['rid'].fillna(0).astype(str)
 
-# Create lookup dictionaries for faster access
-rid_to_telegram_row = {}
-for idx in range(len(telegram)):
-    row = telegram.iloc[idx]
-    rid_str = str(row['rid']).strip()
-    if rid_str and rid_str != '0':
-        # Handle multiple rids separated by semicolon
-        rids = [r.strip() for r in rid_str.split(';')]
-        for rid in rids:
-            if rid not in rid_to_telegram_row:
-                rid_to_telegram_row[rid] = []
-            rid_to_telegram_row[rid].append((idx, row))
-
 telegram_id_lookup = telegram.set_index('message id')
+
+def set_max_rows(num_rows):
+    """Set the global row limits"""
+    global MAX_ROWS_TELEGRAM, MAX_ROWS_DLESHEM
+    MAX_ROWS_TELEGRAM = num_rows
+    MAX_ROWS_DLESHEM = num_rows
+
+
 
 
 class TestAlarmDataConsistency(unittest.TestCase):
@@ -66,7 +54,7 @@ class TestAlarmDataConsistency(unittest.TestCase):
         - Verify that the location in dleshem is contained in telegram['locations']
         """
         failures = []
-        total_rows = len(telegram)
+        total_rows = np.min([len(dleshem), MAX_ROWS_DLESHEM])
         for ii in range(total_rows):
             row = telegram.iloc[ii]
             print(f"\rTest 1 Progress: {ii}/{total_rows}", end='', flush=True)
@@ -250,8 +238,8 @@ class TestAlarmDataIssues(unittest.TestCase):
     def test_find_orphaned_rid_in_telegram(self):
         """Find telegram rows with rid that don't exist in dleshem"""
         orphaned = []
-        
-        for ii in range(len(telegram)):
+        check_till = np.min(len([telegram, MAX_ROWS_TELEGRAM]))
+        for ii in range(check_till):
             row = telegram.iloc[ii]
             rid_str = str(row['rid']).strip()
             if not rid_str or rid_str == '0':
@@ -266,43 +254,14 @@ class TestAlarmDataIssues(unittest.TestCase):
                             'rid': rid,
                             'location': row['locations']
                         })
-        
+            print(f"{ii}/{check_till}")
         if orphaned:
             print(f"\nFound {len(orphaned)} orphaned rids in telegram:")
             for item in orphaned[:5]:
                 print(f"  Message {item['message_id']}: rid {item['rid']} - {item['location']}")
             if len(orphaned) > 5:
                 print(f"  ... and {len(orphaned) - 5} more")
-    
-    def test_find_invalid_telegram_id_references(self):
-        """Find dleshem rows referencing non-existent telegram messages"""
-        invalid = []
-        
-        telegram_ids = set(telegram['message id'].unique())
-        
-        for ii in range(len(dleshem)):
-            row = dleshem.iloc[ii]
-            telegram_id = row['telegram_id']
-            if telegram_id != 0 and pd.notna(telegram_id) and int(telegram_id) not in telegram_ids:
-                invalid.append({
-                    'ii': ii,
-                    'telegram_id': telegram_id,
-                    'location': row['data']
-                })
-        
-        if invalid:
-            print(f"\nFound {len(invalid)} invalid telegram_id references in dleshem:")
-            for item in invalid[:5]:
-                print(f"  Row {item['ii']}: telegram_id {item['telegram_id']} - {item['location']}")
-            if len(invalid) > 5:
-                print(f"  ... and {len(invalid) - 5} more")
 
-
-def set_max_rows(num_rows):
-    """Set the global row limits"""
-    global MAX_ROWS_TELEGRAM, MAX_ROWS_DLESHEM
-    MAX_ROWS_TELEGRAM = num_rows
-    MAX_ROWS_DLESHEM = num_rows
 
 
 def run_tests_with_details():

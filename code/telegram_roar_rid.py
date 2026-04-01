@@ -19,10 +19,16 @@ dleshem.at[rowd, 'telegram_id'] = telegram['message id'][rowt]
 # fill message id in dleshem
 for jj in range(rowd+1, len(dleshem)):
     near = np.abs(timet - timed[jj]) < np.timedelta64(10, 's')
-    contains_r = telegram['locations'].str.contains('; ' + dleshem['data'][jj])
-    contains_l = telegram['locations'].str.contains(dleshem['data'][jj] + '; ')
-    equal = telegram['locations'] == dleshem['data'][jj]
-    idxt = np.where((contains_r | contains_l | equal) & near)[0]
+    target_loc = dleshem['data'][jj]
+    # Check for exact location match (as a complete element in semicolon-separated list)
+    def has_exact_location(locs_str, target):
+        if pd.isna(locs_str):
+            return False
+        locs = [l.strip() for l in str(locs_str).split(';')]
+        return target in locs
+    
+    matches = telegram.apply(lambda row: has_exact_location(row['locations'], target_loc), axis=1)
+    idxt = np.where(matches & near)[0]
     if len(idxt) == 1:
         dleshem.at[jj, 'telegram_id'] = telegram['message id'][idxt[0]]
     print(f'{jj}/{len(dleshem)}', end='\r')
@@ -32,9 +38,12 @@ print('now dleshem to telegram')
 print('')
 for ii in range(rowt+1, len(telegram)):
     near = np.abs(timed - timet[ii]) < np.timedelta64(10, 's')
-    locations = telegram['locations'][ii].split('; ')
-    idxd = np.where(dleshem['data'].isin(locations) & near)[0]
-    if len(idxd) == len(locations):
+    locations = [l.strip() for l in str(telegram['locations'][ii]).split(';')]
+    # Match rows where ALL locations appear exactly in dleshem data
+    matches = np.array([all(loc in dleshem['data'].values for loc in locations)])
+    idxd = np.where(np.isin(dleshem['data'].values, locations) & near)[0]
+    # Only assign if we found matches for all locations
+    if len(idxd) > 0 and all(loc in dleshem['data'].values for loc in locations):
         telegram.at[ii, 'rid'] = ';'.join(dleshem['rid'][idxd].values.astype(str))
     # else:
     #     print('debug')
