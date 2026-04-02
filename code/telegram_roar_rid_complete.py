@@ -18,6 +18,13 @@ telegram.at[rowt, 'rid'] = dleshem['rid'][rowd]
 # dleshem.at[rowd, 'telegram_id'] = telegram['message id'][rowt]
 dleshem = pd.read_csv('~/alarms/data/dleshem_roar.csv')
 # fill message id in dleshem
+
+def has_exact_location(locs_str, target):
+    if pd.isna(locs_str):
+        return False
+    locs = [l.strip() for l in str(locs_str).split(';')]
+    return target in locs
+
 missing = np.where(dleshem['telegram_id'] == 0)[0]
 missing = missing[missing > 100]
 for jj in missing:
@@ -26,11 +33,7 @@ for jj in missing:
     tomatch = tomatch.replace(',', ';')
     
     # Check for exact location match (as a complete element in semicolon-separated list)
-    def has_exact_location(locs_str, target):
-        if pd.isna(locs_str):
-            return False
-        locs = [l.strip() for l in str(locs_str).split(';')]
-        return target in locs
+
     
     matches = telegram.apply(lambda row: has_exact_location(row['locations'], tomatch), axis=1)
     idxt = np.where(matches & near)[0]
@@ -49,21 +52,21 @@ for jj in missing:
                 next = next_idx[0]
                 next_time = timet[next] - timed[jj]
             else:
-                next_time = np.timedelta64(float('inf'), 's')
+                next_time = np.timedelta64(10**18, 's')
         else:
-            prev_time = np.timedelta64(float('inf'), 's')
+            prev_time = np.timedelta64(10**18, 's')
             if len(next_idx) > 0:
                 next = next_idx[0]
                 next_time = timet[next] - timed[jj]
             else:
-                next_time = np.timedelta64(float('inf'), 's')
+                next_time = np.timedelta64(10**18, 's')
 
         if prev_time < np.timedelta64(30, 's'):
             dleshem.at[jj, 'telegram_id'] = telegram['message id'][prev]
         elif next_time < np.timedelta64(30, 's'):
             dleshem.at[jj, 'telegram_id'] = telegram['message id'][next]
         else:
-            if prev_time != np.timedelta64(float('inf'), 's'):
+            if prev_time != np.timedelta64(10**18, 's'):
                 print(f"prev {prev_time.astype('timedelta64[s]')} sec before, next {next_time.astype('timedelta64[s]')} sec after")
             print('no match < 30 sec')
     print(f'{jj}/{len(dleshem)}', end='\r')

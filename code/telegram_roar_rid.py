@@ -16,18 +16,22 @@ telegram.at[rowt, 'rid'] = dleshem['rid'][rowd]
 dleshem['telegram_id'] = 0
 dleshem.at[0, 'telegram_id'] = telegram['message id'][0]
 dleshem.at[rowd, 'telegram_id'] = telegram['message id'][rowt]
+
+
+def has_exact_location(locs_str, target):
+    if pd.isna(locs_str):
+        return False
+    locs = [l.strip() for l in str(locs_str).split(';')]
+    return target in locs
+
 # fill message id in dleshem
 for jj in range(rowd+1, len(dleshem)):
     near = np.abs(timet - timed[jj]) < np.timedelta64(10, 's')
     target_loc = dleshem['data'][jj]
     # Check for exact location match (as a complete element in semicolon-separated list)
-    def has_exact_location(locs_str, target):
-        if pd.isna(locs_str):
-            return False
-        locs = [l.strip() for l in str(locs_str).split(';')]
-        return target in locs
-    
     matches = telegram.apply(lambda row: has_exact_location(row['locations'], target_loc), axis=1)
+    if sum(matches) == 0:  # look for cases with ", " such as חיפה - כרמל, הדר ועיר תחתית
+        matches = telegram.apply(lambda row: has_exact_location(row['locations'], target_loc.split(', ')[0]), axis=1)
     idxt = np.where(matches & near)[0]
     if len(idxt) == 1:
         dleshem.at[jj, 'telegram_id'] = telegram['message id'][idxt[0]]
