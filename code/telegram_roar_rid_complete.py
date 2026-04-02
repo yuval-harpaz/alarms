@@ -27,6 +27,7 @@ def has_exact_location(locs_str, target):
 
 missing = np.where(dleshem['telegram_id'] == 0)[0]
 missing = missing[missing > 100]
+missing = [m for m in missing if m-1 not in missing or m+1 not in missing]
 for jj in missing:
     near = np.abs(timet - timed[jj]) < np.timedelta64(10, 's')
     tomatch = dleshem['data'][jj]
@@ -61,14 +62,14 @@ for jj in missing:
             else:
                 next_time = np.timedelta64(10**18, 's')
 
-        if prev_time < np.timedelta64(30, 's'):
+        if prev_time < np.timedelta64(60, 's'):
             dleshem.at[jj, 'telegram_id'] = telegram['message id'][prev]
-        elif next_time < np.timedelta64(30, 's'):
+        elif next_time < np.timedelta64(60, 's'):
             dleshem.at[jj, 'telegram_id'] = telegram['message id'][next]
         else:
             if prev_time != np.timedelta64(10**18, 's'):
                 print(f"prev {prev_time.astype('timedelta64[s]')} sec before, next {next_time.astype('timedelta64[s]')} sec after")
-            print('no match < 30 sec')
+            print('no match < 60 sec')
     print(f'{jj}/{len(dleshem)}', end='\r')
 dleshem.to_csv('~/alarms/data/dleshem_roar.csv', index=False)
 ##
@@ -83,14 +84,14 @@ for ii in range(len(telegram)):
 telegram.to_csv('~/alarms/data/telegram_messages.csv', index=False)
 
 ##
-telegram = pd.read_csv('~/alarms/data/telegram_messages.csv')
-dleshem = pd.read_csv('~/alarms/data/dleshem_roar.csv')
-imissed = np.where(dleshem['telegram_id'] == 0)[0]
-imissed = imissed[imissed > 100]
-imissed = imissed[imissed < 298800]
-ii = 0
-missed_locations = dleshem['data'][imissed[ii]]
-sus_message = telegram['locations'][telegram['message id'] == dleshem['telegram_id'][imissed[ii]-1]]
+# telegram = pd.read_csv('~/alarms/data/telegram_messages.csv')
+# dleshem = pd.read_csv('~/alarms/data/dleshem_roar.csv')
+# imissed = np.where(dleshem['telegram_id'] == 0)[0]
+# imissed = imissed[imissed > 100]
+# imissed = imissed[imissed < 298800]
+# ii = 0
+# missed_locations = dleshem['data'][imissed[ii]]
+# sus_message = telegram['locations'][telegram['message id'] == dleshem['telegram_id'][imissed[ii]-1]]
 
 #
 # print('now dleshem to telegram')
