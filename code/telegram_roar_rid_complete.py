@@ -30,11 +30,11 @@ missing = missing[missing > 100]
 for jj in missing:
     near = np.abs(timet - timed[jj]) < np.timedelta64(10, 's')
     tomatch = dleshem['data'][jj]
-    tomatch = tomatch.replace(',', ';')
+    tomatch = tomatch.split(', ')[0]
     
     # Check for exact location match (as a complete element in semicolon-separated list)
 
-    
+    # matches = telegram.apply(lambda row: has_exact_location(row['locations'], target_loc.split(', ')[0]), axis=1)
     matches = telegram.apply(lambda row: has_exact_location(row['locations'], tomatch), axis=1)
     idxt = np.where(matches & near)[0]
     if len(idxt) > 0:
