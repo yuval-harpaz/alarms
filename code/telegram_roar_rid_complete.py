@@ -36,8 +36,12 @@ def make_type_match(cat, t_type_series, t_msg_series):
 
 missing = np.where(dleshem['telegram_id'] == 0)[0]
 missing = missing[missing > 100]
-missing = [m for m in missing if m-1 not in missing or m+1 not in missing]
+# missing = [m for m in missing if m-1 not in missing or m+1 not in missing]
 for jj in missing:
+    if jj > missing[0] and dleshem['telegram_id'][prev] == 0:
+        prev = jj
+        continue
+    prev = jj
     near = np.abs(timet - timed[jj]) < np.timedelta64(10, 's')
     tomatch = dleshem['data'][jj]
     tomatch = tomatch.split(', ')[0]
