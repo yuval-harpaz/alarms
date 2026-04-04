@@ -25,6 +25,15 @@ def has_exact_location(locs_str, target):
     locs = [l.strip() for l in str(locs_str).split(';')]
     return target in locs
 
+def make_type_match(cat, t_type_series, t_msg_series):
+    """Return boolean mask: telegram row matches a given dleshem category_desc.
+    Handles direct type match (rockets/UAV), exact message match (מבזק/עדכון),
+    and compound category_desc like 'ירי רקטות וטילים - האירוע הסתיים'."""
+    msg_s = t_msg_series.str.strip()
+    mask = (t_type_series == cat) | (msg_s == cat)
+    mask = mask | msg_s.apply(lambda m: len(str(m)) > 5 and str(m) in cat)
+    return mask
+
 missing = np.where(dleshem['telegram_id'] == 0)[0]
 missing = missing[missing > 100]
 missing = [m for m in missing if m-1 not in missing or m+1 not in missing]
@@ -32,19 +41,21 @@ for jj in missing:
     near = np.abs(timet - timed[jj]) < np.timedelta64(10, 's')
     tomatch = dleshem['data'][jj]
     tomatch = tomatch.split(', ')[0]
-    
+    cat = dleshem['category_desc'][jj]
+    type_match = make_type_match(cat, telegram['type'], telegram['message'])
+
     # Check for exact location match (as a complete element in semicolon-separated list)
 
     # matches = telegram.apply(lambda row: has_exact_location(row['locations'], target_loc.split(', ')[0]), axis=1)
     matches = telegram.apply(lambda row: has_exact_location(row['locations'], tomatch), axis=1)
-    idxt = np.where(matches & near)[0]
+    idxt = np.where(matches & near & type_match)[0]
     if len(idxt) > 0:
         dleshem.at[jj, 'telegram_id'] = telegram['message id'][idxt[0]]
     else:
-        # For fallback matching, also use exact location matching
+        # For fallback matching, also use exact location matching with type filter
         fallback_matches = telegram.apply(lambda row: has_exact_location(row['locations'], tomatch), axis=1)
-        prev_idx = np.where(fallback_matches & (timet < timed[jj]))[0]
-        next_idx = np.where(fallback_matches & (timet > timed[jj]))[0]
+        prev_idx = np.where(fallback_matches & type_match & (timet < timed[jj]))[0]
+        next_idx = np.where(fallback_matches & type_match & (timet > timed[jj]))[0]
         
         if len(prev_idx) > 0:
             prev = prev_idx[-1]
@@ -72,6 +83,10 @@ for jj in missing:
             print('no match < 60 sec')
     print(f'{jj}/{len(dleshem)}', end='\r')
 dleshem.to_csv('~/alarms/data/dleshem_roar.csv', index=False)
+
+
+
+
 ##
 matched = np.unique(dleshem['telegram_id'].values)[1:]
 missed = telegram['message id'].values[~np.isin(telegram['message id'].values, matched)]
@@ -82,6 +97,12 @@ for ii in range(len(telegram)):
     if len(rid) > 0:
         telegram.at[ii, 'rid'] = '; '.join(rid.values.astype(str))
 telegram.to_csv('~/alarms/data/telegram_messages.csv', index=False)
+
+## big mess from rid 352386
+group_fix = [[268913, 268952, 21862],
+             [314936, 315025, 22526],
+             [315082, 315095, 22526],
+             [355995, 356009, 23788]]
 
 ##
 # telegram = pd.read_csv('~/alarms/data/telegram_messages.csv')
