@@ -42,6 +42,8 @@ def redalert2df(date, alarms, alerts, red2alerts, key, to_file=False):
     headers = {"Authorization": f"Bearer {key}"}
     response = requests.get(url, headers=headers)
     data = response.json()
+    if type(data['data']) == list and len(data['data']) == 0:
+        raise Exception(f"No data for {date}")
     redalert_time = pd.to_datetime([event['timestamp'] for event in data['data']])
     # TODO: add a while loop until data['pagination']['hasMore'] is false
     dfra = pd.DataFrame(columns=['redalert time','redalert id', 'redalert type', 'rid', 'tzofar id', 'location', 'issues'])
