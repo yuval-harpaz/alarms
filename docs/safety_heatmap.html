@@ -514,7 +514,7 @@ function refresh() {
 // Load coordinates and alarms CSV
 Promise.all([
   new Promise((resolve, reject) => {
-    Papa.parse('../data/coord.csv', {
+    Papa.parse('https://raw.githubusercontent.com/yuval-harpaz/alarms/master/data/coord.csv', {
       download: true,
       header: true,
       complete: results => resolve(results.data),
@@ -522,7 +522,7 @@ Promise.all([
     });
   }),
   new Promise((resolve, reject) => {
-    Papa.parse('../data/alarms.csv', {
+    Papa.parse('https://raw.githubusercontent.com/yuval-harpaz/alarms/master/data/alarms.csv', {
       download: true,
       header: true,
       complete: results => resolve(results.data),
