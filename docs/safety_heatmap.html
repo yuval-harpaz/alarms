@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1a1a2e">
+<meta name="author" content="Amos Mastbaum">
+<meta name="Description" content="Safety heatmap - areas with the fewest rocket alarms in Israel">
+<meta name="keywords" content="map, rockets, alarms, Israel, safety, heatmap, צבע אדום">
+<title>מפת בטיחות - אזורים עם הכי פחות התרעות</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; font-family: Arial, sans-serif; background: #1a1a2e; color: #eee; }
+#map { width: 100%; height: 100%; direction: ltr; }
+.leaflet-interactive:focus, .leaflet-interactive:focus-visible {
+  outline: 2px solid #7eb8ff;
+  outline-offset: 2px;
+}
+
+#controls {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 320px;
+}
+
+#title-box {
+  background: rgba(26, 26, 46, 0.95);
+  border-radius: 10px;
+  padding: 14px 18px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  direction: rtl;
+}
+#title-box h1 {
+  font-size: 18px;
+  margin-bottom: 4px;
+  color: #fff;
+}
+#title-box .subtitle {
+  font-size: 12px;
+  color: #aaa;
+}
+
+#legend-box {
+  background: rgba(26, 26, 46, 0.95);
+  border-radius: 10px;
+  padding: 14px 18px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  direction: rtl;
+  font-size: 13px;
+}
+#legend-box .row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0;
+}
+#legend-box .bar {
+  width: 28px;
+  height: 14px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+#days-control {
+  background: rgba(26, 26, 46, 0.95);
+  border-radius: 10px;
+  padding: 14px 18px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  direction: rtl;
+  font-size: 13px;
+}
+#days-control label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+#days-slider {
+  width: 100%;
+  accent-color: #4caf50;
+}
+
+#filter-control {
+  background: rgba(26, 26, 46, 0.95);
+  border-radius: 10px;
+  padding: 14px 18px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  direction: rtl;
+  font-size: 13px;
+}
+#filter-control h4 {
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: bold;
+}
+.filter-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 4px 0;
+  cursor: pointer;
+}
+.filter-option input[type="checkbox"] {
+  cursor: pointer;
+}
+.filter-option label {
+  cursor: pointer;
+  user-select: none;
+}
+
+#mode-control {
+  background: rgba(26, 26, 46, 0.95);
+  border-radius: 10px;
+  padding: 14px 18px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  direction: rtl;
+  font-size: 13px;
+}
+#mode-control h4 {
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: bold;
+}
+.mode-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 4px 0;
+  cursor: pointer;
+}
+.mode-option input[type="radio"] {
+  cursor: pointer;
+}
+.mode-option label {
+  cursor: pointer;
+  user-select: none;
+}
+
+#stats-box {
+  position: fixed;
+  bottom: 20px;
+  right: 12px;
+  z-index: 1000;
+  background: rgba(26, 26, 46, 0.95);
+  border-radius: 10px;
+  padding: 14px 18px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  direction: rtl;
+  font-size: 13px;
+  max-width: 320px;
+}
+#stats-box h3 { margin-bottom: 6px; font-size: 14px; }
+#stats-list { list-style: none; }
+#stats-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+#stats-list li:last-child { border: none; }
+.stat-name { color: #ccc; }
+.stat-count { font-weight: bold; direction: ltr; }
+
+#loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2000;
+  background: rgba(26, 26, 46, 0.95);
+  border-radius: 12px;
+  padding: 24px 36px;
+  font-size: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+#back-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 1000;
+  background: rgba(26, 26, 46, 0.95);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+#back-link a {
+  color: #7eb8ff;
+  text-decoration: none;
+}
+#back-link a:hover { text-decoration: underline; }
+
+.popup-content { direction: rtl; font-family: Arial, sans-serif; }
+.popup-content h3 { margin-bottom: 4px; }
+.popup-content .alert-count { font-size: 18px; font-weight: bold; }
+.popup-content .category { font-size: 12px; color: #666; margin-top: 4px; }
+
+#chart-box {
+  position: fixed;
+  bottom: 20px;
+  left: 12px;
+  z-index: 1000;
+  background: rgba(26, 26, 46, 0.95);
+  border-radius: 10px;
+  padding: 14px 18px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  direction: rtl;
+  max-width: 340px;
+}
+#chart-box h3 { font-size: 14px; margin-bottom: 8px; }
+#distribution-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 80px;
+}
+.chart-bar {
+  flex: 1;
+  min-width: 4px;
+  border-radius: 2px 2px 0 0;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.chart-bar:hover { opacity: 0.8; }
+#chart-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #888;
+  margin-top: 4px;
+}
+
+@media (max-width: 768px) {
+  #controls {
+    max-width: calc(100% - 24px);
+    gap: 6px;
+  }
+  #stats-box, #chart-box {
+    max-width: calc(100% - 24px);
+  }
+  #map {
+    height: calc(100% - 60px);
+  }
+}
+</style>
+</head>
+<body>
+
+<div id="loading">טוען נתוני התרעות...</div>
+<div id="map"></div>
+
+<div id="controls">
+  <div id="title-box">
+    <h1>מפת בטיחות</h1>
+    <div class="subtitle" id="subtitle">אזורים עם הכי מעט התרעות</div>
+  </div>
+  <div id="days-control">
+    <label>טווח: <span id="days-label">30</span> ימים</label>
+    <input type="range" id="days-slider" min="1" max="365" value="30">
+  </div>
+  <div id="filter-control">
+    <h4>סוגי התרעות</h4>
+    <div class="filter-option">
+      <input type="checkbox" id="filter-red" checked>
+      <label for="filter-red">🔴 התרעות אדומות (רקטות, מל"טים, חדירות)</label>
+    </div>
+    <div class="filter-option">
+      <input type="checkbox" id="filter-yellow" checked>
+      <label for="filter-yellow">🟡 התרעות צהובות (הכנה מוקדמת)</label>
+    </div>
+    <div class="filter-option">
+      <input type="checkbox" id="filter-green" checked>
+      <label for="filter-green">🟢 התרעות ירוקות (סיום אירוע)</label>
+    </div>
+  </div>
+  <div id="mode-control">
+    <h4>תצוגה</h4>
+    <div class="mode-option">
+      <input type="radio" id="mode-total" name="display-mode" value="total" checked>
+      <label for="mode-total">סה״כ התרעות</label>
+    </div>
+    <div class="mode-option">
+      <input type="radio" id="mode-perday" name="display-mode" value="perday">
+      <label for="mode-perday">ממוצע התרעות ליום</label>
+    </div>
+  </div>
+  <div id="legend-box">
+    <div class="row"><div class="bar" style="background:#1b5e20"></div> בטוח מאוד (0-5 התרעות)</div>
+    <div class="row"><div class="bar" style="background:#4caf50"></div> בטוח (6-15)</div>
+    <div class="row"><div class="bar" style="background:#8bc34a"></div> בטוח יחסית (16-30)</div>
+    <div class="row"><div class="bar" style="background:#ffeb3b"></div> בינוני (31-50)</div>
+    <div class="row"><div class="bar" style="background:#ff9800"></div> רב התרעות (51-80)</div>
+    <div class="row"><div class="bar" style="background:#f44336"></div> סכנה גבוהה (80+)</div>
+  </div>
+</div>
+
+<div id="back-link"><a href="./">← חזרה</a></div>
+
+<div id="stats-box">
+  <h3>10 האזורים הבטוחים ביותר</h3>
+  <ul id="stats-list"></ul>
+</div>
+
+<div id="chart-box">
+  <h3>התפלגות התרעות</h3>
+  <div id="distribution-chart"></div>
+  <div id="chart-labels">
+    <span>0</span>
+    <span id="chart-max-label">80+</span>
+  </div>
+</div>
+
+<script>
+const map = L.map('map', {
+  zoomControl: true,
+  attributionControl: false,
+}).setView([31.5, 34.9], 8);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  maxZoom: 18,
+}).addTo(map);
+
+let circleMarkers = [];
+let locationPoints = {};  // city -> [lat, lng]
+let allAlarms = [];       // parsed CSV rows
+let currentDays = 30;
+let filters = { red: true, yellow: true, green: true };
+let displayMode = 'total';
+
+const thresholds = {
+  total:  [5, 15, 30, 50, 80],
+  perday: [0.1, 0.3, 0.7, 1.5, 3],
+};
+const legendLabels = {
+  total:  ['0-5', '6-15', '16-30', '31-50', '51-80', '80+'],
+  perday: ['0-0.1', '0.1-0.3', '0.3-0.7', '0.7-1.5', '1.5-3', '3+'],
+};
+
+function getColor(value) {
+  const t = thresholds[displayMode];
+  if (value <= t[0]) return '#1b5e20';
+  if (value <= t[1]) return '#4caf50';
+  if (value <= t[2]) return '#8bc34a';
+  if (value <= t[3]) return '#ffeb3b';
+  if (value < t[4]) return '#ff9800';
+  return '#f44336';
+}
+
+function getRadius(value, maxValue) {
+  const base = window.innerWidth < 600 ? 6 : 8;
+  const scale = Math.min(value / Math.max(maxValue * 0.3, 1), 1);
+  return base + scale * 10;
+}
+
+function classifyAlertTitle(title) {
+  const normalized = (title || '').replace(/\s+/g, ' ').trim();
+
+  // Green (all-clear)
+  if (normalized.includes('האירוע הסתיים')) return 'green';
+  if (normalized.includes('החשש הוסר')) return 'green';
+  if (normalized.includes('יכולים לצאת')) return 'green';
+  if (normalized.includes('אינם צריכים לשהות')) return 'green';
+  if (normalized.includes('סיום שהייה בסמיכות')) return 'green';
+  if (normalized.includes('ניתן לצאת') && !normalized.includes('להישאר בקרבתו')) return 'green';
+
+  // Yellow (preparedness/preliminary)
+  if (normalized.includes('בדקות הקרובות צפויות להתקבל התרעות')) return 'yellow';
+  if (normalized.includes('לשפר את המיקום למיגון המיטבי')) return 'yellow';
+  if (normalized.includes('יש לשהות בסמיכות למרחב המוגן')) return 'yellow';
+  if (normalized.includes('להישאר בקרבתו')) return 'yellow';
+
+  // Red (danger) — default
+  return 'red';
+}
+
+function computeCounts() {
+  const now = new Date();
+  const cutoff = new Date(now);
+  cutoff.setDate(cutoff.getDate() - currentDays);
+
+  const counts = {};
+  for (const name of Object.keys(locationPoints)) {
+    counts[name] = 0;
+  }
+
+  for (const row of allAlarms) {
+    const loc = (row.cities || '').trim();
+    if (!(loc in counts)) continue;
+
+    const alertTime = new Date(row.time);
+    if (alertTime < cutoff) continue;
+
+    const alertType = classifyAlertTitle(row.description);
+    if (filters[alertType]) {
+      counts[loc]++;
+    }
+  }
+
+  return counts;
+}
+
+function renderMap(data) {
+  circleMarkers.forEach(m => map.removeLayer(m));
+  circleMarkers = [];
+
+  const isPerDay = displayMode === 'perday';
+  const displayData = {};
+  for (const [name, count] of Object.entries(data)) {
+    displayData[name] = isPerDay ? count / Math.max(currentDays, 1) : count;
+  }
+
+  const values = Object.values(displayData);
+  const maxValue = Math.max(...values, 1);
+  const sorted = Object.entries(displayData).sort((a, b) => a[1] - b[1]);
+
+  // Draw high-alert first (bottom), safe on top
+  const reverseSorted = [...sorted].reverse();
+  for (const [name, value] of reverseSorted) {
+    const coords = locationPoints[name];
+    if (!coords) continue;
+
+    const color = getColor(value);
+    const radius = getRadius(value, maxValue);
+    const circle = L.circleMarker(coords, {
+      radius,
+      fillColor: color,
+      fillOpacity: 0.75,
+      color: color,
+      weight: 1,
+      opacity: 0.9,
+    }).addTo(map);
+
+    const displayValue = isPerDay ? value.toFixed(1) : data[name];
+    const unit = isPerDay ? 'התרעות/יום' : 'התרעות';
+    circle.bindPopup(`
+      <div class="popup-content">
+        <h3>${name}</h3>
+        <div class="alert-count">${displayValue} ${unit}</div>
+        <div class="category">ב-${currentDays} הימים האחרונים</div>
+      </div>
+    `);
+
+    circleMarkers.push(circle);
+  }
+
+  // Stats — top 10 safest
+  const statsList = document.getElementById('stats-list');
+  statsList.innerHTML = sorted.slice(0, 10).map(([name, value]) => {
+    const label = isPerDay ? value.toFixed(1) : Math.round(value);
+    return `<li><span class="stat-name">${name}</span><span class="stat-count" style="color:${getColor(value)}">${label}</span></li>`;
+  }).join('');
+
+  // Update legend
+  const labels = legendLabels[displayMode];
+  const unit = isPerDay ? '' : ' התרעות';
+  const legendRows = document.querySelectorAll('#legend-box .row');
+  const legendTexts = [
+    `בטוח מאוד (${labels[0]}${unit})`,
+    `בטוח (${labels[1]})`,
+    `בטוח יחסית (${labels[2]})`,
+    `בינוני (${labels[3]})`,
+    `רב התרעות (${labels[4]})`,
+    `סכנה גבוהה (${labels[5]})`,
+  ];
+  legendRows.forEach((row, i) => {
+    row.lastChild.textContent = ' ' + legendTexts[i];
+  });
+
+  // Distribution chart
+  const t = thresholds[displayMode];
+  const buckets = [0, 0, 0, 0, 0, 0];
+  for (const value of values) {
+    if (value <= t[0]) buckets[0]++;
+    else if (value <= t[1]) buckets[1]++;
+    else if (value <= t[2]) buckets[2]++;
+    else if (value <= t[3]) buckets[3]++;
+    else if (value < t[4]) buckets[4]++;
+    else buckets[5]++;
+  }
+  const bucketMax = Math.max(...buckets, 1);
+  const bucketColors = ['#1b5e20', '#4caf50', '#8bc34a', '#ffeb3b', '#ff9800', '#f44336'];
+  const chartEl = document.getElementById('distribution-chart');
+  chartEl.innerHTML = buckets.map((b, i) =>
+    `<div class="chart-bar" style="height:${(b / bucketMax) * 100}%;background:${bucketColors[i]}" title="${labels[i]}: ${b} אזורים"></div>`
+  ).join('');
+  document.getElementById('chart-max-label').textContent = labels[5];
+
+  const activeFilters = [];
+  if (filters.red) activeFilters.push('אדומות');
+  if (filters.yellow) activeFilters.push('צהובות');
+  if (filters.green) activeFilters.push('ירוקות');
+  const filterText = activeFilters.length === 3 ? 'כל ההתרעות' : activeFilters.join(', ');
+
+  const totalAlerts = Object.values(data).reduce((a, b) => a + b, 0);
+  const modeText = isPerDay ? 'ממוצע ליום' : 'סה״כ';
+  document.getElementById('subtitle').textContent =
+    `${Object.keys(data).length} אזורים · ${totalAlerts.toLocaleString()} התרעות (${modeText}) · ${currentDays} ימים · ${filterText}`;
+}
+
+function refresh() {
+  const counts = computeCounts();
+  renderMap(counts);
+}
+
+// Load coordinates and alarms CSV
+Promise.all([
+  new Promise((resolve, reject) => {
+    Papa.parse('../data/coord.csv', {
+      download: true,
+      header: true,
+      complete: results => resolve(results.data),
+      error: reject,
+    });
+  }),
+  new Promise((resolve, reject) => {
+    Papa.parse('../data/alarms.csv', {
+      download: true,
+      header: true,
+      complete: results => resolve(results.data),
+      error: reject,
+    });
+  }),
+]).then(([coords, alarms]) => {
+  // Build location lookup
+  for (const row of coords) {
+    const name = (row.loc || '').trim();
+    const lat = parseFloat(row.lat);
+    const lng = parseFloat(row.long);
+    if (name && !isNaN(lat) && !isNaN(lng)) {
+      locationPoints[name] = [lat, lng];
+    }
+  }
+
+  allAlarms = alarms;
+  refresh();
+  document.getElementById('loading').style.display = 'none';
+}).catch(err => {
+  console.error('Failed to load data:', err);
+  document.getElementById('loading').textContent = 'שגיאה בטעינת נתונים';
+  setTimeout(() => {
+    document.getElementById('loading').style.display = 'none';
+  }, 3000);
+});
+
+// Days slider
+const slider = document.getElementById('days-slider');
+const daysLabel = document.getElementById('days-label');
+let sliderTimeout;
+slider.addEventListener('input', () => {
+  daysLabel.textContent = slider.value;
+});
+slider.addEventListener('change', () => {
+  clearTimeout(sliderTimeout);
+  sliderTimeout = setTimeout(() => {
+    currentDays = parseInt(slider.value);
+    refresh();
+  }, 300);
+});
+
+// Filter checkboxes
+const filterRed = document.getElementById('filter-red');
+const filterYellow = document.getElementById('filter-yellow');
+const filterGreen = document.getElementById('filter-green');
+
+function updateFilters() {
+  filters.red = filterRed.checked;
+  filters.yellow = filterYellow.checked;
+  filters.green = filterGreen.checked;
+  refresh();
+}
+
+filterRed.addEventListener('change', updateFilters);
+filterYellow.addEventListener('change', updateFilters);
+filterGreen.addEventListener('change', updateFilters);
+
+// Display mode toggle
+document.getElementById('mode-total').addEventListener('change', () => {
+  displayMode = 'total';
+  refresh();
+});
+document.getElementById('mode-perday').addEventListener('change', () => {
+  displayMode = 'perday';
+  refresh();
+});
+</script>
+</body>
+</html>
