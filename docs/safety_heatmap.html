@@ -541,6 +541,22 @@ Promise.all([
   }
 
   allAlarms = alarms;
+
+  // Filter out locations with zero alerts since 2026-02-28 (defunct/renamed zones)
+  const baselineCutoff = new Date('2026-02-28');
+  const activeLocations = new Set();
+  for (const row of allAlarms) {
+    const loc = (row.cities || '').trim();
+    if (loc && new Date(row.time) >= baselineCutoff) {
+      activeLocations.add(loc);
+    }
+  }
+  for (const name of Object.keys(locationPoints)) {
+    if (!activeLocations.has(name)) {
+      delete locationPoints[name];
+    }
+  }
+
   refresh();
   document.getElementById('loading').style.display = 'none';
 }).catch(err => {
