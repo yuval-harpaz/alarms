@@ -239,16 +239,44 @@ html, body { height: 100%; font-family: Arial, sans-serif; background: #1a1a2e; 
   margin-top: 4px;
 }
 
+#controls-toggle {
+  display: none;
+  background: rgba(26, 26, 46, 0.95);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #eee;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  align-self: flex-end;
+}
+#controls-toggle:active { background: rgba(40, 40, 70, 0.95); }
+
 @media (max-width: 768px) {
   #controls {
     max-width: calc(100% - 24px);
     gap: 6px;
   }
+  #controls-toggle {
+    display: block;
+  }
+  #controls.collapsed #days-control,
+  #controls.collapsed #filter-control,
+  #controls.collapsed #mode-control,
+  #controls.collapsed #legend-box {
+    display: none;
+  }
   #stats-box, #chart-box {
     max-width: calc(100% - 24px);
   }
-  #map {
-    height: calc(100% - 60px);
+  #stats-box {
+    bottom: 10px;
+    font-size: 11px;
+    padding: 10px 14px;
+  }
+  #chart-box {
+    display: none;
   }
 }
 </style>
@@ -258,11 +286,12 @@ html, body { height: 100%; font-family: Arial, sans-serif; background: #1a1a2e; 
 <div id="loading">טוען נתוני התרעות...</div>
 <div id="map"></div>
 
-<div id="controls">
+<div id="controls" class="collapsed">
   <div id="title-box">
     <h1>מפת בטיחות</h1>
     <div class="subtitle" id="subtitle">אזורים עם הכי מעט התרעות</div>
   </div>
+  <button id="controls-toggle" aria-label="Toggle filters">☰ מסננים</button>
   <div id="days-control">
     <label>טווח: <span id="days-label">30</span> ימים</label>
     <input type="range" id="days-slider" min="1" max="365" value="30">
@@ -606,6 +635,15 @@ document.getElementById('mode-total').addEventListener('change', () => {
 document.getElementById('mode-perday').addEventListener('change', () => {
   displayMode = 'perday';
   refresh();
+});
+
+// Mobile controls toggle
+document.getElementById('controls-toggle').addEventListener('click', () => {
+  const controls = document.getElementById('controls');
+  const btn = document.getElementById('controls-toggle');
+  controls.classList.toggle('collapsed');
+  btn.textContent = controls.classList.contains('collapsed') ? '☰ מסננים' : '✕ סגור';
+  setTimeout(() => map.invalidateSize(), 100);
 });
 </script>
 </body>
