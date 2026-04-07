@@ -253,6 +253,23 @@ html, body { height: 100%; font-family: Arial, sans-serif; background: #1a1a2e; 
 }
 #controls-toggle:active { background: rgba(40, 40, 70, 0.95); }
 
+#stats-toggle {
+  display: none;
+  position: fixed;
+  bottom: 10px;
+  right: 12px;
+  z-index: 1000;
+  background: rgba(26, 26, 46, 0.95);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #eee;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+#stats-toggle:active { background: rgba(40, 40, 70, 0.95); }
+
 @media (max-width: 768px) {
   #controls {
     max-width: calc(100% - 24px);
@@ -267,13 +284,18 @@ html, body { height: 100%; font-family: Arial, sans-serif; background: #1a1a2e; 
   #controls.collapsed #legend-box {
     display: none;
   }
-  #stats-box, #chart-box {
-    max-width: calc(100% - 24px);
+  #stats-toggle {
+    display: block;
   }
   #stats-box {
+    max-width: calc(100% - 24px);
     bottom: 10px;
     font-size: 11px;
     padding: 10px 14px;
+    display: none;
+  }
+  #stats-box.expanded {
+    display: block;
   }
   #chart-box {
     display: none;
@@ -334,6 +356,7 @@ html, body { height: 100%; font-family: Arial, sans-serif; background: #1a1a2e; 
 
 <div id="back-link"><a href="./">← חזרה</a></div>
 
+<button id="stats-toggle">🛡️ 10 הבטוחים</button>
 <div id="stats-box">
   <h3>10 האזורים הבטוחים ביותר</h3>
   <ul id="stats-list"></ul>
@@ -644,6 +667,14 @@ document.getElementById('controls-toggle').addEventListener('click', () => {
   controls.classList.toggle('collapsed');
   btn.textContent = controls.classList.contains('collapsed') ? '☰ מסננים' : '✕ סגור';
   setTimeout(() => map.invalidateSize(), 100);
+});
+
+// Mobile stats toggle
+document.getElementById('stats-toggle').addEventListener('click', () => {
+  const stats = document.getElementById('stats-box');
+  const btn = document.getElementById('stats-toggle');
+  stats.classList.toggle('expanded');
+  btn.textContent = stats.classList.contains('expanded') ? '✕ סגור' : '🛡️ 10 הבטוחים';
 });
 </script>
 </body>
