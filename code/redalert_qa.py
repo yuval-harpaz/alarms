@@ -43,6 +43,7 @@ def redalert2df(date, alarms, alerts, red2alerts, key, to_file=False):
     response = requests.get(url, headers=headers)
     data = response.json()
     if type(data['data']) == list and len(data['data']) == 0:
+        print(url)
         raise Exception(f"No data for {date}")
     redalert_time = pd.to_datetime([event['timestamp'] for event in data['data']])
     # TODO: add a while loop until data['pagination']['hasMore'] is false
@@ -117,7 +118,7 @@ def redalert2df(date, alarms, alerts, red2alerts, key, to_file=False):
     return dfra, missed_df
 
 if __name__ == '__main__':
-    debug = True
+    debug = False
     if debug:
         redalert2df(today, alarms, alerts, red2alerts, key, to_file=True)
     elif len(sys.argv) == 1:
