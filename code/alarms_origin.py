@@ -138,9 +138,14 @@ def guess_roar(from_time='2026-02-28', to_time=None, eps_km=15, min_samples=1):
                 plt.title(f'ID: {id}, Threat: {threat} - Error Detected')
                 plt.legend()
                 plt.show()
+def guess_lebanon26():
+    path2data = os.environ['HOME'] + '/alarms/data/'
+    loc = pd.read_csv(path2data + 'coord.csv')
+    df = pd.read_csv(path2data + 'alarms.csv')
 
 if __name__ == '__main__':
-    guess_roar()
+
+    # guess_roar()
     # example_id = 6091
     # path2data = os.environ['HOME'] + '/alarms/data/'
     # df = pd.read_csv(path2data + 'alarms.csv')
