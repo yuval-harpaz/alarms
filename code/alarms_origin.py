@@ -15,6 +15,7 @@ if os.path.isdir(local):
     os.chdir(local)
     islocal = True
 coo = pd.read_csv('data/coord.csv')
+alarms = pd.read_csv('data/alarms.csv')
 
 def guess_origin(df_toguess):
     okcat = (df_toguess['description'].values == 'ירי רקטות וטילים') | \
@@ -138,26 +139,45 @@ def guess_roar(from_time='2026-02-28', to_time=None, eps_km=15, min_samples=1):
                 plt.title(f'ID: {id}, Threat: {threat} - Error Detected')
                 plt.legend()
                 plt.show()
-def guess_lebanon26():
-    path2data = os.environ['HOME'] + '/alarms/data/'
-    loc = pd.read_csv(path2data + 'coord.csv')
-    df = pd.read_csv(path2data + 'alarms.csv')
+def guess_lebanon26(df_toguess, eps_km=15, min_samples=1):
+    ids = df_toguess['id'].unique()
+    for ii in range(len(ids)):
+        iuav = df_toguess.index[(df_toguess['id'] == ids[ii]) & (df_toguess['threat'] == 5)].values
+        if len(iuav) > 0:
+            row = np.where(coo['loc'] == df0['cities'][iuav[0]])[0][0]
+            lat = coo['lat'][row]
+            long = coo['long'][row]
+            if lat > 32.98 and long < 35.72:
+                for idx in iuav:
+                    df_toguess.at[idx, 'origin'] = 'Lebanon'
+        irocket = df_toguess.index[(df_toguess['id'] == ids[ii]) & (df_toguess['threat'] == 0)].values
+        if len(irocket) > 0:
+            points = np.zeros((len(irocket), 2))
+            for jj in range(len(irocket)):
+                row = np.where(coo['loc'] == df0['cities'][irocket[jj]])[0][0]
+                lat = coo['lat'][row]
+                long = coo['long'][row]
+                points[jj, :] = [long, lat]
+            labels = clusterize(points, eps_km=15, min_samples=1)
+            unique_labels = np.unique(labels)
+            for clust in unique_labels:
+                pts = points[labels == clust, :]
+                if np.median(pts[:, 1]) > 32.6:
+                    if (pts[:, 1].max() - pts[:, 1].min()) * 111 < 25 and (pts[:, 0].max() - pts[:, 0].min()) * 95 < 25:
+                        for idx in irocket:
+                            df_toguess.at[idx, 'origin'] = 'Lebanon'
+    return df_toguess
+
+
+
 
 if __name__ == '__main__':
+    df0 = alarms[(alarms['id'] >= 7158) & (alarms['id'] <= 7186)  & (alarms['time'] > '2023-03-08 03:04:00')]
+    for iii in range(len(df0)):
+        df0.iloc[iii, 5] = ''
+    df1 = guess_lebanon26(df0)
+    df1.to_csv('~/Documents/test_lebanon.csv', index=True)
 
-    # guess_roar()
-    # example_id = 6091
-    # path2data = os.environ['HOME'] + '/alarms/data/'
-    # df = pd.read_csv(path2data + 'alarms.csv')
-    # loc = pd.read_csv(path2data + 'coord.csv')
-    # df0 = df[(df['id'] == example_id) & (df['time'].values > '2026-02-28')]
-    # df0 = df0.reset_index(drop = True)
-    # points = np.zeros((len(df0), 2))
-    # for ii in range(len(df0)):
-    #     row = np.where(loc['loc'] == df0['cities'][ii])[0][0]
-    #     lat = loc['lat'][row]
-    #     long = loc['long'][row]
-    #     points[ii, :] = [long, lat]
-    # labels = clusterize(points, eps_km=15, min_samples=1)
+    #
     # for idx in np.unique(labels):
     #      plt.plot(points[labels == idx, 0], points[labels == idx, 1], '.')
