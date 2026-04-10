@@ -1,13 +1,8 @@
-import re
-from datetime import datetime, timedelta
-from matplotlib import colors
-import folium
 import pandas as pd
 import numpy as np
 import os
 # from ellipse_fit import guess_yemen, guess_iran
 from sklearn.cluster import DBSCAN
-from matplotlib import pyplot as plt
 
 local = '/home/yuval/alarms/'
 islocal = False
@@ -63,11 +58,12 @@ def clusterize(points, eps_km=10, min_samples=10):
         return labels
 
 def guess_lebanon26(df_toguess, eps_km=15, min_samples=1):
+    coo = pd.read_csv('data/coord.csv')
     ids = df_toguess['id'].unique()
     for ii in range(len(ids)):
         iuav = df_toguess.index[(df_toguess['id'] == ids[ii]) & (df_toguess['threat'] == 5)].values
         if len(iuav) > 0:
-            row = np.where(coo['loc'] == df0['cities'][iuav[0]])[0][0]
+            row = np.where(coo['loc'] == df_toguess['cities'][iuav[0]])[0][0]
             lat = coo['lat'][row]
             long = coo['long'][row]
             if lat > 32.98 and long < 35.72:
@@ -77,7 +73,7 @@ def guess_lebanon26(df_toguess, eps_km=15, min_samples=1):
         if len(irocket) > 0:
             points = np.zeros((len(irocket), 2))
             for jj in range(len(irocket)):
-                row = np.where(coo['loc'] == df0['cities'][irocket[jj]])[0][0]
+                row = np.where(coo['loc'] == df_toguess['cities'][irocket[jj]])[0][0]
                 lat = coo['lat'][row]
                 long = coo['long'][row]
                 points[jj, :] = [long, lat]
@@ -95,7 +91,6 @@ def guess_lebanon26(df_toguess, eps_km=15, min_samples=1):
 
 
 if __name__ == '__main__':
-    coo = pd.read_csv('data/coord.csv')
     alarms = pd.read_csv('data/alarms.csv')
     df0 = alarms[(alarms['id'] >= 7158) & (alarms['id'] <= 7186)  & (alarms['time'] > '2023-03-08 03:04:00')]
     for iii in range(len(df0)):
