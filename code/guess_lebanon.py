@@ -20,7 +20,7 @@ if already < len(alarms) - 1:
     filled = np.sum(~df_missing['origin'].isnull())
     if filled > 0:
         # df_missing.to_csv('~/Documents/missing.csv')
-        alarms.to_csv('data/alarms.csv')
+        alarms.to_csv('data/alarms.csv', index=False)
         os.system('git add data/alarms.csv')
         os.system(f'git commit -m "Guessed Lebanon origin"')
         os.system('git pull --rebase')
