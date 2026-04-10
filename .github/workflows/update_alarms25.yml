@@ -47,3 +47,6 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
       if: ${{ env.IS_NEW == 'true' }}
+    - name: guess lebanon
+      run: |
+        python -W ignore code/guess_lebanon.py
