@@ -83,6 +83,12 @@ if islocal:
     sys.path.append(local+'code')
 from alarms_coord import update_coord
 update_coord()
+if news:
+    try:
+        from complete_rid import complete_rid
+        complete_rid()
+    except:
+        print('failed to complete rid')
 
 if False:
     prev = prev[prev['threat'] == 0]
