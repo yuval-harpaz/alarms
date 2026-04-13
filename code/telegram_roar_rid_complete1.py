@@ -2,7 +2,8 @@ import pandas as pd
 import numpy as np   
 import os
 
-telegram = pd.read_excel('~/alarms/data/telegram_messages.xlsx', sheet_name='data')
+# telegram = pd.read_excel('~/alarms/data/telegram_messages.xlsx', sheet_name='data')
+telegram = pd.read_csv('~/alarms/data/telegram_messages.csv')
 dleshem = pd.read_csv('https://github.com/dleshem/israel-alerts-data/raw/refs/heads/main/israel-alerts.csv')
 dleshem = dleshem[dleshem['alertDate'] > '2026-02-28']
 dleshem.reset_index(drop=True, inplace=True)
@@ -34,7 +35,7 @@ def make_type_match(cat, t_type_series, t_msg_series):
     mask = mask | msg_s.apply(lambda m: len(str(m)) > 5 and str(m) in cat)
     return mask
 
-missing = np.where(dleshem['telegram_id'] == 0)[0]
+missing = np.where(dleshem['telegram_id'].astype(int) == 0)[0]
 missing = missing[missing > 100]
 # missing = [m for m in missing if m-1 not in missing or m+1 not in missing]
 for jj in missing:

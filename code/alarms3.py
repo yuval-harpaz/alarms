@@ -67,7 +67,7 @@ if len(new) > 0:
         else:
             desc = ''
         for cit in citiesc:
-            prev.loc[len(prev.index)] = [str(dtc), cit, threatc, idc, desc, '']
+            prev.loc[len(prev.index)] = [str(dtc), cit, threatc, idc, desc, '', '']
     with_duplicates = len(prev)
     prev = prev.drop_duplicates(keep='first', ignore_index=True)
     if len(prev) < with_duplicates:
