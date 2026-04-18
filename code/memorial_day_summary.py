@@ -83,7 +83,7 @@ colors = {
 counts = df.groupby(['year', 'group']).size().unstack(fill_value=0)
 
 fig = go.Figure()
-for g in groups:
+for g in groups[:-1]:
     if g not in counts.columns:
         continue
     fig.add_trace(go.Bar(
@@ -116,4 +116,8 @@ for y in range(2024, 2027):
     for _, row in ur.iterrows():
         print(f"{row['pid']} {row['שם פרטי']} {row['שם משפחה']}")
 
+year = 2025
+ur = df[(df['year'] == year) & (df['group'] == 'B')]
+for _, row in ur.iterrows():
+    print(f"{row['pid']} {row['שם פרטי']} {row['שם משפחה']}")
 print('capau')
