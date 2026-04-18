@@ -83,7 +83,7 @@ colors = {
 counts = df.groupby(['year', 'group']).size().unstack(fill_value=0)
 
 fig = go.Figure()
-for g in groups[:-1]:
+for g in ['D', 'C', 'A', 'B']:
     if g not in counts.columns:
         continue
     fig.add_trace(go.Bar(
@@ -115,9 +115,15 @@ for y in range(2024, 2027):
     ur = df[(df['year'] == y) & (df['group'] == 'E')]
     for _, row in ur.iterrows():
         print(f"{row['pid']} {row['שם פרטי']} {row['שם משפחה']}")
-
+print('civillian soldiers')
 year = 2025
 ur = df[(df['year'] == year) & (df['group'] == 'B')]
 for _, row in ur.iterrows():
     print(f"{row['pid']} {row['שם פרטי']} {row['שם משפחה']}")
+print('export murdered')
+year = 2026
+group = 'D'
+ur = df[(df['year'] == year) & (df['group'] == group)]
+ur.to_excel(f'~/Documents/memorial_{year}_{group}.xlsx', index=False)
+
 print('capau')
