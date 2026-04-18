@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import os
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
 os.chdir('/home/yuval/alarms')
 
@@ -178,6 +179,65 @@ fig.update_layout(
 )
 
 fig.show()
+
+# ── Page 2: pie charts by front, per year, security forces vs civilians ──────
+security_roles = ['חייל', 'שב"כ', 'שוטר', 'כבאי', 'כיתת כוננות', 'צוות רפואי']
+civilian_roles = ['אזרח']
+
+pie_years = [2024, 2025, 2026]
+pie_year_labels = {y: f"{y-1}–{y}" for y in pie_years}
+
+front_colors = {
+    'Gaza':      '#c0392b',
+    'North':     '#2980b9',
+    'Iran':      '#8e44ad',
+    'West Bank': '#e67e22',
+    'Home':      '#27ae60',
+    'Other':     '#7f8c8d',
+    'Jordan':    '#f39c12',
+    'Accident':  '#95a5a6',
+    'Iraq':      '#d35400',
+    'Yemen':     '#16a085',
+}
+
+fig2 = make_subplots(
+    rows=2, cols=3,
+    subplot_titles=[
+        f'{cat} – {pie_year_labels[y]}'
+        for cat in ['כוחות ביטחון', 'אזרחים']
+        for y in pie_years
+    ],
+    specs=[[{'type': 'domain'}] * 3] * 2,
+)
+
+for col_i, y in enumerate(pie_years, start=1):
+    year_df = df[df['year'] == y]
+    sec_df  = year_df[year_df['Role'].isin(security_roles)]
+    civ_df  = year_df[year_df['Role'].isin(civilian_roles)]
+
+    for row_i, sub_df in enumerate([sec_df, civ_df], start=1):
+        front_counts = sub_df['front'].value_counts(dropna=False)
+        front_counts.index = front_counts.index.fillna('Other')
+        labels = list(front_counts.index)
+        values = list(front_counts.values)
+        pie_colors = [front_colors.get(l, '#bdc3c7') for l in labels]
+        fig2.add_trace(
+            go.Pie(
+                labels=labels,
+                values=values,
+                marker=dict(colors=pie_colors),
+                textinfo='label+value',
+                showlegend=False,
+            ),
+            row=row_i, col=col_i,
+        )
+
+fig2.update_layout(
+    title=dict(text='חללים לפי חזית – כוחות ביטחון ואזרחים', x=0.5),
+    height=600,
+    width=1050,
+)
+fig2.show()
 
 for y in range(2024, 2027):
     print(f"\n{y}")
