@@ -44,25 +44,28 @@ def complete_rid(debug=False):
         .rename(columns={'city': 'cities', 'alarm_type': 'description',
                          'datetime': 'd_datetime'})
     )
+    # Use first comma-split token for matching to handle multi-part city names
+    dfd_merge['city_key'] = dfd_merge['cities'].str.split(',').str[0].str.strip()
     # ── 5. Prepare alarms rows that are missing rid ───────────────────────────────
     mask_no_rid = dfa['rid'].isna() | (dfa['rid'] == 0)
     alarms_no_rid = dfa.loc[mask_no_rid, ['cities', 'description', 'datetime']].copy()
     alarms_no_rid.index.name = 'alarms_idx'
     alarms_no_rid = alarms_no_rid.reset_index().sort_values('datetime')
+    alarms_no_rid['city_key'] = alarms_no_rid['cities'].str.split(',').str[0].str.strip()
     print(f'alarms rows to complete: {len(alarms_no_rid):,}')
     # ── 6. Match using merge_asof with a 60-second tolerance ─────────────────────
     print('Matching ...')
     dfd_right = (
         dfd_merge
         .rename(columns={'d_datetime': 'datetime'})
-        [['cities', 'description', 'datetime', 'rid']]
+        [['city_key', 'description', 'datetime', 'rid']]
         .sort_values('datetime')
     )
     all_matches = pd.merge_asof(
         alarms_no_rid,
         dfd_right,
         on='datetime',
-        by=['cities', 'description'],
+        by=['city_key', 'description'],
         tolerance=pd.Timedelta('60s'),
         direction='nearest'
     )
@@ -74,6 +77,7 @@ def complete_rid(debug=False):
     dfa.loc[all_matches['alarms_idx'].values, 'rid'] = all_matches['rid'].values
     # ── 8. Save for review ────────────────────────────────────────────────────────
     if debug:
+
         # find rid in dleshem for which there is no match in alarms
         descriptions = dfa['description'].unique()
         threat_dict = {}
@@ -85,15 +89,25 @@ def complete_rid(debug=False):
         dfd_candidates = dfd_candidates[dfd_candidates['category_desc'].isin(descriptions)]
         dfd_candidates = dfd_candidates[~dfd_candidates['rid'].isin(dfa['rid'])]
         print(f'dleshem candidates not yet in alarms: {len(dfd_candidates):,}')
-        missing = pd.DataFrame(columns=dfa.columns[:-1])
+        missing = pd.DataFrame(columns=list(dfa.columns[:-1]) + ['duplicate'])
+        last_missing_rid = dfd_candidates['rid'].max()
         for _, row in dfd_candidates.iterrows():
             rid = row['rid']
             desc = row['category_desc']
             time = str(row['datetime'])
             cities = row['data']
             threat = threat_dict[desc]
-            missing.loc[len(missing)] = [time, cities, threat, 0, desc, '', rid]
-            print(rid)
+            # Check for a preceding message with same location and description within 60 seconds
+            window_start = row['datetime'] - pd.Timedelta('60s')
+            preceding = dfd[
+                (dfd['datetime'] < row['datetime']) &
+                (dfd['datetime'] >= window_start) &
+                (dfd['data'] == cities) &
+                (dfd['category_desc'] == desc)
+            ]
+            duplicate_rid = preceding['rid'].iloc[-1] if not preceding.empty else None
+            missing.loc[len(missing)] = [time, cities, threat, 0, desc, '', rid, duplicate_rid]
+            print(f"{rid}/{last_missing_rid}", end='\r')
         missing.to_excel('~/Documents/missing.xlsx')
     else:
         dfa.drop(columns=['datetime']).to_csv(alarms_path, index=False)
@@ -101,5 +115,6 @@ def complete_rid(debug=False):
 
 
 if __name__ == '__main__':
+    import sys
     os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    complete_rid(debug=True)
+    complete_rid(debug='debug' in sys.argv)
