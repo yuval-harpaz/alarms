@@ -108,7 +108,7 @@ def complete_rid(debug=False):
             duplicate_rid = preceding['rid'].iloc[-1] if not preceding.empty else None
             missing.loc[len(missing)] = [time, cities, threat, 0, desc, '', rid, duplicate_rid]
             print(f"{rid}/{last_missing_rid}", end='\r')
-        missing.to_excel('~/Documents/missing.xlsx')
+        missing.to_excel('~/Documents/missing.xlsx', index=False)
     else:
         dfa.drop(columns=['datetime']).to_csv(alarms_path, index=False)
         print(f'Saved to {alarms_path}')
@@ -118,3 +118,7 @@ if __name__ == '__main__':
     import sys
     os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     complete_rid(debug='debug' in sys.argv)
+
+
+
+
