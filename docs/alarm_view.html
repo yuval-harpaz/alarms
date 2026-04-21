@@ -647,7 +647,51 @@
             keyMap.get(key).rows.push(r);
         });
 
-        viewData = Array.from(keyMap.values());
+        // Special case: id === '0' — split each group into time-gap clusters (>2 min = new cluster)
+        const GAP_MS = 2 * 60 * 1000;
+        const expandedItems = [];
+        for (const item of keyMap.values()) {
+            if (item.id !== '0') {
+                expandedItems.push(item);
+                continue;
+            }
+            // Sort rows by time
+            const sorted = [...item.rows].sort((a, b) => {
+                return new Date(a.time || 0) - new Date(b.time || 0);
+            });
+            // Cluster by gap
+            let clusterIdx = 0;
+            let clusters = [];
+            sorted.forEach((r, i) => {
+                if (i === 0) {
+                    clusters.push([r]);
+                } else {
+                    const prev = new Date(sorted[i - 1].time || 0);
+                    const curr = new Date(r.time || 0);
+                    if (curr - prev > GAP_MS) {
+                        clusterIdx++;
+                        clusters.push([]);
+                    }
+                    clusters[clusterIdx].push(r);
+                }
+            });
+            clusters.forEach((rows, ci) => {
+                const clusterKey = item.key + '__cluster' + ci;
+                expandedItems.push({
+                    key:    clusterKey,
+                    id:     item.id,
+                    desc:   item.desc,
+                    origin: item.origin,
+                    time:   rows[0].time,
+                    rows
+                });
+            });
+        }
+
+        // Sort all items by time so id=0 clusters slot in at the right position
+        expandedItems.sort((a, b) => new Date(a.time || 0) - new Date(b.time || 0));
+
+        viewData = expandedItems;
         buildChecklist();
         setStatus(`${viewData.length} אירועים · ${filtered.length} שורות`);
     }
