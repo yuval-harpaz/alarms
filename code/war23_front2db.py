@@ -25,8 +25,14 @@ def complete_event_loc():
         row = np.where(idf['pid'].values == db['pid'][ii])[0][0]
         loc = str(front['front'][row])
         if loc not in ['nan', 'תאונה']:
-            db.at[ii, 'מקום האירוע'] = loc
-            print(f"fron {loc} was added as event loc for pid {db['pid'][ii]}")
+            if loc == 'דרום לבנון':
+                db.at[ii, 'Event location'] = 'South Lebanon'
+                db.at[ii, 'מקום האירוע'] = loc
+                db.at[ii, 'front'] = 'North'
+                print(f"South Lebanon front set for pid {db['pid'][ii]}")
+            else:
+                db.at[ii, 'מקום האירוע'] = loc
+                print(f"fron {loc} was added as event loc for pid {db['pid'][ii]}")
             changed = True
     if changed:
         db.to_csv('data/oct7database.csv', index=False)
