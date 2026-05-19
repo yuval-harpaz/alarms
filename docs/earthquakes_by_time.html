@@ -94,6 +94,7 @@
     let currentLang = 'he';
     let layerControl;
     let lastQuakeTime = null;
+    let earthquakeData = []; // stores {row, group, eventTime} for re-filtering
 
     const map = L.map('map').setView([31.5, 34.75], 7.5);
 
@@ -112,6 +113,24 @@
 
     // Start with Hebrew tiles
     govmapTiles.addTo(map);
+
+    // Auto-switch tiles on zoom: GovMap lacks tiles at low zoom levels
+    const HEBREW_MIN_ZOOM = 8;
+    map.on('zoomend', function () {
+      if (currentLang === 'he') {
+        if (map.getZoom() < HEBREW_MIN_ZOOM) {
+          if (map.hasLayer(govmapTiles)) {
+            map.removeLayer(govmapTiles);
+            map.addLayer(cartodbTiles);
+          }
+        } else {
+          if (!map.hasLayer(govmapTiles)) {
+            map.removeLayer(cartodbTiles);
+            map.addLayer(govmapTiles);
+          }
+        }
+      }
+    });
 
     // Define overlapping layers for legend toggle
     const layers = {
@@ -138,14 +157,14 @@
       'more than a year': 0.2
     };
 
-    // Add all layers to map by default
-    Object.values(layers).forEach(l => l.addTo(map));
+    // Add layers oldest-first so recent events render on top
+    ['more than a year', 'one year', 'one month', 'one week', 'one day'].forEach(k => layers[k].addTo(map));
 
     // Language-specific text
     const translations = {
       he: {
         title: 'רעידות אדמה שנרשמו בישראל מאז 2000',
-        source: 'נתונים מ<a href="https://eq.gsi.gov.il/heb/earthquake/lastEarthquakes.php" target="_blank">המכון הגיאולוגי</a>',
+        source: 'נתונים מ<a href="https://eq.gsi.gov.il/" target="_blank">המכון הגיאולוגי</a>',
         lastQuake: 'רעידה אחרונה',
         oneDay: 'יום אחד',
         oneWeek: 'שבוע אחד',
@@ -153,11 +172,14 @@
         oneYear: 'שנה אחת',
         moreThanYear: 'יותר משנה',
         depth: 'עומק',
-        buttonText: 'En'
+        buttonText: 'En',
+        minMag: 'עצמה',
+        all: 'הכל',
+        felt: 'הורגש'
       },
       en: {
         title: 'Earthquakes recorded in Israel since 2000',
-        source: 'Data from <a href="https://eq.gsi.gov.il/heb/earthquake/lastEarthquakes.php" target="_blank">THE GEOLOGICAL SURVEY OF ISRAEL</a>',
+        source: 'Data from <a href="https://eq.gsi.gov.il/" target="_blank">THE GEOLOGICAL SURVEY OF ISRAEL</a>',
         lastQuake: 'last quake',
         oneDay: 'one day',
         oneWeek: 'one week',
@@ -165,7 +187,10 @@
         oneYear: 'one year',
         moreThanYear: 'more than a year',
         depth: 'depth',
-        buttonText: 'עב'
+        buttonText: 'עב',
+        minMag: 'min mag',
+        all: 'all',
+        felt: 'felt'
       }
     };
 
@@ -196,6 +221,15 @@
       };
 
       layerControl = L.control.layers(null, overlays, { collapsed: false, position: 'topleft' }).addTo(map);
+
+      // Update mag filter labels if the control is already in the DOM
+      const magLabel = document.getElementById('mag-filter-label');
+      const magFilter = document.getElementById('mag-filter');
+      if (magLabel && magFilter) {
+        magLabel.textContent = t.minMag;
+        magFilter.querySelector('option[value="all"]').textContent = t.all;
+        magFilter.querySelector('option[value="felt"]').textContent = t.felt;
+      }
     }
 
     function toggleLanguage() {
@@ -216,6 +250,61 @@
     // Initialize with Hebrew
     updateLanguage();
 
+    // Magnitude filter control (placed below the layer control in top-left)
+    const MagFilterControl = L.Control.extend({
+      options: { position: 'topleft' },
+      onAdd: function () {
+        const div = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+        div.style.cssText = 'background:white;padding:5px 8px;font-family:Arial,sans-serif;font-size:12px;';
+        div.innerHTML = `<label id="mag-filter-label" style="display:block;margin-bottom:3px;font-weight:bold;">min mag</label>
+          <select id="mag-filter" style="width:100%;padding:2px 4px;font-size:12px;cursor:pointer;">
+            <option value="2" selected>M ≥ 2</option>
+            <option value="all">all</option>
+            <option value="felt">felt</option>
+            <option value="3">M ≥ 3</option>
+            <option value="4">M ≥ 4</option>
+            <option value="5">M ≥ 5</option>
+            <option value="6">M ≥ 6</option>
+            <option value="7">M ≥ 7</option>
+          </select>`;
+        L.DomEvent.disableClickPropagation(div);
+        div.querySelector('#mag-filter').addEventListener('change', function () {
+          applyMagFilter(this.value);
+        });
+        return div;
+      }
+    });
+    new MagFilterControl().addTo(map);
+
+    function applyMagFilter(filter) {
+      // Clear all layer groups
+      Object.values(layers).forEach(l => l.clearLayers());
+
+      // Re-add markers that pass the filter, oldest-first (so recent render on top)
+      earthquakeData.forEach(({ row, group, eventTime }) => {
+        let show = false;
+        if (filter === 'all') {
+          show = true;
+        } else if (filter === 'felt') {
+          show = row.felt !== null && row.felt !== '' && row.felt !== undefined;
+        } else {
+          show = (row.magnitude || 0) >= parseFloat(filter);
+        }
+        if (!show) return;
+
+        const mag = row.magnitude || 0;
+        const radius = Math.max(3, Math.pow(mag, 2) / 2);
+        const depthStr = row.depth > 0 ? `, depth: ${row.depth.toFixed(1)}Km` : '';
+        const tooltip = `${eventTime.toISOString().replace('T', ' ').substring(0, 16)}<br>M: ${mag}${depthStr}`;
+        const color = colors[group];
+        const opacity = opacities[group];
+
+        L.circleMarker([row.latitude, row.longitude], {
+          radius, fillColor: color, color, weight: 1, opacity, fillOpacity: opacity
+        }).bindTooltip(tooltip).addTo(layers[group]);
+      });
+    }
+
     // Load data
     Papa.parse('https://raw.githubusercontent.com/yuval-harpaz/alarms/refs/heads/master/data/earthquakes.csv', {
       download: true,
@@ -224,14 +313,16 @@
       skipEmptyLines: true,
       complete: function (results) {
         const now = new Date();
-        
-        results.data.forEach(row => {
-          if (!row.Lat || !row.Long) return;
 
-          const eventTime = new Date(row['DateTime(UTC)']);
+        // Sort oldest-first so recent markers render on top
+        results.data.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
+        results.data.forEach(row => {
+          if (!row.latitude || !row.longitude) return;
+
+          const eventTime = new Date(row.timestamp);
           const diffDays = (now - eventTime) / (1000 * 60 * 60 * 24);
-          
-          // Track the most recent earthquake
+
           if (!lastQuakeTime || eventTime > lastQuakeTime) {
             lastQuakeTime = eventTime;
           }
@@ -242,24 +333,12 @@
           else if (diffDays <= 30) group = 'one month';
           else if (diffDays <= 365) group = 'one year';
 
-          const color = colors[group];
-          const opacity = opacities[group];
-          const mag = row.Mag || 0;
-          const radius = Math.max(3, Math.pow(mag, 2) / 2); // Minimum radius of 3
-
-          const depthStr = row['Depth(Km)'] > 0 ? `, depth: ${row['Depth(Km)'].toFixed(1)}Km` : '';
-          const tooltip = `${row['DateTime(UTC)'].replace('T', ' ').substring(0, 16)}<br>M: ${mag}${depthStr}`;
-
-          L.circleMarker([row.Lat, row.Long], {
-            radius: radius,
-            fillColor: color,
-            color: color,
-            weight: 1,
-            opacity: opacity,
-            fillOpacity: opacity
-          }).bindTooltip(tooltip).addTo(layers[group]);
+          earthquakeData.push({ row, group, eventTime });
         });
-        
+
+        // Apply default filter (M ≥ 2)
+        applyMagFilter('2');
+
         // Update title with last quake time after data loads
         updateLanguage();
       }
