@@ -6,6 +6,7 @@
   <title>Earthquakes in Israel</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&display=swap" />
   <style>
     body,
     html {
@@ -13,6 +14,7 @@
       padding: 0;
       height: 100%;
       width: 100%;
+      font-family: 'Assistant', Arial, sans-serif;
     }
 
     #map {
@@ -28,7 +30,7 @@
       background: rgba(255, 255, 255, 0.9);
       padding: 10px 20px;
       border-radius: 8px;
-      font-family: Arial, sans-serif;
+      font-family: 'Assistant', Arial, sans-serif;
       font-size: 14px;
       font-weight: bold;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -255,7 +257,7 @@
       options: { position: 'topleft' },
       onAdd: function () {
         const div = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
-        div.style.cssText = 'background:white;padding:5px 8px;font-family:Arial,sans-serif;font-size:12px;';
+        div.style.cssText = 'background:white;padding:5px 8px;font-family:\'Assistant\',Arial,sans-serif;font-size:12px;';
         div.innerHTML = `<label id="mag-filter-label" style="display:block;margin-bottom:3px;font-weight:bold;">min mag</label>
           <select id="mag-filter" style="width:100%;padding:2px 4px;font-size:12px;cursor:pointer;">
             <option value="2" selected>M ≥ 2</option>
