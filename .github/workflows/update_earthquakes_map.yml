@@ -13,6 +13,7 @@ permissions: write-all
 jobs:
   quake-fig:
     runs-on: ubuntu-latest
+    environment: rockets
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
