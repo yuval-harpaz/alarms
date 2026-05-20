@@ -42,10 +42,11 @@
         let currentYear = new Date().getFullYear();
         let gnames = [];
         for (let y = YEAR_START; y <= currentYear; y++) gnames.push(String(y));
-        gnames.push('7 days', '24 h');
+        gnames.push('30 days', '7 days', '24 h');
 
         function getColor(idx) {
-            // Last 7 days: red, last 24h: black
+            // Last 30 days: orange, last 7 days: red, last 24h: black
+            if (idx === gnames.length - 3) return "#1a7a1a"; // dark green
             if (idx === gnames.length - 2) return "#d62728"; // red
             if (idx === gnames.length - 1) return "#000000"; // black
             return TAB20[idx % TAB20.length];
@@ -136,10 +137,11 @@
             // Past 7 days / 24 hours
             const now = new Date();
             const dif_days = validAlarms.map(a => (now - a.dateObj) / (1000 * 60 * 60 * 24));
+            const past_30d = validAlarms.filter((a, i) => dif_days[i] <= 30 && a.threat === 0);
             const past_7d = validAlarms.filter((a, i) => dif_days[i] <= 7 && a.threat === 0);
             const past_24h = validAlarms.filter((a, i) => dif_days[i] <= 1 && a.threat === 0);
 
-            [past_7d, past_24h].forEach((group, idx) => {
+            [past_30d, past_7d, past_24h].forEach((group, idx) => {
                 const locs = {};
                 group.forEach(a => {
                     if (!locs[a.cities]) locs[a.cities] = 0;
@@ -150,11 +152,11 @@
                     if (coords) {
                         L.circleMarker(coords, {
                             radius: Math.max(Math.sqrt(count) * 2, 1),
-                            fillColor: getColor(gnames.length - 2 + idx),
-                            color: getColor(gnames.length - 2 + idx),
+                            fillColor: getColor(gnames.length - 3 + idx),
+                            color: getColor(gnames.length - 3 + idx),
                             opacity: 0,
                             fillOpacity: 0.5
-                        }).bindTooltip(`${loc}: ${count}`).addTo(layers[gnames[gnames.length - 2 + idx]]);
+                        }).bindTooltip(`${loc}: ${count}`).addTo(layers[gnames[gnames.length - 3 + idx]]);
                         markerCount++;
                     } else {
                         // Log missing or invalid coordinates
