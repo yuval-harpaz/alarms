@@ -180,6 +180,35 @@
                 { collapsed: false, position: 'topleft' }
             ).addTo(map);
 
+            // Clear / Show All button control
+            const ClearControl = L.Control.extend({
+                options: { position: 'topleft' },
+                onAdd: function () {
+                    const div = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+                    div.style.cssText = 'background:white;display:flex;gap:4px;padding:4px 6px;';
+
+                    const clearBtn = L.DomUtil.create('button', '', div);
+                    clearBtn.textContent = 'Clear';
+                    clearBtn.style.cssText = 'padding:3px 8px;font-size:12px;cursor:pointer;';
+                    L.DomEvent.on(clearBtn, 'click', function (e) {
+                        L.DomEvent.stopPropagation(e);
+                        gnames.forEach(gn => { if (map.hasLayer(layers[gn])) map.removeLayer(layers[gn]); });
+                    });
+
+                    const showBtn = L.DomUtil.create('button', '', div);
+                    showBtn.textContent = 'Show All';
+                    showBtn.style.cssText = 'padding:3px 8px;font-size:12px;cursor:pointer;';
+                    L.DomEvent.on(showBtn, 'click', function (e) {
+                        L.DomEvent.stopPropagation(e);
+                        gnames.forEach(gn => { if (!map.hasLayer(layers[gn])) map.addLayer(layers[gn]); });
+                    });
+
+                    L.DomEvent.disableClickPropagation(div);
+                    return div;
+                }
+            });
+            new ClearControl().addTo(map);
+
             // If no markers, show a message
             if (markerCount === 0) {
                 L.popup()
