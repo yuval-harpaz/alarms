@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
     <meta charset="utf-8">
     <meta name="author" content="Yuval Harpaz, Sagi Or">
@@ -7,7 +7,7 @@
     <meta name="keywords" content="map, rockets, alarms, Israel, Gaza, צבע אדום, emergency, folium, leaflet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="logo.png">
-    <title>Rocket Alarms in Israel</title>
+    <title>אזעקות רקטות בישראל</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
@@ -22,16 +22,30 @@
             border-bottom: 1px solid #ccc;
         }
         .leaflet-control-layers-expanded { max-height: 70vh; overflow-y: auto; }
+        .title-container { display: flex; align-items: center; justify-content: center; gap: 8px; direction: ltr; }
+        #lang-btn {
+            padding: 3px 8px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: bold;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        #lang-btn:hover { background: #0056b3; }
     </style>
 </head>
 <body>
     <div class="title-container">
-        <h3 align="center" style="font-size:16px" id="title"></h3>
+        <button id="lang-btn">En</button>
+        <h3 style="font-size:16px;margin:0;text-align:center;flex:1;" id="title"></h3>
     </div>
     <div id="map"></div>
     <script>
         const GITHUB_RAW = 'https://raw.githubusercontent.com/yuval-harpaz/alarms/refs/heads/master/';
-        // Use tab20-like palette, last 7 days = red, last 24h = black
         const TAB20 = [
             "#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a",
             "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94",
@@ -40,15 +54,46 @@
         ];
         const YEAR_START = 2019;
         let currentYear = new Date().getFullYear();
-        let gnames = [];
-        for (let y = YEAR_START; y <= currentYear; y++) gnames.push(String(y));
-        gnames.push('30 days', '7 days', '24 h');
+        // Internal keys (English) used for layer lookup
+        const gkeys = [];
+        for (let y = YEAR_START; y <= currentYear; y++) gkeys.push(String(y));
+        gkeys.push('30 days', '7 days', '24 h');
+
+        const translations = {
+            he: {
+                title: (last) => `<b>אזעקות ישראל מאז 2019 | נתונים: <a href="https://www.oref.org.il" target="_blank">פיקוד העורף</a> דרך <a href="https://www.tzevaadom.co.il/" target="_blank">צבע אדום</a> | אחרונה: ${last} | <a href="https://raw.githubusercontent.com/yuval-harpaz/alarms/refs/heads/master/data/alarms.csv" target="_blank">alarms.csv</a> | <a href="https://oct7database.com/" target="_blank">oct7database.com</a></b>`,
+                timeLabels: { '30 days': '30 יום', '7 days': '7 ימים', '24 h': '24 שעות' },
+                clearBtn: 'נקה',
+                showAllBtn: 'הצג הכל',
+                threatHeader: 'סוג איום',
+                langBtn: 'En',
+                pageTitle: 'אזעקות רקטות בישראל',
+                dir: 'rtl',
+                lang: 'he'
+            },
+            en: {
+                title: (last) => `<b>Israel alarms since 2019 | Data: <a href="https://www.oref.org.il" target="_blank">Home Front Command</a> via <a href="https://www.tzevaadom.co.il/" target="_blank">Tzeva Adom</a> | Last: ${last} | <a href="https://raw.githubusercontent.com/yuval-harpaz/alarms/refs/heads/master/data/alarms.csv" target="_blank">alarms.csv</a> | <a href="https://oct7database.com/" target="_blank">oct7database.com</a></b>`,
+                timeLabels: { '30 days': '30 days', '7 days': '7 days', '24 h': '24 h' },
+                clearBtn: 'Clear',
+                showAllBtn: 'Show All',
+                threatHeader: 'Threat type',
+                langBtn: 'עב',
+                pageTitle: 'Rocket Alarms in Israel',
+                dir: 'ltr',
+                lang: 'en'
+            }
+        };
+
+        let currentLang = 'he';
+        function t() { return translations[currentLang]; }
+        function gnameLabel(key) {
+            return t().timeLabels[key] || key;
+        }
 
         function getColor(idx) {
-            // Last 30 days: orange, last 7 days: red, last 24h: black
-            if (idx === gnames.length - 3) return "#1a7a1a"; // dark green
-            if (idx === gnames.length - 2) return "#d62728"; // red
-            if (idx === gnames.length - 1) return "#000000"; // black
+            if (idx === gkeys.length - 3) return "#1a7a1a";
+            if (idx === gkeys.length - 2) return "#d62728";
+            if (idx === gkeys.length - 1) return "#000000";
             return TAB20[idx % TAB20.length];
         }
 
@@ -56,16 +101,11 @@
             const response = await fetch(GITHUB_RAW + filename);
             const text = await response.text();
             return new Promise((resolve) => {
-                Papa.parse(text, {
-                    header: true,
-                    dynamicTyping: true,
-                    complete: (results) => resolve(results.data)
-                });
+                Papa.parse(text, { header: true, dynamicTyping: true, complete: (r) => resolve(r.data) });
             });
         }
-        
+
         function parseDate(str) {
-            // Handles both ISO and 'YYYY-MM-DD HH:MM:SS' formats
             if (!str) return null;
             return new Date(str.replace(' ', 'T'));
         }
@@ -75,147 +115,266 @@
             const alarms = await fetchCSV('data/alarms.csv');
             const center = [31.41745, 35.06155];
             const last_datetime = alarms[alarms.length - 2].time;
-            console.log("Last row:", alarms[alarms.length - 2]);
-            const map = L.map('map').setView(center, 7.5);
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-                attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
-            }).addTo(map);
-            console.log("Last datetime:", last_datetime);
-            document.getElementById('title').innerHTML =
-                `<b>Rocket alarms in Israel since July 2019, data from <a href="https://www.oref.org.il" target="_blank">THE NATIONAL EMERGENCY PORTAL</a>
-                via <a href="https://www.tzevaadom.co.il/" target="_blank">צבע אדום</a>. Last alarm: ${last_datetime}. data: <a href="https://raw.githubusercontent.com/yuval-harpaz/alarms/refs/heads/master/data/alarms.csv" target="_blank">alarms.csv</a>
-                <br><a href="https://oct7database.com/" target="_blank">oct7database.com</a></b>`;
-                
 
-            // Prepare alarm data
-            alarms.forEach(a => { a.dateObj = parseDate(a.time); });
-            // Filter out alarms with invalid dateObj
-            const validAlarms = alarms.filter(a => a.dateObj instanceof Date && !isNaN(a.dateObj));
-            // Prepare coord lookup with numeric values
-            const coordMap = {};
-            coord.forEach(c => {
-                const lat = Number(c.lat);
-                const lng = Number(c.long);
-                if (!isNaN(lat) && !isNaN(lng)) {
-                    coordMap[c.loc] = [lat, lng];
+            // ── Tile layers ──────────────────────────────────────────────────
+            const govmapTiles = L.tileLayer('https://cdnil.govmap.gov.il/xyz/heb/{z}/{x}/{y}.png', {
+                maxZoom: 16,
+                attribution: '© המרכז למיפוי ישראל www.govmap.gov.il'
+            });
+            const cartoTiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+                subdomains: 'abcd', maxZoom: 19
+            });
+
+            const map = L.map('map').setView(center, 7.5);
+            govmapTiles.addTo(map);   // Hebrew tiles by default
+
+            // Auto-switch tiles when zooming out beyond GovMap's useful range
+            const HEBREW_MIN_ZOOM = 8;
+            map.on('zoomend', () => {
+                if (currentLang === 'he') {
+                    if (map.getZoom() < HEBREW_MIN_ZOOM) {
+                        if (map.hasLayer(govmapTiles)) { map.removeLayer(govmapTiles); map.addLayer(cartoTiles); }
+                    } else {
+                        if (!map.hasLayer(govmapTiles)) { map.removeLayer(cartoTiles); map.addLayer(govmapTiles); }
+                    }
                 }
             });
 
-            // Layer groups
-            const layers = {};
-            gnames.forEach((gn, i) => {
-                layers[gn] = L.layerGroup();
+            // ── Data prep ────────────────────────────────────────────────────
+            alarms.forEach(a => { a.dateObj = parseDate(a.time); });
+            const validAlarms = alarms.filter(a => a.dateObj instanceof Date && !isNaN(a.dateObj));
+
+            const coordMap = {};
+            coord.forEach(c => {
+                const lat = Number(c.lat), lng = Number(c.long);
+                if (!isNaN(lat) && !isNaN(lng)) coordMap[c.loc] = [lat, lng];
             });
 
-            // By year
-            let markerCount = 0;
-            for (let year = YEAR_START; year <= currentYear; year++) {
-                const idx = validAlarms.filter(a => a.dateObj.getFullYear() === year && a.threat === 0);
-                const locs = {};
-                idx.forEach(a => {
-                    if (!locs[a.cities]) locs[a.cities] = 0;
-                    locs[a.cities]++;
-                });
-                Object.entries(locs).forEach(([loc, count]) => {
-                    const coords = coordMap[loc];
-                    if (coords) {
-                        L.circleMarker(coords, {
-                            radius: Math.max(Math.sqrt(count) * 2, 1),
-                            fillColor: getColor(year - YEAR_START),
-                            color: getColor(year - YEAR_START),
-                            opacity: 0.5,
-                            fillOpacity: 0.5
-                        }).bindTooltip(`${loc} (${year}): ${count}`).addTo(layers[String(year)]);
-                        markerCount++;
-                    } else {
-                        // Log missing or invalid coordinates
-                        console.warn('No valid coordinates for location:', loc);
-                    }
-                });
-            }
+            const layers = {};
+            gkeys.forEach(gk => { layers[gk] = L.layerGroup(); });
 
-            // Past 7 days / 24 hours
             const now = new Date();
             const dif_days = validAlarms.map(a => (now - a.dateObj) / (1000 * 60 * 60 * 24));
-            const past_30d = validAlarms.filter((a, i) => dif_days[i] <= 30 && a.threat === 0);
-            const past_7d = validAlarms.filter((a, i) => dif_days[i] <= 7 && a.threat === 0);
-            const past_24h = validAlarms.filter((a, i) => dif_days[i] <= 1 && a.threat === 0);
 
-            [past_30d, past_7d, past_24h].forEach((group, idx) => {
-                const locs = {};
-                group.forEach(a => {
-                    if (!locs[a.cities]) locs[a.cities] = 0;
-                    locs[a.cities]++;
-                });
-                Object.entries(locs).forEach(([loc, count]) => {
-                    const coords = coordMap[loc];
-                    if (coords) {
-                        L.circleMarker(coords, {
-                            radius: Math.max(Math.sqrt(count) * 2, 1),
-                            fillColor: getColor(gnames.length - 3 + idx),
-                            color: getColor(gnames.length - 3 + idx),
-                            opacity: 0,
-                            fillOpacity: 0.5
-                        }).bindTooltip(`${loc}: ${count}`).addTo(layers[gnames[gnames.length - 3 + idx]]);
-                        markerCount++;
-                    } else {
-                        // Log missing or invalid coordinates
-                        console.warn('No valid coordinates for location:', loc);
-                    }
-                });
+            // Discover threat types — skip "אזהרה" (warning drills)
+            const IGNORE_THREATS = new Set(['אזהרה']);
+            const threatEnNames = {
+                'צבע אדום':              'Red Alert',
+                'ירי טילים ורקטות':      'Rocket / Missile',
+                'ירי רקטות וטילים':      'Rocket / Missile',
+                'ירי ארטילרי':           'Artillery Fire',
+                'חדירת כלי טיס עויין':  'Hostile Aircraft',
+                'חדירת כלי טיס עוין':   'Hostile Aircraft',
+                'כלי טיס עוין':          'Hostile Aircraft',
+                'כלי טיס עויין':         'Hostile Aircraft',
+                'חדירת מחבלים':          'Terrorist Infiltration',
+                'חשש לחדירת מחבלים':    'Suspected Infiltration',
+                'חשש לחדירה':            'Suspected Infiltration',
+                'רעידת אדמה':            'Earthquake',
+                'חומרים מסוכנים':        'Hazardous Materials',
+                'צונאמי':                'Tsunami',
+            };
+            function getThreatLabel(code) {
+                const heDesc = (threatMap[code] || String(code)).trim();
+                if (currentLang !== 'en') return heDesc;
+                // Exact match
+                if (threatEnNames[heDesc]) return threatEnNames[heDesc];
+                // Fuzzy: check if any known key is contained in the description or vice versa
+                for (const [key, val] of Object.entries(threatEnNames)) {
+                    if (heDesc.includes(key) || key.includes(heDesc)) return val;
+                }
+                return heDesc; // fallback: show Hebrew if no translation found
+            }
+            const threatMap = {};
+            validAlarms.forEach(a => {
+                const desc = a.description || String(a.threat);
+                if (IGNORE_THREATS.has(desc)) return;
+                if (!(a.threat in threatMap)) threatMap[a.threat] = desc;
             });
+            const threatCodes = Object.keys(threatMap).map(Number).sort((a, b) => a - b);
 
-            // Add layers and control with colored labels
-            const overlays = {};
-            gnames.forEach((gn, idx) => {
-                const color = getColor(idx);
-                overlays[`<span style="color:${color};">${gn}</span>`] = layers[gn];
-                // Show all layers by default
-                layers[gn].addTo(map);
-            });
+            // ── Render markers ───────────────────────────────────────────────
+            function renderMarkers(selectedThreats) {
+                gkeys.forEach(gk => layers[gk].clearLayers());
 
-            L.control.layers(
-                null,
-                overlays,
-                { collapsed: false, position: 'topleft' }
-            ).addTo(map);
+                function addMarkers(alarmList, gkey, colorIdx) {
+                    const locs = {};
+                    alarmList.forEach(a => {
+                        if (!selectedThreats.has(a.threat)) return;
+                        if (IGNORE_THREATS.has(a.description)) return;  // skip אזהרה
+                        if (!locs[a.cities]) locs[a.cities] = 0;
+                        locs[a.cities]++;
+                    });
+                    Object.entries(locs).forEach(([loc, count]) => {
+                        const coords = coordMap[loc];
+                        if (coords) {
+                            L.circleMarker(coords, {
+                                radius: Math.max(Math.sqrt(count) * 2, 1),
+                                fillColor: getColor(colorIdx),
+                                color: getColor(colorIdx),
+                                weight: 0, opacity: 0, fillOpacity: 0.5
+                            }).bindTooltip(`${loc} (${gnameLabel(gkey)}): ${count}`).addTo(layers[gkey]);
+                        } else {
+                            console.warn('No valid coordinates for location:', loc);
+                        }
+                    });
+                }
 
-            // Clear / Show All button control
+                for (let year = YEAR_START; year <= currentYear; year++) {
+                    addMarkers(validAlarms.filter(a => a.dateObj.getFullYear() === year), String(year), year - YEAR_START);
+                }
+                [{ key: '30 days', days: 30 }, { key: '7 days', days: 7 }, { key: '24 h', days: 1 }]
+                    .forEach(({ key, days }, i) => {
+                        addMarkers(validAlarms.filter((a, idx) => dif_days[idx] <= days), key, gkeys.length - 3 + i);
+                    });
+            }
+
+            gkeys.forEach(gk => layers[gk].addTo(map));
+
+            // ── Layer control (rebuilt on language switch) ───────────────────
+            let layerControl = null;
+            function buildLayerControl() {
+                if (layerControl) map.removeControl(layerControl);
+                const overlays = {};
+                gkeys.forEach((gk, idx) => {
+                    const color = getColor(idx);
+                    overlays[`<span style="color:${color};">${gnameLabel(gk)}</span>`] = layers[gk];
+                });
+                layerControl = L.control.layers(null, overlays, { collapsed: false, position: 'topleft' });
+                layerControl.addTo(map);
+            }
+            buildLayerControl();
+
+            // ── Clear / Show All control ─────────────────────────────────────
+            let clearBtn, showAllBtn;
             const ClearControl = L.Control.extend({
                 options: { position: 'topleft' },
                 onAdd: function () {
                     const div = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
                     div.style.cssText = 'background:white;display:flex;gap:4px;padding:4px 6px;';
-
-                    const clearBtn = L.DomUtil.create('button', '', div);
-                    clearBtn.textContent = 'Clear';
+                    clearBtn = L.DomUtil.create('button', '', div);
                     clearBtn.style.cssText = 'padding:3px 8px;font-size:12px;cursor:pointer;';
-                    L.DomEvent.on(clearBtn, 'click', function (e) {
+                    L.DomEvent.on(clearBtn, 'click', e => {
                         L.DomEvent.stopPropagation(e);
-                        gnames.forEach(gn => { if (map.hasLayer(layers[gn])) map.removeLayer(layers[gn]); });
+                        gkeys.forEach(gk => { if (map.hasLayer(layers[gk])) map.removeLayer(layers[gk]); });
                     });
-
-                    const showBtn = L.DomUtil.create('button', '', div);
-                    showBtn.textContent = 'Show All';
-                    showBtn.style.cssText = 'padding:3px 8px;font-size:12px;cursor:pointer;';
-                    L.DomEvent.on(showBtn, 'click', function (e) {
+                    showAllBtn = L.DomUtil.create('button', '', div);
+                    showAllBtn.style.cssText = 'padding:3px 8px;font-size:12px;cursor:pointer;';
+                    L.DomEvent.on(showAllBtn, 'click', e => {
                         L.DomEvent.stopPropagation(e);
-                        gnames.forEach(gn => { if (!map.hasLayer(layers[gn])) map.addLayer(layers[gn]); });
+                        gkeys.forEach(gk => { if (!map.hasLayer(layers[gk])) map.addLayer(layers[gk]); });
                     });
-
                     L.DomEvent.disableClickPropagation(div);
                     return div;
                 }
             });
             new ClearControl().addTo(map);
 
-            // If no markers, show a message
-            if (markerCount === 0) {
-                L.popup()
-                    .setLatLng(center)
-                    .setContent("No alarm data available or coordinates missing.<br>Check your CSV files and browser console for errors.")
-                    .openOn(map);
+            // ── Threat checklist control ─────────────────────────────────────
+            let threatHeaderEl, threatChecklistDiv;
+            function rebuildThreatChecklist() {
+                if (!threatChecklistDiv) return;
+                // Preserve checked state
+                const checked = new Set(
+                    [...threatChecklistDiv.querySelectorAll('input[type=checkbox]:checked')].map(cb => Number(cb.value))
+                );
+                // Update header
+                if (threatHeaderEl) threatHeaderEl.textContent = t().threatHeader;
+                // Rebuild labels only
+                threatChecklistDiv.querySelectorAll('label').forEach(l => l.remove());
+                threatCodes.forEach(code => {
+                    const label = document.createElement('label');
+                    label.style.cssText = 'display:block;margin:2px 0;cursor:pointer;';
+                    const cb = document.createElement('input');
+                    cb.type = 'checkbox';
+                    cb.value = code;
+                    cb.checked = checked.size ? checked.has(code) : (code === 0);
+                    cb.style.cssText = 'margin-right:4px;cursor:pointer;';
+                    label.appendChild(cb);
+                    label.appendChild(document.createTextNode(' ' + getThreatLabel(code)));
+                    threatChecklistDiv.appendChild(label);
+                });
             }
+            const ThreatControl = L.Control.extend({
+                options: { position: 'topleft' },
+                onAdd: function () {
+                    const div = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+                    div.style.cssText = 'background:white;padding:5px 8px;font-family:Arial,sans-serif;font-size:11px;max-width:190px;';
+                    threatHeaderEl = L.DomUtil.create('div', '', div);
+                    threatHeaderEl.style.cssText = 'font-weight:bold;margin-bottom:4px;';
+                    threatChecklistDiv = div;
+                    // Build initial checkboxes
+                    threatCodes.forEach(code => {
+                        const label = document.createElement('label');
+                        label.style.cssText = 'display:block;margin:2px 0;cursor:pointer;';
+                        const cb = document.createElement('input');
+                        cb.type = 'checkbox';
+                        cb.value = code;
+                        cb.checked = (code === 0);
+                        cb.style.cssText = 'margin-right:4px;cursor:pointer;';
+                        label.appendChild(cb);
+                        label.appendChild(document.createTextNode(' ' + getThreatLabel(code)));
+                        div.appendChild(label);
+                    });
+                    L.DomEvent.disableClickPropagation(div);
+                    div.addEventListener('change', () => {
+                        const selected = new Set(
+                            [...div.querySelectorAll('input[type=checkbox]:checked')].map(cb => Number(cb.value))
+                        );
+                        renderMarkers(selected);
+                    });
+                    return div;
+                }
+            });
+            new ThreatControl().addTo(map);
+
+            // ── Language toggle (title bar button) ───────────────────────────
+            document.getElementById('lang-btn').addEventListener('click', () => {
+                currentLang = currentLang === 'he' ? 'en' : 'he';
+                applyLanguage();
+            });
+
+            // ── Apply language ───────────────────────────────────────────────
+            function applyLanguage() {
+                const tr = t();
+                // Page meta
+                document.title = tr.pageTitle;
+                document.documentElement.lang = tr.lang;
+                document.documentElement.dir = tr.dir;
+                // Title bar
+                document.getElementById('title').innerHTML = tr.title(last_datetime);
+                // Lang button
+                const lb = document.getElementById('lang-btn');
+                if (lb) lb.textContent = tr.langBtn;
+                // Clear / Show All buttons
+                if (clearBtn) clearBtn.textContent = tr.clearBtn;
+                if (showAllBtn) showAllBtn.textContent = tr.showAllBtn;
+                // Threat checklist — header + translated labels
+                rebuildThreatChecklist();
+                // Layer control labels
+                buildLayerControl();
+                // Tile swap
+                if (currentLang === 'he') {
+                    if (map.hasLayer(cartoTiles)) { map.removeLayer(cartoTiles); }
+                    if (map.getZoom() >= HEBREW_MIN_ZOOM) map.addLayer(govmapTiles);
+                    else map.addLayer(cartoTiles);
+                } else {
+                    if (map.hasLayer(govmapTiles)) { map.removeLayer(govmapTiles); }
+                    if (!map.hasLayer(cartoTiles)) map.addLayer(cartoTiles);
+                }
+                // Re-render tooltips (which contain translated time labels)
+                const selected = new Set(
+                    [...(threatChecklistDiv
+                        ? threatChecklistDiv.querySelectorAll('input[type=checkbox]:checked')
+                        : [])].map(cb => Number(cb.value))
+                );
+                renderMarkers(selected.size ? selected : new Set([0]));
+            }
+
+            // Initial render + language apply
+            applyLanguage();
+            renderMarkers(new Set([0]));
         }
 
         initMap();
