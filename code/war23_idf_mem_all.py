@@ -13,7 +13,9 @@ month_heb = ['ינואר', 'פברואר', 'מרץ', 'אפריל',
              'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר']
 if os.path.isdir(local):
     os.chdir(local)
-    local = True
+elif os.path.isdir(local.replace('yuval', 'innereye')):
+    os.chdir(local.replace('yuval', 'innereye'))
+    
 csv = 'data/deaths_idf.csv'
 only_new = True
 if only_new:
@@ -27,8 +29,7 @@ if only_new:
 ##
 # def get_deaths():
 # try:
-with Display() as disp:
-    browser = webdriver.Firefox()
+
 try:
     with Display() as disp:
         try:

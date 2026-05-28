@@ -12,7 +12,8 @@ do_ynet = False
 try:
     if os.path.isdir(local):
         os.chdir(local)
-        local = True
+    elif os.path.isdir(local.replace('yuval', 'innereye')):
+        os.chdir(local.replace('yuval', 'innereye'))
     csv = 'data/deaths_idf.csv'
     idf = pd.read_csv(csv)
     front = pd.read_csv('data/front.csv')

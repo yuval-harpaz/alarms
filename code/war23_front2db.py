@@ -5,7 +5,8 @@ import numpy as np
 local = '/home/yuval/alarms/'
 if os.path.isdir(local):
     os.chdir(local)
-    local = True
+elif os.path.isdir(local.replace('yuval', 'innereye')):
+    os.chdir(local.replace('yuval', 'innereye'))
 idf = pd.read_csv('data/deaths_idf.csv')
 front = pd.read_csv('data/front.csv')
 db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})

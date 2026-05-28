@@ -8,7 +8,8 @@ import numpy as np
 local = '/home/yuval/alarms/'
 if os.path.isdir(local):
     os.chdir(local)
-    local = True
+elif os.path.isdir(local.replace('yuval', 'innereye')):
+    os.chdir(local.replace('yuval', 'innereye'))
 ##
 
 

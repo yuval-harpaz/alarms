@@ -6,7 +6,8 @@ import re
 local = '/home/yuval/alarms/'
 if os.path.isdir(local):
     os.chdir(local)
-    local = True
+elif os.path.isdir(local.replace('yuval', 'innereye')):
+    os.chdir(local.replace('yuval', 'innereye'))
 ## load data and run sanity checks
 # only_new = False
 # if only_new:
