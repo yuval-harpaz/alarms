@@ -100,13 +100,19 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
             if len(locrow) == 1 and type(area[0][locrow[0]]) == str:
                 link = area.iloc[locrow[0], 2]
                 link_text = area.iloc[locrow[0], 1]
-                if str(link) == 'nan':
-                    link = ''
-                    link_text = ''
-
+                if str(link) == 'nan' or (isinstance(link, float) and np.isnan(link)):
+                    raise ValueError(f"NaN link for place_name={place_name!r}, pid(s)={pid_str}, event={event}")
+                else:
+                    link = str(link)
+                if str(link_text) == 'nan' or (isinstance(link_text, float) and np.isnan(link_text)):
+                    raise ValueError(f"NaN link_text for place_name={place_name!r}, pid(s)={pid_str}, event={event}")
+                else:
+                    link_text = str(link_text)
             else:
                 link = ''
-                link_text = '' 
+                link_text = ''
+            if isinstance(place_name, float) and np.isnan(place_name):
+                raise ValueError(f"NaN place_name for pid(s) {pid_str}, event={event}, name={name!r}")
             properties = {
                 "name": name,
                 "event": event,
@@ -218,12 +224,16 @@ if __name__ == '__main__':
         
         dbg = True
         if dbg:
-            field = 'Role'
-            criterion = 'שוטר'
-            comment = 'debug'
-            mapname, coos = export_json(field=field, criterion=criterion, language='He')
-            center = np.mean(coos, 0)
-            json2map(mapname, center, comment)
+            mapname, coos = export_json(polygonize=True)
+            center = np.median(coos, 0)
+            json2map(mapname, center, 'public map')
+            sys.exit()
+            # field = 'Role'
+            # criterion = 'שוטר'
+            # comment = 'debug'
+            # mapname, coos = export_json(field=field, criterion=criterion, language='He')
+            # center = np.mean(coos, 0)
+            # json2map(mapname, center, comment)
         sys.exit()
     elif len(sys.argv) == 2:
         if sys.argv[1][0] == 'p':
