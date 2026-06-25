@@ -17,7 +17,7 @@ db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': 
 inew = np.where([x not in db['הנצחה'].values for x in idf['webpage'].values])[0]
 
 def idf_mismatch():
-    idf_bad_name = [2115, 1725, 2017, 2143, 2619, 2689, 1887, 407, 253]
+    idf_bad_name = [2115, 1725, 2017, 2143, 2619, 2689, 1887, 407, 253, 2205, 2709, 2066, 2198, 2226, 2491, 2616, 2780]
     return idf_bad_name
 
 def sane():
