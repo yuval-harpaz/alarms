@@ -31,7 +31,7 @@ def sane():
 
     debug = False
     div_last = [283, 401, 1266, 1643, 2399, 287, 1725, 2017, 2143]
-    div_first = [2115]
+    div_first = [2115, 2205, 2709]
     # idf_bad_name = [2115, 1725, 2017, 2143]
     for ii in np.where([x in idf['pid'].values for x in db['pid'].values])[0]:
         row = np.where(idf['pid'].values == db['pid'][ii])[0][0]
