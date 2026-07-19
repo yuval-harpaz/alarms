@@ -101,13 +101,22 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
                 link = area.iloc[locrow[0], 2]
                 link_text = area.iloc[locrow[0], 1]
                 if str(link) == 'nan' or (isinstance(link, float) and np.isnan(link)):
-                    raise ValueError(f"NaN link for place_name={place_name!r}, pid(s)={pid_str}, event={event}")
+                    # polygon entries have no link but have polygon coords in column 3;
+                    # when not in polygon mode, fall back gracefully instead of raising
+                    has_polygon_coords = (len(area.columns) > 3 and
+                                         not (isinstance(area.iloc[locrow[0], 3], float) and
+                                              np.isnan(area.iloc[locrow[0], 3])))
+                    if has_polygon_coords:
+                        link = ''
+                        link_text = ''
+                    else:
+                        raise ValueError(f"NaN link for place_name={place_name!r}, pid(s)={pid_str}, event={event}")
                 else:
                     link = str(link)
-                if str(link_text) == 'nan' or (isinstance(link_text, float) and np.isnan(link_text)):
-                    raise ValueError(f"NaN link_text for place_name={place_name!r}, pid(s)={pid_str}, event={event}")
-                else:
-                    link_text = str(link_text)
+                    if str(link_text) == 'nan' or (isinstance(link_text, float) and np.isnan(link_text)):
+                        raise ValueError(f"NaN link_text for place_name={place_name!r}, pid(s)={pid_str}, event={event}")
+                    else:
+                        link_text = str(link_text)
             else:
                 link = ''
                 link_text = ''
@@ -222,7 +231,7 @@ if __name__ == '__main__':
         print('or: python map_export_loc.py FIELD VALUE COMMENT')
         print('you can use *VALUE or "not VALUE"')
         
-        dbg = True
+        dbg = False
         if dbg:
             mapname, coos = export_json(polygonize=True)
             center = np.median(coos, 0)
