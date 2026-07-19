@@ -1,5 +1,7 @@
 import pandas as pd
 import os
+import json
+import time
 import requests
 import numpy as np
 
@@ -14,7 +16,7 @@ elif os.path.isdir(local.replace('yuval', 'innereye')):
 db2api = {
     'first name': 'firstNameEn',
     'last name': 'lastNameEn',
-    'middle name': 'middlenameEn',
+    'middle name': 'middleNameEn',
     'nickname': 'nicknameEn',
     'שם פרטי': 'firstNameHe',
     'שם משפחה': 'lastNameHe',
@@ -60,7 +62,7 @@ def pid2record(pid):
     else:
         print(f"pid {pid} not found")
         return None
-    record = {'pid': int(pid)}
+    record = {'pid': str(int(pid))}
     for key in db2api.keys():
         value = db.at[row, key]
         if str(value) == 'nan':
@@ -71,4 +73,9 @@ def pid2record(pid):
 if __name__ == '__main__':
     pid = db['pid'].values[-1]
     record = pid2record(pid)
+    record['pid'] = 'test001'
+    with open('record_dump.json', 'w', encoding='utf-8') as f:
+        json.dump(record, f, ensure_ascii=False, indent=2)
     send_records(record)
+    print('done')
+    time.sleep(1)
