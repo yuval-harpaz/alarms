@@ -106,6 +106,8 @@ def pid2record(pid):
             continue
         record[db2api[key]] = value
     record['statusEn'] = [s.strip() for s in record['statusEn'].split(';')]
+    if 'nationalLibrary' in record.keys():
+        record['nationalLibrary'] = 'https://www.nli.org.il/he/authorities/' + record['nationalLibrary']
     for key, translated_key in require_translation.items():
         value = db.at[row, api2db[key]]
         if str(value) == 'nan':
@@ -122,9 +124,9 @@ def pid2record(pid):
 
 if __name__ == '__main__':
     # pid = db['pid'].values[-1]
-    pid = 267
+    pid = 52
     record = pid2record(pid)
-    record['pid'] = 'test004'
+    record['pid'] = 'test005'
     with open('record_dump.json', 'w', encoding='utf-8') as f:
         json.dump(record, f, ensure_ascii=False, indent=2)
     resp = send_records(record)
