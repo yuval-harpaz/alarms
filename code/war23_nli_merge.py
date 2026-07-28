@@ -1,4 +1,7 @@
-"""find new btl."""
+"""Merge two NLI candidate tables: ~/Documents/nli.csv (previous run) and data/tmp_nli.csv (new run).
+For each row, keeps the new nli_id/harpaz_id/candidates when available, and fills gaps from the previous
+run. Also applies a suffix fix to old IDs (replaces last 3 chars with '171'). Saves merged result to
+data/nli.csv."""
 import pandas as pd
 # import requests
 import os

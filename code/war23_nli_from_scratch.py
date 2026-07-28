@@ -1,4 +1,4 @@
-"""find new btl."""
+"""search for first and last name in the NLI database and return the NLI ID and Harpaz ID if found"""
 import pandas as pd
 # import requests
 import os

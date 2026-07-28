@@ -1,4 +1,7 @@
-"""find new btl."""
+"""Open the NLI authority page for every pid that already has an NLI ID in oct7database.csv (column 'הספריה הלאומית'),
+scrape the displayed name from the 'item_collections' section, and compare it with the name in the database using
+Levenshtein distance. Also extracts the Harpaz_ID from the page and checks whether it matches the pid.
+Saves results to ~/Documents/nli.csv; a second pass detects English names and cleans up issue strings."""
 import pandas as pd
 # import requests
 import os

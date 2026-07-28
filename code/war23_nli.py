@@ -1,4 +1,8 @@
-"""find new btl."""
+"""search for first and last name in the NLI database and return the NLI ID and Harpaz ID if found.
+Identical to war23_nli_from_scratch.py – iterates all rows of oct7database.csv, constructs a name-search URL,
+scrapes the NLI authority search page with Selenium/Chrome, and for each 'אישיות' hit navigates to the
+personal authority page to confirm the name match (Hebrew or English). Saves pid/nli_id/harpaz_id/candidates
+to data/nli.csv after every match."""
 import pandas as pd
 # import requests
 import os

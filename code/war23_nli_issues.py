@@ -1,37 +1,49 @@
 """Improved version of war23_nli_scrape.py. First syncs ~/Documents/nli.csv with oct7database.csv:
 adds missing pids and detects NLI ID conflicts between the two sources. Then opens the NLI authority page
 for each relevant pid (either all with an ID, or only those not yet scraped), extracts the name from
-'item_collections', computes Levenshtein distance against the database name, and checks the Harpaz_ID.
-Flags issues ('Name mismatch', 'Wrong Harpaz ID', 'English name', etc.) and saves incrementally to
-~/Documents/nli.csv."""
+'item_collections', computes Levenshtein distance against the database name, and checks the Harpaz_ID
+and 1Source_ID (some entries have one or both). Flags issues ('Name mismatch', 'Wrong Harpaz ID',
+'Wrong 1Source ID', 'English name', etc.) and saves incrementally to ~/Documents/nli.csv."""
 import pandas as pd
-# import requests
 import os
 import numpy as np
 from selenium import webdriver
-# from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-import undetected_chromedriver as uc
 import re
 import Levenshtein
+# import requests
+# from selenium.webdriver.chrome.service import Service
+# from selenium.webdriver.chrome.options import Options
+# import undetected_chromedriver as uc
 
 
 
-local = '/home/innereye/alarms/'
-if os.path.isdir(local):
-    os.chdir(local)
-    local = True
+local = ''
+for home in ['innereye', 'yuval']:
+    local = '/home/'+home+'/alarms/'
+    if os.path.isdir(local):
+        os.chdir(local)
+        break
+
+
 # url = 'https://www.nli.org.il/he/search?projectName=NLI#&q=any,contains,FIRST%20LAST&bulkSize=30&index=0&sort=rank&multiFacets=facet_local18,include,2023,1|,|facet_local18,include,2024,1|,|facet_local18,include,2025,1&t=authorities'
 # fill missing IDs from db
 db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
-nli = pd.read_csv('~/Documents/nli.csv', dtype={'nli_id': str, 'issues': str})
+nli_path = os.path.expanduser('~/Documents/nli.csv')
+nli_columns = ['nli_id', 'pid', 'harpaz_id', 'name', 'first_nli', 'last_nli', 'years', 'issues', '1source_id']
+if os.path.isfile(nli_path):
+    nli = pd.read_csv(nli_path, dtype={'nli_id': str, 'issues': str})
+    for col in nli_columns:
+        if col not in nli.columns:
+            nli[col] = np.nan
+else:
+    nli = pd.DataFrame(columns=nli_columns)
 # got_id = np.where(db['הספריה הלאומית'].notna())[0]
 for ii in range(len(db)):
     row_nli = np.where(nli['pid'] == db['pid'][ii])[0]
     if len(row_nli) == 0:
         name = db['שם פרטי'][ii].strip() + ' ' + str(db['שם נוסף'][ii]).strip() + ' ' + db['שם משפחה'][ii].strip() + ' ' + str(db['כינוי'][ii]).strip()
         name = name.replace('nan', '').replace('  ', ' ').strip()
-        new_row = [db['הספריה הלאומית'][ii], db['pid'][ii], np.nan, name, np.nan, np.nan, np.nan, np.nan]
+        new_row = [db['הספריה הלאומית'][ii], db['pid'][ii], np.nan, name, np.nan, np.nan, np.nan, np.nan, np.nan]
         nli.loc[len(nli)] = new_row
         row_nli = len(nli)-1
     else:
@@ -46,8 +58,8 @@ for ii in range(len(db)):
             print(f'Conflict for pid {db["pid"][ii]}: prev {nli["nli_id"][row_nli]} current {id_nli}')
             nli.at[row_nli, 'nli_id'] = id_nli
             nli.at[row_nli, 'issues'] = 'ID conflict'
-nli.to_csv('~/Documents/nli.csv', index=False) 
-input_resp = input('shearch existing? (y/n): ')
+nli.to_csv(nli_path, index=False)
+input_resp = input('search existing? (y/n): ')
 if input_resp == 'y':
     id_to_scan = db['pid'][db['הספריה הלאומית'].notna()].values
 else:
@@ -58,8 +70,26 @@ pattern = 'item_collections'
 # chrome_options = uc.ChromeOptions()
 # chrome_options.add_argument("user-data-dir=/home/innereye/.config/google-chrome")  # e.g. ~/.config/google-chrome
 # chrome_options.add_argument("profile-directory=Default")
-browser = uc.Chrome()
+# options.add_argument("--user-data-dir=/tmp/testprofile")
+# options.add_argument("--user-data-dir=/home/yuval/.config/google-chrome")
 # browser = webdriver.Chrome()
+# browser.get("about:blank")
+options = webdriver.ChromeOptions()
+options.add_argument("--user-data-dir=/home/yuval/.config/chrome-selenium")
+options.add_argument("--profile-directory=Default")
+options.add_experimental_option("excludeSwitches", ["enable-automation"])
+options.add_experimental_option("useAutomationExtension", False)
+browser = webdriver.Chrome(options=options)
+browser.execute_cdp_cmd(
+    "Page.addScriptToEvaluateOnNewDocument",
+    {
+        "source": """
+        Object.defineProperty(navigator, 'webdriver', {
+            get: () => undefined
+        })
+        """
+    }
+)
 browser.get('https://www.nli.org.il/he')  # manually confirm not a bot
 ip = input('Press Enter to continue...')
 for ii in rows:  # [427] :
@@ -94,8 +124,10 @@ for ii in rows:  # [427] :
                     nli.at[ii, 'years'] = names[2]
             if distance > 0:
                 issues = 'Name mismatch'
-            if 'harpaz_id' in htmlp.lower():
-                harpaz_id = htmlp.lower().split('harpaz_id')[1].split('"')[2][1:]
+            # --- Harpaz_ID ---
+            htmlp_lower = htmlp.lower()
+            if 'harpaz_id' in htmlp_lower:
+                harpaz_id = htmlp_lower.split('harpaz_id')[1].split('"')[2][1:]
                 harpaz_id = harpaz_id[:harpaz_id.index('<')]
                 if harpaz_id.isnumeric():
                     harpaz_id = int(harpaz_id)
@@ -107,52 +139,33 @@ for ii in rows:  # [427] :
             else:
                 harpaz_id = np.nan
                 issues = issues + '; No Harpaz ID'
-            nli.at[ii, 'issues'] = issues
             nli.at[ii, 'harpaz_id'] = harpaz_id
-            nli.to_csv('~/Documents/nli.csv', index=False)
+            # --- 1Source_ID ---
+            if '1source_id' in htmlp_lower:
+                source_id = htmlp_lower.split('1source_id')[1].split('"')[2][1:]
+                source_id = source_id[:source_id.index('<')]
+                if source_id.isnumeric():
+                    source_id = int(source_id)
+                    if source_id != nli['pid'][ii]:
+                        issues = issues + '; Wrong 1Source ID'
+                else:
+                    source_id = np.nan
+                    issues = issues + '; 1Source ID not numeric'
+            else:
+                source_id = np.nan
+                issues = issues + '; No 1Source ID'
+            nli.at[ii, '1source_id'] = source_id
+            nli.at[ii, 'issues'] = issues
+            nli.to_csv(nli_path, index=False)
 browser.quit()
 
 ##
-nli = pd.read_csv('~/Documents/nli.csv', dtype={'nli_id': str, 'issues': str})
+nli = pd.read_csv(nli_path, dtype={'nli_id': str, 'issues': str})
 for ii in range(len(nli)):
     last = str(nli['last_nli'][ii])
     is_eng = re.search(r'[a-zA-Z]', last)
     if is_eng is not None and last != 'nan':
         nli.at[ii, 'issues'] = nli['issues'][ii].replace('Name mismatch', 'English name')
     if str(nli['issues'][ii])[0] == ';':
-        nli.at[ii, 'issues'] = nli['issues'][ii].replace(';', '').strip()
-nli.to_csv('~/Documents/nli.csv', index=False)
-
-
-#     # seperate first last and years if in first
-#     first = str(nli['first_nli'][ii])
-#     if first == 'nan':
-#         nli.at[ii, 'issues'] = 'ID not found'
-#     else:
-#         first = first.split(',')
-#         if len(first) == 3 and '2' in first[2]:
-#             nli.at[ii, 'first_nli'] = first[0].strip()
-#             nli.at[ii, 'last_nli'] = first[1].strip()
-#             nli.at[ii, 'year'] = first[2].strip()
-#         # check distance between first and name
-#         if ',' not in nli['first_nli'][ii]:
-#             first = nli['first_nli'][ii]
-#             last = nli['last_nli'][ii]
-#             name = nli['name'][ii]
-#             if first in name and last in name:
-#                 distance = 0
-#             else:
-#                 distance = max([min([Levenshtein.distance(first, n) for n in name.split(' ')]),
-#                                  min([Levenshtein.distance(last, n) for n in name.split(' ')])])
-#             if distance > 0:
-#                 issues = 'Name mismatch'
-#             else:
-#                 issues = ''
-#             if str(nli['harpaz_id'][ii]) == 'nan':
-#                 issues = issues + '; No harpaz ID'
-#             else:
-#                 if nli['harpaz_id'][ii] != nli['pid'][ii]:
-#                     issues = issues + '; Wrong Harpaz ID'
-#             if len(issues) > 0:
-#                 nli.at[ii, 'issues'] = issues
-# nli.to_csv('~/Documents/nli1.csv', index=False)
+        nli.at[ii, 'issues'] = nli['issues'][ii].replace(';', '', 1).strip()
+nli.to_csv(nli_path, index=False)
