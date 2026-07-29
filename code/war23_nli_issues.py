@@ -3,7 +3,9 @@ adds missing pids and detects NLI ID conflicts between the two sources. Then ope
 for each relevant pid (either all with an ID, or only those not yet scraped), extracts the name from
 'item_collections', computes Levenshtein distance against the database name, and checks the Harpaz_ID
 and 1Source_ID (some entries have one or both). Flags issues ('Name mismatch', 'Wrong Harpaz ID',
-'Wrong 1Source ID', 'English name', etc.) and saves incrementally to ~/Documents/nli.csv."""
+'Wrong 1Source ID', 'English name', etc.) and saves incrementally to ~/Documents/nli.csv.
+Important, the script currently fails the robot test by cloudflair. when using my personal chrome it may pass but the script hangs
+"""
 import pandas as pd
 import os
 import numpy as np
