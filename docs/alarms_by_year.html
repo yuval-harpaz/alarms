@@ -36,6 +36,8 @@
             flex-shrink: 0;
         }
         #lang-btn:hover { background: #0056b3; }
+        .leaflet-tooltip-pane { direction: ltr; }      /* fixes Leaflet's position calc */
+        .leaflet-tooltip-pane > * { direction: rtl; }  /* keeps tooltip text reading right-to-left */
     </style>
 </head>
 <body>
@@ -66,6 +68,8 @@
                 clearBtn: 'נקה',
                 showAllBtn: 'הצג הכל',
                 threatHeader: 'סוג איום',
+                threatClearBtn: 'נקה סוג',
+                threatAllBtn: 'הכל',
                 langBtn: 'En',
                 pageTitle: 'אזעקות רקטות בישראל',
                 dir: 'rtl',
@@ -77,6 +81,8 @@
                 clearBtn: 'Clear',
                 showAllBtn: 'Show All',
                 threatHeader: 'Threat type',
+                threatClearBtn: 'Clear type',
+                threatAllBtn: 'All',
                 langBtn: 'עב',
                 pageTitle: 'Rocket Alarms in Israel',
                 dir: 'ltr',
@@ -214,7 +220,7 @@
                                 fillColor: getColor(colorIdx),
                                 color: getColor(colorIdx),
                                 weight: 0, opacity: 0, fillOpacity: 0.5
-                            }).bindTooltip(`${loc} (${gnameLabel(gkey)}): ${count}`).addTo(layers[gkey]);
+                            }).bindTooltip(`${loc} (${gnameLabel(gkey)}): ${count}`, { direction: 'top', sticky: false }).addTo(layers[gkey]);
                         } else {
                             console.warn('No valid coordinates for location:', loc);
                         }
@@ -269,10 +275,9 @@
                     return div;
                 }
             });
-            new ClearControl().addTo(map);
 
             // ── Threat checklist control ─────────────────────────────────────
-            let threatHeaderEl, threatChecklistDiv;
+            let threatHeaderEl, threatChecklistDiv, threatClearBtnEl, threatAllBtnEl;
             function rebuildThreatChecklist() {
                 if (!threatChecklistDiv) return;
                 // Preserve checked state
@@ -281,6 +286,9 @@
                 );
                 // Update header
                 if (threatHeaderEl) threatHeaderEl.textContent = t().threatHeader;
+                // Update ctrl buttons
+                if (threatClearBtnEl) threatClearBtnEl.textContent = t().threatClearBtn;
+                if (threatAllBtnEl)   threatAllBtnEl.textContent   = t().threatAllBtn;
                 // Rebuild labels only
                 threatChecklistDiv.querySelectorAll('label').forEach(l => l.remove());
                 threatCodes.forEach(code => {
@@ -293,7 +301,7 @@
                     cb.style.cssText = 'margin-right:4px;cursor:pointer;';
                     label.appendChild(cb);
                     label.appendChild(document.createTextNode(' ' + getThreatLabel(code)));
-                    threatChecklistDiv.appendChild(label);
+                    threatChecklistDiv.insertBefore(label, threatChecklistDiv.querySelector('.threat-ctrl-row'));
                 });
             }
             const ThreatControl = L.Control.extend({
@@ -317,6 +325,27 @@
                         label.appendChild(document.createTextNode(' ' + getThreatLabel(code)));
                         div.appendChild(label);
                     });
+                    // Clear / Select-all row for alarm type
+                    const ctrlRow = document.createElement('div');
+                    ctrlRow.className = 'threat-ctrl-row';
+                    ctrlRow.style.cssText = 'display:flex;gap:4px;margin-top:5px;border-top:1px solid #ccc;padding-top:4px;';
+                    threatClearBtnEl = document.createElement('button');
+                    threatClearBtnEl.style.cssText = 'flex:1;padding:2px 4px;font-size:11px;cursor:pointer;';
+                    threatAllBtnEl = document.createElement('button');
+                    threatAllBtnEl.style.cssText = 'flex:1;padding:2px 4px;font-size:11px;cursor:pointer;';
+                    ctrlRow.appendChild(threatClearBtnEl);
+                    ctrlRow.appendChild(threatAllBtnEl);
+                    div.appendChild(ctrlRow);
+                    L.DomEvent.on(threatClearBtnEl, 'click', e => {
+                        L.DomEvent.stopPropagation(e);
+                        div.querySelectorAll('input[type=checkbox]').forEach(cb => { cb.checked = false; });
+                        renderMarkers(new Set());
+                    });
+                    L.DomEvent.on(threatAllBtnEl, 'click', e => {
+                        L.DomEvent.stopPropagation(e);
+                        div.querySelectorAll('input[type=checkbox]').forEach(cb => { cb.checked = true; });
+                        renderMarkers(new Set(threatCodes));
+                    });
                     L.DomEvent.disableClickPropagation(div);
                     div.addEventListener('change', () => {
                         const selected = new Set(
@@ -328,6 +357,7 @@
                 }
             });
             new ThreatControl().addTo(map);
+            new ClearControl().addTo(map);
 
             // ── Language toggle (title bar button) ───────────────────────────
             document.getElementById('lang-btn').addEventListener('click', () => {
@@ -350,6 +380,9 @@
                 // Clear / Show All buttons
                 if (clearBtn) clearBtn.textContent = tr.clearBtn;
                 if (showAllBtn) showAllBtn.textContent = tr.showAllBtn;
+                // Threat ctrl buttons
+                if (threatClearBtnEl) threatClearBtnEl.textContent = tr.threatClearBtn;
+                if (threatAllBtnEl)   threatAllBtnEl.textContent   = tr.threatAllBtn;
                 // Threat checklist — header + translated labels
                 rebuildThreatChecklist();
                 // Layer control labels
