@@ -16,6 +16,14 @@ for iloc, location in enumerate(locations):
 df.to_csv('~/Documents/locations2eng.csv', index=False)
 
 ##
-raise Exception('do not run, open the csv and make sure there is only one translation')
+# raise Exception('do not run, open the csv and make sure there is only one translation')
 
 ##
+df = pd.read_csv('~/Documents/locations2eng.csv')
+for loc in df['1'].values:
+    if np.sum(df['1'] == loc) > 1:
+        print(loc)
+
+##
+df = pd.read_csv('~/Documents/locations2eng.csv')
+locations = pd.DataFrame(columns=['Event location', ''])
