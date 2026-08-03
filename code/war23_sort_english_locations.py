@@ -16,3 +16,6 @@ for iloc, location in enumerate(locations):
 df.to_csv('~/Documents/locations2eng.csv', index=False)
 
 ##
+raise Exception('do not run, open the csv and make sure there is only one translation')
+
+##
