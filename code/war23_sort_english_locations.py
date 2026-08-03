@@ -29,7 +29,7 @@ db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': 
 df = pd.read_csv('~/Documents/locations2eng.csv')
 h2e = {'מקום האירוע': 'Event location', 'מקום המוות': 'Death location'}
 locations = pd.DataFrame(columns=['מקום האירוע', 'מקום המוות', 'Event location', 'Death location'])
-for col in h2e.values():
+for col in h2e.keys():
     locations[col] = db[col]
 for row_db in range(len(db)):
     for col in h2e.keys():
@@ -42,4 +42,4 @@ for row_db in range(len(db)):
         else:
             if str(loc) != 'nan':
                 print(f'No translation for {loc}')
-
+locations.to_csv('~/Documents/locations_translated.csv', index=False)
