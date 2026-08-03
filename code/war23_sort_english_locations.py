@@ -25,5 +25,21 @@ for loc in df['1'].values:
         print(loc)
 
 ##
+db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
 df = pd.read_csv('~/Documents/locations2eng.csv')
-locations = pd.DataFrame(columns=['Event location', ''])
+h2e = {'מקום האירוע': 'Event location', 'מקום המוות': 'Death location'}
+locations = pd.DataFrame(columns=['מקום האירוע', 'מקום המוות', 'Event location', 'Death location'])
+for col in h2e.values():
+    locations[col] = db[col]
+for row_db in range(len(db)):
+    for col in h2e.keys():
+        loc = db.at[row_db, col]
+        row_dict = np.where(df['Heb'] == loc)[0]
+        if len(row_dict) == 1:
+            row_dict = row_dict[0]
+            eng = df.at[row_dict, 'Eng']
+            locations.at[row_db, h2e[col]] = eng
+        else:
+            if str(loc) != 'nan':
+                print(f'No translation for {loc}')
+
