@@ -135,7 +135,9 @@ def missing_pid():
             pid = db['pid'].values
             missing = [p for p in pid if p not in df['pid'].values]
     else:
-        raise(Exception("expected to see a file here: " + downloaded))
+        print("expected to see a file here: " + downloaded)
+        print('NOT CHECKING MISSING!!!!!!!!!!!!!!')
+        missing = []
     return missing
 
 def changed_pid(verbose=False):
@@ -151,7 +153,7 @@ def changed_pid(verbose=False):
             columns = np.array([cl.lower() for cl in df.columns])
             for ipid, pid in enumerate(df['pid'].values):
                 record = pid2record(pid)
-                tochange = {}
+                tochange = {'pid': str(int(pid))}
                 for col in record.keys():
                     c = np.where(columns == col.lower())[0][0]
                     website_value = str(df.iloc[ipid, c]).replace("\"", "\'").replace(', ','')
@@ -161,7 +163,7 @@ def changed_pid(verbose=False):
                             print(col)
                             print(str(df.iloc[ipid, c])+' ------ '+str(record[col]))
                         tochange[col] = record[col]
-                if len(tochange) > 0:
+                if len(tochange) > 1:
                     changed[pid] = tochange
     return changed
 
