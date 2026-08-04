@@ -4,7 +4,7 @@ import json
 import time
 import requests
 import numpy as np
-from selenium.webdriver.common.devtools.v143.fetch import continue_request
+# from selenium.webdriver.common.devtools.v143.fetch import continue_request
 
 local = '/home/yuval/alarms/'
 if os.path.isdir(local):
@@ -122,13 +122,57 @@ def pid2record(pid):
     #     continue
     # else:
 
+
+def missing_pid():
+    downloaded = os.environ['HOME']+'/Documents/oct7_database.xlsx'
+    if os.path.isfile(downloaded):
+        mod_time = os.path.getmtime(downloaded)
+        days_old = (time.time()-mod_time)/60/60/24
+        if days_old > 1:
+            raise Exception("The xlsx file is older than 1 day. download from oct7database.com/table")
+        else:
+            df = pd.read_excel(downloaded)
+            pid = db['pid'].values
+            missing = [p for p in pid if p not in df['pid'].values]
+    else:
+        raise(Exception("expected to see a file here: " + downloaded))
+    return missing
+
+def changed_pid(verbose=False):
+    changed = {}
+    downloaded = os.environ['HOME']+'/Documents/oct7database.csv'
+    if os.path.isfile(downloaded):
+        mod_time = os.path.getmtime(downloaded)
+        days_old = (time.time()-mod_time)/60/60/24
+        if days_old > 1:
+            raise Exception("The csv file is older than 1 day. download from wix CMS")
+        else:
+            df = pd.read_csv(downloaded)
+            columns = np.array([cl.lower() for cl in df.columns])
+            for ipid, pid in enumerate(df['pid'].values):
+                record = pid2record(pid)
+                tochange = {}
+                for col in record.keys():
+                    c = np.where(columns == col.lower())[0][0]
+                    website_value = str(df.iloc[ipid, c]).replace("\"", "\'").replace(', ','')
+                    db_value = str(record[col]).replace("\"", "\'").replace(', ',',')
+                    if website_value != db_value:
+                        if verbose:
+                            print(col)
+                            print(str(df.iloc[ipid, c])+' ------ '+str(record[col]))
+                        tochange[col] = record[col]
+                if len(tochange) > 0:
+                    changed[pid] = tochange
+    return changed
+
+
 if __name__ == '__main__':
-    # pid = db['pid'].values[-1]
-    pid = 52
+    pid = 567
+    changed = changed_pid()
     record = pid2record(pid)
-    record['pid'] = 'test005'
-    with open('record_dump.json', 'w', encoding='utf-8') as f:
-        json.dump(record, f, ensure_ascii=False, indent=2)
-    resp = send_records(record)
-    print(resp)
-    time.sleep(1)
+    # record['pid'] = 'test005'
+    # with open('record_dump.json', 'w', encoding='utf-8') as f:
+    #     json.dump(record, f, ensure_ascii=False, indent=2)
+    # resp = send_records(record)
+    # print(resp)
+    # time.sleep(1)
