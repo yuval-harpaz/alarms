@@ -77,7 +77,7 @@ pattern = 'item_collections'
 # browser = webdriver.Chrome()
 # browser.get("about:blank")
 options = webdriver.ChromeOptions()
-options.add_argument("--user-data-dir=/home/yuval/.config/chrome-selenium")
+options.add_argument(f"--user-data-dir={os.environ['HOME']}/.config/chrome-selenium")
 options.add_argument("--profile-directory=Default")
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option("useAutomationExtension", False)
