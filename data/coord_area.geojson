@@ -1,0 +1,1174 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "נירים",
+    "name_en": "Nirim",
+    "source_text": "",
+    "source_url": "",
+    "public_exact": false
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       34.391837,
+       31.334679
+      ],
+      [
+       34.392459,
+       31.334853
+      ],
+      [
+       34.393687,
+       31.334903
+      ],
+      [
+       34.396761,
+       31.334908
+      ],
+      [
+       34.397099,
+       31.33494
+      ],
+      [
+       34.398606,
+       31.335302
+      ],
+      [
+       34.39896,
+       31.336356
+      ],
+      [
+       34.397346,
+       31.338944
+      ],
+      [
+       34.394921,
+       31.339531
+      ],
+      [
+       34.392534,
+       31.338527
+      ],
+      [
+       34.390136,
+       31.33685
+      ],
+      [
+       34.391799,
+       31.334702
+      ],
+      [
+       34.391837,
+       31.334679
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "עין השלושה",
+    "name_en": "Ein HaShlosha",
+    "source_text": "",
+    "source_url": "",
+    "public_exact": false
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       34.399406,
+       31.348158
+      ],
+      [
+       34.40477,
+       31.352519
+      ],
+      [
+       34.401326,
+       31.354242
+      ],
+      [
+       34.39815,
+       31.352345
+      ],
+      [
+       34.398569,
+       31.35076
+      ],
+      [
+       34.399384,
+       31.348075
+      ],
+      [
+       34.399406,
+       31.348158
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "ניר עוז; שכונה דרומית",
+    "name_en": "Nir Oz; south",
+    "source_text": "לכל בית סיפור",
+    "source_url": "https://nir-oz.org.il/every-house-has-a-story/",
+    "public_exact": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       34.401777,
+       31.308021
+      ],
+      [
+       34.4018,
+       31.3091
+      ],
+      [
+       34.401004,
+       31.309135
+      ],
+      [
+       34.399931,
+       31.308196
+      ],
+      [
+       34.399717,
+       31.307765
+      ],
+      [
+       34.400811,
+       31.307471
+      ],
+      [
+       34.401777,
+       31.308021
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "ניר עוז",
+    "name_en": "Nir Oz",
+    "source_text": "לכל בית סיפור",
+    "source_url": "https://nir-oz.org.il/every-house-has-a-story/",
+    "public_exact": true
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       34.400522,
+       31.309534
+      ],
+      [
+       34.401884,
+       31.310955
+      ],
+      [
+       34.402893,
+       31.311097
+      ],
+      [
+       34.40285,
+       31.312728
+      ],
+      [
+       34.401551,
+       31.312623
+      ],
+      [
+       34.399384,
+       31.311418
+      ],
+      [
+       34.398569,
+       31.309593
+      ],
+      [
+       34.400522,
+       31.309534
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "אופקים",
+    "name_en": "Ofakim",
+    "source_text": "שביל הגיבורים",
+    "source_url": "https://www.ofaqim.muni.il/%D7%A9%D7%91%D7%99%D7%9C-%D7%94%D7%92%D7%99%D7%91%D7%95%D7%A8%D7%99%D7%9D-%D7%9E%D7%A4%D7%AA-%D7%94%D7%90%D7%99%D7%A8%D7%95%D7%A2%D7%99%D7%9D/",
+    "public_exact": true
+   },
+   "geometry": null
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "חולית; ותיקים",
+    "name_en": "Holit; Vatikim",
+    "source_text": "",
+    "source_url": "",
+    "public_exact": false
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       34.325001,
+       31.232876
+      ],
+      [
+       34.323977,
+       31.233073
+      ],
+      [
+       34.32351,
+       31.231789
+      ],
+      [
+       34.324615,
+       31.231569
+      ],
+      [
+       34.325001,
+       31.232876
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "חולית; צעירים",
+    "name_en": "Holit; Tzeirim",
+    "source_text": "",
+    "source_url": "",
+    "public_exact": false
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       34.32829,
+       31.232844
+      ],
+      [
+       34.32726,
+       31.233115
+      ],
+      [
+       34.32689,
+       31.232032
+      ],
+      [
+       34.327941,
+       31.231793
+      ],
+      [
+       34.32829,
+       31.232844
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "בארי; אשלים",
+    "name_en": "Be'eri; Ashalim",
+    "source_text": "",
+    "source_url": "",
+    "public_exact": false
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       34.492511,
+       31.421101
+      ],
+      [
+       34.494399,
+       31.422731
+      ],
+      [
+       34.493423,
+       31.423504
+      ],
+      [
+       34.491942,
+       31.422355
+      ],
+      [
+       34.492232,
+       31.42193
+      ],
+      [
+       34.491888,
+       31.421632
+      ],
+      [
+       34.492511,
+       31.421101
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "בארי; ההדרים",
+    "name_en": "Be'eri; HaHadarim",
+    "source_text": "",
+    "source_url": "",
+    "public_exact": false
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       34.492511,
+       31.421101
+      ],
+      [
+       34.491888,
+       31.421632
+      ],
+      [
+       34.492232,
+       31.42193
+      ],
+      [
+       34.491942,
+       31.422355
+      ],
+      [
+       34.491207,
+       31.421998
+      ],
+      [
+       34.491261,
+       31.421028
+      ],
+      [
+       34.491776,
+       31.420437
+      ],
+      [
+       34.492511,
+       31.421101
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "בארי; ותיקים",
+    "name_en": "Be'eri; Vatikim",
+    "source_text": "",
+    "source_url": "",
+    "public_exact": false
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       34.488573,
+       31.425376
+      ],
+      [
+       34.488099,
+       31.422457
+      ],
+      [
+       34.488739,
+       31.422406
+      ],
+      [
+       34.488734,
+       31.421659
+      ],
+      [
+       34.489394,
+       31.421664
+      ],
+      [
+       34.489415,
+       31.423321
+      ],
+      [
+       34.488911,
+       31.423376
+      ],
+      [
+       34.489324,
+       31.425326
+      ],
+      [
+       34.488573,
+       31.425376
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "בארי; הזיתים",
+    "name_en": "Be'eri; HaZeitim",
+    "source_text": "",
+    "source_url": "",
+    "public_exact": false
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       34.487146,
+       31.421623
+      ],
+      [
+       34.487962,
+       31.421614
+      ],
+      [
+       34.488099,
+       31.422457
+      ],
+      [
+       34.488573,
+       31.425376
+      ],
+      [
+       34.488283,
+       31.425596
+      ],
+      [
+       34.487232,
+       31.424928
+      ],
+      [
+       34.487146,
+       31.421623
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "בארי; קומותיים",
+    "name_en": "Be'eri; Komataim",
+    "source_text": "",
+    "source_url": "",
+    "public_exact": false
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       34.489394,
+       31.421664
+      ],
+      [
+       34.489743,
+       31.421691
+      ],
+      [
+       34.489807,
+       31.422905
+      ],
+      [
+       34.489989,
+       31.423353
+      ],
+      [
+       34.490166,
+       31.423527
+      ],
+      [
+       34.489839,
+       31.424186
+      ],
+      [
+       34.490349,
+       31.424562
+      ],
+      [
+       34.490333,
+       31.425294
+      ],
+      [
+       34.489568,
+       31.425318
+      ],
+      [
+       34.489324,
+       31.425326
+      ],
+      [
+       34.488911,
+       31.423376
+      ],
+      [
+       34.489415,
+       31.423321
+      ],
+      [
+       34.489394,
+       31.421664
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "בארי; אורנים",
+    "name_en": "Be'eri; Oranim",
+    "source_text": "",
+    "source_url": "",
+    "public_exact": false
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       34.488283,
+       31.425596
+      ],
+      [
+       34.488573,
+       31.425376
+      ],
+      [
+       34.489324,
+       31.425326
+      ],
+      [
+       34.489568,
+       31.425318
+      ],
+      [
+       34.490215,
+       31.425848
+      ],
+      [
+       34.490086,
+       31.426503
+      ],
+      [
+       34.489442,
+       31.42658
+      ],
+      [
+       34.488283,
+       31.425596
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "בארי; מרכז",
+    "name_en": "Be'eri; center",
+    "source_text": "",
+    "source_url": "",
+    "public_exact": false
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       34.491207,
+       31.421756
+      ],
+      [
+       34.49096,
+       31.423335
+      ],
+      [
+       34.489989,
+       31.423353
+      ],
+      [
+       34.489807,
+       31.422905
+      ],
+      [
+       34.489743,
+       31.421691
+      ],
+      [
+       34.490472,
+       31.421545
+      ],
+      [
+       34.491207,
+       31.421756
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "בארי; הכרם",
+    "name_en": "Be'eri; HaKerem",
+    "source_text": "N12",
+    "source_url": "https://www.mako.co.il/news-israel/2024_q2/Article-8217cc4be682091026.htm",
+    "public_exact": true
+   },
+   "geometry": null
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "סופה",
+    "name_en": "Sufa",
+    "source_text": "עדות 710",
+    "source_url": "https://edut.xsite.com/sufa",
+    "public_exact": true
+   },
+   "geometry": null
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "נתיבות; קריית משה",
+    "name_en": "Netivot; Kiryat Moshe",
+    "source_text": "",
+    "source_url": "",
+    "public_exact": false
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       34.588641,
+       31.420249
+      ],
+      [
+       34.586731,
+       31.421925
+      ],
+      [
+       34.586248,
+       31.421504
+      ],
+      [
+       34.584779,
+       31.422868
+      ],
+      [
+       34.585176,
+       31.423252
+      ],
+      [
+       34.58406,
+       31.424269
+      ],
+      [
+       34.582568,
+       31.422978
+      ],
+      [
+       34.587214,
+       31.41905
+      ],
+      [
+       34.588641,
+       31.420249
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "רעים",
+    "name_en": "Re'im",
+    "source_text": "יסודות 7",
+    "source_url": "https://www.idf.il/media/veknnpfo/yesodot_7_web_8_stern.pdf",
+    "public_exact": true
+   },
+   "geometry": null
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "מגן",
+    "name_en": "Magen",
+    "source_text": "יסודות 7",
+    "source_url": "https://www.idf.il/media/cwmns0yy/yesodot_7_web_9_noga.pdf",
+    "public_exact": true
+   },
+   "geometry": null
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "ניר עוז; משק",
+    "name_en": "Nir Oz; livestock",
+    "source_text": "",
+    "source_url": "",
+    "public_exact": false
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       34.403976,
+       31.306532
+      ],
+      [
+       34.405521,
+       31.306678
+      ],
+      [
+       34.405392,
+       31.308897
+      ],
+      [
+       34.403418,
+       31.308933
+      ],
+      [
+       34.403976,
+       31.306532
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "ניר יצחק",
+    "name_en": "Nir Yitzhak",
+    "source_text": "7.10.360",
+    "source_url": "https://www.710360.kan.org.il/nir-yitzhak",
+    "public_exact": true
+   },
+   "geometry": null
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "ניר יצחק; השכונה המזרחית",
+    "name_en": "Nir Yitzhak; eastern neighborhood",
+    "source_text": "7.10.360",
+    "source_url": "https://www.710360.kan.org.il/nir-yitzhak",
+    "public_exact": true
+   },
+   "geometry": null
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "כיסופים; 21 ד",
+    "name_en": "Kisufim; D",
+    "source_text": "",
+    "source_url": "",
+    "public_exact": false
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       34.400393,
+       31.377162
+      ],
+      [
+       34.399824,
+       31.377776
+      ],
+      [
+       34.398934,
+       31.377199
+      ],
+      [
+       34.399604,
+       31.376814
+      ],
+      [
+       34.400393,
+       31.377162
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "כיסופים; 21 ו",
+    "name_en": "Kisufim; F",
+    "source_text": "",
+    "source_url": "",
+    "public_exact": false
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       34.396622,
+       31.376631
+      ],
+      [
+       34.395903,
+       31.375921
+      ],
+      [
+       34.396997,
+       31.375784
+      ],
+      [
+       34.396622,
+       31.376631
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "כיסופים; 21 א",
+    "name_en": "Kisufim; A",
+    "source_text": "",
+    "source_url": "",
+    "public_exact": false
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       34.39593,
+       31.375875
+      ],
+      [
+       34.395307,
+       31.374419
+      ],
+      [
+       34.39535,
+       31.374428
+      ],
+      [
+       34.396042,
+       31.374369
+      ],
+      [
+       34.396707,
+       31.374859
+      ],
+      [
+       34.39593,
+       31.375875
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "כיסופים; 21 ה",
+    "name_en": "Kisufim; E",
+    "source_text": "",
+    "source_url": "",
+    "public_exact": false
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       34.400393,
+       31.377162
+      ],
+      [
+       34.399604,
+       31.376814
+      ],
+      [
+       34.400119,
+       31.376136
+      ],
+      [
+       34.400908,
+       31.376594
+      ],
+      [
+       34.400393,
+       31.377162
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "נחל עוז",
+    "name_en": "Kibbutz Nahal Oz",
+    "source_text": "7.10.360",
+    "source_url": "https://www.710360.kan.org.il/nahal-oz",
+    "public_exact": true
+   },
+   "geometry": null
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "כפר עזה; הרחבה ישנה",
+    "name_en": "Kfar Aza; Old expansion",
+    "source_text": "",
+    "source_url": "",
+    "public_exact": false
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       34.527159,
+       31.482537
+      ],
+      [
+       34.528747,
+       31.480845
+      ],
+      [
+       34.529514,
+       31.48181
+      ],
+      [
+       34.528168,
+       31.483274
+      ],
+      [
+       34.527159,
+       31.482537
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "כפר עזה; דור צעיר",
+    "name_en": "Kfar Aza; Young Generation",
+    "source_text": "N12",
+    "source_url": "https://www.mako.co.il/news-israel/2024_q1/Article-d3a0feaa5aa0d81027.htm",
+    "public_exact": true
+   },
+   "geometry": null
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "כפר עזה; שכונה דרומית",
+    "name_en": "Kfar Aza; South",
+    "source_text": "",
+    "source_url": "",
+    "public_exact": false
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       34.533446,
+       31.480781
+      ],
+      [
+       34.532744,
+       31.482213
+      ],
+      [
+       34.530995,
+       31.481943
+      ],
+      [
+       34.531783,
+       31.48079
+      ],
+      [
+       34.533446,
+       31.480781
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "כפר עזה; שכונה צפונית",
+    "name_en": "Kfar Aza; North",
+    "source_text": "",
+    "source_url": "",
+    "public_exact": false
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       34.529638,
+       31.486
+      ],
+      [
+       34.52908,
+       31.483983
+      ],
+      [
+       34.52908,
+       31.483983
+      ],
+      [
+       34.529595,
+       31.48386
+      ],
+      [
+       34.529799,
+       31.483539
+      ],
+      [
+       34.53033,
+       31.483388
+      ],
+      [
+       34.533125,
+       31.484491
+      ],
+      [
+       34.532669,
+       31.485708
+      ],
+      [
+       34.530888,
+       31.485346
+      ],
+      [
+       34.529638,
+       31.486
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "נתיב העשרה",
+    "name_en": "Netiv HaAsara",
+    "source_text": "7.10.360",
+    "source_url": "https://www.710360.kan.org.il/nativ-haasara",
+    "public_exact": true
+   },
+   "geometry": null
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name_he": "נתיב העשרה; שכונה צפונית",
+    "name_en": "Netiv HaAsara; north",
+    "source_text": "",
+    "source_url": "",
+    "public_exact": false
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       34.539632,
+       31.574678
+      ],
+      [
+       34.541885,
+       31.573888
+      ],
+      [
+       34.543338,
+       31.575588
+      ],
+      [
+       34.541863,
+       31.57652
+      ],
+      [
+       34.541209,
+       31.577685
+      ],
+      [
+       34.539766,
+       31.577123
+      ],
+      [
+       34.5402,
+       31.576159
+      ],
+      [
+       34.540265,
+       31.575766
+      ],
+      [
+       34.539632,
+       31.574678
+      ]
+     ]
+    ]
+   }
+  }
+ ]
+}

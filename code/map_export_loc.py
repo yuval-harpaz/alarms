@@ -7,6 +7,7 @@ import json
 import os
 import sys
 from datetime import datetime
+from polygons import load_polygons, assign, area_for
 website = os.environ['WEBSITE']
 ##
 os.chdir(os.environ['HOME'] + '/alarms')
@@ -14,8 +15,9 @@ with open('.txt', 'r') as f:
     address = f.read().split('\n')[6]
 
 db = pd.read_csv('data/oct7database.csv')
-# area = pd.read_csv('data/coord_area.csv')
-area = pd.read_csv('data/coord_area.tsv', sep='\t', header=None)
+areas = load_polygons()
+area_by_name = {props['name_he']: props for props, _ in areas}
+geom_by_name = {props['name_he']: geom for props, geom in areas}
 def export_json(field='Country', criterion='not ישראל', language='heb', polygonize=False, exclude_from='2023-10-10'):
     print('reading data... ', end='')
     with request.urlopen(address) as url:
@@ -26,13 +28,28 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
     else:
         db_filtered = db
     pid = np.array([x['properties']['pid'] for x in data['features']])
+    coo_by_pid = {}
+    for feature in data['features']:
+        if feature['geometry']:
+            lon, lat = feature['geometry']['coordinates'][:2]
+            coo_by_pid[feature['properties']['pid']] = (lat, lon)
+    blur = {}
     if polygonize:
         # Perform polygonization here
         mapname = 'locations'
-        #take polygons with coordinates but without a link
-        valid_polygons = sorted(area[0][area[3].notna() & area[2].isna()].values)
-        selected = db_filtered[~(db_filtered['מקום האירוע'].isin(valid_polygons))]
-        to_polygonize = db_filtered[db_filtered['מקום האירוע'].isin(valid_polygons)]
+        # See polygons.area_for for the precedence. Geometry is the fallback, and
+        # it is what catches the people the old string join used to drop: a place
+        # name spelled differently from the polygon's matched nothing, and their
+        # exact address was published instead of being blurred.
+        for person, place in zip(db_filtered['pid'].values,
+                                 db_filtered['מקום האירוע'].values):
+            props = area_for(place, coo_by_pid.get(person), areas)
+            if props is not None and not props['public_exact']:
+                blur[person] = props['name_he']
+        in_polygon = db_filtered['pid'].isin(list(blur))
+        selected = db_filtered[~in_polygon]
+        to_polygonize = db_filtered[in_polygon]
+        print(f"Debug: {len(blur)} people blurred into {len(set(blur.values()))} areas")
     else:
         mapname = field + '_' + criterion
         mapname = mapname.replace(' ', '_')
@@ -96,30 +113,14 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
             name = name[:-4]
             pid_str = pid_str[:-1]
             place_name = df['מקום האירוע'].values[rows[0]]
-            locrow = np.where(area[0].values == place_name)[0]
-            if len(locrow) == 1 and type(area[0][locrow[0]]) == str:
-                link = area.iloc[locrow[0], 2]
-                link_text = area.iloc[locrow[0], 1]
-                if str(link) == 'nan' or (isinstance(link, float) and np.isnan(link)):
-                    # polygon entries have no link but have polygon coords in column 3;
-                    # when not in polygon mode, fall back gracefully instead of raising
-                    has_polygon_coords = (len(area.columns) > 3 and
-                                         not (isinstance(area.iloc[locrow[0], 3], float) and
-                                              np.isnan(area.iloc[locrow[0], 3])))
-                    if has_polygon_coords:
-                        link = ''
-                        link_text = ''
-                    else:
-                        raise ValueError(f"NaN link for place_name={place_name!r}, pid(s)={pid_str}, event={event}")
-                else:
-                    link = str(link)
-                    if str(link_text) == 'nan' or (isinstance(link_text, float) and np.isnan(link_text)):
-                        raise ValueError(f"NaN link_text for place_name={place_name!r}, pid(s)={pid_str}, event={event}")
-                    else:
-                        link_text = str(link_text)
-            else:
-                link = ''
-                link_text = ''
+            # The publication link comes from the same area the person was
+            # assigned to, so areas recorded by name only -- no ring ever drawn,
+            # such as כפר עזה; דור צעיר -- still reach the tooltip.
+            props = area_for(place_name, (coou[ii][1], coou[ii][0]), areas)
+            link = props['source_url'] if props else ''
+            link_text = props['source_text'] if props else ''
+            if props and link and not link_text:
+                print(f"Warning: {props['name_he']} has a source_url but no source_text")
             if isinstance(place_name, float) and np.isnan(place_name):
                 raise ValueError(f"NaN place_name for pid(s) {pid_str}, event={event}, name={name!r}")
             properties = {
@@ -140,9 +141,10 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
     print(f"Debug: Total geojson features created: {len(geojson_features)}")
     if polygonize:
         to_polygonize = to_polygonize.reset_index(drop=True)
-        for loc in valid_polygons:
+        assigned = np.array([blur[p] for p in to_polygonize['pid'].values])
+        for loc in sorted(set(blur.values())):
             place_name = loc
-            rows = np.where(to_polygonize['מקום האירוע'].values == loc)[0]
+            rows = np.where(assigned == loc)[0]
             killed = ''
             kidnapped = ''
             pid_list = ''
@@ -162,14 +164,10 @@ def export_json(field='Country', criterion='not ישראל', language='heb', pol
                 details = killed[:-2]
             else:
                 details = f"נהרגו: {killed[:-2]}<br>נחטפו: {kidnapped[:-2]}"
-            locrow = np.where(area[0].values == loc)[0][0]
-            coo = area.iloc[locrow].values[3:]
-            coo = [c for c in coo if type(c) == str and len(c) > 5]
-            lon = [float(c.split(',')[1]) for c in coo]
-            lat = [float(c.split(',')[0]) for c in coo]
-            polygon_coords = [[lon[ii], lat[ii]] for ii in range(len(lon))]
+            polygon_coords = [list(c) for c in geom_by_name[loc].exterior.coords]
             properties = {
                 "place_name": place_name,
+                "name_en": area_by_name[loc]['name_en'],
                 "details": details,
                 "pid": pid_list,
             }
