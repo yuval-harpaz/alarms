@@ -26,3 +26,6 @@ AGENTS.md
 record_dump.json
 war_victims_map_plan.md
 wix_questions.md
+data/location_issues.tsv
+data/location_decisions.tsv
+data/location_coverage.tsv
