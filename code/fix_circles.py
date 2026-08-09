@@ -18,6 +18,9 @@ import os
 import re
 import sys
 
+from hebrew import rtl
+from normalize_semicolons import normalize
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QUEUE = os.path.join(ROOT, 'data', 'location_coverage.tsv')
 CIRCLES = os.path.join(ROOT, 'data', 'coord_circle.csv')
@@ -43,10 +46,11 @@ def parse_coo(text):
 
 
 def load_circles():
+    """Keyed on the normalised name, so 'א;ב' and 'א; ב' count as one place."""
     if not os.path.exists(CIRCLES):
         return {}
     with open(CIRCLES, newline='', encoding='utf-8') as f:
-        return {r['name_he']: r for r in csv.DictReader(f)}
+        return {normalize(r['name_he']): r for r in csv.DictReader(f)}
 
 
 def append(row):
@@ -87,8 +91,8 @@ def ask_dialog(place, n, total):
     root = tk.Tk()
     root.title(f'circle {n}/{total}')
     root.geometry('640x300')
-    tk.Label(root, text=place['name_he'], font=('TkDefaultFont', 16),
-             anchor='w').pack(fill='x', padx=16, pady=(18, 2))
+    tk.Label(root, text=rtl(place['name_he']), font=('TkDefaultFont', 16),
+             anchor='e').pack(fill='x', padx=16, pady=(18, 2))
     tk.Label(root, text=place['name_en'], font=('TkDefaultFont', 12),
              anchor='w', fg='#555').pack(fill='x', padx=16)
     tk.Label(root, text=f'{place["n_people"]} people   ({place["kind"]} location)',
@@ -132,7 +136,7 @@ def main():
         print(f'no queue at {QUEUE}; run code/coverage_report.py first')
         return
     queue, done = load_queue(), load_circles()
-    todo = [p for p in queue if p['name_he'] not in done]
+    todo = [p for p in queue if normalize(p['name_he']) not in done]
     if '--list' in sys.argv:
         print(f'{len(done)} places have a circle, {len(todo)} still to do')
         for p in todo:

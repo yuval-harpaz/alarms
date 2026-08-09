@@ -18,8 +18,12 @@ their quotes -- pandas would reformat them.
 import csv
 import json
 import os
+import re
 import sys
+
 from collections import defaultdict
+
+from hebrew import rtl
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DB = os.path.join(ROOT, 'data', 'oct7database.csv')
@@ -114,11 +118,12 @@ def ask_dialog(prompt, candidates):
     root = tk.Tk()
     root.title('place names')
     root.geometry('720x420')
-    tk.Label(root, text=prompt, justify='left', anchor='w', wraplength=680,
+    tk.Label(root, text=rtl(prompt), justify='left', anchor='w', wraplength=680,
              font=('TkDefaultFont', 11)).pack(fill='x', padx=14, pady=(14, 8))
     choice = tk.StringVar(value=candidates[0] if candidates else '')
     for c in candidates:
-        tk.Radiobutton(root, text=c, variable=choice, value=c, anchor='w',
+        # label reversed for display, value kept as the real string
+        tk.Radiobutton(root, text=rtl(c), variable=choice, value=c, anchor='w',
                        justify='left').pack(fill='x', padx=28)
     tk.Label(root, text='or type another form:', anchor='w').pack(fill='x', padx=14,
                                                                   pady=(12, 2))

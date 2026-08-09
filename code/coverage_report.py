@@ -14,6 +14,8 @@ import re
 from collections import defaultdict
 from urllib import request
 
+from normalize_semicolons import normalize
+
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DB = os.path.join(ROOT, 'data', 'oct7database.csv')
@@ -57,7 +59,7 @@ def known_circles():
     if not os.path.exists(CIRCLES):
         return {}
     with open(CIRCLES, newline='', encoding='utf-8') as f:
-        return {r['name_he']: r for r in csv.DictReader(f)}
+        return {normalize(r['name_he']): r for r in csv.DictReader(f)}
 
 
 def main():
@@ -70,23 +72,28 @@ def main():
     placed = {'event': 0, 'death_needed': 0, 'death': 0}
     unplaced_people = set()
 
+    death_gap = defaultdict(list)
     for r in db:
         pid = int(r['pid'])
         for he_col, en_col, kind in PAIRS:
             place = r[he_col].strip()
             if not place:
                 continue
-            if kind == 'event':
-                have = pid in event
-                placed['event'] += bool(have)
-            else:
-                # a death location only needs its own point when it differs
+            if kind == 'death':
+                # Death locations never get a circle. A person who died away from
+                # the event belongs at one known point -- a hospital, a spot in
+                # Gaza -- drawn as a white x, so a missing death coordinate is a
+                # cell to fill in the sheet, not a circle to invent here.
                 if place == r['מקום האירוע'].strip():
                     continue
                 placed['death_needed'] += 1
-                have = pid in death
-                placed['death'] += bool(have)
-            if have:
+                if pid in death:
+                    placed['death'] += 1
+                else:
+                    death_gap[place].append(pid)
+                continue
+            placed['event'] += pid in event
+            if pid in event:
                 continue
             m = missing[place]
             m['pids'].append(pid)
@@ -101,11 +108,14 @@ def main():
             'name_en': ' | '.join(sorted(x for x in m['en'] if x)),
             'n_people': len(m['pids']),
             'kind': ','.join(sorted(m['kind'])),
-            'has_circle': 'yes' if place in circles else '',
+            'has_circle': 'yes' if normalize(place) in circles else '',
             'pids': ','.join(str(p) for p in sorted(m['pids'])[:40]),
             '_pids': m['pids'],
         })
-    rows.sort(key=lambda r: (-r['n_people'], r['name_he']))
+    # By name, not by headcount: filling these in means looking places up on a
+    # map, and jumping between Gaza, Lebanon and the Negev in headcount order
+    # is far slower than walking neighbouring places one after another.
+    rows.sort(key=lambda r: r['name_he'])
 
     fields = ['name_he', 'name_en', 'n_people', 'kind', 'has_circle', 'pids']
     with open(OUT, 'w', newline='', encoding='utf-8') as f:
@@ -124,10 +134,27 @@ def main():
     todo = [r for r in rows if not r['has_circle']]
     print(f'  still needing a circle: {len(todo)} places, '
           f'{len({p for r in todo for p in r["_pids"]})} people\n')
-    print(f'top of the queue ({OUT}):')
+    stale = sorted(set(circles) - {normalize(r['name_he']) for r in rows})
+    if stale:
+        print(f'{len(stale)} circles in coord_circle.csv are no longer in the queue '
+              f'(death-only places, or now covered) -- delete these rows:')
+        for name in stale:
+            print(f'      {name}')
+        print()
+
+    print(f'queue in name order ({OUT}), first 20 of {len(rows)}:')
     for r in rows[:20]:
         mark = ' [has circle]' if r['has_circle'] else ''
         print(f'  {r["n_people"]:>4}  {r["name_he"]:<38} {r["name_en"][:34]:<34}{mark}')
+
+    if death_gap:
+        n = sum(len(v) for v in death_gap.values())
+        print(f'\nseparately, {n} people across {len(death_gap)} places died away from '
+              f'the event and have no death coordinate in the sheet.')
+        print('these want a white x at a real point, not a circle -- fill '
+              'death_coordinates in the google sheet:')
+        for place, pids in sorted(death_gap.items(), key=lambda x: -len(x[1]))[:15]:
+            print(f'  {len(pids):>4}  {place}')
 
 
 if __name__ == '__main__':
