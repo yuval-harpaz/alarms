@@ -1,0 +1,295 @@
+"""Build the iron_swords_locations map, public and private.
+
+    python code/iron_swords_map.py            # writes to $WEBSITE (misc/docs)
+    python code/iron_swords_map.py --cache x.json   # reuse a saved download
+
+Four files, from one template:
+
+    iron_swords_locations.html            public,  Hebrew
+    iron_swords_locations_en.html         public,  English
+    iron_swords_locations_private.html    private, Hebrew   (gitignored)
+    iron_swords_locations_private_en.html private, English  (gitignored)
+
+The private pair carries every exact coordinate we hold and no polygons. The
+public pair replaces the coordinates of anyone inside an area whose addresses
+were never published with that area's ring. Both pairs are one self-contained
+file: the private coordinates are never written to a geojson beside the html,
+because a file next to a page is not protected by a login on that page.
+
+Marker colours follow war_victims_map_plan.md. The order of the parts of
+Status carries the meaning:
+
+    killed before kidnapped  -> died at the event; the place the body was
+                                retrieved from is not a death location
+    kidnapped before killed  -> red at the kidnapping site, white where he died
+    released / rescued       -> blue, the person was not killed
+
+An unknown Status stops the build only when those rules cannot decide it. A
+new combination that the rules do handle is reported and built, so the daily
+job does not fail on a wording the sheet has just started using.
+"""
+import json
+import os
+import sys
+from collections import Counter
+
+from iron_swords_data import load_people
+from iron_swords_places import place_people, report
+from polygons import load_polygons, area_for
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TEMPLATE = os.path.join(ROOT, 'code', 'iron_swords_template.html')
+WEBSITE = os.environ.get('WEBSITE', os.path.expanduser('~/misc/docs/'))
+BASENAME = 'iron_swords_locations'
+
+# The eight values the plan tabulated. Anything else is reported.
+KNOWN_STATUS = {
+    'killed',
+    'kidnapped; released',
+    'kidnapped; killed; retrieved',
+    'killed; kidnapped; retrieved',
+    'killed; kidnapped; returned',
+    'kidnapped; killed; returned',
+    'kidnapped; rescued',
+    'kidnapped; released; died',
+}
+
+CAMPAIGNS = [
+    {'name': 'הכל', 'name_en': 'All', 'start': None, 'end': None},
+    {'name': '7 באוקטובר', 'name_en': 'Oct 7', 'start': '2023-10-07', 'end': '2023-10-07'},
+    {'name': 'חרבות ברזל', 'name_en': 'Iron Swords', 'start': '2023-10-07', 'end': None},
+    {'name': 'מגן ברזל', 'name_en': 'Iron Shield', 'start': '2024-04-13', 'end': '2024-04-14'},
+    {'name': 'חיצי הצפון', 'name_en': 'Northern Arrows', 'start': '2024-09-19', 'end': '2024-11-27'},
+    {'name': 'עם כלביא', 'name_en': 'Twelve-Day War', 'start': '2025-06-13', 'end': '2025-06-24'},
+    {'name': 'שאגת הארי', 'name_en': 'Epic Fury', 'start': '2026-02-28', 'end': None},
+]
+
+LABELS = {
+    'he': {
+        'title': 'מפת מיקומים – חרבות ברזל',
+        'search': 'חיפוש לפי שם או מקום...',
+        'killed': 'מקום האירוע',
+        'kidnapped': 'מקום החטיפה',
+        'died_elsewhere': 'מקום המוות',
+        'approximate': 'מיקום משוער',
+        'areas': 'אזורים',
+        'front': 'זירה',
+        'role': 'תפקיד',
+        'status': 'סטטוס',
+        'unspecified': 'לא צוין',
+        'showing': 'מוצגים',
+        'unplaced': 'ללא מיקום:',
+        'filters': 'סינון',
+        'by_event_date': 'תאריך האירוע',
+        'by_death_date': 'תאריך המוות',
+        'private': 'מפה פרטית – כוללת כתובות מדויקות שלא פורסמו. לא לשיתוף.',
+    },
+    'en': {
+        'title': 'Iron Swords locations',
+        'search': 'Search by name or place...',
+        'killed': 'Event location',
+        'kidnapped': 'Kidnapping location',
+        'died_elsewhere': 'Death location',
+        'approximate': 'Approximate location',
+        'areas': 'Areas',
+        'front': 'Front',
+        'role': 'Role',
+        'status': 'Status',
+        'unspecified': 'Unspecified',
+        'showing': 'Showing',
+        'unplaced': 'not placed:',
+        'filters': 'Filters',
+        'by_event_date': 'Event date',
+        'by_death_date': 'Death date',
+        'private': 'Private map – holds exact unpublished addresses. Do not share.',
+    },
+}
+
+
+def markers(person, unknown):
+    """(red, blue, white) coordinates for one person, any of them None."""
+    status = person['Status'].strip()
+    parts = [p.strip() for p in status.split(';') if p.strip()]
+    event, death = person['event_coo'], person['death_coo']
+
+    if status not in KNOWN_STATUS:
+        unknown[status] += 1
+
+    if 'killed' in parts:
+        if 'kidnapped' in parts and parts.index('killed') < parts.index('kidnapped'):
+            # Killed at the scene, the body taken and later retrieved. Where it
+            # was retrieved from is not where he died.
+            return event, None, None
+        return event, None, death
+    if 'released' in parts or 'rescued' in parts:
+        return None, event, None
+    raise ValueError(
+        f'pid {person["pid"]}: Status {status!r} has neither killed nor '
+        f'released/rescued, so no colour rule applies. Add it to '
+        f'war_victims_map_plan.md and to markers() in this file.')
+
+
+def person_record(person, red, blue, white):
+    """The compact dict the page filters on. Absent keys keep the file small."""
+    record = {
+        'p': person['pid'],
+        'n': f'{person["שם פרטי"]} {person["שם משפחה"]}'.strip(),
+        'd': person['Event date'],
+        's': person['Status'],
+    }
+    name_en = f'{person["first name"]} {person["last name"]}'.strip()
+    if name_en:
+        record['ne'] = name_en
+    for key, column in (('dd', 'Death date'), ('r', 'Role'), ('f', 'front'),
+                        ('loc', 'מקום האירוע'), ('loce', 'Event location')):
+        if person[column]:
+            record[key] = person[column]
+    if white:
+        # The white marker stands somewhere else entirely -- a hospital, a spot
+        # in Gaza -- so it has to be labelled with the death place. Labelling it
+        # with the event place is what made pid 2416's x at Afula read as Jenin.
+        for key, column in (('dloc', 'מקום המוות'), ('dloce', 'Death location')):
+            if person[column]:
+                record[key] = person[column]
+    for key, coo in (('red', red), ('blue', blue), ('white', white)):
+        if coo:
+            record[key] = [round(coo[0], 6), round(coo[1], 6)]
+    return record
+
+
+def build(people, private, areas):
+    """(records, polygons_used, hidden) for one visibility level."""
+    records, rings, hidden = [], {}, []
+    unknown = Counter()
+
+    for person in people:
+        red, blue, white = markers(person, unknown)
+        record = person_record(person, red, blue, white)
+
+        if not private:
+            # A coordinate inside an area whose addresses were never published
+            # is replaced by the ring. Applied to the death point too: it is a
+            # coordinate in the same file, and it can fall in the same area.
+            for key in ('red', 'blue', 'white'):
+                coo = record.get(key)
+                if not coo:
+                    continue
+                props = area_for(person['מקום האירוע'], coo, areas)
+                if props is None or props['public_exact']:
+                    continue
+                record.pop(key)
+                ring = next((g for p, g in areas if p['name_he'] == props['name_he']
+                             and g is not None), None)
+                if ring is None:
+                    # Recorded as private but never drawn: nothing to show, and
+                    # publishing the point is exactly what must not happen.
+                    hidden.append((person['pid'], props['name_he']))
+                    continue
+                record['poly'] = props['name_he']
+                rings[props['name_he']] = (props, ring)
+
+        if person['circle']:
+            record['circ'] = person['circle']['name_he']
+        if not any(k in record for k in ('red', 'blue', 'white', 'circ', 'poly')):
+            continue
+        records.append(record)
+
+    if unknown:
+        print('\nStatus values not in the plan\'s table -- the colour rules '
+              'handled them, check the table is still right:')
+        for status, n in unknown.most_common():
+            print(f'  {n:>4}  {status!r}')
+
+    polygons = [{'name_he': props['name_he'],
+                 'name_en': props.get('name_en') or props['name_he'],
+                 'ring': [list(c) for c in ring.exterior.coords]}
+                for props, ring in rings.values()]
+    return records, polygons, hidden
+
+
+def circles_payload(circles, records):
+    used = {r['circ'] for r in records if 'circ' in r}
+    return [{'name_he': c['name_he'], 'name_en': c['name_en'],
+             'lat': c['lat'], 'lon': c['lon']}
+            for name, c in sorted(circles.items()) if name in used]
+
+
+def render(records, circles, polygons, lang, private, unplaced):
+    with open(TEMPLATE, encoding='utf-8') as f:
+        html = f.read()
+
+    dates = sorted(r['d'] for r in records if r['d'])
+    centre = sorted(r['red'] for r in records if 'red' in r)
+    labels = LABELS[lang]
+
+    config = {
+        'lang': lang,
+        'labels': labels,
+        'campaigns': [dict(c, start=c['start'] or dates[0],
+                           end=c['end'] or None) for c in CAMPAIGNS],
+        'center': centre[len(centre) // 2] if centre else [31.42, 34.49],
+        'zoom': 9,
+        'date_min': dates[0],
+        'date_max': dates[-1],
+        'unplaced': unplaced,
+    }
+    banner = (f'<div id="private-banner">{labels["private"]}</div>'
+              if private else '')
+
+    for token, value in (
+            ('__TITLE__', labels['title'] + (' (private)' if private else '')),
+            ('__SEARCH_PLACEHOLDER__', labels['search']),
+            ('__FILTERS__', labels['filters']),
+            ('__DIR__', 'rtl' if lang == 'he' else 'ltr'),
+            ('__BY_EVENT_DATE__', labels['by_event_date']),
+            ('__BY_DEATH_DATE__', labels['by_death_date']),
+            ('__BANNER__', banner),
+            ('__CONFIG__', json.dumps(config, ensure_ascii=False)),
+            ('__PEOPLE__', json.dumps(records, ensure_ascii=False)),
+            ('__CIRCLES__', json.dumps(circles, ensure_ascii=False)),
+            ('__POLYGONS__', json.dumps(polygons, ensure_ascii=False)),
+            ('__COMMENT__', f'{len(records)} people, built by '
+                            f'code/iron_swords_map.py')):
+        html = html.replace(token, value)
+    return html
+
+
+def main():
+    cache = None
+    if '--cache' in sys.argv:
+        cache = sys.argv[sys.argv.index('--cache') + 1]
+        cache = cache if os.path.exists(cache) else None
+
+    people = load_people(cache)
+    circles, cases = place_people(people)
+    report(cases)
+
+    areas = load_polygons()
+    unplaced = sum(len(e['pids']) for kind in ('region', 'missing')
+                   for e in cases[kind].values())
+
+    for private in (False, True):
+        records, polygons, hidden = build(people, private, areas)
+        payload = circles_payload(circles, records)
+        for lang in ('he', 'en'):
+            name = BASENAME + ('_private' if private else '') + \
+                ('_en' if lang == 'en' else '') + '.html'
+            path = os.path.join(WEBSITE, name)
+            with open(path, 'w', encoding='utf-8') as f:
+                f.write(render(records, payload, polygons, lang, private,
+                               unplaced))
+            print(f'{path}  {os.path.getsize(path) / 1e6:.1f} MB')
+
+        kind = 'private' if private else 'public'
+        print(f'  {kind}: {len(records)} people drawn, '
+              f'{len(polygons)} rings, {len(payload)} circles')
+        if hidden:
+            places = Counter(name for _, name in hidden)
+            print(f'  {len(hidden)} people are in an area with no ring and no '
+                  f'publication, so the public map cannot show them at all:')
+            for name, n in places.most_common():
+                print(f'      {n:>4}  {name}')
+
+
+if __name__ == '__main__':
+    main()

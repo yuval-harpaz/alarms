@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="he">
+
+<head>
+    <title>__TITLE__</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <link rel="icon" href="https://github.com/yuval-harpaz/alarms/blob/master/docs/logo.png?raw=true"
+        type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html, body { margin: 0; padding: 0; }
+
+        #map {
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .panel {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 6px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            font: 13px/1.4 sans-serif;
+        }
+
+        #search-box {
+            top: 10px;
+            left: 10px;
+            padding: 8px;
+            width: 250px;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 7px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        #search-results {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 5px;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .search-result-item {
+            padding: 7px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+        }
+
+        .search-result-item:hover { background: #f0f0f0; }
+        .search-result-item:last-child { border-bottom: none; }
+
+        /* Time and filters live under the search box, folded away by default so
+           they do not cover the map until asked for. */
+        #controls {
+            top: 58px;
+            left: 10px;
+            width: 266px;
+            box-sizing: border-box;
+        }
+
+        #controls-head {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 9px;
+            cursor: pointer;
+            user-select: none;
+            font-weight: bold;
+        }
+
+        #controls-head svg { flex: none; }
+        #controls-head .count { font-weight: normal; color: #555; margin-inline-start: auto; }
+
+        #controls-body {
+            display: none;
+            padding: 0 9px 9px;
+            max-height: 72vh;
+            overflow-y: auto;
+        }
+
+        #controls.open #controls-body { display: block; }
+        #controls.open #controls-head { border-bottom: 1px solid #ddd; }
+
+        .section {
+            border-top: 1px solid #eee;
+            padding-top: 6px;
+            margin-top: 6px;
+        }
+
+        .campaign-btn {
+            display: inline-block;
+            margin: 2px;
+            padding: 3px 8px;
+            border: 1px solid #bbb;
+            border-radius: 12px;
+            background: #f6f6f6;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .campaign-btn:hover { background: #e3e9f5; }
+        .campaign-btn.active { background: #007bff; color: white; border-color: #007bff; }
+
+        .date-row {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            margin: 6px 0 2px;
+        }
+
+        .date-row input[type=date] {
+            flex: 1;
+            font-size: 12px;
+            padding: 2px;
+        }
+
+        input[type=range] { width: 100%; margin: 0; }
+
+        .filter-group { margin-bottom: 8px; }
+
+        .filter-group > .filter-title {
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+            padding: 2px 0;
+        }
+
+        .filter-group label {
+            display: block;
+            padding: 1px 0;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .filter-title::before {
+            content: '▸ ';
+            display: inline-block;
+            width: 1em;
+        }
+
+        .filter-group.open > .filter-title::before { content: '▾ '; }
+
+        /* A long list of names in one popup gets its own scrollbar rather than
+           growing past the bottom of the window. */
+        .popup-scroll {
+            max-height: 170px;
+            overflow-y: auto;
+        }
+
+        .leaflet-tooltip-left:before { right: 0; margin-right: -12px; border-left-color: transparent; }
+        .leaflet-tooltip-right:before { left: 0; margin-left: -12px; border-right-color: transparent; }
+
+        .red-tooltip, .blue-tooltip, .white-tooltip {
+            background: transparent;
+            box-shadow: none;
+            border: transparent;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 16px;
+            padding: 0 3px;
+        }
+
+        .red-tooltip { color: red; }
+        .blue-tooltip { color: blue; text-align: right; }
+        /* White on white tiles is unreadable, so the x's names carry an outline
+           rather than a colour of their own. */
+        .white-tooltip { color: #fff; text-shadow: 0 0 3px #000, 0 0 3px #000; }
+
+        /* Three tiers of text: none when zoomed out, then the names that stand
+           alone, then every name once there is room for them. */
+        .hide-all-tooltips .red-tooltip,
+        .hide-all-tooltips .blue-tooltip,
+        .hide-all-tooltips .white-tooltip { display: none; }
+
+        .hide-tooltips .red-tooltip:not(.force-visible),
+        .hide-tooltips .blue-tooltip:not(.force-visible),
+        .hide-tooltips .white-tooltip:not(.force-visible) { display: none; }
+
+        #coord-jump-box {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px;
+            display: none;
+            width: 300px;
+            text-align: center;
+            z-index: 2000;
+        }
+
+        #coord-input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        #private-banner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #b00020;
+            color: white;
+            text-align: center;
+            font: bold 13px sans-serif;
+            padding: 3px;
+            z-index: 1500;
+        }
+    </style>
+</head>
+
+<body>
+    __BANNER__
+
+    <div id="search-box" class="panel" dir="__DIR__">
+        <input type="text" id="search-input" placeholder="__SEARCH_PLACEHOLDER__">
+        <div id="search-results"></div>
+    </div>
+
+    <div id="controls" class="panel" dir="__DIR__">
+        <div id="controls-head">
+            <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M1 2h14l-5.5 6.5V14L6.5 12V8.5L1 2z" fill="#444" />
+            </svg>
+            <span>__FILTERS__</span>
+            <span class="count" id="counts"></span>
+        </div>
+        <div id="controls-body">
+            <div class="section">
+                <div id="campaign-buttons"></div>
+                <div class="date-row">
+                    <input type="date" id="date-from">
+                    <span>—</span>
+                    <input type="date" id="date-to">
+                </div>
+                <input type="range" id="range-from" min="0" max="100" value="0">
+                <input type="range" id="range-to" min="0" max="100" value="100">
+                <div class="date-row" style="font-size:12px">
+                    <label><input type="radio" name="datefield" value="d" checked> __BY_EVENT_DATE__</label>
+                    <label><input type="radio" name="datefield" value="dd"> __BY_DEATH_DATE__</label>
+                </div>
+            </div>
+            <div class="section" id="filter-box"></div>
+        </div>
+    </div>
+
+    <div id="coord-jump-box" class="panel" dir="__DIR__">
+        <label>Enter coordinates (lat, lon):</label>
+        <input type="text" id="coord-input" placeholder="31.xxx, 34.yyy">
+    </div>
+
+    <div id="map"></div>
+
+    <script>
+        const CONFIG = __CONFIG__;
+        const PEOPLE = __PEOPLE__;
+        const CIRCLES = __CIRCLES__;
+        const POLYGONS = __POLYGONS__;
+
+        const RTL = CONFIG.lang === 'he';
+        const T = CONFIG.labels;
+        document.documentElement.lang = CONFIG.lang;
+        // The page itself stays ltr. Leaflet positions a tooltip by measuring
+        // its width and shifting left or right by hand; under a document-level
+        // rtl that arithmetic mirrors, which threw the red names to the wrong
+        // side of their dot and the blue ones off into the distance. Direction
+        // belongs on the panels and the popups, which is where it is set.
+
+        /* ---------------------------------------------------------------- map */
+
+        const iconSize = 16;
+        function icon(file) {
+            return L.icon({
+                iconUrl: 'https://yuval-harpaz.github.io/alarms/' + file,
+                iconSize: [iconSize, iconSize],
+                iconAnchor: [iconSize / 2, iconSize / 2],
+                popupAnchor: [0, 0]
+            });
+        }
+        const redIcon = icon('red_ring.png');
+        const blueIcon = icon('blue_square.png');
+        const whiteIcon = icon('white_x.png');
+
+        const esri = L.tileLayer(
+            "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/49849/{z}/{y}/{x}",
+            {
+                attribution: "Esri, Maxar, Earthstar Geographics",
+                maxNativeZoom: 18, maxZoom: 21, minZoom: 0, noWrap: false
+            }
+        );
+        const esriLatest = L.tileLayer(
+            "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+            { "attribution": "Esri", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 21, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false }
+        );
+        const googleHyb = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+            maxZoom: 21,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        });
+        const govmap = L.tileLayer('https://cdnil.govmap.gov.il/xyz/heb/{z}/{x}/{y}.png', {
+            maxZoom: 15,
+            attribution: '© המרכז למיפוי ישראל www.govmap.gov.il',
+        });
+
+        const baseMaps = {
+            "GovMap": govmap,
+            "Hybrid": googleHyb,
+            "Esri latest": esriLatest,
+            "Esri 2024-11-18": esri,
+        };
+
+        const map = L.map('map', {
+            layers: [esri, esriLatest, googleHyb, govmap],
+            center: CONFIG.center,
+            zoom: CONFIG.zoom,
+        });
+
+        const Killed = L.layerGroup().addTo(map);
+        const Kidnapped = L.layerGroup().addTo(map);
+        const Deaths = L.layerGroup().addTo(map);
+        const Circles = L.layerGroup().addTo(map);
+        const Areas = L.layerGroup();
+        if (POLYGONS.length) Areas.addTo(map);
+
+        const overlayMaps = {};
+        overlayMaps[T.killed] = Killed;
+        overlayMaps[T.kidnapped] = Kidnapped;
+        overlayMaps[T.died_elsewhere] = Deaths;
+        overlayMaps[T.approximate] = Circles;
+        if (POLYGONS.length) overlayMaps[T.areas] = Areas;
+        L.control.layers(baseMaps, overlayMaps).addTo(map);
+        document.getElementById('map').style.cursor = 'crosshair';
+
+        /* ------------------------------------------------------------ filters */
+
+        // Which person fields become checkbox groups, and the order they appear.
+        const FILTER_FIELDS = [
+            { key: 'f', title: T.front },
+            { key: 'r', title: T.role },
+            { key: 's', title: T.status },
+        ];
+        const selected = {};   // key -> Set of allowed values, empty Set = all
+
+        function buildFilters() {
+            const box = document.getElementById('filter-box');
+            box.innerHTML = '';
+            FILTER_FIELDS.forEach(field => {
+                const counts = {};
+                PEOPLE.forEach(p => {
+                    const v = p[field.key] || T.unspecified;
+                    counts[v] = (counts[v] || 0) + 1;
+                });
+                const values = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
+                selected[field.key] = new Set();
+
+                const group = document.createElement('div');
+                group.className = 'filter-group';
+                const title = document.createElement('div');
+                title.className = 'filter-title';
+                title.textContent = field.title + ' (' + values.length + ')';
+                const body = document.createElement('div');
+                // Every group starts closed; the panel opens to a list of three
+                // headings rather than a wall of checkboxes.
+                body.style.display = 'none';
+                title.onclick = () => {
+                    const open = body.style.display === 'none';
+                    body.style.display = open ? 'block' : 'none';
+                    group.classList.toggle('open', open);
+                };
+                group.appendChild(title);
+
+                values.forEach(v => {
+                    const label = document.createElement('label');
+                    const cb = document.createElement('input');
+                    cb.type = 'checkbox';
+                    cb.checked = true;
+                    cb.onchange = () => {
+                        // An unchecked box is the exception; the empty set means
+                        // "everything", so the map does not go blank on load.
+                        if (cb.checked) selected[field.key].delete(v);
+                        else selected[field.key].add(v);
+                        render();
+                    };
+                    label.appendChild(cb);
+                    label.appendChild(document.createTextNode(' ' + v + ' (' + counts[v] + ')'));
+                    body.appendChild(label);
+                });
+                group.appendChild(body);
+                box.appendChild(group);
+            });
+        }
+
+        /* --------------------------------------------------------------- time */
+
+        const campaigns = CONFIG.campaigns;
+        let dateField = 'd';
+
+        function dayList() {
+            const days = [];
+            const from = new Date(CONFIG.date_min + 'T00:00:00Z');
+            const to = new Date(CONFIG.date_max + 'T00:00:00Z');
+            for (let t = from; t <= to; t.setUTCDate(t.getUTCDate() + 1)) {
+                days.push(t.toISOString().slice(0, 10));
+            }
+            return days;
+        }
+        const DAYS = dayList();
+
+        const rangeFrom = document.getElementById('range-from');
+        const rangeTo = document.getElementById('range-to');
+        const dateFrom = document.getElementById('date-from');
+        const dateTo = document.getElementById('date-to');
+
+        rangeFrom.max = rangeTo.max = DAYS.length - 1;
+        rangeTo.value = DAYS.length - 1;
+        dateFrom.min = dateTo.min = CONFIG.date_min;
+        dateFrom.max = dateTo.max = CONFIG.date_max;
+
+        function clampIndex(iso) {
+            const i = DAYS.indexOf(iso);
+            if (i >= 0) return i;
+            return iso < CONFIG.date_min ? 0 : DAYS.length - 1;
+        }
+
+        function setRange(fromIso, toIso, silent) {
+            rangeFrom.value = clampIndex(fromIso);
+            rangeTo.value = clampIndex(toIso);
+            dateFrom.value = DAYS[rangeFrom.value];
+            dateTo.value = DAYS[rangeTo.value];
+            if (!silent) render();
+        }
+
+        function syncFromSliders() {
+            if (+rangeFrom.value > +rangeTo.value) {
+                const v = rangeFrom.value; rangeFrom.value = rangeTo.value; rangeTo.value = v;
+            }
+            dateFrom.value = DAYS[rangeFrom.value];
+            dateTo.value = DAYS[rangeTo.value];
+            markActiveCampaign();
+            render();
+        }
+
+        rangeFrom.oninput = rangeTo.oninput = syncFromSliders;
+        dateFrom.onchange = dateTo.onchange = () => {
+            setRange(dateFrom.value, dateTo.value, true);
+            markActiveCampaign();
+            render();
+        };
+        document.querySelectorAll('input[name=datefield]').forEach(r => {
+            r.onchange = () => { dateField = r.value; render(); };
+        });
+
+        function markActiveCampaign() {
+            document.querySelectorAll('.campaign-btn').forEach(btn => {
+                const from = btn.dataset.from, to = btn.dataset.to || CONFIG.date_max;
+                btn.classList.toggle('active',
+                    dateFrom.value === from && dateTo.value === to);
+            });
+        }
+
+        function buildCampaigns() {
+            const box = document.getElementById('campaign-buttons');
+            campaigns.forEach(c => {
+                const btn = document.createElement('span');
+                btn.className = 'campaign-btn';
+                btn.textContent = RTL ? c.name : c.name_en;
+                btn.dataset.from = c.start;
+                if (c.end) btn.dataset.to = c.end;
+                btn.onclick = () => {
+                    setRange(c.start, c.end || CONFIG.date_max, true);
+                    markActiveCampaign();
+                    render();
+                };
+                box.appendChild(btn);
+            });
+        }
+
+        /* ------------------------------------------------------------- render */
+
+        function passes(person) {
+            const date = person[dateField] || person.d;
+            if (!date) return false;
+            if (date < dateFrom.value || date > dateTo.value) return false;
+            for (const field of FILTER_FIELDS) {
+                const excluded = selected[field.key];
+                if (excluded.size && excluded.has(person[field.key] || T.unspecified)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Everything drawn right now, for the search box and the pid deep link.
+        let allFeatures = [];
+
+        function key(coo) { return coo[0].toFixed(6) + ',' + coo[1].toFixed(6); }
+
+        function isIsolated(latlng, points) {
+            for (const other of points) {
+                const dist = latlng.distanceTo(L.latLng(other));
+                if (dist > 0.5 && dist <= 250) return false;
+            }
+            return true;
+        }
+
+        function personLabel(p) { return RTL ? p.n : (p.ne || p.n); }
+
+        // A white x stands where the person died, which is not where the event
+        // was -- labelling it with the event place is how an x at Afula came to
+        // announce itself as Jenin.
+        function placeLabel(p, death) {
+            if (death) return RTL ? (p.dloc || p.loc) : (p.dloce || p.dloc || p.loce || p.loc);
+            return RTL ? p.loc : (p.loce || p.loc);
+        }
+
+        function addGrouped(group, layerGroup, iconType, direction, cssClass, points, death) {
+            for (const k in group) {
+                const g = group[k];
+                const names = g.people.map(personLabel);
+                const place = placeLabel(g.people[0], death);
+                const marker = L.marker(g.coo, { icon: iconType });
+                if (cssClass) {
+                    const extra = isIsolated(L.latLng(g.coo), points) ? ' force-visible' : '';
+                    marker.bindTooltip(names.join('<br>'), {
+                        permanent: true, direction: direction, className: cssClass + extra
+                    });
+                }
+                marker.bindPopup(popupHtml(g.people, place, death));
+                marker.addTo(layerGroup);
+                allFeatures.push({
+                    names: names, place: place,
+                    pids: g.people.map(p => p.p), layer: marker, type: 'point'
+                });
+            }
+        }
+
+        // Beyond a handful of names the list scrolls inside the popup instead of
+        // running off the screen.
+        const SCROLL_OVER = 7;
+
+        function popupHtml(people, place, death) {
+            const dir = RTL ? 'rtl' : 'ltr';
+            const rows = people.map(p => {
+                const bits = [personLabel(p)];
+                const date = death ? (p.dd || p.d) : p.d;
+                if (date) bits.push(date);
+                if (p.r) bits.push(p.r);
+                return bits.join(' · ');
+            });
+            const cls = rows.length > SCROLL_OVER ? ' class="popup-scroll"' : '';
+            return '<div dir="' + dir + '"><b>' + place + '</b> (' + rows.length + ')' +
+                '<div' + cls + '>' + rows.join('<br>') + '</div></div>';
+        }
+
+        function render() {
+            [Killed, Kidnapped, Deaths, Circles, Areas].forEach(l => l.clearLayers());
+            allFeatures = [];
+
+            const red = {}, blue = {}, white = {}, circles = {}, areas = {};
+            let shown = 0, hidden = 0;
+
+            PEOPLE.forEach(p => {
+                if (!passes(p)) { hidden++; return; }
+                shown++;
+                if (p.red) {
+                    const k = key(p.red);
+                    (red[k] = red[k] || { coo: p.red, people: [] }).people.push(p);
+                }
+                if (p.blue) {
+                    const k = key(p.blue);
+                    (blue[k] = blue[k] || { coo: p.blue, people: [] }).people.push(p);
+                }
+                if (p.white) {
+                    const k = key(p.white);
+                    (white[k] = white[k] || { coo: p.white, people: [] }).people.push(p);
+                }
+                if (p.circ) (circles[p.circ] = circles[p.circ] || []).push(p);
+                if (p.poly) (areas[p.poly] = areas[p.poly] || []).push(p);
+            });
+
+            // Tooltip crowding is judged against the points actually on screen,
+            // so a date filter that thins the map also un-hides its names.
+            const points = [];
+            for (const group of [red, blue, white]) {
+                for (const k in group) points.push(group[k].coo);
+            }
+
+            addGrouped(red, Killed, redIcon, 'right', 'red-tooltip', points, false);
+            addGrouped(blue, Kidnapped, blueIcon, 'left', 'blue-tooltip', points, false);
+            addGrouped(white, Deaths, whiteIcon, 'right', 'white-tooltip', points, true);
+
+            CIRCLES.forEach(c => {
+                const people = circles[c.name_he];
+                if (!people) return;
+                // Fixed on the screen, not on the ground: a 500 m radius is
+                // invisible at country zoom and swallows a town at street zoom,
+                // and the number was never a claim about the real spread. Twice
+                // the width of the other markers, so it reads as the coarser one.
+                const circle = L.circleMarker([c.lat, c.lon], {
+                    radius: iconSize,
+                    color: '#c85000', weight: 2, opacity: 1,
+                    fillColor: '#ff8c00', fillOpacity: 0.6
+                });
+                const name = RTL ? c.name_he : c.name_en;
+                circle.bindPopup(popupHtml(people, name, false));
+                circle.addTo(Circles);
+                allFeatures.push({
+                    names: people.map(personLabel), place: name,
+                    pids: people.map(p => p.p), layer: circle, type: 'circle'
+                });
+            });
+
+            POLYGONS.forEach(poly => {
+                const people = areas[poly.name_he];
+                if (!people) return;
+                const ring = poly.ring.map(c => [c[1], c[0]]);
+                const shape = L.polygon(ring, {
+                    fillColor: '#ff69b4', weight: 2, opacity: 1,
+                    color: '#ff1493', dashArray: '3', fillOpacity: 0.3
+                });
+                const name = RTL ? poly.name_he : (poly.name_en || poly.name_he);
+                shape.bindPopup(popupHtml(people, name));
+                shape.addTo(Areas);
+                allFeatures.push({
+                    names: people.map(personLabel), place: name,
+                    pids: people.map(p => p.p), layer: shape, type: 'polygon'
+                });
+            });
+
+            // The head stays one line wide, so the long form is the hover title.
+            const counts = document.getElementById('counts');
+            counts.textContent = shown + ' / ' + PEOPLE.length;
+            counts.title = T.showing + ' ' + shown + ' / ' + PEOPLE.length +
+                (CONFIG.unplaced ? '  ·  ' + T.unplaced + ' ' + CONFIG.unplaced : '');
+            updateTooltipVisibility();
+        }
+
+        // Below ZOOM_ISOLATED the map carries no text at all; between the two a
+        // name appears only where nothing else is within 250 m; from ZOOM_ALL up
+        // the crowded places show theirs too.
+        const ZOOM_ISOLATED = 13;
+        const ZOOM_ALL = 17;
+
+        function updateTooltipVisibility() {
+            const zoom = map.getZoom();
+            const classes = map.getContainer().classList;
+            classes.toggle('hide-all-tooltips', zoom < ZOOM_ISOLATED);
+            classes.toggle('hide-tooltips', zoom < ZOOM_ALL);
+        }
+        map.on('zoomend', updateTooltipVisibility);
+
+        /* ------------------------------------------------------------- search */
+
+        function normalizeText(text) {
+            if (!text) return '';
+            return String(text)
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f\u0591-\u05C7]/g, '')
+                .replace(/[\u05F3\u05F4]/g, '')
+                .replace(/[^\u0590-\u05FF\u0600-\u06FF\w\s]/g, '')
+                .toLowerCase();
+        }
+
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+
+        searchInput.addEventListener('input', function () {
+            const query = this.value.trim();
+            if (query.length < 2) {
+                searchResults.style.display = 'none';
+                searchResults.innerHTML = '';
+                return;
+            }
+            const q = normalizeText(query);
+            const hits = [];
+            for (const item of allFeatures) {
+                if (normalizeText(item.place).includes(q)) {
+                    hits.push({ item: item, text: item.place });
+                    continue;
+                }
+                for (const name of item.names) {
+                    if (normalizeText(name).includes(q)) {
+                        hits.push({ item: item, text: name + ' — ' + item.place });
+                        break;
+                    }
+                }
+                if (hits.length >= 40) break;
+            }
+            searchResults.innerHTML = '';
+            searchResults.style.display = hits.length ? 'block' : 'none';
+            hits.forEach(hit => {
+                const div = document.createElement('div');
+                div.className = 'search-result-item';
+                div.textContent = hit.text;
+                div.onclick = () => {
+                    focusFeature(hit.item);
+                    searchInput.value = '';
+                    searchResults.style.display = 'none';
+                };
+                searchResults.appendChild(div);
+            });
+        });
+
+        document.addEventListener('click', function (event) {
+            if (!document.getElementById('search-box').contains(event.target)) {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        function focusFeature(item) {
+            if (item.layer.getBounds) map.fitBounds(item.layer.getBounds());
+            else map.setView(item.layer.getLatLng(), 17);
+            item.layer.openPopup();
+        }
+
+        /* -------------------------------------------------- coordinates, pid */
+
+        map.on("contextmenu", function (event) {
+            const coords = event.latlng.toString().slice(7, -1);
+            navigator.clipboard.writeText(coords).then(() => {
+                alert("Coordinates copied to clipboard:\n" + coords);
+            }).catch(() => {
+                window.prompt("Copy to clipboard: Ctrl+C, Enter", coords);
+            });
+        });
+
+        const coordJumpBox = document.getElementById('coord-jump-box');
+        const coordInput = document.getElementById('coord-input');
+        let tempMarker = null;
+
+        document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && e.key === 'g') {
+                e.preventDefault();
+                coordJumpBox.style.display = coordJumpBox.style.display === 'block' ? 'none' : 'block';
+                if (coordJumpBox.style.display === 'block') coordInput.focus();
+            }
+            if (e.key === 'Escape') coordJumpBox.style.display = 'none';
+        });
+
+        coordInput.addEventListener('keydown', function (e) {
+            if (e.key !== 'Enter') return;
+            const parts = coordInput.value.trim().split(/[,\s]+/)
+                .map(p => parseFloat(p)).filter(p => !isNaN(p));
+            if (parts.length < 2) {
+                alert("Invalid format. Please use 'lat, lon' or 'lat lon'");
+                return;
+            }
+            let [lat, lon] = parts;
+            if (Math.abs(lat) > Math.abs(lon)) [lat, lon] = [lon, lat];
+            map.setView([lat, lon], 17);
+            if (tempMarker) map.removeLayer(tempMarker);
+            tempMarker = L.marker([lat, lon]).addTo(map)
+                .bindPopup(lat.toFixed(5) + ', ' + lon.toFixed(5)).openPopup();
+            coordJumpBox.style.display = 'none';
+            coordInput.value = '';
+        });
+
+        document.addEventListener('mousedown', function (e) {
+            if (coordJumpBox.style.display === 'block' && !coordJumpBox.contains(e.target)) {
+                coordJumpBox.style.display = 'none';
+            }
+        });
+
+        function focusOnPid(pid) {
+            const wanted = String(pid).trim().replace(/\.0$/, '');
+            for (const item of allFeatures) {
+                if (item.pids.some(p => String(p) === wanted)) {
+                    focusFeature(item);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /* --------------------------------------------------------------- boot */
+
+        const controls = document.getElementById('controls');
+        document.getElementById('controls-head').onclick = () => {
+            controls.classList.toggle('open');
+        };
+
+        buildFilters();
+        buildCampaigns();
+        setRange(CONFIG.date_min, CONFIG.date_max, true);
+        markActiveCampaign();
+        render();
+
+        const pidParam = new URLSearchParams(window.location.search).get('pid');
+        if (pidParam) setTimeout(() => focusOnPid(pidParam), 300);
+    </script>
+</body>
+<!-- __COMMENT__ -->
+
+</html>
