@@ -207,6 +207,32 @@ def build(people, private, areas):
     return records, polygons, hidden
 
 
+def translation_gaps(people):
+    """Hebrew that reaches the English map untranslated.
+
+    Nothing breaks: every label falls back to the Hebrew. But the English map
+    then shows a Hebrew name, so this is the queue for data/dictionaries.json.
+    """
+    gaps = {'מקום האירוע': Counter(), 'מקום המוות': Counter(), 'name': []}
+    for person in people:
+        for he_col, en_col in (('מקום האירוע', 'Event location'),
+                               ('מקום המוות', 'Death location')):
+            if person[he_col].strip() and not person[en_col].strip():
+                gaps[he_col][person[he_col].strip()] += 1
+        if not f'{person["first name"]}{person["last name"]}'.strip():
+            gaps['name'].append(person['pid'])
+
+    if not any(gaps[k] for k in gaps):
+        return
+    print('\nmissing English, shown in Hebrew on the English map:')
+    for he_col in ('מקום האירוע', 'מקום המוות'):
+        for place, n in gaps[he_col].most_common():
+            print(f'  {n:>4}  {he_col}  {place}')
+    if gaps['name']:
+        print(f'  {len(gaps["name"]):>4}  people with no English name: '
+              f'{", ".join(str(p) for p in gaps["name"][:20])}')
+
+
 def circles_payload(circles, records):
     used = {r['circ'] for r in records if 'circ' in r}
     return [{'name_he': c['name_he'], 'name_en': c['name_en'],
@@ -263,6 +289,7 @@ def main():
     people = load_people(cache)
     circles, cases = place_people(people)
     report(cases)
+    translation_gaps(people)
 
     areas = load_polygons()
     unplaced = sum(len(e['pids']) for kind in ('region', 'missing')

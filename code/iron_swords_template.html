@@ -618,7 +618,7 @@
                     color: '#c85000', weight: 2, opacity: 1,
                     fillColor: '#ff8c00', fillOpacity: 0.6
                 });
-                const name = RTL ? c.name_he : c.name_en;
+                const name = RTL ? c.name_he : (c.name_en || c.name_he);
                 circle.bindPopup(popupHtml(people, name, false));
                 circle.addTo(Circles);
                 allFeatures.push({
