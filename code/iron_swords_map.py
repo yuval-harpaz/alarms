@@ -42,6 +42,10 @@ TEMPLATE = os.path.join(ROOT, 'code', 'iron_swords_template.html')
 WEBSITE = os.environ.get('WEBSITE', os.path.expanduser('~/misc/docs/'))
 BASENAME = 'iron_swords_locations'
 
+# Where the map opens. Not the centre of mass of the markers: that sat inside
+# Gaza, and the opening view should hold the whole picture.
+CENTER = [32.236036, 35.137024]
+
 # The eight values the plan tabulated. Anything else is reported.
 KNOWN_STATUS = {
     'killed',
@@ -129,6 +133,24 @@ def markers(person, unknown):
         f'war_victims_map_plan.md and to markers() in this file.')
 
 
+def survivor_note(person):
+    """(Hebrew, English) note for someone who came back from captivity, else None.
+
+    Read off Status, not off the blue marker: someone with no coordinate has no
+    marker at all, and it is exactly there that the note is needed. On a circle
+    there is no colour to say it -- a released hostage sits in the same orange
+    dot as the people murdered at that place, which is how pid 964 read as one
+    of the Nova dead. Gendered, Hebrew having no neutral form here.
+    """
+    parts = [p.strip() for p in person['Status'].split(';') if p.strip()]
+    if 'kidnapped' not in parts or 'killed' in parts or 'died' in parts:
+        return None
+    if 'released' not in parts and 'rescued' not in parts:
+        return None
+    return ('שורדת שבי' if person['Gender'] == 'F' else 'שורד שבי',
+            'captivity survivor')
+
+
 def person_record(person, red, blue, white):
     """The compact dict the page filters on. Absent keys keep the file small."""
     record = {
@@ -140,6 +162,14 @@ def person_record(person, red, blue, white):
     name_en = f'{person["first name"]} {person["last name"]}'.strip()
     if name_en:
         record['ne'] = name_en
+    # Family name kept apart from the display name: the popups sort on it, and
+    # a surname of two words cannot be recovered from 'first last'.
+    for key, column in (('ln', 'שם משפחה'), ('lne', 'last name')):
+        if person[column].strip():
+            record[key] = person[column].strip()
+    note = survivor_note(person)
+    if note:
+        record['note'], record['note_en'] = note
     for key, column in (('dd', 'Death date'), ('r', 'Role'), ('f', 'front'),
                         ('loc', 'מקום האירוע'), ('loce', 'Event location')):
         if person[column]:
@@ -245,7 +275,6 @@ def render(records, circles, polygons, lang, private, unplaced):
         html = f.read()
 
     dates = sorted(r['d'] for r in records if r['d'])
-    centre = sorted(r['red'] for r in records if 'red' in r)
     labels = LABELS[lang]
 
     config = {
@@ -253,7 +282,7 @@ def render(records, circles, polygons, lang, private, unplaced):
         'labels': labels,
         'campaigns': [dict(c, start=c['start'] or dates[0],
                            end=c['end'] or None) for c in CAMPAIGNS],
-        'center': centre[len(centre) // 2] if centre else [31.42, 34.49],
+        'center': CENTER,
         'zoom': 9,
         'date_min': dates[0],
         'date_max': dates[-1],

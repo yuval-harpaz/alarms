@@ -32,6 +32,10 @@
             left: 10px;
             padding: 8px;
             width: 250px;
+            /* Above #controls, which starts at 58px and would otherwise paint
+               over the results: a long list spilled out below it and looked
+               fine, a one-row list vanished behind it entirely. */
+            z-index: 1100;
         }
 
         #search-input {
@@ -356,7 +360,8 @@
             { key: 'r', title: T.role },
             { key: 's', title: T.status },
         ];
-        const selected = {};   // key -> Set of allowed values, empty Set = all
+        const selected = {};   // key -> Set of EXCLUDED values, empty Set = all
+        const boxes = {};      // key -> value -> the checkbox, for the url filters
 
         function buildFilters() {
             const box = document.getElementById('filter-box');
@@ -369,6 +374,7 @@
                 });
                 const values = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
                 selected[field.key] = new Set();
+                boxes[field.key] = {};
 
                 const group = document.createElement('div');
                 group.className = 'filter-group';
@@ -401,6 +407,7 @@
                     label.appendChild(cb);
                     label.appendChild(document.createTextNode(' ' + v + ' (' + counts[v] + ')'));
                     body.appendChild(label);
+                    boxes[field.key][v] = cb;
                 });
                 group.appendChild(body);
                 box.appendChild(group);
@@ -509,6 +516,20 @@
 
         // Everything drawn right now, for the search box and the pid deep link.
         let allFeatures = [];
+        let circleLayers = [];
+
+        // At the opening zoom an orange dot is one marker among many and should
+        // not shout; zoomed in it is standing in for a whole locality, so it
+        // takes twice the width of the icons.
+        function circleRadius() {
+            return map.getZoom() > CONFIG.zoom ? iconSize : iconSize / 2;
+        }
+
+        function resizeCircles() {
+            const r = circleRadius();
+            circleLayers.forEach(c => c.setRadius(r));
+        }
+        map.on('zoomend', resizeCircles);
 
         function key(coo) { return coo[0].toFixed(6) + ',' + coo[1].toFixed(6); }
 
@@ -542,7 +563,7 @@
                         permanent: true, direction: direction, className: cssClass + extra
                     });
                 }
-                marker.bindPopup(popupHtml(g.people, place, death));
+                marker.bindPopup(popupHtml(g.people, place, death, false));
                 marker.addTo(layerGroup);
                 allFeatures.push({
                     names: names, place: place,
@@ -555,13 +576,29 @@
         // running off the screen.
         const SCROLL_OVER = 7;
 
-        function popupHtml(people, place, death) {
+        function familyName(p) {
+            return (RTL ? p.ln : (p.lne || p.ln)) || personLabel(p);
+        }
+
+        function showDate(iso) {
+            const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
+            return m ? m[3] + '/' + m[2] + '/' + m[1] : (iso || '');
+        }
+
+        // circle = the orange dots. They carry no role: the place is already
+        // approximate, and a column of job titles buried the one thing that
+        // does need saying there, that this person came back alive.
+        function popupHtml(people, place, death, circle) {
             const dir = RTL ? 'rtl' : 'ltr';
-            const rows = people.map(p => {
+            const sorted = people.slice().sort((a, b) =>
+                familyName(a).localeCompare(familyName(b), RTL ? 'he' : 'en'));
+            const rows = sorted.map(p => {
                 const bits = [personLabel(p)];
                 const date = death ? (p.dd || p.d) : p.d;
-                if (date) bits.push(date);
-                if (p.r) bits.push(p.r);
+                if (date) bits.push(showDate(date));
+                if (p.r && !circle) bits.push(p.r);
+                const note = RTL ? p.note : (p.note_en || p.note);
+                if (note) bits.push(note);
                 return bits.join(' · ');
             });
             const cls = rows.length > SCROLL_OVER ? ' class="popup-scroll"' : '';
@@ -572,6 +609,7 @@
         function render() {
             [Killed, Kidnapped, Deaths, Circles, Areas].forEach(l => l.clearLayers());
             allFeatures = [];
+            circleLayers = [];
 
             const red = {}, blue = {}, white = {}, circles = {}, areas = {};
             let shown = 0, hidden = 0;
@@ -611,16 +649,16 @@
                 if (!people) return;
                 // Fixed on the screen, not on the ground: a 500 m radius is
                 // invisible at country zoom and swallows a town at street zoom,
-                // and the number was never a claim about the real spread. Twice
-                // the width of the other markers, so it reads as the coarser one.
+                // and the number was never a claim about the real spread.
                 const circle = L.circleMarker([c.lat, c.lon], {
-                    radius: iconSize,
-                    color: '#c85000', weight: 2, opacity: 1,
+                    radius: circleRadius(),
+                    stroke: false,
                     fillColor: '#ff8c00', fillOpacity: 0.6
                 });
                 const name = RTL ? c.name_he : (c.name_en || c.name_he);
-                circle.bindPopup(popupHtml(people, name, false));
+                circle.bindPopup(popupHtml(people, name, false, true));
                 circle.addTo(Circles);
+                circleLayers.push(circle);
                 allFeatures.push({
                     names: people.map(personLabel), place: name,
                     pids: people.map(p => p.p), layer: circle, type: 'circle'
@@ -789,20 +827,77 @@
             return false;
         }
 
-        /* --------------------------------------------------------------- boot */
-
         const controls = document.getElementById('controls');
         document.getElementById('controls-head').onclick = () => {
             controls.classList.toggle('open');
         };
 
+        /* ----------------------------------------------------------- the url */
+
+        // ?front=Gaza&role=חייל&status=killed&from=2023-10-07&to=2023-10-09
+        // &date=dd  (filter on the death date instead of the event date)
+        // &pid=964  (open that person)
+        // Values are compared case-insensitively and may be comma separated.
+        // A name that matches nothing is reported in the console rather than
+        // silently emptying the map.
+        const URL_FILTERS = { front: 'f', role: 'r', status: 's' };
+
+        function applyUrlParams(params) {
+            let touched = false;
+
+            for (const name in URL_FILTERS) {
+                const raw = params.get(name);
+                if (raw === null) continue;
+                const key = URL_FILTERS[name];
+                const wanted = raw.split(',').map(v => v.trim().toLowerCase())
+                    .filter(Boolean);
+                const known = Object.keys(boxes[key]);
+                const missing = wanted.filter(w =>
+                    !known.some(v => v.toLowerCase() === w));
+                if (missing.length) {
+                    console.warn('unknown ' + name + ': ' + missing.join(', ') +
+                        '. known values: ' + known.join(', '));
+                }
+                known.forEach(v => {
+                    const keep = wanted.some(w => w === v.toLowerCase());
+                    boxes[key][v].checked = keep;
+                    if (keep) selected[key].delete(v);
+                    else selected[key].add(v);
+                });
+                touched = true;
+            }
+
+            const field = params.get('date');
+            if (field === 'dd' || field === 'd') {
+                dateField = field;
+                document.querySelector('input[name=datefield][value=' + field + ']')
+                    .checked = true;
+                touched = true;
+            }
+
+            const from = params.get('from'), to = params.get('to');
+            if (from || to) {
+                setRange(from || CONFIG.date_min, to || CONFIG.date_max, true);
+                touched = true;
+            }
+            return touched;
+        }
+
+        /* --------------------------------------------------------------- boot */
+
         buildFilters();
         buildCampaigns();
         setRange(CONFIG.date_min, CONFIG.date_max, true);
+
+        const params = new URLSearchParams(window.location.search);
+        // Opened with a filter in the url: show the panel, so it is obvious the
+        // map is not showing everything.
+        if (applyUrlParams(params)) controls.classList.add('open');
+
         markActiveCampaign();
         render();
 
-        const pidParam = new URLSearchParams(window.location.search).get('pid');
+        const pidParam = params.get('pid');
         if (pidParam) setTimeout(() => focusOnPid(pidParam), 300);
     </script>
 </body>
