@@ -78,6 +78,7 @@ LABELS = {
         'approximate': 'מיקום מקורב',
         'areas': 'שכונה',
         'legend': 'מקרא',
+        'localities': 'גבולות שכונות ויישובים (OSM)',
         'front': 'זירה',
         'role': 'תפקיד',
         'status': 'סטטוס',
@@ -98,6 +99,7 @@ LABELS = {
         'approximate': 'Approximate location',
         'areas': 'Neighbourhood',
         'legend': 'Legend',
+        'localities': 'Locality boundaries (OSM)',
         'front': 'Front',
         'role': 'Role',
         'status': 'Status',
@@ -265,6 +267,25 @@ def translation_gaps(people):
               f'{", ".join(str(p) for p in gaps["name"][:20])}')
 
 
+def localities_payload():
+    """Gaza boundaries for the reference overlay, or [] if never fetched.
+
+    Deliberately not merged into the polygon layer: these carry no privacy
+    meaning, they only say which neighbourhood an orange dot stands in.
+    """
+    path = os.path.join(ROOT, 'data', 'coord_locality.geojson')
+    if not os.path.exists(path):
+        return []
+    with open(path, encoding='utf-8') as f:
+        collection = json.load(f)
+    return [{'name': p['name_en'] or p['name'],
+             'name_he': p['name_he'] or p['name_en'] or p['name'],
+             'level': p['admin_level'],
+             'geometry': feature['geometry']}
+            for feature in collection['features']
+            for p in [feature['properties']]]
+
+
 def circles_payload(circles, records):
     used = {r['circ'] for r in records if 'circ' in r}
     return [{'name_he': c['name_he'], 'name_en': c['name_en'],
@@ -272,7 +293,7 @@ def circles_payload(circles, records):
             for name, c in sorted(circles.items()) if name in used]
 
 
-def render(records, circles, polygons, lang, private, unplaced):
+def render(records, circles, polygons, localities, lang, private, unplaced):
     with open(TEMPLATE, encoding='utf-8') as f:
         html = f.read()
 
@@ -306,6 +327,7 @@ def render(records, circles, polygons, lang, private, unplaced):
             ('__PEOPLE__', json.dumps(records, ensure_ascii=False)),
             ('__CIRCLES__', json.dumps(circles, ensure_ascii=False)),
             ('__POLYGONS__', json.dumps(polygons, ensure_ascii=False)),
+            ('__LOCALITIES__', json.dumps(localities, ensure_ascii=False)),
             ('__COMMENT__', f'{len(records)} people, built by '
                             f'code/iron_swords_map.py')):
         html = html.replace(token, value)
@@ -324,6 +346,7 @@ def main():
     translation_gaps(people)
 
     areas = load_polygons()
+    localities = localities_payload()
     unplaced = sum(len(e['pids']) for kind in ('region', 'missing')
                    for e in cases[kind].values())
 
@@ -335,8 +358,8 @@ def main():
                 ('_en' if lang == 'en' else '') + '.html'
             path = os.path.join(WEBSITE, name)
             with open(path, 'w', encoding='utf-8') as f:
-                f.write(render(records, payload, polygons, lang, private,
-                               unplaced))
+                f.write(render(records, payload, polygons, localities, lang,
+                               private, unplaced))
             print(f'{path}  {os.path.getsize(path) / 1e6:.1f} MB')
 
         kind = 'private' if private else 'public'
