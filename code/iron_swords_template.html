@@ -48,7 +48,18 @@
            filters, the filters over the legend. */
         #search-box { z-index: 3; padding: 8px; }
         #controls { z-index: 2; }
-        #legend { z-index: 1; padding: 8px 10px; }
+
+        /* No panel of its own: it sits over the sea at the opening view. The
+           outline keeps it readable if you switch to a light tile or pan over
+           land, where plain white would disappear. */
+        #legend {
+            z-index: 1;
+            padding: 6px 4px;
+            background: transparent;
+            box-shadow: none;
+            color: #fff;
+            text-shadow: 0 0 3px #000, 0 0 3px #000, 0 0 5px #000;
+        }
 
         #search-input {
             width: 100%;
@@ -184,14 +195,12 @@
             cursor: pointer;
         }
 
-        /* The icons are drawn for satellite tiles, so a white x on a white
-           panel would be invisible. Every swatch sits on the same grey chip. */
+        /* Bare, like the marks on the map itself -- the icons are drawn for
+           satellite tiles and the legend sits on one. */
         .swatch {
             flex: none;
             width: 20px;
             height: 20px;
-            border-radius: 3px;
-            background: #8a9099;
             display: flex;
             align-items: center;
             justify-content: center;

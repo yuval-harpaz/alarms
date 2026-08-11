@@ -89,6 +89,6 @@ name_he,name_en,lat,lon,radius_m,n_people,source,filled
 עוטף עזה,Gaza envelope,,,,2,too_general,
 רצועת עזה; פרימטר,Gaza Strip; Perimeter,,,,2,too_general,
 כביש 234,Route 234,,,,1,too_general,
-רצועת עזה; עזה; מסדרון נצרים,Gaza Strip; Gaza; Netzarim Corridor,,,,1,too_general,
+רצועת עזה; עזה; מסדרון נצרים,Gaza Strip; Gaza; Netzarim Corridor,,,,1,alias: רצועת עזה; עזה; ליד מסדרון נצרים,
 רצועת עזה (מיקום לא פורסם),Gaza Strip (location not published),,,,1,too_general,
 ראשון לציון,Rishon LeZion,31.9652636643419,34.7993182434686,,,,

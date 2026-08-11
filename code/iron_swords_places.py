@@ -111,8 +111,8 @@ def place_people(people):
     Returns (circles_used, cases) where cases maps kind -> place -> pids, kept
     so the caller can print the two reports and write them to the coverage file.
     """
-    circles, declined = load_circles()
-    cases = {'circle': {}, 'lumped': {}, 'region': {}, 'missing': {}}
+    circles, declined, aliases = load_circles()
+    cases = {'circle': {}, 'alias': {}, 'lumped': {}, 'region': {}, 'missing': {}}
 
     for person in people:
         if person['event_coo'] is not None:
@@ -121,7 +121,7 @@ def place_people(people):
         place = normalize(person['מקום האירוע'])
         person['circle'] = None
         kind, circle = ('missing', None) if not place \
-            else resolve(place, circles, declined)
+            else resolve(place, circles, declined, aliases)
         person['circle'] = circle
         why = declined.get(place, 'parent of finer circles') \
             if kind == 'region' else ''
@@ -138,7 +138,17 @@ def pid_list(pids, limit=25):
 
 
 def report(cases):
-    """The two printouts: detail lost to lumping, and places never drawn."""
+    """The printouts: names merged, detail lost to lumping, places never drawn."""
+    alias = cases['alias']
+    if alias:
+        people = sum(len(e['pids']) for e in alias.values())
+        print(f'\nmerged into another name -- {len(alias)} places, '
+              f'{people} people. two names for one place on the ground:')
+        for place, entry in sorted(alias.items(),
+                                   key=lambda kv: -len(kv[1]['pids'])):
+            print(f'  {place}\n      -> {entry["into"]["name_he"]}   '
+                  f'({len(entry["pids"])} people)')
+
     lumped = cases['lumped']
     if lumped:
         people = sum(len(e['pids']) for e in lumped.values())
