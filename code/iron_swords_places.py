@@ -36,15 +36,29 @@ CIRCLES = os.path.join(ROOT, 'data', 'coord_circle.csv')
 
 
 def load_circles():
-    """(circles, declined), both keyed on the normalised name so that 'א;ב' and
-    'א; ב' are one place. A row with no lat/lon is a place deliberately left
-    off the map, not an unfinished one."""
-    circles, declined = {}, {}
+    """(circles, declined, aliases), keyed on the normalised name so that 'א;ב'
+    and 'א; ב' are one place.
+
+    A row with no lat/lon is a place deliberately left off the map, not an
+    unfinished one. Two kinds:
+
+        source = too_general              no marker at all
+        source = alias: <other name_he>   the same place under another name
+
+    The alias is for siblings, which the ';' path cannot express: 'ליד מסדרון
+    נצרים' and 'מסדרון נצרים' sit side by side under 'רצועת עזה; עזה', so
+    neither is a prefix of the other, but they are one place on the ground.
+    """
+    circles, declined, aliases = {}, {}, {}
     with open(CIRCLES, newline='', encoding='utf-8') as f:
         for row in csv.DictReader(f):
             name = normalize(row['name_he'])
             if not row['lat'] or not row['lon']:
-                declined[name] = row['source'] or 'too_general'
+                source = (row['source'] or 'too_general').strip()
+                if source.startswith('alias:'):
+                    aliases[name] = normalize(source.split(':', 1)[1])
+                else:
+                    declined[name] = source
                 continue
             circles[name] = {
                 'name_he': name,
@@ -53,7 +67,11 @@ def load_circles():
                 'lon': float(row['lon']),
                 'radius_m': float(row['radius_m'] or 500),
             }
-    return circles, declined
+
+    for name, target in sorted(aliases.items()):
+        if target not in circles:
+            print(f'alias points at a name with no circle: {name} -> {target}')
+    return circles, declined, aliases
 
 
 def parts(place):
@@ -67,11 +85,13 @@ def parents(place):
     return ['; '.join(p[:i]) for i in range(len(p) - 1, 0, -1)]
 
 
-def resolve(place, circles, declined):
+def resolve(place, circles, declined, aliases):
     """(kind, circle). circle is None for 'region' and 'missing'."""
     place = normalize(place)
     if place in circles:
         return 'circle', circles[place]
+    if place in aliases and aliases[place] in circles:
+        return 'alias', circles[aliases[place]]
     if place in declined:
         return 'region', None
     for parent in parents(place):
