@@ -33,6 +33,8 @@ import os
 import sys
 from collections import Counter
 
+from shapely.geometry import shape
+
 from iron_swords_data import load_people
 from iron_swords_places import place_people, report
 from polygons import load_polygons, area_for
@@ -278,12 +280,23 @@ def localities_payload():
         return []
     with open(path, encoding='utf-8') as f:
         collection = json.load(f)
-    return [{'name': p['name_en'] or p['name'],
-             'name_he': p['name_he'] or p['name_en'] or p['name'],
-             'level': p['admin_level'],
-             'geometry': feature['geometry']}
-            for feature in collection['features']
-            for p in [feature['properties']]]
+
+    areas = [{'name': p['name_en'] or p['name'],
+              'name_he': p['name_he'] or p['name_en'] or p['name'],
+              'level': p['admin_level'],
+              'size': shape(feature['geometry']).area,
+              'geometry': feature['geometry']}
+             for feature in collection['features']
+             for p in [feature['properties']]]
+
+    # Biggest first, so the smallest area a point falls in is drawn last and is
+    # the one that answers the hover. Sorting on admin_level would not do it:
+    # as text '10' sorts before '8', which put the Gaza municipality on top of
+    # every neighbourhood inside it and made all of them read עזה.
+    areas.sort(key=lambda a: -a['size'])
+    for area in areas:
+        del area['size']
+    return areas
 
 
 def circles_payload(circles, records):

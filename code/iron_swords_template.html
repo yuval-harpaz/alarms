@@ -412,9 +412,19 @@
         // Gaza municipality, locality and neighbourhood boundaries from OSM.
         // A reference layer, drawn once and never filtered: it says which
         // neighbourhood an orange dot stands in, and holds no victim data.
+        //
+        // Its own pane, below overlayPane's 400. The orange circles are vectors
+        // and would otherwise share a pane with these; the boundaries are added
+        // when the box is ticked, so their paths landed on top of the circles
+        // and ate the clicks. The icon markers never had the problem, being in
+        // markerPane at 600.
+        map.createPane('localityPane');
+        map.getPane('localityPane').style.zIndex = 350;
+
         const Localities = L.layerGroup();
         LOCALITIES.forEach(area => {
             const shape = L.geoJSON(area.geometry, {
+                pane: 'localityPane',
                 style: {
                     color: '#39c2c9',
                     weight: area.level === '8' ? 2 : 1,
@@ -422,9 +432,7 @@
                     fill: true,
                     fillOpacity: 0.05,
                     fillColor: '#39c2c9'
-                },
-                // Under the markers, so it never intercepts a click on one.
-                interactive: true
+                }
             });
             shape.bindTooltip(RTL ? (area.name_he || area.name) : area.name,
                 { sticky: true });
