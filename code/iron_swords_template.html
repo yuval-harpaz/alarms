@@ -486,11 +486,14 @@
                 color: '#39c2c9', weight: 1, opacity: 1,
                 fillColor: '#39c2c9', fillOpacity: 1
             });
+            // Centred horizontally but lifted clear of the dot: at offset zero
+            // the outlined text sits exactly on the 6 px circle and hides it,
+            // so the point looked like it vanished as soon as the name arrived.
             dot.bindTooltip(place.name, {
                 permanent: true,
                 direction: 'center',
                 className: 'nb-tooltip',
-                offset: [0, 0]
+                offset: [0, -11]
             });
             dot.bindPopup('<b>' + place.name + '</b>' +
                 (place.municipality ? '<br>' + place.municipality : ''));
