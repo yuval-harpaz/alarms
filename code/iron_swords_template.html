@@ -216,6 +216,15 @@
             opacity: 0.85;
         }
 
+        .swatch .ring {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #ff8c00;
+            opacity: 0.85;
+            box-shadow: 0 0 0 2.5px #fff;
+        }
+
         .swatch .square {
             width: 15px;
             height: 15px;
@@ -266,24 +275,25 @@
             padding-inline: 4px;
         }
 
+        /* The button is its own sample: a red A wearing the 3b halo, so the
+           control looks like what it controls. Fixed at 3b rather than tracking
+           the mode -- on 'none' or '4' the icon would have nothing to show. */
         .halo-control a {
-            width: auto;
-            padding: 0 8px;
-            font: 12px/26px sans-serif;
-            color: #333;
+            font: bold 17px/26px Georgia, serif;
+            color: red;
+            text-align: center;
             text-decoration: none;
-            white-space: nowrap;
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+                          1px 1px 0 #000, 0 -1px 0 #000, 0 1px 0 #000,
+                         -1px 0 0 #000, 1px 0 0 #000;
         }
 
-        /* Three tiers of text: none when zoomed out, then the names that stand
-           alone, then every name once there is room for them. */
-        .hide-all-tooltips .red-tooltip,
-        .hide-all-tooltips .blue-tooltip,
-        .hide-all-tooltips .white-tooltip { display: none; }
-
-        .hide-tooltips .red-tooltip:not(.force-visible),
-        .hide-tooltips .blue-tooltip:not(.force-visible),
-        .hide-tooltips .white-tooltip:not(.force-visible) { display: none; }
+        /* One threshold, not two: the victim names are either all there or
+           none of them. Showing the uncrowded ones early meant the map filled
+           in unevenly, which read as missing data rather than as breathing room. */
+        .hide-tooltips .red-tooltip,
+        .hide-tooltips .blue-tooltip,
+        .hide-tooltips .white-tooltip { display: none; }
 
         /* Neighbourhood names sit centred on their dot, in the same cyan as the
            boundaries, and only from a middling zoom -- at country zoom 149 of
@@ -461,6 +471,7 @@
         const Kidnapped = L.layerGroup().addTo(map);
         const Deaths = L.layerGroup().addTo(map);
         const Circles = L.layerGroup().addTo(map);
+        const HostageCircles = L.layerGroup().addTo(map);
         const Areas = L.layerGroup();
         if (POLYGONS.length) Areas.addTo(map);
 
@@ -550,13 +561,13 @@
                 const bar = L.DomUtil.create('div', 'leaflet-bar halo-control');
                 const link = L.DomUtil.create('a', '', bar);
                 link.href = '#';
-                link.title = T.halo;
+                link.textContent = 'A';
 
                 function apply() {
                     const classes = map.getContainer().classList;
                     HALOS.forEach(([, css]) => css && classes.remove(css));
                     if (HALOS[halo][1]) classes.add(HALOS[halo][1]);
-                    link.textContent = T.halo + ': ' + HALOS[halo][0];
+                    link.title = T.halo_hint + '  (' + HALOS[halo][0] + ')';
                     localStorage.setItem('ironSwordsHalo', halo);
                 }
 
@@ -580,6 +591,7 @@
                 { layer: Kidnapped, label: T.kidnapped, icon: 'blue_square.png' },
                 { layer: Deaths, label: T.died_elsewhere, icon: 'white_x.png' },
                 { layer: Circles, label: T.approximate, shape: 'dot' },
+                { layer: HostageCircles, label: T.hostage_circle, shape: 'ring' },
             ];
             if (POLYGONS.length) {
                 rows.push({ layer: Areas, label: T.areas, shape: 'square' });
@@ -794,14 +806,6 @@
 
         function key(coo) { return coo[0].toFixed(6) + ',' + coo[1].toFixed(6); }
 
-        function isIsolated(latlng, points) {
-            for (const other of points) {
-                const dist = latlng.distanceTo(L.latLng(other));
-                if (dist > 0.5 && dist <= 250) return false;
-            }
-            return true;
-        }
-
         function personLabel(p) { return RTL ? p.n : (p.ne || p.n); }
 
         // A white x stands where the person died, which is not where the event
@@ -812,17 +816,16 @@
             return RTL ? p.loc : (p.loce || p.loc);
         }
 
-        function addGrouped(group, layerGroup, iconType, direction, cssClass, points, death) {
+        function addGrouped(group, layerGroup, iconType, direction, cssClass, death) {
             for (const k in group) {
                 const g = group[k];
                 const names = g.people.map(personLabel);
                 const place = placeLabel(g.people[0], death);
                 const marker = L.marker(g.coo, { icon: iconType });
                 if (cssClass) {
-                    const extra = isIsolated(L.latLng(g.coo), points) ? ' force-visible' : '';
                     marker.bindTooltip(names.join('<br>'), {
                         permanent: true, direction: direction,
-                        className: 'map-label ' + cssClass + extra
+                        className: 'map-label ' + cssClass
                     });
                 }
                 marker.bindPopup(popupHtml(g.people, place, death, false));
@@ -850,30 +853,61 @@
         // circle = the orange dots. They carry no role: the place is already
         // approximate, and a column of job titles buried the one thing that
         // does need saying there, that this person came back alive.
-        function popupHtml(people, place, death, circle) {
+        // Hostages first under their own heading, then everyone else. One
+        // popup whichever of the two marks is clicked -- they are one place.
+        function circlePopup(place, taken, people) {
             const dir = RTL ? 'rtl' : 'ltr';
-            const sorted = people.slice().sort((a, b) =>
-                familyName(a).localeCompare(familyName(b), RTL ? 'he' : 'en'));
-            const rows = sorted.map(p => {
-                const bits = [personLabel(p)];
-                const date = death ? (p.dd || p.d) : p.d;
-                if (date) bits.push(showDate(date));
-                if (p.r && !circle) bits.push(p.r);
-                const note = RTL ? p.note : (p.note_en || p.note);
-                if (note) bits.push(note);
-                return bits.join(' · ');
-            });
+            const block = (title, group, death) => !group.length ? '' :
+                '<b>' + title + '</b> (' + group.length + ')' +
+                popupRows(group, death);
+            return '<div dir="' + dir + '"><b>' + place + '</b><br>' +
+                block(T.hostages, taken, true) +
+                block(taken.length ? T.others : '', people, false) +
+                (taken.length ? '' : popupRows(people, false)) + '</div>';
+        }
+
+        function popupRows(people, death) {
+            const rows = sortRows(people, death).map(p => row(p, death, true));
             const cls = rows.length > SCROLL_OVER ? ' class="popup-scroll"' : '';
-            return '<div dir="' + dir + '"><b>' + place + '</b> (' + rows.length + ')' +
+            return '<div' + cls + '>' + rows.join('<br>') + '</div>';
+        }
+
+        // By date, earliest first; the family name only breaks ties.
+        function sortRows(people, death) {
+            return people.slice().sort((a, b) => {
+                const da = (death ? (a.dd || a.d) : a.d) || '';
+                const db = (death ? (b.dd || b.d) : b.d) || '';
+                return da.localeCompare(db) ||
+                    familyName(a).localeCompare(familyName(b), RTL ? 'he' : 'en');
+            });
+        }
+
+        function row(person, death, circle) {
+            const bits = [personLabel(person)];
+            const date = death ? (person.dd || person.d) : person.d;
+            if (date) bits.push(showDate(date));
+            if (person.r && !circle) bits.push(person.r);
+            const note = RTL ? person.note : (person.note_en || person.note);
+            if (note) bits.push(note);
+            return bits.join(' · ');
+        }
+
+        function popupHtml(people, place, death, circle) {
+            const rows = sortRows(people, death).map(p => row(p, death, circle));
+            const cls = rows.length > SCROLL_OVER ? ' class="popup-scroll"' : '';
+            return '<div dir="' + (RTL ? 'rtl' : 'ltr') + '"><b>' + place +
+                '</b> (' + rows.length + ')' +
                 '<div' + cls + '>' + rows.join('<br>') + '</div></div>';
         }
 
         function render() {
-            [Killed, Kidnapped, Deaths, Circles, Areas].forEach(l => l.clearLayers());
+            [Killed, Kidnapped, Deaths, Circles, HostageCircles, Areas]
+                .forEach(l => l.clearLayers());
             allFeatures = [];
             circleLayers = [];
 
             const red = {}, blue = {}, white = {}, circles = {}, areas = {};
+            const hostages = {};   // by circle: hostages who died at that place
             let shown = 0, hidden = 0;
 
             PEOPLE.forEach(p => {
@@ -892,38 +926,54 @@
                     (white[k] = white[k] || { coo: p.white, people: [] }).people.push(p);
                 }
                 if (p.circ) (circles[p.circ] = circles[p.circ] || []).push(p);
+                if (p.dcirc) (hostages[p.dcirc] = hostages[p.dcirc] || []).push(p);
                 if (p.poly) (areas[p.poly] = areas[p.poly] || []).push(p);
             });
 
-            // Tooltip crowding is judged against the points actually on screen,
-            // so a date filter that thins the map also un-hides its names.
-            const points = [];
-            for (const group of [red, blue, white]) {
-                for (const k in group) points.push(group[k].coo);
-            }
-
-            addGrouped(red, Killed, redIcon, 'right', 'red-tooltip', points, false);
-            addGrouped(blue, Kidnapped, blueIcon, 'left', 'blue-tooltip', points, false);
-            addGrouped(white, Deaths, whiteIcon, 'right', 'white-tooltip', points, true);
+            addGrouped(red, Killed, redIcon, 'right', 'red-tooltip', false);
+            addGrouped(blue, Kidnapped, blueIcon, 'left', 'blue-tooltip', false);
+            addGrouped(white, Deaths, whiteIcon, 'right', 'white-tooltip', true);
 
             CIRCLES.forEach(c => {
-                const people = circles[c.name_he];
-                if (!people) return;
+                const people = circles[c.name_he] || [];
+                const taken = hostages[c.name_he] || [];
+                if (!people.length && !taken.length) return;
+                const name = RTL ? c.name_he : (c.name_en || c.name_he);
+                const html = circlePopup(name, taken, people);
                 // Fixed on the screen, not on the ground: a 500 m radius is
                 // invisible at country zoom and swallows a town at street zoom,
                 // and the number was never a claim about the real spread.
-                const circle = L.circleMarker([c.lat, c.lon], {
-                    radius: circleRadius(),
-                    stroke: false,
-                    fillColor: '#ff8c00', fillOpacity: 0.6
-                });
-                const name = RTL ? c.name_he : (c.name_en || c.name_he);
-                circle.bindPopup(popupHtml(people, name, false, true));
-                circle.addTo(Circles);
-                circleLayers.push(circle);
+                if (people.length) {
+                    const circle = L.circleMarker([c.lat, c.lon], {
+                        radius: circleRadius(),
+                        stroke: false,
+                        fillColor: '#ff8c00', fillOpacity: 0.6
+                    });
+                    circle.bindPopup(html);
+                    circle.addTo(Circles);
+                    circleLayers.push(circle);
+                }
+                // The hostages are a ring around the same point rather than a
+                // mark of their own: they died in the same place, and two dots
+                // on one coordinate would only hide each other.
+                if (taken.length) {
+                    const ring = L.circleMarker([c.lat, c.lon], {
+                        radius: circleRadius(),
+                        color: '#fff', weight: 2.5, opacity: 1,
+                        fill: !people.length,
+                        fillColor: '#ff8c00', fillOpacity: 0.25
+                    });
+                    ring.bindPopup(html);
+                    ring.addTo(HostageCircles);
+                    circleLayers.push(ring);
+                }
+                const everyone = taken.concat(people);
                 allFeatures.push({
-                    names: people.map(personLabel), place: name,
-                    pids: people.map(p => p.p), layer: circle, type: 'circle'
+                    names: everyone.map(personLabel), place: name,
+                    pids: everyone.map(p => p.p),
+                    layer: (people.length ? Circles : HostageCircles)
+                        .getLayers().slice(-1)[0],
+                    type: 'circle'
                 });
             });
 
@@ -952,10 +1002,7 @@
             updateTooltipVisibility();
         }
 
-        // Below ZOOM_ISOLATED the map carries no text at all; between the two a
-        // name appears only where nothing else is within 250 m; from ZOOM_ALL up
-        // the crowded places show theirs too.
-        const ZOOM_ISOLATED = 13;
+        // The victim names are all there or none of them, at this zoom.
         const ZOOM_ALL = 17;
         // The neighbourhood names are a backdrop, so they arrive before the
         // victim names rather than competing with them.
@@ -964,7 +1011,6 @@
         function updateTooltipVisibility() {
             const zoom = map.getZoom();
             const classes = map.getContainer().classList;
-            classes.toggle('hide-all-tooltips', zoom < ZOOM_ISOLATED);
             classes.toggle('hide-tooltips', zoom < ZOOM_ALL);
             classes.toggle('hide-nb-tooltips', zoom < ZOOM_NEIGHBOURHOOD);
         }
