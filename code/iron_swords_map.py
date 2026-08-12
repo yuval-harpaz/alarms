@@ -28,6 +28,7 @@ An unknown Status stops the build only when those rules cannot decide it. A
 new combination that the rules do handle is reported and built, so the daily
 job does not fail on a wording the sheet has just started using.
 """
+import csv
 import json
 import os
 import sys
@@ -81,6 +82,7 @@ LABELS = {
         'areas': 'שכונה',
         'legend': 'מקרא',
         'localities': 'גבולות שכונות ויישובים (OSM)',
+        'neighbourhoods': 'מרכזי שכונות (OCHA)',
         'front': 'זירה',
         'role': 'תפקיד',
         'status': 'סטטוס',
@@ -102,6 +104,7 @@ LABELS = {
         'areas': 'Neighbourhood',
         'legend': 'Legend',
         'localities': 'Locality boundaries (OSM)',
+        'neighbourhoods': 'Neighbourhood centres (OCHA)',
         'front': 'Front',
         'role': 'Role',
         'status': 'Status',
@@ -299,6 +302,19 @@ def localities_payload():
     return areas
 
 
+def neighbourhoods_payload():
+    """OCHA neighbourhood centres, or [] if never fetched. Names only, no shape:
+    OSM has neighbourhood polygons for Gaza City alone, and these cover the
+    Strip -- Rafah and Khan Yunis included, which have no polygons anywhere."""
+    path = os.path.join(ROOT, 'data', 'coord_neighbourhood.csv')
+    if not os.path.exists(path):
+        return []
+    with open(path, newline='', encoding='utf-8') as f:
+        return [{'name': row['name'], 'municipality': row['municipality'],
+                 'lat': float(row['lat']), 'lon': float(row['lon'])}
+                for row in csv.DictReader(f) if row['name']]
+
+
 def circles_payload(circles, records):
     used = {r['circ'] for r in records if 'circ' in r}
     return [{'name_he': c['name_he'], 'name_en': c['name_en'],
@@ -306,7 +322,8 @@ def circles_payload(circles, records):
             for name, c in sorted(circles.items()) if name in used]
 
 
-def render(records, circles, polygons, localities, lang, private, unplaced):
+def render(records, circles, polygons, localities, neighbourhoods, lang,
+           private, unplaced):
     with open(TEMPLATE, encoding='utf-8') as f:
         html = f.read()
 
@@ -341,6 +358,7 @@ def render(records, circles, polygons, localities, lang, private, unplaced):
             ('__CIRCLES__', json.dumps(circles, ensure_ascii=False)),
             ('__POLYGONS__', json.dumps(polygons, ensure_ascii=False)),
             ('__LOCALITIES__', json.dumps(localities, ensure_ascii=False)),
+            ('__NEIGHBOURHOODS__', json.dumps(neighbourhoods, ensure_ascii=False)),
             ('__COMMENT__', f'{len(records)} people, built by '
                             f'code/iron_swords_map.py')):
         html = html.replace(token, value)
@@ -360,6 +378,7 @@ def main():
 
     areas = load_polygons()
     localities = localities_payload()
+    neighbourhoods = neighbourhoods_payload()
     unplaced = sum(len(e['pids']) for kind in ('region', 'missing')
                    for e in cases[kind].values())
 
@@ -371,8 +390,8 @@ def main():
                 ('_en' if lang == 'en' else '') + '.html'
             path = os.path.join(WEBSITE, name)
             with open(path, 'w', encoding='utf-8') as f:
-                f.write(render(records, payload, polygons, localities, lang,
-                               private, unplaced))
+                f.write(render(records, payload, polygons, localities,
+                               neighbourhoods, lang, private, unplaced))
             print(f'{path}  {os.path.getsize(path) / 1e6:.1f} MB')
 
         kind = 'private' if private else 'public'

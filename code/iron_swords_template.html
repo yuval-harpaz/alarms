@@ -253,6 +253,24 @@
         .hide-tooltips .blue-tooltip:not(.force-visible),
         .hide-tooltips .white-tooltip:not(.force-visible) { display: none; }
 
+        /* Neighbourhood names sit centred on their dot, in the same cyan as the
+           boundaries, and only from a middling zoom -- at country zoom 149 of
+           them would be a wall of text. */
+        .nb-tooltip {
+            background: transparent;
+            box-shadow: none;
+            border: none;
+            padding: 0;
+            color: #39c2c9;
+            font-weight: bold;
+            font-size: 12px;
+            text-align: center;
+            text-shadow: 0 0 3px #000, 0 0 3px #000;
+        }
+
+        .nb-tooltip:before { display: none; }
+        .hide-nb-tooltips .nb-tooltip { display: none; }
+
         #coord-jump-box {
             top: 50%;
             left: 50%;
@@ -344,6 +362,7 @@
         const CIRCLES = __CIRCLES__;
         const POLYGONS = __POLYGONS__;
         const LOCALITIES = __LOCALITIES__;
+        const NEIGHBOURHOODS = __NEIGHBOURHOODS__;
 
         const RTL = CONFIG.lang === 'he';
         const T = CONFIG.labels;
@@ -369,18 +388,23 @@
         const blueIcon = icon('blue_square.png');
         const whiteIcon = icon('white_x.png');
 
+        const ESRI_CREDIT =
+            "Powered by <a href='https://www.esri.com/en-us/home' target='_blank'>Esri</a> | ";
+
         const esri = L.tileLayer(
             "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/49849/{z}/{y}/{x}",
             {
-                attribution: "Esri, Maxar, Earthstar Geographics",
+                attribution: ESRI_CREDIT,
                 maxNativeZoom: 18, maxZoom: 21, minZoom: 0, noWrap: false
             }
         );
         const esriLatest = L.tileLayer(
             "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-            { "attribution": "Esri", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 21, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false }
+            { "attribution": ESRI_CREDIT, "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 21, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false }
         );
         const googleHyb = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+            attribution:
+                "Powered by <a href='https://www.google.com/maps' target='_blank'>Google</a> | ",
             maxZoom: 21,
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
         });
@@ -421,7 +445,13 @@
         map.createPane('localityPane');
         map.getPane('localityPane').style.zIndex = 350;
 
-        const Localities = L.layerGroup();
+        // The credit rides on the layer group, so leaflet shows it only while
+        // the boundaries are switched on -- ODbL asks for attribution when the
+        // data is displayed, not on every page that could display it.
+        const Localities = L.layerGroup([], {
+            attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'" +
+                " target='_blank'>OpenStreetMap</a> contributors, ODbL"
+        });
         LOCALITIES.forEach(area => {
             const shape = L.geoJSON(area.geometry, {
                 pane: 'localityPane',
@@ -442,8 +472,34 @@
         // The marker overlays live in the legend. This one stays in the leaflet
         // control at the top right with the base maps: it is a backdrop, not a
         // kind of victim, and it is off until asked for.
+        // Neighbourhood centres from OCHA. Points, because polygons only exist
+        // for Gaza City; these are the only thing naming a quarter of Rafah or
+        // Khan Yunis. Same pane as the boundaries, under the victim markers.
+        const Neighbourhoods = L.layerGroup([], {
+            attribution: "&copy; <a href='https://data.humdata.org/dataset/" +
+                "gaza-strip-neighbourhoods' target='_blank'>OCHA oPt</a>, CC BY"
+        });
+        NEIGHBOURHOODS.forEach(place => {
+            const dot = L.circleMarker([place.lat, place.lon], {
+                pane: 'localityPane',
+                radius: 3,
+                color: '#39c2c9', weight: 1, opacity: 1,
+                fillColor: '#39c2c9', fillOpacity: 1
+            });
+            dot.bindTooltip(place.name, {
+                permanent: true,
+                direction: 'center',
+                className: 'nb-tooltip',
+                offset: [0, 0]
+            });
+            dot.bindPopup('<b>' + place.name + '</b>' +
+                (place.municipality ? '<br>' + place.municipality : ''));
+            dot.addTo(Neighbourhoods);
+        });
+
         const extraLayers = {};
         if (LOCALITIES.length) extraLayers[T.localities] = Localities;
+        if (NEIGHBOURHOODS.length) extraLayers[T.neighbourhoods] = Neighbourhoods;
         L.control.layers(baseMaps, extraLayers).addTo(map);
         document.getElementById('map').style.cursor = 'crosshair';
 
@@ -829,12 +885,16 @@
         // the crowded places show theirs too.
         const ZOOM_ISOLATED = 13;
         const ZOOM_ALL = 17;
+        // The neighbourhood names are a backdrop, so they arrive before the
+        // victim names rather than competing with them.
+        const ZOOM_NEIGHBOURHOOD = 12;
 
         function updateTooltipVisibility() {
             const zoom = map.getZoom();
             const classes = map.getContainer().classList;
             classes.toggle('hide-all-tooltips', zoom < ZOOM_ISOLATED);
             classes.toggle('hide-tooltips', zoom < ZOOM_ALL);
+            classes.toggle('hide-nb-tooltips', zoom < ZOOM_NEIGHBOURHOOD);
         }
         map.on('zoomend', updateTooltipVisibility);
 
