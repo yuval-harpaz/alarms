@@ -239,9 +239,41 @@
 
         .red-tooltip { color: red; }
         .blue-tooltip { color: blue; text-align: right; }
-        /* White on white tiles is unreadable, so the x's names carry an outline
-           rather than a colour of their own. */
-        .white-tooltip { color: #fff; text-shadow: 0 0 3px #000, 0 0 3px #000; }
+        .white-tooltip { color: #fff; }
+
+        /* How every label on the map is separated from the tiles behind it.
+           One mode at a time, switched by the button under the layer control,
+           so the choice can be judged against real tiles rather than guessed.
+           Nothing here paints a box: the point is to keep the map visible. */
+
+        /* 1  a true outline. paint-order is the essential half -- without it
+              the stroke paints over the glyph and thin letters close up. */
+        .halo-1 .map-label {
+            -webkit-text-stroke: 2px rgba(0, 0, 0, .85);
+            paint-order: stroke fill;
+        }
+
+        /* 3b eight offsets rather than a blur: harder edge, works everywhere */
+        .halo-3b .map-label {
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+                          1px 1px 0 #000, 0 -1px 0 #000, 0 1px 0 #000,
+                         -1px 0 0 #000, 1px 0 0 #000;
+        }
+
+        /* 4  shades only what is behind the text; the tiles stay visible */
+        .halo-4 .map-label {
+            backdrop-filter: blur(2px) brightness(.55);
+            padding-inline: 4px;
+        }
+
+        .halo-control a {
+            width: auto;
+            padding: 0 8px;
+            font: 12px/26px sans-serif;
+            color: #333;
+            text-decoration: none;
+            white-space: nowrap;
+        }
 
         /* Three tiers of text: none when zoomed out, then the names that stand
            alone, then every name once there is room for them. */
@@ -265,7 +297,6 @@
             font-weight: bold;
             font-size: 12px;
             text-align: center;
-            text-shadow: 0 0 3px #000, 0 0 3px #000;
         }
 
         .nb-tooltip:before { display: none; }
@@ -492,7 +523,7 @@
             dot.bindTooltip(place.name, {
                 permanent: true,
                 direction: 'center',
-                className: 'nb-tooltip',
+                className: 'nb-tooltip map-label',
                 offset: [0, -11]
             });
             dot.bindPopup('<b>' + place.name + '</b>' +
@@ -504,6 +535,43 @@
         if (LOCALITIES.length) extraLayers[T.localities] = Localities;
         if (NEIGHBOURHOODS.length) extraLayers[T.neighbourhoods] = Neighbourhoods;
         L.control.layers(baseMaps, extraLayers).addTo(map);
+
+        // Cycles how the labels separate themselves from the tiles. Added after
+        // the layer control so it lands underneath it in the same corner. The
+        // choice is remembered, because judging these means reloading over the
+        // same view several times.
+        const HALOS = [['none', ''], ['1', 'halo-1'], ['3b', 'halo-3b'], ['4', 'halo-4']];
+        let halo = Number(localStorage.getItem('ironSwordsHalo'));
+        if (!(halo >= 0 && halo < HALOS.length)) halo = 2;      // 3b, the default
+
+        const HaloControl = L.Control.extend({
+            options: { position: 'topright' },
+            onAdd: function () {
+                const bar = L.DomUtil.create('div', 'leaflet-bar halo-control');
+                const link = L.DomUtil.create('a', '', bar);
+                link.href = '#';
+                link.title = T.halo;
+
+                function apply() {
+                    const classes = map.getContainer().classList;
+                    HALOS.forEach(([, css]) => css && classes.remove(css));
+                    if (HALOS[halo][1]) classes.add(HALOS[halo][1]);
+                    link.textContent = T.halo + ': ' + HALOS[halo][0];
+                    localStorage.setItem('ironSwordsHalo', halo);
+                }
+
+                L.DomEvent.on(link, 'click', L.DomEvent.stop);
+                L.DomEvent.on(link, 'click', () => {
+                    halo = (halo + 1) % HALOS.length;
+                    apply();
+                });
+                L.DomEvent.disableClickPropagation(bar);
+                apply();
+                return bar;
+            }
+        });
+        map.addControl(new HaloControl());
+
         document.getElementById('map').style.cursor = 'crosshair';
 
         function buildLegend() {
@@ -753,7 +821,8 @@
                 if (cssClass) {
                     const extra = isIsolated(L.latLng(g.coo), points) ? ' force-visible' : '';
                     marker.bindTooltip(names.join('<br>'), {
-                        permanent: true, direction: direction, className: cssClass + extra
+                        permanent: true, direction: direction,
+                        className: 'map-label ' + cssClass + extra
                     });
                 }
                 marker.bindPopup(popupHtml(g.people, place, death, false));
