@@ -68,28 +68,36 @@ KNOWN_STATUS = {
 }
 
 CAMPAIGNS = [
-    {'name': 'הכל', 'name_en': 'All', 'start': None, 'end': None},
     {'name': '7 באוקטובר', 'name_en': 'Oct 7', 'start': '2023-10-07', 'end': '2023-10-07'},
-    {'name': 'חרבות ברזל', 'name_en': 'Iron Swords', 'start': '2023-10-07', 'end': None},
-    {'name': 'מגן ברזל', 'name_en': 'Iron Shield', 'start': '2024-04-13', 'end': '2024-04-14'},
-    {'name': 'חיצי הצפון', 'name_en': 'Northern Arrows', 'start': '2024-09-19', 'end': '2024-11-27'},
+    {'name': 'חרבות ברזל (הכל)', 'name_en': 'Iron Swords (all)',
+     'start': '2023-10-07', 'end': None},
+    {'name': 'תמרון בעזה', 'name_en': 'Gaza ground manoeuvre',
+     'start': '2023-10-27', 'end': '2025-10-10'},
     {'name': 'עם כלביא', 'name_en': 'Twelve-Day War', 'start': '2025-06-13', 'end': '2025-06-24'},
     {'name': 'שאגת הארי', 'name_en': 'Epic Fury', 'start': '2026-02-28', 'end': None},
 ]
+
+# The site page the question mark beside the search box points at.
+HELP_URL = ('https://www.oct7database.com/maps-and-data/'
+            '%D7%9E%D7%AA%D7%A7%D7%A4%D7%AA-%D7%97%D7%9E%D7%90%D7%A1-'
+            '%D7%A0%D7%92%D7%93-%D7%99%D7%A9%D7%A8%D7%90%D7%9C-(7-9.10.2023)')
 
 LABELS = {
     'he': {
         'title': 'מפת מיקומים – חרבות ברזל',
         'search': 'חיפוש לפי שם או מקום...',
-        'killed': 'מקום האירוע',
-        'kidnapped': 'מקום החטיפה',
+        'killed': 'מקום אירוע - מדויק',
+        'kidnapped': 'מקום חטיפה',
         'hostages': 'חטופים',
         'others': 'אחרים',
-        'hostage_circle': 'חטופים – מיקום מקורב',
-        'died_elsewhere': 'מקום המוות',
-        'approximate': 'מיקום מקורב',
-        'areas': 'שכונה',
+        'hostage_circle': 'מקום מוות - מקורב',
+        'died_elsewhere': 'מקום מוות, אם שונה ממקום האירוע - מדוייק',
+        'approximate': 'מקום אירוע - מקורב',
+        'areas': 'מקום אירוע כללי - שכונה\\ישוב',
         'legend': 'מקרא',
+        'all': 'הכל',
+        'clear': 'נקה',
+        'help': 'מידע נוסף',
         'halo_hint': 'לחץ לשינוי עיצוב הטקסט',
         'localities': 'גבולות שכונות ויישובים (OSM)',
         'neighbourhoods': 'מרכזי שכונות (OCHA)',
@@ -107,15 +115,18 @@ LABELS = {
     'en': {
         'title': 'Iron Swords locations',
         'search': 'Search by name or place...',
-        'killed': 'Event location',
+        'killed': 'Event location - exact',
         'kidnapped': 'Kidnapping location',
         'hostages': 'Hostages',
         'others': 'Others',
-        'hostage_circle': 'Hostages – approximate',
-        'died_elsewhere': 'Death location',
-        'approximate': 'Approximate location',
-        'areas': 'Neighbourhood',
+        'hostage_circle': 'Death location - approximate',
+        'died_elsewhere': 'Death location, if different from the event - exact',
+        'approximate': 'Event location - approximate',
+        'areas': 'General event location - neighbourhood/locality',
         'legend': 'Legend',
+        'all': 'All',
+        'clear': 'Clear',
+        'help': 'More information',
         'halo_hint': 'Click to change text styling',
         'localities': 'Locality boundaries (OSM)',
         'neighbourhoods': 'Neighbourhood centres (OCHA)',
@@ -200,6 +211,11 @@ def death_circle(person, taken_alive, white, geometry):
         return None
     circles, declined, aliases = geometry
     kind, circle = resolve(place, circles, declined, aliases)
+    if circle and person['circle'] and \
+            circle['name_he'] == person['circle']['name_he']:
+        # Died where they were taken from, by two different spellings that land
+        # on one circle. One dot, one list -- not a name in both of them.
+        return None
     return (place, kind, circle)
 
 
@@ -325,6 +341,21 @@ def translation_gaps(people):
               f'{", ".join(str(p) for p in gaps["name"][:20])}')
 
 
+def filter_translations(lang):
+    """Raw value -> what the filter list shows, per language.
+
+    data/dictionaries.json stores each pair in one direction only, and not the
+    same direction for every column: frontEn and statusEn are English keyed to
+    Hebrew, roleHe is Hebrew keyed to English. The csv holds the key side, so
+    each language translates a different pair of fields and leaves the third.
+    """
+    with open(os.path.join(ROOT, 'data', 'dictionaries.json'), encoding='utf-8') as f:
+        words = json.load(f)
+    if lang == 'he':
+        return {'f': words['frontEn'], 's': words['statusEn'], 'r': {}}
+    return {'f': {}, 's': {}, 'r': words['roleHe']}
+
+
 def localities_payload():
     """Gaza boundaries for the reference overlay, or [] if never fetched.
 
@@ -394,6 +425,7 @@ def render(records, circles, polygons, localities, neighbourhoods, lang,
         'date_min': dates[0],
         'date_max': dates[-1],
         'unplaced': unplaced,
+        'translate': filter_translations(lang),
     }
     banner = (f'<div id="private-banner">{labels["private"]}</div>'
               if private else '')
@@ -403,6 +435,8 @@ def render(records, circles, polygons, localities, neighbourhoods, lang,
             ('__SEARCH_PLACEHOLDER__', labels['search']),
             ('__FILTERS__', labels['filters']),
             ('__LEGEND__', labels['legend']),
+            ('__HELP_URL__', HELP_URL),
+            ('__HELP_TITLE__', labels['help']),
             ('__DIR__', 'rtl' if lang == 'he' else 'ltr'),
             ('__BY_EVENT_DATE__', labels['by_event_date']),
             ('__BY_DEATH_DATE__', labels['by_death_date']),
