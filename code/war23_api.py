@@ -98,7 +98,7 @@ def pid2record(pid):
     else:
         print(f"pid {pid} not found")
         return None
-    record = {'pid': str(int(pid))}
+    record = {'pid': int(pid)}
     for key in db2api.keys():
         value = db.at[row, key]
         if str(value) == 'nan':
@@ -153,7 +153,7 @@ def changed_pid(verbose=False):
             columns = np.array([cl.lower() for cl in df.columns])
             for ipid, pid in enumerate(df['pid'].values):
                 record = pid2record(pid)
-                tochange = {'pid': str(int(pid))}
+                tochange = {'pid': int(pid)}
                 for col in record.keys():
                     c = np.where(columns == col.lower())[0][0]
                     website_value = str(df.iloc[ipid, c]).replace("\"", "\'").replace(', ','')
@@ -169,9 +169,12 @@ def changed_pid(verbose=False):
 
 
 if __name__ == '__main__':
-    pid = 567
+    pid = 764
     changed = changed_pid()
-    record = pid2record(pid)
+    send_records(changed[pid])
+    # record = pid2record(pid)
+
+
     # record['pid'] = 'test005'
     # with open('record_dump.json', 'w', encoding='utf-8') as f:
     #     json.dump(record, f, ensure_ascii=False, indent=2)
