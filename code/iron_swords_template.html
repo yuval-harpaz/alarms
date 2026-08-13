@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="he">
+
+<head>
+    <title>__TITLE__</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <link rel="icon" href="https://github.com/yuval-harpaz/alarms/blob/master/docs/logo.png?raw=true"
+        type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html, body { margin: 0; padding: 0; }
+
+        #map {
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .panel {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 6px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            font: 13px/1.4 sans-serif;
+        }
+
+        /* Search, filters and legend stack in one column in normal flow, so
+           opening the filters pushes the legend down instead of covering it. */
+        #left-column {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 266px;
+            z-index: 1000;
+        }
+
+        #left-column > .panel {
+            position: relative;
+            margin-bottom: 8px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        /* Stacking order within the column: the search results drop over the
+           filters, the filters over the legend. */
+        #search-box { z-index: 3; padding: 8px; }
+        #controls { z-index: 2; }
+
+        /* No panel of its own: it sits over the sea at the opening view. The
+           outline keeps it readable if you switch to a light tile or pan over
+           land, where plain white would disappear. */
+        #legend {
+            z-index: 1;
+            padding: 6px 4px;
+            background: transparent;
+            box-shadow: none;
+            color: #fff;
+            text-shadow: 0 0 3px #000, 0 0 3px #000, 0 0 5px #000;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 7px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        /* Absolute, so a list of one row overlays the filter panel instead of
+           being painted over by it, and the column below does not jump. */
+        #search-results {
+            position: absolute;
+            left: 8px;
+            right: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 5px;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .search-result-item {
+            padding: 7px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+        }
+
+        .search-result-item:hover { background: #f0f0f0; }
+        .search-result-item:last-child { border-bottom: none; }
+
+        #controls-head {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 9px;
+            cursor: pointer;
+            user-select: none;
+            font-weight: bold;
+        }
+
+        #controls-head svg { flex: none; }
+        #controls-head .count { font-weight: normal; color: #555; margin-inline-start: auto; }
+
+        #controls-body {
+            display: none;
+            padding: 0 9px 9px;
+            max-height: 72vh;
+            overflow-y: auto;
+        }
+
+        #controls.open #controls-body { display: block; }
+        #controls.open #controls-head { border-bottom: 1px solid #ddd; }
+
+        .section {
+            border-top: 1px solid #eee;
+            padding-top: 6px;
+            margin-top: 6px;
+        }
+
+        .campaign-btn {
+            display: inline-block;
+            margin: 2px;
+            padding: 3px 8px;
+            border: 1px solid #bbb;
+            border-radius: 12px;
+            background: #f6f6f6;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .campaign-btn:hover { background: #e3e9f5; }
+        .campaign-btn.active { background: #007bff; color: white; border-color: #007bff; }
+
+        .date-row {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            margin: 6px 0 2px;
+        }
+
+        .date-row input[type=date] {
+            flex: 1;
+            font-size: 12px;
+            padding: 2px;
+        }
+
+        input[type=range] { width: 100%; margin: 0; }
+
+        .filter-group { margin-bottom: 8px; }
+
+        .filter-group > .filter-title {
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+            padding: 2px 0;
+        }
+
+        .filter-group label {
+            display: block;
+            padding: 1px 0;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .filter-title::before {
+            content: '▸ ';
+            display: inline-block;
+            width: 1em;
+        }
+
+        .filter-group.open > .filter-title::before { content: '▾ '; }
+
+        /* A long list of names in one popup gets its own scrollbar rather than
+           growing past the bottom of the window. */
+        .popup-scroll {
+            max-height: 170px;
+            overflow-y: auto;
+        }
+
+        #legend .legend-title { font-weight: bold; padding-bottom: 3px; }
+
+        #legend label {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 2px 0;
+            cursor: pointer;
+        }
+
+        /* Bare, like the marks on the map itself -- the icons are drawn for
+           satellite tiles and the legend sits on one. */
+        .swatch {
+            flex: none;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .swatch img { display: block; width: 16px; height: 16px; }
+
+        .swatch .dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #ff8c00;
+            opacity: 0.85;
+        }
+
+        .swatch .ring {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #ff8c00;
+            opacity: 0.85;
+            box-shadow: 0 0 0 2.5px #fff;
+        }
+
+        .swatch .square {
+            width: 15px;
+            height: 15px;
+            background: rgba(255, 105, 180, 0.55);
+            border: 2px dashed #ff1493;
+            box-sizing: border-box;
+        }
+
+        .leaflet-tooltip-left:before { right: 0; margin-right: -12px; border-left-color: transparent; }
+        .leaflet-tooltip-right:before { left: 0; margin-left: -12px; border-right-color: transparent; }
+
+        .red-tooltip, .blue-tooltip, .white-tooltip {
+            background: transparent;
+            box-shadow: none;
+            border: transparent;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 16px;
+            padding: 0 3px;
+        }
+
+        .red-tooltip { color: red; }
+        .blue-tooltip { color: blue; text-align: right; }
+        .white-tooltip { color: #fff; }
+
+        /* How every label on the map is separated from the tiles behind it.
+           One mode at a time, switched by the button under the layer control,
+           so the choice can be judged against real tiles rather than guessed.
+           Nothing here paints a box: the point is to keep the map visible. */
+
+        /* 1  a true outline. paint-order is the essential half -- without it
+              the stroke paints over the glyph and thin letters close up. */
+        .halo-1 .map-label {
+            -webkit-text-stroke: 2px rgba(0, 0, 0, .85);
+            paint-order: stroke fill;
+        }
+
+        /* 3b eight offsets rather than a blur: harder edge, works everywhere */
+        .halo-3b .map-label {
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+                          1px 1px 0 #000, 0 -1px 0 #000, 0 1px 0 #000,
+                         -1px 0 0 #000, 1px 0 0 #000;
+        }
+
+        /* 4  shades only what is behind the text; the tiles stay visible */
+        .halo-4 .map-label {
+            backdrop-filter: blur(2px) brightness(.55);
+            padding-inline: 4px;
+        }
+
+        /* The button is its own sample: a red A wearing the 3b halo, so the
+           control looks like what it controls. Fixed at 3b rather than tracking
+           the mode -- on 'none' or '4' the icon would have nothing to show. */
+        .halo-control a {
+            font: bold 17px/26px Georgia, serif;
+            color: red;
+            text-align: center;
+            text-decoration: none;
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+                          1px 1px 0 #000, 0 -1px 0 #000, 0 1px 0 #000,
+                         -1px 0 0 #000, 1px 0 0 #000;
+        }
+
+        /* One threshold, not two: the victim names are either all there or
+           none of them. Showing the uncrowded ones early meant the map filled
+           in unevenly, which read as missing data rather than as breathing room. */
+        .hide-tooltips .red-tooltip,
+        .hide-tooltips .blue-tooltip,
+        .hide-tooltips .white-tooltip { display: none; }
+
+        /* Neighbourhood names sit centred on their dot, in the same cyan as the
+           boundaries, and only from a middling zoom -- at country zoom 149 of
+           them would be a wall of text. */
+        .nb-tooltip {
+            background: transparent;
+            box-shadow: none;
+            border: none;
+            padding: 0;
+            color: #39c2c9;
+            font-weight: bold;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .nb-tooltip:before { display: none; }
+        .hide-nb-tooltips .nb-tooltip { display: none; }
+
+        #coord-jump-box {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px;
+            display: none;
+            width: 300px;
+            text-align: center;
+            z-index: 2000;
+        }
+
+        #coord-input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        #private-banner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #b00020;
+            color: white;
+            text-align: center;
+            font: bold 13px sans-serif;
+            padding: 3px;
+            z-index: 1500;
+        }
+    </style>
+</head>
+
+<body>
+    __BANNER__
+
+    <div id="left-column">
+    <div id="search-box" class="panel" dir="__DIR__">
+        <input type="text" id="search-input" placeholder="__SEARCH_PLACEHOLDER__">
+        <div id="search-results"></div>
+    </div>
+
+    <div id="controls" class="panel" dir="__DIR__">
+        <div id="controls-head">
+            <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M1 2h14l-5.5 6.5V14L6.5 12V8.5L1 2z" fill="#444" />
+            </svg>
+            <span>__FILTERS__</span>
+            <span class="count" id="counts"></span>
+        </div>
+        <div id="controls-body">
+            <div class="section">
+                <div id="campaign-buttons"></div>
+                <div class="date-row">
+                    <input type="date" id="date-from">
+                    <span>—</span>
+                    <input type="date" id="date-to">
+                </div>
+                <input type="range" id="range-from" min="0" max="100" value="0">
+                <input type="range" id="range-to" min="0" max="100" value="100">
+                <div class="date-row" style="font-size:12px">
+                    <label><input type="radio" name="datefield" value="d" checked> __BY_EVENT_DATE__</label>
+                    <label><input type="radio" name="datefield" value="dd"> __BY_DEATH_DATE__</label>
+                </div>
+            </div>
+            <div class="section" id="filter-box"></div>
+        </div>
+    </div>
+
+    <div id="legend" class="panel" dir="__DIR__">
+        <div class="legend-title">__LEGEND__</div>
+        <div id="legend-rows"></div>
+    </div>
+    </div>
+
+    <div id="coord-jump-box" class="panel" dir="__DIR__">
+        <label>Enter coordinates (lat, lon):</label>
+        <input type="text" id="coord-input" placeholder="31.xxx, 34.yyy">
+    </div>
+
+    <div id="map"></div>
+
+    <script>
+        const CONFIG = __CONFIG__;
+        const PEOPLE = __PEOPLE__;
+        const CIRCLES = __CIRCLES__;
+        const POLYGONS = __POLYGONS__;
+        const LOCALITIES = __LOCALITIES__;
+        const NEIGHBOURHOODS = __NEIGHBOURHOODS__;
+
+        const RTL = CONFIG.lang === 'he';
+        const T = CONFIG.labels;
+        document.documentElement.lang = CONFIG.lang;
+        // The page itself stays ltr. Leaflet positions a tooltip by measuring
+        // its width and shifting left or right by hand; under a document-level
+        // rtl that arithmetic mirrors, which threw the red names to the wrong
+        // side of their dot and the blue ones off into the distance. Direction
+        // belongs on the panels and the popups, which is where it is set.
+
+        /* ---------------------------------------------------------------- map */
+
+        const iconSize = 16;
+        function icon(file) {
+            return L.icon({
+                iconUrl: 'https://yuval-harpaz.github.io/alarms/' + file,
+                iconSize: [iconSize, iconSize],
+                iconAnchor: [iconSize / 2, iconSize / 2],
+                popupAnchor: [0, 0]
+            });
+        }
+        const redIcon = icon('red_ring.png');
+        const blueIcon = icon('blue_square.png');
+        const whiteIcon = icon('white_x.png');
+
+        const ESRI_CREDIT =
+            "Powered by <a href='https://www.esri.com/en-us/home' target='_blank'>Esri</a> | ";
+
+        const esri = L.tileLayer(
+            "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/49849/{z}/{y}/{x}",
+            {
+                attribution: ESRI_CREDIT,
+                maxNativeZoom: 18, maxZoom: 21, minZoom: 0, noWrap: false
+            }
+        );
+        const esriLatest = L.tileLayer(
+            "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+            { "attribution": ESRI_CREDIT, "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 21, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false }
+        );
+        const googleHyb = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+            attribution:
+                "Powered by <a href='https://www.google.com/maps' target='_blank'>Google</a> | ",
+            maxZoom: 21,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        });
+        const govmap = L.tileLayer('https://cdnil.govmap.gov.il/xyz/heb/{z}/{x}/{y}.png', {
+            maxZoom: 15,
+            attribution: '© המרכז למיפוי ישראל www.govmap.gov.il',
+        });
+
+        const baseMaps = {
+            "GovMap": govmap,
+            "Hybrid": googleHyb,
+            "Esri latest": esriLatest,
+            "Esri 2024-11-18": esri,
+        };
+
+        const map = L.map('map', {
+            layers: [esri, esriLatest, googleHyb, govmap],
+            center: CONFIG.center,
+            zoom: CONFIG.zoom,
+        });
+
+        const Killed = L.layerGroup().addTo(map);
+        const Kidnapped = L.layerGroup().addTo(map);
+        const Deaths = L.layerGroup().addTo(map);
+        const Circles = L.layerGroup().addTo(map);
+        const HostageCircles = L.layerGroup().addTo(map);
+        const Areas = L.layerGroup();
+        if (POLYGONS.length) Areas.addTo(map);
+
+        // Gaza municipality, locality and neighbourhood boundaries from OSM.
+        // A reference layer, drawn once and never filtered: it says which
+        // neighbourhood an orange dot stands in, and holds no victim data.
+        //
+        // Its own pane, below overlayPane's 400. The orange circles are vectors
+        // and would otherwise share a pane with these; the boundaries are added
+        // when the box is ticked, so their paths landed on top of the circles
+        // and ate the clicks. The icon markers never had the problem, being in
+        // markerPane at 600.
+        map.createPane('localityPane');
+        map.getPane('localityPane').style.zIndex = 350;
+
+        // The credit rides on the layer group, so leaflet shows it only while
+        // the boundaries are switched on -- ODbL asks for attribution when the
+        // data is displayed, not on every page that could display it.
+        const Localities = L.layerGroup([], {
+            attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'" +
+                " target='_blank'>OpenStreetMap</a> contributors, ODbL"
+        });
+        LOCALITIES.forEach(area => {
+            const shape = L.geoJSON(area.geometry, {
+                pane: 'localityPane',
+                style: {
+                    color: '#39c2c9',
+                    weight: area.level === '8' ? 2 : 1,
+                    opacity: 0.9,
+                    fill: true,
+                    fillOpacity: 0.05,
+                    fillColor: '#39c2c9'
+                }
+            });
+            shape.bindTooltip(RTL ? (area.name_he || area.name) : area.name,
+                { sticky: true });
+            shape.addTo(Localities);
+        });
+
+        // The marker overlays live in the legend. This one stays in the leaflet
+        // control at the top right with the base maps: it is a backdrop, not a
+        // kind of victim, and it is off until asked for.
+        // Neighbourhood centres from OCHA. Points, because polygons only exist
+        // for Gaza City; these are the only thing naming a quarter of Rafah or
+        // Khan Yunis. Same pane as the boundaries, under the victim markers.
+        const Neighbourhoods = L.layerGroup([], {
+            attribution: "&copy; <a href='https://data.humdata.org/dataset/" +
+                "gaza-strip-neighbourhoods' target='_blank'>OCHA oPt</a>, CC BY"
+        });
+        NEIGHBOURHOODS.forEach(place => {
+            const dot = L.circleMarker([place.lat, place.lon], {
+                pane: 'localityPane',
+                radius: 3,
+                color: '#39c2c9', weight: 1, opacity: 1,
+                fillColor: '#39c2c9', fillOpacity: 1
+            });
+            // Centred horizontally but lifted clear of the dot: at offset zero
+            // the outlined text sits exactly on the 6 px circle and hides it,
+            // so the point looked like it vanished as soon as the name arrived.
+            dot.bindTooltip(place.name, {
+                permanent: true,
+                direction: 'center',
+                className: 'nb-tooltip map-label',
+                offset: [0, -11]
+            });
+            dot.bindPopup('<b>' + place.name + '</b>' +
+                (place.municipality ? '<br>' + place.municipality : ''));
+            dot.addTo(Neighbourhoods);
+        });
+
+        const extraLayers = {};
+        if (LOCALITIES.length) extraLayers[T.localities] = Localities;
+        if (NEIGHBOURHOODS.length) extraLayers[T.neighbourhoods] = Neighbourhoods;
+        L.control.layers(baseMaps, extraLayers).addTo(map);
+
+        // Cycles how the labels separate themselves from the tiles. Added after
+        // the layer control so it lands underneath it in the same corner. The
+        // choice is remembered, because judging these means reloading over the
+        // same view several times.
+        const HALOS = [['none', ''], ['1', 'halo-1'], ['3b', 'halo-3b'], ['4', 'halo-4']];
+        let halo = Number(localStorage.getItem('ironSwordsHalo'));
+        if (!(halo >= 0 && halo < HALOS.length)) halo = 2;      // 3b, the default
+
+        const HaloControl = L.Control.extend({
+            options: { position: 'topright' },
+            onAdd: function () {
+                const bar = L.DomUtil.create('div', 'leaflet-bar halo-control');
+                const link = L.DomUtil.create('a', '', bar);
+                link.href = '#';
+                link.textContent = 'A';
+
+                function apply() {
+                    const classes = map.getContainer().classList;
+                    HALOS.forEach(([, css]) => css && classes.remove(css));
+                    if (HALOS[halo][1]) classes.add(HALOS[halo][1]);
+                    link.title = T.halo_hint + '  (' + HALOS[halo][0] + ')';
+                    localStorage.setItem('ironSwordsHalo', halo);
+                }
+
+                L.DomEvent.on(link, 'click', L.DomEvent.stop);
+                L.DomEvent.on(link, 'click', () => {
+                    halo = (halo + 1) % HALOS.length;
+                    apply();
+                });
+                L.DomEvent.disableClickPropagation(bar);
+                apply();
+                return bar;
+            }
+        });
+        map.addControl(new HaloControl());
+
+        document.getElementById('map').style.cursor = 'crosshair';
+
+        function buildLegend() {
+            const rows = [
+                { layer: Killed, label: T.killed, icon: 'red_ring.png' },
+                { layer: Kidnapped, label: T.kidnapped, icon: 'blue_square.png' },
+                { layer: Deaths, label: T.died_elsewhere, icon: 'white_x.png' },
+                { layer: Circles, label: T.approximate, shape: 'dot' },
+                { layer: HostageCircles, label: T.hostage_circle, shape: 'ring' },
+            ];
+            if (POLYGONS.length) {
+                rows.push({ layer: Areas, label: T.areas, shape: 'square' });
+            }
+            const box = document.getElementById('legend-rows');
+            rows.forEach(row => {
+                const label = document.createElement('label');
+                const cb = document.createElement('input');
+                cb.type = 'checkbox';
+                cb.checked = map.hasLayer(row.layer);
+                cb.onchange = () => {
+                    if (cb.checked) map.addLayer(row.layer);
+                    else map.removeLayer(row.layer);
+                };
+                const swatch = document.createElement('span');
+                swatch.className = 'swatch';
+                if (row.icon) {
+                    const img = document.createElement('img');
+                    img.src = 'https://yuval-harpaz.github.io/alarms/' + row.icon;
+                    img.alt = '';
+                    swatch.appendChild(img);
+                } else {
+                    const mark = document.createElement('span');
+                    mark.className = row.shape;
+                    swatch.appendChild(mark);
+                }
+                label.appendChild(cb);
+                label.appendChild(swatch);
+                label.appendChild(document.createTextNode(row.label));
+                box.appendChild(label);
+            });
+        }
+
+        /* ------------------------------------------------------------ filters */
+
+        // Which person fields become checkbox groups, and the order they appear.
+        const FILTER_FIELDS = [
+            { key: 'f', title: T.front },
+            { key: 'r', title: T.role },
+            { key: 's', title: T.status },
+        ];
+        const selected = {};   // key -> Set of EXCLUDED values, empty Set = all
+        const boxes = {};      // key -> value -> the checkbox, for the url filters
+
+        function buildFilters() {
+            const box = document.getElementById('filter-box');
+            box.innerHTML = '';
+            FILTER_FIELDS.forEach(field => {
+                const counts = {};
+                PEOPLE.forEach(p => {
+                    const v = p[field.key] || T.unspecified;
+                    counts[v] = (counts[v] || 0) + 1;
+                });
+                const values = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
+                selected[field.key] = new Set();
+                boxes[field.key] = {};
+
+                const group = document.createElement('div');
+                group.className = 'filter-group';
+                const title = document.createElement('div');
+                title.className = 'filter-title';
+                title.textContent = field.title + ' (' + values.length + ')';
+                const body = document.createElement('div');
+                // Every group starts closed; the panel opens to a list of three
+                // headings rather than a wall of checkboxes.
+                body.style.display = 'none';
+                title.onclick = () => {
+                    const open = body.style.display === 'none';
+                    body.style.display = open ? 'block' : 'none';
+                    group.classList.toggle('open', open);
+                };
+                group.appendChild(title);
+
+                values.forEach(v => {
+                    const label = document.createElement('label');
+                    const cb = document.createElement('input');
+                    cb.type = 'checkbox';
+                    cb.checked = true;
+                    cb.onchange = () => {
+                        // An unchecked box is the exception; the empty set means
+                        // "everything", so the map does not go blank on load.
+                        if (cb.checked) selected[field.key].delete(v);
+                        else selected[field.key].add(v);
+                        render();
+                    };
+                    label.appendChild(cb);
+                    label.appendChild(document.createTextNode(' ' + v + ' (' + counts[v] + ')'));
+                    body.appendChild(label);
+                    boxes[field.key][v] = cb;
+                });
+                group.appendChild(body);
+                box.appendChild(group);
+            });
+        }
+
+        /* --------------------------------------------------------------- time */
+
+        const campaigns = CONFIG.campaigns;
+        let dateField = 'd';
+
+        function dayList() {
+            const days = [];
+            const from = new Date(CONFIG.date_min + 'T00:00:00Z');
+            const to = new Date(CONFIG.date_max + 'T00:00:00Z');
+            for (let t = from; t <= to; t.setUTCDate(t.getUTCDate() + 1)) {
+                days.push(t.toISOString().slice(0, 10));
+            }
+            return days;
+        }
+        const DAYS = dayList();
+
+        const rangeFrom = document.getElementById('range-from');
+        const rangeTo = document.getElementById('range-to');
+        const dateFrom = document.getElementById('date-from');
+        const dateTo = document.getElementById('date-to');
+
+        rangeFrom.max = rangeTo.max = DAYS.length - 1;
+        rangeTo.value = DAYS.length - 1;
+        dateFrom.min = dateTo.min = CONFIG.date_min;
+        dateFrom.max = dateTo.max = CONFIG.date_max;
+
+        function clampIndex(iso) {
+            const i = DAYS.indexOf(iso);
+            if (i >= 0) return i;
+            return iso < CONFIG.date_min ? 0 : DAYS.length - 1;
+        }
+
+        function setRange(fromIso, toIso, silent) {
+            rangeFrom.value = clampIndex(fromIso);
+            rangeTo.value = clampIndex(toIso);
+            dateFrom.value = DAYS[rangeFrom.value];
+            dateTo.value = DAYS[rangeTo.value];
+            if (!silent) render();
+        }
+
+        function syncFromSliders() {
+            if (+rangeFrom.value > +rangeTo.value) {
+                const v = rangeFrom.value; rangeFrom.value = rangeTo.value; rangeTo.value = v;
+            }
+            dateFrom.value = DAYS[rangeFrom.value];
+            dateTo.value = DAYS[rangeTo.value];
+            markActiveCampaign();
+            render();
+        }
+
+        rangeFrom.oninput = rangeTo.oninput = syncFromSliders;
+        dateFrom.onchange = dateTo.onchange = () => {
+            setRange(dateFrom.value, dateTo.value, true);
+            markActiveCampaign();
+            render();
+        };
+        document.querySelectorAll('input[name=datefield]').forEach(r => {
+            r.onchange = () => { dateField = r.value; render(); };
+        });
+
+        function markActiveCampaign() {
+            document.querySelectorAll('.campaign-btn').forEach(btn => {
+                const from = btn.dataset.from, to = btn.dataset.to || CONFIG.date_max;
+                btn.classList.toggle('active',
+                    dateFrom.value === from && dateTo.value === to);
+            });
+        }
+
+        function buildCampaigns() {
+            const box = document.getElementById('campaign-buttons');
+            campaigns.forEach(c => {
+                const btn = document.createElement('span');
+                btn.className = 'campaign-btn';
+                btn.textContent = RTL ? c.name : c.name_en;
+                btn.dataset.from = c.start;
+                if (c.end) btn.dataset.to = c.end;
+                btn.onclick = () => {
+                    setRange(c.start, c.end || CONFIG.date_max, true);
+                    markActiveCampaign();
+                    render();
+                };
+                box.appendChild(btn);
+            });
+        }
+
+        /* ------------------------------------------------------------- render */
+
+        function passes(person) {
+            const date = person[dateField] || person.d;
+            if (!date) return false;
+            if (date < dateFrom.value || date > dateTo.value) return false;
+            for (const field of FILTER_FIELDS) {
+                const excluded = selected[field.key];
+                if (excluded.size && excluded.has(person[field.key] || T.unspecified)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Everything drawn right now, for the search box and the pid deep link.
+        let allFeatures = [];
+        let circleLayers = [];
+
+        // At the opening zoom an orange dot is one marker among many and should
+        // not shout; zoomed in it is standing in for a whole locality, so it
+        // takes twice the width of the icons.
+        function circleRadius() {
+            return map.getZoom() > CONFIG.zoom ? iconSize : iconSize / 2;
+        }
+
+        function resizeCircles() {
+            const r = circleRadius();
+            circleLayers.forEach(c => c.setRadius(r));
+        }
+        map.on('zoomend', resizeCircles);
+
+        function key(coo) { return coo[0].toFixed(6) + ',' + coo[1].toFixed(6); }
+
+        function personLabel(p) { return RTL ? p.n : (p.ne || p.n); }
+
+        // A white x stands where the person died, which is not where the event
+        // was -- labelling it with the event place is how an x at Afula came to
+        // announce itself as Jenin.
+        function placeLabel(p, death) {
+            if (death) return RTL ? (p.dloc || p.loc) : (p.dloce || p.dloc || p.loce || p.loc);
+            return RTL ? p.loc : (p.loce || p.loc);
+        }
+
+        function addGrouped(group, layerGroup, iconType, direction, cssClass, death) {
+            for (const k in group) {
+                const g = group[k];
+                const names = g.people.map(personLabel);
+                const place = placeLabel(g.people[0], death);
+                const marker = L.marker(g.coo, { icon: iconType });
+                if (cssClass) {
+                    marker.bindTooltip(names.join('<br>'), {
+                        permanent: true, direction: direction,
+                        className: 'map-label ' + cssClass
+                    });
+                }
+                marker.bindPopup(popupHtml(g.people, place, death, false));
+                marker.addTo(layerGroup);
+                allFeatures.push({
+                    names: names, place: place,
+                    pids: g.people.map(p => p.p), layer: marker, type: 'point'
+                });
+            }
+        }
+
+        // Beyond a handful of names the list scrolls inside the popup instead of
+        // running off the screen.
+        const SCROLL_OVER = 7;
+
+        function familyName(p) {
+            return (RTL ? p.ln : (p.lne || p.ln)) || personLabel(p);
+        }
+
+        function showDate(iso) {
+            const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
+            return m ? m[3] + '/' + m[2] + '/' + m[1] : (iso || '');
+        }
+
+        // circle = the orange dots. They carry no role: the place is already
+        // approximate, and a column of job titles buried the one thing that
+        // does need saying there, that this person came back alive.
+        // Hostages first under their own heading, then everyone else. One
+        // popup whichever of the two marks is clicked -- they are one place.
+        function circlePopup(place, taken, people) {
+            const dir = RTL ? 'rtl' : 'ltr';
+            const block = (title, group, death) => !group.length ? '' :
+                '<b>' + title + '</b> (' + group.length + ')' +
+                popupRows(group, death);
+            return '<div dir="' + dir + '"><b>' + place + '</b><br>' +
+                block(T.hostages, taken, true) +
+                block(taken.length ? T.others : '', people, false) +
+                (taken.length ? '' : popupRows(people, false)) + '</div>';
+        }
+
+        function popupRows(people, death) {
+            const rows = sortRows(people, death).map(p => row(p, death, true));
+            const cls = rows.length > SCROLL_OVER ? ' class="popup-scroll"' : '';
+            return '<div' + cls + '>' + rows.join('<br>') + '</div>';
+        }
+
+        // By date, earliest first; the family name only breaks ties.
+        function sortRows(people, death) {
+            return people.slice().sort((a, b) => {
+                const da = (death ? (a.dd || a.d) : a.d) || '';
+                const db = (death ? (b.dd || b.d) : b.d) || '';
+                return da.localeCompare(db) ||
+                    familyName(a).localeCompare(familyName(b), RTL ? 'he' : 'en');
+            });
+        }
+
+        function row(person, death, circle) {
+            const bits = [personLabel(person)];
+            const date = death ? (person.dd || person.d) : person.d;
+            if (date) bits.push(showDate(date));
+            if (person.r && !circle) bits.push(person.r);
+            const note = RTL ? person.note : (person.note_en || person.note);
+            if (note) bits.push(note);
+            return bits.join(' · ');
+        }
+
+        function popupHtml(people, place, death, circle) {
+            const rows = sortRows(people, death).map(p => row(p, death, circle));
+            const cls = rows.length > SCROLL_OVER ? ' class="popup-scroll"' : '';
+            return '<div dir="' + (RTL ? 'rtl' : 'ltr') + '"><b>' + place +
+                '</b> (' + rows.length + ')' +
+                '<div' + cls + '>' + rows.join('<br>') + '</div></div>';
+        }
+
+        function render() {
+            [Killed, Kidnapped, Deaths, Circles, HostageCircles, Areas]
+                .forEach(l => l.clearLayers());
+            allFeatures = [];
+            circleLayers = [];
+
+            const red = {}, blue = {}, white = {}, circles = {}, areas = {};
+            const hostages = {};   // by circle: hostages who died at that place
+            let shown = 0, hidden = 0;
+
+            PEOPLE.forEach(p => {
+                if (!passes(p)) { hidden++; return; }
+                shown++;
+                if (p.red) {
+                    const k = key(p.red);
+                    (red[k] = red[k] || { coo: p.red, people: [] }).people.push(p);
+                }
+                if (p.blue) {
+                    const k = key(p.blue);
+                    (blue[k] = blue[k] || { coo: p.blue, people: [] }).people.push(p);
+                }
+                if (p.white) {
+                    const k = key(p.white);
+                    (white[k] = white[k] || { coo: p.white, people: [] }).people.push(p);
+                }
+                if (p.circ) (circles[p.circ] = circles[p.circ] || []).push(p);
+                if (p.dcirc) (hostages[p.dcirc] = hostages[p.dcirc] || []).push(p);
+                if (p.poly) (areas[p.poly] = areas[p.poly] || []).push(p);
+            });
+
+            addGrouped(red, Killed, redIcon, 'right', 'red-tooltip', false);
+            addGrouped(blue, Kidnapped, blueIcon, 'left', 'blue-tooltip', false);
+            addGrouped(white, Deaths, whiteIcon, 'right', 'white-tooltip', true);
+
+            CIRCLES.forEach(c => {
+                const people = circles[c.name_he] || [];
+                const taken = hostages[c.name_he] || [];
+                if (!people.length && !taken.length) return;
+                const name = RTL ? c.name_he : (c.name_en || c.name_he);
+                const html = circlePopup(name, taken, people);
+                // Fixed on the screen, not on the ground: a 500 m radius is
+                // invisible at country zoom and swallows a town at street zoom,
+                // and the number was never a claim about the real spread.
+                if (people.length) {
+                    const circle = L.circleMarker([c.lat, c.lon], {
+                        radius: circleRadius(),
+                        stroke: false,
+                        fillColor: '#ff8c00', fillOpacity: 0.6
+                    });
+                    circle.bindPopup(html);
+                    circle.addTo(Circles);
+                    circleLayers.push(circle);
+                }
+                // The hostages are a ring around the same point rather than a
+                // mark of their own: they died in the same place, and two dots
+                // on one coordinate would only hide each other.
+                if (taken.length) {
+                    const ring = L.circleMarker([c.lat, c.lon], {
+                        radius: circleRadius(),
+                        color: '#fff', weight: 2.5, opacity: 1,
+                        fill: !people.length,
+                        fillColor: '#ff8c00', fillOpacity: 0.25
+                    });
+                    ring.bindPopup(html);
+                    ring.addTo(HostageCircles);
+                    circleLayers.push(ring);
+                }
+                const everyone = taken.concat(people);
+                allFeatures.push({
+                    names: everyone.map(personLabel), place: name,
+                    pids: everyone.map(p => p.p),
+                    layer: (people.length ? Circles : HostageCircles)
+                        .getLayers().slice(-1)[0],
+                    type: 'circle'
+                });
+            });
+
+            POLYGONS.forEach(poly => {
+                const people = areas[poly.name_he];
+                if (!people) return;
+                const ring = poly.ring.map(c => [c[1], c[0]]);
+                const shape = L.polygon(ring, {
+                    fillColor: '#ff69b4', weight: 2, opacity: 1,
+                    color: '#ff1493', dashArray: '3', fillOpacity: 0.3
+                });
+                const name = RTL ? poly.name_he : (poly.name_en || poly.name_he);
+                shape.bindPopup(popupHtml(people, name));
+                shape.addTo(Areas);
+                allFeatures.push({
+                    names: people.map(personLabel), place: name,
+                    pids: people.map(p => p.p), layer: shape, type: 'polygon'
+                });
+            });
+
+            // The head stays one line wide, so the long form is the hover title.
+            const counts = document.getElementById('counts');
+            counts.textContent = shown + ' / ' + PEOPLE.length;
+            counts.title = T.showing + ' ' + shown + ' / ' + PEOPLE.length +
+                (CONFIG.unplaced ? '  ·  ' + T.unplaced + ' ' + CONFIG.unplaced : '');
+            updateTooltipVisibility();
+        }
+
+        // The victim names are all there or none of them, at this zoom.
+        const ZOOM_ALL = 17;
+        // The neighbourhood names are a backdrop, so they arrive before the
+        // victim names rather than competing with them.
+        const ZOOM_NEIGHBOURHOOD = 12;
+
+        function updateTooltipVisibility() {
+            const zoom = map.getZoom();
+            const classes = map.getContainer().classList;
+            classes.toggle('hide-tooltips', zoom < ZOOM_ALL);
+            classes.toggle('hide-nb-tooltips', zoom < ZOOM_NEIGHBOURHOOD);
+        }
+        map.on('zoomend', updateTooltipVisibility);
+
+        /* ------------------------------------------------------------- search */
+
+        function normalizeText(text) {
+            if (!text) return '';
+            return String(text)
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f\u0591-\u05C7]/g, '')
+                .replace(/[\u05F3\u05F4]/g, '')
+                .replace(/[^\u0590-\u05FF\u0600-\u06FF\w\s]/g, '')
+                .toLowerCase();
+        }
+
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+
+        searchInput.addEventListener('input', function () {
+            const query = this.value.trim();
+            if (query.length < 2) {
+                searchResults.style.display = 'none';
+                searchResults.innerHTML = '';
+                return;
+            }
+            const q = normalizeText(query);
+            const hits = [];
+            for (const item of allFeatures) {
+                if (normalizeText(item.place).includes(q)) {
+                    hits.push({ item: item, text: item.place });
+                    continue;
+                }
+                for (const name of item.names) {
+                    if (normalizeText(name).includes(q)) {
+                        hits.push({ item: item, text: name + ' — ' + item.place });
+                        break;
+                    }
+                }
+                if (hits.length >= 40) break;
+            }
+            searchResults.innerHTML = '';
+            searchResults.style.display = hits.length ? 'block' : 'none';
+            hits.forEach(hit => {
+                const div = document.createElement('div');
+                div.className = 'search-result-item';
+                div.textContent = hit.text;
+                div.onclick = () => {
+                    focusFeature(hit.item);
+                    searchInput.value = '';
+                    searchResults.style.display = 'none';
+                };
+                searchResults.appendChild(div);
+            });
+        });
+
+        document.addEventListener('click', function (event) {
+            if (!document.getElementById('search-box').contains(event.target)) {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        function focusFeature(item) {
+            if (item.layer.getBounds) map.fitBounds(item.layer.getBounds());
+            else map.setView(item.layer.getLatLng(), 17);
+            item.layer.openPopup();
+        }
+
+        /* -------------------------------------------------- coordinates, pid */
+
+        map.on("contextmenu", function (event) {
+            const coords = event.latlng.toString().slice(7, -1);
+            navigator.clipboard.writeText(coords).then(() => {
+                alert("Coordinates copied to clipboard:\n" + coords);
+            }).catch(() => {
+                window.prompt("Copy to clipboard: Ctrl+C, Enter", coords);
+            });
+        });
+
+        const coordJumpBox = document.getElementById('coord-jump-box');
+        const coordInput = document.getElementById('coord-input');
+        let tempMarker = null;
+
+        document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && e.key === 'g') {
+                e.preventDefault();
+                coordJumpBox.style.display = coordJumpBox.style.display === 'block' ? 'none' : 'block';
+                if (coordJumpBox.style.display === 'block') coordInput.focus();
+            }
+            if (e.key === 'Escape') coordJumpBox.style.display = 'none';
+        });
+
+        coordInput.addEventListener('keydown', function (e) {
+            if (e.key !== 'Enter') return;
+            const parts = coordInput.value.trim().split(/[,\s]+/)
+                .map(p => parseFloat(p)).filter(p => !isNaN(p));
+            if (parts.length < 2) {
+                alert("Invalid format. Please use 'lat, lon' or 'lat lon'");
+                return;
+            }
+            let [lat, lon] = parts;
+            if (Math.abs(lat) > Math.abs(lon)) [lat, lon] = [lon, lat];
+            map.setView([lat, lon], 17);
+            if (tempMarker) map.removeLayer(tempMarker);
+            tempMarker = L.marker([lat, lon]).addTo(map)
+                .bindPopup(lat.toFixed(5) + ', ' + lon.toFixed(5)).openPopup();
+            coordJumpBox.style.display = 'none';
+            coordInput.value = '';
+        });
+
+        document.addEventListener('mousedown', function (e) {
+            if (coordJumpBox.style.display === 'block' && !coordJumpBox.contains(e.target)) {
+                coordJumpBox.style.display = 'none';
+            }
+        });
+
+        function focusOnPid(pid) {
+            const wanted = String(pid).trim().replace(/\.0$/, '');
+            for (const item of allFeatures) {
+                if (item.pids.some(p => String(p) === wanted)) {
+                    focusFeature(item);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        const controls = document.getElementById('controls');
+        document.getElementById('controls-head').onclick = () => {
+            controls.classList.toggle('open');
+        };
+
+        /* ----------------------------------------------------------- the url */
+
+        // ?front=Gaza&role=חייל&status=killed&from=2023-10-07&to=2023-10-09
+        // &date=dd  (filter on the death date instead of the event date)
+        // &pid=964  (open that person)
+        // Values are compared case-insensitively and may be comma separated.
+        // A name that matches nothing is reported in the console rather than
+        // silently emptying the map.
+        const URL_FILTERS = { front: 'f', role: 'r', status: 's' };
+
+        function applyUrlParams(params) {
+            let touched = false;
+
+            for (const name in URL_FILTERS) {
+                const raw = params.get(name);
+                if (raw === null) continue;
+                const key = URL_FILTERS[name];
+                const wanted = raw.split(',').map(v => v.trim().toLowerCase())
+                    .filter(Boolean);
+                const known = Object.keys(boxes[key]);
+                const missing = wanted.filter(w =>
+                    !known.some(v => v.toLowerCase() === w));
+                if (missing.length) {
+                    console.warn('unknown ' + name + ': ' + missing.join(', ') +
+                        '. known values: ' + known.join(', '));
+                }
+                known.forEach(v => {
+                    const keep = wanted.some(w => w === v.toLowerCase());
+                    boxes[key][v].checked = keep;
+                    if (keep) selected[key].delete(v);
+                    else selected[key].add(v);
+                });
+                touched = true;
+            }
+
+            const field = params.get('date');
+            if (field === 'dd' || field === 'd') {
+                dateField = field;
+                document.querySelector('input[name=datefield][value=' + field + ']')
+                    .checked = true;
+                touched = true;
+            }
+
+            const from = params.get('from'), to = params.get('to');
+            if (from || to) {
+                setRange(from || CONFIG.date_min, to || CONFIG.date_max, true);
+                touched = true;
+            }
+            return touched;
+        }
+
+        /* --------------------------------------------------------------- boot */
+
+        buildFilters();
+        buildCampaigns();
+        buildLegend();
+        setRange(CONFIG.date_min, CONFIG.date_max, true);
+
+        const params = new URLSearchParams(window.location.search);
+        // Opened with a filter in the url: show the panel, so it is obvious the
+        // map is not showing everything.
+        if (applyUrlParams(params)) controls.classList.add('open');
+
+        markActiveCampaign();
+        render();
+
+        const pidParam = params.get('pid');
+        if (pidParam) setTimeout(() => focusOnPid(pidParam), 300);
+    </script>
+</body>
+<!-- __COMMENT__ -->
+
+</html>
