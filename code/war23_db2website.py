@@ -14,7 +14,8 @@ if __name__ == '__main__':
     changed = changed_pid()
     if len(changed) > 0:
         print('n changed pid:', len(changed))
-        for pid in changed.keys():
-            send_records(changed[pid])
+        print('not updating, bugged')
+        # for pid in changed.keys():
+        #     send_records(changed[pid])
 
 
