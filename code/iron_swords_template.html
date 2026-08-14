@@ -1373,6 +1373,40 @@
             return touched;
         }
 
+        // A filtered arrival is framed to what it actually shows. CONFIG.region
+        // is the same box the build centres on -- a victim in the UAE or in
+        // Egypt would otherwise pull the view back to a continent and leave the
+        // real subject a speck. maxZoom stops a single survivor from filling the
+        // screen at street level.
+        const FIT_MAX_ZOOM = 14;
+
+        function inRegion(latlng) {
+            const box = CONFIG.region;
+            return latlng.lat >= box.south && latlng.lat <= box.north
+                && latlng.lng >= box.west && latlng.lng <= box.east;
+        }
+
+        function fitToVisible() {
+            const points = [];
+            allFeatures.forEach(feature => {
+                const layer = feature.layer;
+                if (!layer) return;
+                if (layer.getLatLng) {
+                    points.push(layer.getLatLng());
+                } else if (layer.getBounds) {
+                    const box = layer.getBounds();
+                    points.push(box.getNorthEast(), box.getSouthWest());
+                }
+            });
+            const inside = points.filter(inRegion);
+            // Everything left out of the region is still on the map, just not
+            // allowed to decide the framing. If that is all there is, leave the
+            // view where the median put it.
+            if (!inside.length) return;
+            map.fitBounds(L.latLngBounds(inside),
+                          { padding: [25, 25], maxZoom: FIT_MAX_ZOOM });
+        }
+
         /* --------------------------------------------------------------- boot */
 
         buildFilters();
@@ -1383,10 +1417,12 @@
         const params = new URLSearchParams(window.location.search);
         // Opened with a filter in the url: show the panel, so it is obvious the
         // map is not showing everything.
-        if (applyUrlParams(params)) controls.classList.add('open');
+        const filtered = applyUrlParams(params);
+        if (filtered) controls.classList.add('open');
 
         markActiveCampaign();
         render();
+        if (filtered) fitToVisible();
 
         const pidParam = params.get('pid');
         if (pidParam) setTimeout(() => focusOnPid(pidParam), 300);

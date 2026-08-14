@@ -51,9 +51,16 @@ TEMPLATE = os.path.join(ROOT, 'code', 'iron_swords_template.html')
 WEBSITE = os.environ.get('WEBSITE', os.path.expanduser('~/misc/docs/'))
 BASENAME = 'iron_swords_locations'
 
-# Where the map opens. Not the centre of mass of the markers: that sat inside
-# Gaza, and the opening view should hold the whole picture.
-CENTER = [32.236036, 35.137024]
+# Used only if a build somehow draws nothing; the opening centre is computed
+# per build from the marks inside REGION.
+CENTER_FALLBACK = [32.236036, 35.137024]
+
+# What the map is about. Marks outside it -- the UAE, Egypt -- are drawn and
+# clickable, but get no say in where the map opens or how a filtered url frames
+# itself: a midrange takes the extremes literally, so one point in the Gulf
+# would put the centre in Saudi Arabia. Passed to the page, so the framing there
+# uses the same box rather than a second copy of these numbers.
+REGION = {'south': 29.0, 'north': 34.5, 'west': 33.0, 'east': 36.6}
 
 # The eight values the plan tabulated. Anything else is reported.
 KNOWN_STATUS = {
@@ -411,6 +418,47 @@ def circles_payload(circles, records):
             for name, c in sorted(circles.items()) if name in used]
 
 
+def map_center(records, circles, polygons):
+    """Midrange of everything drawn inside REGION: (min + max) / 2 per axis.
+
+    The midrange sits in the middle of the ground covered rather than in the
+    middle of the crowd, so the sparse north weighs as much as the envelope.
+    That also makes it defenceless against a single far-off mark, which is why
+    it is computed over REGION alone.
+    """
+    point = {c['name_he']: (c['lat'], c['lon']) for c in circles}
+    ring = {}
+    for poly in polygons:
+        lats = [c[1] for c in poly['ring']]
+        lons = [c[0] for c in poly['ring']]
+        ring[poly['name_he']] = (sum(lats) / len(lats), sum(lons) / len(lons))
+
+    lats, lons = [], []
+    for record in records:
+        for key in ('red', 'blue', 'white'):
+            if key in record:
+                lats.append(record[key][0])
+                lons.append(record[key][1])
+        for key, table in (('circ', point), ('dcirc', point), ('poly', ring)):
+            if record.get(key) in table:
+                lat, lon = table[record[key]]
+                lats.append(lat)
+                lons.append(lon)
+
+    inside = [(lat, lon) for lat, lon in zip(lats, lons)
+              if REGION['south'] <= lat <= REGION['north']
+              and REGION['west'] <= lon <= REGION['east']]
+    if not inside:
+        return CENTER_FALLBACK
+    lat_values = [lat for lat, _ in inside]
+    lon_values = [lon for _, lon in inside]
+    dropped = len(lats) - len(inside)
+    if dropped:
+        print(f'  {dropped} marks outside the region ignored when centring')
+    return [round((min(lat_values) + max(lat_values)) / 2, 6),
+            round((min(lon_values) + max(lon_values)) / 2, 6)]
+
+
 def render(records, circles, polygons, localities, neighbourhoods, lang,
            private, unplaced):
     with open(TEMPLATE, encoding='utf-8') as f:
@@ -424,7 +472,8 @@ def render(records, circles, polygons, localities, neighbourhoods, lang,
         'labels': labels,
         'campaigns': [dict(c, start=c['start'] or dates[0],
                            end=c['end'] or None) for c in CAMPAIGNS],
-        'center': CENTER,
+        'center': map_center(records, circles, polygons),
+        'region': REGION,
         'zoom': 9,
         'date_min': dates[0],
         'date_max': dates[-1],
@@ -489,8 +538,10 @@ def main():
             print(f'{path}  {os.path.getsize(path) / 1e6:.1f} MB')
 
         kind = 'private' if private else 'public'
+        centre = map_center(records, payload, polygons)
         print(f'  {kind}: {len(records)} people drawn, '
-              f'{len(polygons)} rings, {len(payload)} circles')
+              f'{len(polygons)} rings, {len(payload)} circles, '
+              f'centre {centre[0]}, {centre[1]}')
         if hidden:
             places = Counter(name for _, name in hidden)
             print(f'  {len(hidden)} people are in an area with no ring and no '
