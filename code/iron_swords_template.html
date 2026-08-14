@@ -357,6 +357,7 @@
 
         .count-label:before { display: none; }
         .hide-counts .count-label { display: none; }
+        .hide-poly-counts .poly-count { display: none; }
         .hide-nb-tooltips .nb-tooltip { display: none; }
 
         #coord-jump-box {
@@ -880,6 +881,15 @@
             className: 'count-label map-label', offset: [0, 0]
         };
 
+        // A ring covers a neighbourhood, not a spot, so its count only earns
+        // its place once you have zoomed well into it -- three steps in, rather
+        // than the one step that brings out the circle counts.
+        const POLY_COUNT_TOOLTIP = {
+            permanent: true, direction: 'center',
+            className: 'count-label poly-count map-label', offset: [0, 0]
+        };
+        const ZOOM_POLY_COUNT = 3;
+
         function circleRadius() {
             return map.getZoom() > CONFIG.zoom ? iconSize : iconSize / 2;
         }
@@ -1050,7 +1060,14 @@
                     const ring = L.circleMarker([c.lat, c.lon], {
                         radius: circleRadius(),
                         color: '#fff', weight: 2.5, opacity: 1,
-                        fill: false
+                        // A ring standing on its own is a 2.5 px outline to aim
+                        // at. An invisible fill gives it a whole disc to catch
+                        // clicks and hover: fill-opacity 0 still takes the
+                        // pointer, where fill:none leaves the middle inert.
+                        // Where an orange dot is already inside, that dot is the
+                        // target and a second hit area on top of it earns nothing.
+                        fill: !people.length,
+                        fillOpacity: 0
                     });
                     ring.bindPopup(html);
                     // Only when there is no orange dot underneath already
@@ -1086,6 +1103,9 @@
                 });
                 const name = RTL ? poly.name_he : (poly.name_en || poly.name_he);
                 shape.bindPopup(popupHtml(people, name));
+                if (people.length > 1) {
+                    shape.bindTooltip(String(people.length), POLY_COUNT_TOOLTIP);
+                }
                 shape.addTo(Areas);
                 allFeatures.push({ people: people, place: name,
                                    layer: shape, type: 'polygon' });
@@ -1118,6 +1138,8 @@
             // The count shares the circle's own threshold: it appears exactly
             // when the circle grows to twice the marker width.
             classes.toggle('hide-counts', zoom <= CONFIG.zoom);
+            classes.toggle('hide-poly-counts',
+                           zoom < CONFIG.zoom + ZOOM_POLY_COUNT);
         }
         map.on('zoomend', updateTooltipVisibility);
 
