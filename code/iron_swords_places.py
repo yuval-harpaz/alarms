@@ -9,7 +9,7 @@ of four cases:
     lumped    it has no circle, but a shorter path of it does -- the people are
               drawn on that coarser circle, which is a loss of detail and is
               reported so the finer coordinate can be collected later
-    region    too big, or too linear, to be a 500 m circle: 'רצועת עזה' is not a
+    region    too big, or too linear, to carry one dot: 'רצועת עזה' is not a
               point and a circle in the middle of it would be a claim about
               where these people died. Nothing is drawn. Two ways to be here --
               the name is a shorter path of places that do have circles, or it
@@ -65,7 +65,6 @@ def load_circles():
                 'name_en': row['name_en'],
                 'lat': float(row['lat']),
                 'lon': float(row['lon']),
-                'radius_m': float(row['radius_m'] or 500),
             }
 
     for name, target in sorted(aliases.items()):
@@ -166,7 +165,7 @@ def report(cases):
         people = sum(len(e['pids']) for e in region.values())
         print(f'\ntoo general to place -- {len(region)} names, {people} people, '
               f'no marker drawn.')
-        print('a 500 m circle in the middle of these would invent a location:')
+        print('a dot in the middle of these would invent a location:')
         for place, entry in sorted(region.items(),
                                    key=lambda kv: -len(kv[1]['pids'])):
             print(f'  {place}   ({len(entry["pids"])} people, {entry["why"]})')

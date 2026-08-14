@@ -10,8 +10,8 @@ already in the file are never asked again.
     python code/fix_circles.py --terminal
     python code/fix_circles.py --list  # what is done and what is left
 
-Radius starts at 500 m for every circle. It is a per-row column, so tuning one
-place later is an edit to the csv, not a code change.
+Circles are drawn at a fixed size on screen, so there is no radius to collect --
+only the centre.
 """
 import csv
 import os
@@ -25,8 +25,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QUEUE = os.path.join(ROOT, 'data', 'location_coverage.tsv')
 CIRCLES = os.path.join(ROOT, 'data', 'coord_circle.csv')
 
-FIELDS = ['name_he', 'name_en', 'lat', 'lon', 'radius_m', 'n_people', 'source', 'filled']
-DEFAULT_RADIUS = 500
+FIELDS = ['name_he', 'name_en', 'lat', 'lon', 'n_people', 'source', 'filled']
 
 
 def parse_coo(text):
@@ -153,7 +152,7 @@ def main():
             continue
         append({'name_he': place['name_he'], 'name_en': place['name_en'],
                 'lat': f'{coo[0]:.6f}', 'lon': f'{coo[1]:.6f}',
-                'radius_m': DEFAULT_RADIUS, 'n_people': place['n_people'],
+                'n_people': place['n_people'],
                 'source': 'manual', 'filled': ''})
         print(f'  {place["name_he"]} -> {coo[0]:.6f}, {coo[1]:.6f}')
     left = len(load_queue()) - len(load_circles())
