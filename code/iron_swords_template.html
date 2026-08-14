@@ -870,6 +870,7 @@
         // Everything drawn right now, for the search box and the pid deep link.
         let allFeatures = [];
         let circleLayers = [];
+        let markCount = new Map();   // pid -> how many marks that person has
 
         // At the opening zoom an orange dot is one marker among many and should
         // not shout; zoomed in it is standing in for a whole locality, so it
@@ -915,7 +916,7 @@
                 }
                 marker.bindPopup(popupHtml(g.people, place, death, false));
                 marker.addTo(layerGroup);
-                allFeatures.push({ people: g.people, place: place,
+                allFeatures.push({ people: g.people, place: place, death: death,
                                    layer: marker, type: 'point' });
             }
         }
@@ -1060,12 +1061,19 @@
                     ring.addTo(HostageCircles);
                     circleLayers.push(ring);
                 }
-                allFeatures.push({
-                    people: taken.concat(people), place: name,
-                    layer: (people.length ? Circles : HostageCircles)
-                        .getLayers().slice(-1)[0],
-                    type: 'circle'
-                });
+                // Two entries, not one: the orange dot holds people by where
+                // the event was, the ring holds hostages by where they died, and
+                // a search row has to say which of the two it is showing.
+                const dot = Circles.getLayers().slice(-1)[0];
+                const rim = HostageCircles.getLayers().slice(-1)[0];
+                if (people.length) {
+                    allFeatures.push({ people: people, place: name, death: false,
+                                       layer: dot, type: 'circle' });
+                }
+                if (taken.length) {
+                    allFeatures.push({ people: taken, place: name, death: true,
+                                       layer: rim || dot, type: 'circle' });
+                }
             });
 
             POLYGONS.forEach(poly => {
@@ -1082,6 +1090,11 @@
                 allFeatures.push({ people: people, place: name,
                                    layer: shape, type: 'polygon' });
             });
+
+            // Only a person with two marks needs a row saying which is which.
+            markCount = new Map();
+            allFeatures.forEach(f => f.people.forEach(
+                p => markCount.set(p.p, (markCount.get(p.p) || 0) + 1)));
 
             // The head stays one line wide, so the long form is the hover title.
             const counts = document.getElementById('counts');
@@ -1164,29 +1177,35 @@
             const q = normalizeText(query);
             const hits = [];
             const coords = parseCoords(query);
-            if (coords) {
-                hits.push({ coords: coords,
-                            text: coords[0].toFixed(5) + ', ' + coords[1].toFixed(5) });
-            }
             // One row per person, never per marker: searching a place used to
             // emit a row per marker there, each reading only the place name, so
             // a busy locality returned a screenful of identical lines.
-            outer:
             for (const item of allFeatures) {
                 const placeHit = normalizeText(item.place).includes(q);
                 for (const person of item.people) {
                     const name = personLabel(person);
                     if (!placeHit && !normalizeText(name).includes(q)) continue;
-                    const where = RTL ? person.loc : (person.loce || person.loc);
-                    let text = name + (where ? ' — ' + where : '');
-                    // The thing that matched is not always on show: a death
-                    // place, or a locality spelled unlike the event location.
-                    if (!normalizeText(text).includes(q)) {
-                        text += ' — ' + item.place;
-                    }
-                    hits.push({ item: item, text: text });
-                    if (hits.length >= 40) break outer;
+                    // The row names the place of the mark it will take you to,
+                    // not the person's event location: someone with two marks
+                    // was otherwise listed twice with identical text.
+                    const side = item.death === undefined
+                        ? !!(person.red || person.blue || person.circ)
+                        : item.death;
+                    const tag = markCount.get(person.p) > 1
+                        ? '  ' + (side ? T.at_death : T.at_event) : '';
+                    hits.push({
+                        item: item, sort: familyName(person) + ' ' + name + (side ? '1' : '0'),
+                        text: name + ' — ' + item.place + tag
+                    });
                 }
+            }
+            // By name, so a person's two marks land next to each other.
+            hits.sort((a, b) => (a.sort || '').localeCompare(b.sort || '',
+                                                             RTL ? 'he' : 'en'));
+            hits.splice(40);
+            if (coords) {
+                hits.unshift({ coords: coords,
+                               text: coords[0].toFixed(5) + ', ' + coords[1].toFixed(5) });
             }
             searchResults.innerHTML = '';
             searchResults.style.display = hits.length ? 'block' : 'none';
