@@ -3,6 +3,10 @@
     python code/iron_swords_map.py            # writes to $WEBSITE (misc/docs)
     python code/iron_swords_map.py --cache x.json   # reuse a saved download
 
+The columns come from data/oct7database.csv on github and the coordinates from
+the google sheet -- see iron_swords_data.py, which also stops a build whose csv
+was never pushed.
+
 Four files, from one template:
 
     iron_swords_locations.html            public,  Hebrew
@@ -31,7 +35,7 @@ point they were taken from.
 
 An unknown Status stops the build only when those rules cannot decide it. A
 new combination that the rules do handle is reported and built, so the daily
-job does not fail on a wording the sheet has just started using.
+job does not fail on a wording the csv has just started using.
 """
 import csv
 import json
@@ -213,7 +217,7 @@ def death_circle(person, taken_alive, white, geometry):
     no coordinate of its own. Their death place is written without the
     'רצועת עזה' the event places carry -- bare רפיח, ג'באליה -- so the join runs
     through the alias rows in data/coord_circle.csv rather than matching by
-    string. Fix the names in the sheet and the aliases can go.
+    string. Fix the names in the csv and the aliases can go.
     """
     if not (taken_alive and 'killed' in person['Status']) or white:
         return None
