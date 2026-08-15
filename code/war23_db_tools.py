@@ -13,6 +13,33 @@ elif os.path.isdir(local.replace('yuval', 'innereye')):
 ##
 
 
+FRIENDLY_FIRE = 'ירי בשוגג'
+
+
+def loc_match(db_loc, map_loc):
+    """
+    compare a location of oct7database.csv to the location of oct_7_9.csv,
+    ignoring differences which are there on purpose:
+    - oct_7_9 may start with 'ירי בשוגג' (with or without a ב prefix for the place itself),
+      which is redundant in the database
+    - oct7database may describe the place as a path of segments (e.g. 'רצועת עזה; עזה; שג\'אעיה'),
+      where oct_7_9 keeps just one of them
+    :param db_loc: str, location in oct7database.csv
+    :param map_loc: str, location in oct_7_9.csv
+    :return: bool, True when the locations are considered equal
+    """
+    db_loc = str(db_loc).strip()
+    map_loc = str(map_loc).strip()
+    options = [map_loc]
+    if map_loc.startswith(FRIENDLY_FIRE):
+        no_ff = map_loc[len(FRIENDLY_FIRE):].strip()
+        options.append(no_ff)
+        if no_ff.startswith('ב'):  # 'ירי בשוגג בעלומים' --> 'עלומים'
+            options.append(no_ff[1:].strip())
+    segments = [x.strip() for x in db_loc.split(';')]
+    return any(opt == db_loc or opt in segments for opt in options)
+
+
 def db2map(save=True, what='loc'):
     """
     copy fields from oct7database.csv to oct_7_9.csv
@@ -38,7 +65,7 @@ def db2map(save=True, what='loc'):
                 loc = db['מקום המוות'][row]
             else:
                 loc = db['מקום האירוע'][row]
-            if map['location'][ii] != loc:
+            if not loc_match(loc, map['location'][ii]):
                 print([map['pid'][ii], map['fullName'][ii], stat, loc, map['location'][ii]])
                 map.at[ii, 'location'] = loc
                 changes = True

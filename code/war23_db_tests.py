@@ -4,7 +4,7 @@ import numpy as np
 import unittest
 import sys
 sys.path.append('code')
-from war23_db_tools import compare_nli
+from war23_db_tools import compare_nli, loc_match
 from war23_idf2db import idf_mismatch
 local = '/home/yuval/alarms/'
 islocal = False
@@ -205,7 +205,7 @@ class Test79(unittest.TestCase):
                 loc = str(data['מקום המוות'][row])
             else:
                 loc = str(data['מקום האירוע'][row])
-            if loc != map79['location'][ii]:
+            if not loc_match(loc, map79['location'][ii]):
                 n_issues += 1
                 print(f"OCT_7_9 location for {map79['eng'][ii]} ({map79['pid'][ii]}) is {map79['location'][ii]}, not {loc}")
         self.assertEqual(n_issues, 0)
