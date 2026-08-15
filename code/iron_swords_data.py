@@ -90,9 +90,10 @@ def fetch_csv():
 def read_csv(text):
     """The csv text as a list of dicts, keyed by the header line.
 
-    Cells are stripped, as the google sheet used to hand them over: 27 cells
-    of the csv are typed with a space at one end, and a 'first last' built out
-    of one of them reads as a double space on the page.
+    Cells are stripped, as the google sheet used to hand them over. The csv
+    itself is clean (code/strip_csv_spaces.py), but a name typed with a space
+    at one end comes back easily, and 'first last' built out of one of them
+    reads as a double space on the page.
     """
     rows = []
     for row in csv.DictReader(io.StringIO(text)):
