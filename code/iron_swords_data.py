@@ -29,6 +29,7 @@ import csv
 import io
 import json
 import os
+import subprocess
 from urllib import request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,8 +40,10 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ENDPOINT_LINE = 7
 
 CSV_PATH = os.path.join(ROOT, 'data', 'oct7database.csv')
+REPO = 'https://github.com/yuval-harpaz/alarms.git'
+BRANCH = 'refs/heads/master'
 CSV_URL = ('https://raw.githubusercontent.com/yuval-harpaz/alarms/'
-           'refs/heads/master/data/oct7database.csv')
+           '{ref}/data/oct7database.csv')
 
 
 def endpoint():
@@ -54,10 +57,34 @@ def fetch():
         return json.load(url)
 
 
+def master_sha():
+    """The commit at the tip of master, or None when git cannot be asked.
+
+    Worth the extra half second: raw.githubusercontent caches a *branch* url
+    for five minutes, so a build started just after a push reads the csv as it
+    was before it and reports the push as missing. A url by commit is exact.
+    """
+    try:
+        done = subprocess.run(['git', 'ls-remote', REPO, BRANCH],
+                              capture_output=True, text=True, timeout=30,
+                              # never stop a build at a username prompt
+                              env=dict(os.environ, GIT_TERMINAL_PROMPT='0'))
+        why = None if done.stdout.strip() and not done.returncode else \
+            (done.stderr.strip() or 'no answer').split('\n')[-1]
+    except (OSError, subprocess.SubprocessError) as problem:
+        why = str(problem) or 'git could not be run'
+    if why:
+        print(f'could not ask github for the tip of master ({why}); reading '
+              f'the branch url, which can be five minutes behind a push')
+        return None
+    return done.stdout.split()[0]
+
+
 def fetch_csv():
-    """oct7database.csv as github serves it, as text."""
-    with request.urlopen(CSV_URL) as url:
-        return url.read().decode('utf-8')
+    """(text, ref): oct7database.csv as github serves it, and the ref read."""
+    ref = master_sha() or BRANCH
+    with request.urlopen(CSV_URL.format(ref=ref)) as url:
+        return url.read().decode('utf-8'), ref
 
 
 def read_csv(text):
@@ -76,7 +103,7 @@ def read_csv(text):
     return rows
 
 
-def check_pushed(rows):
+def check_pushed(rows, ref=BRANCH):
     """Raise when the working copy of the csv is not what github is serving.
 
     The build reads github, so an unpushed edit would be invisible rather than
@@ -101,10 +128,13 @@ def check_pushed(rows):
                        ((changed, 'changed'), (only_here, 'only here'),
                         (only_there, 'only on github')) if what)
     pids = ' '.join((changed + only_here + only_there)[:10])
+    stale = ' The branch url was read rather than the commit, so a push of ' \
+            'the last five minutes may not be in it yet.' if ref == BRANCH else ''
+    where = 'master' if ref == BRANCH else f'commit {ref[:12]}'
     raise RuntimeError(
-        f'{os.path.relpath(CSV_PATH, ROOT)} differs from the copy on github '
-        f'({counts}): pid {pids}. Push it and build again -- github serves the '
-        f'new file at once, the google sheet can take an hour to catch up.')
+        f'{os.path.relpath(CSV_PATH, ROOT)} differs from {where} on github '
+        f'({counts}): pid {pids}. Push it and build again -- the map is built '
+        f'from what github has.{stale}')
 
 
 def coordinates(data):
@@ -142,8 +172,9 @@ def load_people(path=None):
               f'pushed or not')
     else:
         data = fetch()
-        rows = read_csv(fetch_csv())
-        check_pushed(rows)
+        text, ref = fetch_csv()
+        rows = read_csv(text)
+        check_pushed(rows, ref)
 
     coos = coordinates(data)
     people = []
