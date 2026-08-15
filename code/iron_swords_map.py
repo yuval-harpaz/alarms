@@ -274,6 +274,7 @@ def build(people, private, areas, geometry):
     """(records, polygons_used, hidden, unplaced_deaths) for one visibility level."""
     records, rings, hidden = [], {}, []
     unknown, unplaced_deaths = Counter(), {}
+    no_link_text = set()
 
     for person in people:
         red, blue, white = markers(person, unknown)
@@ -310,12 +311,34 @@ def build(people, private, areas, geometry):
                 record['poly'] = props['name_he']
                 rings[props['name_he']] = (props, ring)
 
+        # The publication that already put this area's addresses in the open.
+        # It is the reason the marker is allowed to stand on the exact spot, so
+        # the popup names it and links to it: the addresses were published
+        # there, not here. Read from the event point, the one both the red and
+        # the blue marker stand on, and gone from the record when that point
+        # was replaced by a ring just above.
+        coo = record.get('red') or record.get('blue')
+        if coo:
+            props = area_for(person['מקום האירוע'], coo, areas)
+            if props and props['public_exact'] and props['source_url']:
+                if not props['source_text']:
+                    no_link_text.add(props['name_he'])
+                else:
+                    record['src'] = props['source_text']
+                    record['url'] = props['source_url']
+
         if person['circle']:
             record['circ'] = person['circle']['name_he']
         if not any(k in record for k in ('red', 'blue', 'white', 'circ', 'poly',
                                           'dcirc')):
             continue
         records.append(record)
+
+    if no_link_text:
+        print('\npublished areas with a source_url but no source_text, so the '
+              'popup has nothing to write the link on:')
+        for name in sorted(no_link_text):
+            print(f'  {name}')
 
     if unknown:
         print('\nStatus values not in the plan\'s table -- the colour rules '

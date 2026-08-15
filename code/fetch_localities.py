@@ -45,6 +45,17 @@ out geom;
 # move a boundary anywhere it matters.
 SIMPLIFY = 0.00002
 
+# The Hebrew OSM carries is not always the spelling this project uses, and the
+# hover tooltip is the one place a reader sees both. Keyed by osm_id and applied
+# after the fetch, so refreshing the boundaries cannot undo the correction.
+#
+#   10521617  جحر الديك ends in kaf, so the Hebrew ends in כ. OSM says
+#             ג'וחור א-דיק; data/coord_circle.csv and oct7database.csv have
+#             always said ג'וחור א-דיכ.
+NAME_HE = {
+    10521617: "ג'וחור א-דיכ",
+}
+
 
 def overpass(query):
     last = None
@@ -117,7 +128,7 @@ def main():
     elements = overpass(QUERY)
     print(f'{len(elements)} administrative relations inside the Gaza Strip')
 
-    features, skipped = [], []
+    features, skipped, renamed = [], [], []
     for element in elements:
         tags = element.get('tags', {})
         geometry = shape_of(element)
@@ -125,12 +136,15 @@ def main():
         if geometry is None or not (name_en or tags.get('name')):
             skipped.append(tags.get('name:en') or tags.get('name') or element['id'])
             continue
+        name_he = NAME_HE.get(element['id'], tags.get('name:he', ''))
+        if element['id'] in NAME_HE:
+            renamed.append((element['id'], tags.get('name:he', ''), name_he))
         features.append({
             'type': 'Feature',
             'properties': {
                 'name': tags.get('name', ''),
                 'name_en': name_en or tags.get('name', ''),
-                'name_he': tags.get('name:he', ''),
+                'name_he': name_he,
                 'admin_level': tags.get('admin_level', ''),
                 'osm_id': element['id'],
             },
@@ -145,6 +159,12 @@ def main():
         print(f'  admin {level}: {len(names)}  {", ".join(names)}')
     if skipped:
         print(f'  no usable ring, skipped: {skipped}')
+    for osm_id, was, now in renamed:
+        state = 'already' if was == now else f'{was or "(none)"} ->'
+        print(f'  name_he {osm_id}: {state} {now}')
+    absent = sorted(set(NAME_HE) - {f['properties']['osm_id'] for f in features})
+    if absent:
+        print(f'  NAME_HE has osm ids overpass did not return: {absent}')
 
     if '--dry' in sys.argv:
         print('\ndry run, nothing written')

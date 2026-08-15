@@ -990,11 +990,27 @@
             return bits.join(' · ');
         }
 
+        // The publication that put this area's addresses in the open, under
+        // the place name. It is why the marker may stand on the exact spot,
+        // so the popup credits it and links to it -- the addresses were
+        // published there, not here. Only the event marks carry one: a white x
+        // is a death place, and a ring or a circle is not an exact address at
+        // all. Everyone in one popup shares a coordinate, so they share it.
+        function sourceLine(people, death) {
+            // Whoever in the group carries it: one coordinate is one area, but
+            // two people on it can have their place written differently, and
+            // only one of the two spellings need match the published area.
+            const person = death ? null : people.find(p => p.url);
+            if (!person) return '';
+            return '<br><a href="' + person.url + '" target="_blank" ' +
+                'rel="noopener">' + person.src + '</a>';
+        }
+
         function popupHtml(people, place, death, circle) {
             const rows = sortRows(people, death).map(p => row(p, death, circle));
             const cls = rows.length > SCROLL_OVER ? ' class="popup-scroll"' : '';
             return '<div dir="' + (RTL ? 'rtl' : 'ltr') + '"><b>' + place +
-                '</b> (' + rows.length + ')' +
+                '</b> (' + rows.length + ')' + sourceLine(people, death) +
                 '<div' + cls + '>' + rows.join('<br>') + '</div></div>';
         }
 
