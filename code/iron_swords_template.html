@@ -1343,6 +1343,7 @@
         // ?front=Gaza&role=חייל&status=killed&from=2023-10-07&to=2023-10-09
         // &date=dd  (filter on the death date instead of the event date)
         // &pid=964  (open that person)
+        // &zoom=13  (open at that zoom, and the zoom the map writes back)
         // Values are compared case-insensitively and may be comma separated.
         // A name that matches nothing is reported in the console rather than
         // silently emptying the map.
@@ -1423,6 +1424,47 @@
                           { padding: [25, 25], maxZoom: FIT_MAX_ZOOM });
         }
 
+        // The zoom lives in the address bar so it can be read off the screen
+        // and shared back. Written on a zoom the reader asks for -- wheel,
+        // buttons, keyboard, a double click -- and never at load: a number
+        // appearing in a url nobody typed reads as a filter they set.
+        // replaceState, so zooming does not fill the back button.
+        let zoomToUrl = false;
+
+        map.on('zoomend', function () {
+            if (!zoomToUrl) return followZoom();   // still booting: wait again
+            const url = new URL(window.location.href);
+            url.searchParams.set('zoom', map.getZoom());
+            history.replaceState(null, '', url);
+        });
+
+        // Every view the boot sets -- the framing of a filtered arrival, a pid
+        // focus -- is programmatic, and leaflet finishes an animated one well
+        // after the call returns. The url starts following once the map has
+        // been quiet for half a second, and any zoom arriving before then is
+        // taken as more boot and starts the wait over.
+        let settling;
+
+        function followZoom() {
+            clearTimeout(settling);
+            settling = setTimeout(() => { zoomToUrl = true; }, 500);
+        }
+
+        function applyUrlZoom(params) {
+            const raw = params.get('zoom');
+            if (raw === null) return false;
+            const wanted = Number(raw);
+            if (!Number.isFinite(wanted)) {
+                console.warn('zoom is not a number: ' + raw);
+                return false;
+            }
+            const zoom = Math.min(Math.max(wanted, map.getMinZoom()),
+                                  map.getMaxZoom());
+            if (zoom !== wanted) console.warn('zoom clamped to ' + zoom);
+            map.setZoom(zoom);
+            return true;
+        }
+
         /* --------------------------------------------------------------- boot */
 
         buildFilters();
@@ -1439,9 +1481,13 @@
         markActiveCampaign();
         render();
         if (filtered) fitToVisible();
+        // After the framing, not before: a zoom in the url was asked for by
+        // name, and fitToVisible would otherwise overrule it.
+        applyUrlZoom(params);
 
         const pidParam = params.get('pid');
-        if (pidParam) setTimeout(() => focusOnPid(pidParam), 300);
+        if (pidParam) setTimeout(() => { focusOnPid(pidParam); followZoom(); }, 300);
+        else followZoom();
     </script>
 </body>
 <!-- __COMMENT__ -->
