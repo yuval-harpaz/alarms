@@ -445,13 +445,18 @@ def circles_payload(circles, records):
             for name, c in sorted(circles.items()) if name in used]
 
 
-def map_center(records, circles, polygons):
+def map_center(records, circles, polygons, report=False):
     """Midrange of everything drawn inside REGION: (min + max) / 2 per axis.
 
     The midrange sits in the middle of the ground covered rather than in the
     middle of the crowd, so the sparse north weighs as much as the envelope.
     That also makes it defenceless against a single far-off mark, which is why
     it is computed over REGION alone.
+
+    report says what was left out of the framing. Off by default: the centre is
+    computed six times a build -- four files and the two summary lines -- and
+    the same sentence six times reads as six different findings. The Hebrew
+    public pass asks for it, and the count is the same for all six.
     """
     point = {c['name_he']: (c['lat'], c['lon']) for c in circles}
     ring = {}
@@ -480,7 +485,7 @@ def map_center(records, circles, polygons):
     lat_values = [lat for lat, _ in inside]
     lon_values = [lon for _, lon in inside]
     dropped = len(lats) - len(inside)
-    if dropped:
+    if dropped and report:
         print(f'  {dropped} marks outside the region ignored when centring')
     return [round((min(lat_values) + max(lat_values)) / 2, 6),
             round((min(lon_values) + max(lon_values)) / 2, 6)]
@@ -499,7 +504,8 @@ def render(records, circles, polygons, localities, neighbourhoods, lang,
         'labels': labels,
         'campaigns': [dict(c, start=c['start'] or dates[0],
                            end=c['end'] or None) for c in CAMPAIGNS],
-        'center': map_center(records, circles, polygons),
+        'center': map_center(records, circles, polygons,
+                             report=lang == 'he' and not private),
         'region': REGION,
         'zoom': 9,
         'date_min': dates[0],
