@@ -256,6 +256,20 @@
             box-sizing: border-box;
         }
 
+        /* What a slice of a pie looks like, for the legend below the pie zoom. */
+        .swatch .filled {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+
+        .swatch .filled.red { background: #ff0000; }
+        .swatch .filled.blue { background: #0000ff; }
+
+        /* Leaflet gives a div icon a white box and a border; a pie is its svg. */
+        .pie { background: none; border: none; }
+
         .swatch .square {
             width: 15px;
             height: 15px;
@@ -356,7 +370,6 @@
         }
 
         .count-label:before { display: none; }
-        .hide-counts .count-label { display: none; }
         .hide-poly-counts .poly-count { display: none; }
         .hide-nb-tooltips .nb-tooltip { display: none; }
 
@@ -530,6 +543,9 @@
         const HostageCircles = L.layerGroup().addTo(map);
         const Areas = L.layerGroup();
         if (POLYGONS.length) Areas.addTo(map);
+        // Not a legend row of its own: the pies are the red and the blue marks
+        // of a settlement drawn as one circle, not a third kind of thing.
+        const Pies = L.layerGroup().addTo(map);
 
         // Gaza municipality, locality and neighbourhood boundaries from OSM.
         // A reference layer, drawn once and never filtered: it says which
@@ -542,6 +558,14 @@
         // markerPane at 600.
         map.createPane('localityPane');
         map.getPane('localityPane').style.zIndex = 350;
+
+        // The white x is drawn first, under the circles and the pies: it is a
+        // second mark for someone already counted elsewhere, and at the wide
+        // zooms a 16 px x sitting on a small circle hid the thing it stands
+        // beside. Its own pane at 380 -- above the boundaries, below the
+        // vectors in overlayPane at 400 and the icons in markerPane at 600.
+        map.createPane('deathPane');
+        map.getPane('deathPane').style.zIndex = 380;
 
         // The credit rides on the layer group, so leaflet shows it only while
         // the boundaries are switched on -- ODbL asks for attribution when the
@@ -641,10 +665,15 @@
 
         document.getElementById('map').style.cursor = 'crosshair';
 
+        // Kept so the swatches can be redrawn when the marks change shape.
+        const legendRows = [];
+
         function buildLegend() {
             const rows = [
-                { layer: Kidnapped, label: T.kidnapped, icon: 'blue_square.png' },
-                { layer: Killed, label: T.killed, icon: 'red_ring.png' },
+                { layer: Kidnapped, label: T.kidnapped, icon: 'blue_square.png',
+                  fill: 'blue' },
+                { layer: Killed, label: T.killed, icon: 'red_ring.png',
+                  fill: 'red' },
                 { layer: Deaths, label: T.died_elsewhere, icon: 'white_x.png' },
                 { layer: Circles, label: T.approximate, shape: 'dot' },
                 { layer: HostageCircles, label: T.hostage_circle, shape: 'ring' },
@@ -661,15 +690,15 @@
                 cb.onchange = () => {
                     if (cb.checked) map.addLayer(row.layer);
                     else map.removeLayer(row.layer);
+                    // A pie is one drawing made of two layers' people, so
+                    // switching a colour off has to draw it again.
+                    if (pieZoom() && (row.layer === Killed || row.layer === Kidnapped)) {
+                        render();
+                    }
                 };
                 const swatch = document.createElement('span');
                 swatch.className = 'swatch';
-                if (row.icon) {
-                    const img = document.createElement('img');
-                    img.src = 'https://yuval-harpaz.github.io/alarms/' + row.icon;
-                    img.alt = '';
-                    swatch.appendChild(img);
-                } else {
+                if (!row.icon) {
                     const mark = document.createElement('span');
                     mark.className = row.shape;
                     swatch.appendChild(mark);
@@ -678,6 +707,35 @@
                 label.appendChild(swatch);
                 label.appendChild(document.createTextNode(row.label));
                 box.appendChild(label);
+                legendRows.push({ def: row, row: label, swatch: swatch,
+                                  filled: null });
+            });
+            syncLegend();
+        }
+
+        // The legend says what is on the screen, so it follows the pie zoom:
+        // the ring and the square give way to the filled circle a slice is made
+        // of, and the area rings, which are not drawn down there, step out of
+        // the list until they mean something again. The pies get no row of
+        // their own -- they are the same two kinds of mark, drawn together.
+        function syncLegend() {
+            const pie = pieZoom();
+            legendRows.forEach(entry => {
+                const def = entry.def;
+                if (def.layer === Areas) entry.row.style.display = pie ? 'none' : '';
+                if (!def.icon) return;
+                const filled = !!(pie && def.fill);
+                if (entry.filled === filled) return;   // null until first drawn
+                entry.filled = filled;
+                entry.swatch.innerHTML = '';
+                const mark = document.createElement(filled ? 'span' : 'img');
+                if (filled) {
+                    mark.className = 'filled ' + def.fill;
+                } else {
+                    mark.src = 'https://yuval-harpaz.github.io/alarms/' + def.icon;
+                    mark.alt = '';
+                }
+                entry.swatch.appendChild(mark);
             });
         }
 
@@ -870,12 +928,39 @@
 
         // Everything drawn right now, for the search box and the pid deep link.
         let allFeatures = [];
-        let circleLayers = [];
         let markCount = new Map();   // pid -> how many marks that person has
 
-        // At the opening zoom an orange dot is one marker among many and should
-        // not shout; zoomed in it is standing in for a whole locality, so it
-        // takes twice the width of the icons.
+        // One rule for every mark that stands for a group -- the orange and
+        // white circles, and the pies below PIE_MAX_ZOOM. Not a curve but three
+        // sizes: an area drawn to scale makes Be'eri's 147 a 194 px blot that
+        // swallows the envelope, and the difference between 147 and 164 was
+        // never something to read off an area. Each step is the area that many
+        // people would have had -- one mark, four, eight -- so a group of one
+        // still keeps the width of the icons. The white number on the mark is
+        // the true count, which is why it is no longer hidden at the wide
+        // zooms: it is the only thing telling 147 from 164.
+        //
+        // To go back to a straight area, or to a cap, this function is the only
+        // place that decides how big a group is drawn.
+        const MARK_UNIT = iconSize / 2;
+        const MARK_STEPS = [{ from: 100, area: 8 },
+                            { from: 10, area: 4 },
+                            { from: 1, area: 1 }];
+
+        function markRadius(n) {
+            const step = MARK_STEPS.find(s => n >= s.from) ||
+                MARK_STEPS[MARK_STEPS.length - 1];
+            return MARK_UNIT * Math.sqrt(step.area);
+        }
+
+        // A number on an 8 px circle is bigger than the circle. Zoomed out,
+        // only the marks that grew -- ten people and up -- carry one.
+        const COUNT_FROM = 10;
+
+        function showsCount(n) {
+            return n > 1 && (!pieZoom() || n >= COUNT_FROM);
+        }
+
         const COUNT_TOOLTIP = {
             permanent: true, direction: 'center',
             className: 'count-label map-label', offset: [0, 0]
@@ -889,16 +974,6 @@
             className: 'count-label poly-count map-label', offset: [0, 0]
         };
         const ZOOM_POLY_COUNT = 3;
-
-        function circleRadius() {
-            return map.getZoom() > CONFIG.zoom ? iconSize : iconSize / 2;
-        }
-
-        function resizeCircles() {
-            const r = circleRadius();
-            circleLayers.forEach(c => c.setRadius(r));
-        }
-        map.on('zoomend', resizeCircles);
 
         function key(coo) { return coo[0].toFixed(6) + ',' + coo[1].toFixed(6); }
 
@@ -917,7 +992,8 @@
                 const g = group[k];
                 const names = g.people.map(personLabel);
                 const place = placeLabel(g.people[0], death);
-                const marker = L.marker(g.coo, { icon: iconType });
+                const marker = L.marker(g.coo, death ? { icon: iconType, pane: 'deathPane' }
+                                                     : { icon: iconType });
                 if (cssClass) {
                     marker.bindTooltip(names.join('<br>'), {
                         permanent: true, direction: direction,
@@ -1006,21 +1082,208 @@
                 'rel="noopener">' + person.src + '</a>';
         }
 
-        function popupHtml(people, place, death, circle) {
+        function popupHtml(people, place, death, circle, noSource) {
             const rows = sortRows(people, death).map(p => row(p, death, circle));
             const cls = rows.length > SCROLL_OVER ? ' class="popup-scroll"' : '';
             return '<div dir="' + (RTL ? 'rtl' : 'ltr') + '"><b>' + place +
-                '</b> (' + rows.length + ')' + sourceLine(people, death) +
+                '</b> (' + rows.length + ')' +
+                (noSource ? '' : sourceLine(people, death)) +
                 '<div' + cls + '>' + rows.join('<br>') + '</div></div>';
         }
 
+        /* ---------------------------------------------------------- the pies */
+
+        // Zoomed out, a mark per person says nothing: Be'eri is 147 of them in
+        // eight neighbourhoods that overlap into one smudge. From PIE_MAX_ZOOM
+        // outwards a settlement is drawn as a single filled circle, split into
+        // a red and a blue slice -- killed where the event was, and taken alive
+        // from it. Sized by markRadius() like the circles, so a settlement of
+        // one keeps the size of the marker it replaces and a big one stops
+        // growing at MARK_CAP.
+        //
+        // A person is counted once, by their event mark. The white x of someone
+        // who died somewhere else is still drawn, and still not counted here:
+        // it is the same person again, at their second place.
+        const PIE_MAX_ZOOM = 13;
+        const PIE_ALPHA = 0.6;               // the fill the orange circles use
+        const PIE_COLOURS = { red: '#ff0000', blue: '#0000ff' };
+
+        function pieZoom() { return map.getZoom() <= PIE_MAX_ZOOM; }
+
+        // The settlement is what stands before the first ';': at this distance
+        // 'בארי; הכרם' and 'בארי; אשלים' are one place. Grouped on the Hebrew,
+        // which every row has, and labelled in the language of the page.
+        //
+        // Except under a region, which is not a place to put one mark for:
+        // grouped on the first segment, everything from Rafah to Beit Lahia
+        // lands on the average of the Strip. There the second segment is the
+        // settlement, and the English keeps whatever the Hebrew kept.
+        const REGIONS = ['רצועת עזה', 'צפון רצועת עזה', 'מרכז רצועת עזה',
+                         'דרום לבנון'];
+
+        function settlement(person) {
+            const parts = name => (name || '').split(';')
+                .map(part => part.trim()).filter(Boolean);
+            const he = parts(person.loc), en = parts(person.loce);
+            const keep = REGIONS.indexOf(he[0]) > -1 ? 2 : 1;
+            const heKey = he.slice(0, keep).join('; ');
+            const enKey = en.slice(0, keep).join('; ');
+            return { key: heKey || enKey,
+                     label: RTL ? (heKey || enKey) : (enKey || heKey) };
+        }
+
+        // An orange circle unites with the marks only where the exact ones
+        // stand at its own name, or at a finer version of it: the Nova camping
+        // is the festival a hundred metres on, and its people belong in the one
+        // pie. A circle nobody has an exact point for -- בית חאנון -- is not a
+        // second way of saying a place that is already drawn, and stays the
+        // dot it is.
+        function absorbedCircles(exactPlaces) {
+            const absorbed = new Set();
+            CIRCLES.forEach(c => {
+                for (const place of exactPlaces) {
+                    if (place === c.name_he || place.indexOf(c.name_he + ';') === 0) {
+                        absorbed.add(c.name_he);
+                        break;
+                    }
+                }
+            });
+            return absorbed;
+        }
+
+        // Blue is taken alive, red is everyone else -- the rule the build draws
+        // the marks by, for the people who have no mark of their own.
+        function statusColour(person) {
+            return (person.s || '').split(';')[0].trim() === 'kidnapped'
+                ? 'blue' : 'red';
+        }
+
+        const CIRCLE_POINT = {};
+        CIRCLES.forEach(c => { CIRCLE_POINT[c.name_he] = [c.lat, c.lon]; });
+
+        // Where a person the public map blurred is: their own point is gone,
+        // and the ring that replaced it is the only place left to stand.
+        const RING_CENTRE = {};
+        POLYGONS.forEach(poly => {
+            const n = poly.ring.length;
+            RING_CENTRE[poly.name_he] = [
+                poly.ring.reduce((sum, c) => sum + c[1], 0) / n,
+                poly.ring.reduce((sum, c) => sum + c[0], 0) / n];
+        });
+
+        // A wedge of the circle, clockwise from twelve o'clock, in turns.
+        function wedge(r, from, to) {
+            const point = turn => {
+                const angle = (turn - 0.25) * 2 * Math.PI;
+                return [r + r * Math.cos(angle), r + r * Math.sin(angle)];
+            };
+            const [x0, y0] = point(from), [x1, y1] = point(to);
+            return 'M ' + r + ' ' + r + ' L ' + x0 + ' ' + y0 +
+                ' A ' + r + ' ' + r + ' 0 ' + (to - from > 0.5 ? 1 : 0) +
+                ' 1 ' + x1 + ' ' + y1 + ' Z';
+        }
+
+        function pieIcon(nRed, nBlue) {
+            const total = nRed + nBlue;
+            const r = markRadius(total);
+            const size = 2 * r;
+            const fill = (d, colour) => '<path d="' + d + '" fill="' + colour +
+                '" fill-opacity="' + PIE_ALPHA + '"/>';
+            let shapes;
+            if (!nRed || !nBlue) {
+                // One colour is a circle, not a pie: an arc of a whole turn
+                // starts and ends in the same place and draws nothing.
+                shapes = '<circle cx="' + r + '" cy="' + r + '" r="' + r +
+                    '" fill="' + (nRed ? PIE_COLOURS.red : PIE_COLOURS.blue) +
+                    '" fill-opacity="' + PIE_ALPHA + '"/>';
+            } else {
+                const share = nRed / total;
+                shapes = fill(wedge(r, 0, share), PIE_COLOURS.red) +
+                    fill(wedge(r, share, 1), PIE_COLOURS.blue);
+            }
+            return L.divIcon({
+                className: 'pie',
+                html: '<svg width="' + size + '" height="' + size +
+                    '" viewBox="0 0 ' + size + ' ' + size + '">' + shapes + '</svg>',
+                iconSize: [size, size],
+                iconAnchor: [r, r]
+            });
+        }
+
+        function addPies(red, blue, areas, circles, absorbed) {
+            // The legend still governs the two colours, so a pie is built from
+            // whichever of them is switched on.
+            const useRed = map.hasLayer(Killed), useBlue = map.hasLayer(Kidnapped);
+            const groups = {};
+
+            function add(person, coo, colour) {
+                if (!coo) return;
+                const place = settlement(person);
+                const group = groups[place.key] = groups[place.key] ||
+                    { label: place.label, red: [], blue: [], lat: 0, lon: 0, n: 0 };
+                group[colour].push(person);
+                group.lat += coo[0];
+                group.lon += coo[1];
+                group.n++;
+            }
+
+            if (useRed) {
+                for (const k in red) red[k].people.forEach(p => add(p, red[k].coo, 'red'));
+            }
+            if (useBlue) {
+                for (const k in blue) blue[k].people.forEach(p => add(p, blue[k].coo, 'blue'));
+            }
+            for (const name in areas) {
+                areas[name].forEach(p => {
+                    // pk is the colour the ring replaced. Without one the ring
+                    // stands for a white x, and that person is already counted
+                    // at their event place.
+                    if (p.pk !== 'red' && p.pk !== 'blue') return;
+                    if (p.pk === 'red' ? !useRed : !useBlue) return;
+                    add(p, RING_CENTRE[name], p.pk);
+                });
+            }
+            // An absorbed circle goes the way of the rings: its people have no
+            // point of their own, so they join the pie from where the circle
+            // stands, coloured by status. The hostages of a circle are not
+            // added: they are counted where their event was, and a second
+            // count here would be the same person twice.
+            for (const name in circles) {
+                if (!absorbed.has(name)) continue;
+                circles[name].forEach(p => {
+                    const colour = statusColour(p);
+                    if (colour === 'red' ? !useRed : !useBlue) return;
+                    add(p, CIRCLE_POINT[name], colour);
+                });
+            }
+
+            for (const k in groups) {
+                const group = groups[k];
+                const people = group.red.concat(group.blue);
+                const marker = L.marker([group.lat / group.n, group.lon / group.n], {
+                    icon: pieIcon(group.red.length, group.blue.length),
+                    // The small pies sit on top of the big ones they fall inside.
+                    zIndexOffset: -people.length
+                });
+                // No publication link on a pie: it belongs to one area, and a
+                // settlement is more than the area that published its addresses.
+                marker.bindPopup(popupHtml(people, group.label, false, false, true));
+                if (showsCount(people.length)) {
+                    marker.bindTooltip(String(people.length), COUNT_TOOLTIP);
+                }
+                marker.addTo(Pies);
+                allFeatures.push({ people: people, place: group.label,
+                                   death: false, layer: marker, type: 'pie' });
+            }
+        }
+
         function render() {
-            [Killed, Kidnapped, Deaths, Circles, HostageCircles, Areas]
+            [Killed, Kidnapped, Deaths, Circles, HostageCircles, Areas, Pies]
                 .forEach(l => l.clearLayers());
             allFeatures = [];
-            circleLayers = [];
 
             const red = {}, blue = {}, white = {}, circles = {}, areas = {};
+            const exactPlaces = new Set();   // where a mark of its own stands
             const hostages = {};   // by circle: hostages who died at that place
             let shown = 0, hidden = 0;
 
@@ -1039,13 +1302,19 @@
                     const k = key(p.white);
                     (white[k] = white[k] || { coo: p.white, people: [] }).people.push(p);
                 }
+                if (p.red || p.blue || p.pk) exactPlaces.add((p.loc || '').trim());
                 if (p.circ) (circles[p.circ] = circles[p.circ] || []).push(p);
                 if (p.dcirc) (hostages[p.dcirc] = hostages[p.dcirc] || []).push(p);
                 if (p.poly) (areas[p.poly] = areas[p.poly] || []).push(p);
             });
 
-            addGrouped(red, Killed, redIcon, 'right', 'red-tooltip', false);
-            addGrouped(blue, Kidnapped, blueIcon, 'left', 'blue-tooltip', false);
+            const absorbed = pieZoom() ? absorbedCircles(exactPlaces) : new Set();
+            if (pieZoom()) {
+                addPies(red, blue, areas, circles, absorbed);
+            } else {
+                addGrouped(red, Killed, redIcon, 'right', 'red-tooltip', false);
+                addGrouped(blue, Kidnapped, blueIcon, 'left', 'blue-tooltip', false);
+            }
             addGrouped(white, Deaths, whiteIcon, 'right', 'white-tooltip', true);
 
             CIRCLES.forEach(c => {
@@ -1053,28 +1322,35 @@
                 const taken = hostages[c.name_he] || [];
                 if (!people.length && !taken.length) return;
                 const name = RTL ? c.name_he : (c.name_en || c.name_he);
-                const html = circlePopup(name, taken, people);
+                // An absorbed circle's people are inside a pie, so its dot is
+                // not drawn and the ring is left on its own: it stands for the
+                // hostages who died there, and is sized by them alone.
+                const eaten = absorbed.has(c.name_he);
+                const html = circlePopup(name, taken, eaten ? [] : people);
                 // Fixed on the screen, not on the ground: a 500 m radius is
                 // invisible at country zoom and swallows a town at street zoom,
                 // and the number was never a claim about the real spread.
                 const total = people.length + taken.length;
-                if (people.length) {
+                const size = markRadius(eaten ? taken.length : total);
+                if (people.length && !eaten) {
                     const circle = L.circleMarker([c.lat, c.lon], {
-                        radius: circleRadius(),
+                        // Both marks are sized by everyone at the place, so the
+                        // ring stays a rim on the dot rather than a mark of its
+                        // own size sitting inside it.
+                        radius: size,
                         stroke: false,
                         fillColor: '#ff8c00', fillOpacity: 0.6
                     });
                     circle.bindPopup(html);
-                    if (total > 1) circle.bindTooltip(String(total), COUNT_TOOLTIP);
+                    if (showsCount(total)) circle.bindTooltip(String(total), COUNT_TOOLTIP);
                     circle.addTo(Circles);
-                    circleLayers.push(circle);
                 }
                 // The hostages are a ring around the same point rather than a
                 // mark of their own: they died in the same place, and two dots
                 // on one coordinate would only hide each other.
                 if (taken.length) {
                     const ring = L.circleMarker([c.lat, c.lon], {
-                        radius: circleRadius(),
+                        radius: size,
                         color: '#fff', weight: 2.5, opacity: 1,
                         // A ring standing on its own is a 2.5 px outline to aim
                         // at. An invisible fill gives it a whole disc to catch
@@ -1082,28 +1358,29 @@
                         // pointer, where fill:none leaves the middle inert.
                         // Where an orange dot is already inside, that dot is the
                         // target and a second hit area on top of it earns nothing.
-                        fill: !people.length,
+                        fill: !people.length || eaten,
                         fillOpacity: 0
                     });
                     ring.bindPopup(html);
                     // Only when there is no orange dot underneath already
                     // carrying it, or the two would print on each other.
-                    if (total > 1 && !people.length) {
-                        ring.bindTooltip(String(total), COUNT_TOOLTIP);
+                    if ((eaten || !people.length) &&
+                            showsCount(eaten ? taken.length : total)) {
+                        ring.bindTooltip(String(eaten ? taken.length : total),
+                                         COUNT_TOOLTIP);
                     }
                     ring.addTo(HostageCircles);
-                    circleLayers.push(ring);
                 }
                 // Two entries, not one: the orange dot holds people by where
                 // the event was, the ring holds hostages by where they died, and
                 // a search row has to say which of the two it is showing.
                 const dot = Circles.getLayers().slice(-1)[0];
                 const rim = HostageCircles.getLayers().slice(-1)[0];
-                if (people.length) {
+                if (people.length && !eaten) {
                     allFeatures.push({ people: people, place: name, death: false,
                                        layer: dot, type: 'circle' });
                 }
-                if (taken.length) {
+                if (taken.length && (rim || dot)) {
                     allFeatures.push({ people: taken, place: name, death: true,
                                        layer: rim || dot, type: 'circle' });
                 }
@@ -1111,7 +1388,9 @@
 
             POLYGONS.forEach(poly => {
                 const people = areas[poly.name_he];
-                if (!people) return;
+                // Below the pie zoom the people of a ring are inside a pie, and
+                // drawing the ring as well would put them in two popups.
+                if (!people || pieZoom()) return;
                 const ring = poly.ring.map(c => [c[1], c[0]]);
                 const shape = L.polygon(ring, {
                     fillColor: '#ff69b4', weight: 2, opacity: 1,
@@ -1151,13 +1430,21 @@
             const classes = map.getContainer().classList;
             classes.toggle('hide-tooltips', zoom < ZOOM_ALL);
             classes.toggle('hide-nb-tooltips', zoom < ZOOM_NEIGHBOURHOOD);
-            // The count shares the circle's own threshold: it appears exactly
-            // when the circle grows to twice the marker width.
-            classes.toggle('hide-counts', zoom <= CONFIG.zoom);
             classes.toggle('hide-poly-counts',
                            zoom < CONFIG.zoom + ZOOM_POLY_COUNT);
         }
         map.on('zoomend', updateTooltipVisibility);
+
+        // Crossing PIE_MAX_ZOOM changes what the marks are, not just their size,
+        // so the map is drawn again -- but only on the crossing, not on every
+        // step of the wheel.
+        let pieMode = pieZoom();
+        map.on('zoomend', function () {
+            if (pieZoom() === pieMode) return;
+            pieMode = pieZoom();
+            syncLegend();
+            render();
+        });
 
         /* -------------------------------------------------- coordinate jump */
 

@@ -309,6 +309,14 @@ def build(people, private, areas, geometry):
                     hidden.append((person['pid'], props['name_he']))
                     continue
                 record['poly'] = props['name_he']
+                # Which mark the ring stands in for. Zoomed out the page draws
+                # a settlement as one circle split by colour, and a person whose
+                # point was replaced still has to count as the red or the blue
+                # they would have been. Only for an event mark: a ring standing
+                # in for a white x is a death place, and that is counted at the
+                # event, not twice.
+                if key in ('red', 'blue'):
+                    record['pk'] = key
                 rings[props['name_he']] = (props, ring)
 
         # The publication that already put this area's addresses in the open.
