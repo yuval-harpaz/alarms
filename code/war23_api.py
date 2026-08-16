@@ -87,6 +87,22 @@ def send_records(records):
     )
     response.raise_for_status()
     return response.json()
+
+def get_records(pids):
+    if type(pids) == int:
+        pids = [pids]
+    response = requests.post(
+        API_URL.replace('addRecord', 'getRecord'),
+        # json={'pids': [int(pid) for pid in pids]},
+        json={"pids":pids},
+        headers={
+            "Content-Type": "application/json",
+            "x-api-key": API_KEY,
+        }
+    )
+    response.raise_for_status()
+    return response.json()
+
 db = pd.read_csv('https://raw.githubusercontent.com/yuval-harpaz/alarms/refs/heads/master/data/oct7database.csv', dtype={'הספריה הלאומית': str})
 with open('data/dictionaries.json') as f:
     dictionary = json.load(f)

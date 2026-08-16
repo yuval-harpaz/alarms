@@ -2210,3 +2210,5 @@ war23_idf_mem_all.py failed
 [Errno 2] No such file or directory: 'Xvfb'
 war23_idf_mem_all.py failed
 [Errno 2] No such file or directory: 'Xvfb'
+war23_idf_dashboard.py failed
+'NoneType' object has no attribute 'start'
