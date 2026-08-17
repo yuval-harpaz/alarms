@@ -217,6 +217,22 @@
             overflow-y: auto;
         }
 
+        /* A Hebrew list is aligned to the side it is read from. Left alone, the
+           names hug the left edge of an rtl box and read as loose ends. */
+        .leaflet-popup-content [dir="rtl"] { text-align: right; }
+
+        /* The date column of a popup row. A box of its own width rather than
+           padding with spaces, which would only line up in a monospace face:
+           the names then start in one column whether the csv holds the day, the
+           month or nothing but the year. Isolated as ltr -- a date is read left
+           to right inside a Hebrew list too. */
+        .leaflet-popup-content .row-date {
+            display: inline-block;
+            width: 5.6em;
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
         #legend .legend-title { font-weight: bold; padding-bottom: 3px; }
 
         #legend label {
@@ -339,7 +355,11 @@
            its text baseline, so the svg is blocked out and centred by hand. */
         .front-control a { line-height: 0; padding: 4px 0; }
         .front-control a svg { display: block; margin: 0 auto; }
-        .front-control.on a { background: #cfe8ff; }
+
+        /* The lumped views' legend is a key, not a switchboard: nothing there
+           to click, and a line saying what the role count leaves out. */
+        #legend-rows .key { cursor: default; }
+        #legend-rows .legend-note { font-size: 11px; padding-top: 2px; }
 
         /* One threshold, not two: the victim names are either all there or
            none of them. Showing the uncrowded ones early meant the map filled
@@ -674,7 +694,45 @@
         document.getElementById('map').style.cursor = 'crosshair';
 
         // Kept so the swatches can be redrawn when the marks change shape.
+        // Emptied when the legend is rebuilt for another view.
         const legendRows = [];
+
+        // The legend says what is on the screen, so it is built again whenever
+        // the view changes. The detailed map gets the list of layers and the
+        // boxes that switch them off; the lumped views get a key and nothing
+        // else, because those marks answer to the dates and the filter panel
+        // alone and a box that did nothing there would be worse than no box.
+        function renderLegend() {
+            legendRows.length = 0;
+            document.getElementById('legend-rows').innerHTML = '';
+            if (view === 'detail') buildLegend();
+            else buildKey();
+        }
+
+        function buildKey() {
+            const box = document.getElementById('legend-rows');
+            slices().forEach(part => {
+                const row = document.createElement('label');
+                const swatch = document.createElement('span');
+                const mark = document.createElement('span');
+                row.className = 'key';
+                swatch.className = 'swatch';
+                // The colours are the pies' own, opacity included: a key drawn
+                // in the full colour is not the colour on the map.
+                mark.className = 'filled';
+                mark.style.background = part.colour;
+                swatch.appendChild(mark);
+                row.appendChild(swatch);
+                row.appendChild(document.createTextNode(T[part.label]));
+                box.appendChild(row);
+            });
+            if (view === 'roles') {
+                const note = document.createElement('div');
+                note.className = 'legend-note';
+                note.textContent = T.no_survivors;
+                box.appendChild(note);
+            }
+        }
 
         function buildLegend() {
             const rows = [
@@ -700,7 +758,7 @@
                     else map.removeLayer(row.layer);
                     // A pie is one drawing made of two layers' people, so
                     // switching a colour off has to draw it again.
-                    if ((frontView || pieZoom()) &&
+                    if (pieZoom() &&
                             (row.layer === Killed || row.layer === Kidnapped)) {
                         render();
                     }
@@ -1063,35 +1121,75 @@
             return (RTL ? p.ln : (p.lne || p.ln)) || personLabel(p);
         }
 
+        // 07/10/2023, and whatever is left of it when the csv holds only the
+        // month or only the year -- some death dates are that and no more. The
+        // column they sit in keeps its width either way, so the names still
+        // start together.
         function showDate(iso) {
-            const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
-            return m ? m[3] + '/' + m[2] + '/' + m[1] : (iso || '');
+            const m = /^(\d{4})(?:-(\d{2}))?(?:-(\d{2}))?$/.exec(iso || '');
+            if (!m) return iso || '';
+            return (m[3] ? m[3] + '/' : '') + (m[2] ? m[2] + '/' : '') + m[1];
         }
 
-        // circle = the orange dots. They carry no role: the place is already
-        // approximate, and a column of job titles buried the one thing that
-        // does need saying there, that this person came back alive.
-        // Hostages first under their own heading, then everyone else. One
-        // popup whichever of the two marks is clicked -- they are one place.
-        function circlePopup(place, taken, people) {
-            const heading = (title, group, death) =>
-                '<b>' + title + '</b> (' + group.length + ')' +
-                popupRows(group, death);
-            // Headings only earn their place when there are two groups to tell
-            // apart. Without a hostage list the names go in bare -- an earlier
-            // version emitted them under an empty heading *and* again below it,
-            // which is why circles with no white ring listed everyone twice.
-            const body = !taken.length ? popupRows(people, false) :
-                heading(T.hostages, taken, true) +
-                (people.length ? heading(T.others, people, false) : '');
+        function dateCell(iso) {
+            return '<span class="row-date" dir="ltr">' + showDate(iso) +
+                '</span>';
+        }
+
+        // Every popup on the map, built from one category or several. parts is
+        // [{label, people, death, noRole}] -- a heading and a list per
+        // category, in the order the mark draws them, each heading carrying its
+        // own count and the title carrying the whole. A single category writes
+        // no heading: the title already says what the mark is.
+        //
+        // Nobody is listed twice. A person who turns up in two categories is
+        // kept in the first and reported, because the headings have to add up
+        // to the title and one name in two lists is one person counted as two.
+        // The body scrolls as one, rather than each category getting a box.
+        function partsPopup(place, parts, source) {
+            const seen = new Set();
+            const twice = [];
+            const filled = [];
+            parts.forEach(part => {
+                const people = (part.people || []).filter(person => {
+                    if (seen.has(person.p)) {
+                        twice.push(person.p);
+                        return false;
+                    }
+                    seen.add(person.p);
+                    return true;
+                });
+                if (people.length) {
+                    filled.push({ label: part.label, people: people,
+                                  death: part.death, noRole: part.noRole });
+                }
+            });
+            if (twice.length) {
+                console.warn('one mark listed these in two categories, counted '
+                    + 'once: pid ' + twice.join(', '));
+            }
+            const body = filled.map(part =>
+                (filled.length > 1 ? '<b>' + part.label + '</b> (' +
+                    part.people.length + ')<br>' : '') +
+                sortRows(part.people, part.death)
+                    .map(person => row(person, part.death, part.noRole))
+                    .join('<br>')).join('<br>');
+            const cls = seen.size > SCROLL_OVER ? ' class="popup-scroll"' : '';
             return '<div dir="' + (RTL ? 'rtl' : 'ltr') + '"><b>' + place +
-                '</b> (' + (taken.length + people.length) + ')<br>' + body + '</div>';
+                '</b> (' + seen.size + ')' + (source || '') +
+                '<div' + cls + '>' + body + '</div></div>';
         }
 
-        function popupRows(people, death) {
-            const rows = sortRows(people, death).map(p => row(p, death, true));
-            const cls = rows.length > SCROLL_OVER ? ' class="popup-scroll"' : '';
-            return '<div' + cls + '>' + rows.join('<br>') + '</div>';
+        // The orange dots carry no role: the place is already approximate, and
+        // a column of job titles buried the one thing that does need saying
+        // there, that this person came back alive. Hostages first under their
+        // own heading, then everyone else -- one popup whichever of the two
+        // marks is clicked, because they are one place.
+        function circlePopup(place, taken, people) {
+            return partsPopup(place, [
+                { label: T.hostages, people: taken, death: true, noRole: true },
+                { label: T.others, people: people, death: false, noRole: true }
+            ]);
         }
 
         // By date, earliest first; the family name only breaks ties.
@@ -1104,14 +1202,17 @@
             });
         }
 
-        function row(person, death, circle) {
+        // The date first and in a column of its own, so every name in a list
+        // starts at the same place; then the name, then whatever else is worth
+        // saying about the person. noRole drops the role where the list is
+        // already under a heading that gives it.
+        function row(person, death, noRole) {
             const bits = [personLabel(person)];
-            const date = death ? (person.dd || person.d) : person.d;
-            if (date) bits.push(showDate(date));
-            if (person.r && !circle) bits.push(display('r', person.r));
+            if (person.r && !noRole) bits.push(display('r', person.r));
             const note = RTL ? person.note : (person.note_en || person.note);
             if (note) bits.push(note);
-            return bits.join(' · ');
+            const date = death ? (person.dd || person.d) : person.d;
+            return dateCell(date) + ' · ' + bits.join(' · ');
         }
 
         // The publication that put this area's addresses in the open, under
@@ -1130,13 +1231,11 @@
                 'rel="noopener">' + person.src + '</a>';
         }
 
-        function popupHtml(people, place, death, circle, noSource) {
-            const rows = sortRows(people, death).map(p => row(p, death, circle));
-            const cls = rows.length > SCROLL_OVER ? ' class="popup-scroll"' : '';
-            return '<div dir="' + (RTL ? 'rtl' : 'ltr') + '"><b>' + place +
-                '</b> (' + rows.length + ')' +
-                (noSource ? '' : sourceLine(people, death)) +
-                '<div' + cls + '>' + rows.join('<br>') + '</div></div>';
+        // One kind of person: a marker, a ring, a polygon.
+        function popupHtml(people, place, death, noRole, noSource) {
+            return partsPopup(place,
+                [{ people: people, death: death, noRole: noRole }],
+                noSource ? '' : sourceLine(people, death));
         }
 
         /* ---------------------------------------------------------- the pies */
@@ -1231,23 +1330,32 @@
                 ' 1 ' + x1 + ' ' + y1 + ' Z';
         }
 
-        function pieIcon(nRed, nBlue) {
-            const total = nRed + nBlue;
+        // parts is [{n, colour}, ...], drawn clockwise from twelve in the
+        // order given and sized by markRadius() of the whole. Two of them for
+        // a settlement, two or three for a front, and an empty one is left out
+        // rather than drawn as a hairline nobody can see.
+        function pieIcon(parts) {
+            const filled = parts.filter(part => part.n);
+            const total = filled.reduce((sum, part) => sum + part.n, 0);
             const r = markRadius(total);
             const size = 2 * r;
             const fill = (d, colour) => '<path d="' + d + '" fill="' + colour +
                 '" fill-opacity="' + PIE_ALPHA + '"/>';
             let shapes;
-            if (!nRed || !nBlue) {
-                // One colour is a circle, not a pie: an arc of a whole turn
+            if (filled.length === 1) {
+                // One kind is a circle, not a pie: an arc of a whole turn
                 // starts and ends in the same place and draws nothing.
                 shapes = '<circle cx="' + r + '" cy="' + r + '" r="' + r +
-                    '" fill="' + (nRed ? PIE_COLOURS.red : PIE_COLOURS.blue) +
+                    '" fill="' + filled[0].colour +
                     '" fill-opacity="' + PIE_ALPHA + '"/>';
             } else {
-                const share = nRed / total;
-                shapes = fill(wedge(r, 0, share), PIE_COLOURS.red) +
-                    fill(wedge(r, share, 1), PIE_COLOURS.blue);
+                let from = 0;
+                shapes = filled.map(part => {
+                    const to = from + part.n / total;
+                    const d = wedge(r, from, to);
+                    from = to;
+                    return fill(d, part.colour);
+                }).join('');
             }
             return L.divIcon({
                 className: 'pie',
@@ -1310,13 +1418,18 @@
                 const people = group.red.concat(group.blue);
                 const point = [group.lat / group.n, group.lon / group.n];
                 const marker = L.marker(point, {
-                    icon: pieIcon(group.red.length, group.blue.length),
+                    icon: pieIcon([
+                        { n: group.red.length, colour: PIE_COLOURS.red },
+                        { n: group.blue.length, colour: PIE_COLOURS.blue }]),
                     // The small pies sit on top of the big ones they fall inside.
                     zIndexOffset: -people.length
                 });
-                // No publication link on a pie: it belongs to one area, and a
-                // settlement is more than the area that published its addresses.
-                marker.bindPopup(popupHtml(people, group.label, false, false, true));
+                // Split the way the pie is, and with no publication link: a
+                // pie belongs to one area, and a settlement is more than the
+                // area that published its addresses.
+                marker.bindPopup(partsPopup(group.label, [
+                    { label: T.slice_killed, people: group.red },
+                    { label: T.slice_taken, people: group.blue }]));
                 marker.addTo(Pies);
                 addCount(marker, people.length, point);
                 allFeatures.push({ people: people, place: group.label,
@@ -1324,19 +1437,27 @@
             }
         }
 
-        /* --------------------------------------------------- the front view */
+        /* -------------------------------------------------- the three views */
 
-        // The whole map lumped into one mark per front: every case of the Gaza
-        // front as a single pie over the middle of its cases, the north as
-        // another. Sized by markRadius() like every other group mark, and split
-        // red and blue by the same rule the pies use -- killed where the event
-        // was against taken alive from it.
+        // The map opens lumped: one mark per front, because two thousand marks
+        // over one country say less at first sight than nine do. The button
+        // under the red A steps through the views in turn, and its icon is
+        // always the one the next click brings.
         //
-        // It is also the one view that holds the people with no location at
-        // all. Someone whose place was never established still belongs to a
-        // front, and a count that leaves them out says the front was smaller
-        // than it was.
-        let frontView = false;
+        //   fronts  a pie per front, red and blue -- killed where the event
+        //           was against taken alive from it
+        //   roles   the same marks split by what the people were: civilians
+        //           and the services that went to them, the police, the forces
+        //   detail  every mark of its own, the map the rest of this file draws
+        //
+        // The lumped views are the only ones holding the people with no
+        // location at all. Someone whose place was never established still
+        // belongs to a front, and a count that leaves them out says the front
+        // was smaller than it was.
+        const VIEWS = ['fronts', 'roles', 'detail'];
+        let view = VIEWS[0];
+
+        function frontView() { return view !== 'detail'; }
 
         function placed(person) {
             return !!(person.red || person.blue || person.white ||
@@ -1361,6 +1482,66 @@
         // reads as a part of Israel. The filters keep the csv's own wording.
         const FRONT_LABEL = { 'North': { he: 'לבנון', en: 'Lebanon' } };
 
+        // How a front mark is split, per view: a list of slices, drawn
+        // clockwise from twelve in the order given, and the legend is the same
+        // list read down the page.
+        const STATUS_SLICES = [
+            { key: 'red', colour: PIE_COLOURS.red, label: 'slice_killed' },
+            { key: 'blue', colour: PIE_COLOURS.blue, label: 'slice_taken' }
+        ];
+
+        // Not the csv's seven roles but the three groups they are spoken about
+        // in: the people who were at home and the services that went to them,
+        // the police, and the forces -- the army, the Shin Bet and the standby
+        // squads, who fought where they lived. Keyed on the csv's own Hebrew,
+        // the value the role filter is built on.
+        const ROLE_SLICES = [
+            { key: 'civil', colour: '#ff0000', label: 'role_civil',
+              roles: ['אזרח', 'כבאי', 'צוות רפואי'] },
+            { key: 'police', colour: '#00e5ff', label: 'role_police',
+              roles: ['שוטר'] },
+            { key: 'forces', colour: '#808000', label: 'role_forces',
+              roles: ['חייל', 'שב"כ', 'כיתת כוננות'] }
+        ];
+
+        function roleSlice(person) {
+            const found = ROLE_SLICES.find(
+                part => part.roles.indexOf(person.r) > -1);
+            return found ? found.key : 'other';
+        }
+
+        // A role the csv has just started using would otherwise vanish from a
+        // view meant to hold everyone, so it gets a grey slice and a line in
+        // the console naming it. Put the role in one of the three groups above
+        // and the grey goes away.
+        const strayRoles = [...new Set(PEOPLE
+            .filter(p => roleSlice(p) === 'other').map(p => p.r || ''))];
+        if (strayRoles.length) {
+            ROLE_SLICES.push({ key: 'other', colour: '#999999',
+                               label: 'others', roles: [] });
+            console.warn('roles in no group of their own, drawn grey: ' +
+                strayRoles.join(', '));
+        }
+
+        function slices() {
+            return view === 'roles' ? ROLE_SLICES : STATUS_SLICES;
+        }
+
+        function sliceKey(person) {
+            return view === 'roles' ? roleSlice(person) : statusColour(person);
+        }
+
+        // Taken alive and came home: the survivor note the build already
+        // writes, and the one group the role view leaves out of its counts.
+        // They stay on the detailed map and in the red and blue front view,
+        // where blue is the fact of having been taken and says nothing about
+        // how it ended.
+        const SURVIVORS = PEOPLE.filter(p => p.note).length;
+
+        function counted(person) {
+            return view !== 'roles' || !person.note;
+        }
+
         // Whichever mark a person has, for the median alone: a front is not a
         // place, and this point is chosen to put its mark among its cases, not
         // to say anything about one of them.
@@ -1375,19 +1556,14 @@
         }
 
         function addToFront(fronts, person) {
-            // The legend still governs the two colours, exactly as it does for
-            // the pies a front mark is made of.
-            const colour = statusColour(person);
-            if (colour === 'red' ? !map.hasLayer(Killed) : !map.hasLayer(Kidnapped)) {
-                return;
-            }
             const name = person.f || T.unspecified;
             const renamed = FRONT_LABEL[name];
             const front = fronts[name] = fronts[name] ||
                 { label: renamed ? (RTL ? renamed.he : renamed.en)
                                  : display('f', name),
-                  red: [], blue: [], lats: [], lons: [] };
-            front[colour].push(person);
+                  people: {}, lats: [], lons: [] };
+            const key = sliceKey(person);
+            (front.people[key] = front.people[key] || []).push(person);
             const point = frontPoint(person);
             if (point) {
                 front.lats.push(point[0]);
@@ -1409,7 +1585,12 @@
         function drawFronts(fronts) {
             for (const name in fronts) {
                 const front = fronts[name];
-                const people = front.red.concat(front.blue);
+                const parts = slices().map(part => ({
+                    n: (front.people[part.key] || []).length,
+                    colour: part.colour }));
+                const people = slices().reduce(
+                    (all, part) => all.concat(front.people[part.key] || []), []);
+                if (!people.length) continue;
                 // A front with no anchor of its own that nobody holds a single
                 // coordinate for has nowhere to put its mark. Its people are
                 // still in the header count.
@@ -1417,14 +1598,20 @@
                     ? [median(front.lats), median(front.lons)] : null);
                 if (!point) continue;
                 const marker = L.marker(point, {
-                    icon: pieIcon(front.red.length, front.blue.length),
+                    icon: pieIcon(parts),
                     // The small fronts sit on top of the big ones they fall in.
                     zIndexOffset: -people.length
                 });
-                // Built on the click: the Gaza front is close to two thousand
-                // rows, and nobody opens every front.
-                marker.bindPopup(() => popupHtml(people, front.label, false,
-                                                 false, true));
+                // Split into the same slices the mark is, and built on the
+                // click: the Gaza front is close to two thousand rows, and
+                // nobody opens every front.
+                marker.bindPopup(() => partsPopup(front.label,
+                    slices().map(part => ({
+                        label: T[part.label],
+                        people: front.people[part.key],
+                        // In the role view the role is the heading the list is
+                        // already under.
+                        noRole: view === 'roles' }))));
                 marker.addTo(Pies);
                 // Named and counted at every zoom, and outside the thinning the
                 // other marks go through: nine marks spread over a country are
@@ -1437,36 +1624,73 @@
             }
         }
 
+        // What a view looks like, in an 18 px box: the pie the lumped views
+        // draw, and for the detailed map the marks it is made of. Drawn at the
+        // button's own radius so the three sit at one size.
+        function viewIcon(name, r) {
+            const slice = (from, to, colour) =>
+                '<path d="' + wedge(r, from, to) + '" fill="' + colour +
+                '" fill-opacity="' + PIE_ALPHA + '"/>';
+            if (name === 'fronts') {
+                return slice(0, 0.62, PIE_COLOURS.red) +
+                    slice(0.62, 1, PIE_COLOURS.blue);
+            }
+            if (name === 'roles') {
+                return slice(0, 0.5, ROLE_SLICES[0].colour) +
+                    slice(0.5, 0.62, ROLE_SLICES[1].colour) +
+                    slice(0.62, 1, ROLE_SLICES[2].colour);
+            }
+            // Several small marks rather than one big one, which is the whole
+            // difference between this view and the other two.
+            const u = 2 * r / 18;
+            return '<circle cx="' + 5.5 * u + '" cy="' + 5.5 * u + '" r="' +
+                    3 * u + '" fill="none" stroke="' + PIE_COLOURS.red +
+                    '" stroke-width="' + 2 * u + '"/>' +
+                '<rect x="' + 11 * u + '" y="' + 2 * u + '" width="' + 5 * u +
+                    '" height="' + 5 * u + '" fill="' + PIE_COLOURS.blue + '"/>' +
+                '<circle cx="' + 6 * u + '" cy="' + 13.5 * u + '" r="' +
+                    3.5 * u + '" fill="#ff8c00"/>';
+        }
+
         // Under the red A, and added here rather than beside it because the
         // button draws itself out of the pie colours, which are declared with
-        // the pies. Not remembered between visits: it is a way of looking at
-        // the map, not a setting.
-        const FrontControl = L.Control.extend({
+        // the pies. The icon and the tooltip are the view the click brings, not
+        // the one on the screen: a button says what it does. Not remembered
+        // between visits -- it is a way of looking at the map, not a setting.
+        // Set by the control, called from the boot when a url asks for a view
+        // the button has already drawn itself against.
+        let syncViewButton = () => {};
+
+        const ViewControl = L.Control.extend({
             options: { position: 'topright' },
             onAdd: function () {
                 const bar = L.DomUtil.create('div', 'leaflet-bar front-control');
                 const link = L.DomUtil.create('a', '', bar);
                 const r = 9;
-                const slice = (from, to, colour) =>
-                    '<path d="' + wedge(r, from, to) + '" fill="' + colour +
-                    '" fill-opacity="' + PIE_ALPHA + '"/>';
                 link.href = '#';
-                link.title = T.front_view;
-                link.innerHTML = '<svg width="' + 2 * r + '" height="' + 2 * r +
-                    '" viewBox="0 0 ' + 2 * r + ' ' + 2 * r + '">' +
-                    slice(0, 0.62, PIE_COLOURS.red) +
-                    slice(0.62, 1, PIE_COLOURS.blue) + '</svg>';
+
+                function apply() {
+                    const next = VIEWS[(VIEWS.indexOf(view) + 1) % VIEWS.length];
+                    link.title = T['view_' + next];
+                    link.innerHTML = '<svg width="' + 2 * r + '" height="' +
+                        2 * r + '" viewBox="0 0 ' + 2 * r + ' ' + 2 * r + '">' +
+                        viewIcon(next, r) + '</svg>';
+                }
+
                 L.DomEvent.on(link, 'click', L.DomEvent.stop);
                 L.DomEvent.on(link, 'click', () => {
-                    frontView = !frontView;
-                    bar.classList.toggle('on', frontView);
+                    view = VIEWS[(VIEWS.indexOf(view) + 1) % VIEWS.length];
+                    apply();
+                    renderLegend();
                     render();
                 });
                 L.DomEvent.disableClickPropagation(bar);
+                syncViewButton = apply;
+                apply();
                 return bar;
             }
         });
-        map.addControl(new FrontControl());
+        map.addControl(new ViewControl());
 
         function render() {
             [Killed, Kidnapped, Deaths, Circles, HostageCircles, Areas, Pies]
@@ -1482,14 +1706,19 @@
 
             PEOPLE.forEach(p => {
                 if (!passes(p)) { hidden++; return; }
-                // Someone with no location at all is carried in the file for
-                // the front view alone: no other view can draw them, and none
-                // of those counts them as shown.
-                if (frontView || placed(p)) shown++;
-                if (frontView) {
+                if (frontView()) {
+                    // The lumped views hold everyone the filters allow, the
+                    // people with no location at all included -- they are
+                    // carried in the file for these two views alone. The role
+                    // view drops the hostages who came home.
+                    if (!counted(p)) return;
+                    shown++;
                     addToFront(fronts, p);
                     return;
                 }
+                // Nothing else can draw someone with no location, so nothing
+                // else counts them as shown either.
+                if (placed(p)) shown++;
                 if (p.red) {
                     const k = key(p.red);
                     (red[k] = red[k] || { coo: p.red, people: [] }).people.push(p);
@@ -1508,9 +1737,9 @@
                 if (p.poly) (areas[p.poly] = areas[p.poly] || []).push(p);
             });
 
-            const absorbed = pieZoom() && !frontView
+            const absorbed = pieZoom() && !frontView()
                 ? absorbedCircles(exactPlaces) : new Set();
-            if (frontView) {
+            if (frontView()) {
                 drawFronts(fronts);
             } else if (pieZoom()) {
                 addPies(red, blue, areas, circles, absorbed);
@@ -1518,12 +1747,12 @@
                 addGrouped(red, Killed, redIcon, 'right', 'red-tooltip', false);
                 addGrouped(blue, Kidnapped, blueIcon, 'left', 'blue-tooltip', false);
             }
-            if (!frontView) {
+            if (!frontView()) {
                 addGrouped(white, Deaths, whiteIcon, 'right', 'white-tooltip', true);
             }
 
             CIRCLES.forEach(c => {
-                if (frontView) return;
+                if (frontView()) return;
                 const people = circles[c.name_he] || [];
                 const taken = hostages[c.name_he] || [];
                 if (!people.length && !taken.length) return;
@@ -1594,7 +1823,7 @@
                 const people = areas[poly.name_he];
                 // Below the pie zoom the people of a ring are inside a pie, and
                 // drawing the ring as well would put them in two popups.
-                if (!people || pieZoom() || frontView) return;
+                if (!people || pieZoom() || frontView()) return;
                 const ring = poly.ring.map(c => [c[1], c[0]]);
                 const shape = L.polygon(ring, {
                     fillColor: '#ff69b4', weight: 2, opacity: 1,
@@ -1615,10 +1844,12 @@
                 p => markCount.set(p.p, (markCount.get(p.p) || 0) + 1)));
 
             // The head stays one line wide, so the long form is the hover title.
-            // The denominator is what the view could draw: the whole file in
-            // the front view, and only the people with somewhere to stand in
-            // every other one.
-            const total = frontView ? PEOPLE.length : PLACED;
+            // The denominator is what the view could draw: the whole file
+            // lumped by front, the whole file less the survivors it does not
+            // count when that lump is by role, and the people with somewhere
+            // to stand on the detailed map.
+            const total = view === 'roles' ? PEOPLE.length - SURVIVORS
+                : frontView() ? PEOPLE.length : PLACED;
             const counts = document.getElementById('counts');
             counts.textContent = shown + ' / ' + total;
             counts.title = T.showing + ' ' + shown + ' / ' + total +
@@ -1658,7 +1889,7 @@
             syncLegend();
             // The front marks are the same at every zoom; leaving the view is
             // what draws the map by the zoom it was left at.
-            if (!frontView) render();
+            if (!frontView()) render();
         });
 
         /* -------------------------------------------------- coordinate jump */
@@ -1971,13 +2202,20 @@
 
         buildFilters();
         buildCampaigns();
-        buildLegend();
-        setRange(CONFIG.date_min, CONFIG.date_max, true);
 
         const params = new URLSearchParams(window.location.search);
+        // A link to one person is not a link to the lump they are inside, so a
+        // pid in the url opens the detailed map whatever the map opens on.
+        if (params.get('pid')) {
+            view = 'detail';
+            syncViewButton();
+        }
+        renderLegend();
+        setRange(CONFIG.date_min, CONFIG.date_max, true);
         // Opened with a filter in the url: show the panel, so it is obvious the
         // map is not showing everything.
         const filtered = applyUrlParams(params);
+
         if (filtered) controls.classList.add('open');
 
         markActiveCampaign();
