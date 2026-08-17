@@ -333,6 +333,14 @@
                          -1px 0 0 #000, 1px 0 0 #000;
         }
 
+        /* The front button, under the red A: a pie of the two colours it
+           draws, so the control looks like what it does. A leaflet bar link is
+           a 26 px line box built for a letter, and an inline svg would sit on
+           its text baseline, so the svg is blocked out and centred by hand. */
+        .front-control a { line-height: 0; padding: 4px 0; }
+        .front-control a svg { display: block; margin: 0 auto; }
+        .front-control.on a { background: #cfe8ff; }
+
         /* One threshold, not two: the victim names are either all there or
            none of them. Showing the uncrowded ones early meant the map filled
            in unevenly, which read as missing data rather than as breathing room. */
@@ -692,7 +700,8 @@
                     else map.removeLayer(row.layer);
                     // A pie is one drawing made of two layers' people, so
                     // switching a colour off has to draw it again.
-                    if (pieZoom() && (row.layer === Killed || row.layer === Kidnapped)) {
+                    if ((frontView || pieZoom()) &&
+                            (row.layer === Killed || row.layer === Kidnapped)) {
                         render();
                     }
                 };
@@ -931,34 +940,27 @@
         let markCount = new Map();   // pid -> how many marks that person has
 
         // One rule for every mark that stands for a group -- the orange and
-        // white circles, and the pies below PIE_MAX_ZOOM. Not a curve but three
-        // sizes: an area drawn to scale makes Be'eri's 147 a 194 px blot that
-        // swallows the envelope, and the difference between 147 and 164 was
-        // never something to read off an area. Each step is the area that many
-        // people would have had -- one mark, four, eight -- so a group of one
-        // still keeps the width of the icons. The white number on the mark is
-        // the true count, which is why it is no longer hidden at the wide
-        // zooms: it is the only thing telling 147 from 164.
+        // white circles, the pies below PIE_MAX_ZOOM, and the front marks. The
+        // size grows with the count all the way, with nothing capped, so it can
+        // be read rather than merely ranked and 147 differs from 164 by
+        // something the eye can measure.
         //
-        // To go back to a straight area, or to a cap, this function is the only
-        // place that decides how big a group is drawn.
-        const MARK_UNIT = iconSize / 2;
-        const MARK_STEPS = [{ from: 100, area: 8 },
-                            { from: 10, area: 4 },
-                            { from: 1, area: 1 }];
+        // The curve is set by its two ends: a group of one is MARK_MIN, a group
+        // of a hundred is MARK_100, and the power between them follows. True
+        // area -- a hundred people covering a hundred times the ground of one --
+        // is that power at 0.5, which put a settlement of 147 under a 146 px
+        // blot and left the map a smear at the crowded end. Halving the
+        // hundred pulls the top down without touching the bottom, where the
+        // marks are already as small as they can be read.
+        //
+        // This function is the only place that decides how big a group is
+        // drawn: change these two numbers and everything follows.
+        const MARK_MIN = 6;
+        const MARK_100 = 30;
+        const MARK_POWER = Math.log(MARK_100 / MARK_MIN) / Math.log(100);
 
         function markRadius(n) {
-            const step = MARK_STEPS.find(s => n >= s.from) ||
-                MARK_STEPS[MARK_STEPS.length - 1];
-            return MARK_UNIT * Math.sqrt(step.area);
-        }
-
-        // A number on an 8 px circle is bigger than the circle. Zoomed out,
-        // only the marks that grew -- ten people and up -- carry one.
-        const COUNT_FROM = 10;
-
-        function showsCount(n) {
-            return n > 1 && (!pieZoom() || n >= COUNT_FROM);
+            return MARK_MIN * Math.pow(Math.max(n, 1), MARK_POWER);
         }
 
         const COUNT_TOOLTIP = {
@@ -974,6 +976,52 @@
             className: 'count-label poly-count map-label', offset: [0, 0]
         };
         const ZOOM_POLY_COUNT = 3;
+
+        // Which marks carry their number. A one is never written: every mark is
+        // at least one person, and the map is covered in them. From
+        // COUNT_ZOOM_ALL in, every group of two and up carries its own -- by
+        // then the marks are far enough apart on the screen to each have room.
+        // Further out the numbers are thinned to the local maxima: a mark is
+        // written only where nothing bigger stands within COUNT_RADIUS, so a
+        // settlement's number is not lost among the eight neighbourhoods inside
+        // it. Metres on the ground, not pixels: at the wide zooms the question
+        // is which places are near each other, and that does not change with
+        // the wheel.
+        const COUNT_ZOOM_ALL = 15;
+        const COUNT_RADIUS = 10000;
+
+        // Filled while the marks are drawn, spent by applyCounts(). The
+        // tooltips are bound there rather than at the mark, because which of
+        // them are shown depends on all the others and on the zoom.
+        let countMarks = [];
+
+        function addCount(layer, n, point, options) {
+            if (n > 1) {
+                countMarks.push({ layer: layer, n: n, point: point,
+                                  options: options || COUNT_TOOLTIP });
+            }
+        }
+
+        // A number standing on its own says what it counts by standing on the
+        // mark. A front mark is the whole of a front, drawn nowhere near the
+        // ground its cases are on, so it says which front in words as well.
+        function countLabel(name, n) {
+            return '<span dir="' + (RTL ? 'rtl' : 'ltr') + '">' + name + ' ' +
+                n + '</span>';
+        }
+
+        function applyCounts() {
+            const all = map.getZoom() >= COUNT_ZOOM_ALL;
+            const kept = [];
+            countMarks.slice().sort((a, b) => b.n - a.n).forEach(mark => {
+                const show = all || !kept.some(other =>
+                    map.distance(other.point, mark.point) < COUNT_RADIUS);
+                if (mark.layer.getTooltip()) mark.layer.unbindTooltip();
+                if (!show) return;
+                kept.push(mark);
+                mark.layer.bindTooltip(String(mark.n), mark.options);
+            });
+        }
 
         function key(coo) { return coo[0].toFixed(6) + ',' + coo[1].toFixed(6); }
 
@@ -1260,7 +1308,8 @@
             for (const k in groups) {
                 const group = groups[k];
                 const people = group.red.concat(group.blue);
-                const marker = L.marker([group.lat / group.n, group.lon / group.n], {
+                const point = [group.lat / group.n, group.lon / group.n];
+                const marker = L.marker(point, {
                     icon: pieIcon(group.red.length, group.blue.length),
                     // The small pies sit on top of the big ones they fall inside.
                     zIndexOffset: -people.length
@@ -1268,28 +1317,179 @@
                 // No publication link on a pie: it belongs to one area, and a
                 // settlement is more than the area that published its addresses.
                 marker.bindPopup(popupHtml(people, group.label, false, false, true));
-                if (showsCount(people.length)) {
-                    marker.bindTooltip(String(people.length), COUNT_TOOLTIP);
-                }
                 marker.addTo(Pies);
+                addCount(marker, people.length, point);
                 allFeatures.push({ people: people, place: group.label,
                                    death: false, layer: marker, type: 'pie' });
             }
         }
 
+        /* --------------------------------------------------- the front view */
+
+        // The whole map lumped into one mark per front: every case of the Gaza
+        // front as a single pie over the middle of its cases, the north as
+        // another. Sized by markRadius() like every other group mark, and split
+        // red and blue by the same rule the pies use -- killed where the event
+        // was against taken alive from it.
+        //
+        // It is also the one view that holds the people with no location at
+        // all. Someone whose place was never established still belongs to a
+        // front, and a count that leaves them out says the front was smaller
+        // than it was.
+        let frontView = false;
+
+        function placed(person) {
+            return !!(person.red || person.blue || person.white ||
+                      person.circ || person.poly || person.dcirc);
+        }
+
+        // How many people any other view could draw. The front view counts
+        // against the whole file instead.
+        const PLACED = PEOPLE.filter(placed).length;
+
+        // Where a front is drawn when the middle of its cases is the wrong
+        // answer. The Iranian strikes fell the length of the country, so their
+        // median lands in the middle of it, on top of the home front and saying
+        // that the front is a place in Israel. Hand-placed off the coast
+        // instead, clear of the marks it would otherwise sit in. Keyed by the
+        // raw value in the csv, the one the front filter is built on.
+        const FRONT_POINT = { 'Iran': [32.405473, 34.988708] };
+
+        // The name a front carries on its own mark, where the word the filter
+        // list uses is not the one a single mark should say: the northern front
+        // is the war with Lebanon, and 'north' on a mark drawn over the border
+        // reads as a part of Israel. The filters keep the csv's own wording.
+        const FRONT_LABEL = { 'North': { he: 'לבנון', en: 'Lebanon' } };
+
+        // Whichever mark a person has, for the median alone: a front is not a
+        // place, and this point is chosen to put its mark among its cases, not
+        // to say anything about one of them.
+        function frontPoint(person) {
+            if (person.red) return person.red;
+            if (person.blue) return person.blue;
+            if (person.circ) return CIRCLE_POINT[person.circ];
+            if (person.poly) return RING_CENTRE[person.poly];
+            if (person.white) return person.white;
+            if (person.dcirc) return CIRCLE_POINT[person.dcirc];
+            return null;
+        }
+
+        function addToFront(fronts, person) {
+            // The legend still governs the two colours, exactly as it does for
+            // the pies a front mark is made of.
+            const colour = statusColour(person);
+            if (colour === 'red' ? !map.hasLayer(Killed) : !map.hasLayer(Kidnapped)) {
+                return;
+            }
+            const name = person.f || T.unspecified;
+            const renamed = FRONT_LABEL[name];
+            const front = fronts[name] = fronts[name] ||
+                { label: renamed ? (RTL ? renamed.he : renamed.en)
+                                 : display('f', name),
+                  red: [], blue: [], lats: [], lons: [] };
+            front[colour].push(person);
+            const point = frontPoint(person);
+            if (point) {
+                front.lats.push(point[0]);
+                front.lons.push(point[1]);
+            }
+        }
+
+        // The median, not the mean: the Gaza front holds a body retrieved in
+        // Egypt and the Iran front is answered from Tehran, and an average
+        // walks off towards whichever of those is furthest out. The same
+        // reason the build frames itself on a box rather than on every point.
+        function median(values) {
+            const sorted = values.slice().sort((a, b) => a - b);
+            const middle = sorted.length >> 1;
+            return sorted.length % 2 ? sorted[middle]
+                : (sorted[middle - 1] + sorted[middle]) / 2;
+        }
+
+        function drawFronts(fronts) {
+            for (const name in fronts) {
+                const front = fronts[name];
+                const people = front.red.concat(front.blue);
+                // A front with no anchor of its own that nobody holds a single
+                // coordinate for has nowhere to put its mark. Its people are
+                // still in the header count.
+                const point = FRONT_POINT[name] || (front.lats.length
+                    ? [median(front.lats), median(front.lons)] : null);
+                if (!point) continue;
+                const marker = L.marker(point, {
+                    icon: pieIcon(front.red.length, front.blue.length),
+                    // The small fronts sit on top of the big ones they fall in.
+                    zIndexOffset: -people.length
+                });
+                // Built on the click: the Gaza front is close to two thousand
+                // rows, and nobody opens every front.
+                marker.bindPopup(() => popupHtml(people, front.label, false,
+                                                 false, true));
+                marker.addTo(Pies);
+                // Named and counted at every zoom, and outside the thinning the
+                // other marks go through: nine marks spread over a country are
+                // not a crowd, and a front of one is still a front worth
+                // naming.
+                marker.bindTooltip(countLabel(front.label, people.length),
+                                   COUNT_TOOLTIP);
+                allFeatures.push({ people: people, place: front.label,
+                                   death: false, layer: marker, type: 'front' });
+            }
+        }
+
+        // Under the red A, and added here rather than beside it because the
+        // button draws itself out of the pie colours, which are declared with
+        // the pies. Not remembered between visits: it is a way of looking at
+        // the map, not a setting.
+        const FrontControl = L.Control.extend({
+            options: { position: 'topright' },
+            onAdd: function () {
+                const bar = L.DomUtil.create('div', 'leaflet-bar front-control');
+                const link = L.DomUtil.create('a', '', bar);
+                const r = 9;
+                const slice = (from, to, colour) =>
+                    '<path d="' + wedge(r, from, to) + '" fill="' + colour +
+                    '" fill-opacity="' + PIE_ALPHA + '"/>';
+                link.href = '#';
+                link.title = T.front_view;
+                link.innerHTML = '<svg width="' + 2 * r + '" height="' + 2 * r +
+                    '" viewBox="0 0 ' + 2 * r + ' ' + 2 * r + '">' +
+                    slice(0, 0.62, PIE_COLOURS.red) +
+                    slice(0.62, 1, PIE_COLOURS.blue) + '</svg>';
+                L.DomEvent.on(link, 'click', L.DomEvent.stop);
+                L.DomEvent.on(link, 'click', () => {
+                    frontView = !frontView;
+                    bar.classList.toggle('on', frontView);
+                    render();
+                });
+                L.DomEvent.disableClickPropagation(bar);
+                return bar;
+            }
+        });
+        map.addControl(new FrontControl());
+
         function render() {
             [Killed, Kidnapped, Deaths, Circles, HostageCircles, Areas, Pies]
                 .forEach(l => l.clearLayers());
             allFeatures = [];
+            countMarks = [];
 
             const red = {}, blue = {}, white = {}, circles = {}, areas = {};
             const exactPlaces = new Set();   // where a mark of its own stands
             const hostages = {};   // by circle: hostages who died at that place
+            const fronts = {};     // by front, for the unified view
             let shown = 0, hidden = 0;
 
             PEOPLE.forEach(p => {
                 if (!passes(p)) { hidden++; return; }
-                shown++;
+                // Someone with no location at all is carried in the file for
+                // the front view alone: no other view can draw them, and none
+                // of those counts them as shown.
+                if (frontView || placed(p)) shown++;
+                if (frontView) {
+                    addToFront(fronts, p);
+                    return;
+                }
                 if (p.red) {
                     const k = key(p.red);
                     (red[k] = red[k] || { coo: p.red, people: [] }).people.push(p);
@@ -1308,16 +1508,22 @@
                 if (p.poly) (areas[p.poly] = areas[p.poly] || []).push(p);
             });
 
-            const absorbed = pieZoom() ? absorbedCircles(exactPlaces) : new Set();
-            if (pieZoom()) {
+            const absorbed = pieZoom() && !frontView
+                ? absorbedCircles(exactPlaces) : new Set();
+            if (frontView) {
+                drawFronts(fronts);
+            } else if (pieZoom()) {
                 addPies(red, blue, areas, circles, absorbed);
             } else {
                 addGrouped(red, Killed, redIcon, 'right', 'red-tooltip', false);
                 addGrouped(blue, Kidnapped, blueIcon, 'left', 'blue-tooltip', false);
             }
-            addGrouped(white, Deaths, whiteIcon, 'right', 'white-tooltip', true);
+            if (!frontView) {
+                addGrouped(white, Deaths, whiteIcon, 'right', 'white-tooltip', true);
+            }
 
             CIRCLES.forEach(c => {
+                if (frontView) return;
                 const people = circles[c.name_he] || [];
                 const taken = hostages[c.name_he] || [];
                 if (!people.length && !taken.length) return;
@@ -1342,8 +1548,8 @@
                         fillColor: '#ff8c00', fillOpacity: 0.6
                     });
                     circle.bindPopup(html);
-                    if (showsCount(total)) circle.bindTooltip(String(total), COUNT_TOOLTIP);
                     circle.addTo(Circles);
+                    addCount(circle, total, [c.lat, c.lon]);
                 }
                 // The hostages are a ring around the same point rather than a
                 // mark of their own: they died in the same place, and two dots
@@ -1362,14 +1568,12 @@
                         fillOpacity: 0
                     });
                     ring.bindPopup(html);
+                    ring.addTo(HostageCircles);
                     // Only when there is no orange dot underneath already
                     // carrying it, or the two would print on each other.
-                    if ((eaten || !people.length) &&
-                            showsCount(eaten ? taken.length : total)) {
-                        ring.bindTooltip(String(eaten ? taken.length : total),
-                                         COUNT_TOOLTIP);
+                    if (eaten || !people.length) {
+                        addCount(ring, eaten ? taken.length : total, [c.lat, c.lon]);
                     }
-                    ring.addTo(HostageCircles);
                 }
                 // Two entries, not one: the orange dot holds people by where
                 // the event was, the ring holds hostages by where they died, and
@@ -1390,7 +1594,7 @@
                 const people = areas[poly.name_he];
                 // Below the pie zoom the people of a ring are inside a pie, and
                 // drawing the ring as well would put them in two popups.
-                if (!people || pieZoom()) return;
+                if (!people || pieZoom() || frontView) return;
                 const ring = poly.ring.map(c => [c[1], c[0]]);
                 const shape = L.polygon(ring, {
                     fillColor: '#ff69b4', weight: 2, opacity: 1,
@@ -1398,10 +1602,9 @@
                 });
                 const name = RTL ? poly.name_he : (poly.name_en || poly.name_he);
                 shape.bindPopup(popupHtml(people, name));
-                if (people.length > 1) {
-                    shape.bindTooltip(String(people.length), POLY_COUNT_TOOLTIP);
-                }
                 shape.addTo(Areas);
+                addCount(shape, people.length, shape.getBounds().getCenter(),
+                         POLY_COUNT_TOOLTIP);
                 allFeatures.push({ people: people, place: name,
                                    layer: shape, type: 'polygon' });
             });
@@ -1412,11 +1615,16 @@
                 p => markCount.set(p.p, (markCount.get(p.p) || 0) + 1)));
 
             // The head stays one line wide, so the long form is the hover title.
+            // The denominator is what the view could draw: the whole file in
+            // the front view, and only the people with somewhere to stand in
+            // every other one.
+            const total = frontView ? PEOPLE.length : PLACED;
             const counts = document.getElementById('counts');
-            counts.textContent = shown + ' / ' + PEOPLE.length;
-            counts.title = T.showing + ' ' + shown + ' / ' + PEOPLE.length +
+            counts.textContent = shown + ' / ' + total;
+            counts.title = T.showing + ' ' + shown + ' / ' + total +
                 (CONFIG.unplaced ? '  ·  ' + T.unplaced + ' ' + CONFIG.unplaced : '');
             updateTooltipVisibility();
+            applyCounts();
         }
 
         // The victim names are all there or none of them, at this zoom.
@@ -1435,15 +1643,22 @@
         }
         map.on('zoomend', updateTooltipVisibility);
 
+        // Which numbers are written depends on the zoom, so it is asked again
+        // at every one of them. The marks do not change, only the tooltips on
+        // them, so this is not a redraw.
+        map.on('zoomend', applyCounts);
+
         // Crossing PIE_MAX_ZOOM changes what the marks are, not just their size,
         // so the map is drawn again -- but only on the crossing, not on every
-        // step of the wheel.
+        // step of the wheel. The front view is the same marks at every zoom.
         let pieMode = pieZoom();
         map.on('zoomend', function () {
             if (pieZoom() === pieMode) return;
             pieMode = pieZoom();
             syncLegend();
-            render();
+            // The front marks are the same at every zoom; leaving the view is
+            // what draws the map by the zoom it was left at.
+            if (!frontView) render();
         });
 
         /* -------------------------------------------------- coordinate jump */

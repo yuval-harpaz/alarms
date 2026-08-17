@@ -115,6 +115,7 @@ LABELS = {
         'localities': 'גבולות שכונות ויישובים (OSM)',
         'neighbourhoods': 'מרכזי שכונות (OCHA)',
         'front': 'זירה',
+        'front_view': 'איחוד כל המקרים לפי זירה',
         'role': 'תפקיד',
         'status': 'סטטוס',
         'unspecified': 'לא צוין',
@@ -146,6 +147,7 @@ LABELS = {
         'localities': 'Locality boundaries (OSM)',
         'neighbourhoods': 'Neighbourhood centres (OCHA)',
         'front': 'Front',
+        'front_view': 'All cases lumped by front',
         'role': 'Role',
         'status': 'Status',
         'unspecified': 'Unspecified',
@@ -271,8 +273,8 @@ def person_record(person, red, blue, white):
 
 
 def build(people, private, areas, geometry):
-    """(records, polygons_used, hidden, unplaced_deaths) for one visibility level."""
-    records, rings, hidden = [], {}, []
+    """(records, polygons, hidden, unplaced_deaths, nowhere) per visibility level."""
+    records, rings, hidden, nowhere = [], {}, [], []
     unknown, unplaced_deaths = Counter(), {}
     no_link_text = set()
 
@@ -337,9 +339,13 @@ def build(people, private, areas, geometry):
 
         if person['circle']:
             record['circ'] = person['circle']['name_he']
+        # Someone with no coordinate, no circle and no ring is still written
+        # out. Nothing draws them -- they carry no key to be drawn by -- but
+        # the page's front view lumps every case of a front into one mark, and
+        # a front that leaves its unplaced people out is counted short.
         if not any(k in record for k in ('red', 'blue', 'white', 'circ', 'poly',
                                           'dcirc')):
-            continue
+            nowhere.append(record['p'])
         records.append(record)
 
     if no_link_text:
@@ -358,7 +364,7 @@ def build(people, private, areas, geometry):
                  'name_en': props.get('name_en') or props['name_he'],
                  'ring': [list(c) for c in ring.exterior.coords]}
                 for props, ring in rings.values()]
-    return records, polygons, hidden, unplaced_deaths
+    return records, polygons, hidden, unplaced_deaths, nowhere
 
 
 def translation_gaps(people):
@@ -566,8 +572,8 @@ def main():
 
     geometry = load_circles()
     for private in (False, True):
-        records, polygons, hidden, unplaced_deaths = build(people, private,
-                                                           areas, geometry)
+        records, polygons, hidden, unplaced_deaths, nowhere = build(
+            people, private, areas, geometry)
         payload = circles_payload(circles, records)
         for lang in ('he', 'en'):
             name = BASENAME + ('_private' if private else '') + \
@@ -580,7 +586,8 @@ def main():
 
         kind = 'private' if private else 'public'
         centre = map_center(records, payload, polygons)
-        print(f'  {kind}: {len(records)} people drawn, '
+        print(f'  {kind}: {len(records) - len(nowhere)} people drawn, '
+              f'{len(nowhere)} carried without a location for the front view, '
               f'{len(polygons)} rings, {len(payload)} circles, '
               f'centre {centre[0]}, {centre[1]}')
         if hidden:
