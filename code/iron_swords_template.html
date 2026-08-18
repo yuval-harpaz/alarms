@@ -310,9 +310,9 @@
         .white-tooltip { color: #fff; }
 
         /* How every label on the map is separated from the tiles behind it.
-           One mode at a time, switched by the button under the layer control,
-           so the choice can be judged against real tiles rather than guessed.
-           Nothing here paints a box: the point is to keep the map visible. */
+           One mode at a time, chosen in the display panel, where each mode is
+           offered as a sample of itself. Nothing here paints a box: the point
+           is to keep the map visible. */
 
         /* 1  a true outline. paint-order is the essential half -- without it
               the stroke paints over the glyph and thin letters close up. */
@@ -334,28 +334,67 @@
             padding-inline: 4px;
         }
 
-        /* The button is its own sample: a red A wearing the 3b halo, so the
-           control looks like what it controls. Fixed at 3b rather than tracking
-           the mode -- on 'none' or '4' the icon would have nothing to show. */
-        .halo-control a {
-            font: bold 17px/26px Georgia, serif;
-            color: red;
-            text-align: center;
-            text-decoration: none;
-            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-                          1px 1px 0 #000, 0 -1px 0 #000, 0 1px 0 #000,
-                         -1px 0 0 #000, 1px 0 0 #000;
+        /* One panel for every question of the form "how should this be drawn".
+           It borrows leaflet's own layer-control classes, so the collapsed
+           button, the hover to open and the panel's frame come from leaflet's
+           stylesheet and only the contents are ours. */
+        .display-control .panel-section { margin-top: 7px; }
+        .display-control .panel-section:first-child { margin-top: 0; }
+
+        .display-control .panel-head {
+            font-weight: 700;
+            margin-bottom: 2px;
         }
 
-        /* The front button, under the red A: a pie of the two colours it
-           draws, so the control looks like what it does. A leaflet bar link is
-           a 26 px line box built for a letter, and an inline svg would sit on
-           its text baseline, so the svg is blocked out and centred by hand. */
-        .view-control a { line-height: 0; padding: 4px 0; }
-        .view-control a svg { display: block; margin: 0 auto; }
-        /* The category button says nothing at the level of exact locations,
-           where the marks are the marks and there is no colouring to choose. */
-        .view-control.off a { opacity: .35; cursor: default; }
+        .display-control .panel-row {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        .display-control .panel-row input { margin: 0; flex: none; }
+        .display-control .panel-icon { line-height: 0; }
+        .display-control .panel-icon svg { display: block; }
+
+        /* Dimmed rather than hidden at the level of exact locations: a section
+           that vanished would leave the reader wondering where the colouring
+           went, and the note says why it is out of reach. */
+        .display-control .panel-section.off { opacity: .45; }
+
+        .display-control .panel-note {
+            font-size: 11px;
+            line-height: 1.3;
+            white-space: normal;
+            max-width: 150px;
+        }
+
+        /* Each sample wears the styling it sets, on the tiles it will be read
+           against -- so the choice is judged rather than guessed. */
+        .display-control .halo-row { display: flex; gap: 4px; margin-top: 2px; }
+
+        .display-control .halo-sample {
+            width: 26px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #bbb;
+            border-radius: 3px;
+            background: #6d6f63;
+            text-decoration: none;
+        }
+
+        .display-control .halo-sample.on {
+            border-color: #333;
+            box-shadow: 0 0 0 1px #333 inset;
+        }
+
+        .display-control .halo-sample .map-label {
+            font: bold 15px/1 Georgia, serif;
+            color: red;
+        }
 
         /* The lumped views' legend is a key, not a switchboard: nothing there
            to click, and a line saying what the role count leaves out. */
@@ -654,43 +693,50 @@
         const extraLayers = {};
         if (LOCALITIES.length) extraLayers[T.localities] = Localities;
         if (NEIGHBOURHOODS.length) extraLayers[T.neighbourhoods] = Neighbourhoods;
-        L.control.layers(baseMaps, extraLayers).addTo(map);
+
+        // Both of these, and the base maps above, are offered by the display
+        // panel further down rather than by leaflet's layer control: the level,
+        // the colouring, the tiles and the labels are all one question, and
+        // four stacked buttons in a corner asked it four times.
+        //
+        // The map is handed every base map at creation, stacked, and only the
+        // top one is ever seen. Drop the rest: three sets of tiles were being
+        // fetched for nobody, and the footer credited maps that were not on the
+        // screen. Which one is on top is a fact about the dom, so it is read
+        // rather than assumed.
+        const BASE_LAYERS = Object.entries(baseMaps);
+        const BASE_START = BASE_LAYERS.filter(([, layer]) => map.hasLayer(layer))
+            .sort((a, b) => zOf(a[1]) - zOf(b[1])).pop();
+
+        function zOf(layer) {
+            const box = layer.getContainer();
+            return box ? Number(getComputedStyle(box).zIndex) || 0 : 0;
+        }
+
+        BASE_LAYERS.forEach(([, layer]) => {
+            if (!BASE_START || layer !== BASE_START[1]) map.removeLayer(layer);
+        });
 
         // Cycles how the labels separate themselves from the tiles. Added after
         // the layer control so it lands underneath it in the same corner. The
         // choice is remembered, because judging these means reloading over the
         // same view several times.
         const HALOS = [['none', ''], ['1', 'halo-1'], ['3b', 'halo-3b'], ['4', 'halo-4']];
-        let halo = Number(localStorage.getItem('ironSwordsHalo'));
+        // A missing choice is not choice 0: Number(null) is 0, which is a valid
+        // index, so a first visit used to land on 'none' and the labels arrived
+        // with nothing separating them from the tiles.
+        const HALO_STORED = localStorage.getItem('ironSwordsHalo');
+        let halo = HALO_STORED === null ? 2 : Number(HALO_STORED);
         if (!(halo >= 0 && halo < HALOS.length)) halo = 2;      // 3b, the default
 
-        const HaloControl = L.Control.extend({
-            options: { position: 'topright' },
-            onAdd: function () {
-                const bar = L.DomUtil.create('div', 'leaflet-bar halo-control');
-                const link = L.DomUtil.create('a', '', bar);
-                link.href = '#';
-                link.textContent = 'A';
+        function applyHalo() {
+            const classes = map.getContainer().classList;
+            HALOS.forEach(([, css]) => css && classes.remove(css));
+            if (HALOS[halo][1]) classes.add(HALOS[halo][1]);
+            localStorage.setItem('ironSwordsHalo', halo);
+        }
 
-                function apply() {
-                    const classes = map.getContainer().classList;
-                    HALOS.forEach(([, css]) => css && classes.remove(css));
-                    if (HALOS[halo][1]) classes.add(HALOS[halo][1]);
-                    link.title = T.halo_hint + '  (' + HALOS[halo][0] + ')';
-                    localStorage.setItem('ironSwordsHalo', halo);
-                }
-
-                L.DomEvent.on(link, 'click', L.DomEvent.stop);
-                L.DomEvent.on(link, 'click', () => {
-                    halo = (halo + 1) % HALOS.length;
-                    apply();
-                });
-                L.DomEvent.disableClickPropagation(bar);
-                apply();
-                return bar;
-            }
-        });
-        map.addControl(new HaloControl());
+        applyHalo();
 
         document.getElementById('map').style.cursor = 'crosshair';
 
@@ -1801,14 +1847,22 @@
                 '" viewBox="0 0 ' + 2 * r + ' ' + 2 * r + '">' + inner + '</svg>';
         }
 
-        // Both buttons sit under the red A, and are added here rather than
-        // beside it because they draw themselves out of the pie colours, which
-        // are declared with the pies. Each wears what the next click brings,
-        // not what is on the screen: a button says what it does. Neither is
-        // remembered between visits -- they are ways of looking at the map,
-        // not settings.
-        const BUTTON_R = 9;
-        let applyLevel = () => {}, applyCategory = () => {};
+        // One panel, five questions, all of the form "how should this be drawn":
+        // which breakdown, what the colours mean, which tiles underneath, which
+        // reference layers, how the labels lift off the map. It replaces
+        // leaflet's layer control and the three icon buttons that used to stack
+        // under it, and it borrows the layer control's own classes so the
+        // collapsed button and the hover to open come from leaflet.
+        //
+        // Radios, not cycling buttons. A button that wears its next click is
+        // fine for a two-state toggle and hopeless for four levels: nothing on
+        // the screen said which one you were on, and the levels have names
+        // worth reading. The level and the colouring are still not remembered
+        // between visits -- they are ways of looking at the map, not settings --
+        // while the base map and the labels are, being a matter of eyesight and
+        // screen.
+        const ICON_R = 8;
+        let syncPanel = () => {};
 
         // The address bar mirrors what is on the screen: the level, the
         // colouring, and where the map sits. Two things come of that -- a view
@@ -1834,66 +1888,159 @@
         }
 
         function syncButtons() {
-            applyLevel();
-            applyCategory();
+            syncPanel();
         }
 
-        const LevelControl = L.Control.extend({
+        const DisplayControl = L.Control.extend({
             options: { position: 'topright' },
             onAdd: function () {
-                const bar = L.DomUtil.create('div', 'leaflet-bar view-control');
-                const link = L.DomUtil.create('a', '', bar);
-                link.href = '#';
-                applyLevel = function () {
-                    const next = LEVELS[(level + 1) % LEVELS.length];
-                    link.title = T.to_level + ' ' + T['level_' + next];
-                    link.innerHTML = svgIcon(levelIcon(next, BUTTON_R), BUTTON_R);
-                };
-                L.DomEvent.on(link, 'click', L.DomEvent.stop);
-                L.DomEvent.on(link, 'click', () => {
-                    level = (level + 1) % LEVELS.length;
-                    viewToUrl();
-                    syncButtons();
-                    renderLegend();
-                    render();
-                });
-                L.DomEvent.disableClickPropagation(bar);
-                applyLevel();
-                return bar;
-            }
-        });
+                const box = L.DomUtil.create('div',
+                    'leaflet-control-layers display-control');
+                const toggle = L.DomUtil.create('a',
+                    'leaflet-control-layers-toggle', box);
+                toggle.href = '#';
+                toggle.title = T.panel_hint;
+                const list = L.DomUtil.create('div',
+                    'leaflet-control-layers-list', box);
+                if (RTL) list.dir = 'rtl';
 
-        const CategoryControl = L.Control.extend({
-            options: { position: 'topright' },
-            onAdd: function () {
-                const bar = L.DomUtil.create('div', 'leaflet-bar view-control');
-                const link = L.DomUtil.create('a', '', bar);
-                link.href = '#';
-                applyCategory = function () {
-                    const next = category === 'status' ? 'roles' : 'status';
-                    link.title = T['by_' + next];
-                    link.innerHTML = svgIcon(categoryIcon(next, BUTTON_R),
-                                             BUTTON_R);
+                function section(title) {
+                    const part = L.DomUtil.create('div', 'panel-section', list);
+                    const head = L.DomUtil.create('div', 'panel-head', part);
+                    head.textContent = title;
+                    return part;
+                }
+
+                // A label around the input, so the words are as clickable as
+                // the dot -- these words are the only place the levels are
+                // named.
+                function row(part, group, text, icon, on, pick) {
+                    const line = L.DomUtil.create('label', 'panel-row', part);
+                    const input = L.DomUtil.create('input', '', line);
+                    input.type = group ? 'radio' : 'checkbox';
+                    if (group) input.name = group;
+                    input.checked = on;
+                    if (icon) {
+                        L.DomUtil.create('span', 'panel-icon', line)
+                            .innerHTML = icon;
+                    }
+                    L.DomUtil.create('span', '', line).textContent = text;
+                    L.DomEvent.on(input, 'change', () => pick(input));
+                    return input;
+                }
+
+                const levelBox = section(T.panel_display);
+                const levelInputs = LEVELS.map((name, index) =>
+                    row(levelBox, 'ironLevel', T['level_' + name],
+                        svgIcon(levelIcon(name, ICON_R), ICON_R),
+                        index === level, () => {
+                            level = index;
+                            viewToUrl();
+                            syncPanel();
+                            renderLegend();
+                            render();
+                        }));
+
+                const catBox = section(T.panel_colour);
+                const catInputs = CATEGORIES.map(name =>
+                    row(catBox, 'ironCategory', T['cat_' + name],
+                        svgIcon(categoryIcon(name, ICON_R), ICON_R),
+                        name === category, () => {
+                            category = name;
+                            viewToUrl();
+                            syncPanel();
+                            renderLegend();
+                            render();
+                        }));
+                const catNote = L.DomUtil.create('div', 'panel-note', catBox);
+                catNote.textContent = T.cat_off;
+
+                const baseBox = section(T.panel_base);
+                BASE_LAYERS.forEach(([name, layer]) => {
+                    row(baseBox, 'ironBase', name, '', map.hasLayer(layer),
+                        () => {
+                            BASE_LAYERS.forEach(([, other]) => {
+                                if (other !== layer && map.hasLayer(other)) {
+                                    map.removeLayer(other);
+                                }
+                            });
+                            if (!map.hasLayer(layer)) map.addLayer(layer);
+                        });
+                });
+
+                const overlays = Object.keys(extraLayers);
+                if (overlays.length) {
+                    const layerBox = section(T.panel_layers);
+                    overlays.forEach(name => {
+                        const layer = extraLayers[name];
+                        row(layerBox, '', name, '', map.hasLayer(layer),
+                            input => {
+                                if (input.checked) map.addLayer(layer);
+                                else map.removeLayer(layer);
+                            });
+                    });
+                }
+
+                const haloBox = section(T.panel_halo);
+                haloBox.title = T.halo_hint;
+                const haloRow = L.DomUtil.create('div', 'halo-row', haloBox);
+                const haloSamples = HALOS.map(([name, css], index) => {
+                    const sample = L.DomUtil.create('a',
+                        'halo-sample' + (css ? ' ' + css : ''), haloRow);
+                    sample.href = '#';
+                    sample.title = name;
+                    // The letter is a map label, so it is styled by exactly the
+                    // rule it is offering.
+                    L.DomUtil.create('span', 'map-label', sample)
+                        .textContent = 'A';
+                    L.DomEvent.on(sample, 'click', L.DomEvent.stop);
+                    L.DomEvent.on(sample, 'click', () => {
+                        halo = index;
+                        applyHalo();
+                        markHalo();
+                    });
+                    return sample;
+                });
+
+                function markHalo() {
+                    haloSamples.forEach((sample, index) =>
+                        sample.classList.toggle('on', index === halo));
+                }
+
+                syncPanel = function () {
+                    levelInputs.forEach((input, index) => {
+                        input.checked = index === level;
+                    });
                     // Nothing to colour where the marks are the marks.
-                    bar.classList.toggle('off', level === 3);
+                    const off = level === LEVELS.length - 1;
+                    catInputs.forEach((input, index) => {
+                        input.checked = CATEGORIES[index] === category;
+                        input.disabled = off;
+                    });
+                    catBox.classList.toggle('off', off);
+                    catNote.style.display = off ? '' : 'none';
                 };
-                L.DomEvent.on(link, 'click', L.DomEvent.stop);
-                L.DomEvent.on(link, 'click', () => {
-                    if (level === 3) return;
-                    category = category === 'status' ? 'roles' : 'status';
-                    viewToUrl();
-                    syncButtons();
-                    renderLegend();
-                    render();
-                });
-                L.DomEvent.disableClickPropagation(bar);
-                applyCategory();
-                return bar;
+
+                markHalo();
+                syncPanel();
+
+                // Opens on hover like leaflet's own layer control, and on a
+                // click as well, which is all a touch screen has.
+                L.DomEvent.on(box, 'mouseenter', () =>
+                    L.DomUtil.addClass(box, 'leaflet-control-layers-expanded'));
+                L.DomEvent.on(box, 'mouseleave', () =>
+                    L.DomUtil.removeClass(box,
+                        'leaflet-control-layers-expanded'));
+                L.DomEvent.on(toggle, 'click', L.DomEvent.stop);
+                L.DomEvent.on(toggle, 'click', () =>
+                    L.DomUtil.addClass(box, 'leaflet-control-layers-expanded'));
+                L.DomEvent.disableClickPropagation(box);
+                L.DomEvent.disableScrollPropagation(box);
+                return box;
             }
         });
 
-        map.addControl(new LevelControl());
-        map.addControl(new CategoryControl());
+        map.addControl(new DisplayControl());
 
         function render() {
             [Killed, Kidnapped, Deaths, Circles, HostageCircles, Areas, Pies]
