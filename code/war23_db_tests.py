@@ -540,7 +540,7 @@ class TestKidnapped(unittest.TestCase):
 # getColumns is only asked for the pid column, the data itself is collected pid by pid with getRecords,
 # which is the only way to get all the fields.
 max_print = 10
-wix_fields = ['link-oct7database-pid', 'memorialSiteTypeEn', 'memorialSiteTypeHe']  # made by wix, not uploaded
+wix_fields = ['link-oct7database-pid']  # made by wix, not uploaded
 csv_only_columns = ['Event location class', 'Death location class']  # not in db2api, never uploaded
 website = {}  # cache, filled by load_website
 
@@ -607,6 +607,14 @@ def report_mismatch(title, mismatch, left='website', right='github'):
 
 
 class TestWebsite(unittest.TestCase):
+    def csv_pushed(self):
+        from war23_api import csv_diff
+        not_pushed = csv_diff()
+        if len(not_pushed) > 0:
+            print('data/oct7database.csv is not the same as the one on github, which is the one being tested.')
+            print(f'commit and push first!!!! {len(not_pushed)} pid differ: {not_pushed}'.replace("'", ''))
+        self.assertEqual(len(not_pushed), 0)
+
     def website_records(self):
         load_website()
         failed = website['failed']
@@ -726,7 +734,8 @@ if __name__ == '__main__':
                                               Relations('no_row'),
                                               Relations('mutual_siblings')])
     elif args[1][0] in ['a', 'w']:  # api / website
-        oct7suite = unittest.TestSuite(tests=[TestWebsite('website_records'),
+        oct7suite = unittest.TestSuite(tests=[TestWebsite('csv_pushed'),
+                                              TestWebsite('website_records'),
                                               TestWebsite('website_fields'),
                                               TestWebsite('website_missing'),
                                               TestWebsite('website_extra'),

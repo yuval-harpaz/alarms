@@ -159,9 +159,47 @@ def get_all_records(pids=None, chunk=MAX_PIDS, tries=3):
         not_found.extend(response['notFound'])
     return records, not_found
 
-db = pd.read_csv('https://raw.githubusercontent.com/yuval-harpaz/alarms/refs/heads/master/data/oct7database.csv', dtype={'הספריה הלאומית': str})
+CSV_URL = 'https://raw.githubusercontent.com/yuval-harpaz/alarms/refs/heads/master/data/oct7database.csv'
+db = pd.read_csv(CSV_URL, dtype={'הספריה הלאומית': str})
+
+
+def csv_diff(path='data/oct7database.csv'):
+    """pid where the local oct7database.csv is not the same as the one on github,
+    which is the one pid2record reads. anything not committed and pushed is invisible here"""
+    if not os.path.isfile(path):
+        print(path + ' not found, comparing to github is not possible')
+        return []
+    lines = []
+    with open(path, encoding='utf-8') as f:
+        local_txt = f.read()
+    for txt in [local_txt, requests.get(CSV_URL).text]:
+        by_pid = {}
+        for line in txt.split('\n')[1:]:
+            if len(line.strip()) > 0:
+                by_pid[line.split(',')[0]] = line
+        lines.append(by_pid)
+    pids = set(list(lines[0].keys()) + list(lines[1].keys()))
+    return sorted([p for p in pids if lines[0].get(p) != lines[1].get(p)])
 with open('data/dictionaries.json') as f:
     dictionary = json.load(f)
+
+# wix shows a memorial site type, which is not a column of the csv but follows the domain of the הנצחה url
+memorial_types = {'laad.btl.gov.il': ['National Insurance (Civilians)', 'ביטוח לאומי (אזרחים)'],
+                  'www.idf.il': ['IDF Fallen', 'חללי צה"ל'],
+                  'lezichram.police.gov.il': ['Israel Police', 'משטרת ישראל'],
+                  'www.shabak.gov.il': ['Shin Bet', 'שב"כ'],
+                  'www.izkor.gov.il': ['Yizkor', 'יזכור'],
+                  'www.gov.il': ['Foreign Affairs', 'משרד החוץ']}
+no_memorial = ['None', 'ללא']  # no url at all
+other_memorial = ['Other', 'אחר']  # a url with a domain which is not listed above
+
+
+def memorial_type(url):
+    """the memorial site type, by the domain of the הנצחה url"""
+    if url is None or str(url) == 'nan' or '/' not in str(url):
+        return no_memorial
+    return memorial_types.get(str(url).split('/')[2], other_memorial)
+
 
 def pid2record(pid):
     row = np.where(db['pid'] == pid)[0]
@@ -189,6 +227,7 @@ def pid2record(pid):
         translated_value = dictionary[key][value]
         record[translated_key] = translated_value
     record['statusHe'] = [s.strip() for s in record['statusHe'].split(';')]
+    record['memorialSiteTypeEn'], record['memorialSiteTypeHe'] = memorial_type(record.get('memorialSite'))
     return record
     # if str(db.at[row, 'הנצחה']) == 'nan':
     #     continue
@@ -220,7 +259,7 @@ def same_value(csv_value, website_value, date=False):
 
 def show(value):
     """quote the value when it has spaces around it, otherwise it is invisible in a report"""
-    if type(value) == str and value.strip() != value:
+    if type(value) == str and (value.strip() != value or value in ['None', 'nan', '']):
         return f'"{value}"'
     return str(value)
 

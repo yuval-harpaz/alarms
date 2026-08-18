@@ -8,13 +8,21 @@ a field which has a value on the website and no value in the csv is deleted, by 
     python code/war23_db2website.py 1636    work on these pids only, good for trying one record first
 """
 import sys
-from war23_api import db, website_pid, get_all_records, missing_pid, extra_pid, changed_pid, pid2record, send_records
+from war23_api import (db, csv_diff, website_pid, get_all_records, missing_pid, extra_pid, changed_pid,
+                        pid2record, send_records)
 
 if __name__ == '__main__':
     args = [a.lower() for a in sys.argv[1:]]
     dry = len([a for a in args if a[0] in ['d', 'n']]) > 0
     keep = len([a for a in args if a[0] == 'k']) > 0
     only = [int(a) for a in args if a.isdigit()]
+    not_pushed = csv_diff()
+    if len(not_pushed) > 0:  # the csv being sent is the one on github, not the local file
+        print(f'{len(not_pushed)} pid differ between the local oct7database.csv and the one on github:')
+        print(str(not_pushed).replace("'", ''))
+        print('commit and push them first, or they will not reach the website')
+        if not dry:
+            sys.exit(1)
     all_pids = website_pid()
     print(f'{len(all_pids)} records on the website, {len(db)} in oct7database.csv')
     extra = extra_pid(all_pids)
