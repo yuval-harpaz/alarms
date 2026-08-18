@@ -1828,7 +1828,9 @@
             url.searchParams.set(key, centre.lat.toFixed(5) + ',' +
                                       centre.lng.toFixed(5));
             url.searchParams.set('zoom', map.getZoom());
-            history.replaceState(null, '', url);
+            // The comma between the coordinates is legal in a query and reads
+            // better than %2C in a url meant to be copied into a message.
+            history.replaceState(null, '', url.toString().replace(/%2C/g, ','));
         }
 
         function syncButtons() {
