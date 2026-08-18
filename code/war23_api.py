@@ -131,6 +131,7 @@ def allowed_columns():
     )
     return response.json()['allowed']
 
+EMPTY = ''  # what addRecords takes as a delete, try None if empty strings are ignored
 MAX_PIDS = 500  # getRecords refuses more than that in one request
 def website_pid():
     """all the pids on the website"""
@@ -197,9 +198,9 @@ def pid2record(pid):
 def same_value(csv_value, website_value, date=False):
     """compare one value of oct7database.csv with the value on the website,
     ignoring the way lists are stored and numbers and dates are formatted"""
-    if csv_value is None or str(csv_value) == 'nan':
-        return website_value is None or str(website_value) in ['nan', '']
-    if website_value is None or str(website_value) == 'nan':
+    if csv_value is None or str(csv_value).strip() in ['nan', '']:
+        return website_value is None or str(website_value).strip() in ['nan', '']
+    if website_value is None or str(website_value).strip() in ['nan', '']:
         return False
     if date:
         return pd.to_datetime(csv_value) == pd.to_datetime(website_value)
@@ -238,9 +239,10 @@ def extra_pid(pids=None):
     return [int(p) for p in pids if p not in db['pid'].values]
 
 
-def changed_pid(verbose=False, records=None, clear=False):
+def changed_pid(verbose=False, records=None, clear=True):
     """the fields which differ between oct7database.csv and the website, per pid.
-    with clear=True, fields which are empty in the csv but not on the website are sent as an empty string"""
+    a field which has a value on the website and none in the csv is sent as an empty string,
+    which is the way to delete it. clear=False leaves such fields as they are"""
     if records is None:
         records, not_found = get_all_records()
     csv_fields = list(db2api.values()) + list(require_translation.values())
@@ -263,7 +265,7 @@ def changed_pid(verbose=False, records=None, clear=False):
                 if field not in record.keys() and str(rec.get(field)) not in ['None', 'nan', '']:
                     if verbose:
                         print(f'pid {pid} {field}: website has {show(rec.get(field))}, csv has nothing')
-                    tochange[field] = ''
+                    tochange[field] = EMPTY
         if len(tochange) > 1:
             changed[pid] = tochange
     return changed

@@ -540,6 +540,8 @@ class TestKidnapped(unittest.TestCase):
 # getColumns is only asked for the pid column, the data itself is collected pid by pid with getRecords,
 # which is the only way to get all the fields.
 max_print = 10
+wix_fields = ['link-oct7database-pid', 'memorialSiteTypeEn', 'memorialSiteTypeHe']  # made by wix, not uploaded
+csv_only_columns = ['Event location class', 'Death location class']  # not in db2api, never uploaded
 website = {}  # cache, filled by load_website
 
 
@@ -618,13 +620,14 @@ class TestWebsite(unittest.TestCase):
     def website_fields(self):
         load_website()
         not_on_site = website['not_on_site']
-        if len(website['not_in_csv']) > 0:
-            print('fields on the website which are not in the csv (made by wix?): ' +
-                  str(website['not_in_csv']).replace("'", '').replace('[', '').replace(']', ''))
+        not_in_csv = [f for f in website['not_in_csv'] if f not in wix_fields]
+        if len(not_in_csv) > 0:
+            print('fields on the website which the csv knows nothing about!!!! ' +
+                  str(not_in_csv).replace("'", '').replace('[', '').replace(']', ''))
         if len(not_on_site) > 0:
             print('fields the csv makes but no record on the website has!!!! ' +
                   str(not_on_site).replace("'", '').replace('[', '').replace(']', ''))
-        self.assertEqual(len(not_on_site), 0)
+        self.assertEqual(len(not_on_site) + len(not_in_csv), 0)
 
     def website_missing(self):
         load_website()
@@ -644,9 +647,10 @@ class TestWebsite(unittest.TestCase):
         """website -> csv"""
         from war23_api import db as gitdb, same_value
         rebuilt, cant_rebuild = website2csv()
-        if len(cant_rebuild) > 0:
-            print('columns which can not be rebuilt from the website: ' +
-                  str(cant_rebuild).replace("'", '').replace('[', '').replace(']', ''))
+        unexpected = [c for c in cant_rebuild if c not in csv_only_columns]
+        if len(unexpected) > 0:
+            print('columns which can not be rebuilt from the website!!!! ' +
+                  str(unexpected).replace("'", '').replace('[', '').replace(']', ''))
         row_of = {pid: row for row, pid in enumerate(gitdb['pid'].values)}
         n_issues = 0
         for col in rebuilt.columns[1:]:
