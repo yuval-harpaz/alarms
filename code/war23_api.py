@@ -76,17 +76,25 @@ def check_translation(save_to='data/dictionaries.json'):
 
 API_URL = os.environ['OCT7URL']
 API_KEY = os.environ['OCT7KEY']
-def send_records(records):
-    response = requests.post(
-        API_URL,
-        json=records,
-        headers={
-            "Content-Type": "application/json",
-            "x-api-key": API_KEY,
-        }
-    )
-    response.raise_for_status()
-    return response.json()
+def send_records(records, tries=3):
+    """the API drops a request now and then, sending the same record again is harmless"""
+    for itry in range(tries):
+        try:
+            response = requests.post(
+                API_URL,
+                json=records,
+                headers={
+                    "Content-Type": "application/json",
+                    "x-api-key": API_KEY,
+                }
+            )
+            response.raise_for_status()
+            return response.json()
+        except Exception as exc:
+            if itry == tries - 1:
+                raise
+            print(f"sending pid {records.get('pid') if type(records) == dict else ''} failed ({exc}), trying again")
+            time.sleep(5)
 
 def get_records(pids):
     if type(pids) == int:
