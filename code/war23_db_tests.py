@@ -180,6 +180,7 @@ for ii in range(len(map79)):
         eod = 'death'
     event_or_death.append(eod)
 dayfirst = '.' in map79['date'][0]
+
 class Test79(unittest.TestCase):
     def extras79(self):
         pid = data['pid'].values
@@ -535,6 +536,154 @@ class TestKidnapped(unittest.TestCase):
         self.assertEqual(names, '')
 
 ##
+# comparing the website (wix) with oct7database.csv as saved on github, see war23_api.py.
+# getColumns is only asked for the pid column, the data itself is collected pid by pid with getRecords,
+# which is the only way to get all the fields.
+max_print = 10
+website = {}  # cache, filled by load_website
+
+
+def load_website():
+    """the data on the website, and the records as they should be according to oct7database.csv on github"""
+    if 'site' in website.keys():
+        return
+    from war23_api import db as gitdb, pid2record, get_all_records
+    records, not_found = get_all_records()
+    site = {rec['pid']: rec for rec in records}
+    expected = {}
+    failed = []
+    for pid in gitdb['pid'].values:
+        try:
+            expected[int(pid)] = pid2record(int(pid))
+        except Exception as exc:
+            failed.append([int(pid), str(exc)])
+    site_fields = sorted(set([f for rec in site.values() for f in rec.keys()]))
+    csv_fields = sorted(set([f for rec in expected.values() for f in rec.keys()]))
+    website['site'] = site
+    website['expected'] = expected
+    website['failed'] = failed
+    website['not_found'] = not_found
+    website['fields'] = [f for f in csv_fields if f in site_fields and f != 'pid']
+    website['not_on_site'] = [f for f in csv_fields if f not in site_fields]
+    website['not_in_csv'] = [f for f in site_fields if f not in csv_fields]
+
+
+def website2csv():
+    """rebuild oct7database.csv from the website. returns the table and the columns which can not be filled"""
+    load_website()
+    from war23_api import db as gitdb, db2api
+    columns = [c for c in gitdb.columns if c == 'pid' or
+               (c in db2api.keys() and db2api[c] in website['fields'])]
+    cant_rebuild = [c for c in gitdb.columns if c not in columns]
+    rows = []
+    for pid in sorted(website['site'].keys()):
+        row = {'pid': pid}
+        for col in columns[1:]:
+            value = website['site'][pid].get(db2api[col])
+            if type(value) == list:
+                value = '; '.join([str(x) for x in value])
+            elif col == 'הספריה הלאומית' and type(value) == str:
+                value = value.split('/')[-1]  # pid2record turns the NLI id into a url
+            row[col] = value
+        rows.append(row)
+    return pd.DataFrame(rows, columns=columns), cant_rebuild
+
+
+def csv2website():
+    """the records as they should be on the website, built from the csv on github with dictionaries.json"""
+    load_website()
+    return website['expected']
+
+
+def report_mismatch(title, mismatch, left='website', right='github'):
+    from war23_api import show
+    print(f'{title}: {len(mismatch)} records differ!!!!')
+    for pid, right_value, left_value in mismatch[:max_print]:
+        print(f'   pid {pid}: {left} has {show(left_value)}, {right} has {show(right_value)}')
+    if len(mismatch) > max_print:
+        print(f'   ... and {len(mismatch) - max_print} more')
+
+
+class TestWebsite(unittest.TestCase):
+    def website_records(self):
+        load_website()
+        failed = website['failed']
+        if len(failed) > 0:
+            print(f'could not build a record for {[x[0] for x in failed]}'.replace('[', '').replace(']', ''))
+            print(failed[0][1])
+        if len(website['not_found']) > 0:
+            print(f"getRecords did not return {website['not_found']}".replace('[', '').replace(']', ''))
+        self.assertEqual(len(failed) + len(website['not_found']), 0)
+
+    def website_fields(self):
+        load_website()
+        not_on_site = website['not_on_site']
+        if len(website['not_in_csv']) > 0:
+            print('fields on the website which are not in the csv (made by wix?): ' +
+                  str(website['not_in_csv']).replace("'", '').replace('[', '').replace(']', ''))
+        if len(not_on_site) > 0:
+            print('fields the csv makes but no record on the website has!!!! ' +
+                  str(not_on_site).replace("'", '').replace('[', '').replace(']', ''))
+        self.assertEqual(len(not_on_site), 0)
+
+    def website_missing(self):
+        load_website()
+        missing = [x for x in website['expected'].keys() if x not in website['site'].keys()]
+        if len(missing) > 0:
+            print(f'PID on github but not on the website!!!! {missing}'.replace('[', '').replace(']', ''))
+        self.assertEqual(len(missing), 0)
+
+    def website_extra(self):
+        load_website()
+        extra = [x for x in website['site'].keys() if x not in website['expected'].keys()]
+        if len(extra) > 0:
+            print(f'PID on the website but not on github!!!! {extra}'.replace('[', '').replace(']', ''))
+        self.assertEqual(len(extra), 0)
+
+    def csv_from_website(self):
+        """website -> csv"""
+        from war23_api import db as gitdb, same_value
+        rebuilt, cant_rebuild = website2csv()
+        if len(cant_rebuild) > 0:
+            print('columns which can not be rebuilt from the website: ' +
+                  str(cant_rebuild).replace("'", '').replace('[', '').replace(']', ''))
+        row_of = {pid: row for row, pid in enumerate(gitdb['pid'].values)}
+        n_issues = 0
+        for col in rebuilt.columns[1:]:
+            mismatch = []
+            for ii in range(len(rebuilt)):
+                pid = rebuilt['pid'][ii]
+                if pid not in row_of.keys():  # reported by website_extra
+                    continue
+                csv_value = gitdb.at[row_of[pid], col]
+                if not same_value(csv_value, rebuilt[col][ii], date='date' in col.lower()):
+                    mismatch.append([pid, csv_value, rebuilt[col][ii]])
+            n_issues += len(mismatch)
+            if len(mismatch) > 0:
+                report_mismatch(col, mismatch)
+        self.assertEqual(n_issues, 0)
+
+    def website_from_csv(self):
+        """csv -> website"""
+        from war23_api import same_value
+        expected = csv2website()
+        n_issues = 0
+        for field in website['fields']:
+            mismatch = []
+            for pid, record in expected.items():
+                if pid not in website['site'].keys():  # reported by website_missing
+                    continue
+                exp = record.get(field)
+                got = website['site'][pid].get(field)
+                if not same_value(exp, got, date=field.endswith('Date')):
+                    mismatch.append([pid, exp, got])
+            n_issues += len(mismatch)
+            if len(mismatch) > 0:
+                report_mismatch(field, mismatch)
+        self.assertEqual(n_issues, 0)
+
+
+##
 if __name__ == '__main__':
     args = sys.argv
     oct7db_results = unittest.TestResult()
@@ -572,6 +721,13 @@ if __name__ == '__main__':
                                               Relations('mutual_gchildren'),
                                               Relations('no_row'),
                                               Relations('mutual_siblings')])
+    elif args[1][0] in ['a', 'w']:  # api / website
+        oct7suite = unittest.TestSuite(tests=[TestWebsite('website_records'),
+                                              TestWebsite('website_fields'),
+                                              TestWebsite('website_missing'),
+                                              TestWebsite('website_extra'),
+                                              TestWebsite('csv_from_website'),
+                                              TestWebsite('website_from_csv')])
     else:
         raise Exception('unrecognized options')
     oct7suite.run(oct7db_results)

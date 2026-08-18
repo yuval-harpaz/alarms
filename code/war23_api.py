@@ -103,6 +103,61 @@ def get_records(pids):
     response.raise_for_status()
     return response.json()
 
+COLUMNS_URL = API_URL.replace('addRecords', 'getColumns').replace('addRecord', 'getColumns')
+def get_columns(fields):
+    """the values of specific fields for every record on the website"""
+    if type(fields) == str:
+        fields = [fields]
+    response = requests.post(
+        COLUMNS_URL,
+        json={"fields": fields},
+        headers={
+            "Content-Type": "application/json",
+            "x-api-key": API_KEY,
+        }
+    )
+    response.raise_for_status()
+    return response.json()
+
+def allowed_columns():
+    """getColumns lists the fields it serves when asked for a field it doesn't know"""
+    response = requests.post(
+        COLUMNS_URL,
+        json={"fields": ["which fields are allowed?"]},
+        headers={
+            "Content-Type": "application/json",
+            "x-api-key": API_KEY,
+        }
+    )
+    return response.json()['allowed']
+
+MAX_PIDS = 500  # getRecords refuses more than that in one request
+def website_pid():
+    """all the pids on the website"""
+    return [rec['pid'] for rec in get_columns(['pid'])['records']]
+
+def get_all_records(pids=None, chunk=MAX_PIDS, tries=3):
+    """the whole website, record by record, in chunks of pids. the API drops a request now and then,
+    so every chunk is asked for again before giving up"""
+    if pids is None:
+        pids = website_pid()
+    records = []
+    not_found = []
+    for start in range(0, len(pids), chunk):
+        batch = [int(p) for p in pids[start:start + chunk]]
+        for itry in range(tries):
+            try:
+                response = get_records(batch)
+                break
+            except Exception as exc:
+                if itry == tries - 1:
+                    raise
+                print(f'getRecords failed for pid {batch[0]}-{batch[-1]} ({exc}), asking again')
+                time.sleep(5)
+        records.extend(response['records'])
+        not_found.extend(response['notFound'])
+    return records, not_found
+
 db = pd.read_csv('https://raw.githubusercontent.com/yuval-harpaz/alarms/refs/heads/master/data/oct7database.csv', dtype={'הספריה הלאומית': str})
 with open('data/dictionaries.json') as f:
     dictionary = json.load(f)
@@ -139,48 +194,78 @@ def pid2record(pid):
     # else:
 
 
-def missing_pid():
-    downloaded = os.environ['HOME']+'/Documents/oct7_database.xlsx'
-    if os.path.isfile(downloaded):
-        mod_time = os.path.getmtime(downloaded)
-        days_old = (time.time()-mod_time)/60/60/24
-        if days_old > 1:
-            raise Exception("The xlsx file is older than 1 day. download from oct7database.com/table")
-        else:
-            df = pd.read_excel(downloaded)
-            pid = db['pid'].values
-            missing = [p for p in pid if p not in df['pid'].values]
-    else:
-        print("expected to see a file here: " + downloaded)
-        print('NOT CHECKING MISSING!!!!!!!!!!!!!!')
-        missing = []
-    return missing
+def same_value(csv_value, website_value, date=False):
+    """compare one value of oct7database.csv with the value on the website,
+    ignoring the way lists are stored and numbers and dates are formatted"""
+    if csv_value is None or str(csv_value) == 'nan':
+        return website_value is None or str(website_value) in ['nan', '']
+    if website_value is None or str(website_value) == 'nan':
+        return False
+    if date:
+        return pd.to_datetime(csv_value) == pd.to_datetime(website_value)
+    numbers = [v for v in [csv_value, website_value] if isinstance(v, (int, float, np.integer, np.floating))]
+    if len(numbers) > 0:  # Age is a float in the csv and an int on the website
+        try:
+            return float(csv_value) == float(website_value)
+        except ValueError:
+            return False
+    listed = []
+    for value in [csv_value, website_value]:
+        if type(value) != list:
+            value = str(value).split(';')
+        listed.append([str(x).strip() for x in value])
+    return listed[0] == listed[1]
 
-def changed_pid(verbose=False):
+
+def show(value):
+    """quote the value when it has spaces around it, otherwise it is invisible in a report"""
+    if type(value) == str and value.strip() != value:
+        return f'"{value}"'
+    return str(value)
+
+
+def missing_pid(pids=None):
+    """pid in oct7database.csv with no record on the website"""
+    if pids is None:
+        pids = website_pid()
+    return [int(p) for p in db['pid'].values if int(p) not in pids]
+
+
+def extra_pid(pids=None):
+    """pid on the website which is not in oct7database.csv"""
+    if pids is None:
+        pids = website_pid()
+    return [int(p) for p in pids if p not in db['pid'].values]
+
+
+def changed_pid(verbose=False, records=None, clear=False):
+    """the fields which differ between oct7database.csv and the website, per pid.
+    with clear=True, fields which are empty in the csv but not on the website are sent as an empty string"""
+    if records is None:
+        records, not_found = get_all_records()
+    csv_fields = list(db2api.values()) + list(require_translation.values())
     changed = {}
-    downloaded = os.environ['HOME']+'/Documents/oct7database.csv'
-    if os.path.isfile(downloaded):
-        mod_time = os.path.getmtime(downloaded)
-        days_old = (time.time()-mod_time)/60/60/24
-        if days_old > 1:
-            raise Exception("The csv file is older than 1 day. download from wix CMS")
-        else:
-            df = pd.read_csv(downloaded)
-            columns = np.array([cl.lower() for cl in df.columns])
-            for ipid, pid in enumerate(df['pid'].values):
-                record = pid2record(pid)
-                tochange = {'pid': int(pid)}
-                for col in record.keys():
-                    c = np.where(columns == col.lower())[0][0]
-                    website_value = str(df.iloc[ipid, c]).replace("\"", "\'").replace(', ','')
-                    db_value = str(record[col]).replace("\"", "\'").replace(', ',',')
-                    if website_value != db_value:
-                        if verbose:
-                            print(col)
-                            print(str(df.iloc[ipid, c])+' ------ '+str(record[col]))
-                        tochange[col] = record[col]
-                if len(tochange) > 1:
-                    changed[pid] = tochange
+    for rec in records:
+        pid = rec['pid']
+        record = pid2record(pid)
+        if record is None:  # on the website but not in the csv, see extra_pid
+            continue
+        tochange = {'pid': pid}
+        for field, value in record.items():
+            if field == 'pid':
+                continue
+            if not same_value(value, rec.get(field), date=field.endswith('Date')):
+                if verbose:
+                    print(f'pid {pid} {field}: website has {show(rec.get(field))}, csv has {show(value)}')
+                tochange[field] = value
+        if clear:
+            for field in csv_fields:
+                if field not in record.keys() and str(rec.get(field)) not in ['None', 'nan', '']:
+                    if verbose:
+                        print(f'pid {pid} {field}: website has {show(rec.get(field))}, csv has nothing')
+                    tochange[field] = ''
+        if len(tochange) > 1:
+            changed[pid] = tochange
     return changed
 
 
