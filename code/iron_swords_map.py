@@ -40,6 +40,7 @@ job does not fail on a wording the csv has just started using.
 import csv
 import json
 import os
+import subprocess
 import sys
 from collections import Counter
 
@@ -595,10 +596,30 @@ def render(records, circles, polygons, localities, neighbourhoods, lang,
             ('__POLYGONS__', json.dumps(polygons, ensure_ascii=False)),
             ('__LOCALITIES__', json.dumps(localities, ensure_ascii=False)),
             ('__NEIGHBOURHOODS__', json.dumps(neighbourhoods, ensure_ascii=False)),
-            ('__COMMENT__', f'{len(records)} people, built by '
+            ('__COMMENT__', f'{version()}, {len(records)} people, built by '
                             f'code/iron_swords_map.py')):
         html = html.replace(token, value)
     return html
+
+
+def version():
+    """What to call this build: the newest map-v tag, or the commit alone.
+
+    `git describe` answers `map-v1.0.0` on the tagged commit, `map-v1.0.0-3-gabc1234`
+    three commits later, and the bare hash while there is no tag at all. A
+    `-dirty` on the end means the build came from a tree with uncommitted edits,
+    which is the one thing worth knowing about a page that has been published.
+    """
+    try:
+        described = subprocess.run(
+            ['git', 'describe', '--tags', '--match', 'map-v*', '--always',
+             '--dirty'],
+            cwd=ROOT, capture_output=True, text=True, timeout=10)
+    except (OSError, subprocess.SubprocessError):
+        return 'unknown version'
+    if described.returncode:
+        return 'unknown version'
+    return described.stdout.strip() or 'unknown version'
 
 
 def main():
