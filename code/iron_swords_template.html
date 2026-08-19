@@ -472,6 +472,28 @@
 
         .nb-tooltip:before { display: none; }
 
+        /* A caption on the ground, not a mark: the tiles carry no names, and
+           these are what says which town the marks are standing in. Off-white
+           rather than white, which is the death mark's colour. */
+        .city-tooltip {
+            background: transparent;
+            box-shadow: none;
+            border: none;
+            padding: 0;
+            color: #f2ede4;
+            font-weight: bold;
+            font-size: 13px;
+            text-align: center;
+            white-space: nowrap;
+        }
+        .city-tooltip.town { font-size: 11px; font-weight: normal; }
+        .city-tooltip:before { display: none; }
+        .city-anchor { background: none; border: none; }
+
+        /* Towns arrive later than cities: at a country's distance the country's
+           cities are the whole of what a name has to say. */
+        .hide-towns .city-tooltip.town { display: none; }
+
         /* How many people a circle stands for. Only worth the ink once the
            circle is big enough to hold it, so it rides the same zoom as the
            circle's own size. */
@@ -585,6 +607,7 @@
         const POLYGONS = __POLYGONS__;
         const LOCALITIES = __LOCALITIES__;
         const NEIGHBOURHOODS = __NEIGHBOURHOODS__;
+        const PLACES = __PLACES__;
 
         const RTL = CONFIG.lang === 'he';
         const T = CONFIG.labels;
@@ -682,8 +705,11 @@
         const ICON_TRI = iconSize / 2 / AREA.triangle;
         const whiteIcon = markIcon('triangle', ICON_TRI, { stroke: '#fff' });
 
+        // No trailing separator: leaflet joins the credits with its own comma,
+        // and the pipe these strings used to end in left a stray ' | , | ' in
+        // the footer as soon as a second layer had anything to say.
         const ESRI_CREDIT =
-            "Powered by <a href='https://www.esri.com/en-us/home' target='_blank'>Esri</a> | ";
+            "Powered by <a href='https://www.esri.com/en-us/home' target='_blank'>Esri</a>";
 
         const esri = L.tileLayer(
             "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/49849/{z}/{y}/{x}",
@@ -698,7 +724,7 @@
         );
         const googleHyb = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
             attribution:
-                "Powered by <a href='https://www.google.com/maps' target='_blank'>Google</a> | ",
+                "Powered by <a href='https://www.google.com/maps' target='_blank'>Google</a>",
             maxZoom: 21,
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
         });
@@ -819,6 +845,34 @@
             dot.bindPopup('<b>' + place.name + '</b>' +
                 (place.municipality ? '<br>' + place.municipality : ''));
             dot.addTo(Neighbourhoods);
+        });
+
+        // The names of the towns the satellite tiles do not carry. Without
+        // them the reader is looking at fields: Esri's imagery has no labels of
+        // its own, and no label overlay we can use without an api key switches
+        // language, while these come out of the build in the language of the
+        // page -- see code/fetch_places.py.
+        //
+        // Text and no dot. A dot would be a mark, and every mark on this map
+        // stands for people; the name is a caption on the ground, which is why
+        // it is drawn in the pane under the victims and never takes a click.
+        const Cities = L.layerGroup([], {
+            attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'" +
+                " target='_blank'>OpenStreetMap</a> contributors, ODbL"
+        }).addTo(map);
+        PLACES.forEach(place => {
+            const label = L.marker([place.lat, place.lon], {
+                pane: 'localityPane',
+                interactive: false,
+                icon: L.divIcon({ className: 'city-anchor', iconSize: [0, 0] })
+            });
+            label.bindTooltip(RTL ? place.he : place.en, {
+                permanent: true,
+                direction: 'center',
+                className: 'city-tooltip map-label' + (place.city ? '' : ' town'),
+                offset: [0, 0]
+            });
+            label.addTo(Cities);
         });
 
         const extraLayers = {};
@@ -2281,6 +2335,18 @@
                         });
                 });
 
+                // The names of the towns, which are the whole country's, above
+                // the two reference layers, which are the Strip's alone -- one
+                // heading cannot honestly cover both.
+                if (PLACES.length) {
+                    const placeBox = section(T.panel_places);
+                    row(placeBox, '', T.cities, '', map.hasLayer(Cities),
+                        input => {
+                            if (input.checked) map.addLayer(Cities);
+                            else map.removeLayer(Cities);
+                        });
+                }
+
                 const overlays = Object.keys(extraLayers);
                 if (overlays.length) {
                     const layerBox = section(T.panel_layers);
@@ -2574,12 +2640,16 @@
         // The neighbourhood names are a backdrop, so they arrive before the
         // victim names rather than competing with them.
         const ZOOM_NEIGHBOURHOOD = 12;
+        // Cities are on from the first zoom; the towns wait until there is room
+        // between them.
+        const ZOOM_TOWN = 10;
 
         function updateTooltipVisibility() {
             const zoom = map.getZoom();
             const classes = map.getContainer().classList;
             classes.toggle('hide-tooltips', zoom < ZOOM_ALL);
             classes.toggle('hide-nb-tooltips', zoom < ZOOM_NEIGHBOURHOOD);
+            classes.toggle('hide-towns', zoom < ZOOM_TOWN);
             classes.toggle('hide-poly-counts',
                            zoom < CONFIG.zoom + ZOOM_POLY_COUNT);
         }

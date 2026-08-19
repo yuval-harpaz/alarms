@@ -133,6 +133,7 @@ LABELS = {
         'clear': 'נקה',
         'help': 'מידע נוסף',
         'halo_hint': 'לחץ לשינוי עיצוב הטקסט',
+        'cities': 'שמות יישובים (OSM)',
         'localities': 'גבולות שכונות ויישובים (OSM)',
         'neighbourhoods': 'מרכזי שכונות (OCHA)',
         'front': 'זירה',
@@ -143,6 +144,7 @@ LABELS = {
         'panel_display': 'תצוגה',
         'panel_colour': 'פילוח',
         'panel_base': 'מפת רקע',
+        'panel_places': 'שכבות',
         'panel_layers': 'שכבות ברצועת עזה',
         'panel_halo': 'הדגשת טקסט',
         'cat_status': 'נהרגו \\ נחטפו',
@@ -209,6 +211,7 @@ LABELS = {
         'clear': 'Clear',
         'help': 'More information',
         'halo_hint': 'Click to change text styling',
+        'cities': 'Place names (OSM)',
         'localities': 'Locality boundaries (OSM)',
         'neighbourhoods': 'Neighbourhood centres (OCHA)',
         'front': 'Front',
@@ -219,6 +222,7 @@ LABELS = {
         'panel_display': 'Display',
         'panel_colour': 'Breakdown',
         'panel_base': 'Base map',
+        'panel_places': 'Layers',
         'panel_layers': 'Layers in the Gaza Strip',
         'panel_halo': 'Text styling',
         'cat_status': 'Killed / taken',
@@ -571,6 +575,25 @@ def neighbourhoods_payload():
                 for row in csv.DictReader(f) if row['name']]
 
 
+def places_payload():
+    """City and town names for the base map, or [] if never fetched.
+
+    The satellite tiles carry no names of their own, so without these the reader
+    is looking at fields. Cities and towns from OSM -- see fetch_places.py for
+    why the map holds the names instead of a labelled tile layer. Each row keeps
+    the local name as the fallback both languages share.
+    """
+    path = os.path.join(ROOT, 'data', 'coord_place.csv')
+    if not os.path.exists(path):
+        return []
+    with open(path, newline='', encoding='utf-8') as f:
+        return [{'he': row['name_he'] or row['name'],
+                 'en': row['name_en'] or row['name'],
+                 'city': row['place'] == 'city',
+                 'lat': float(row['lat']), 'lon': float(row['lon'])}
+                for row in csv.DictReader(f)]
+
+
 def circles_payload(circles, records):
     used = {r['circ'] for r in records if 'circ' in r}
     used |= {r['dcirc'] for r in records if 'dcirc' in r}
@@ -667,6 +690,7 @@ def render(records, circles, polygons, localities, neighbourhoods, lang,
             ('__POLYGONS__', json.dumps(polygons, ensure_ascii=False)),
             ('__LOCALITIES__', json.dumps(localities, ensure_ascii=False)),
             ('__NEIGHBOURHOODS__', json.dumps(neighbourhoods, ensure_ascii=False)),
+            ('__PLACES__', json.dumps(places_payload(), ensure_ascii=False)),
             ('__COMMENT__', f'{version()}, {len(records)} people, built by '
                             f'code/iron_swords_map.py')):
         html = html.replace(token, value)
