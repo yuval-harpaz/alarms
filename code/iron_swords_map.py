@@ -99,18 +99,35 @@ LABELS = {
         'title': 'מפת מיקומים – חרבות ברזל',
         'search': 'חיפוש לפי שם או מקום...',
         'killed': 'מקום אירוע',
-        'killed_exact': 'מקום אירוע - מדויק',
+        'killed_exact': 'מקום אירוע (רצח/נפילה) - מדויק',
         'killed_approx': 'מקום אירוע - מקורב',
         'kidnapped': 'מקום חטיפה',
+        'kidnapped_exact': 'מקום חטיפה - מדויק',
+        'kidnapped_approx': 'מקום חטיפה - מקורב',
         'died': 'מקום מוות',
         'died_exact': 'מקום מוות - מדויק',
         'died_approx': 'מקום מוות - מקורב',
         'died_note': 'אם שונה ממקום האירוע',
+        # What the (i) at the end of a legend row opens. One per kind of
+        # approximate mark, and one for the rings the public map draws instead
+        # of the addresses it is not allowed to publish.
+        'info_killed_approx':
+            'הסימון מציג את האזור הכללי שבו אירע המקרה, כאשר לא קיימת נקודת '
+            'ציון מדוייקת.',
+        'info_died_approx':
+            'הסימון מציג את האזור הכללי שבו אירע המוות (אם שונה ממקום האירוע), '
+            'כאשר לא קיימת נקודת ציון מדוייקת.',
+        'info_kidnapped_approx':
+            'הסימון מציג את האזור הכללי שבו אירעה החטיפה, כאשר לא קיימת נקודת '
+            'ציון מדוייקת. קיים מקרה אחד.',
+        'info_areas':
+            'סימון זה מרכז כמה נרצחים/נופלים באותו אזור. המיקומים המדויקים '
+            'ידועים, אך אינם מוצגים במפה מטעמי שמירה על הפרטיות.',
         'hostages': 'חטופים',
         'at_event': '(אירוע)',
         'at_death': '(מוות)',
         'others': 'אחרים',
-        'areas': 'שכונה\\ישוב',
+        'areas': 'מקבץ אזורי (שכונה/יישוב)',
         'legend': 'מקרא',
         'all': 'הכל',
         'clear': 'נקה',
@@ -161,18 +178,33 @@ LABELS = {
         'title': 'Iron Swords locations',
         'search': 'Search by name or place...',
         'killed': 'Event location',
-        'killed_exact': 'Event location - exact',
+        'killed_exact': 'Event location (murdered/fallen) - exact',
         'killed_approx': 'Event location - approximate',
         'kidnapped': 'Kidnapping location',
+        'kidnapped_exact': 'Kidnapping location - exact',
+        'kidnapped_approx': 'Kidnapping location - approximate',
         'died': 'Death location',
         'died_exact': 'Death location - exact',
         'died_approx': 'Death location - approximate',
         'died_note': 'if different from the event location',
+        'info_killed_approx':
+            'The mark shows the general area the event happened in, where no '
+            'exact coordinate is held.',
+        'info_died_approx':
+            'The mark shows the general area the death happened in (where that '
+            'differs from the event location), and no exact coordinate is held.',
+        'info_kidnapped_approx':
+            'The mark shows the general area the kidnapping happened in, where '
+            'no exact coordinate is held. There is one such case.',
+        'info_areas':
+            'This mark gathers several people murdered or fallen in one area. '
+            'The exact locations are known, but are not shown on the map, to '
+            'protect privacy.',
         'hostages': 'Hostages',
         'at_event': '(event)',
         'at_death': '(death)',
         'others': 'Others',
-        'areas': 'Neighbourhood/locality',
+        'areas': 'Area cluster (neighbourhood/locality)',
         'legend': 'Legend',
         'all': 'All',
         'clear': 'Clear',
@@ -220,6 +252,31 @@ LABELS = {
         'private': 'Private map – holds exact unpublished addresses. Do not share.',
     },
 }
+
+
+# Points we hold ourselves, for people the google sheet has no coordinate for.
+# Only where the circle the person falls into says the wrong thing about them:
+# pid 964 was taken alive from the Nova festival and had no point of her own,
+# so she was drawn inside the festival's red disc -- the one person on it who
+# was not killed there, reading as one of the Nova dead. This is where she was
+# taken, as near as it is known, which is why the page draws it as a solid
+# square rather than the outline it gives an address.
+#
+# The sheet wins if it ever gains a coordinate for the same pid.
+APPROX_EVENT = {964: (31.398951, 34.463972)}
+
+
+def approximate(people):
+    """Fill in the points we hold outside the sheet, flagged as approximate.
+
+    Before place_people(), which hands a circle to everyone with no event
+    coordinate: with a point of their own they are not on a circle at all.
+    """
+    for person in people:
+        coo = APPROX_EVENT.get(person['pid'])
+        if coo and person['event_coo'] is None:
+            person['event_coo'] = coo
+            person['approx'] = True
 
 
 def markers(person, unknown):
@@ -330,6 +387,10 @@ def person_record(person, red, blue, white):
     for key, coo in (('red', red), ('blue', blue), ('white', white)):
         if coo:
             record[key] = [round(coo[0], 6), round(coo[1], 6)]
+    # A point of ours rather than the sheet's, and not an address: the page
+    # draws it as a solid mark, the way it draws the circles.
+    if person.get('approx'):
+        record['ap'] = 1
     return record
 
 
@@ -641,6 +702,7 @@ def main():
         cache = cache if os.path.exists(cache) else None
 
     people = load_people(cache)
+    approximate(people)
     circles, cases = place_people(people)
     report(cases)
     translation_gaps(people)

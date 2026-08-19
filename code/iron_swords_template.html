@@ -257,6 +257,9 @@
 
         .swatch img { display: block; width: 16px; height: 16px; }
 
+        /* The svg marks bring their own size, drawn to the width of the pngs. */
+        .swatch svg { display: block; }
+
         .swatch .dot {
             width: 16px;
             height: 16px;
@@ -400,6 +403,27 @@
            to click, and a line saying what the role count leaves out. */
         #legend-rows .key { cursor: default; }
         #legend-rows .legend-note { font-size: 11px; padding-top: 2px; }
+
+        /* The hint a legend row's (i) opens, and the (i) itself. */
+        #legend-rows .legend-hint { display: none; opacity: 0.85; }
+        #legend-rows .legend-hint.open { display: block; }
+
+        .legend-info {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 13px;
+            height: 13px;
+            margin: 0 5px;
+            border: 1px solid currentColor;
+            border-radius: 50%;
+            font: italic 600 9px/1 serif;
+            opacity: 0.55;
+            cursor: pointer;
+            flex: none;
+        }
+
+        .legend-info:hover, .legend-info.on { opacity: 1; }
 
         /* One threshold, not two: the victim names are either all there or
            none of them. Showing the uncrowded ones early meant the map filled
@@ -560,7 +584,79 @@
         }
         const redIcon = icon('red_ring.png');
         const blueIcon = icon('blue_square.png');
-        const whiteIcon = icon('white_x.png');
+
+        // Three shapes and two ways of drawing them, which between them say
+        // everything a mark has to say about where somebody was:
+        //
+        //     circle    killed where the event happened
+        //     square    taken alive
+        //     triangle  died somewhere other than the event
+        //
+        //     outline   an address -- this spot, and no other
+        //     solid     a circle's worth of ground, or a point we hold no
+        //               better than that
+        //
+        // The death mark used to be a white x, which cannot be filled, so its
+        // approximate half had to borrow the circle of an event and said
+        // 'somewhere around here' in the shape of a different thing entirely.
+        //
+        // Sizes are areas, not widths: a mark's size counts the people under
+        // it, and a square drawn to the circle's width holds a quarter more
+        // ink for the same count. Each shape is scaled to the area of the
+        // circle of radius r, and they all share a box wide enough for the
+        // widest of them, so a mark's box is its count whatever its shape.
+        const AREA = { circle: 1, square: Math.sqrt(Math.PI) / 2,
+                       triangle: Math.sqrt(Math.PI / 2) };
+        const STROKE = 2.5;
+
+        function markBox(r, opts) {
+            return 2 * r * AREA.triangle + (opts.stroke ? STROKE : 0);
+        }
+
+        // An unclosed svg element, centred in the box: the caller adds the
+        // paint and the slash, or hands it to a clipPath.
+        function shapePath(shape, r, box) {
+            const c = box / 2;
+            if (shape === 'circle') {
+                return '<circle cx="' + c + '" cy="' + c + '" r="' + r + '"';
+            }
+            if (shape === 'square') {
+                const s = 2 * r * AREA.square;
+                return '<rect x="' + (c - s / 2) + '" y="' + (c - s / 2) +
+                    '" width="' + s + '" height="' + s + '"';
+            }
+            const h = r * AREA.triangle;
+            return '<path d="M ' + c + ' ' + (c - h) + ' L ' + (c + h) + ' ' +
+                (c + h) + ' L ' + (c - h) + ' ' + (c + h) + ' Z"';
+        }
+
+        // opts is {fill, alpha} for a solid mark or {stroke} for an outline.
+        function markSvg(shape, r, opts) {
+            const box = markBox(r, opts);
+            const paint = opts.fill
+                ? ' fill="' + opts.fill + '" fill-opacity="' +
+                  (opts.alpha === undefined ? 1 : opts.alpha) + '"'
+                : ' fill="none" stroke="' + opts.stroke +
+                  '" stroke-width="' + STROKE + '"';
+            return '<svg width="' + box + '" height="' + box +
+                '" viewBox="0 0 ' + box + ' ' + box + '">' +
+                shapePath(shape, r, box) + paint + '/></svg>';
+        }
+
+        function markIcon(shape, r, opts) {
+            const box = markBox(r, opts);
+            return L.divIcon({
+                className: 'pie', html: markSvg(shape, r, opts),
+                iconSize: [box, box], iconAnchor: [box / 2, box / 2]
+            });
+        }
+
+        // The exact death mark, drawn to the width of the two png icons beside
+        // it rather than to their area: the ring and the square are not area
+        // matched to each other either, and a legend of three marks reads by
+        // its outlines.
+        const ICON_TRI = iconSize / 2 / AREA.triangle;
+        const whiteIcon = markIcon('triangle', ICON_TRI, { stroke: '#fff' });
 
         const ESRI_CREDIT =
             "Powered by <a href='https://www.esri.com/en-us/home' target='_blank'>Esri</a> | ";
@@ -609,6 +705,11 @@
         const Deaths = L.layerGroup().addTo(map);
         const Circles = L.layerGroup().addTo(map);
         const HostageCircles = L.layerGroup().addTo(map);
+        // A kidnapping place known no better than a village. Its own layer
+        // rather than a second row on the exact one: every other kind of place
+        // has the exact and the approximate on two lines with two boxes, and a
+        // box that hides half of what its row is showing is not a box.
+        const TakenApprox = L.layerGroup().addTo(map);
         const Areas = L.layerGroup();
         if (POLYGONS.length) Areas.addTo(map);
         // Not a legend row of its own: the pies are the red and the blue marks
@@ -627,11 +728,17 @@
         map.createPane('localityPane');
         map.getPane('localityPane').style.zIndex = 350;
 
-        // The white x is drawn first, under the circles and the pies: it is a
+        // The exact death mark is drawn under the circles and the pies: it is a
         // second mark for someone already counted elsewhere, and at the wide
-        // zooms a 16 px x sitting on a small circle hid the thing it stands
-        // beside. Its own pane at 380 -- above the boundaries, below the
-        // vectors in overlayPane at 400 and the icons in markerPane at 600.
+        // zooms a 16 px triangle sitting on a small circle hid the thing it
+        // stands beside. Its own pane at 380 -- above the boundaries, below the
+        // rings in overlayPane at 400 and every other mark in markerPane at 600.
+        //
+        // **The exact one alone.** A pane beats a z-index, so this is a mark
+        // that goes under every event mark whatever the two of them measure,
+        // and that is only right for a mark of a fixed size. The approximate
+        // death mark is sized by its count like the marks around it and is
+        // ordered against them by size, in the pane they are all in.
         map.createPane('deathPane');
         map.getPane('deathPane').style.zIndex = 380;
 
@@ -752,18 +859,26 @@
             else buildKey(box);
         }
 
-        function keyRow(box, colour, text) {
+        function keyRow(box, colour, text, shape) {
             const row = document.createElement('label');
             const swatch = document.createElement('span');
-            const mark = document.createElement('span');
             row.className = 'key';
             swatch.className = 'swatch';
-            // The colour of the mark itself, opacity included: a key drawn in
-            // the full colour is not the colour that is on the map.
-            mark.className = 'filled';
-            mark.style.background = colour;
-            if (colour === '#fff') mark.style.opacity = 1;
-            swatch.appendChild(mark);
+            if (shape) {
+                // A death place is a triangle here as everywhere else. The
+                // slices have no shape of their own to draw: they are pieces
+                // of the circle the mark above them already is.
+                swatch.innerHTML = swatchSvg(shape,
+                    { fill: colour, alpha: colour === '#fff' ? 1 : PIE_ALPHA });
+            } else {
+                const mark = document.createElement('span');
+                // The colour of the mark itself, opacity included: a key drawn
+                // in the full colour is not the colour that is on the map.
+                mark.className = 'filled';
+                mark.style.background = colour;
+                if (colour === '#fff') mark.style.opacity = 1;
+                swatch.appendChild(mark);
+            }
             row.appendChild(swatch);
             row.appendChild(document.createTextNode(text));
             box.appendChild(row);
@@ -775,6 +890,23 @@
             note.className = 'legend-note';
             note.textContent = text;
             box.appendChild(note);
+            return note;
+        }
+
+        // The (i) at the end of a legend row, and the line it opens under it.
+        // Closed until it is asked for: what an approximate mark means takes a
+        // sentence, and four sentences standing open are longer than the legend
+        // they explain. The button lives inside the row's label, so it lands at
+        // the end of the line whichever way the language runs -- which is why
+        // the click has to say out loud that it is not a click on the checkbox.
+        function attachHint(box, button, text) {
+            const note = noteRow(box, text);
+            note.className = 'legend-note legend-hint';
+            button.onclick = event => {
+                event.preventDefault();
+                event.stopPropagation();
+                button.classList.toggle('on', note.classList.toggle('open'));
+            };
         }
 
         function buildKey(box) {
@@ -784,7 +916,7 @@
             // there the death circles are painted like everything else, by who
             // the people were, and there is no white left to explain.
             if (level === 2 && category !== 'roles') {
-                keyRow(box, '#fff', T.died);
+                keyRow(box, '#fff', T.died, 'triangle');
                 // A death place is drawn only where it is not the event place;
                 // the white circles are not every death on the map.
                 noteRow(box, T.died_note);
@@ -797,21 +929,46 @@
         // address and a neighbourhood is the whole point of the shape, where at
         // the lumped levels every mark stood for an area and saying so was
         // noise.
+        // The legend draws every mark at one width, whatever size the map is
+        // giving it: as wide as the two png icons standing beside them.
+        function swatchSvg(shape, opts) {
+            return markSvg(shape, iconSize / 2 / AREA[shape], opts);
+        }
+
+        function solidSwatch(shape, colour) {
+            return swatchSvg(shape, { fill: colour, alpha: PIE_ALPHA });
+        }
+
         function buildLayerLegend(box) {
+            const img = file => '<img alt="" src="' +
+                'https://yuval-harpaz.github.io/alarms/' + file + '">';
+            // The three kinds of place, each one twice: the outline is an
+            // address and the solid one is the general area, and they are two
+            // rows with two boxes because they are two sets of marks and either
+            // can be put away on its own. What the solid ones mean is behind
+            // the (i) rather than under the row -- four notes standing open
+            // would be longer than the legend they explain.
             const rows = [
-                { layers: [Kidnapped], label: T.kidnapped,
-                  icons: ['blue_square.png'] },
                 { layers: [Killed], label: T.killed_exact,
-                  icons: ['red_ring.png'] },
+                  marks: [img('red_ring.png')] },
                 { layers: [Circles], label: T.killed_approx,
-                  dot: PIE_COLOURS.red },
-                { layers: [Deaths], label: T.died_exact,
-                  icons: ['white_x.png'] },
+                  marks: [solidSwatch('circle', PIE_COLOURS.red)],
+                  info: T.info_killed_approx },
+                { layers: [Deaths],
+                  label: T.died_exact + ' (' + T.died_note + ')',
+                  marks: [swatchSvg('triangle', { stroke: '#fff' })] },
                 { layers: [HostageCircles], label: T.died_approx,
-                  dot: '#fff', note: T.died_note },
+                  marks: [swatchSvg('triangle', { fill: '#fff' })],
+                  info: T.info_died_approx },
+                { layers: [Kidnapped], label: T.kidnapped_exact,
+                  marks: [img('blue_square.png')] },
+                { layers: [TakenApprox], label: T.kidnapped_approx,
+                  marks: [solidSwatch('square', PIE_COLOURS.blue)],
+                  info: T.info_kidnapped_approx },
             ];
             if (POLYGONS.length) {
-                rows.push({ layers: [Areas], label: T.areas, shape: 'square' });
+                rows.push({ layers: [Areas], label: T.areas, shape: 'square',
+                            info: T.info_areas });
             }
             rows.forEach(row => {
                 const label = document.createElement('label');
@@ -824,19 +981,7 @@
                 });
                 const swatch = document.createElement('span');
                 swatch.className = 'swatch';
-                (row.icons || []).forEach(file => {
-                    const img = document.createElement('img');
-                    img.src = 'https://yuval-harpaz.github.io/alarms/' + file;
-                    img.alt = '';
-                    swatch.appendChild(img);
-                });
-                if (row.dot) {
-                    const dot = document.createElement('span');
-                    dot.className = 'filled';
-                    dot.style.background = row.dot;
-                    if (row.dot === '#fff') dot.style.opacity = 1;
-                    swatch.appendChild(dot);
-                }
+                swatch.innerHTML = (row.marks || []).join('');
                 if (row.shape) {
                     const mark = document.createElement('span');
                     mark.className = row.shape;
@@ -845,7 +990,15 @@
                 label.appendChild(cb);
                 label.appendChild(swatch);
                 label.appendChild(document.createTextNode(row.label));
+                let info = null;
+                if (row.info) {
+                    info = document.createElement('span');
+                    info.className = 'legend-info';
+                    info.textContent = 'i';
+                    label.appendChild(info);
+                }
                 box.appendChild(label);
+                if (info) attachHint(box, info, row.info);
                 if (row.note) noteRow(box, row.note);
             });
         }
@@ -1048,7 +1201,11 @@
         // something the eye can measure.
         //
         // The curve is set by its two ends: a group of one is MARK_MIN, a group
-        // of a hundred is MARK_100, and the power between them follows. True
+        // of a hundred is MARK_100, and the power between them follows. The
+        // bottom end is the size of the exact marks -- a group of one is one
+        // person, and drawn smaller than the icon that would stand for them if
+        // their address were known it said their place was less than a place.
+        // True
         // area -- a hundred people covering a hundred times the ground of one --
         // is that power at 0.5, which put a settlement of 147 under a 146 px
         // blot and left the map a smear at the crowded end. Halving the
@@ -1057,12 +1214,36 @@
         //
         // This function is the only place that decides how big a group is
         // drawn: change these two numbers and everything follows.
-        const MARK_MIN = 6;
+        const MARK_MIN = iconSize / 2;
         const MARK_100 = 30;
         const MARK_POWER = Math.log(MARK_100 / MARK_MIN) / Math.log(100);
 
         function markRadius(n) {
             return MARK_MIN * Math.pow(Math.max(n, 1), MARK_POWER);
+        }
+
+        // **Smaller marks go on top of bigger ones**, always, so a mark
+        // standing inside another can still be clicked: a 60 px disc over an
+        // 8 px one takes every click meant for the small one, and the small one
+        // is the rarer thing and the harder to hit.
+        //
+        // Insertion order is not enough to say it. It decides the stacking of
+        // the svg vectors and nothing else: leaflet gives a marker the z-index
+        // `y + zIndexOffset`, where y is how far down the screen it sits, so
+        // two marks a few pixels apart are ordered by which is lower on the
+        // screen unless the offset says otherwise -- and marks that overlap are
+        // by definition a few pixels apart. That is how the rule quietly broke
+        // when the death marks stopped being circles and became icons.
+        //
+        // So the offset carries it, coarsely enough that it cannot be
+        // overturned: one pixel of radius is worth a thousand of y, which is
+        // more screen than anyone has. The base keeps every value positive.
+        // Every mark that stands for a group is given one, and the exact marks
+        // -- all of them one size, the smallest there is -- get the top.
+        const STACK_BASE = 200000;
+
+        function stackOrder(n) {
+            return STACK_BASE - Math.round(markRadius(n)) * 1000;
         }
 
         const COUNT_TOOLTIP = {
@@ -1105,7 +1286,10 @@
         //
         // The radius is metres on the ground, and it shrinks as the map opens
         // out: ten kilometres apart is what near means at a country's distance,
-        // half of one is what it means in a town. From COUNT_ZOOM_ALL nothing
+        // half of one is what it means in a town, and the step between them
+        // falls at the zoom the strip and the envelope fill the screen at,
+        // where ten kilometres was swallowing places that stand well apart.
+        // From COUNT_ZOOM_ALL nothing
         // is thinned at all -- every name is on the screen by then, so a number
         // beside one of them is not what is crowding it.
         const COUNT_ZOOM_ALL = 17;
@@ -1114,6 +1298,7 @@
             const zoom = map.getZoom();
             if (zoom >= 16) return 500;
             if (zoom >= 14) return 1000;
+            if (zoom >= 12) return 5000;
             return 10000;
         }
 
@@ -1190,8 +1375,11 @@
                 const g = group[k];
                 const names = g.people.map(personLabel);
                 const place = placeLabel(g.people[0], death);
-                const marker = L.marker(g.coo, death ? { icon: iconType, pane: 'deathPane' }
-                                                     : { icon: iconType });
+                // The exact marks are all one size and it is the smallest on
+                // the map, so they take the top of the stack.
+                const options = { icon: iconType, zIndexOffset: stackOrder(1) };
+                if (death) options.pane = 'deathPane';
+                const marker = L.marker(g.coo, options);
                 marker.bindPopup(popupHtml(g.people, place, death, false));
                 marker.addTo(layerGroup);
                 // Nine people at one address are one marker, and until the map
@@ -1202,6 +1390,39 @@
                            nameOptions: { permanent: true, direction: direction,
                                           className: 'map-label ' + cssClass } });
                 allFeatures.push({ people: g.people, place: place, death: death,
+                                   layer: marker, type: 'point' });
+            }
+        }
+
+        // The points we hold ourselves, where the sheet has none and the circle
+        // the person would otherwise fall into says the wrong thing about them:
+        // pid 964 was taken alive from the Nova festival and drawn inside its
+        // red disc, the one person on it who was not killed there. Near enough
+        // to stand somewhere of her own, not near enough to call an address, so
+        // the mark is the solid twin of the outline an address would have got,
+        // and it goes in the layer of the approximate marks of its colour --
+        // its own line in the legend, with its own box and its own note.
+        function drawApprox(groups) {
+            for (const k in groups) {
+                const g = groups[k];
+                const taken = g.shape === 'square';
+                const marker = L.marker(g.coo, {
+                    icon: markIcon(g.shape, markRadius(g.people.length), {
+                        fill: taken ? PIE_COLOURS.blue : PIE_COLOURS.red,
+                        alpha: PIE_ALPHA }),
+                    zIndexOffset: stackOrder(g.people.length)
+                });
+                const place = placeLabel(g.people[0], false);
+                marker.bindPopup(popupHtml(g.people, place, false, false));
+                marker.addTo(taken ? TakenApprox : Circles);
+                addCount(marker, g.people.length, g.coo, COUNT_TOOLTIP, {
+                    names: g.people.map(personLabel).join('<br>'),
+                    nameOptions: { permanent: true,
+                                   direction: taken ? 'left' : 'right',
+                                   className: 'map-label ' +
+                                       (taken ? 'blue-tooltip' : 'red-tooltip') }
+                });
+                allFeatures.push({ people: g.people, place: place, death: false,
                                    layer: marker, type: 'point' });
             }
         }
@@ -1449,6 +1670,44 @@
                     '" viewBox="0 0 ' + size + ' ' + size + '">' + shapes + '</svg>',
                 iconSize: [size, size],
                 iconAnchor: [r, r]
+            });
+        }
+
+        // The same, for a death place: a solid triangle, and where more than
+        // one colour falls on it the pie's own wedges cut to the triangle.
+        // Only the role colouring ever asks for the second -- everywhere else
+        // a death place is white -- and the wedges are drawn from a circle
+        // wide enough to reach the triangle's corners before the clip takes
+        // the rest away.
+        let clipCount = 0;
+        function triangleIcon(parts) {
+            const filled = parts.filter(part => part.n);
+            const total = filled.reduce((sum, part) => sum + part.n, 0);
+            const r = markRadius(total);
+            if (filled.length < 2) {
+                return markIcon('triangle', r,
+                    { fill: (filled[0] || parts[0]).colour, alpha: PIE_ALPHA });
+            }
+            const box = markBox(r, {});
+            const id = 'tri' + (++clipCount);
+            let from = 0;
+            const shapes = filled.map(part => {
+                const to = from + part.n / total;
+                const d = wedge(box, from, to);
+                from = to;
+                return '<path d="' + d + '" fill="' + part.colour +
+                    '" fill-opacity="' + PIE_ALPHA +
+                    '" transform="translate(' + (-box / 2) + ',' +
+                    (-box / 2) + ')"/>';
+            }).join('');
+            return L.divIcon({
+                className: 'pie',
+                html: '<svg width="' + box + '" height="' + box +
+                    '" viewBox="0 0 ' + box + ' ' + box + '"><defs><clipPath id="' +
+                    id + '">' + shapePath('triangle', r, box) +
+                    '/></clipPath></defs><g clip-path="url(#' + id + ')">' +
+                    shapes + '</g></svg>',
+                iconSize: [box, box], iconAnchor: [box / 2, box / 2]
             });
         }
 
@@ -1756,9 +2015,12 @@
                 n: (groups[part.key] || []).length,
                 colour: part.colour, short: part.short }));
             const marker = L.marker(point, {
-                icon: pieIcon(parts),
-                // The small marks sit on top of the big ones they fall inside.
-                zIndexOffset: -people.length
+                // A death place keeps its shape whatever the colouring: the
+                // triangle is what says the people under it are counted here
+                // a second time, at the place they died rather than the place
+                // they were taken from.
+                icon: opts.death ? triangleIcon(parts) : pieIcon(parts),
+                zIndexOffset: stackOrder(people.length)
             });
             const popup = () => partsPopup(label, slices().map(part => ({
                 label: T[part.label], people: groups[part.key],
@@ -1824,8 +2086,11 @@
                     '" stroke-width="' + 2 * u + '"/>' +
                 '<rect x="' + 11 * u + '" y="' + 2 * u + '" width="' + 5 * u +
                     '" height="' + 5 * u + '" fill="' + PIE_COLOURS.blue + '"/>' +
-                '<circle cx="' + 6 * u + '" cy="' + 13.5 * u + '" r="' +
-                    3.5 * u + '" fill="#fff"/>';
+                // The death mark is white and the panel is white, so this one
+                // needs an edge to be there at all.
+                '<path d="M ' + 6 * u + ' ' + 10 * u + ' L ' + 9.5 * u + ' ' +
+                    17 * u + ' L ' + 2.5 * u + ' ' + 17 * u +
+                    ' Z" fill="#fff" stroke="#bbb" stroke-width="' + u + '"/>';
         }
 
         // The category button wears the colouring it would switch to.
@@ -2043,12 +2308,14 @@
         map.addControl(new DisplayControl());
 
         function render() {
-            [Killed, Kidnapped, Deaths, Circles, HostageCircles, Areas, Pies]
+            [Killed, Kidnapped, Deaths, Circles, HostageCircles, TakenApprox,
+             Areas, Pies]
                 .forEach(l => l.clearLayers());
             allFeatures = [];
             countMarks = [];
 
             const red = {}, blue = {}, white = {}, circles = {}, areas = {};
+            const approx = {};     // points of our own, drawn solid
             const exactPlaces = new Set();   // where a mark of its own stands
             const hostages = {};   // by circle: hostages who died at that place
             const groups = {};     // by front or region, for the lumped levels
@@ -2070,13 +2337,22 @@
                 // Nothing else can draw someone with no location, so nothing
                 // else counts them as shown either.
                 if (placed(p)) shown++;
+                // A point we hold no better than a village is still a point,
+                // and the settlement pies are drawn from it like any other.
+                // Only the marks level, where the shape of a mark is the whole
+                // of what it says, sets it apart: solid, not an outline.
+                const loose = p.ap && level === 3;
                 if (p.red) {
-                    const k = key(p.red);
-                    (red[k] = red[k] || { coo: p.red, people: [] }).people.push(p);
+                    const bag = loose ? approx : red;
+                    const k = (loose ? 'circle ' : '') + key(p.red);
+                    (bag[k] = bag[k] || { coo: p.red, people: [],
+                                          shape: 'circle' }).people.push(p);
                 }
                 if (p.blue) {
-                    const k = key(p.blue);
-                    (blue[k] = blue[k] || { coo: p.blue, people: [] }).people.push(p);
+                    const bag = loose ? approx : blue;
+                    const k = (loose ? 'square ' : '') + key(p.blue);
+                    (bag[k] = bag[k] || { coo: p.blue, people: [],
+                                          shape: 'square' }).people.push(p);
                 }
                 if (p.white) {
                     const k = key(p.white);
@@ -2099,6 +2375,7 @@
             } else {
                 addGrouped(red, Killed, redIcon, 'right', 'red-tooltip', false);
                 addGrouped(blue, Kidnapped, blueIcon, 'left', 'blue-tooltip', false);
+                drawApprox(approx);
                 // The white x is the one mark this level adds and the lumped
                 // ones leave out: it is a second mark for someone already
                 // counted at their event place, and at a distance it only sat
@@ -2144,17 +2421,16 @@
         // The places known no better than a neighbourhood or a village. The
         // event circle is red like the event marks -- a dot here stands for an
         // area, not for an address, and the difference the orange was drawing
-        // is the one thing the shape already says. The death circle is a solid
-        // one beside it rather than a rim around it: two marks, two popups and
-        // two numbers, where the rim could barely be clicked and the one number
-        // had to speak for both.
+        // is the one thing the shape already says. The death mark is a solid
+        // triangle beside it rather than a rim around it: two marks, two popups
+        // and two numbers, where the rim could barely be clicked and the one
+        // number had to speak for both.
         //
         // White, except where the colouring is by role: everyone on a death
         // circle was taken into the Strip as a civilian, and a white circle in
         // a view of who the people were says nothing about them. There it is
         // drawn like every other mark of that view, which makes it orange.
         function drawCircles(circles, hostages, absorbed) {
-            const marks = [];
             const roleDeath = level === 2 && colouredByRole();
             CIRCLES.forEach(c => {
                 // An absorbed circle's people are inside a settlement pie; what
@@ -2164,15 +2440,20 @@
                 const taken = hostages[c.name_he] || [];
                 const name = RTL ? c.name_he : (c.name_en || c.name_he);
                 if (people.length) {
-                    marks.push({ n: people.length, draw: () => {
-                        if (level === 2) {
-                            placeMark(name, people, [c.lat, c.lon], Circles,
-                                      { type: 'circle' });
-                            return;
-                        }
-                        const circle = L.circleMarker([c.lat, c.lon], {
-                            radius: markRadius(people.length), stroke: false,
-                            fillColor: PIE_COLOURS.red, fillOpacity: PIE_ALPHA
+                    if (level === 2) {
+                        placeMark(name, people, [c.lat, c.lon], Circles,
+                                  { type: 'circle' });
+                    } else {
+                        // An icon and not a vector circle, which is what the
+                        // solid mark of a point of our own is too: one shape
+                        // drawn one way, and one rule ordering the stack. As a
+                        // vector it was ordered by the order it was drawn in
+                        // and nothing else could be ordered with it.
+                        const circle = L.marker([c.lat, c.lon], {
+                            icon: markIcon('circle', markRadius(people.length),
+                                           { fill: PIE_COLOURS.red,
+                                             alpha: PIE_ALPHA }),
+                            zIndexOffset: stackOrder(people.length)
                         });
                         circle.bindPopup(partsPopup(name,
                             [{ people: people, noRole: true }]));
@@ -2181,7 +2462,7 @@
                         allFeatures.push({ people: people, place: name,
                                            death: false, layer: circle,
                                            type: 'circle' });
-                    } });
+                    }
                 }
                 if (!taken.length) return;
                 // Moved west where an event circle is already on the spot: on
@@ -2190,30 +2471,31 @@
                 const point = people.length
                     ? westOf(c.lat, c.lon, DEATH_WEST) : [c.lat, c.lon];
                 const label = name + ' · ' + T.died;
-                marks.push({ n: taken.length, draw: () => {
-                    if (roleDeath) {
-                        placeMark(label, taken, point, HostageCircles,
-                                  { death: true, type: 'circle' });
-                        return;
-                    }
-                    const circle = L.circleMarker(point, {
-                        radius: markRadius(taken.length), stroke: false,
-                        fillColor: '#fff', fillOpacity: 1
-                    });
-                    circle.bindPopup(partsPopup(label,
-                        [{ people: taken, death: true, noRole: true }]));
-                    circle.addTo(HostageCircles);
-                    addCount(circle, taken.length, point, COUNT_TOOLTIP,
-                             { death: true });
-                    allFeatures.push({ people: taken, place: name, death: true,
-                                       layer: circle, type: 'circle' });
-                } });
+                if (roleDeath) {
+                    placeMark(label, taken, point, HostageCircles,
+                              { death: true, type: 'circle' });
+                    return;
+                }
+                // Not in deathPane, where the exact death mark lives. That pane
+                // puts a mark under every event mark whatever their sizes,
+                // which is right for the exact one -- it is always 16 px, and a
+                // 16 px mark sitting on a small circle hides the thing it
+                // stands beside. This one is sized by its count like the marks
+                // around it, so it belongs in the same pane as them, under the
+                // one rule that orders marks by size.
+                const mark = L.marker(point, {
+                    icon: markIcon('triangle', markRadius(taken.length),
+                                   { fill: '#fff' }),
+                    zIndexOffset: stackOrder(taken.length)
+                });
+                mark.bindPopup(partsPopup(label,
+                    [{ people: taken, death: true, noRole: true }]));
+                mark.addTo(HostageCircles);
+                addCount(mark, taken.length, point, COUNT_TOOLTIP,
+                         { death: true });
+                allFeatures.push({ people: taken, place: name, death: true,
+                                   layer: mark, type: 'circle' });
             });
-            // Biggest first, so a small circle standing inside a big one is
-            // drawn on top of it and can be clicked at all: these stack in the
-            // order they are added, and a 60 px disc over a 6 px one takes
-            // every click meant for the small one.
-            marks.sort((a, b) => b.n - a.n).forEach(mark => mark.draw());
         }
 
         function drawPolygons(areas) {
