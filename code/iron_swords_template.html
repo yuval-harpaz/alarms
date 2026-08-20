@@ -2880,12 +2880,14 @@
             controls.classList.toggle('open');
         };
 
-        // The legend opens with the map on a screen wide enough to hold it
-        // beside the marks, and stays shut on a phone until it is asked for.
-        // The breakpoint is the column's own width and a margin: below that the
-        // panel is most of the screen.
+        // Wide enough to hold a panel beside the marks rather than over them:
+        // the left column's own 266 px and as much again for the map. Below it
+        // a panel is most of the screen, and the map is what the reader came
+        // for, so the panels of a phone start shut and open when asked.
+        function roomForPanels() { return window.innerWidth > 560; }
+
         const legend = document.getElementById('legend');
-        if (window.innerWidth > 560) legend.classList.add('open');
+        if (roomForPanels()) legend.classList.add('open');
         legend.querySelector('.legend-title').onclick = () => {
             legend.classList.toggle('open');
         };
@@ -3074,10 +3076,12 @@
         renderLegend();
         setRange(CONFIG.date_min, CONFIG.date_max, true);
         // Opened with a filter in the url: show the panel, so it is obvious the
-        // map is not showing everything.
+        // map is not showing everything. Not on a phone, where the panel would
+        // cover the map it is explaining -- the head carries the count either
+        // way, and '134 / 2199' says the same thing in the space it has.
         const filtered = applyUrlParams(params);
 
-        if (filtered) controls.classList.add('open');
+        if (filtered && roomForPanels()) controls.classList.add('open');
 
         markActiveCampaign();
         render();
