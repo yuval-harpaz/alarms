@@ -396,6 +396,55 @@ def person_record(person, red, blue, white):
     return record
 
 
+# People whose exact place may be published although the ring around them is
+# not, and the publication that put it in the open. Keyed by **pid**, because
+# this is a fact about one person's place and not about the area they stand in:
+# their neighbours inside the same ring stay blurred, and the ring is still
+# drawn for them.
+#
+# It applies to the death point as well as the event one, which is what tells
+# this list apart from an area's own source_url. A ring is drawn over addresses,
+# so the publication behind it justifies an address and the page keeps it off
+# the death marks; these publications are about a case, and the place somebody
+# died in it is as much of the case as the place they were taken from.
+KAN_BEERI = ('כאן 11', 'https://www.710360.kan.org.il/beeri')
+
+# בארי; ארוע בני ערובה -- the hostage event, which the csv records as a death
+# place. Everyone the csv puts there, whatever ring their event stands in.
+BEERI_HOSTAGE_EVENT = {
+    47: 'חוה בן עמי', 61: 'פסיה כהן', 64: 'עדי דגן', 81: 'זאב הקר',
+    82: 'זהבה הקר', 131: 'חנה סיטון', 132: 'יצחק סיטון', 133: 'טל סיטון',
+    152: 'ינאי חצרוני הלר', 155: 'איילה חצרוני', 158: 'ליאל חצרוני הלר',
+    1432: 'סוהייב אבו עאמר אלרזאם', 1624: 'טל כץ',
+}
+
+# The other people at בארי the same piece follows, named one by one rather than
+# by a rule: the ring over their neighbourhood stands for everybody else in it.
+BEERI_NAMED = {
+    83: 'אמילי הנד', 84: 'נרקיס הנד',
+    1324: 'הילה רותם שושני', 1325: 'רעיה רותם',
+    67: 'אופיר אנגל', 122: 'יוסף שרעבי', 92: 'שושנה כרסנתי',
+    596: 'אלברט מילס',
+    78: 'מנחם (מני) גודארד', 77: 'איילת גודארד פרג',
+    182: 'עמיר וייס', 184: 'מתי וייס',
+    73: 'מרסל פרייליך קפלון', 91: 'דרור קפלון',
+    1330: 'ויויאן סילבר',
+    75: 'כנרת גת', 114: 'ירדן רומן-גת', 74: 'כרמל גת',
+    57: 'גלית מייזנר קרבונה',
+}
+
+PUBLISHED = {pid: KAN_BEERI
+             for pid in list(BEERI_HOSTAGE_EVENT) + list(BEERI_NAMED)}
+
+# Exact, and with no publication to point at. The three at נתיבות; קרית משה are
+# the only people on the map in that position: everywhere else an exact address
+# inside a blurred area carries the publication that already made it public.
+# Kept apart from PUBLISHED so that stays true of that list.
+EXACT_ANYWAY = {
+    1540: 'רפאל פהימי', 1541: 'נתנאל מסקאלצ׳י', 1542: 'רפאל מסקאלצ׳י',
+}
+
+
 def build(people, private, areas, geometry):
     """(records, polygons, hidden, unplaced_deaths, nowhere) per visibility level."""
     records, rings, hidden, nowhere = [], {}, [], []
@@ -415,7 +464,12 @@ def build(people, private, areas, geometry):
             else:
                 unplaced_deaths.setdefault((place, kind), []).append(person['pid'])
 
-        if not private:
+        # Named in one of the lists above: their place is already public, so the
+        # ring over their neighbours is not drawn over them.
+        source = PUBLISHED.get(person['pid'])
+        named = source is not None or person['pid'] in EXACT_ANYWAY
+
+        if not private and not named:
             # A coordinate inside an area whose addresses were never published
             # is replaced by the ring. Applied to the death point too: it is a
             # coordinate in the same file, and it can fall in the same area.
@@ -452,7 +506,11 @@ def build(people, private, areas, geometry):
         # the blue marker stand on, and gone from the record when that point
         # was replaced by a ring just above.
         coo = record.get('red') or record.get('blue')
-        if coo:
+        if source:
+            record['src'], record['url'] = source
+            # Reaches the death popup too, unlike an area's own source.
+            record['srcd'] = 1
+        elif coo:
             props = area_for(person['מקום האירוע'], coo, areas)
             if props and props['public_exact'] and props['source_url']:
                 if not props['source_text']:

@@ -1551,17 +1551,21 @@
             return dateCell(date) + ' · ' + bits.join(' · ');
         }
 
-        // The publication that put this area's addresses in the open, under
-        // the place name. It is why the marker may stand on the exact spot, so
-        // the popup credits it and links to it -- the addresses were published
-        // there, not here. Only the event marks carry one: a white mark is a
-        // death place, and a circle is not an exact address at all. Everyone in
-        // one popup shares a coordinate, so they share it.
+        // The publication that put this place in the open, under the place
+        // name. It is why the marker may stand on the exact spot, so the popup
+        // credits it and links to it -- the place was published there, not
+        // here. Everyone in one popup shares a coordinate, so they share it.
+        //
+        // An area's own source is about the addresses a ring is drawn over, so
+        // it stays off the death marks; a source named for one person is about
+        // their case, and where they died is as much of the case as where they
+        // were taken from. `srcd` is the second kind. A circle carries neither:
+        // it is not an exact place at all.
         function sourceLine(people, death) {
             // Whoever in the group carries it: one coordinate is one area, but
             // two people on it can have their place written differently, and
             // only one of the two spellings need match the published area.
-            const person = death ? null : people.find(p => p.url);
+            const person = people.find(p => p.url && (!death || p.srcd));
             if (!person) return '';
             return '<br><a href="' + person.url + '" target="_blank" ' +
                 'rel="noopener">' + person.src + '</a>';

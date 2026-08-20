@@ -47,6 +47,43 @@ out tags center;
 """
 
 
+# Bidi control characters. OSM's Arabic names carry a few trailing marks -- 20
+# of them in the last fetch -- which are invisible, say nothing about the name
+# and exist only as a hint to whatever was rendering it. In a csv they are a
+# trap for anyone grepping or diffing the file, and the map sets direction on
+# its own elements, so they are dropped rather than replaced: there is no
+# character they stand in for.
+BIDI = dict.fromkeys(map(ord, '\u200e\u200f\u061c'
+                              '\u202a\u202b\u202c\u202d\u202e'
+                              '\u2066\u2067\u2068\u2069'))
+
+# Two corners, and the quadrant beyond each of them goes. South-east of the
+# first is Jordan; north-east of the second is the Damascus basin and the
+# Hauran. Neither is what this map is about, and between them they were a
+# hundred and ten names crowding a map whose story stops at the borders.
+#
+# The capitals stay, by osm id. A reader placing the region wants Amman and
+# Damascus on it; they do not want Zarqa, Ramtha and Harasta.
+CUTS = ((-1, 32.754942, 35.774231),     # south and east of here
+        (+1, 32.699489, 35.993958))     # north and east of here
+KEEP_ANYWAY = {
+    1643504896,                         # רבת עמון / Amman
+    1091272140,                         # דמשק / Damascus
+}
+
+
+def clean(text):
+    return text.translate(BIDI).strip()
+
+
+def wanted(lat, lon, osm_id):
+    for side, corner_lat, corner_lon in CUTS:
+        beyond = lat > corner_lat if side > 0 else lat < corner_lat
+        if beyond and lon > corner_lon:
+            return osm_id in KEEP_ANYWAY
+    return True
+
+
 def overpass(query):
     """The first mirror that answers."""
     last = None
@@ -65,13 +102,16 @@ def overpass(query):
 
 def rows(elements):
     """One row per place, sorted so a refresh makes a readable diff."""
-    out = []
+    out, dropped = [], 0
     for element in elements:
         tags = element.get('tags', {})
-        name = tags.get('name', '').strip()
-        he = tags.get('name:he', '').strip()
-        en = tags.get('name:en', '').strip()
+        name = clean(tags.get('name', ''))
+        he = clean(tags.get('name:he', ''))
+        en = clean(tags.get('name:en', ''))
         if not (name or he or en):
+            continue
+        if not wanted(element['lat'], element['lon'], element['id']):
+            dropped += 1
             continue
         out.append({
             'osm_id': element['id'],
@@ -86,6 +126,7 @@ def rows(elements):
             'name_en': en,
         })
     out.sort(key=lambda row: (row['place'], row['name_en'] or row['name']))
+    print(f'  {dropped} dropped beyond the cut corners')
     return out
 
 
