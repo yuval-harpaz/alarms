@@ -698,6 +698,7 @@ class TestWebsite(unittest.TestCase):
 ##
 if __name__ == '__main__':
     args = sys.argv
+    website_suite = False
     oct7db_results = unittest.TestResult()
     if len(args) == 1:
         oct7suite = unittest.TestSuite(tests=[TestDuplicates('duplicate_pid'),
@@ -734,6 +735,7 @@ if __name__ == '__main__':
                                               Relations('no_row'),
                                               Relations('mutual_siblings')])
     elif args[1][0] in ['a', 'w']:  # api / website
+        website_suite = True
         oct7suite = unittest.TestSuite(tests=[TestWebsite('csv_pushed'),
                                               TestWebsite('website_records'),
                                               TestWebsite('website_fields'),
@@ -760,5 +762,24 @@ if __name__ == '__main__':
             for msg in err:
                 print(msg)
     print('XXXXXXXXXXXXXXXXXXXXXXXX')
+    if website_suite and len(oct7db_results.failures) + len(oct7db_results.errors) > 0:
+        print('''
+these tests compare the website with oct7database.csv as github has it.
+to bring the website up to date:
+
+    git add -A && git commit -m "..." && git push   the site is built from
+                                                    github, not from the local
+                                                    file, so push first
+    python code/war23_db2website.py dry             print what would be sent
+    python code/war23_db2website.py                 send it
+    python code/war23_db_tests.py a                 check again
+
+    python code/war23_db2website.py keep            add and change, delete
+                                                    nothing
+    python code/war23_db2website.py 1636            one pid, to try it out
+
+a field with a value on the website and none in the csv is deleted, by sending
+an empty string. war23_db2website.py is the only thing that writes to wix;
+nothing has to be downloaded from the wix CMS by hand.''')
 
 ##

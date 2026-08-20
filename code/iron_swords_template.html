@@ -310,7 +310,9 @@
 
         .red-tooltip { color: red; }
         .blue-tooltip { color: blue; text-align: right; }
-        .white-tooltip { color: #fff; }
+        /* Left of its mark and aligned right, like the blue: on the same side
+           as the red it was hiding the red and the red was hiding it. */
+        .white-tooltip { color: #fff; text-align: right; }
 
         /* How every label on the map is separated from the tiles behind it.
            One mode at a time, chosen in the display panel, where each mode is
@@ -2496,7 +2498,7 @@
                 // ones leave out: it is a second mark for someone already
                 // counted at their event place, and at a distance it only sat
                 // on top of the thing it stands beside.
-                addGrouped(white, Deaths, whiteIcon, 'right', 'white-tooltip', true);
+                addGrouped(white, Deaths, whiteIcon, 'left', 'white-tooltip', true);
                 // The rings first: one covers a whole neighbourhood, and drawn
                 // over the circles inside it it would take their clicks.
                 drawPolygons(areas);
