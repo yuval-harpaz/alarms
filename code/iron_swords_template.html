@@ -233,7 +233,41 @@
             font-variant-numeric: tabular-nums;
         }
 
-        #legend .legend-title { font-weight: bold; padding-bottom: 3px; }
+        /* Collapsible, and on a phone it starts collapsed: the legend is the
+           tallest thing in the column and the map underneath it is what the
+           reader came for. The caret is the whole affordance -- the panel has
+           no background to draw a header on. */
+        #legend .legend-title {
+            font-weight: bold;
+            padding-bottom: 3px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        #legend .caret {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            margin-inline-end: 6px;
+            vertical-align: middle;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-inline-start: 6px solid currentColor;
+        }
+
+        /* Both sides transparent, or the down-caret comes out a wedge. The
+           logical property is zeroed first and the physical pair set after it,
+           which lands the same way whichever direction the page runs. */
+        #legend.open .caret {
+            border-inline-start: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 6px solid currentColor;
+            border-bottom: 0;
+        }
+
+        #legend-rows { display: none; }
+        #legend.open #legend-rows { display: block; }
 
         #legend label {
             display: flex;
@@ -590,7 +624,7 @@
     </div>
 
     <div id="legend" class="panel" dir="__DIR__">
-        <div class="legend-title">__LEGEND__</div>
+        <div class="legend-title"><span class="caret"></span>__LEGEND__</div>
         <div id="legend-rows"></div>
     </div>
     </div>
@@ -2844,6 +2878,16 @@
         const controls = document.getElementById('controls');
         document.getElementById('controls-head').onclick = () => {
             controls.classList.toggle('open');
+        };
+
+        // The legend opens with the map on a screen wide enough to hold it
+        // beside the marks, and stays shut on a phone until it is asked for.
+        // The breakpoint is the column's own width and a margin: below that the
+        // panel is most of the screen.
+        const legend = document.getElementById('legend');
+        if (window.innerWidth > 560) legend.classList.add('open');
+        legend.querySelector('.legend-title').onclick = () => {
+            legend.classList.toggle('open');
         };
 
         /* ----------------------------------------------------------- the url */
