@@ -16,7 +16,9 @@ Four files, from one template:
 
 The private pair carries every exact coordinate we hold and no polygons. The
 public pair replaces the coordinates of anyone inside an area whose addresses
-were never published with that area's ring. Both pairs are one self-contained
+were never published with that area's ring -- except the people listed in
+data/coord_exact.tsv, whose own place is already public (see
+iron_swords_exact.py). Both pairs are one self-contained
 file: the private coordinates are never written to a geojson beside the html,
 because a file next to a page is not protected by a login on that page.
 
@@ -47,6 +49,7 @@ from collections import Counter
 from shapely.geometry import shape
 
 from iron_swords_data import load_people
+from iron_swords_exact import load_exact
 from iron_swords_places import load_circles, place_people, report, resolve
 from normalize_semicolons import normalize
 from polygons import load_polygons, area_for
@@ -396,58 +399,15 @@ def person_record(person, red, blue, white):
     return record
 
 
-# People whose exact place may be published although the ring around them is
-# not, and the publication that put it in the open. Keyed by **pid**, because
-# this is a fact about one person's place and not about the area they stand in:
-# their neighbours inside the same ring stay blurred, and the ring is still
-# drawn for them.
-#
-# It applies to the death point as well as the event one, which is what tells
-# this list apart from an area's own source_url. A ring is drawn over addresses,
-# so the publication behind it justifies an address and the page keeps it off
-# the death marks; these publications are about a case, and the place somebody
-# died in it is as much of the case as the place they were taken from.
-KAN_BEERI = ('כאן 11', 'https://www.710360.kan.org.il/beeri')
+def build(people, private, areas, geometry, exact):
+    """(records, polygons, hidden, unplaced_deaths, nowhere, idle) per visibility level.
 
-# בארי; ארוע בני ערובה -- the hostage event, which the csv records as a death
-# place. Everyone the csv puts there, whatever ring their event stands in.
-BEERI_HOSTAGE_EVENT = {
-    47: 'חוה בן עמי', 61: 'פסיה כהן', 64: 'עדי דגן', 81: 'זאב הקר',
-    82: 'זהבה הקר', 131: 'חנה סיטון', 132: 'יצחק סיטון', 133: 'טל סיטון',
-    152: 'ינאי חצרוני הלר', 155: 'איילה חצרוני', 158: 'ליאל חצרוני הלר',
-    1432: 'סוהייב אבו עאמר אלרזאם', 1624: 'טל כץ',
-}
-
-# The other people at בארי the same piece follows, named one by one rather than
-# by a rule: the ring over their neighbourhood stands for everybody else in it.
-BEERI_NAMED = {
-    83: 'אמילי הנד', 84: 'נרקיס הנד',
-    1324: 'הילה רותם שושני', 1325: 'רעיה רותם',
-    67: 'אופיר אנגל', 122: 'יוסף שרעבי', 92: 'שושנה כרסנתי',
-    596: 'אלברט מילס',
-    78: 'מנחם (מני) גודארד', 77: 'איילת גודארד פרג',
-    182: 'עמיר וייס', 184: 'מתי וייס',
-    73: 'מרסל פרייליך קפלון', 91: 'דרור קפלון',
-    1330: 'ויויאן סילבר',
-    75: 'כנרת גת', 114: 'ירדן רומן-גת', 74: 'כרמל גת',
-    57: 'גלית מייזנר קרבונה',
-}
-
-PUBLISHED = {pid: KAN_BEERI
-             for pid in list(BEERI_HOSTAGE_EVENT) + list(BEERI_NAMED)}
-
-# Exact, and with no publication to point at. The three at נתיבות; קרית משה are
-# the only people on the map in that position: everywhere else an exact address
-# inside a blurred area carries the publication that already made it public.
-# Kept apart from PUBLISHED so that stays true of that list.
-EXACT_ANYWAY = {
-    1540: 'רפאל פהימי', 1541: 'נתנאל מסקאלצ׳י', 1542: 'רפאל מסקאלצ׳י',
-}
-
-
-def build(people, private, areas, geometry):
-    """(records, polygons, hidden, unplaced_deaths, nowhere) per visibility level."""
+    exact is data/coord_exact.tsv as load_exact() returns it. idle lists the
+    pids in it that no ring would have blurred anyway, so their row does
+    nothing; it is only meaningful for the public build.
+    """
     records, rings, hidden, nowhere = [], {}, [], []
+    shielded = set()
     unknown, unplaced_deaths = Counter(), {}
     no_link_text = set()
 
@@ -464,12 +424,12 @@ def build(people, private, areas, geometry):
             else:
                 unplaced_deaths.setdefault((place, kind), []).append(person['pid'])
 
-        # Named in one of the lists above: their place is already public, so the
-        # ring over their neighbours is not drawn over them.
-        source = PUBLISHED.get(person['pid'])
-        named = source is not None or person['pid'] in EXACT_ANYWAY
+        # In data/coord_exact.tsv: their place is already public, so the ring
+        # over their neighbours is not drawn over them.
+        named = person['pid'] in exact
+        source = exact.get(person['pid'])
 
-        if not private and not named:
+        if not private:
             # A coordinate inside an area whose addresses were never published
             # is replaced by the ring. Applied to the death point too: it is a
             # coordinate in the same file, and it can fall in the same area.
@@ -479,6 +439,9 @@ def build(people, private, areas, geometry):
                     continue
                 props = area_for(person['מקום האירוע'], coo, areas)
                 if props is None or props['public_exact']:
+                    continue
+                if named:
+                    shielded.add(person['pid'])
                     continue
                 record.pop(key)
                 ring = next((g for p, g in areas if p['name_he'] == props['name_he']
@@ -507,6 +470,7 @@ def build(people, private, areas, geometry):
         # was replaced by a ring just above.
         coo = record.get('red') or record.get('blue')
         if source:
+            # The tsv row's own publication, whatever area the point is in.
             record['src'], record['url'] = source
             # Reaches the death popup too, unlike an area's own source.
             record['srcd'] = 1
@@ -546,7 +510,8 @@ def build(people, private, areas, geometry):
                  'name_en': props.get('name_en') or props['name_he'],
                  'ring': [list(c) for c in ring.exterior.coords]}
                 for props, ring in rings.values()]
-    return records, polygons, hidden, unplaced_deaths, nowhere
+    idle = sorted(pid for pid in exact if pid not in shielded)
+    return records, polygons, hidden, unplaced_deaths, nowhere, idle
 
 
 def translation_gaps(people):
@@ -794,9 +759,10 @@ def main():
                    for e in cases[kind].values())
 
     geometry = load_circles()
+    exact = load_exact(people)
     for private in (False, True):
-        records, polygons, hidden, unplaced_deaths, nowhere = build(
-            people, private, areas, geometry)
+        records, polygons, hidden, unplaced_deaths, nowhere, idle = build(
+            people, private, areas, geometry, exact)
         payload = circles_payload(circles, records)
         for lang in ('he', 'en'):
             name = BASENAME + ('_private' if private else '') + \
@@ -819,6 +785,10 @@ def main():
                   f'publication, so the public map cannot show them at all:')
             for name, n in places.most_common():
                 print(f'      {n:>4}  {name}')
+        if idle and not private:
+            print(f'  {len(idle)} in coord_exact.tsv stand in no hidden ring, '
+                  f'so their row does nothing: pid '
+                  f'{" ".join(str(p) for p in idle)}')
         if unplaced_deaths and not private:
             total = sum(len(v) for v in unplaced_deaths.values())
             print(f'  {total} hostages died somewhere with no circle to put '

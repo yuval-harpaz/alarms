@@ -6,6 +6,164 @@ and 1Source_ID (some entries have one or both). Flags issues ('Name mismatch', '
 'Wrong 1Source ID', 'English name', etc.) and saves incrementally to ~/Documents/nli.csv.
 Important, the script currently fails the robot test by cloudflair. when using my personal chrome it may pass but the script hangs
 """
+## compare the NLI 710 identities list (Aug 2026) with oct7database, save mismatches to ~/Documents/nli710_issues.csv
+import pandas as pd
+import os
+import numpy as np
+import re
+import Levenshtein
+
+for home in ['innereye', 'yuval']:
+    if os.path.isdir('/home/'+home+'/alarms/'):
+        os.chdir('/home/'+home+'/alarms/')
+        break
+
+nli710 = pd.read_csv(os.path.expanduser("~/Documents/אוג' 2026 רשימת זהויות 710 של הספרייה - גיליון ללא פונקציות.csv"),
+                     dtype={'MMS ID': str})
+db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
+db_ids = db['הספריה הלאומית'].astype(str).str.strip()
+
+
+def normalize(name):
+    name = '' if pd.isna(name) else str(name)
+    name = name.replace('׳', "'").replace('״', '"').replace('-', ' ')
+    name = re.sub(r'[֑-ׇ]', '', name)  # remove niqqud
+    return name.strip()
+
+
+def db_name(row, eng=False):
+    cols = ['first name', 'middle name', 'last name', 'nickname'] if eng else ['שם פרטי', 'שם נוסף', 'שם משפחה', 'כינוי']
+    return ' '.join([normalize(db[col][row]) for col in cols]).replace('  ', ' ').strip()
+
+
+def name_distance(tokens_nli, row, eng=False):
+    # word order and middle names differ between the sources, so match each NLI word
+    # to its closest db name part, allowing one Levenshtein mistake in total
+    tokens_db = db_name(row, eng).lower().split()
+    if len(tokens_nli) == 0 or len(tokens_db) == 0:
+        return 99
+    return sum([min([Levenshtein.distance(t, d) for d in tokens_db]) for t in tokens_nli])
+
+
+issues = []
+not_in_db = []  # [nli_id, first, last, tokens, eng]
+for ii in range(len(nli710)):
+    nli_id = str(nli710['MMS ID'][ii]).strip()
+    first_nli = normalize(nli710['שם פרטי בעברית'][ii])
+    last_nli = normalize(nli710['שם משפחה בעברית'][ii])
+    eng = first_nli == '' and last_nli == ''
+    if eng:  # no Hebrew name, parse the English name from the title, e.g. "Joshi, Bipin, 2000-2023"
+        parts = [p.strip() for p in str(nli710['title'][ii]).split('\n')[0].split(',')]
+        parts = [p for p in parts if p != '' and re.search(r'\d', p) is None]
+        last_nli = parts[0] if len(parts) > 0 else ''
+        first_nli = parts[1] if len(parts) > 1 else ''
+    tokens_nli = (first_nli + ' ' + last_nli).lower().split()
+    db_row = np.where(db_ids == nli_id)[0]
+    if len(db_row) == 0:
+        not_in_db.append([nli_id, first_nli, last_nli, tokens_nli, eng])
+    elif name_distance(tokens_nli, db_row[0], eng) > 1:
+        issues.append([nli_id, first_nli, last_nli, db_name(db_row[0], eng), 'name mismatch'])
+# db IDs missing from the NLI list, before checking for conflicting IDs per name
+nli_ids = set(nli710['MMS ID'].astype(str).str.strip())
+missing_db = [ii for ii in np.where(db['הספריה הלאומית'].notna())[0] if db_ids[ii] not in nli_ids]
+# NLI IDs not found in db: look for the same name under a different ID (like ביפין ג'ושי)
+for nli_id, first_nli, last_nli, tokens_nli, eng in not_in_db:
+    conflict = [ii for ii in missing_db if name_distance(tokens_nli, ii, eng) <= 1]
+    if len(conflict) == 0:
+        issues.append([nli_id, first_nli, last_nli, '', 'ID in NLI not found in oct7database'])
+    else:
+        issues.append([nli_id, first_nli, last_nli, db_name(conflict[0], eng),
+                       'ID in NLI not found in oct7database, oct7database ID: ' + db_ids[conflict[0]]])
+        missing_db.remove(conflict[0])
+for ii in missing_db:
+    name = (str(db['שם פרטי'][ii]) + ' ' + str(db['שם משפחה'][ii])).replace('nan', '').strip()
+    issues.append([db_ids[ii], '', '', name, 'ID in oct7database not found in NLI'])
+issues = pd.DataFrame(issues, columns=['nli_id', 'שם פרטי', 'שם משפחה', 'oct7db name', 'comment'])
+issues['link'] = 'https://www.nli.org.il/he/authorities/' + issues['nli_id']
+issues.to_csv(os.path.expanduser('~/Documents/nli710_issues.csv'), index=False)
+print(issues['comment'].str.split(',').str[0].value_counts())
+
+## get Hebrew and English names and death date from VIAF for every NLI ID in oct7database, saved to ~/Documents/viaf.csv
+# VIAF mirrors the NLI (J9U) authority records and is not behind cloudflare, e.g.
+# https://viaf.org/viaf/sourceID/J9U%7C987012802839705171 (ניתאי עמאר). Runs incrementally, skips IDs already in viaf.csv.
+import pandas as pd
+import os
+import numpy as np
+import re
+import requests
+import time
+
+for home in ['innereye', 'yuval']:
+    if os.path.isdir('/home/'+home+'/alarms/'):
+        os.chdir('/home/'+home+'/alarms/')
+        break
+
+
+def parse_viaf(data):
+    """extract names, dates and viaf id from the VIAF json (both 'heb' and 'lat' headings share the same J9U record)"""
+    cluster = data['ns1:VIAFCluster']
+    out = {'viaf_id': str(cluster.get('ns1:viafID', '')), 'name_heb': '', 'name_eng': '', 'dates': '',
+           'birth_date': str(cluster.get('ns1:birthDate', '')), 'death_date': str(cluster.get('ns1:deathDate', ''))}
+    for key in ['birth_date', 'death_date']:
+        if out[key] == '0':  # VIAF puts 0 for unknown dates
+            out[key] = ''
+    headings = cluster.get('ns1:mainHeadings', {}).get('ns1:mainHeadingEl', [])
+    if isinstance(headings, dict):  # a single heading is not wrapped in a list
+        headings = [headings]
+    for heading in headings:
+        subfields = heading.get('ns1:datafield', {}).get('ns1:subfield', [])
+        if isinstance(subfields, dict):
+            subfields = [subfields]
+        subfields = {str(sf['code']): str(sf['content']).strip() for sf in subfields}
+        name = subfields.get('a', '').strip(' ,')
+        if re.search(r'[א-ת]', name):
+            out['name_heb'] = name
+        elif name != '':
+            out['name_eng'] = name
+        if 'd' in subfields:
+            out['dates'] = subfields['d'].strip(' ,.')
+    return out
+
+
+db = pd.read_csv('data/oct7database.csv', dtype={'הספריה הלאומית': str})
+viaf_path = os.path.expanduser('~/Documents/viaf.csv')
+viaf_columns = ['pid', 'nli_id', 'viaf_id', 'name_heb', 'name_eng', 'dates', 'birth_date', 'death_date', 'status']
+if os.path.isfile(viaf_path):
+    viaf = pd.read_csv(viaf_path, dtype={'nli_id': str, 'viaf_id': str})
+    viaf = viaf[viaf['status'].isin(['ok', 'http 404'])].reset_index(drop=True)  # retry rate limited / failed requests
+else:
+    viaf = pd.DataFrame(columns=viaf_columns)
+rows = np.where(db['הספריה הלאומית'].notna())[0]
+for ii in rows:
+    nli_id = db['הספריה הלאומית'][ii].strip()
+    if nli_id in viaf['nli_id'].values:
+        continue
+    print(db['pid'][ii], nli_id)
+    result = {'viaf_id': '', 'name_heb': '', 'name_eng': '', 'dates': '', 'birth_date': '', 'death_date': ''}
+    try:
+        for attempt in range(5):
+            resp = requests.get('https://viaf.org/viaf/sourceID/J9U%7C' + nli_id, headers={'Accept': 'application/json'}, timeout=30)
+            if resp.status_code != 429:
+                break
+            wait = int(resp.headers.get('Retry-After', 60))  # VIAF rate limit, about 1000 requests before 429
+            print(f'rate limited, waiting {wait}s')
+            time.sleep(wait)
+        if resp.status_code != 200:
+            status = 'http ' + str(resp.status_code)
+        elif 'json' not in resp.headers.get('content-type', ''):
+            status = 'not json'
+        else:
+            result = parse_viaf(resp.json())
+            status = 'ok'
+    except Exception as err:
+        status = 'error: ' + str(err)[:100]
+    viaf.loc[len(viaf)] = [db['pid'][ii], nli_id, result['viaf_id'], result['name_heb'], result['name_eng'],
+                           result['dates'], result['birth_date'], result['death_date'], status]
+    viaf.to_csv(viaf_path, index=False)  # save incrementally
+    time.sleep(1)
+print(viaf['status'].value_counts())
+
+## scrape NLI authority pages
 import pandas as pd
 import os
 import numpy as np
