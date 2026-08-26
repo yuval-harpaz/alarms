@@ -342,19 +342,30 @@ def survivor_note(person):
             'captivity survivor')
 
 
-def death_circle(person, taken_alive, white, geometry):
-    """The circle a hostage who died in Gaza is drawn on, or None.
+def death_circle(person, white, geometry):
+    """The circle someone is drawn on at the place they died, or None.
 
-    Only for someone taken alive who was later killed and whose death place has
-    no coordinate of its own. Their death place is written without the
-    'רצועת עזה' the event places carry -- bare רפיח, ג'באליה -- so the join runs
-    through the alias rows in data/coord_circle.csv rather than matching by
-    string. Fix the names in the csv and the aliases can go.
+    For anyone killed somewhere other than where the event was, when that
+    death place has no coordinate of its own -- the same rule the white mark
+    follows when the sheet does hold one. Not for a body retrieved from
+    somewhere: killed before kidnapped in Status means the place written as
+    the death place is where he was brought back from, not where he died.
+
+    It began as a rule for hostages alone, whose death place is written
+    without the 'רצועת עזה' the event places carry -- bare רפיח, ג'באליה --
+    so the join runs through the alias rows in data/coord_circle.csv rather
+    than matching by string. Fix the names in the csv and the aliases can go.
     """
-    if not (taken_alive and 'killed' in person['Status']) or white:
+    parts = [x.strip() for x in person['Status'].split(';') if x.strip()]
+    if 'killed' not in parts or white:
         return None
-    place = normalize(person['מקום המוות'])
-    if not place or place == normalize(person['מקום האירוע']):
+    if 'kidnapped' in parts and parts.index('killed') < parts.index('kidnapped'):
+        return None
+    place, event = normalize(person['מקום המוות']), normalize(person['מקום האירוע'])
+    if not place or place == event or event.startswith(place + '; '):
+        # No death place, or the same one, or a coarser name for the same one
+        # -- 'דרום לבנון' under 'דרום לבנון; חולא' -- which says nothing the
+        # event place did not, and would put a white mark at a region's point.
         return None
     circles, declined, aliases = geometry
     kind, circle = resolve(place, circles, declined, aliases)
@@ -422,8 +433,7 @@ def build(people, private, areas, geometry, exact):
         red, blue, white = markers(person, unknown)
         record = person_record(person, red, blue, white)
 
-        taken_alive = person['Status'].strip().startswith('kidnapped')
-        found = death_circle(person, taken_alive, white, geometry)
+        found = death_circle(person, white, geometry)
         if found:
             place, kind, circle = found
             if circle:
@@ -892,7 +902,7 @@ def run():
                   f'{" ".join(str(p) for p in idle)}')
         if unplaced_deaths and not private:
             total = sum(len(v) for v in unplaced_deaths.values())
-            print(f'  {total} hostages died somewhere with no circle to put '
+            print(f'  {total} people died somewhere with no circle to put '
                   f'them on:')
             for (place, kind), pids in sorted(unplaced_deaths.items(),
                                               key=lambda kv: -len(kv[1])):
