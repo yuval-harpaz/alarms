@@ -2597,7 +2597,8 @@
         function drawCircles(circles, hostages, pies) {
             const roleDeath = atPlaces() && colouredByRole();
             CIRCLES.forEach(c => {
-                const people = pies ? [] : (circles[c.name_he] || []);
+                const own = circles[c.name_he] || [];
+                const people = pies ? [] : own;
                 const taken = hostages[c.name_he] || [];
                 const name = RTL ? c.name_he : (c.name_en || c.name_he);
                 // A too-general circle stands at a chosen point, and its
@@ -2635,8 +2636,14 @@
                 // can be clicked. At the locality level the mark in the way is
                 // the settlement's pie, which stands wherever its people
                 // average out -- near enough this circle to be worth clearing.
-                const crowded = pies ? pies.has(placeKey(c.name_he))
-                                     : people.length > 0;
+                // Asked of the settlements of the people on the circle, not
+                // of the circle's name: on a circle that joins several names
+                // (רצועת עזה) nobody's settlement is the circle's own, and the
+                // pie in the way is theirs.
+                const crowded = pies
+                    ? pies.has(placeKey(c.name_he)) ||
+                      own.some(p => pies.has(settlement(p).key))
+                    : people.length > 0;
                 const point = crowded ? westOf(c.lat, c.lon, DEATH_WEST)
                                       : [c.lat, c.lon];
                 const label = title + ' · ' + T.died;
