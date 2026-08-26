@@ -25,7 +25,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QUEUE = os.path.join(ROOT, 'data', 'location_coverage.tsv')
 CIRCLES = os.path.join(ROOT, 'data', 'coord_circle.csv')
 
-FIELDS = ['name_he', 'name_en', 'lat', 'lon', 'n_people', 'source', 'filled']
+FIELDS = ['name_he', 'lat', 'lon', 'comment']
 
 
 def parse_coo(text):
@@ -150,10 +150,8 @@ def main():
             break
         if coo is None:
             continue
-        append({'name_he': place['name_he'], 'name_en': place['name_en'],
-                'lat': f'{coo[0]:.6f}', 'lon': f'{coo[1]:.6f}',
-                'n_people': place['n_people'],
-                'source': 'manual', 'filled': ''})
+        append({'name_he': place['name_he'],
+                'lat': f'{coo[0]:.6f}', 'lon': f'{coo[1]:.6f}', 'comment': ''})
         print(f'  {place["name_he"]} -> {coo[0]:.6f}, {coo[1]:.6f}')
     left = len(load_queue()) - len(load_circles())
     print(f'\n{len(load_circles())} circles saved, {left} places still without one')

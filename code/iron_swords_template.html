@@ -1958,12 +1958,19 @@
                        places: ['דרום לבנון', 'לבנון', "ג'ורדיח"] }
         };
 
+        // The circle a person stands on is asked before their place text: a
+        // name too general to be a point is drawn on a circle that says which
+        // side it is on -- everything joined onto רצועת עזה is in the Strip,
+        // and כביש 234 stands on עוטף עזה, which no place text of its own
+        // would say. Somebody with no circle is answered by the text alone.
         function groupKey(person) {
             const front = person.f || T.unspecified;
             const split = SPLITS[front];
             if (!split) return front;
-            const place = (person.loc || '').trim();
-            return split.places.some(name => place.indexOf(name) === 0)
+            const names = [person.circ, person.loc]
+                .filter(Boolean).map(s => s.trim());
+            return names.some(place =>
+                split.places.some(name => place.indexOf(name) === 0))
                 ? split.inside : split.outside;
         }
 
@@ -2593,9 +2600,13 @@
                 const people = pies ? [] : (circles[c.name_he] || []);
                 const taken = hostages[c.name_he] || [];
                 const name = RTL ? c.name_he : (c.name_en || c.name_he);
+                // A too-general circle stands at a chosen point, and its
+                // popup says so: the place is the Strip, not this spot.
+                const title = c.general ? name + ' (' + T.unpublished + ')'
+                                        : name;
                 if (people.length) {
                     if (atPlaces()) {
-                        placeMark(name, people, [c.lat, c.lon], Circles,
+                        placeMark(title, people, [c.lat, c.lon], Circles,
                                   { type: 'circle' });
                     } else {
                         // An icon and not a vector circle, which is what the
@@ -2609,7 +2620,7 @@
                                              alpha: PIE_ALPHA }),
                             zIndexOffset: stackOrder(people.length)
                         });
-                        circle.bindPopup(partsPopup(name,
+                        circle.bindPopup(partsPopup(title,
                             [{ people: people, noRole: true }]));
                         circle.addTo(Circles);
                         addCount(circle, people.length, [c.lat, c.lon]);
@@ -2628,7 +2639,7 @@
                                      : people.length > 0;
                 const point = crowded ? westOf(c.lat, c.lon, DEATH_WEST)
                                       : [c.lat, c.lon];
-                const label = name + ' · ' + T.died;
+                const label = title + ' · ' + T.died;
                 if (roleDeath) {
                     placeMark(label, taken, point, HostageCircles,
                               { death: true, type: 'circle' });

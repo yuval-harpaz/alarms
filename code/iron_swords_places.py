@@ -9,14 +9,18 @@ of four cases:
     lumped    it has no circle, but a shorter path of it does -- the people are
               drawn on that coarser circle, which is a loss of detail and is
               reported so the finer coordinate can be collected later
-    region    too big, or too linear, to carry one dot: 'רצועת עזה' is not a
-              point and a circle in the middle of it would be a claim about
-              where these people died. Nothing is drawn. Two ways to be here --
-              the name is a shorter path of places that do have circles, or it
-              carries a row in the circle file with no lat/lon and
-              source = too_general, which is how a region nobody has subdivided
-              yet (עוטף עזה, כביש 234) opts out by hand.
+    region    too big, or too linear, to carry one dot, and nothing is drawn.
+              Two ways to be here -- the name is a shorter path of places that
+              do have circles, or it carries a row in the circle file with no
+              lat/lon and comment = too_general.
     missing   no circle anywhere on its path -- the work queue
+
+A circle whose row says too_general *and* has a lat/lon is drawn like any
+other, at a point chosen so that its people are on the map at all rather than
+at a point anyone knows: עוטף עזה, כביש 234, a third of the Strip. It is
+flagged, and the build lists those places and their counts on every run --
+they are the standing caveat of the map, which is why that list is the one
+thing the build prints when not asked to be verbose.
 
 The region test runs before the lump test only in the sense that a place with
 its own circle short-circuits both; a place that is both a parent of circles
@@ -28,6 +32,7 @@ named sub-places.
 """
 import csv
 import os
+from collections import Counter
 
 from normalize_semicolons import normalize
 
@@ -35,37 +40,72 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CIRCLES = os.path.join(ROOT, 'data', 'coord_circle.csv')
 
 
-def load_circles():
+def load_circles(people=None):
     """(circles, declined, aliases), keyed on the normalised name so that 'א;ב'
     and 'א; ב' are one place.
 
-    A row with no lat/lon is a place deliberately left off the map, not an
-    unfinished one. Two kinds:
+    data/coord_circle.csv: name_he, lat, lon, comment. The comment is free
+    text except for two values the build reads:
 
-        source = too_general              no marker at all
-        source = alias: <other name_he>   the same place under another name
+        too_general              with lat/lon: drawn there and flagged
+                                 (circle['general']); without: no marker
+        alias: <other name_he>   the same place under another name; no lat/lon
 
     The alias is for siblings, which the ';' path cannot express: 'ליד מסדרון
     נצרים' and 'מסדרון נצרים' sit side by side under 'רצועת עזה; עזה', so
     neither is a prefix of the other, but they are one place on the ground.
+
+    Two rows with the same lat, lon are one circle; the other names become
+    its aliases. That is how a few names too general to tell apart share one
+    mark instead of piling up on one point, and the printout says which names
+    were joined. Given people, the circle is named by the name that covers
+    the most of them, a place counting for itself and for every shorter path
+    of it: רצועת עזה covers the whole Strip, so it outranks צפון רצועת עזה,
+    and three at עוטף עזה outrank one on כביש 234. Without people, the first
+    row in the file names it.
     """
-    circles, declined, aliases = {}, {}, {}
+    circles, declined, aliases, at = {}, {}, {}, {}
     with open(CIRCLES, newline='', encoding='utf-8') as f:
         for row in csv.DictReader(f):
             name = normalize(row['name_he'])
+            comment = (row.get('comment') or '').strip()
             if not row['lat'] or not row['lon']:
-                source = (row['source'] or 'too_general').strip()
-                if source.startswith('alias:'):
-                    aliases[name] = normalize(source.split(':', 1)[1])
+                if comment.startswith('alias:'):
+                    aliases[name] = normalize(comment.split(':', 1)[1])
                 else:
-                    declined[name] = source
+                    declined[name] = comment or 'too_general'
                 continue
+            point = (float(row['lat']), float(row['lon']))
+            if point in at:
+                aliases[name] = at[point]
+                circles[at[point]]['joined'].append(name)
+                continue
+            at[point] = name
             circles[name] = {
                 'name_he': name,
-                'name_en': row['name_en'],
-                'lat': float(row['lat']),
-                'lon': float(row['lon']),
+                'lat': point[0],
+                'lon': point[1],
+                'general': comment == 'too_general',
+                'joined': [],
             }
+
+    if people:
+        carried = Counter()
+        for person in people:
+            for col in ('מקום האירוע', 'מקום המוות'):
+                place = normalize(person[col])
+                if place:
+                    carried.update([place] + parents(place))
+        for name in [n for n, c in circles.items() if c['joined']]:
+            circle = circles.pop(name)
+            group = [name] + circle['joined']
+            best = max(group, key=lambda n: (carried[n], -group.index(n)))
+            circle['name_he'] = best
+            circle['joined'] = [n for n in group if n != best]
+            circles[best] = circle
+            for other in circle['joined']:
+                aliases[other] = best
+            aliases.pop(best, None)
 
     for name, target in sorted(aliases.items()):
         if target not in circles:
@@ -110,7 +150,7 @@ def place_people(people):
     Returns (circles_used, cases) where cases maps kind -> place -> pids, kept
     so the caller can print the two reports and write them to the coverage file.
     """
-    circles, declined, aliases = load_circles()
+    circles, declined, aliases = load_circles(people)
     cases = {'circle': {}, 'alias': {}, 'lumped': {}, 'region': {}, 'missing': {}}
 
     for person in people:
@@ -137,7 +177,9 @@ def pid_list(pids, limit=25):
 
 
 def report(cases):
-    """The printouts: names merged, detail lost to lumping, places never drawn."""
+    """The verbose printouts: names merged, detail lost to lumping, places
+    with no circle. The too-general list is report_general(), printed on
+    every build."""
     alias = cases['alias']
     if alias:
         people = sum(len(e['pids']) for e in alias.values())
@@ -160,17 +202,6 @@ def report(cases):
                   f'({len(entry["pids"])} people)')
             print(f'      pid {pid_list(entry["pids"])}')
 
-    region = cases['region']
-    if region:
-        people = sum(len(e['pids']) for e in region.values())
-        print(f'\ntoo general to place -- {len(region)} names, {people} people, '
-              f'no marker drawn.')
-        print('a dot in the middle of these would invent a location:')
-        for place, entry in sorted(region.items(),
-                                   key=lambda kv: -len(kv[1]['pids'])):
-            print(f'  {place}   ({len(entry["pids"])} people, {entry["why"]})')
-            print(f'      pid {pid_list(entry["pids"])}')
-
     missing = cases['missing']
     if missing:
         people = sum(len(e['pids']) for e in missing.values())
@@ -181,6 +212,40 @@ def report(cases):
                                    key=lambda kv: -len(kv[1]['pids'])):
             label = place or '(no place name at all)'
             print(f'  {label}   ({len(entry["pids"])} people)')
+            print(f'      pid {pid_list(entry["pids"])}')
+
+
+def report_general(cases):
+    """The places too general to be a point, and how many people stand on
+    each: the ones drawn anyway at a chosen point, then the ones not drawn.
+    Printed on every build, verbose or not."""
+    drawn = {}
+    for kind in ('circle', 'alias'):
+        for place, entry in cases[kind].items():
+            circle = entry['into']
+            if not circle['general']:
+                continue
+            group = drawn.setdefault(circle['name_he'], {})
+            group[place] = len(entry['pids'])
+    if drawn:
+        people = sum(sum(g.values()) for g in drawn.values())
+        print(f'\ntoo general to place, drawn anyway at a chosen point -- '
+              f'{len(drawn)} circles, {people} people:')
+        for name, group in sorted(drawn.items(),
+                                  key=lambda kv: -sum(kv[1].values())):
+            print(f'  {sum(group.values()):>4}  {name}')
+            if len(group) > 1 or name not in group:
+                for place, n in sorted(group.items(), key=lambda kv: -kv[1]):
+                    print(f'      {n:>4}  {place}')
+
+    region = cases['region']
+    if region:
+        people = sum(len(e['pids']) for e in region.values())
+        print(f'\ntoo general to place, no marker drawn -- {len(region)} names, '
+              f'{people} people:')
+        for place, entry in sorted(region.items(),
+                                   key=lambda kv: -len(kv[1]['pids'])):
+            print(f'  {len(entry["pids"]):>4}  {place}   ({entry["why"]})')
             print(f'      pid {pid_list(entry["pids"])}')
 
 

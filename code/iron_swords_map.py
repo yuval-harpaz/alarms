@@ -1,7 +1,9 @@
 """Build the iron_swords_locations map, public and private.
 
     python code/iron_swords_map.py            # writes to $WEBSITE (misc/docs)
+    python code/iron_swords_map.py --verbose  # every note, not only the summary
     python code/iron_swords_map.py --cache x.json   # reuse a saved download
+    python code/iron_swords_map.py --help
 
 The columns come from data/oct7database.csv on github and the coordinates from
 the google sheet -- see iron_swords_data.py, which also stops a build whose csv
@@ -40,17 +42,20 @@ new combination that the rules do handle is reported and built, so the daily
 job does not fail on a wording the csv has just started using.
 """
 import csv
+import io
 import json
 import os
 import subprocess
 import sys
 from collections import Counter
+from contextlib import nullcontext, redirect_stdout
 
 from shapely.geometry import shape
 
 from iron_swords_data import load_people
 from iron_swords_exact import load_exact
-from iron_swords_places import load_circles, place_people, report, resolve
+from iron_swords_places import (load_circles, place_people, report,
+                                report_general, resolve)
 from normalize_semicolons import normalize
 from polygons import load_polygons, area_for
 
@@ -108,6 +113,7 @@ LABELS = {
         'kidnapped_exact': 'מקום חטיפה - מדויק',
         'kidnapped_approx': 'מקום חטיפה - מקורב',
         'died': 'מקום מוות',
+        'unpublished': 'מיקום לא פורסם',
         'died_exact': 'מקום מוות - מדויק',
         'died_approx': 'מקום מוות - מקורב',
         'died_note': 'אם שונה ממקום האירוע',
@@ -188,6 +194,7 @@ LABELS = {
         'kidnapped_exact': 'Kidnapping location - exact',
         'kidnapped_approx': 'Kidnapping location - approximate',
         'died': 'Death location',
+        'unpublished': 'location not published',
         'died_exact': 'Death location - exact',
         'died_approx': 'Death location - approximate',
         'died_note': 'if different from the event location',
@@ -617,11 +624,49 @@ def places_payload():
                 for row in csv.DictReader(f)]
 
 
-def circles_payload(circles, records):
+def place_english(people):
+    """{normalised Hebrew place: English}, out of the csv's own two pairs of
+    columns. A circle carries no English of its own -- it would be a second
+    copy of what the csv already says about that place -- so this is where a
+    circle's label on the English map comes from. Where the csv is not
+    consistent about a name the most common form wins; check_locations.py is
+    the tool for making it consistent.
+
+    A name nobody carries on its own, only as the head of longer paths --
+    רצועת עזה, which everyone in the Strip has in front of a town -- takes the
+    head of those paths' English, when the two paths run part for part:
+    'Gaza Strip' out of 'Gaza Strip; Rafah'. Only where the csv has no direct
+    form.
+    """
+    direct, derived = {}, {}
+    for person in people:
+        for he_col, en_col in (('מקום האירוע', 'Event location'),
+                               ('מקום המוות', 'Death location')):
+            he, en = normalize(person[he_col]), person[en_col].strip()
+            if not he or not en:
+                continue
+            direct.setdefault(he, Counter())[en] += 1
+            he_parts = he.split('; ')
+            en_parts = [x.strip() for x in en.split(';')]
+            if len(en_parts) != len(he_parts):
+                continue
+            for k in range(1, len(he_parts)):
+                head = '; '.join(he_parts[:k])
+                derived.setdefault(head, Counter())['; '.join(en_parts[:k])] += 1
+    english = {he: forms.most_common(1)[0][0] for he, forms in derived.items()}
+    english.update({he: forms.most_common(1)[0][0]
+                    for he, forms in direct.items()})
+    return english
+
+
+def circles_payload(circles, records, english):
     used = {r['circ'] for r in records if 'circ' in r}
     used |= {r['dcirc'] for r in records if 'dcirc' in r}
-    return [{'name_he': c['name_he'], 'name_en': c['name_en'],
-             'lat': c['lat'], 'lon': c['lon']}
+    # general marks a too_general circle: a point chosen so its people are on
+    # the map at all, which the popup says in as many words.
+    return [{'name_he': c['name_he'], 'name_en': english.get(c['name_he'], ''),
+             'lat': c['lat'], 'lon': c['lon'],
+             **({'general': 1} if c['general'] else {})}
             for name, c in sorted(circles.items()) if name in used]
 
 
@@ -740,7 +785,62 @@ def version():
     return described.stdout.strip() or 'unknown version'
 
 
+USAGE = f"""\
+usage: python code/iron_swords_map.py [-v | --verbose] [--cache FILE]
+
+Builds the iron_swords_locations map, public and private, into $WEBSITE
+({WEBSITE}). Reads data/oct7database.csv from github and the coordinates
+from the google sheet; the build stops if the local csv was never pushed.
+
+  -v, --verbose   print every build note: what could not be placed, missing
+                  English, the exact-inside-a-ring list, file sizes. Without
+                  it only the too-general places and their counts are printed,
+                  plus one line counting the notes held back.
+  --cache FILE    reuse a saved sheet download instead of calling the
+                  deployment; the csv is then read from the working copy,
+                  pushed or not.
+  -h, --help      this text.
+
+Data files the build reads, all under data/:
+  oct7database.csv     the people (from github)
+  coord_circle.csv     centres for places with no coordinate of their own
+  coord_area.geojson   rings over areas whose addresses are hidden
+  coord_exact.tsv      people shown exact inside a hidden ring
+  coord_locality.geojson, coord_neighbourhood.csv, coord_place.csv   backdrop
+
+See iron_swords_map_update.md for what to do about each note it prints."""
+
+OPTIONS = {'-v', '--verbose', '--cache', '-h', '--help'}
+
+
 def main():
+    """Quiet by default: the build prints the too-general list and one line
+    counting whatever else it had to say. --verbose prints all of it. An error
+    prints the notes gathered up to it first, so nothing is lost to the
+    silence."""
+    if '-h' in sys.argv or '--help' in sys.argv:
+        print(USAGE)
+        return
+    unknown = [a for a in sys.argv[1:] if a.startswith('-') and a not in OPTIONS]
+    if unknown:
+        sys.exit(f'unknown option {" ".join(unknown)}\n\n{USAGE}')
+    verbose = '--verbose' in sys.argv or '-v' in sys.argv
+    notes = io.StringIO()
+    try:
+        with nullcontext() if verbose else redirect_stdout(notes):
+            cases = run()
+    except BaseException:
+        sys.stdout.write(notes.getvalue())
+        raise
+    report_general(cases)
+    hidden = len(notes.getvalue().strip().splitlines())
+    if hidden:
+        print(f'\n{hidden} more lines of build notes -- run with --verbose to '
+              f'read them')
+
+
+def run():
+    """The build itself. Returns the placement cases for the summary."""
     cache = None
     if '--cache' in sys.argv:
         cache = sys.argv[sys.argv.index('--cache') + 1]
@@ -758,12 +858,13 @@ def main():
     unplaced = sum(len(e['pids']) for kind in ('region', 'missing')
                    for e in cases[kind].values())
 
-    geometry = load_circles()
+    geometry = load_circles(people)
     exact = load_exact(people)
+    english = place_english(people)
     for private in (False, True):
         records, polygons, hidden, unplaced_deaths, nowhere, idle = build(
             people, private, areas, geometry, exact)
-        payload = circles_payload(circles, records)
+        payload = circles_payload(circles, records, english)
         for lang in ('he', 'en'):
             name = BASENAME + ('_private' if private else '') + \
                 ('_en' if lang == 'en' else '') + '.html'
@@ -797,6 +898,7 @@ def main():
                                               key=lambda kv: -len(kv[1])):
                 print(f'      {len(pids):>4}  {place}  ({kind})  '
                       f'pid {", ".join(str(p) for p in pids)}')
+    return cases
 
 
 if __name__ == '__main__':
