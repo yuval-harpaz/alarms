@@ -1739,8 +1739,19 @@
                 ? 'blue' : 'red';
         }
 
-        const CIRCLE_POINT = {};
-        CIRCLES.forEach(c => { CIRCLE_POINT[c.name_he] = [c.lat, c.lon]; });
+        const CIRCLE_POINT = {}, CIRCLE = {};
+        CIRCLES.forEach(c => {
+            CIRCLE_POINT[c.name_he] = [c.lat, c.lon];
+            CIRCLE[c.name_he] = c;
+        });
+
+        // What a circle is called on its popups. A too-general circle stands
+        // at a chosen point, and its title says so: the place is the Strip,
+        // not this spot.
+        function circleTitle(c) {
+            const name = RTL ? c.name_he : (c.name_en || c.name_he);
+            return c.general ? name + ' (' + T.unpublished + ')' : name;
+        }
 
         // Where a person the public map blurred is: their own point is gone,
         // and the ring that replaced it is the only place left to stand.
@@ -1841,9 +1852,9 @@
         function addPies(red, blue, areas, circles) {
             const groups = {};
 
-            function add(person, coo) {
+            function add(person, coo, place) {
                 if (!coo) return;
-                const place = settlement(person);
+                place = place || settlement(person);
                 const group = groups[place.key] = groups[place.key] ||
                     { label: place.label, people: [], lat: 0, lon: 0, n: 0 };
                 group.people.push(person);
@@ -1870,8 +1881,15 @@
             // city. The hostages of a circle are not added: they are counted
             // where their event was, and a second count here would be the same
             // person twice.
+            // Except on a too-general circle, where the settlement is the
+            // circle itself: it joins several names -- the Strip, its north,
+            // the perimeter -- and a pie per name would be three pies stacked
+            // on one point, each saying it is a place.
             for (const name in circles) {
-                circles[name].forEach(p => add(p, CIRCLE_POINT[name]));
+                const c = CIRCLE[name];
+                const place = c && c.general
+                    ? { key: placeKey(name), label: circleTitle(c) } : null;
+                circles[name].forEach(p => add(p, CIRCLE_POINT[name], place));
             }
 
             const drawn = new Set();
@@ -2601,10 +2619,7 @@
                 const people = pies ? [] : own;
                 const taken = hostages[c.name_he] || [];
                 const name = RTL ? c.name_he : (c.name_en || c.name_he);
-                // A too-general circle stands at a chosen point, and its
-                // popup says so: the place is the Strip, not this spot.
-                const title = c.general ? name + ' (' + T.unpublished + ')'
-                                        : name;
+                const title = circleTitle(c);
                 if (people.length) {
                     if (atPlaces()) {
                         placeMark(title, people, [c.lat, c.lon], Circles,

@@ -49,16 +49,19 @@ def load_circles(people=None):
 
         too_general              with lat/lon: drawn there and flagged
                                  (circle['general']); without: no marker
-        alias: <other name_he>   the same place under another name; no lat/lon
+        alias: <other name_he>   the same place under another name. Its
+                                 people stand on the other name's circle; a
+                                 lat/lon on the row itself is not used
 
     The alias is for siblings, which the ';' path cannot express: 'ליד מסדרון
     נצרים' and 'מסדרון נצרים' sit side by side under 'רצועת עזה; עזה', so
     neither is a prefix of the other, but they are one place on the ground.
 
     Two rows with the same lat, lon are one circle; the other names become
-    its aliases. That is how a few names too general to tell apart share one
-    mark instead of piling up on one point, and the printout says which names
-    were joined. Given people, the circle is named by the name that covers
+    its aliases, and it is too general if any of them is. That is how a few
+    names too general to tell apart share one mark instead of piling up on
+    one point, and the printout says which names were joined. Given people,
+    the circle is named by the name that covers
     the most of them, a place counting for itself and for every shorter path
     of it: רצועת עזה covers the whole Strip, so it outranks צפון רצועת עזה,
     and three at עוטף עזה outrank one on כביש 234. Without people, the first
@@ -69,16 +72,17 @@ def load_circles(people=None):
         for row in csv.DictReader(f):
             name = normalize(row['name_he'])
             comment = (row.get('comment') or '').strip()
+            if comment.startswith('alias:'):
+                aliases[name] = normalize(comment.split(':', 1)[1])
+                continue
             if not row['lat'] or not row['lon']:
-                if comment.startswith('alias:'):
-                    aliases[name] = normalize(comment.split(':', 1)[1])
-                else:
-                    declined[name] = comment or 'too_general'
+                declined[name] = comment or 'too_general'
                 continue
             point = (float(row['lat']), float(row['lon']))
             if point in at:
                 aliases[name] = at[point]
                 circles[at[point]]['joined'].append(name)
+                circles[at[point]]['general'] |= comment == 'too_general'
                 continue
             at[point] = name
             circles[name] = {
