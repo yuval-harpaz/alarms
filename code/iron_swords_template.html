@@ -196,7 +196,71 @@
             padding: 2px;
         }
 
-        input[type=range] { width: 100%; margin: 0; }
+        /* One slider with two dots. Two native ranges lie on top of each
+           other, drawn without a track of their own -- only the thumbs take
+           the pointer -- over a track the page draws, with the chosen span
+           coloured in. Left to right whatever the language: the left dot is
+           "from" and the right dot is "to" on the Hebrew page too, and the
+           date boxes under it sit in the same order. */
+        .range-pair {
+            position: relative;
+            height: 22px;
+            direction: ltr;
+        }
+
+        .range-track {
+            position: absolute;
+            left: 7px; right: 7px; top: 9px;
+            height: 4px;
+            border-radius: 2px;
+            background: #ddd;
+        }
+
+        .range-fill {
+            position: absolute;
+            top: 0; bottom: 0;
+            background: #007bff;
+        }
+
+        .range-pair input[type=range] {
+            position: absolute;
+            left: 0; top: 0;
+            width: 100%;
+            height: 22px;
+            margin: 0;
+            background: none;
+            pointer-events: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .range-pair input[type=range]::-webkit-slider-runnable-track {
+            background: none;
+            height: 22px;
+        }
+
+        .range-pair input[type=range]::-moz-range-track { background: none; }
+
+        .range-pair input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            pointer-events: auto;
+            width: 14px; height: 14px;
+            margin-top: 4px;
+            border-radius: 50%;
+            border: 2px solid #007bff;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        .range-pair input[type=range]::-moz-range-thumb {
+            pointer-events: auto;
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            border: 2px solid #007bff;
+            background: #fff;
+            cursor: pointer;
+        }
 
         .filter-group { margin-bottom: 8px; }
 
@@ -622,13 +686,16 @@
         <div id="controls-body">
             <div class="section">
                 <div id="campaign-buttons"></div>
-                <div class="date-row">
+                <div class="date-row" dir="ltr">
                     <input type="date" id="date-from">
                     <span>—</span>
                     <input type="date" id="date-to">
                 </div>
-                <input type="range" id="range-from" min="0" max="100" value="0">
-                <input type="range" id="range-to" min="0" max="100" value="100">
+                <div class="range-pair" dir="ltr">
+                    <div class="range-track"><div class="range-fill" id="range-fill"></div></div>
+                    <input type="range" id="range-from" min="0" max="100" value="0">
+                    <input type="range" id="range-to" min="0" max="100" value="100">
+                </div>
                 <div class="date-row" style="font-size:12px">
                     <label><input type="radio" name="datefield" value="d" checked> __BY_EVENT_DATE__</label>
                     <label><input type="radio" name="datefield" value="dd"> __BY_DEATH_DATE__</label>
@@ -1287,20 +1354,40 @@
             return iso < CONFIG.date_min ? 0 : DAYS.length - 1;
         }
 
+        // Colours the track between the two dots, and decides which dot is on
+        // top where the two meet. The input on top is the one that gets
+        // grabbed, and when both dots stand at the far end only "from" can
+        // move away from it -- so the dot in the upper half of the track is
+        // "from" and in the lower half "to".
+        const rangeFill = document.getElementById('range-fill');
+
+        function paintRange() {
+            const span = DAYS.length - 1 || 1;
+            rangeFill.style.left = (100 * rangeFrom.value / span) + '%';
+            rangeFill.style.right = (100 - 100 * rangeTo.value / span) + '%';
+            const upper = rangeFrom.value > span / 2;
+            rangeFrom.style.zIndex = upper ? 3 : 2;
+            rangeTo.style.zIndex = upper ? 2 : 3;
+        }
+
         function setRange(fromIso, toIso, silent) {
             rangeFrom.value = clampIndex(fromIso);
             rangeTo.value = clampIndex(toIso);
             dateFrom.value = DAYS[rangeFrom.value];
             dateTo.value = DAYS[rangeTo.value];
+            paintRange();
             if (!silent) render();
         }
 
-        function syncFromSliders() {
+        // The dots do not cross: the one being dragged stops at the other.
+        function syncFromSliders(event) {
             if (+rangeFrom.value > +rangeTo.value) {
-                const v = rangeFrom.value; rangeFrom.value = rangeTo.value; rangeTo.value = v;
+                if (event.target === rangeFrom) rangeFrom.value = rangeTo.value;
+                else rangeTo.value = rangeFrom.value;
             }
             dateFrom.value = DAYS[rangeFrom.value];
             dateTo.value = DAYS[rangeTo.value];
+            paintRange();
             markActiveCampaign();
             render();
         }
