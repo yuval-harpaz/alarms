@@ -125,6 +125,20 @@
         #controls-head svg { flex: none; }
         #controls-head .count { font-weight: normal; color: #555; margin-inline-start: auto; }
 
+        /* Puts every filter and the view back the way the page opens. In the
+           head, so it is there whether the panel is open or shut. */
+        .reset-btn {
+            font-weight: normal;
+            font-size: 11px;
+            padding: 1px 8px;
+            border: 1px solid #bbb;
+            border-radius: 10px;
+            background: #f6f6f6;
+            cursor: pointer;
+        }
+
+        .reset-btn:hover { background: #e3e9f5; }
+
         #controls-body {
             display: none;
             padding: 0 9px 9px;
@@ -602,6 +616,7 @@
                 <path d="M1 2h14l-5.5 6.5V14L6.5 12V8.5L1 2z" fill="#444" />
             </svg>
             <span>__FILTERS__</span>
+            <span class="reset-btn" id="reset-btn" title="__RESET_HINT__">__RESET__</span>
             <span class="count" id="counts"></span>
         </div>
         <div id="controls-body">
@@ -937,6 +952,41 @@
         BASE_LAYERS.forEach(([, layer]) => {
             if (!BASE_START || layer !== BASE_START[1]) map.removeLayer(layer);
         });
+
+        // The one the page opens on is the default, and the only one a url
+        // need not name. In a url a base map goes by its panel name lowercased
+        // and hyphenated: govmap, google, esri-latest, esri-2024-11-18.
+        const BASE_DEFAULT = (BASE_START || BASE_LAYERS[0])[0];
+        let baseName = BASE_DEFAULT;
+
+        function baseKey(name) {
+            return name.toLowerCase().replace(/\s+/g, '-');
+        }
+
+        function setBase(name) {
+            const entry = BASE_LAYERS.find(([n]) => n === name);
+            if (!entry) return;
+            baseName = name;
+            BASE_LAYERS.forEach(([, other]) => {
+                if (other !== entry[1] && map.hasLayer(other)) {
+                    map.removeLayer(other);
+                }
+            });
+            if (!map.hasLayer(entry[1])) map.addLayer(entry[1]);
+            syncCities();
+        }
+
+        // The town names go with the base map rather than with a box of their
+        // own: Esri's imagery carries no names at all, while Google's hybrid
+        // and GovMap write their own, and a second set on top of those is
+        // clutter. So they are on over Esri and off over the other two.
+        function syncCities() {
+            const wanted = /^esri/i.test(baseName);
+            if (wanted && !map.hasLayer(Cities)) map.addLayer(Cities);
+            if (!wanted && map.hasLayer(Cities)) map.removeLayer(Cities);
+        }
+
+        syncCities();
 
         // Cycles how the labels separate themselves from the tiles. Added after
         // the layer control so it lands underneath it in the same corner. The
@@ -1950,7 +2000,8 @@
         // person or a place, and the coarse views answer a question about the
         // war rather than about anybody in it -- they are worth stepping out
         // to, not worth landing on.
-        let level = LEVELS.length - 1;
+        const LEVEL_DEFAULT = LEVELS.length - 1;
+        let level = LEVEL_DEFAULT;
 
         // Where a level is named in a url that was written before the outermost
         // one went: `regions` was this level's own name, and `fronts` was the
@@ -1958,7 +2009,8 @@
         const LEVEL_WAS = { regions: 'fronts' };
 
         const CATEGORIES = ['status', 'roles'];
-        let category = 'status';
+        const CATEGORY_DEFAULT = 'status';
+        let category = CATEGORY_DEFAULT;
 
         // Which level is which, asked by name rather than by number: the
         // numbers moved when the outermost level went, and every one of these
@@ -2313,26 +2365,93 @@
         let syncPanel = () => {};
 
         // The address bar mirrors what is on the screen: the level, the
-        // colouring, and where the map sits. Two things come of that -- a view
-        // is shared by copying the url, and the buttons name themselves, since
-        // a reader who clicks one watches level=places appear and learns what
-        // that level is called. replaceState, so looking around the map does
-        // not fill the back button.
+        // colouring, the base map, the filters, and where the map sits. Two
+        // things come of that -- a view is shared by copying the url, and the
+        // buttons name themselves, since a reader who clicks one watches
+        // level=places appear and learns what that level is called.
+        // replaceState, so looking around the map does not fill the back
+        // button.
+        //
+        // Only what differs from the page's own defaults is written. A url
+        // that names everything is long and says nothing; the bare page is the
+        // default view, and a parameter is there because the reader changed
+        // something.
+        function atHome(centre) {
+            const home = map.latLngToLayerPoint(L.latLng(CONFIG.center));
+            return map.latLngToLayerPoint(centre).distanceTo(home) < 1.5;
+        }
+
+        function anyFilter() {
+            return dateField !== 'd'
+                || dateFrom.value !== CONFIG.date_min
+                || dateTo.value !== CONFIG.date_max
+                || FILTER_FIELDS.some(field => selected[field.key].size > 0);
+        }
+
         function viewToUrl() {
             const url = new URL(window.location.href);
+            const q = url.searchParams;
+            const put = (name, value, isDefault) => {
+                if (isDefault) q.delete(name);
+                else q.set(name, value);
+            };
+            put('level', LEVELS[level], level === LEVEL_DEFAULT);
+            put('category', category, category === CATEGORY_DEFAULT);
+            put('base', baseKey(baseName), baseName === BASE_DEFAULT);
+
+            for (const name in URL_FILTERS) {
+                const key = URL_FILTERS[name];
+                const kept = Object.keys(boxes[key])
+                    .filter(v => !selected[key].has(v));
+                put(name, kept.join(','), selected[key].size === 0);
+            }
+            put('date', dateField, dateField === 'd');
+            put('from', dateFrom.value, dateFrom.value === CONFIG.date_min);
+            put('to', dateTo.value, dateTo.value === CONFIG.date_max);
+
+            // A filtered page opening with no view of its own is framed to
+            // what it shows, so under a filter the view is always written:
+            // the framing would otherwise replace the view the reader had.
             const centre = map.getCenter();
+            const filtered = anyFilter();
             // Whichever spelling the reader arrived with stays the one written,
             // so a url never ends up carrying both.
-            const key = url.searchParams.has('centre')
-                && !url.searchParams.has('center') ? 'centre' : 'center';
-            url.searchParams.set('level', LEVELS[level]);
-            url.searchParams.set('category', category);
-            url.searchParams.set(key, centre.lat.toFixed(5) + ',' +
-                                      centre.lng.toFixed(5));
-            url.searchParams.set('zoom', map.getZoom());
+            const key = q.has('centre') && !q.has('center') ? 'centre' : 'center';
+            put(key, centre.lat.toFixed(5) + ',' + centre.lng.toFixed(5),
+                !filtered && atHome(centre));
+            put('zoom', map.getZoom(),
+                !filtered && map.getZoom() === CONFIG.zoom);
             // The comma between the coordinates is legal in a query and reads
             // better than %2C in a url meant to be copied into a message.
             history.replaceState(null, '', url.toString().replace(/%2C/g, ','));
+        }
+
+        // Everything back the way the page opens: every box ticked, the whole
+        // range of dates by event date, the default level, colouring and base
+        // map, and the map itself where it started. The url empties with it --
+        // a pid it opened on included, since the person is not a default.
+        function resetAll() {
+            level = LEVEL_DEFAULT;
+            category = CATEGORY_DEFAULT;
+            setBase(BASE_DEFAULT);
+            FILTER_FIELDS.forEach(field => {
+                selected[field.key].clear();
+                Object.values(boxes[field.key]).forEach(cb => {
+                    cb.checked = true;
+                });
+            });
+            dateField = 'd';
+            document.querySelector('input[name=datefield][value=d]').checked = true;
+            setRange(CONFIG.date_min, CONFIG.date_max, true);
+            markActiveCampaign();
+            syncPanel();
+            renderLegend();
+            render();
+            map.setView(CONFIG.center, CONFIG.zoom, { animate: false });
+            const url = new URL(window.location.href);
+            url.search = '';
+            history.replaceState(null, '', url.toString());
+            viewToUrl();
         }
 
         function syncButtons() {
@@ -2404,29 +2523,12 @@
                 catNote.textContent = T.cat_off;
 
                 const baseBox = section(T.panel_base);
-                BASE_LAYERS.forEach(([name, layer]) => {
-                    row(baseBox, 'ironBase', name, '', map.hasLayer(layer),
+                const baseInputs = BASE_LAYERS.map(([name]) =>
+                    [name, row(baseBox, 'ironBase', name, '', name === baseName,
                         () => {
-                            BASE_LAYERS.forEach(([, other]) => {
-                                if (other !== layer && map.hasLayer(other)) {
-                                    map.removeLayer(other);
-                                }
-                            });
-                            if (!map.hasLayer(layer)) map.addLayer(layer);
-                        });
-                });
-
-                // The names of the towns, which are the whole country's, above
-                // the two reference layers, which are the Strip's alone -- one
-                // heading cannot honestly cover both.
-                if (PLACES.length) {
-                    const placeBox = section(T.panel_places);
-                    row(placeBox, '', T.cities, '', map.hasLayer(Cities),
-                        input => {
-                            if (input.checked) map.addLayer(Cities);
-                            else map.removeLayer(Cities);
-                        });
-                }
+                            setBase(name);
+                            viewToUrl();
+                        })]);
 
                 const overlays = Object.keys(extraLayers);
                 if (overlays.length) {
@@ -2479,6 +2581,9 @@
                     });
                     catBox.classList.toggle('off', off);
                     catNote.style.display = off ? '' : 'none';
+                    baseInputs.forEach(([name, input]) => {
+                        input.checked = name === baseName;
+                    });
                 };
 
                 markHalo();
@@ -2599,6 +2704,10 @@
                 (CONFIG.unplaced ? '  ·  ' + T.unplaced + ' ' + CONFIG.unplaced : '');
             updateTooltipVisibility();
             applyCounts();
+            // Every change of a filter ends here, so this is where the filters
+            // reach the url. Not while booting: the boot writes the url once,
+            // when the view it arrived at has settled.
+            if (urlFollows) viewToUrl();
         }
 
         // Half a kilometre and a little more, so the two marks of one place can
@@ -2928,6 +3037,12 @@
         document.getElementById('controls-head').onclick = () => {
             controls.classList.toggle('open');
         };
+        // Sits in the head, which opens and shuts the panel on a click: the
+        // click that resets must not also do that.
+        document.getElementById('reset-btn').onclick = event => {
+            event.stopPropagation();
+            resetAll();
+        };
 
         // Wide enough to hold a panel beside the marks rather than over them:
         // the left column's own 266 px and as much again for the map. Below it
@@ -2950,11 +3065,12 @@
         // &level=places      (fronts | places | marks, or 0-2; regions is the
         //                     old name of fronts and still opens it)
         // &category=roles    (status | roles -- what a pie is cut by)
+        // &base=google       (govmap | google | esri-latest | esri-2024-11-18)
         // &center=31.5,34.6  (open here, whatever the filters would frame)
-        // Those last four describe the view rather than filter it, and the map
-        // writes them back as the reader buttons, pans and zooms, so the address
-        // bar always says what is on the screen. The filters are read only: a
-        // checkbox the reader ticks does not rewrite the url.
+        // The map writes all of these back as the reader ticks, buttons, pans
+        // and zooms, so the address bar always says what is on the screen --
+        // and writes only what differs from the defaults, so the bare page and
+        // the bare url are the same thing. See viewToUrl.
         // Values are compared case-insensitively and may be comma separated.
         // A name that matches nothing is reported in the console rather than
         // silently emptying the map.
@@ -3079,6 +3195,15 @@
                 if (CATEGORIES.indexOf(name) >= 0) category = name;
                 else console.warn('unknown category: ' + wantedCategory +
                     '. known values: ' + CATEGORIES.join(', '));
+            }
+            const wantedBase = params.get('base');
+            if (wantedBase !== null) {
+                const name = wantedBase.trim().toLowerCase();
+                const entry = BASE_LAYERS.find(([n]) => baseKey(n) === name);
+                if (entry) setBase(entry[0]);
+                else console.warn('unknown base: ' + wantedBase +
+                    '. known values: ' +
+                    BASE_LAYERS.map(([n]) => baseKey(n)).join(', '));
             }
         }
 
