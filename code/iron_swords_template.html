@@ -49,6 +49,21 @@
         #search-box { z-index: 3; padding: 8px; }
         #controls { z-index: 2; }
 
+        /* The site the map belongs to, as a line of text between the search
+           box and the filters: no box, and dressed like the legend, which
+           also stands on the map with nothing behind it. */
+        #site-link {
+            display: block;
+            margin: -2px 0 6px;
+            padding: 0 4px;
+            font: 13px/1.4 sans-serif;
+            color: #fff;
+            text-decoration: none;
+            text-shadow: 0 0 3px #000, 0 0 3px #000, 0 0 5px #000;
+        }
+
+        #site-link:hover { text-decoration: underline; }
+
         /* No panel of its own: it sits over the sea at the opening view. The
            outline keeps it readable if you switch to a light tile or pan over
            land, where plain white would disappear. */
@@ -676,6 +691,9 @@
         </div>
         <div id="search-results"></div>
     </div>
+
+    <a id="site-link" href="https://oct7database.com" target="_blank"
+       rel="noopener" dir="__DIR__">oct7database.com</a>
 
     <div id="controls" class="panel" dir="__DIR__">
         <div id="controls-head">
