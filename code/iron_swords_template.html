@@ -1096,7 +1096,13 @@
             const swatch = document.createElement('span');
             row.className = 'key';
             swatch.className = 'swatch';
-            if (shape) {
+            if (Array.isArray(colour)) {
+                // A death place under the role colouring: the triangle in
+                // bands, one per role, equal shares -- the key shows the
+                // rule, not any one place's count.
+                swatch.innerHTML = strataSvg(iconSize / 2 / AREA.triangle,
+                    colour.map(c => ({ n: 1, colour: c })));
+            } else if (shape) {
                 // A death place is a triangle here as everywhere else. The
                 // slices have no shape of their own to draw: they are pieces
                 // of the circle the mark above them already is.
@@ -1143,14 +1149,18 @@
 
         function buildKey(box) {
             slices().forEach(part => keyRow(box, part.colour, T[part.legend]));
-            // A white circle is a death place, and death places are drawn only
-            // where the map is drawn by locality. Not in the role colouring:
-            // there the death circles are painted like everything else, by who
-            // the people were, and there is no white left to explain.
-            if (atPlaces() && category !== 'roles') {
-                keyRow(box, '#fff', T.died, 'triangle');
+            // A triangle is a death place, and death places are drawn only
+            // where the map is drawn by locality. White under the status
+            // colouring; under the role colouring it is painted like every
+            // other mark, by who the people were, in bands -- and the shape
+            // still needs its row, since the shape is what says these people
+            // are counted here a second time.
+            if (atPlaces()) {
+                keyRow(box, category === 'roles'
+                    ? slices().map(part => part.colour) : '#fff',
+                    T.died, 'triangle');
                 // A death place is drawn only where it is not the event place;
-                // the white circles are not every death on the map.
+                // the triangles are not every death on the map.
                 noteRow(box, T.died_note);
             }
             if (category === 'roles') noteRow(box, T.no_survivors);
@@ -1966,39 +1976,54 @@
         }
 
         // The same, for a death place: a solid triangle, and where more than
-        // one colour falls on it the pie's own wedges cut to the triangle.
-        // Only the role colouring ever asks for the second -- everywhere else
-        // a death place is white -- and the wedges are drawn from a circle
-        // wide enough to reach the triangle's corners before the clip takes
-        // the rest away.
+        // one colour falls on it, cut into horizontal bands from the apex
+        // down, in the order the pie's slices go round. Only the role
+        // colouring ever asks for the second -- everywhere else a death place
+        // is white.
+        //
+        // Bands rather than wedges, because the areas have to be the counts.
+        // The area of the triangle above a line at depth y from the apex is
+        // (y / H)^2 of the whole, so a band that ends at the cumulative share
+        // F is cut at y = H * sqrt(F), and every band holds exactly its
+        // share of the ink. The pie's wedges clipped to the triangle did not:
+        // the wedge aimed at the apex kept a fraction of what a wedge aimed
+        // at a corner kept.
         let clipCount = 0;
-        function triangleIcon(parts) {
+
+        function strataSvg(r, parts) {
             const filled = parts.filter(part => part.n);
             const total = filled.reduce((sum, part) => sum + part.n, 0);
-            const r = markRadius(total);
             if (filled.length < 2) {
-                return markIcon('triangle', r,
+                return markSvg('triangle', r,
                     { fill: (filled[0] || parts[0]).colour, alpha: PIE_ALPHA });
             }
             const box = markBox(r, {});
+            const h = r * AREA.triangle;           // half the height
+            const top = box / 2 - h, height = 2 * h;
             const id = 'tri' + (++clipCount);
-            let from = 0;
-            const shapes = filled.map(part => {
-                const to = from + part.n / total;
-                const d = wedge(box, from, to);
-                from = to;
-                return '<path d="' + d + '" fill="' + part.colour +
-                    '" fill-opacity="' + PIE_ALPHA +
-                    '" transform="translate(' + (-box / 2) + ',' +
-                    (-box / 2) + ')"/>';
+            let share = 0, y = top;
+            const bands = filled.map(part => {
+                share += part.n / total;
+                const bottom = top + height * Math.sqrt(share);
+                const rect = '<rect x="0" y="' + y + '" width="' + box +
+                    '" height="' + (bottom - y) + '" fill="' + part.colour +
+                    '" fill-opacity="' + PIE_ALPHA + '"/>';
+                y = bottom;
+                return rect;
             }).join('');
+            return '<svg width="' + box + '" height="' + box +
+                '" viewBox="0 0 ' + box + ' ' + box + '"><defs><clipPath id="' +
+                id + '">' + shapePath('triangle', r, box) +
+                '/></clipPath></defs><g clip-path="url(#' + id + ')">' +
+                bands + '</g></svg>';
+        }
+
+        function triangleIcon(parts) {
+            const total = parts.reduce((sum, part) => sum + part.n, 0);
+            const r = markRadius(total);
+            const box = markBox(r, {});
             return L.divIcon({
-                className: 'pie',
-                html: '<svg width="' + box + '" height="' + box +
-                    '" viewBox="0 0 ' + box + ' ' + box + '"><defs><clipPath id="' +
-                    id + '">' + shapePath('triangle', r, box) +
-                    '/></clipPath></defs><g clip-path="url(#' + id + ')">' +
-                    shapes + '</g></svg>',
+                className: 'pie', html: strataSvg(r, parts),
                 iconSize: [box, box], iconAnchor: [box / 2, box / 2]
             });
         }
