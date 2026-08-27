@@ -1291,10 +1291,26 @@
 
         /* ------------------------------------------------------------- render */
 
+        // A death date that is only a year, or only a month, stands for the
+        // whole of it: it is in range when any day of it is. Comparing the bare
+        // '2023' as a string put it before 07/10/2023 and dropped the two
+        // people whose day is not known.
+        function dateInRange(iso) {
+            const m = /^(\d{4})(?:-(\d{2}))?(?:-(\d{2}))?$/.exec(iso);
+            if (!m) return iso >= dateFrom.value && iso <= dateTo.value;
+            const first = m[1] + '-' + (m[2] || '01') + '-' + (m[3] || '01');
+            const last = m[1] + '-' + (m[2] || '12') + '-' + (m[3] || '31');
+            return last >= dateFrom.value && first <= dateTo.value;
+        }
+
         function passes(person) {
-            const date = person[dateField] || person.d;
+            // By death date, someone with no death date has not died: the
+            // released and rescued hostages stay off the map rather than being
+            // placed by the day they were taken. Whoever died after coming home
+            // has a death date and is kept.
+            const date = person[dateField];
             if (!date) return false;
-            if (date < dateFrom.value || date > dateTo.value) return false;
+            if (!dateInRange(date)) return false;
             for (const field of FILTER_FIELDS) {
                 const excluded = selected[field.key];
                 if (excluded.size && excluded.has(person[field.key] || T.unspecified)) {
