@@ -781,7 +781,8 @@
         });
         const govmap = L.tileLayer('https://cdnil.govmap.gov.il/xyz/heb/{z}/{x}/{y}.png', {
             maxZoom: 15,
-            attribution: '© המרכז למיפוי ישראל www.govmap.gov.il',
+            attribution: "&copy; <a href='https://www.govmap.gov.il' " +
+                "target='_blank'>המרכז למיפוי ישראל</a>",
         });
 
         const baseMaps = {
@@ -848,7 +849,7 @@
         // data is displayed, not on every page that could display it.
         const Localities = L.layerGroup([], {
             attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'" +
-                " target='_blank'>OpenStreetMap</a> contributors, ODbL"
+                " target='_blank'>OpenStreetMap</a>"
         });
         LOCALITIES.forEach(area => {
             const shape = L.geoJSON(area.geometry, {
@@ -875,7 +876,7 @@
         // Khan Yunis. Same pane as the boundaries, under the victim markers.
         const Neighbourhoods = L.layerGroup([], {
             attribution: "&copy; <a href='https://data.humdata.org/dataset/" +
-                "gaza-strip-neighbourhoods' target='_blank'>OCHA oPt</a>, CC BY"
+                "gaza-strip-neighbourhoods' target='_blank'>OCHA</a>"
         });
         NEIGHBOURHOODS.forEach(place => {
             const dot = L.circleMarker([place.lat, place.lon], {
@@ -909,7 +910,7 @@
         // it is drawn in the pane under the victims and never takes a click.
         const Cities = L.layerGroup([], {
             attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'" +
-                " target='_blank'>OpenStreetMap</a> contributors, ODbL"
+                " target='_blank'>OpenStreetMap</a>"
         }).addTo(map);
         PLACES.forEach(place => {
             const label = L.marker([place.lat, place.lon], {
