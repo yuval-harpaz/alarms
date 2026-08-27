@@ -97,10 +97,9 @@ CAMPAIGNS = [
     {'name': 'שאגת הארי', 'name_en': 'Epic Fury', 'start': '2026-02-28', 'end': None},
 ]
 
-# The site page the question mark beside the search box points at.
-HELP_URL = ('https://www.oct7database.com/maps-and-data/'
-            '%D7%9E%D7%AA%D7%A7%D7%A4%D7%AA-%D7%97%D7%9E%D7%90%D7%A1-'
-            '%D7%A0%D7%92%D7%93-%D7%99%D7%A9%D7%A8%D7%90%D7%9C-(7-9.10.2023)')
+# The page the question mark beside the search box points at: the map's own
+# guide, on the same site as the map.
+HELP_URL = 'https://info.oct7database.com/map_info'
 
 LABELS = {
     'he': {
@@ -168,7 +167,7 @@ LABELS = {
         'role_forces': 'חיילים, שב"כ וכיתות כוננות',
         'civil_short': 'אזרחים',
         'police_short': 'משטרה',
-        'forces_short': 'כוחות',
+        'forces_short': 'צבא',
         'g_strip': 'רצועת עזה',
         'g_envelope': 'עוטף עזה',
         'g_lebanon': 'דרום לבנון',
@@ -757,6 +756,11 @@ def render(records, circles, polygons, localities, neighbourhoods, lang,
             ('__FILTERS__', labels['filters']),
             ('__RESET__', labels['reset']),
             ('__RESET_HINT__', labels['reset_hint']),
+            # The switch to the other language: the same page, the other
+            # file. Its label is the other language's own name, short.
+            ('__OTHER_LANG_FILE__', BASENAME + ('_private' if private else '')
+             + ('' if lang == 'en' else '_en') + '.html'),
+            ('__OTHER_LANG__', 'עב' if lang == 'en' else 'En'),
             ('__LEGEND__', labels['legend']),
             ('__HELP_URL__', HELP_URL),
             ('__HELP_TITLE__', labels['help']),

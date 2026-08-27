@@ -127,7 +127,7 @@
 
         /* Puts every filter and the view back the way the page opens. In the
            head, so it is there whether the panel is open or shut. */
-        .reset-btn {
+        .reset-btn, .lang-btn {
             font-weight: normal;
             font-size: 11px;
             padding: 1px 8px;
@@ -137,7 +137,10 @@
             cursor: pointer;
         }
 
-        .reset-btn:hover { background: #e3e9f5; }
+        .reset-btn:hover, .lang-btn:hover { background: #e3e9f5; }
+
+        /* The same page in the other language, with the view carried over. */
+        .lang-btn { color: #333; text-decoration: none; padding: 1px 6px; }
 
         #controls-body {
             display: none;
@@ -681,6 +684,7 @@
             </svg>
             <span>__FILTERS__</span>
             <span class="reset-btn" id="reset-btn" title="__RESET_HINT__">__RESET__</span>
+            <a class="lang-btn" id="lang-btn" href="__OTHER_LANG_FILE__">__OTHER_LANG__</a>
             <span class="count" id="counts"></span>
         </div>
         <div id="controls-body">
@@ -3155,6 +3159,14 @@
         document.getElementById('reset-btn').onclick = event => {
             event.stopPropagation();
             resetAll();
+        };
+        // The other language's page, opened on the view this one is showing:
+        // the query string is the view, and it reads the same on both pages.
+        const langBtn = document.getElementById('lang-btn');
+        langBtn.onclick = event => {
+            event.stopPropagation();
+            langBtn.href = langBtn.getAttribute('href').split('?')[0] +
+                window.location.search;
         };
 
         // Wide enough to hold a panel beside the marks rather than over them:
