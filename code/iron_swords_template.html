@@ -998,9 +998,17 @@
             label.addTo(Cities);
         });
 
-        const extraLayers = {};
-        if (LOCALITIES.length) extraLayers[T.localities] = Localities;
-        if (NEIGHBOURHOODS.length) extraLayers[T.neighbourhoods] = Neighbourhoods;
+        // The reference layers of the Strip, off until asked for. The key is
+        // the layer's name in a url: &layers=localities,neighbourhoods.
+        const EXTRA_LAYERS = [];
+        if (LOCALITIES.length) {
+            EXTRA_LAYERS.push({ key: 'localities', name: T.localities,
+                                layer: Localities });
+        }
+        if (NEIGHBOURHOODS.length) {
+            EXTRA_LAYERS.push({ key: 'neighbourhoods', name: T.neighbourhoods,
+                                layer: Neighbourhoods });
+        }
 
         // Both of these, and the base maps above, are offered by the display
         // panel further down rather than by leaflet's layer control: the level,
@@ -2515,6 +2523,9 @@
             put('level', LEVELS[level], level === LEVEL_DEFAULT);
             put('category', category, category === CATEGORY_DEFAULT);
             put('base', baseKey(baseName), baseName === BASE_DEFAULT);
+            const layersOn = EXTRA_LAYERS.filter(e => map.hasLayer(e.layer))
+                .map(e => e.key);
+            put('layers', layersOn.join(','), !layersOn.length);
 
             for (const name in URL_FILTERS) {
                 const key = URL_FILTERS[name];
@@ -2551,6 +2562,7 @@
             level = LEVEL_DEFAULT;
             category = CATEGORY_DEFAULT;
             setBase(BASE_DEFAULT);
+            EXTRA_LAYERS.forEach(e => map.removeLayer(e.layer));
             FILTER_FIELDS.forEach(field => {
                 selected[field.key].clear();
                 Object.values(boxes[field.key]).forEach(cb => {
@@ -2647,16 +2659,17 @@
                             viewToUrl();
                         })]);
 
-                const overlays = Object.keys(extraLayers);
-                if (overlays.length) {
+                const layerInputs = [];
+                if (EXTRA_LAYERS.length) {
                     const layerBox = section(T.panel_layers);
-                    overlays.forEach(name => {
-                        const layer = extraLayers[name];
-                        row(layerBox, '', name, '', map.hasLayer(layer),
-                            input => {
-                                if (input.checked) map.addLayer(layer);
-                                else map.removeLayer(layer);
-                            });
+                    EXTRA_LAYERS.forEach(extra => {
+                        layerInputs.push([extra.layer,
+                            row(layerBox, '', extra.name, '',
+                                map.hasLayer(extra.layer), input => {
+                                    if (input.checked) map.addLayer(extra.layer);
+                                    else map.removeLayer(extra.layer);
+                                    viewToUrl();
+                                })]);
                     });
                 }
 
@@ -2700,6 +2713,9 @@
                     catNote.style.display = off ? '' : 'none';
                     baseInputs.forEach(([name, input]) => {
                         input.checked = name === baseName;
+                    });
+                    layerInputs.forEach(([layer, input]) => {
+                        input.checked = map.hasLayer(layer);
                     });
                 };
 
@@ -3191,6 +3207,7 @@
         //                     old name of fronts and still opens it)
         // &category=roles    (status | roles -- what a pie is cut by)
         // &base=google       (govmap | google | esri-latest | esri-2024-11-18)
+        // &layers=localities,neighbourhoods  (the Gaza reference layers on)
         // &center=31.5,34.6  (open here, whatever the filters would frame)
         // The map writes all of these back as the reader ticks, buttons, pans
         // and zooms, so the address bar always says what is on the screen --
@@ -3329,6 +3346,21 @@
                 else console.warn('unknown base: ' + wantedBase +
                     '. known values: ' +
                     BASE_LAYERS.map(([n]) => baseKey(n)).join(', '));
+            }
+            const wantedLayers = params.get('layers');
+            if (wantedLayers !== null) {
+                const wanted = wantedLayers.split(',')
+                    .map(v => v.trim().toLowerCase()).filter(Boolean);
+                const known = EXTRA_LAYERS.map(e => e.key);
+                const missing = wanted.filter(w => known.indexOf(w) < 0);
+                if (missing.length) {
+                    console.warn('unknown layers: ' + missing.join(', ') +
+                        '. known values: ' + known.join(', '));
+                }
+                EXTRA_LAYERS.forEach(e => {
+                    if (wanted.indexOf(e.key) >= 0) map.addLayer(e.layer);
+                    else map.removeLayer(e.layer);
+                });
             }
         }
 
