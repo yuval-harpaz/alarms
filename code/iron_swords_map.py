@@ -37,6 +37,13 @@ Blue therefore means taken alive, not survived. What became of a hostage is
 told by the white marker and by the survivor note, not by the colour of the
 point they were taken from.
 
+The page also offers a survival colouring as a view option: the kidnapping
+square is narrowed to the hostages who survived captivity -- released or
+rescued, the one who died after release included -- and drawn green; everyone
+else is a red event mark, the hostages who did not come back alive now among
+them. The white death marks stay as they are. That recolouring happens on the
+page over the same records; the build only supplies its labels.
+
 An unknown Status stops the build only when those rules cannot decide it. A
 new combination that the rules do handle is reported and built, so the daily
 job does not fail on a wording the csv has just started using.
@@ -157,11 +164,18 @@ LABELS = {
         'panel_halo': 'הדגשת טקסט',
         'cat_status': 'נהרגו \\ נחטפו',
         'cat_roles': 'אזרחים \\ שוטרים \\ חיילים',
-        'cat_off': 'לא חל בתצוגת מיקומים מדויקים',
+        'cat_survival': 'נהרגו \\ שרדו',
+        'cat_off': 'פילוח מעומעם לא חל בתצוגת מיקומים מדויקים',
         'slice_killed': 'נהרגו במקום האירוע',
         'slice_taken': 'נחטפו חיים',
+        'slice_lost': 'נהרגו או נספו בשבי',
+        'slice_survived': 'שרדו את השבי',
         'killed_short': 'נהרגו',
         'taken_short': 'נחטפו חיים',
+        'survived_short': 'שרדו',
+        'survival_note':
+            'ירוק – נחטפו ושרדו את השבי, כולל מי שנפטרו לאחר השחרור; '
+            'אדום – כל השאר, כולל חטופים שלא שרדו.',
         'role_civil': 'אזרחים, כבאים וצוותים רפואיים',
         'role_police': 'משטרה',
         'role_forces': 'חיילים, שב"כ וכיתות כוננות',
@@ -236,11 +250,20 @@ LABELS = {
         'panel_halo': 'Text styling',
         'cat_status': 'Killed / taken',
         'cat_roles': 'Civilians / police / soldiers',
-        'cat_off': 'not used at the level of exact locations',
+        'cat_survival': 'Killed / survived',
+        'cat_off': 'a dimmed breakdown is not used at the level of exact '
+                   'locations',
         'slice_killed': 'Killed at the event',
         'slice_taken': 'Taken alive',
+        'slice_lost': 'Killed, or died in captivity',
+        'slice_survived': 'Survived captivity',
         'killed_short': 'killed',
         'taken_short': 'taken alive',
+        'survived_short': 'survived',
+        'survival_note':
+            'Green – kidnapped and survived captivity, including those who '
+            'died after release; red – everyone else, hostages who did not '
+            'survive included.',
         'role_civil': 'Civilians, firefighters, medical teams',
         'role_police': 'Police',
         'role_forces': 'Soldiers, Shin Bet, standby squads',

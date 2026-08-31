@@ -428,7 +428,7 @@
         .leaflet-tooltip-left:before { right: 0; margin-right: -12px; border-left-color: transparent; }
         .leaflet-tooltip-right:before { left: 0; margin-left: -12px; border-right-color: transparent; }
 
-        .red-tooltip, .blue-tooltip, .white-tooltip {
+        .red-tooltip, .blue-tooltip, .green-tooltip, .white-tooltip {
             background: transparent;
             box-shadow: none;
             border: transparent;
@@ -440,6 +440,8 @@
 
         .red-tooltip { color: red; }
         .blue-tooltip { color: blue; text-align: right; }
+        /* The survival view's square, and the names beside it. */
+        .green-tooltip { color: #00cc00; text-align: right; }
         /* Left of its mark and aligned right, like the blue: on the same side
            as the red it was hiding the red and the red was hiding it. */
         .white-tooltip { color: #fff; text-align: right; }
@@ -493,10 +495,11 @@
         .display-control .panel-icon { line-height: 0; }
         .display-control .panel-icon svg { display: block; }
 
-        /* Dimmed rather than hidden at the level of exact locations: a section
+        /* Dimmed rather than hidden at the level of exact locations: a row
            that vanished would leave the reader wondering where the colouring
-           went, and the note says why it is out of reach. */
-        .display-control .panel-section.off { opacity: .45; }
+           went, and the note says why it is out of reach. Per row, not per
+           section -- the survival colouring works at that level too. */
+        .display-control .panel-row.off { opacity: .45; }
 
         .display-control .panel-note {
             font-size: 11px;
@@ -586,6 +589,7 @@
            in unevenly, which read as missing data rather than as breathing room. */
         .hide-tooltips .red-tooltip,
         .hide-tooltips .blue-tooltip,
+        .hide-tooltips .green-tooltip,
         .hide-tooltips .white-tooltip { display: none; }
 
         /* Neighbourhood names sit centred on their dot, in the same cyan as the
@@ -817,16 +821,41 @@
                 (c + h) + ' L ' + (c - h) + ' ' + (c + h) + ' Z"';
         }
 
-        // opts is {fill, alpha} for a solid mark or {stroke} for an outline.
+        // A paint that is a list of {colour, share} rather than one colour
+        // becomes a top-to-bottom gradient of hard stops, each colour holding
+        // its share of the height -- the survival view's split marks. Each
+        // gradient needs an id of its own on the page.
+        let gradCount = 0;
+
+        function paintValue(value) {
+            if (!Array.isArray(value)) return { colour: value, defs: '' };
+            const id = 'grad' + (++gradCount);
+            let at = 0;
+            const stops = value.map(part => {
+                const from = at;
+                at += part.share;
+                return '<stop offset="' + from + '" stop-color="' +
+                    part.colour + '"/><stop offset="' + at +
+                    '" stop-color="' + part.colour + '"/>';
+            }).join('');
+            return { colour: 'url(#' + id + ')',
+                     defs: '<defs><linearGradient id="' + id +
+                         '" x1="0" y1="0" x2="0" y2="1">' + stops +
+                         '</linearGradient></defs>' };
+        }
+
+        // opts is {fill, alpha} for a solid mark or {stroke} for an outline;
+        // either paint may be one colour or a {colour, share} list.
         function markSvg(shape, r, opts) {
             const box = markBox(r, opts);
+            const painted = paintValue(opts.fill || opts.stroke);
             const paint = opts.fill
-                ? ' fill="' + opts.fill + '" fill-opacity="' +
+                ? ' fill="' + painted.colour + '" fill-opacity="' +
                   (opts.alpha === undefined ? 1 : opts.alpha) + '"'
-                : ' fill="none" stroke="' + opts.stroke +
+                : ' fill="none" stroke="' + painted.colour +
                   '" stroke-width="' + STROKE + '"';
             return '<svg width="' + box + '" height="' + box +
-                '" viewBox="0 0 ' + box + ' ' + box + '">' +
+                '" viewBox="0 0 ' + box + ' ' + box + '">' + painted.defs +
                 shapePath(shape, r, box) + paint + '/></svg>';
         }
 
@@ -851,28 +880,36 @@
         const ESRI_CREDIT =
             "Powered by <a href='https://www.esri.com/en-us/home' target='_blank'>Esri</a>";
 
+        // Shared by every base layer. keepBuffer holds a wider ring of
+        // already-loaded tiles around the view than leaflet's default two,
+        // so dragging back and forth over an area does not refetch it; and
+        // a zoom animation waits for the zoom to settle before asking the
+        // server for the new level, instead of requesting tiles for the
+        // levels passed through on the way.
+        const TILE_OPTS = { keepBuffer: 4, updateWhenZooming: false };
+
         const esri = L.tileLayer(
             "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/49849/{z}/{y}/{x}",
-            {
+            Object.assign({
                 attribution: ESRI_CREDIT,
                 maxNativeZoom: 18, maxZoom: 21, minZoom: 0, noWrap: false
-            }
+            }, TILE_OPTS)
         );
         const esriLatest = L.tileLayer(
             "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-            { "attribution": ESRI_CREDIT, "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 21, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false }
+            Object.assign({ "attribution": ESRI_CREDIT, "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 21, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false }, TILE_OPTS)
         );
-        const googleHyb = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+        const googleHyb = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', Object.assign({
             attribution:
                 "Powered by <a href='https://www.google.com/maps' target='_blank'>Google</a>",
             maxZoom: 21,
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-        });
-        const govmap = L.tileLayer('https://cdnil.govmap.gov.il/xyz/heb/{z}/{x}/{y}.png', {
+        }, TILE_OPTS));
+        const govmap = L.tileLayer('https://cdnil.govmap.gov.il/xyz/heb/{z}/{x}/{y}.png', Object.assign({
             maxZoom: 15,
             attribution: "&copy; <a href='https://www.govmap.gov.il' " +
                 "target='_blank'>המרכז למיפוי ישראל</a>",
-        });
+        }, TILE_OPTS));
 
         const baseMaps = {
             "GovMap": govmap,
@@ -881,8 +918,22 @@
             "Esri 2024-11-18": esri,
         };
 
+        // One base layer from the start. The map used to be handed all four,
+        // stacked, and the three underneath dropped a moment later -- but by
+        // then the browser had already dispatched their tile requests, so
+        // every load and every early pan began by fetching three servers'
+        // worth of tiles nobody would see. The latest Esri imagery opens the
+        // map because its server is by far the fastest -- the pinned wayback
+        // layer averages five times its tile time -- and it is still in the
+        // panel for anyone who wants the 2024-11-18 ground.
+        // In a url a base map goes by its panel name lowercased and
+        // hyphenated: govmap, google, esri-latest, esri-2024-11-18.
+        const BASE_LAYERS = Object.entries(baseMaps);
+        const BASE_DEFAULT = 'Esri latest';
+        let baseName = BASE_DEFAULT;
+
         const map = L.map('map', {
-            layers: [esri, esriLatest, googleHyb, govmap],
+            layers: [baseMaps[BASE_DEFAULT]],
             center: CONFIG.center,
             zoom: CONFIG.zoom,
             // Off by default and re-added on the right: at the top left it sat
@@ -1032,31 +1083,6 @@
         // panel further down rather than by leaflet's layer control: the level,
         // the colouring, the tiles and the labels are all one question, and
         // four stacked buttons in a corner asked it four times.
-        //
-        // The map is handed every base map at creation, stacked, and only the
-        // top one is ever seen. Drop the rest: three sets of tiles were being
-        // fetched for nobody, and the footer credited maps that were not on the
-        // screen. Which one is on top is a fact about the dom, so it is read
-        // rather than assumed.
-        const BASE_LAYERS = Object.entries(baseMaps);
-        const BASE_START = BASE_LAYERS.filter(([, layer]) => map.hasLayer(layer))
-            .sort((a, b) => zOf(a[1]) - zOf(b[1])).pop();
-
-        function zOf(layer) {
-            const box = layer.getContainer();
-            return box ? Number(getComputedStyle(box).zIndex) || 0 : 0;
-        }
-
-        BASE_LAYERS.forEach(([, layer]) => {
-            if (!BASE_START || layer !== BASE_START[1]) map.removeLayer(layer);
-        });
-
-        // The one the page opens on is the default, and the only one a url
-        // need not name. In a url a base map goes by its panel name lowercased
-        // and hyphenated: govmap, google, esri-latest, esri-2024-11-18.
-        const BASE_DEFAULT = (BASE_START || BASE_LAYERS[0])[0];
-        let baseName = BASE_DEFAULT;
-
         function baseKey(name) {
             return name.toLowerCase().replace(/\s+/g, '-');
         }
@@ -1194,6 +1220,7 @@
                 noteRow(box, T.died_note);
             }
             if (category === 'roles') noteRow(box, T.no_survivors);
+            if (category === 'survival') noteRow(box, T.survival_note);
         }
 
         // A row per layer at this level, and the labels say which of the two
@@ -1220,6 +1247,10 @@
             // can be put away on its own. What the solid ones mean is behind
             // the (i) rather than under the row -- four notes standing open
             // would be longer than the legend they explain.
+            // Under the survival colouring the square narrows to the
+            // hostages who came back and turns green to say so; the note at
+            // the foot of the legend spells the colours out.
+            const surv = category === 'survival';
             const rows = [
                 { layers: [Killed], label: T.killed_exact,
                   marks: [img('red_ring.png')] },
@@ -1233,9 +1264,12 @@
                   marks: [swatchSvg('triangle', { fill: '#fff' })],
                   info: T.info_died_approx },
                 { layers: [Kidnapped], label: T.kidnapped_exact,
-                  marks: [img('blue_square.png')] },
+                  marks: [surv
+                      ? swatchSvg('square', { stroke: PIE_COLOURS.green })
+                      : img('blue_square.png')] },
                 { layers: [TakenApprox], label: T.kidnapped_approx,
-                  marks: [solidSwatch('square', PIE_COLOURS.blue)],
+                  marks: [solidSwatch('square',
+                      surv ? PIE_COLOURS.green : PIE_COLOURS.blue)],
                   info: T.info_kidnapped_approx },
             ];
             if (POLYGONS.length) {
@@ -1273,6 +1307,7 @@
                 if (info) attachHint(box, info, row.info);
                 if (row.note) noteRow(box, row.note);
             });
+            if (surv) noteRow(box, T.survival_note);
         }
 
         /* ------------------------------------------------------------ filters */
@@ -1648,6 +1683,12 @@
         function applyCounts() {
             const all = map.getZoom() >= COUNT_ZOOM_ALL;
             const radius = countRadius();
+            // The thinning exists for a crowded map. Under a filter that
+            // leaves a handful of marks it worked against the reader: five
+            // medics were four marks, and the '2' that made them five stood
+            // within ten kilometres of a bigger number and was dropped. A
+            // sparse map writes every number it has.
+            const sparse = countMarks.length <= 30;
             const kept = { event: [], death: [] };
             countMarks.slice().sort((a, b) => b.n - a.n).forEach(mark => {
                 if (mark.layer.getTooltip()) mark.layer.unbindTooltip();
@@ -1658,7 +1699,7 @@
                 }
                 if (mark.n < 2) return;
                 const others = kept[mark.kind];
-                const show = all || !others.some(other =>
+                const show = all || sparse || !others.some(other =>
                     map.distance(other.point, mark.point) < radius);
                 if (!show) return;
                 others.push(mark);
@@ -1714,9 +1755,12 @@
             for (const k in groups) {
                 const g = groups[k];
                 const taken = g.shape === 'square';
+                const surv = taken && category === 'survival';
                 const marker = L.marker(g.coo, {
                     icon: markIcon(g.shape, markRadius(g.people.length), {
-                        fill: taken ? PIE_COLOURS.blue : PIE_COLOURS.red,
+                        fill: taken
+                            ? (surv ? PIE_COLOURS.green : PIE_COLOURS.blue)
+                            : PIE_COLOURS.red,
                         alpha: PIE_ALPHA }),
                     zIndexOffset: stackOrder(g.people.length)
                 });
@@ -1728,7 +1772,9 @@
                     nameOptions: { permanent: true,
                                    direction: taken ? 'left' : 'right',
                                    className: 'map-label ' +
-                                       (taken ? 'blue-tooltip' : 'red-tooltip') }
+                                       (surv ? 'green-tooltip'
+                                             : taken ? 'blue-tooltip'
+                                                     : 'red-tooltip') }
                 });
                 allFeatures.push({ people: g.people, place: place, death: false,
                                    layer: marker, type: 'point' });
@@ -1874,7 +1920,11 @@
         // is never counted here: it is the same person again, at their second
         // place.
         const PIE_ALPHA = 0.6;
-        const PIE_COLOURS = { red: '#ff0000', blue: '#0000ff' };
+        // The green belongs to the survival colouring alone: brighter than
+        // the forces' #008000 of the role colouring, so the two views cannot
+        // be mistaken for each other, and it holds up on satellite ground.
+        const PIE_COLOURS = { red: '#ff0000', blue: '#0000ff',
+                              green: '#00cc00' };
 
         // The settlement is what stands before the first ';': at this distance
         // 'בארי; הכרם' and 'בארי; אשלים' are one place. Grouped on the Hebrew,
@@ -1932,6 +1982,37 @@
             return (person.s || '').split(';')[0].trim() === 'kidnapped'
                 ? 'blue' : 'red';
         }
+
+        // Taken alive and came back: Status opens with kidnapped and carries
+        // released or rescued. 'kidnapped; released; died' is a yes -- the
+        // captivity was survived, whatever came after.
+        function survivedCaptivity(person) {
+            const parts = (person.s || '').split(';').map(s => s.trim());
+            return parts[0] === 'kidnapped' &&
+                (parts.indexOf('released') > -1 ||
+                 parts.indexOf('rescued') > -1);
+        }
+
+        // What colour the survival view paints a group it cannot split into
+        // marks of its own -- a circle's disc: green where everyone under it
+        // came back, red where nobody did, and both -- green over red, each
+        // holding its share -- where the group holds both answers.
+        function survivalPaint(people) {
+            const survivors = people.filter(survivedCaptivity).length;
+            if (!survivors) return PIE_COLOURS.red;
+            if (survivors === people.length) return PIE_COLOURS.green;
+            return [{ colour: PIE_COLOURS.green,
+                      share: survivors / people.length },
+                    { colour: PIE_COLOURS.red,
+                      share: (people.length - survivors) / people.length }];
+        }
+
+        // The exact kidnapping mark of the survival view: the same outline
+        // square drawn to the width of the pngs, in the colour of coming
+        // back. Under that view the square holds nobody but survivors, so
+        // the icon is one colour and fixed like the pngs beside it.
+        const greenIcon = markIcon('square', iconSize / 2 / AREA.square,
+                                   { stroke: PIE_COLOURS.green });
 
         const CIRCLE_POINT = {}, CIRCLE = {};
         CIRCLES.forEach(c => {
@@ -2151,7 +2232,7 @@
         // one above it. Both mean the level the map now opens on.
         const LEVEL_WAS = { regions: 'fronts' };
 
-        const CATEGORIES = ['status', 'roles'];
+        const CATEGORIES = ['status', 'survival', 'roles'];
         const CATEGORY_DEFAULT = 'status';
         let category = CATEGORY_DEFAULT;
 
@@ -2332,13 +2413,32 @@
                 strayRoles.join(', '));
         }
 
+        // The survival colouring: who came back. Green is a hostage who
+        // survived captivity -- released or rescued, the one who died after
+        // coming home included -- and red is everyone else: the people killed
+        // wherever they were killed, and the hostages who did not come back
+        // alive. The white death marks stay white; where somebody died is not
+        // a fact this colouring repaints.
+        const SURVIVAL_SLICES = [
+            { key: 'red', colour: PIE_COLOURS.red, label: 'slice_lost',
+              short: 'killed_short', legend: 'slice_lost' },
+            { key: 'green', colour: PIE_COLOURS.green,
+              label: 'slice_survived', short: 'survived_short',
+              legend: 'slice_survived' }
+        ];
+
         function slices() {
-            return category === 'roles' ? ROLE_SLICES : STATUS_SLICES;
+            if (category === 'roles') return ROLE_SLICES;
+            if (category === 'survival') return SURVIVAL_SLICES;
+            return STATUS_SLICES;
         }
 
         function sliceKey(person) {
-            return category === 'roles' ? roleSlice(person)
-                                        : statusColour(person);
+            if (category === 'roles') return roleSlice(person);
+            if (category === 'survival') {
+                return survivedCaptivity(person) ? 'green' : 'red';
+            }
+            return statusColour(person);
         }
 
         // Taken alive and came home: the survivor note the build already
@@ -2473,8 +2573,10 @@
 
         // The category button wears the colouring it would switch to.
         function categoryIcon(name, r) {
-            const list = name === 'roles' ? ROLE_SLICES : STATUS_SLICES;
-            const shares = name === 'roles' ? [0.5, 0.62, 1] : [0.62, 1];
+            const list = name === 'roles' ? ROLE_SLICES
+                : name === 'survival' ? SURVIVAL_SLICES : STATUS_SLICES;
+            const shares = name === 'roles' ? [0.5, 0.62, 1]
+                : name === 'survival' ? [0.85, 1] : [0.62, 1];
             let from = 0;
             return list.slice(0, shares.length).map((part, i) => {
                 const to = shares[i];
@@ -2721,13 +2823,17 @@
                     levelInputs.forEach((input, index) => {
                         input.checked = index === level;
                     });
-                    // Nothing to colour where the marks are the marks.
+                    // Only the role colouring has nothing to colour where the
+                    // marks are the marks: the status colouring is what those
+                    // marks already draw, and the survival colouring redraws
+                    // them, so both stay in reach at every level.
                     const off = level === LEVELS.length - 1;
                     catInputs.forEach((input, index) => {
+                        const dead = off && CATEGORIES[index] === 'roles';
                         input.checked = CATEGORIES[index] === category;
-                        input.disabled = off;
+                        input.disabled = dead;
+                        input.parentNode.classList.toggle('off', dead);
                     });
-                    catBox.classList.toggle('off', off);
                     catNote.style.display = off ? '' : 'none';
                     baseInputs.forEach(([name, input]) => {
                         input.checked = name === baseName;
@@ -2791,18 +2897,21 @@
                 // and the settlement pies are drawn from it like any other.
                 // Only the marks level, where the shape of a mark is the whole
                 // of what it says, sets it apart: solid, not an outline.
+                //
+                // Under the survival colouring the blue square is left to the
+                // hostages who came back: the kidnapping point of somebody
+                // who did not is their event location, and it is drawn as the
+                // red event mark it would be under any other outcome.
                 const loose = p.ap && atMarks();
-                if (p.red) {
-                    const bag = loose ? approx : red;
-                    const k = (loose ? 'circle ' : '') + key(p.red);
-                    (bag[k] = bag[k] || { coo: p.red, people: [],
-                                          shape: 'circle' }).people.push(p);
-                }
-                if (p.blue) {
-                    const bag = loose ? approx : blue;
-                    const k = (loose ? 'square ' : '') + key(p.blue);
-                    (bag[k] = bag[k] || { coo: p.blue, people: [],
-                                          shape: 'square' }).people.push(p);
+                const event = p.red || p.blue;
+                if (event) {
+                    const blueish = p.blue && (category !== 'survival' ||
+                                               survivedCaptivity(p));
+                    const shape = blueish ? 'square' : 'circle';
+                    const bag = loose ? approx : (blueish ? blue : red);
+                    const k = (loose ? shape + ' ' : '') + key(event);
+                    (bag[k] = bag[k] || { coo: event, people: [],
+                                          shape: shape }).people.push(p);
                 }
                 if (p.white) {
                     const k = key(p.white);
@@ -2823,7 +2932,12 @@
                 drawCircles(circles, hostages, addPies(red, blue, areas, circles));
             } else {
                 addGrouped(red, Killed, redIcon, 'right', 'red-tooltip', false);
-                addGrouped(blue, Kidnapped, blueIcon, 'left', 'blue-tooltip', false);
+                // Under the survival colouring the square and its names are
+                // green: everyone still under it came back.
+                const surv = category === 'survival';
+                addGrouped(blue, Kidnapped, surv ? greenIcon : blueIcon,
+                           'left', surv ? 'green-tooltip' : 'blue-tooltip',
+                           false);
                 drawApprox(approx);
                 // The white x is the one mark this level adds and the lumped
                 // ones leave out: it is a second mark for someone already
@@ -2906,9 +3020,16 @@
                         // drawn one way, and one rule ordering the stack. As a
                         // vector it was ordered by the order it was drawn in
                         // and nothing else could be ordered with it.
+                        // Under the survival colouring a circle that holds a
+                        // returned hostage says so: the disc takes a blue
+                        // band for their share, which is exactly the fact the
+                        // one red disc was hiding about pid 964's kind of
+                        // case.
                         const circle = L.marker([c.lat, c.lon], {
                             icon: markIcon('circle', markRadius(people.length),
-                                           { fill: PIE_COLOURS.red,
+                                           { fill: category === 'survival'
+                                                 ? survivalPaint(people)
+                                                 : PIE_COLOURS.red,
                                              alpha: PIE_ALPHA }),
                             zIndexOffset: stackOrder(people.length)
                         });
