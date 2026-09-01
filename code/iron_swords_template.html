@@ -1579,6 +1579,29 @@
             viewToUrl();
         }
 
+        // What a button promises, for its hover: the dates it opens on and
+        // the fronts it keeps, read off the button's own url so the two can
+        // never drift apart. Two lines and no headings -- a range of dates
+        // and a list of fronts say what they are. A button that names no
+        // front keeps them all, and says so.
+        //
+        // The dates open with a left-to-right mark. A date is a run of
+        // digits, which carries no direction of its own, so in the rtl
+        // tooltip the bidi rules laid the two of them out right to left and
+        // the range read back to front -- 05/08/2026 – 07/10/2023. The mark
+        // makes the line ltr, so "from" is on the left in both languages,
+        // and it costs an ltr page nothing.
+        function presetHint(query) {
+            const params = new URLSearchParams(query);
+            const from = showDate(params.get('from') || CONFIG.date_min);
+            const to = showDate(params.get('to') || CONFIG.date_max);
+            const raw = params.get('front');
+            const fronts = raw
+                ? raw.split(',').map(v => display('f', v.trim())).join(', ')
+                : T.all_fronts;
+            return '\u200e' + from + ' – ' + to + '\n' + fronts;
+        }
+
         function buildCampaigns() {
             const box = document.getElementById('campaign-buttons');
             campaigns.forEach(c => {
@@ -1586,6 +1609,7 @@
                 btn.className = 'campaign-btn';
                 btn.textContent = RTL ? c.name : c.name_en;
                 btn.dataset.url = c.url || '';
+                btn.title = presetHint(c.url || '');
                 btn.onclick = () => applyPreset(c.url || '');
                 box.appendChild(btn);
             });

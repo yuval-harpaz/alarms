@@ -172,6 +172,8 @@ LABELS = {
         'localities': 'גבולות שכונות ויישובים (OSM)',
         'neighbourhoods': 'מרכזי שכונות (OCHA)',
         'front': 'זירה',
+        # What a view button says on hover, where it keeps every front.
+        'all_fronts': 'כל הזירות',
         'level_fronts': 'זירות',
         'level_places': 'יישובים',
         'level_marks': 'מיקומים מדויקים',
@@ -271,6 +273,8 @@ LABELS = {
         'localities': 'Locality boundaries (OSM)',
         'neighbourhoods': 'Neighbourhood centres (OCHA)',
         'front': 'Front',
+        # What a view button says on hover, where it keeps every front.
+        'all_fronts': 'All fronts',
         'level_fronts': 'Fronts',
         'level_places': 'Localities',
         'level_marks': 'Exact locations',
