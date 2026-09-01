@@ -37,12 +37,13 @@ Blue therefore means taken alive, not survived. What became of a hostage is
 told by the white marker and by the survivor note, not by the colour of the
 point they were taken from.
 
-The page also offers a survival colouring as a view option: the kidnapping
-square is narrowed to the hostages who survived captivity -- released or
-rescued, the one who died after release included -- and drawn green; everyone
-else is a red event mark, the hostages who did not come back alive now among
-them. The white death marks stay as they are. That recolouring happens on the
-page over the same records; the build only supplies its labels.
+Which kidnapped the blue mark stands for is a choice on the page, offered in
+a menu under the killed/taken colouring: everyone the csv records as
+kidnapped, the people taken alive (the rule above, and the default), or the
+people who survived captivity. Whoever the choice leaves out is drawn as a
+red event mark instead. The white death marks stay as they are. That
+regrouping happens on the page over the same records; the build only supplies
+its labels.
 
 An unknown Status stops the build only when those rules cannot decide it. A
 new combination that the rules do handle is reported and built, so the daily
@@ -94,14 +95,32 @@ KNOWN_STATUS = {
     'kidnapped; released; died',
 }
 
+# The buttons at the top of the filter panel. Each one is a name and a url:
+# the whole view the button puts the map into -- the dates, the fronts, the
+# level it is drawn at, where it looks and which tiles it looks through --
+# written exactly as the address bar writes them. So a button is made by
+# shaping the map by hand and copying the url out of the address bar, and
+# nothing here needs to know what any of the parameters mean.
+#
+# The first has no query at all, which is the bare page: the whole war, every
+# front, no filter. Iraq is inside it and inside צפון, and in nothing else.
 CAMPAIGNS = [
-    {'name': 'חרבות ברזל (הכל)', 'name_en': 'Iron Swords (all)',
-     'start': '2023-10-07', 'end': None},
-    {'name': '7 באוקטובר', 'name_en': 'Oct 7', 'start': '2023-10-07', 'end': '2023-10-07'},
+    {'name': 'חרבות ברזל (הכל)', 'name_en': 'Iron Swords (all)', 'url': ''},
+    {'name': '7 באוקטובר', 'name_en': 'Oct 7',
+     'url': 'to=2023-10-07&center=31.39643,34.39682&zoom=12'
+            '&base=esri-2024-11-18&level=places&front=Gaza'},
     {'name': 'תמרון בעזה', 'name_en': 'Gaza ground manoeuvre',
-     'start': '2023-10-27', 'end': '2025-10-10'},
-    {'name': 'עם כלביא', 'name_en': 'Twelve-Day War', 'start': '2025-06-13', 'end': '2025-06-24'},
-    {'name': 'שאגת הארי', 'name_en': 'Epic Fury', 'start': '2026-02-28', 'end': None},
+     'url': 'from=2023-10-27&to=2025-10-10&center=31.33575,34.30678&zoom=14'
+            '&front=Gaza&layers=localities&category=roles'},
+    {'name': 'עם כלביא', 'name_en': 'Twelve-Day War',
+     'url': 'from=2025-06-13&to=2025-06-24&center=32.26233,35.03373&zoom=9'
+            '&front=Iran&level=places'},
+    {'name': 'שאגת הארי', 'name_en': 'Epic Fury',
+     'url': 'from=2026-02-28&to=2026-06-17&center=32.42402,35.06287&zoom=9'
+            '&front=North,Iran&level=places'},
+    {'name': 'צפון', 'name_en': 'North',
+     'url': 'front=North,Iraq&center=33.07083,35.49477&zoom=11'
+            '&level=places&category=roles&base=govmap'},
 ]
 
 # The page the question mark beside the search box points at: the map's own
@@ -168,18 +187,27 @@ LABELS = {
         'panel_halo': 'הדגשת טקסט',
         'cat_status': 'נהרגו \\ נחטפו',
         'cat_roles': 'אזרחים \\ שוטרים \\ חיילים',
-        'cat_survival': 'נהרגו \\ שרדו',
         'cat_off': 'פילוח מעומעם לא חל בתצוגת מיקומים מדויקים',
+        # The three groups the blue mark can stand for, offered in a menu
+        # under the נהרגו \\ נחטפו button, behind the words that say what the
+        # menu is choosing: which of them the blue mark is.
+        'in_blue': 'בכחול:',
+        'taken_any': 'כל החטופים',
+        'taken_alive': 'נחטפו חיים',
+        'taken_survived': 'שרדו את השבי',
         'slice_killed': 'נהרגו במקום האירוע',
         'slice_taken': 'נחטפו חיים',
+        'slice_kidnapped': 'נחטפו',
         'slice_lost': 'נהרגו או נספו בשבי',
         'slice_survived': 'שרדו את השבי',
         'killed_short': 'נהרגו',
         'taken_short': 'נחטפו חיים',
+        'taken_any_short': 'נחטפו',
         'survived_short': 'שרדו',
-        'survival_note':
-            'ירוק – נחטפו ושרדו את השבי, כולל מי שנפטרו לאחר השחרור; '
-            'אדום – כל השאר, כולל חטופים שלא שרדו.',
+        'any_note':
+            'הכחול מסמן כל מי שנחטף, כולל מי שנרצחו ורק אז נחטפו.',
+        'survived_note':
+            'הכחול מסמן חטופים ששרדו את השבי, כולל מי שנפטרו לאחר השחרור.',
         'role_civil': 'אזרחים, כבאים וצוותים רפואיים',
         'role_police': 'משטרה',
         'role_forces': 'חיילים, שב"כ וכיתות כוננות',
@@ -258,20 +286,30 @@ LABELS = {
         'panel_halo': 'Text styling',
         'cat_status': 'Killed / taken',
         'cat_roles': 'Civilians / police / soldiers',
-        'cat_survival': 'Killed / survived',
         'cat_off': 'a dimmed breakdown is not used at the level of exact '
                    'locations',
+        # The three groups the blue mark can stand for, offered in a menu
+        # under the killed / taken button, behind the words that say what the
+        # menu is choosing: which of them the blue mark is.
+        'in_blue': 'In blue:',
+        'taken_any': 'All kidnapped',
+        'taken_alive': 'Taken alive',
+        'taken_survived': 'Survived captivity',
         'slice_killed': 'Killed at the event',
         'slice_taken': 'Taken alive',
+        'slice_kidnapped': 'Kidnapped',
         'slice_lost': 'Killed, or died in captivity',
         'slice_survived': 'Survived captivity',
         'killed_short': 'killed',
         'taken_short': 'taken alive',
+        'taken_any_short': 'kidnapped',
         'survived_short': 'survived',
-        'survival_note':
-            'Green – kidnapped and survived captivity, including those who '
-            'died after release; red – everyone else, hostages who did not '
-            'survive included.',
+        'any_note':
+            'Blue marks everyone the csv records as kidnapped, those killed '
+            'before they were taken included.',
+        'survived_note':
+            'Blue marks hostages who survived captivity, including those who '
+            'died after release.',
         'role_civil': 'Civilians, firefighters, medical teams',
         'role_police': 'Police',
         'role_forces': 'Soldiers, Shin Bet, standby squads',
@@ -767,8 +805,7 @@ def render(records, circles, polygons, localities, neighbourhoods, lang,
     config = {
         'lang': lang,
         'labels': labels,
-        'campaigns': [dict(c, start=c['start'] or dates[0],
-                           end=c['end'] or None) for c in CAMPAIGNS],
+        'campaigns': CAMPAIGNS,
         'center': map_center(records, circles, polygons,
                              report=lang == 'he' and not private),
         'region': REGION,

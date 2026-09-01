@@ -428,7 +428,7 @@
         .leaflet-tooltip-left:before { right: 0; margin-right: -12px; border-left-color: transparent; }
         .leaflet-tooltip-right:before { left: 0; margin-left: -12px; border-right-color: transparent; }
 
-        .red-tooltip, .blue-tooltip, .green-tooltip, .white-tooltip {
+        .red-tooltip, .blue-tooltip, .white-tooltip {
             background: transparent;
             box-shadow: none;
             border: transparent;
@@ -440,8 +440,6 @@
 
         .red-tooltip { color: red; }
         .blue-tooltip { color: blue; text-align: right; }
-        /* The survival view's square, and the names beside it. */
-        .green-tooltip { color: #00cc00; text-align: right; }
         /* Left of its mark and aligned right, like the blue: on the same side
            as the red it was hiding the red and the red was hiding it. */
         .white-tooltip { color: #fff; text-align: right; }
@@ -500,6 +498,27 @@
            went, and the note says why it is out of reach. Per row, not per
            section -- the survival colouring works at that level too. */
         .display-control .panel-row.off { opacity: .45; }
+
+        /* The menu of which kidnapped the blue mark stands for, under the
+           status row and indented past its dot, behind the words saying
+           what it is choosing. */
+        .display-control .taken-row {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 2px;
+            margin-inline-start: 18px;
+            font-size: 11px;
+        }
+
+        .display-control .taken-pick {
+            flex: 1;
+            min-width: 0;
+            max-width: 110px;
+            font: 11px sans-serif;
+        }
+
+        .display-control .taken-row.off { opacity: .45; }
 
         /* The heat view's development slider, and its legend: the colour
            ramp itself with its two ends named. */
@@ -622,7 +641,6 @@
            in unevenly, which read as missing data rather than as breathing room. */
         .hide-tooltips .red-tooltip,
         .hide-tooltips .blue-tooltip,
-        .hide-tooltips .green-tooltip,
         .hide-tooltips .white-tooltip { display: none; }
 
         /* Neighbourhood names sit centred on their dot, in the same cyan as the
@@ -854,41 +872,16 @@
                 (c + h) + ' L ' + (c - h) + ' ' + (c + h) + ' Z"';
         }
 
-        // A paint that is a list of {colour, share} rather than one colour
-        // becomes a top-to-bottom gradient of hard stops, each colour holding
-        // its share of the height -- the survival view's split marks. Each
-        // gradient needs an id of its own on the page.
-        let gradCount = 0;
-
-        function paintValue(value) {
-            if (!Array.isArray(value)) return { colour: value, defs: '' };
-            const id = 'grad' + (++gradCount);
-            let at = 0;
-            const stops = value.map(part => {
-                const from = at;
-                at += part.share;
-                return '<stop offset="' + from + '" stop-color="' +
-                    part.colour + '"/><stop offset="' + at +
-                    '" stop-color="' + part.colour + '"/>';
-            }).join('');
-            return { colour: 'url(#' + id + ')',
-                     defs: '<defs><linearGradient id="' + id +
-                         '" x1="0" y1="0" x2="0" y2="1">' + stops +
-                         '</linearGradient></defs>' };
-        }
-
-        // opts is {fill, alpha} for a solid mark or {stroke} for an outline;
-        // either paint may be one colour or a {colour, share} list.
+        // opts is {fill, alpha} for a solid mark or {stroke} for an outline.
         function markSvg(shape, r, opts) {
             const box = markBox(r, opts);
-            const painted = paintValue(opts.fill || opts.stroke);
             const paint = opts.fill
-                ? ' fill="' + painted.colour + '" fill-opacity="' +
+                ? ' fill="' + opts.fill + '" fill-opacity="' +
                   (opts.alpha === undefined ? 1 : opts.alpha) + '"'
-                : ' fill="none" stroke="' + painted.colour +
+                : ' fill="none" stroke="' + opts.stroke +
                   '" stroke-width="' + STROKE + '"';
             return '<svg width="' + box + '" height="' + box +
-                '" viewBox="0 0 ' + box + ' ' + box + '">' + painted.defs +
+                '" viewBox="0 0 ' + box + ' ' + box + '">' +
                 shapePath(shape, r, box) + paint + '/></svg>';
         }
 
@@ -1277,7 +1270,9 @@
                 noteRow(box, T.died_note);
             }
             if (category === 'roles') noteRow(box, T.no_survivors);
-            if (category === 'survival') noteRow(box, T.survival_note);
+            // Which kidnapped the blue stands for, where it is not the plain
+            // one the map draws by default.
+            else if (takenSpec().note) noteRow(box, T[takenSpec().note]);
         }
 
         // A row per layer at this level, and the labels say which of the two
@@ -1304,10 +1299,6 @@
             // can be put away on its own. What the solid ones mean is behind
             // the (i) rather than under the row -- four notes standing open
             // would be longer than the legend they explain.
-            // Under the survival colouring the square narrows to the
-            // hostages who came back and turns green to say so; the note at
-            // the foot of the legend spells the colours out.
-            const surv = category === 'survival';
             const rows = [
                 { layers: [Killed], label: T.killed_exact,
                   marks: [img('red_ring.png')] },
@@ -1321,12 +1312,9 @@
                   marks: [swatchSvg('triangle', { fill: '#fff' })],
                   info: T.info_died_approx },
                 { layers: [Kidnapped], label: T.kidnapped_exact,
-                  marks: [surv
-                      ? swatchSvg('square', { stroke: PIE_COLOURS.green })
-                      : img('blue_square.png')] },
+                  marks: [img('blue_square.png')] },
                 { layers: [TakenApprox], label: T.kidnapped_approx,
-                  marks: [solidSwatch('square',
-                      surv ? PIE_COLOURS.green : PIE_COLOURS.blue)],
+                  marks: [solidSwatch('square', PIE_COLOURS.blue)],
                   info: T.info_kidnapped_approx },
             ];
             if (POLYGONS.length) {
@@ -1364,7 +1352,10 @@
                 if (info) attachHint(box, info, row.info);
                 if (row.note) noteRow(box, row.note);
             });
-            if (surv) noteRow(box, T.survival_note);
+            // The blue square is a different group of people under each of
+            // the menu's answers, and here as at the lumped levels the note
+            // is what says which.
+            if (takenSpec().note) noteRow(box, T[takenSpec().note]);
         }
 
         /* ------------------------------------------------------------ filters */
@@ -1534,12 +1525,58 @@
             r.onchange = () => { dateField = r.value; render(); };
         });
 
+        // Which button, if any, the map is showing. Only the parameters that
+        // say *what* is shown are compared -- the dates, the filters, the
+        // level and the colouring -- and not where the map is looking or
+        // which tiles it looks through: panning away from a campaign, or
+        // switching to another base map, does not stop it being that
+        // campaign. Values are compared as sets, so the order a button
+        // happens to list its fronts in is not part of the question.
+        const PRESET_KEYS = ['from', 'to', 'date', 'front', 'role', 'status',
+                             'level', 'category', 'taken'];
+
+        function presetValue(params, key) {
+            return (params.get(key) || '').split(',')
+                .map(v => v.trim().toLowerCase()).filter(Boolean).sort()
+                .join(',');
+        }
+
         function markActiveCampaign() {
+            const live = fillView(new URLSearchParams(), true);
             document.querySelectorAll('.campaign-btn').forEach(btn => {
-                const from = btn.dataset.from, to = btn.dataset.to || CONFIG.date_max;
-                btn.classList.toggle('active',
-                    dateFrom.value === from && dateTo.value === to);
+                const wanted = new URLSearchParams(btn.dataset.url || '');
+                btn.classList.toggle('active', PRESET_KEYS.every(key =>
+                    presetValue(wanted, key) === presetValue(live, key)));
             });
+        }
+
+        // A button is a whole view rather than a range of dates: the query it
+        // carries is applied exactly as if the page had been opened at it --
+        // the filters, the level, the colouring, the tiles, where to look --
+        // over a page put back to its defaults first, so nothing of the view
+        // before it is left behind. The url it leaves in the address bar is
+        // the url the button was made from.
+        function applyPreset(query) {
+            const params = new URLSearchParams(query);
+            resetState();
+            applyUrlView(params);
+            applyUrlParams(params);
+            syncPanel();
+            renderLegend();
+            render();
+            const centre = urlCentre(params), zoom = urlZoom(params);
+            if (centre || zoom !== null) {
+                map.setView(centre || map.getCenter(),
+                            zoom === null ? map.getZoom() : zoom,
+                            { animate: false });
+            } else if (query) {
+                // A button that names no place is framed to what it shows.
+                fitToVisible();
+            } else {
+                map.setView(CONFIG.center, CONFIG.zoom, { animate: false });
+            }
+            markActiveCampaign();
+            viewToUrl();
         }
 
         function buildCampaigns() {
@@ -1548,13 +1585,8 @@
                 const btn = document.createElement('span');
                 btn.className = 'campaign-btn';
                 btn.textContent = RTL ? c.name : c.name_en;
-                btn.dataset.from = c.start;
-                if (c.end) btn.dataset.to = c.end;
-                btn.onclick = () => {
-                    setRange(c.start, c.end || CONFIG.date_max, true);
-                    markActiveCampaign();
-                    render();
-                };
+                btn.dataset.url = c.url || '';
+                btn.onclick = () => applyPreset(c.url || '');
                 box.appendChild(btn);
             });
         }
@@ -1812,12 +1844,9 @@
             for (const k in groups) {
                 const g = groups[k];
                 const taken = g.shape === 'square';
-                const surv = taken && category === 'survival';
                 const marker = L.marker(g.coo, {
                     icon: markIcon(g.shape, markRadius(g.people.length), {
-                        fill: taken
-                            ? (surv ? PIE_COLOURS.green : PIE_COLOURS.blue)
-                            : PIE_COLOURS.red,
+                        fill: taken ? PIE_COLOURS.blue : PIE_COLOURS.red,
                         alpha: PIE_ALPHA }),
                     zIndexOffset: stackOrder(g.people.length)
                 });
@@ -1829,9 +1858,7 @@
                     nameOptions: { permanent: true,
                                    direction: taken ? 'left' : 'right',
                                    className: 'map-label ' +
-                                       (surv ? 'green-tooltip'
-                                             : taken ? 'blue-tooltip'
-                                                     : 'red-tooltip') }
+                                       (taken ? 'blue-tooltip' : 'red-tooltip') }
                 });
                 allFeatures.push({ people: g.people, place: place, death: false,
                                    layer: marker, type: 'point' });
@@ -2033,43 +2060,54 @@
             return parts.slice(0, placeDepth(parts)).join('; ');
         }
 
-        // Blue is taken alive, red is everyone else -- the rule the build draws
-        // the marks by, for the people who have no mark of their own.
-        function statusColour(person) {
-            return (person.s || '').split(';')[0].trim() === 'kidnapped'
-                ? 'blue' : 'red';
+        // Who the blue mark stands for. Three answers, chosen in the menu
+        // under the status colouring, each a smaller group than the one
+        // before it:
+        //
+        //   any        everyone the csv records as kidnapped at all, the
+        //              people killed at the scene whose bodies were taken
+        //              and later retrieved included
+        //   alive      Status opens with kidnapped: taken alive, whatever
+        //              became of them afterwards. The build's own rule, and
+        //              the default
+        //   survived   taken alive and came back -- released or rescued.
+        //              'kidnapped; released; died' is one of them: the
+        //              captivity was survived, whatever came after
+        //
+        // Whoever an answer leaves out is drawn red, at the same point: the
+        // mark moves between the two colours, and nobody leaves the map.
+        const TAKEN_MODES = [
+            { key: 'any', label: 'taken_any', note: 'any_note',
+              red: 'slice_killed', blue: 'slice_kidnapped',
+              blueShort: 'taken_any_short',
+              redLegend: 'killed', blueLegend: 'kidnapped' },
+            { key: 'alive', label: 'taken_alive',
+              red: 'slice_killed', blue: 'slice_taken',
+              blueShort: 'taken_short',
+              redLegend: 'killed', blueLegend: 'kidnapped' },
+            { key: 'survived', label: 'taken_survived', note: 'survived_note',
+              red: 'slice_lost', blue: 'slice_survived',
+              blueShort: 'survived_short',
+              redLegend: 'slice_lost', blueLegend: 'slice_survived' }
+        ];
+        const TAKEN_DEFAULT = 'alive';
+        let takenMode = TAKEN_DEFAULT;
+
+        function takenSpec() {
+            return TAKEN_MODES.find(m => m.key === takenMode) ||
+                TAKEN_MODES[1];
         }
 
-        // Taken alive and came back: Status opens with kidnapped and carries
-        // released or rescued. 'kidnapped; released; died' is a yes -- the
-        // captivity was survived, whatever came after.
-        function survivedCaptivity(person) {
+        function takenBlue(person) {
             const parts = (person.s || '').split(';').map(s => s.trim());
-            return parts[0] === 'kidnapped' &&
-                (parts.indexOf('released') > -1 ||
-                 parts.indexOf('rescued') > -1);
+            if (takenMode === 'any') return parts.indexOf('kidnapped') > -1;
+            if (parts[0] !== 'kidnapped') return false;
+            if (takenMode === 'survived') {
+                return parts.indexOf('released') > -1 ||
+                    parts.indexOf('rescued') > -1;
+            }
+            return true;
         }
-
-        // What colour the survival view paints a group it cannot split into
-        // marks of its own -- a circle's disc: green where everyone under it
-        // came back, red where nobody did, and both -- green over red, each
-        // holding its share -- where the group holds both answers.
-        function survivalPaint(people) {
-            const survivors = people.filter(survivedCaptivity).length;
-            if (!survivors) return PIE_COLOURS.red;
-            if (survivors === people.length) return PIE_COLOURS.green;
-            return [{ colour: PIE_COLOURS.green,
-                      share: survivors / people.length },
-                    { colour: PIE_COLOURS.red,
-                      share: (people.length - survivors) / people.length }];
-        }
-
-        // The exact kidnapping mark of the survival view: the same outline
-        // square drawn to the width of the pngs, in the colour of coming
-        // back. Under that view the square holds nobody but survivors, so
-        // the icon is one colour and fixed like the pngs beside it.
-        const greenIcon = markIcon('square', iconSize / 2 / AREA.square,
-                                   { stroke: PIE_COLOURS.green });
 
         const CIRCLE_POINT = {}, CIRCLE = {};
         CIRCLES.forEach(c => {
@@ -2293,7 +2331,7 @@
         // one above it. Both mean the level the map now opens on.
         const LEVEL_WAS = { regions: 'fronts' };
 
-        const CATEGORIES = ['status', 'survival', 'roles'];
+        const CATEGORIES = ['status', 'roles'];
         const CATEGORY_DEFAULT = 'status';
         let category = CATEGORY_DEFAULT;
 
@@ -2671,12 +2709,19 @@
         // heading in a popup, short is what fits on the map beside a number,
         // and legend is what the key calls the colour -- a place, because that
         // is what the key is about.
-        const STATUS_SLICES = [
-            { key: 'red', colour: PIE_COLOURS.red, label: 'slice_killed',
-              short: 'killed_short', legend: 'killed' },
-            { key: 'blue', colour: PIE_COLOURS.blue, label: 'slice_taken',
-              short: 'taken_short', legend: 'kidnapped' }
-        ];
+        //
+        // The two colours are fixed and what they stand for is not: the blue
+        // is whichever kidnapped the menu asks for, and the red is everyone
+        // the blue leaves out. Both are named out of the chosen mode.
+        function statusSlices() {
+            const spec = takenSpec();
+            return [
+                { key: 'red', colour: PIE_COLOURS.red, label: spec.red,
+                  short: 'killed_short', legend: spec.redLegend },
+                { key: 'blue', colour: PIE_COLOURS.blue, label: spec.blue,
+                  short: spec.blueShort, legend: spec.blueLegend }
+            ];
+        }
 
         // Not the csv's seven roles but the three groups they are spoken about
         // in: the people who were at home and the services that went to them,
@@ -2719,32 +2764,13 @@
                 strayRoles.join(', '));
         }
 
-        // The survival colouring: who came back. Green is a hostage who
-        // survived captivity -- released or rescued, the one who died after
-        // coming home included -- and red is everyone else: the people killed
-        // wherever they were killed, and the hostages who did not come back
-        // alive. The white death marks stay white; where somebody died is not
-        // a fact this colouring repaints.
-        const SURVIVAL_SLICES = [
-            { key: 'red', colour: PIE_COLOURS.red, label: 'slice_lost',
-              short: 'killed_short', legend: 'slice_lost' },
-            { key: 'green', colour: PIE_COLOURS.green,
-              label: 'slice_survived', short: 'survived_short',
-              legend: 'slice_survived' }
-        ];
-
         function slices() {
-            if (category === 'roles') return ROLE_SLICES;
-            if (category === 'survival') return SURVIVAL_SLICES;
-            return STATUS_SLICES;
+            return category === 'roles' ? ROLE_SLICES : statusSlices();
         }
 
         function sliceKey(person) {
             if (category === 'roles') return roleSlice(person);
-            if (category === 'survival') {
-                return survivedCaptivity(person) ? 'green' : 'red';
-            }
-            return statusColour(person);
+            return takenBlue(person) ? 'blue' : 'red';
         }
 
         // Taken alive and came home: the survivor note the build already
@@ -2888,10 +2914,8 @@
 
         // The category button wears the colouring it would switch to.
         function categoryIcon(name, r) {
-            const list = name === 'roles' ? ROLE_SLICES
-                : name === 'survival' ? SURVIVAL_SLICES : STATUS_SLICES;
-            const shares = name === 'roles' ? [0.5, 0.62, 1]
-                : name === 'survival' ? [0.85, 1] : [0.62, 1];
+            const list = name === 'roles' ? ROLE_SLICES : statusSlices();
+            const shares = name === 'roles' ? [0.5, 0.62, 1] : [0.62, 1];
             let from = 0;
             return list.slice(0, shares.length).map((part, i) => {
                 const to = shares[i];
@@ -2948,15 +2972,18 @@
                 || FILTER_FIELDS.some(field => selected[field.key].size > 0);
         }
 
-        function viewToUrl() {
-            const url = new URL(window.location.href);
-            const q = url.searchParams;
+        // Writes the view into a set of query parameters, leaving out
+        // whatever is at the page's own default. dataOnly stops before the
+        // centre and the zoom, for the caller that is asking what is being
+        // shown rather than where it is being looked at.
+        function fillView(q, dataOnly) {
             const put = (name, value, isDefault) => {
                 if (isDefault) q.delete(name);
                 else q.set(name, value);
             };
             put('level', LEVELS[level], level === LEVEL_DEFAULT);
             put('category', category, category === CATEGORY_DEFAULT);
+            put('taken', takenMode, takenMode === TAKEN_DEFAULT);
             put('base', baseKey(baseName), baseName === BASE_DEFAULT);
             const layersOn = EXTRA_LAYERS.filter(e => map.hasLayer(e.layer))
                 .map(e => e.key);
@@ -2971,6 +2998,7 @@
             put('date', dateField, dateField === 'd');
             put('from', dateFrom.value, dateFrom.value === CONFIG.date_min);
             put('to', dateTo.value, dateTo.value === CONFIG.date_max);
+            if (dataOnly) return q;
 
             // A filtered page opening with no view of its own is framed to
             // what it shows, so under a filter the view is always written:
@@ -2984,18 +3012,24 @@
                 !filtered && atHome(centre));
             put('zoom', map.getZoom(),
                 !filtered && map.getZoom() === CONFIG.zoom);
+            return q;
+        }
+
+        function viewToUrl() {
+            const url = new URL(window.location.href);
+            fillView(url.searchParams);
             // The comma between the coordinates is legal in a query and reads
             // better than %2C in a url meant to be copied into a message.
             history.replaceState(null, '', url.toString().replace(/%2C/g, ','));
         }
 
-        // Everything back the way the page opens: every box ticked, the whole
-        // range of dates by event date, the default level, colouring and base
-        // map, and the map itself where it started. The url empties with it --
-        // a pid it opened on included, since the person is not a default.
-        function resetAll() {
+        // Every setting back the way the page opens, and nothing drawn: the
+        // state alone, so a button can put its own view on top of a clean
+        // page rather than on top of whatever was left of the last one.
+        function resetState() {
             level = LEVEL_DEFAULT;
             category = CATEGORY_DEFAULT;
+            takenMode = TAKEN_DEFAULT;
             setBase(BASE_DEFAULT);
             EXTRA_LAYERS.forEach(e => map.removeLayer(e.layer));
             FILTER_FIELDS.forEach(field => {
@@ -3007,6 +3041,14 @@
             dateField = 'd';
             document.querySelector('input[name=datefield][value=d]').checked = true;
             setRange(CONFIG.date_min, CONFIG.date_max, true);
+        }
+
+        // Everything back the way the page opens: every box ticked, the whole
+        // range of dates by event date, the default level, colouring and base
+        // map, and the map itself where it started. The url empties with it --
+        // a pid it opened on included, since the person is not a default.
+        function resetAll() {
+            resetState();
             markActiveCampaign();
             syncPanel();
             renderLegend();
@@ -3110,6 +3152,35 @@
                             renderLegend();
                             render();
                         }));
+                // Which kidnapped the blue mark stands for. A menu under the
+                // status row rather than three more radios: it is one
+                // question about that colouring, not a fourth colouring, and
+                // the three answers are three sizes of the same group.
+                // Choosing one asks for the status colouring, so picking
+                // from the menu switches to it.
+                const takenRow = L.DomUtil.create('div', 'taken-row');
+                L.DomUtil.create('span', '', takenRow).textContent = T.in_blue;
+                const takenPick = L.DomUtil.create('select', 'taken-pick',
+                                                   takenRow);
+                TAKEN_MODES.forEach(mode => {
+                    const option = L.DomUtil.create('option', '', takenPick);
+                    option.value = mode.key;
+                    option.textContent = T[mode.label];
+                });
+                takenPick.value = takenMode;
+                const statusLine =
+                    catInputs[CATEGORIES.indexOf('status')].parentNode;
+                statusLine.parentNode.insertBefore(takenRow,
+                                                   statusLine.nextSibling);
+                L.DomEvent.on(takenPick, 'change', () => {
+                    takenMode = takenPick.value;
+                    category = 'status';
+                    viewToUrl();
+                    syncPanel();
+                    renderLegend();
+                    render();
+                });
+
                 const catNote = L.DomUtil.create('div', 'panel-note', catBox);
                 catNote.textContent = T.cat_off;
 
@@ -3179,6 +3250,12 @@
                         input.disabled = dead;
                         input.parentNode.classList.toggle('off', dead);
                     });
+                    // The menu holds at every level but the heat map: which
+                    // kidnapped are blue is a question the exact marks answer
+                    // as much as the pies do.
+                    takenPick.value = takenMode;
+                    takenPick.disabled = atHeat();
+                    takenRow.classList.toggle('off', atHeat());
                     catNote.style.display = off ? '' : 'none';
                     heatRow.style.display =
                         SHOW_SMOOTH_SELECTOR && atHeat() ? '' : 'none';
@@ -3258,14 +3335,13 @@
                 // of what it says, sets it apart: solid, not an outline.
                 //
                 // Under the survival colouring the blue square is left to the
-                // hostages who came back: the kidnapping point of somebody
-                // who did not is their event location, and it is drawn as the
-                // red event mark it would be under any other outcome.
+                // whichever kidnapped the menu asks for: the event point of
+                // anybody it leaves out is drawn as the red mark it would be
+                // under any other outcome, and the point itself never moves.
                 const loose = p.ap && atMarks();
                 const event = p.red || p.blue;
                 if (event) {
-                    const blueish = p.blue && (category !== 'survival' ||
-                                               survivedCaptivity(p));
+                    const blueish = takenBlue(p);
                     const shape = blueish ? 'square' : 'circle';
                     const bag = loose ? approx : (blueish ? blue : red);
                     const k = (loose ? shape + ' ' : '') + key(event);
@@ -3293,9 +3369,7 @@
                 addGrouped(red, Killed, redIcon, 'right', 'red-tooltip', false);
                 // Under the survival colouring the square and its names are
                 // green: everyone still under it came back.
-                const surv = category === 'survival';
-                addGrouped(blue, Kidnapped, surv ? greenIcon : blueIcon,
-                           'left', surv ? 'green-tooltip' : 'blue-tooltip',
+                addGrouped(blue, Kidnapped, blueIcon, 'left', 'blue-tooltip',
                            false);
                 drawApprox(approx);
                 // The white x is the one mark this level adds and the lumped
@@ -3379,16 +3453,9 @@
                         // drawn one way, and one rule ordering the stack. As a
                         // vector it was ordered by the order it was drawn in
                         // and nothing else could be ordered with it.
-                        // Under the survival colouring a circle that holds a
-                        // returned hostage says so: the disc takes a blue
-                        // band for their share, which is exactly the fact the
-                        // one red disc was hiding about pid 964's kind of
-                        // case.
                         const circle = L.marker([c.lat, c.lon], {
                             icon: markIcon('circle', markRadius(people.length),
-                                           { fill: category === 'survival'
-                                                 ? survivalPaint(people)
-                                                 : PIE_COLOURS.red,
+                                           { fill: PIE_COLOURS.red,
                                              alpha: PIE_ALPHA }),
                             zIndexOffset: stackOrder(people.length)
                         });
@@ -3832,9 +3899,24 @@
             const wantedCategory = params.get('category');
             if (wantedCategory !== null) {
                 const name = wantedCategory.trim().toLowerCase();
-                if (CATEGORIES.indexOf(name) >= 0) category = name;
+                // 'survival' was a colouring of its own before it became one
+                // of the answers inside the status colouring. A url written
+                // while it was still opens what it used to show.
+                if (name === 'survival') {
+                    category = 'status';
+                    takenMode = 'survived';
+                } else if (CATEGORIES.indexOf(name) >= 0) category = name;
                 else console.warn('unknown category: ' + wantedCategory +
                     '. known values: ' + CATEGORIES.join(', '));
+            }
+            const wantedTaken = params.get('taken');
+            if (wantedTaken !== null) {
+                const name = wantedTaken.trim().toLowerCase();
+                if (TAKEN_MODES.some(mode => mode.key === name)) {
+                    takenMode = name;
+                } else console.warn('unknown taken: ' + wantedTaken +
+                    '. known values: ' +
+                    TAKEN_MODES.map(mode => mode.key).join(', '));
             }
             const wantedBase = params.get('base');
             if (wantedBase !== null) {
