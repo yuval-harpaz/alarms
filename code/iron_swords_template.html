@@ -501,6 +501,39 @@
            section -- the survival colouring works at that level too. */
         .display-control .panel-row.off { opacity: .45; }
 
+        /* The heat view's development slider, and its legend: the colour
+           ramp itself with its two ends named. */
+        .display-control .heat-slider { margin-top: 4px; }
+        .display-control .heat-slider input[type=range] {
+            width: 100%;
+            margin: 2px 0 0;
+        }
+        .display-control .heat-slider-label { font-size: 11px; }
+
+        #legend .heat-bar {
+            height: 10px;
+            border-radius: 2px;
+            margin: 4px 0 2px;
+            background: linear-gradient(to right,
+                hsl(240,100%,50%), hsl(180,100%,50%), hsl(120,100%,50%),
+                hsl(60,100%,50%), hsl(0,100%,50%));
+        }
+
+        #legend .heat-scale {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* The number riding the cursor over the heatmap. */
+        .heat-readout {
+            position: absolute;
+            display: none;
+            z-index: 900;
+            pointer-events: none;
+            color: #fff;
+            font: bold 13px sans-serif;
+        }
+
         .display-control .panel-note {
             font-size: 11px;
             line-height: 1.3;
@@ -1143,8 +1176,32 @@
         function renderLegend() {
             const box = document.getElementById('legend-rows');
             box.innerHTML = '';
-            if (atMarks()) buildLayerLegend(box);
+            if (atHeat()) buildHeatLegend(box);
+            else if (atMarks()) buildLayerLegend(box);
             else buildKey(box);
+        }
+
+        // The heat view's key: the ramp itself, with its two ends named.
+        // Left to right whatever the language, like the date slider. The
+        // ends carry bare numbers and the units go on a line of their own:
+        // a number with Hebrew after it is folded back towards the middle
+        // of the bar by the bidi rules, and the red end's number has to sit
+        // on the red end.
+        function buildHeatLegend(box) {
+            const bar = document.createElement('div');
+            bar.className = 'heat-bar';
+            const scale = document.createElement('div');
+            scale.className = 'heat-scale';
+            scale.dir = 'ltr';
+            const zero = document.createElement('span');
+            zero.textContent = '0';
+            const top = document.createElement('span');
+            top.textContent = String(Math.round(heatMax * 10) / 10);
+            scale.appendChild(zero);
+            scale.appendChild(top);
+            box.appendChild(bar);
+            box.appendChild(scale);
+            noteRow(box, T.heat_units);
         }
 
         function keyRow(box, colour, text, shape) {
@@ -2218,13 +2275,17 @@
         // The first two are coloured by the category button. The last is the
         // marks themselves, which say what they are by their shape, so there is
         // nothing there for a category to colour.
-        const LEVELS = ['fronts', 'places', 'marks'];
+        // Plus 'heat', a development view: not a coarseness of the marks but
+        // a picture computed from them, kept in this list because it answers
+        // the same question -- how should the map be drawn -- and rides the
+        // same radio.
+        const LEVELS = ['fronts', 'places', 'marks', 'heat'];
 
-        // The map opens on the finest of them. A reader arrives looking for a
-        // person or a place, and the coarse views answer a question about the
-        // war rather than about anybody in it -- they are worth stepping out
-        // to, not worth landing on.
-        const LEVEL_DEFAULT = LEVELS.length - 1;
+        // The map opens on the level of exact locations. A reader arrives
+        // looking for a person or a place, and the coarse views answer a
+        // question about the war rather than about anybody in it -- they are
+        // worth stepping out to, not worth landing on.
+        const LEVEL_DEFAULT = LEVELS.indexOf('marks');
         let level = LEVEL_DEFAULT;
 
         // Where a level is named in a url that was written before the outermost
@@ -2241,7 +2302,8 @@
         // questions was written as a number.
         function lumped() { return level === 0; }
         function atPlaces() { return level === LEVELS.indexOf('places'); }
-        function atMarks() { return level === LEVELS.length - 1; }
+        function atMarks() { return level === LEVELS.indexOf('marks'); }
+        function atHeat() { return LEVELS[level] === 'heat'; }
 
         function placed(person) {
             return !!(person.red || person.blue || person.white ||
@@ -2251,6 +2313,250 @@
         // How many people the levels that draw places could draw. The lumped
         // levels count against the whole file instead.
         const PLACED = PEOPLE.filter(placed).length;
+
+        /* ---------------------------------------------------------- heatmap */
+
+        // Deaths per square kilometre, painted over the tiles: a kernel
+        // density. Every death is spread over a disc of the smoothing
+        // radius, fading parabolically to nothing at the rim, and the discs
+        // sum -- so the picture is a continuum rather than the stacked
+        // circles the first cut's max filter drew. Red is the highest
+        // density anywhere in the data at the chosen radius, so the scale
+        // holds still while the map is panned; ground no kernel reaches is
+        // not painted at all.
+        let heatSmooth = 2.5;   // km: the kernel radius
+
+        // The radius was settled at 2.5 km with a development slider that is
+        // parked behind this flag; flip it to true to play with the radius
+        // again.
+        const SHOW_SMOOTH_SELECTOR = false;
+
+        // Its own pane: over the tiles at 200, under the boundaries at 350
+        // and every mark. Takes no clicks, so the map drags through it.
+        map.createPane('heatPane');
+        const heatPaneBox = map.getPane('heatPane');
+        heatPaneBox.style.zIndex = 260;
+        heatPaneBox.style.pointerEvents = 'none';
+        const heatCanvas = document.createElement('canvas');
+        heatCanvas.style.opacity = 0.5;
+        heatCanvas.style.display = 'none';
+        heatPaneBox.appendChild(heatCanvas);
+
+        function isDeath(p) {
+            const parts = (p.s || '').split(';').map(s => s.trim());
+            return parts.indexOf('killed') > -1 || parts.indexOf('died') > -1;
+        }
+
+        // Where a death is counted: the event mark, like every count on this
+        // map, and the circle or ring of whoever has no point of their own.
+        function heatSpot(p) {
+            return p.red || p.blue || (p.circ && CIRCLE_POINT[p.circ]) ||
+                (p.poly && RING_CENTRE[p.poly]) || null;
+        }
+
+        let heatDeaths = [];   // [{lat, lon, w}], one entry per coordinate
+        let heatMax = 0;       // deaths per km2, over the whole of the data
+
+        // The top of the colour scale: the densest point anywhere in the
+        // data, at the current radius -- a wider kernel flattens the peak,
+        // so this is recomputed when the slider moves. Evaluated on a 200 m
+        // lattice within 600 m of every point, in flat metres: a density
+        // peak stands on or between the points that raise it.
+        function computeHeatMax(deaths) {
+            if (!deaths.length) return 0;
+            const kx = 111320 * Math.cos(deaths[0].lat * Math.PI / 180);
+            const ky = 110540;
+            const h = heatSmooth * 1000;
+            const norm = 2 / (Math.PI * heatSmooth * heatSmooth);
+            const pts = deaths.map(d => ({ x: d.lon * kx, y: d.lat * ky,
+                                           w: d.w }));
+            // A hash of cells the radius wide, so everything within the
+            // radius of a spot is in the cell block around the spot's own.
+            const hash = new Map();
+            pts.forEach(p => {
+                const k = Math.round(p.x / h) + ',' + Math.round(p.y / h);
+                if (!hash.has(k)) hash.set(k, []);
+                hash.get(k).push(p);
+            });
+            function densityAt(x, y) {
+                let sum = 0;
+                const ci = Math.round(x / h), cj = Math.round(y / h);
+                for (let i = ci - 1; i <= ci + 1; i++) {
+                    for (let j = cj - 1; j <= cj + 1; j++) {
+                        (hash.get(i + ',' + j) || []).forEach(p => {
+                            const dx = p.x - x, dy = p.y - y;
+                            const r2 = dx * dx + dy * dy;
+                            if (r2 < h * h) sum += p.w * (1 - r2 / (h * h));
+                        });
+                    }
+                }
+                return sum * norm;
+            }
+            const seen = new Set();
+            let max = 0;
+            const step = 200, reach = 600;
+            pts.forEach(p => {
+                for (let dx = -reach; dx <= reach; dx += step) {
+                    for (let dy = -reach; dy <= reach; dy += step) {
+                        const x = p.x + dx, y = p.y + dy;
+                        const k = Math.round(x / step) + ',' +
+                            Math.round(y / step);
+                        if (seen.has(k)) continue;
+                        seen.add(k);
+                        max = Math.max(max, densityAt(x, y));
+                    }
+                }
+            });
+            return max;
+        }
+
+        // Blue at zero through cyan, green and yellow to red at the top:
+        // hue 240 down to 0 at full saturation, mixed once into a table the
+        // pixel loop can read.
+        const HEAT_LUT = (function () {
+            const lut = [];
+            for (let n = 0; n < 256; n++) {
+                const hue = 240 * (1 - n / 255);
+                const x = 1 - Math.abs((hue / 60) % 2 - 1);
+                const rgb = [[1, x, 0], [x, 1, 0], [0, 1, x],
+                             [0, x, 1], [x, 0, 1]][Math.min(4, Math.floor(hue / 60))];
+                lut.push(rgb.map(v => Math.round(255 * v)));
+            }
+            return lut;
+        }());
+
+        // Gathers whoever the filters allow, and hands back how many.
+        function renderHeat() {
+            const byCoo = new Map();
+            let shown = 0;
+            PEOPLE.forEach(p => {
+                if (!passes(p) || !isDeath(p)) return;
+                const spot = heatSpot(p);
+                if (!spot) return;
+                shown++;
+                const k = spot[0] + ',' + spot[1];
+                const found = byCoo.get(k);
+                if (found) found.w++;
+                else byCoo.set(k, { lat: spot[0], lon: spot[1], w: 1 });
+            });
+            heatDeaths = [...byCoo.values()];
+            heatMax = computeHeatMax(heatDeaths);
+            drawHeat();
+            renderLegend();
+            return shown;
+        }
+
+        // Paints the viewport. The field is summed on a lattice a tenth of
+        // the kernel radius wide, coloured through the table, and blown up
+        // to full size through the canvas's own bilinear smoothing -- the
+        // last of the blur, and what makes a lattice read as a continuum.
+        function drawHeat() {
+            if (!atHeat()) return;
+            const size = map.getSize();
+            heatCanvas.width = size.x;
+            heatCanvas.height = size.y;
+            L.DomUtil.setPosition(heatCanvas,
+                                  map.containerPointToLayerPoint([0, 0]));
+            const ctx = heatCanvas.getContext('2d');
+
+            const mpp = 40075016.686 *
+                Math.cos(map.getCenter().lat * Math.PI / 180) /
+                Math.pow(2, map.getZoom() + 8);
+            const s = heatSmooth * 1000 / mpp;   // kernel radius in px
+            const cell = Math.min(16, Math.max(2, s / 14));
+            const gridW = Math.ceil(size.x / cell) + 1;
+            const gridH = Math.ceil(size.y / cell) + 1;
+            const field = new Float32Array(gridW * gridH);
+            const s2 = s * s;
+            heatDeaths.forEach(d => {
+                const p = map.latLngToContainerPoint([d.lat, d.lon]);
+                if (p.x < -s || p.x > size.x + s ||
+                    p.y < -s || p.y > size.y + s) return;
+                const i0 = Math.max(0, Math.ceil((p.x - s) / cell));
+                const i1 = Math.min(gridW - 1, Math.floor((p.x + s) / cell));
+                const j0 = Math.max(0, Math.ceil((p.y - s) / cell));
+                const j1 = Math.min(gridH - 1, Math.floor((p.y + s) / cell));
+                for (let j = j0; j <= j1; j++) {
+                    const dy = j * cell - p.y;
+                    for (let i = i0; i <= i1; i++) {
+                        const dx = i * cell - p.x;
+                        const r2 = dx * dx + dy * dy;
+                        if (r2 < s2) {
+                            field[j * gridW + i] += d.w * (1 - r2 / s2);
+                        }
+                    }
+                }
+            });
+
+            // The rim of every blob feathers out: the alpha follows the
+            // kernel over its outer stretch rather than cutting from paint
+            // to nothing at the last lattice cell, which read as a
+            // pixelated edge. The field is in kernel units -- one death
+            // peaks at 1 -- so the feather is the same stretch of ground on
+            // every blob, and a lone death stays as opaque at its centre as
+            // a massacre. Zero stays unpainted.
+            const FEATHER = 0.5;
+            const norm = 2 / (Math.PI * heatSmooth * heatSmooth);
+            const image = ctx.createImageData(gridW, gridH);
+            const px = image.data;
+            for (let n = 0; n < field.length; n++) {
+                if (!field[n]) continue;   // zero stays transparent
+                const t = heatMax
+                    ? Math.min(1, field[n] * norm / heatMax) : 0;
+                const rgb = HEAT_LUT[Math.round(255 * t)];
+                px[4 * n] = rgb[0];
+                px[4 * n + 1] = rgb[1];
+                px[4 * n + 2] = rgb[2];
+                px[4 * n + 3] = Math.round(
+                    255 * Math.min(1, field[n] / FEATHER));
+            }
+            const buffer = drawHeat.buffer ||
+                (drawHeat.buffer = document.createElement('canvas'));
+            buffer.width = gridW;
+            buffer.height = gridH;
+            buffer.getContext('2d').putImageData(image, 0, 0);
+            ctx.imageSmoothingEnabled = true;
+            ctx.drawImage(buffer, 0, 0, gridW, gridH,
+                          0, 0, gridW * cell, gridH * cell);
+        }
+
+        map.on('moveend zoomend', drawHeat);
+
+        // The number under the cursor: deaths per square kilometre at that
+        // spot, worked out from the points directly rather than read off
+        // the lattice. Only where there is any paint -- a zero over the sea
+        // would be noise -- and only a number: the units are in the legend.
+        const heatReadout = document.createElement('div');
+        heatReadout.className = 'heat-readout map-label';
+        map.getContainer().appendChild(heatReadout);
+
+        function heatValueAt(latlng) {
+            const kx = 111320 * Math.cos(latlng.lat * Math.PI / 180);
+            const ky = 110540;
+            const h = heatSmooth * 1000;
+            let sum = 0;
+            heatDeaths.forEach(d => {
+                const dx = (d.lon - latlng.lng) * kx;
+                const dy = (d.lat - latlng.lat) * ky;
+                const r2 = dx * dx + dy * dy;
+                if (r2 < h * h) sum += d.w * (1 - r2 / (h * h));
+            });
+            return sum * 2 / (Math.PI * heatSmooth * heatSmooth);
+        }
+
+        map.on('mousemove', e => {
+            if (!atHeat()) { heatReadout.style.display = 'none'; return; }
+            const v = heatValueAt(e.latlng);
+            if (!v) { heatReadout.style.display = 'none'; return; }
+            heatReadout.textContent = String(Math.round(v * 10) / 10);
+            heatReadout.style.display = 'block';
+            heatReadout.style.left = (e.containerPoint.x + 14) + 'px';
+            heatReadout.style.top = (e.containerPoint.y - 8) + 'px';
+        });
+        map.on('mouseout', () => { heatReadout.style.display = 'none'; });
+
+        // What the heat view could count, for the header's denominator.
+        const HEAT_ALL = PEOPLE.filter(p => isDeath(p) && heatSpot(p)).length;
 
         // The lumped level splits the two fronts that straddle a border, by the Hebrew
         // place text. A coordinate cannot answer it: someone whose place is no
@@ -2557,6 +2863,15 @@
                 return dot(5, 5, 3) + dot(12, 4, 2) + dot(14, 11, 3) +
                     dot(6, 13, 2.5) + dot(11, 16, 1.5);
             }
+            // The heat view: its own ramp, hot centre to cool rim.
+            if (name === 'heat') {
+                const ring = (rad, colour, alpha) => '<circle cx="' + 9 * u +
+                    '" cy="' + 9 * u + '" r="' + rad * u + '" fill="' +
+                    colour + '" fill-opacity="' + alpha + '"/>';
+                return ring(8, 'hsl(240,100%,50%)', 0.7) +
+                    ring(5, 'hsl(120,100%,50%)', 0.85) +
+                    ring(2.5, 'hsl(0,100%,50%)', 1);
+            }
             // Several kinds of small mark rather than one big one, which is the
             // whole difference between this level and the others.
             return '<circle cx="' + 5.5 * u + '" cy="' + 5.5 * u + '" r="' +
@@ -2757,6 +3072,33 @@
                             render();
                         }));
 
+                // The heat view's smoothing radius, while the view is being
+                // judged: a development control, meant to go with the number
+                // it settles. Shown only while the heat view is on.
+                const heatRow = L.DomUtil.create('div', 'heat-slider',
+                                                 levelBox);
+                const heatSay = L.DomUtil.create('div', 'heat-slider-label',
+                                                 heatRow);
+                const heatRange = L.DomUtil.create('input', '', heatRow);
+                heatRange.type = 'range';
+                heatRange.min = 1;
+                heatRange.max = 15;
+                heatRange.step = 0.5;
+                heatRange.value = heatSmooth;
+                function sayHeat() {
+                    heatSay.textContent = T.heat_smooth + ': ' + heatSmooth +
+                        ' ' + T.km;
+                }
+                sayHeat();
+                // The whole of renderHeat, not only the drawing: the top of
+                // the scale flattens as the kernel widens, so the maximum
+                // and the legend move with the slider.
+                L.DomEvent.on(heatRange, 'input', () => {
+                    heatSmooth = Number(heatRange.value);
+                    sayHeat();
+                    renderHeat();
+                });
+
                 const catBox = section(T.panel_colour);
                 const catInputs = CATEGORIES.map(name =>
                     row(catBox, 'ironCategory', T['cat_' + name],
@@ -2826,15 +3168,20 @@
                     // Only the role colouring has nothing to colour where the
                     // marks are the marks: the status colouring is what those
                     // marks already draw, and the survival colouring redraws
-                    // them, so both stay in reach at every level.
-                    const off = level === LEVELS.length - 1;
+                    // them, so both stay in reach at every level. The heat
+                    // view has one colouring of its own and answers to none
+                    // of these.
+                    const off = atMarks();
                     catInputs.forEach((input, index) => {
-                        const dead = off && CATEGORIES[index] === 'roles';
+                        const dead = atHeat() ||
+                            (off && CATEGORIES[index] === 'roles');
                         input.checked = CATEGORIES[index] === category;
                         input.disabled = dead;
                         input.parentNode.classList.toggle('off', dead);
                     });
                     catNote.style.display = off ? '' : 'none';
+                    heatRow.style.display =
+                        SHOW_SMOOTH_SELECTOR && atHeat() ? '' : 'none';
                     baseInputs.forEach(([name, input]) => {
                         input.checked = name === baseName;
                     });
@@ -2870,6 +3217,18 @@
                 .forEach(l => l.clearLayers());
             allFeatures = [];
             countMarks = [];
+
+            heatCanvas.style.display = atHeat() ? '' : 'none';
+            if (!atHeat()) heatReadout.style.display = 'none';
+            if (atHeat()) {
+                const heatShown = renderHeat();
+                const heatCounts = document.getElementById('counts');
+                heatCounts.textContent = heatShown + ' / ' + HEAT_ALL;
+                heatCounts.title = T.showing + ' ' + heatShown + ' / ' +
+                    HEAT_ALL;
+                if (urlFollows) viewToUrl();
+                return;
+            }
 
             const red = {}, blue = {}, white = {}, circles = {}, areas = {};
             const approx = {};     // points of our own, drawn solid
@@ -3541,7 +3900,7 @@
         // A link to one person is not a link to the lump they are inside, so a
         // pid in the url opens the level of exact locations whatever the map
         // opens on.
-        if (params.get('pid')) level = LEVELS.length - 1;
+        if (params.get('pid')) level = LEVELS.indexOf('marks');
         syncButtons();
         renderLegend();
         setRange(CONFIG.date_min, CONFIG.date_max, true);
