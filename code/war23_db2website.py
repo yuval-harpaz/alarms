@@ -7,9 +7,23 @@ a field which has a value on the website and no value in the csv is deleted, by 
     python code/war23_db2website.py keep    do not delete, only add and change
     python code/war23_db2website.py 1636    work on these pids only, good for trying one record first
 """
+import subprocess
 import sys
+import time
 from war23_api import (db, csv_diff, website_pid, get_all_records, missing_pid, extra_pid, changed_pid,
                         pid2record, send_records)
+
+
+def pushed():
+    """True when data/oct7database.csv is committed and the branch has no unpushed commits,
+    so a github/local mismatch can only be the raw url lagging behind the push"""
+    try:
+        out = subprocess.run(['git', 'status', '--porcelain', '--branch', 'data/oct7database.csv'],
+                             capture_output=True, text=True, check=True).stdout.splitlines()
+    except (OSError, subprocess.CalledProcessError):
+        return False
+    return len(out) == 1 and 'ahead' not in out[0]
+
 
 if __name__ == '__main__':
     args = [a.lower() for a in sys.argv[1:]]
@@ -17,6 +31,14 @@ if __name__ == '__main__':
     keep = len([a for a in args if a[0] == 'k']) > 0
     only = [int(a) for a in args if a.isdigit()]
     not_pushed = csv_diff()
+    if len(not_pushed) > 0 and pushed():  # github raw can lag a few seconds behind the push
+        for attempt in range(5):
+            print(f'{len(not_pushed)} pid differ but the csv is committed and pushed, '
+                  f'github is probably not updated yet. waiting 5 seconds ({attempt + 1}/5)')
+            time.sleep(5)
+            not_pushed = csv_diff()
+            if len(not_pushed) == 0:
+                break
     if len(not_pushed) > 0:  # the csv being sent is the one on github, not the local file
         print(f'{len(not_pushed)} pid differ between the local oct7database.csv and the one on github:')
         print(str(not_pushed).replace("'", ''))
