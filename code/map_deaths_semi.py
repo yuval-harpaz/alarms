@@ -158,8 +158,15 @@ for icat in range(3):
     cat[icat][isrockets] = False
 
 for imap in [0, 1]:
-    map = folium.Map(location=center, zoom_start=11)
-    folium.TileLayer('cartodbpositron').add_to(map)
+    map = folium.Map(location=center, zoom_start=11, tiles=None)
+    # CARTO's free basemap needs an api key since 2026 and serves "NO API KEY"
+    # tiles without one, so the background is govmap, as in rockets_victims.html.
+    folium.TileLayer(
+        'https://cdnil.govmap.gov.il/xyz/heb/{z}/{x}/{y}.png',
+        attr='&copy; <a target="_blank" href="https://www.govmap.gov.il">'
+             'המרכז למיפוי ישראל</a>',
+        name='govmap', max_native_zoom=16, max_zoom=18,
+    ).add_to(map)
     now = np.datetime64('now', 'ns')
     nowisr = pd.to_datetime(now, utc=True, unit='s').astimezone(tz='Israel')
     nowstr = str(nowisr)[:16].replace('T', ' ')

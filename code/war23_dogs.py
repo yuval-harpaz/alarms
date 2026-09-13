@@ -40,11 +40,15 @@ locu = np.unique(locs)
 # coo = pd.read_csv('data/coord_deaths.csv')
 center = [coo['lat'].mean(), coo['long'].mean()]
 ##
-map = folium.Map(location=center, zoom_start=10)#, tiles='openstreetmap')
-# folium.TileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png',
-#                  attr='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors').add_to(map)
-# folium.TileLayer('openstreetmap').add_to(map)
-folium.TileLayer('cartodbpositron').add_to(map)
+map = folium.Map(location=center, zoom_start=10, tiles=None)
+# CARTO's free basemap needs an api key since 2026 and serves "NO API KEY"
+# tiles without one, so the background is govmap, as in rockets_victims.html.
+folium.TileLayer(
+    'https://cdnil.govmap.gov.il/xyz/heb/{z}/{x}/{y}.png',
+    attr='&copy; <a target="_blank" href="https://www.govmap.gov.il">'
+         'המרכז למיפוי ישראל</a>',
+    name='govmap', max_native_zoom=16, max_zoom=18,
+).add_to(map)
 now = np.datetime64('now', 'ns')
 nowisr = pd.to_datetime(now, utc=True, unit='s').astimezone(tz='Israel')
 nowstr = str(nowisr)[:16].replace('T', ' ')
@@ -98,6 +102,8 @@ map.save(fname)
 with open(fname) as f:
     txt = f.read()
 txt = txt.replace('<div>', '<div dir="rtl">')
+txt = txt.replace('<head>\n    ',
+                  '<head>\n    <link rel="icon" type="image/png" href="logo.png">\n    ')
 with open(fname, 'w') as f:
     f.write(txt)
 print('done dogs')
