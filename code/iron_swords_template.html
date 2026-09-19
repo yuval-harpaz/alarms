@@ -2139,6 +2139,15 @@
             CIRCLE[c.name_he] = c;
         });
 
+        // A circle which is a settlement in itself -- the city, not one of its
+        // neighbourhoods -- is where that settlement's pie belongs. Its own
+        // name is its settlement key; 'רצועת עזה; חאן יונס; אל-מחטה' is not.
+        const SETTLEMENT_POINT = {};
+        CIRCLES.forEach(c => {
+            const name = splitPlace(c.name_he).join('; ');
+            if (placeKey(name) === name) SETTLEMENT_POINT[name] = [c.lat, c.lon];
+        });
+
         // What a circle is called on its popups. A too-general circle stands
         // at a chosen point, and its title says so: the place is the Strip,
         // not this spot.
@@ -2301,12 +2310,19 @@
                 circles[name].forEach(p => add(p, CIRCLE_POINT[name], place));
             }
 
+            // Where the pie stands. A settlement with a circle of its own
+            // stands on it: the mean of the people's points is the centre of
+            // the fighting, not of the town, and Khan Yunis drawn address by
+            // address came out 800m east of Khan Yunis, inside Bani Suheila.
+            // Without such a circle the mean is all there is, and for a
+            // kibbutz drawn house by house it is the right answer anyway.
             const drawn = new Set();
             for (const k in groups) {
                 const group = groups[k];
                 placeMark(group.label, group.people,
-                          [group.lat / group.n, group.lon / group.n], Pies,
-                          { type: 'pie' });
+                          SETTLEMENT_POINT[k] ||
+                              [group.lat / group.n, group.lon / group.n],
+                          Pies, { type: 'pie' });
                 drawn.add(k);
             }
             return drawn;
