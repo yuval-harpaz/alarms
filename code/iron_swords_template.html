@@ -3650,17 +3650,29 @@
                 searchResults.innerHTML = '';
                 return;
             }
-            const q = normalizeText(query);
+            // Every word of the query, each one anywhere in the name -- a
+            // name is searched the way a person remembers it, and half of
+            // them remember the family name first. 'בירנשטוק הראל' found
+            // nobody while the name reads 'הראל בירנשטוק'; a single word was
+            // never the problem, the order of two was.
+            const words = normalizeText(query).split(/\s+/).filter(Boolean);
+            if (!words.length) {
+                searchResults.style.display = 'none';
+                searchResults.innerHTML = '';
+                return;
+            }
             const hits = [];
             const coords = parseCoords(query);
             // One row per person, never per marker: searching a place used to
             // emit a row per marker there, each reading only the place name, so
             // a busy locality returned a screenful of identical lines.
             for (const item of allFeatures) {
-                const placeHit = normalizeText(item.place).includes(q);
+                const place = normalizeText(item.place);
+                const placeHit = words.every(w => place.includes(w));
                 for (const person of item.people) {
                     const name = personLabel(person);
-                    if (!placeHit && !normalizeText(name).includes(q)) continue;
+                    const nName = normalizeText(name);
+                    if (!placeHit && !words.every(w => nName.includes(w))) continue;
                     // The row names the place of the mark it will take you to,
                     // not the person's event location: someone with two marks
                     // was otherwise listed twice with identical text.
