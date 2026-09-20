@@ -1034,6 +1034,23 @@
             shape.addTo(Localities);
         });
 
+        // The captions on the ground -- the towns and cities the satellite
+        // tiles do not name, and the neighbourhoods of the Strip. Each carries
+        // a permanent tooltip and none of them ever changes, so they are culled
+        // to the window with the counts rather than bound once and carried
+        // about: leaflet moves and measures every tooltip it holds on every
+        // zoom, and these were 388 of them.
+        const labelMarks = [];
+        const NB_TOOLTIP = { permanent: true, direction: 'center',
+                             className: 'nb-tooltip map-label',
+                             offset: [0, -11] };
+        const CITY_TOOLTIP = { permanent: true, direction: 'center',
+                               className: 'city-tooltip map-label',
+                               offset: [0, 0] };
+        const TOWN_TOOLTIP = { permanent: true, direction: 'center',
+                               className: 'city-tooltip map-label town',
+                               offset: [0, 0] };
+
         // The marker overlays live in the legend. This one stays in the leaflet
         // control at the top right with the base maps: it is a backdrop, not a
         // kind of victim, and it is off until asked for.
@@ -1054,12 +1071,9 @@
             // Centred horizontally but lifted clear of the dot: at offset zero
             // the outlined text sits exactly on the 6 px circle and hides it,
             // so the point looked like it vanished as soon as the name arrived.
-            dot.bindTooltip(place.name, {
-                permanent: true,
-                direction: 'center',
-                className: 'nb-tooltip map-label',
-                offset: [0, -11]
-            });
+            labelMarks.push({ layer: dot, point: [place.lat, place.lon],
+                              kind: 'nb',
+                              want: { text: place.name, options: NB_TOOLTIP } });
             dot.bindPopup('<b>' + place.name + '</b>' +
                 (place.municipality ? '<br>' + place.municipality : ''));
             dot.addTo(Neighbourhoods);
@@ -1084,12 +1098,11 @@
                 interactive: false,
                 icon: L.divIcon({ className: 'city-anchor', iconSize: [0, 0] })
             });
-            label.bindTooltip(RTL ? place.he : place.en, {
-                permanent: true,
-                direction: 'center',
-                className: 'city-tooltip map-label' + (place.city ? '' : ' town'),
-                offset: [0, 0]
-            });
+            labelMarks.push({ layer: label, point: [place.lat, place.lon],
+                              kind: place.city ? 'city' : 'town',
+                              want: { text: RTL ? place.he : place.en,
+                                      options: place.city ? CITY_TOOLTIP
+                                                          : TOWN_TOOLTIP } });
             label.addTo(Cities);
         });
 
@@ -1770,6 +1783,17 @@
         // was only saying it in names nobody could see yet.
         let countMarks = [];
 
+        // What the last applyCounts() was asked. Which tooltip every mark
+        // carries is decided by two things and nothing else: whether the names
+        // are close enough to read (`all`), and how far apart two numbers have
+        // to stand to both be written (`countRadius()`, which changes in
+        // steps). A zoom that leaves both where they were cannot change a
+        // single tooltip -- and rebinding 953 of them to the same content cost
+        // 3.5 seconds a zoom step, because leaflet measures a tooltip in the
+        // page as it inserts it and every one of them is a forced layout.
+        // Cleared by render(), which throws the marks themselves away.
+        let countState = null;
+
         function addCount(layer, n, point, options, opts) {
             opts = opts || {};
             countMarks.push({ layer: layer, n: n, point: point,
@@ -1793,9 +1817,22 @@
                 n + '</span>';
         }
 
+        // Which tooltip each mark *should* carry, worked out over all of them
+        // -- a number is thinned against every other number on the map, not
+        // against the ones that happen to be on the screen, so this decision
+        // cannot be made a screenful at a time. It is arithmetic and touches no
+        // DOM; bindVisible() is what puts the answer in the page.
         function applyCounts() {
             const all = map.getZoom() >= COUNT_ZOOM_ALL;
             const radius = countRadius();
+            // Above COUNT_ZOOM_ALL the radius is not consulted at all, so every
+            // zoom up there is the same question.
+            const state = all ? 'all' : 'radius ' + radius;
+            if (state === countState) {
+                bindVisible();
+                return;
+            }
+            countState = state;
             // The thinning exists for a crowded map. Under a filter that
             // leaves a handful of marks it worked against the reader: five
             // medics were four marks, and the '2' that made them five stood
@@ -1804,10 +1841,10 @@
             const sparse = countMarks.length <= 30;
             const kept = { event: [], death: [] };
             countMarks.slice().sort((a, b) => b.n - a.n).forEach(mark => {
-                if (mark.layer.getTooltip()) mark.layer.unbindTooltip();
+                mark.want = null;
                 // Close enough to read them: the names take the tooltip back.
                 if (mark.names && all) {
-                    mark.layer.bindTooltip(mark.names, mark.nameOptions);
+                    mark.want = { text: mark.names, options: mark.nameOptions };
                     return;
                 }
                 if (mark.n < 2) return;
@@ -1816,9 +1853,57 @@
                     map.distance(other.point, mark.point) < radius);
                 if (!show) return;
                 others.push(mark);
-                mark.layer.bindTooltip(String(mark.n), mark.options);
+                mark.want = { text: String(mark.n), options: mark.options };
             });
+            bindVisible();
         }
+
+        // How far outside the window a tooltip is still worth binding, as a
+        // share of the window: a small pan then moves no tooltips at all.
+        const TOOLTIP_MARGIN = 0.3;
+
+        // A caption is written from the zoom its css shows it at -- binding
+        // one the page then hides is the same waste one step removed.
+        function labelZoom(mark) {
+            if (mark.kind === 'nb') return ZOOM_NEIGHBOURHOOD;
+            if (mark.kind === 'town') return ZOOM_TOWN;
+            return 0;
+        }
+
+        // Only the tooltips on the screen are in the page. Leaflet moves every
+        // tooltip it holds on every zoom, and it measures each one in the
+        // document as it moves it -- 1267 of them cost 800 ms a zoom step,
+        // while the same map with the names not yet bound cost 47. What is off
+        // the screen cannot be read, so it is not bound, and a zoom moves a
+        // screenful instead of a country.
+        //
+        // The decision itself is applyCounts's and stays global: this only
+        // carries out, for the marks now in view, what was decided for all of
+        // them.
+        function bindVisible() {
+            const bounds = map.getBounds().pad(TOOLTIP_MARGIN);
+            const zoom = map.getZoom();
+
+            function apply(mark, want) {
+                const shown = mark.shown;
+                if (want && shown && shown.text === want.text &&
+                    shown.options === want.options) return;
+                if (mark.layer.getTooltip()) mark.layer.unbindTooltip();
+                mark.shown = null;
+                if (!want) return;
+                mark.layer.bindTooltip(want.text, want.options);
+                mark.shown = want;
+            }
+
+            countMarks.forEach(mark => apply(
+                mark, mark.want && bounds.contains(mark.point)
+                    ? mark.want : null));
+            labelMarks.forEach(mark => apply(
+                mark, zoom >= labelZoom(mark) && bounds.contains(mark.point)
+                    ? mark.want : null));
+        }
+
+        map.on('moveend', bindVisible);
 
         function key(coo) { return coo[0].toFixed(6) + ',' + coo[1].toFixed(6); }
 
@@ -3334,6 +3419,7 @@
                 .forEach(l => l.clearLayers());
             allFeatures = [];
             countMarks = [];
+            countState = null;
 
             heatCanvas.style.display = atHeat() ? '' : 'none';
             if (!atHeat()) heatReadout.style.display = 'none';
