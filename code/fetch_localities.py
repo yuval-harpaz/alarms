@@ -52,8 +52,39 @@ SIMPLIFY = 0.00002
 #   10521617  جحر الديك ends in kaf, so the Hebrew ends in כ. OSM says
 #             ג'וחור א-דיק; data/coord_circle.csv and oct7database.csv have
 #             always said ג'וחור א-דיכ.
+#
+# The Gaza City quarters below carry no name:he in OSM at all, so the Hebrew
+# map showed them in English on hover. Where oct7database.csv names the quarter
+# its spelling is used -- Daraj and Tuffah are the two halves of its
+# דרג' תופאח, North and South Remal of its רימאל -- and the three it never
+# names are transliterated (2026-09-21).
+#
+# And the areas whose Hebrew OSM does carry, where it spells the name
+# differently from oct7database.csv: the csv's spelling, item by item, so the
+# hover name reads as the popup does (2026-09-21).
 NAME_HE = {
     10521617: "ג'וחור א-דיכ",
+    10522839: "חאן יונס",   # Khan Yunis; OSM ח'אן יונס
+    19919238: "שג'אעיה",   # Shuja'iyya; OSM שג'אעייה
+    10523733: "עבסאן אל-כבירה",   # Abasan al-Kabira; OSM עבאסן אל-כבירה
+    10523632: "אל בורייג'",   # Bureij; OSM אל-בורייג'
+    10522703: "שוכת א-סופי",   # Shokat aa-Sufi; OSM שוקת א-סופי
+    10523732: "עבסאן א-סע'ירה",   # 'Abasan al-Saghira; OSM עבסאן אל-סע'ירה
+    10523180: "נוסייראת",   # Nuseirat; OSM נוסיראת
+    10523087: "דיר אל בלח",   # Deir el-Balah; OSM דיר אל-בלאח
+    3935884: "שיח' רדואן",   # Sheik Radwan; OSM שייח' רד'ואן
+    10523631: "מע'אזי",   # al-Maghazi; OSM אל-מע'אזי
+    3935821: "זייתון",   # Zeitun
+    3935868: "דרג'",   # Daraj
+    3935841: "תופאח",   # Tuffah
+    3935878: "צפון רימאל",   # North Remal
+    3935876: "דרום רימאל",   # South Remal
+    3935820: "שיח עג'לין",   # Sheikh Ijlin
+    3935885: "א-נאצר",   # Al Nasser
+    3935881: "מדינת אל-עודה",   # Al-Awda
+    3935827: "אל-ג'דידה",   # Al-Jadida
+    3935842: "העיר העתיקה",   # Old City
+    3935826: "תורכמאן",   # Turukman
 }
 
 

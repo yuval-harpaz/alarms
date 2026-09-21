@@ -52,6 +52,12 @@ def load_circles(people=None):
         alias: <other name_he>   the same place under another name. Its
                                  people stand on the other name's circle; a
                                  lat/lon on the row itself is not used
+        pie: mean                on a settlement's own circle: its pie at the
+                                 places level stands on the mean of its
+                                 people's points instead of on the circle
+        pie: label               the same, on the OSM caption of the name
+                                 (data/coord_place.csv) -- for a place whose
+                                 circle marks where someone was, not the place
 
     The alias is for siblings, which the ';' path cannot express: 'ליד מסדרון
     נצרים' and 'מסדרון נצרים' sit side by side under 'רצועת עזה; עזה', so
@@ -92,6 +98,8 @@ def load_circles(people=None):
                 'general': comment == 'too_general',
                 'joined': [],
             }
+            if comment.startswith('pie:'):
+                circles[name]['pie'] = comment.split(':', 1)[1].strip()
 
     if people:
         carried = Counter()

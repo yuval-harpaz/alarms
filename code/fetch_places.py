@@ -100,13 +100,24 @@ def overpass(query):
     raise SystemExit(f'no overpass mirror answered: {last}')
 
 
+# The Hebrew OSM carries is not always the spelling oct7database.csv uses, and
+# a town's caption should read as its popup does. Keyed by osm_id and applied as
+# the rows are made, so a refresh cannot undo it -- the same table as NAME_HE in
+# fetch_localities.py, for the captions of the same towns (2026-09-21).
+NAME_HE = {
+    505015391: "אל בורייג'",   # Bureij; OSM אל-בורייג'
+    8237029172: "נוסייראת",   # Nuseirat; OSM נוסיראת
+    505035532: "דיר אל בלח",   # Deir el-Balah; OSM דיר אל-בלאח
+}
+
+
 def rows(elements):
     """One row per place, sorted so a refresh makes a readable diff."""
     out, dropped = [], 0
     for element in elements:
         tags = element.get('tags', {})
         name = clean(tags.get('name', ''))
-        he = clean(tags.get('name:he', ''))
+        he = NAME_HE.get(element['id'], clean(tags.get('name:he', '')))
         en = clean(tags.get('name:en', ''))
         if not (name or he or en):
             continue

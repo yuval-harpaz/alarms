@@ -741,15 +741,52 @@ def place_english(people):
     return english
 
 
+# A pie on a caption stands this far south of it: right on it, the number in
+# the pie hid under the name.
+LABEL_SOUTH_KM = 0.5
+
+
+def pie_point(circle, captions):
+    """Where the settlement's pie stands, when coord_circle.csv says other
+    than on the circle: 'mean', or for 'label' the [lat, lon] of the OSM
+    caption of the same name, LABEL_SOUTH_KM below it. None when the row says
+    nothing."""
+    pie = circle.get('pie')
+    if pie == 'mean' or not pie:
+        return pie
+    if pie == 'label':
+        name = circle['name_he'].split('; ')[-1]
+        if name in captions:
+            lat, lon = captions[name]
+            return [round(lat - LABEL_SOUTH_KM / 111.32, 6), lon]
+        print(f'pie: label, but no caption in coord_place.csv is called '
+              f'{name} -- the pie stays on the circle')
+        return None
+    print(f"unknown pie: {pie} on {circle['name_he']} -- "
+          f"'mean' and 'label' are what the build reads")
+    return None
+
+
 def circles_payload(circles, records, english):
     used = {r['circ'] for r in records if 'circ' in r}
     used |= {r['dcirc'] for r in records if 'dcirc' in r}
+    captions = {p['he']: [p['lat'], p['lon']] for p in places_payload()}
     # general marks a too_general circle: a point chosen so its people are on
-    # the map at all, which the popup says in as many words.
-    return [{'name_he': c['name_he'], 'name_en': english.get(c['name_he'], ''),
-             'lat': c['lat'], 'lon': c['lon'],
-             **({'general': 1} if c['general'] else {})}
-            for name, c in sorted(circles.items()) if name in used]
+    # the map at all, which the popup says in as many words. pie is where a
+    # settlement's pie stands when not on the circle; a circle carrying one is
+    # sent even with nobody on it, since the settlement's exact points still
+    # make a pie -- and a circle with no people draws nothing.
+    payload = []
+    for name, c in sorted(circles.items()):
+        pie = pie_point(c, captions)
+        if name not in used and not pie:
+            continue
+        payload.append({'name_he': c['name_he'],
+                        'name_en': english.get(c['name_he'], ''),
+                        'lat': c['lat'], 'lon': c['lon'],
+                        **({'general': 1} if c['general'] else {}),
+                        **({'pie': pie} if pie else {})})
+    return payload
 
 
 def map_center(records, circles, polygons, report=False):

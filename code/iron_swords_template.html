@@ -18,6 +18,14 @@
             width: 100vw;
         }
 
+        /* A shape on the map takes the browser's focus when it is clicked, and
+           chrome rings whatever has focus: a black and white frame round the
+           shape's bounding box, which on an OSM area is a rectangle standing
+           on the imagery for no reason anyone could see. Nothing on the map is
+           reached from the keyboard shape by shape, so the ring marks nothing. */
+        .leaflet-interactive:focus,
+        .leaflet-container path:focus { outline: none; }
+
         .panel {
             position: absolute;
             background: rgba(255, 255, 255, 0.96);
@@ -2227,10 +2235,14 @@
         // A circle which is a settlement in itself -- the city, not one of its
         // neighbourhoods -- is where that settlement's pie belongs. Its own
         // name is its settlement key; 'רצועת עזה; חאן יונס; אל-מחטה' is not.
+        // Unless coord_circle.csv says otherwise (`pie:`): a circle that marks
+        // where somebody was rather than the place leaves its pie on the mean
+        // of the people ('mean'), or sends it to the OSM caption (a point).
         const SETTLEMENT_POINT = {};
         CIRCLES.forEach(c => {
             const name = splitPlace(c.name_he).join('; ');
-            if (placeKey(name) === name) SETTLEMENT_POINT[name] = [c.lat, c.lon];
+            if (placeKey(name) !== name || c.pie === 'mean') return;
+            SETTLEMENT_POINT[name] = c.pie || [c.lat, c.lon];
         });
 
         // What a circle is called on its popups. A too-general circle stands
