@@ -1770,11 +1770,16 @@
         // is thinned at all -- every name is on the screen by then, so a number
         // beside one of them is not what is crowding it.
         const COUNT_ZOOM_ALL = 17;
+        // A settlement is one circle at the level of places, so they stand
+        // further apart than exact marks do, and the kilometre that suits a
+        // town arrives two steps earlier there.
+        const COUNT_ZOOM_KM = { places: 12, other: 14 };
 
         function countRadius() {
             const zoom = map.getZoom();
             if (zoom >= 16) return 500;
-            if (zoom >= 14) return 1000;
+            if (zoom >= (atPlaces() ? COUNT_ZOOM_KM.places
+                                    : COUNT_ZOOM_KM.other)) return 1000;
             if (zoom >= 12) return 5000;
             return 10000;
         }
