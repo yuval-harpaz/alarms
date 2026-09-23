@@ -1204,6 +1204,7 @@
         function buildHeatLegend(box) {
             const bar = document.createElement('div');
             bar.className = 'heat-bar';
+            bar.style.background = heatBarGradient();
             const scale = document.createElement('div');
             scale.className = 'heat-scale';
             scale.dir = 'ltr';
@@ -2590,13 +2591,26 @@
             return max;
         }
 
-        // Blue at zero through cyan, green and yellow to red at the top:
-        // hue 240 down to 0 at full saturation, mixed once into a table the
-        // pixel loop can read.
+        // ---- the one number to change to try another low end ----------
+        // The ramp runs from HEAT_HUE0 at zero down to red at the top, at
+        // full saturation. The lower the start the shorter the ramp, and
+        // the fewer degrees of hue are left to carry the whole scale:
+        //
+        //     240  blue -> cyan -> green -> yellow -> red
+        //     180  cyan -> green -> yellow -> red        (current)
+        //     120  green -> yellow -> red
+        //      60  yellow -> orange -> red
+        //      30  orange -> red
+        //
+        // The legend bar is built from this too, so the key cannot drift
+        // from the map: change it here and both follow.
+        const HEAT_HUE0 = 180;
+
+        // Mixed once into a table the pixel loop can read.
         const HEAT_LUT = (function () {
             const lut = [];
             for (let n = 0; n < 256; n++) {
-                const hue = 240 * (1 - n / 255);
+                const hue = HEAT_HUE0 * (1 - n / 255);
                 const x = 1 - Math.abs((hue / 60) % 2 - 1);
                 const rgb = [[1, x, 0], [x, 1, 0], [0, 1, x],
                              [0, x, 1], [x, 0, 1]][Math.min(4, Math.floor(hue / 60))];
@@ -2604,6 +2618,18 @@
             }
             return lut;
         }());
+
+        // The css gradient for the legend bar, built from the same hue so
+        // the key cannot drift from the map. Five stops are enough for a
+        // ramp this smooth.
+        function heatBarGradient() {
+            const stops = [];
+            for (let i = 0; i <= 4; i++) {
+                stops.push('hsl(' + Math.round(HEAT_HUE0 * (1 - i / 4)) +
+                           ',100%,50%)');
+            }
+            return 'linear-gradient(to right, ' + stops.join(', ') + ')';
+        }
 
         // Gathers whoever the filters allow, and hands back how many.
         function renderHeat() {
