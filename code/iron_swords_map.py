@@ -1,6 +1,6 @@
 """Build the iron_swords_locations map, public and private.
 
-    python code/iron_swords_map.py            # writes to $WEBSITE (misc/docs)
+    python code/iron_swords_map.py            # writes to $WEBSITE
     python code/iron_swords_map.py --verbose  # every note, not only the summary
     python code/iron_swords_map.py --cache x.json   # reuse a saved download
     python code/iron_swords_map.py --help
@@ -69,7 +69,13 @@ from polygons import load_polygons, area_for
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE = os.path.join(ROOT, 'code', 'iron_swords_template.html')
-WEBSITE = os.environ.get('WEBSITE', os.path.expanduser('~/misc/docs/'))
+# Where the built pages go. No default: the one that used to sit here named
+# the checkout it happens to be, and a build that silently writes somewhere
+# else is worse than one that says it has nowhere to write.
+WEBSITE = os.environ.get('WEBSITE')
+if not WEBSITE:
+    raise SystemExit('WEBSITE is not set: it is the directory the built pages '
+                     'are written into')
 BASENAME = 'iron_swords_locations'
 
 # Used only if a build somehow draws nothing; the opening centre is computed

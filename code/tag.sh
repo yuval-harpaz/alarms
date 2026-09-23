@@ -88,10 +88,19 @@ SITE_BRANCH=$(git -C "$SITE" rev-parse --abbrev-ref HEAD)
 
 # ---------------------------------------------------------------- version
 
-# The highest tag either repo carries, so a tag that reached only one of them
-# still counts and the next number cannot collide with it.
-latest=$( { git -C "$ALARMS" tag --list "$PREFIX*"
-            git -C "$SITE" tag --list "$PREFIX*"; } |
+# What the remote of a repo already carries. Published is the only thing that
+# counts: a number is spent when someone else can see it, not when it exists
+# in this checkout.
+remote_tags() {
+    git -C "$1" ls-remote --tags origin "$PREFIX*" 2>/dev/null |
+        sed 's|.*refs/tags/||; s|\^{}$||' | sort -u
+}
+
+published=$( { remote_tags "$ALARMS"; remote_tags "$SITE"; } | sort -u )
+
+# The highest tag either remote carries, so a tag that reached only one of
+# them still counts and the next number cannot collide with it.
+latest=$( echo "$published" |
           sed "s/^$PREFIX//" |
           grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' |
           sort -t. -k1,1n -k2,2n -k3,3n | tail -1 )
@@ -118,20 +127,8 @@ esac
 tag="$PREFIX$version"
 message=${message:-"map v$version published"}
 
-for repo in "$ALARMS" "$SITE"; do
-    git -C "$repo" rev-parse -q --verify "refs/tags/$tag" >/dev/null &&
-        die "$tag already exists in $repo"
-done
-
-# ------------------------------------------------------------------ checks
-
-# A tag on a dirty tree points at something that was never tested. The site is
-# allowed to be dirty here: the build is about to rewrite it anyway.
-if [ -n "$(git -C "$ALARMS" status --porcelain)" ]; then
-    [ "$dry" -eq 1 ] ||
-        die "alarms has uncommitted changes -- commit them first, they are what the tag points at"
-    echo "warning: alarms has uncommitted changes, a real run would stop here"
-fi
+grep -qx "$tag" <<< "$published" &&
+    die "$tag is already published -- pick another with -v"
 
 branch=$(git -C "$ALARMS" rev-parse --abbrev-ref HEAD)
 [ "$branch" = master ] || die "alarms is on '$branch', not master"
@@ -157,6 +154,28 @@ cleanup() {
     echo "tag.sh: stopped, nothing was published" >&2
 }
 trap cleanup EXIT
+
+# A local map-v* tag no remote has is a leftover: a -P rehearsal, or a run
+# that stopped before its push. It holds a number nobody ever saw, so it is
+# taken back rather than worked around.
+for repo in "$ALARMS" "$SITE"; do
+    while read -r stale; do
+        [ -n "$stale" ] || continue
+        grep -qx "$stale" <<< "$published" && continue
+        echo "reclaiming $stale in $(label "$repo"): no remote has it"
+        run git -C "$repo" tag -d "$stale"
+    done < <(git -C "$repo" tag --list "$PREFIX*")
+done
+
+# Whatever is in the tree is what the tag will point at, so it is committed
+# here rather than sent back to you. The site is left alone: the build is
+# about to rewrite it.
+if [ -n "$(git -C "$ALARMS" status --porcelain)" ]; then
+    echo "committing alarms:"
+    git -C "$ALARMS" status --short | sed 's/^/    /'
+    run git -C "$ALARMS" add -A
+    run git -C "$ALARMS" commit -q -m "$message"
+fi
 
 if [ "$push" -eq 1 ]; then
     echo "pushing alarms, so the build reads this csv and not the last one"
