@@ -530,3 +530,5 @@ pid,eng name,name,residence,event location,event date,status,partners,siblings,p
 2885,,,,,,killed,,,,2884,,,,198
 2889,,,,,,killed,,,2888,,,,,199
 2888,,,,,,killed,,,,2889,,,,199
+2947,,,,,,killed,,,,,,,2908,200
+2908,,,,,,killed,,,,,,,2947,200
