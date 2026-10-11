@@ -2,6 +2,7 @@
 
 run this code (war23_families1.py), then war23_families_summary.py then then
 war23_families_comment.py. then python code/war23_db_tests.py r.
+run pid_to_names.gs on https://docs.google.com/spreadsheets/d/1oYSdCWA8cVlfFfCQZTSuM5a92JhnOlP578xeNL9L0a0/edit?usp=sharing
 """
 import os
 import numpy as np

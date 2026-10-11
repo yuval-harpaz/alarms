@@ -1,4 +1,5 @@
-"""Find groups of family members."""
+"""Find groups of family members.
+See instructions on war23_families1.py"""
 import os
 import numpy as np
 import pandas as pd
