@@ -606,6 +606,96 @@ def report_mismatch(title, mismatch, left='website', right='github'):
         print(f'   ... and {len(mismatch) - max_print} more')
 
 
+##
+# comparing the coordinates on the website (getCoordinates, see oct7_upload.py) with the google sheet, read
+# through its apps script deployment as the iron swords map reads it (iron_swords_data.py).
+# a death coordinate equal to the event coordinate is the same place twice, and counts as no death coordinate.
+coo_tolerance = 1e-6  # degrees, about 10 cm
+coords = {}  # cache, filled by load_coordinates
+
+
+def site_coordinates(records):
+    """{pid: (event, death)} out of getCoordinates, in the form iron_swords_data.coordinates() gives the sheet"""
+    coos = {}
+    for rec in records:
+        event = death = None
+        if rec.get('eventLat') is not None:
+            event = (float(rec['eventLat']), float(rec['eventLng']))
+        if rec.get('deathLat') is not None:
+            death = (float(rec['deathLat']), float(rec['deathLng']))
+        if event or death:  # the site keeps a record for every pid, with or without coordinates
+            coos[int(rec['pid'])] = (event, None if death == event else death)
+    return coos
+
+
+def load_coordinates():
+    if 'site' in coords.keys():
+        return
+    from iron_swords_data import coordinates, fetch
+    from oct7_upload import post
+    coords['sheet'] = {pid: coo for pid, coo in coordinates(fetch()).items() if coo != (None, None)}
+    try:
+        records = post('getCoordinates', timeout=120)['records']
+    except SystemExit as exc:  # post exits on an http error, which unittest would not catch
+        raise Exception(f'getCoordinates failed: {exc}')
+    coords['records'] = records
+    coords['site'] = site_coordinates(records)
+
+
+def same_coo(a, b):
+    if a is None or b is None:
+        return a is b
+    return abs(a[0] - b[0]) <= coo_tolerance and abs(a[1] - b[1]) <= coo_tolerance
+
+
+class TestCoordinates(unittest.TestCase):
+    def coords_one_per_pid(self):
+        """zero or one event coordinate and zero or one death coordinate per pid: one record per pid on the
+        website, and no lat without its lng"""
+        load_coordinates()
+        pids = [int(rec['pid']) for rec in coords['records']]
+        dup = sorted(set([x for x in pids if pids.count(x) > 1]))
+        if len(dup) > 0:
+            print(f'{len(dup)} PID with more than one coordinates record on the website!!!! '
+                  f'{dup[:max_print]}'.replace('[', '').replace(']', ''))
+        half = sorted(set([int(rec['pid']) for rec in coords['records'] for kind in ['event', 'death']
+                           if (rec.get(kind + 'Lat') is None) != (rec.get(kind + 'Lng') is None)]))
+        if len(half) > 0:
+            print(f'{len(half)} PID with a lat and no lng, or a lng and no lat, on the website!!!! '
+                  f'{half[:max_print]}'.replace('[', '').replace(']', ''))
+        self.assertEqual(len(dup) + len(half), 0)
+
+    def coords_missing(self):
+        load_coordinates()
+        missing = sorted(coords['sheet'].keys() - coords['site'].keys())
+        if len(missing) > 0:
+            print(f'{len(missing)} PID with coordinates on the sheet but not on the website!!!! '
+                  f'{missing[:max_print]}'.replace('[', '').replace(']', ''))
+        self.assertEqual(len(missing), 0)
+
+    def coords_extra(self):
+        load_coordinates()
+        extra = sorted(coords['site'].keys() - coords['sheet'].keys())
+        if len(extra) > 0:
+            print(f'{len(extra)} PID with coordinates on the website but not on the sheet!!!! '
+                  f'{extra[:max_print]}'.replace('[', '').replace(']', ''))
+        self.assertEqual(len(extra), 0)
+
+    def coords_match(self):
+        load_coordinates()
+        n_issues = 0
+        for kind, idx in [('event', 0), ('death', 1)]:
+            mismatch = []
+            for pid in sorted(coords['sheet'].keys() & coords['site'].keys()):
+                sheet, site = coords['sheet'][pid][idx], coords['site'][pid][idx]
+                if not same_coo(sheet, site):
+                    mismatch.append([pid, sheet, site])
+            n_issues += len(mismatch)
+            if len(mismatch) > 0:
+                report_mismatch(f'{kind} coordinates', mismatch, right='the sheet')
+        self.assertEqual(n_issues, 0)
+
+
 class TestWebsite(unittest.TestCase):
     def csv_pushed(self):
         from war23_api import csv_diff
@@ -742,7 +832,16 @@ if __name__ == '__main__':
                                               TestWebsite('website_missing'),
                                               TestWebsite('website_extra'),
                                               TestWebsite('csv_from_website'),
-                                              TestWebsite('website_from_csv')])
+                                              TestWebsite('website_from_csv'),
+                                              TestCoordinates('coords_one_per_pid'),
+                                              TestCoordinates('coords_missing'),
+                                              TestCoordinates('coords_extra'),
+                                              TestCoordinates('coords_match')])
+    elif args[1][0] == 'c':  # coordinates alone
+        oct7suite = unittest.TestSuite(tests=[TestCoordinates('coords_one_per_pid'),
+                                              TestCoordinates('coords_missing'),
+                                              TestCoordinates('coords_extra'),
+                                              TestCoordinates('coords_match')])
     else:
         raise Exception('unrecognized options')
     oct7suite.run(oct7db_results)
