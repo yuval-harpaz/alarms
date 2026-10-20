@@ -1,0 +1,49 @@
+--- 2026-10-20T09:14:02+00:00
+POST https://www.oct7database.com/_functions/addCoordinates
+User-Agent: python-requests/2.34.2
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+x-api-key: ***
+Content-Length: 50933
+Content-Type: application/json
+[
+ {
+  "pid": 11,
+  "eventLat": 31.450865,
+  "eventLng": 34.511655,
+  "deathLat": null,
+  "deathLng": null
+ },
+ {
+  "pid": 12,
+  "eventLat": 31.450865,
+  "eventLng": 34.511655,
+  "deathLat": null,
+  "deathLng": null
+ },
+ "... 500 rows in all"
+]
+
+500 Internal Server Error  (0.84s)
+Date: Tue, 20 Oct 2026 09:14:02 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 63
+Connection: keep-alive
+CF-Ray: a4d6e8f0495a7a08-TLV
+CF-Cache-Status: DYNAMIC
+Accept-Ranges: bytes
+Server: cloudflare
+x-wix-request-id: 1792487641.728575871821482
+Strict-Transport-Security: max-age=31556952
+alt-svc: h3=":443"; ma=86400
+content-security-policy: default-src 'self'; script-src 'nonce-6be81a10-f585-4c59-8618-1f9b5e06574b'
+x-cache: MISS
+x-content-type-options: nosniff
+x-robots-tag: noindex
+x-seen-by: bQAXdg/f3pWGCb3VI6q72A==,bQAXdg/f3pWGCb3VI6q72A==,Ct40diYObxC+je8ScvxEPQ==,yI4PPEXc3bvXNWfpzSkUarxkNjrXdwdgtu6E0yACibU=,GilIRCy+Ky2nI9KZaDKzWLxkNjrXdwdgtu6E0yACibU=,Ua1iSBCTq7qSXjmRCGE1N6ob+vxLVZoYiQg9eTTO2yiSdDFWGxgJKK7mF7iOoyAYHg7BELI99pG9//pIrgbIJO6Sj/OhVrs3hrJ3tzca3j2zJn0XW7lvh/W0bd/pHE6g,++r5XCRb/6cYf+PEtyYPdNGbp3Mb8YNWvfXf0nKyP2LI9wpXHBT6h1wfBN9ClwxE170/Sd2gJ60P54KTgfjLqQ==,TeEjV9lv7/HACQr2VMOeG1CoOpU1dbNrQgGwGWCaWII=,F8o6Y3HcNYwTAFShvBTacs88d11GlBJE78qR3+9xX9+fghIS8UrnELIuCEClwQ6uyPcKVxwU+odcHwTfQpcMRAS16eTSBHZxjdinr9dCS2Y=,TeEjV9lv7/HACQr2VMOeG6FkBp4xLs+v9n3kLCkpgSI=,wLeTeVGgkrQCFpIbmiMHmnnO20L4xU91XPwG3xffroujuReZy/4LUfyZlHWiSrLlick60r/W31wzmRNC/li3MjwiheILmeD1k/z13Gm6YtA=,c2FX7mUocL421H/ZDSvkz3s5kqg1DAI5N4HcbUzz056CoNphvUOv6nGuERDrEZ0D,3h6zdoeTDYlwgjQoBu5YkQ==
+x-served-by: cache-fra-eddf8230074-FRA
+x-wix-function-user-error: source=response
+Set-Cookie: XSRF-TOKEN=1792487642|ZUPAM6N6KUAr; Path=/; Domain=www.oct7database.com; Secure; SameSite=None, __cf_bm=q3F7Mgkw_lWxxEAXyQ3r5sNvroTREXi2j0.Uwgg.0Ew-1792487641.6415625-1.0.1.1-ZJWBiGp8xdNmE7SV9.YNX1btEPr6G89HXhK5g7LbXVC_zqXUX3YegQML6Z_1s4lBMi2b2oDNqpgOwizhfRYw3znuesdDlCRMxBjQA9__e5.Y_sYccWZopx8gP_dOzH.s; HttpOnly; SameSite=None; Secure; Path=/; Domain=www.oct7database.com; Expires=Tue, 20 Oct 2026 09:44:02 GMT
+{"error":"WDE0025: The Coordinates collection does not exist."}
+addCoordinates: 500 {"error":"WDE0025: The Coordinates collection does not exist."}

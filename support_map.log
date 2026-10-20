@@ -1,0 +1,38 @@
+--- 2026-10-20T09:14:01+00:00
+POST https://www.oct7database.com/_functions/uploadSecureMapChunk
+User-Agent: python-requests/2.34.2
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+x-api-key: ***
+Content-Length: 159422
+Content-Type: application/json
+{
+ "lang": "he",
+ "version": "34602894429942bd9716d4878cc9d16d",
+ "chunkIndex": 0,
+ "content": "<!DOCTYPE html>\n<html lang=\"he\">\n\n<head>\n    <title>מפת מיקומים – חרבות ברזל (pr... (100000 chars)"
+}
+
+500 Internal Server Error  (1.56s)
+Date: Tue, 20 Oct 2026 09:14:01 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 67
+Connection: keep-alive
+CF-Ray: a4d6e8e70cecc088-TLV
+CF-Cache-Status: DYNAMIC
+Accept-Ranges: bytes
+Server: cloudflare
+x-wix-request-id: 1792487640.445678926811481
+Strict-Transport-Security: max-age=31556952
+alt-svc: h3=":443"; ma=86400
+content-security-policy: default-src 'self'; script-src 'nonce-b9506d79-716d-4076-bea8-edcb661c344e'
+x-cache: MISS
+x-content-type-options: nosniff
+x-robots-tag: noindex
+x-seen-by: bQAXdg/f3pWGCb3VI6q72A==,bQAXdg/f3pWGCb3VI6q72A==,Ct40diYObxC+je8ScvxEPQ==,GilIRCy+Ky2nI9KZaDKzWLxkNjrXdwdgtu6E0yACibU=,GilIRCy+Ky2nI9KZaDKzWLxkNjrXdwdgtu6E0yACibU=,Ua1iSBCTq7qSXjmRCGE1NxZgZjzGS+5nPmiRz7uiCvl8nJ2voGkpfI90wvCUAJgLHg7BELI99pG9//pIrgbIJO6Sj/OhVrs3hrJ3tzca3j2D71Fl7En+JCdNOTo3COk6,++r5XCRb/6cYf+PEtyYPdGTJD/0Ug4Yw7BOpWP1OAczI9wpXHBT6h1wfBN9ClwxEh+m3/3lixmCyPdIC7VwUYA==,TeEjV9lv7/HACQr2VMOeG/XV262ghJsMb7mPu2hOBnE=,F8o6Y3HcNYwTAFShvBTacs88d11GlBJE78qR3+9xX99zH/m04LhwvNByLGTRyag0yPcKVxwU+odcHwTfQpcMRFcGHmpTi+OVQhMQITn0LBY=,TeEjV9lv7/HACQr2VMOeG9ddAt8CjqcKhOivnEU7nCY=,wLeTeVGgkrQCFpIbmiMHmnnO20L4xU91XPwG3xffros4y6JeJ1yMCxiVoEw2tQ2iick60r/W31wzmRNC/li3Mlv29XcxQbfKOReG7d45e6k=,c2FX7mUocL421H/ZDSvkz3s5kqg1DAI5N4HcbUzz056CoNphvUOv6nGuERDrEZ0D,3h6zdoeTDYlwgjQoBu5YkQ==
+x-served-by: cache-fra-eddf8230074-FRA
+x-wix-function-user-error: source=response
+Set-Cookie: XSRF-TOKEN=1792487641|hZ_aGxIWlU__; Path=/; Domain=www.oct7database.com; Secure; SameSite=None, __cf_bm=orsO_4978I.ISG7vS0gt_fjNSHE_TtuOa1JoCCAabLQ-1792487640.1680224-1.0.1.1-GPmI2wZhPVM60kM1L0BmuO6sS.masc7lfOFlu01tzhUWXFvqBdcbF0SffTWsfwp_7JOsCMjd8YoPoY5hmTtHewn9cSyO2cBp.q4CxFh3NiIGa1ebOXac8VbwyVMbSUcB; HttpOnly; SameSite=None; Secure; Path=/; Domain=www.oct7database.com; Expires=Tue, 20 Oct 2026 09:44:01 GMT
+{"error":"WDE0025: The SecureMapChunks collection does not exist."}
+uploadSecureMapChunk: 500 {"error":"WDE0025: The SecureMapChunks collection does not exist."}
