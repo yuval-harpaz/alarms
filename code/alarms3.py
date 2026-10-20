@@ -73,6 +73,7 @@ if len(new) > 0:
     if len(prev) < with_duplicates:
         print(f'{with_duplicates-len(prev)} duplicates')
     prev = prev.sort_values(['time', 'id', 'cities'], ignore_index=True)
+    prev['rid'] = pd.to_numeric(prev['rid'], errors='coerce').astype('Int64')  # avoid 123.0
     prev.to_csv('data/alarms.csv', index=False, sep=',')
 
     news = True

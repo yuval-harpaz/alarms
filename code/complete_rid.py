@@ -110,6 +110,7 @@ def complete_rid(debug=False):
             print(f"{rid}/{last_missing_rid}", end='\r')
         missing.to_excel('~/Documents/missing.xlsx', index=False)
     else:
+        dfa['rid'] = dfa['rid'].astype('Int64')  # avoid 123.0
         dfa.drop(columns=['datetime']).to_csv(alarms_path, index=False)
         print(f'Saved to {alarms_path}')
 
