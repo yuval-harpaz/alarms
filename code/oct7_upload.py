@@ -1,6 +1,7 @@
 """Send the coordinates and the secure map to oct7database.com.
 
     python code/oct7_upload.py --coordinates [--tsv FILE]
+    python code/oct7_upload.py --coordinates --sheet  # from the deployed exec, no tsv
     python code/oct7_upload.py --map $WEBSITE/iron_swords_locations_private.html
     python code/oct7_upload.py --get-coordinates     # what the site holds now
     add --dry-run to any of them to see what would be sent, sending nothing
@@ -112,6 +113,25 @@ def coordinate_rows(path=TSV):
     return rows
 
 
+def sheet_rows(data):
+    """The same rows as coordinate_rows(), out of the sheet deployment
+    (iron_swords_data.fetch()), whose points are [lng, lat]."""
+    rows = []
+    for feature in data['features']:
+        geometry = feature.get('geometry')
+        event = geometry['coordinates'][:2] if geometry else None
+        death = feature['properties'].get('deathcoo', '')
+        death = death if isinstance(death, list) and len(death) == 2 else None
+        if not event and not death:
+            continue
+        rows.append({'pid': int(feature['properties']['pid']),
+                     'eventLat': event[1] if event else None,
+                     'eventLng': event[0] if event else None,
+                     'deathLat': death[1] if death else None,
+                     'deathLng': death[0] if death else None})
+    return rows
+
+
 def upload_coordinates(rows, dry_run):
     for i in range(0, len(rows), BATCH):
         if not dry_run:
@@ -147,6 +167,9 @@ def main():
         records = post('getCoordinates', timeout=120)['records']
         json.dump(records, sys.stdout, ensure_ascii=False, indent=1)
         print(f'\n{len(records)} records', file=sys.stderr)
+    elif '--coordinates' in args and '--sheet' in args:
+        from iron_swords_data import fetch
+        upload_coordinates(sheet_rows(fetch()), dry_run)
     elif '--coordinates' in args:
         tsv = args[args.index('--tsv') + 1] if '--tsv' in args else TSV
         upload_coordinates(coordinate_rows(tsv), dry_run)
