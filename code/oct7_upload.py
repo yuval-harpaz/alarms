@@ -1,7 +1,6 @@
 """Send the coordinates and the secure map to oct7database.com.
 
     python code/oct7_upload.py --coordinates [--tsv FILE]
-    python code/oct7_upload.py --coordinates --sheet  # from the deployed exec, no tsv
     python code/oct7_upload.py --map $WEBSITE/iron_swords_locations_private.html
     python code/oct7_upload.py --get-coordinates     # what the site holds now
     add --dry-run to any of them to see what would be sent, sending nothing
@@ -132,6 +131,39 @@ def sheet_rows(data):
     return rows
 
 
+FIELDS = ['eventLat', 'eventLng', 'deathLat', 'deathLng']
+
+
+def changed_rows(rows):
+    """Only the rows the site does not hold yet: new pids, changed values, and
+    an all-None row for each pid that has a coordinate on the site but none in
+    rows anymore (the site keeps one row per pid, so this clears it)."""
+    site = {r['pid']: r for r in post('getCoordinates', timeout=120)['records']}
+    send, new, changed, cleared = [], [], [], []
+    for row in rows:
+        old = site.get(row['pid'])
+        if old is None:
+            new.append(row['pid'])
+        elif any((row[k] is None) != (old.get(k) is None) or
+                 (row[k] is not None and abs(row[k] - old[k]) > 1e-7)
+                 for k in FIELDS):
+            changed.append(row['pid'])
+        else:
+            continue
+        send.append(row)
+    pids = {row['pid'] for row in rows}
+    for pid, old in site.items():
+        if pid not in pids and any(old.get(k) is not None for k in FIELDS):
+            cleared.append(pid)
+            send.append(dict({'pid': pid}, **{k: None for k in FIELDS}))
+    for name, what in (('new', new), ('changed', changed),
+                       ('cleared, no coordinate in the sheet anymore', cleared)):
+        if what:
+            print(f'{len(what)} {name}: pid {" ".join(str(p) for p in what)}')
+    print(f'{len(send)} of {len(rows)} coordinates differ from the site')
+    return send
+
+
 def upload_coordinates(rows, dry_run):
     for i in range(0, len(rows), BATCH):
         if not dry_run:
@@ -167,9 +199,6 @@ def main():
         records = post('getCoordinates', timeout=120)['records']
         json.dump(records, sys.stdout, ensure_ascii=False, indent=1)
         print(f'\n{len(records)} records', file=sys.stderr)
-    elif '--coordinates' in args and '--sheet' in args:
-        from iron_swords_data import fetch
-        upload_coordinates(sheet_rows(fetch()), dry_run)
     elif '--coordinates' in args:
         tsv = args[args.index('--tsv') + 1] if '--tsv' in args else TSV
         upload_coordinates(coordinate_rows(tsv), dry_run)
