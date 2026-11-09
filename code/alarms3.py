@@ -7,7 +7,58 @@ import os
 import plotly.express as px
 import sys
 import re
+import html as htmlmod
 from datetime import datetime
+
+
+def telegram_fa(alarms, max_pages=50, window_min=60):
+    """Mark alarms as FA when the IDF Telegram channel reports them as false identification (שווא).
+    Only alarms after the last FA row are considered. Returns (alarms, number of rows changed)."""
+    is_fa = np.where(alarms['origin'].values == 'FA')[0]
+    start = is_fa[-1] + 1 if len(is_fa) else 0
+    tail = alarms.iloc[start:]
+    tail = tail[tail['threat'] != 3]  # skip earthquakes
+    if len(tail) == 0:
+        return alarms, 0
+    t_utc = pd.to_datetime(tail['time']).dt.tz_localize('Israel', ambiguous='NaT', nonexistent='shift_forward').dt.tz_convert('UTC')
+    since = t_utc.min()
+    # read the public channel preview back until messages are older than the first candidate alarm
+    msgs = []
+    before = None
+    for _ in range(max_pages):
+        r = requests.get('https://t.me/s/idf_telegram' + (f'?before={before}' if before else ''), timeout=30)
+        chunks = r.text.split('data-post="idf_telegram/')[1:]
+        if len(chunks) == 0:
+            break
+        for ch in chunks:
+            mid = int(re.match(r'\d+', ch).group())
+            tm = re.search(r'<time datetime="([^"]+)"', ch)
+            tx = re.search(r'js-message_text[^>]*>(.*?)</div>', ch, re.S)
+            if tm is None or tx is None:
+                continue
+            text = re.sub(r'<br\s*/?>', ' ', tx.group(1))
+            text = htmlmod.unescape(re.sub(r'<[^>]+>', '', text)).strip()
+            msgs.append([mid, pd.Timestamp(tm.group(1)).tz_convert('UTC'), text])
+        before = min(int(re.match(r'\d+', ch).group()) for ch in chunks)
+        if len(msgs) == 0 or min(m[1] for m in msgs) < since:
+            break
+    msgs = [m for m in msgs if m[1] >= since and 'שווא' in m[2]]
+    changed = 0
+    for mid, mtime, text in sorted(msgs):
+        dt = (mtime - t_utc).dt.total_seconds() / 60
+        near = tail[(dt >= 0).values & (dt <= window_min).values]
+        hit = [c for c in np.unique(near['cities']) if c in text]
+        if len(hit) == 0:
+            print(f'telegram FA {mid} {mtime}, no matching alarm: {text}')
+            continue
+        rows = near.index[near['id'].isin(near['id'][near['cities'].isin(hit)])]
+        rows = [r for r in rows if alarms.at[r, 'origin'] != 'FA']
+        print(f'telegram FA {mid} {mtime}: {text}')
+        print(f'    matched {hit}, setting FA on {len(rows)} rows (was: {list(np.unique(alarms.loc[rows, "origin"].astype(str)))})')
+        alarms.loc[rows, 'origin'] = 'FA'
+        changed += len(rows)
+    return alarms, changed
+
 
 local = '/home/yuval/alarms/'
 islocal = False
@@ -90,6 +141,17 @@ if news:
         complete_rid()
     except:
         print('failed to complete rid')
+try:
+    alarms_fa = pd.read_csv('data/alarms.csv')
+    alarms_fa, n_fa = telegram_fa(alarms_fa)
+    if n_fa > 0:
+        alarms_fa['rid'] = pd.to_numeric(alarms_fa['rid'], errors='coerce').astype('Int64')  # avoid 123.0
+        alarms_fa.to_csv('data/alarms.csv', index=False, sep=',')
+        print(f'{n_fa} rows set to FA by telegram')
+    else:
+        print('no new FA from telegram')
+except Exception as e:
+    print(f'failed telegram FA: {e}')
 
 if False:
     prev = prev[prev['threat'] == 0]
