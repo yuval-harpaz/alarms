@@ -693,6 +693,21 @@ def neighbourhoods_payload():
                 for row in csv.DictReader(f) if row['name']]
 
 
+def camps_payload():
+    """Refugee camp borders, or [] if the file is missing. Traced from map
+    snapshots (~/Data/camps/*.png) georeferenced on the OCHA neighbourhood
+    centres they share, so they ride on the OCHA layer."""
+    path = os.path.join(ROOT, 'data', 'coord_camp.geojson')
+    if not os.path.exists(path):
+        return []
+    with open(path, encoding='utf-8') as f:
+        collection = json.load(f)
+    return [{'name': feature['properties']['name'],
+             'name_he': feature['properties']['name_he'],
+             'geometry': feature['geometry']}
+            for feature in collection['features']]
+
+
 def places_payload():
     """City and town names for the base map, or [] if never fetched.
 
@@ -889,6 +904,7 @@ def render(records, circles, polygons, localities, neighbourhoods, lang,
             ('__POLYGONS__', json.dumps(polygons, ensure_ascii=False)),
             ('__LOCALITIES__', json.dumps(localities, ensure_ascii=False)),
             ('__NEIGHBOURHOODS__', json.dumps(neighbourhoods, ensure_ascii=False)),
+            ('__CAMPS__', json.dumps(camps_payload(), ensure_ascii=False)),
             ('__PLACES__', json.dumps(places_payload(), ensure_ascii=False)),
             ('__COMMENT__', f'{version()}, {len(records)} people, built by '
                             f'code/iron_swords_map.py')):
@@ -937,7 +953,8 @@ Data files the build reads, all under data/:
   coord_circle.csv     centres for places with no coordinate of their own
   coord_area.geojson   rings over areas whose addresses are hidden
   coord_exact.tsv      people shown exact inside a hidden ring
-  coord_locality.geojson, coord_neighbourhood.csv, coord_place.csv   backdrop
+  coord_locality.geojson, coord_neighbourhood.csv, coord_place.csv,
+  coord_camp.geojson   backdrop
 
 See iron_swords_map_update.md for what to do about each note it prints."""
 

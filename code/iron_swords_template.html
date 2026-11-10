@@ -810,6 +810,7 @@
         const POLYGONS = __POLYGONS__;
         const LOCALITIES = __LOCALITIES__;
         const NEIGHBOURHOODS = __NEIGHBOURHOODS__;
+        const CAMPS = __CAMPS__;
         const PLACES = __PLACES__;
 
         const RTL = CONFIG.lang === 'he';
@@ -1086,6 +1087,25 @@
                 (place.municipality ? '<br>' + place.municipality : ''));
             dot.addTo(Neighbourhoods);
         });
+        // Refugee camp borders (Jabalia, Khan Yunis), traced from snapshots of
+        // the map the OCHA centres come from and fitted on those centres. Dark
+        // yellow as on that map; part of the same layer.
+        CAMPS.forEach(camp => {
+            const shape = L.geoJSON(camp.geometry, {
+                pane: 'localityPane',
+                style: {
+                    color: '#e0a030',
+                    weight: 2,
+                    opacity: 0.9,
+                    fill: true,
+                    fillOpacity: 0.12,
+                    fillColor: '#e0a030'
+                }
+            });
+            shape.bindTooltip(RTL ? (camp.name_he || camp.name) : camp.name,
+                { sticky: true });
+            shape.addTo(Neighbourhoods);
+        });
 
         // The names of the towns the satellite tiles do not carry. Without
         // them the reader is looking at fields: Esri's imagery has no labels of
@@ -1121,7 +1141,7 @@
             EXTRA_LAYERS.push({ key: 'localities', name: T.localities,
                                 layer: Localities });
         }
-        if (NEIGHBOURHOODS.length) {
+        if (NEIGHBOURHOODS.length || CAMPS.length) {
             EXTRA_LAYERS.push({ key: 'neighbourhoods', name: T.neighbourhoods,
                                 layer: Neighbourhoods });
         }
