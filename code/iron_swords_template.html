@@ -3622,6 +3622,10 @@
         // At the locality level a circle's people are already inside their
         // settlement's pie, and what is left of the circle here is its death
         // place alone.
+        // An approximate circle carries its names, at the zoom the exact marks
+        // do, only while there are fewer people on it than this.
+        const CIRCLE_NAMES_UNDER = 10;
+
         function drawCircles(circles, hostages, pies) {
             const roleDeath = atPlaces() && colouredByRole();
             CIRCLES.forEach(c => {
@@ -3649,7 +3653,16 @@
                         circle.bindPopup(partsPopup(title,
                             [{ people: people, noRole: true }]));
                         circle.addTo(Circles);
-                        addCount(circle, people.length, [c.lat, c.lon]);
+                        // Named at the zoom the exact marks are, like them --
+                        // but only a short list: a circle over a whole
+                        // neighbourhood with dozens on it would bury the map.
+                        const few = people.length < CIRCLE_NAMES_UNDER;
+                        addCount(circle, people.length, [c.lat, c.lon],
+                                 COUNT_TOOLTIP, few ? {
+                            names: people.map(personLabel).join('<br>'),
+                            nameOptions: { permanent: true, direction: 'right',
+                                           className: 'map-label red-tooltip' }
+                        } : null);
                         allFeatures.push({ people: people, place: name,
                                            death: false, layer: circle,
                                            type: 'circle' });
